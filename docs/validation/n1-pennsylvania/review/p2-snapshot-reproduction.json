@@ -1,0 +1,21 @@
+{
+  "status": "REPRODUCED",
+  "evidenceClass": "actual production bridge/controller in geometric host fixture; read-only navigation return is a fixture, real interruption side effects; not physical/runtime renderer qualification",
+  "before": {
+    "tracking": true,
+    "flightCancelCalls": 0
+  },
+  "afterSnapshot": {
+    "tracking": false,
+    "flightCancelCalls": 1
+  },
+  "afterCancel": {
+    "tracking": false,
+    "flightCancelCalls": 1
+  },
+  "snapshotOk": true,
+  "sourceHashes": {
+    "runtimes/earth-runtime/core/RuntimeBridge.mjs": "84d410af84b4baf363c5142c1d5ae85dea448d5adfcd3d068f51315a498f236b",
+    "runtimes/earth-runtime/core/CameraController.mjs": "a7c8d0f5ba8e77cbc2e2c6c4f83c8f8ce4735eaa9549b0e8e1d5f391f4b8ec23"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "finding": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4298109809",
+  "priorReviewedHead": "42741d520b80f75a3e242ffa3dc48f1044c4cf42",
+  "sourceBefore": {
+    "frontend/src/features/runtime/productState.ts": "78f31b879ae0a8e827b15f3999156d6cc7d070ab8d4c43dbb86df9a069351e02",
+    "frontend/src/features/workspace/observerProvenance.ts": "3d5d925bc1099245335c761fa8fd1c1da406efae9e8ed9657807b614f0e07fcd"
+  },
+  "sourceAfter": {
+    "frontend/src/features/runtime/productState.ts": "116d6077c6a0ed2fc1297ec10e379fe2dd114b7b99e90a8babaa4be490e627ff",
+    "frontend/src/features/workspace/observerProvenance.ts": "aa49472cb44998f669cc3c10be3e8539aea68aa98bef019fc68f0603edf7bb8c"
+  },
+  "focusedUnit": "2 genuine RED;14 focused GREEN assertions incl existing source/URL tests",
+  "frontend": {
+    "passed": 270,
+    "files": 39
+  },
+  "typecheck": "PASS",
+  "browser": {
+    "status": "PASS",
+    "widths": [
+      1440,
+      390
+    ],
+    "restorationCases": [
+      "missing height",
+      "explicit provided zero"
+    ],
+    "proofSha256": "d84804afec70363b58445f3ff246cfe756223f239e3c6655a03c231caafeec22"
+  },
+  "builds": "129 Hub files identical in two fresh builds; native Sky/Earth artifacts unchanged",
+  "protectedBaseline": "72/73 baseline protected paths unchanged; observerProvenance.ts is the sole reviewed correction, original hash retained. All data/settings/native assets remain unchanged."
+}

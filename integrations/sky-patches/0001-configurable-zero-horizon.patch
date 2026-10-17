@@ -1,0 +1,55 @@
+--- a/src/modules/landscape.c
++++ b/src/modules/landscape.c
+@@ -26,6 +26,8 @@
+     char            *uri;
+     fader_t         visible;
+     double          color[4];
++    double          horizon_color[4];
++    double          horizon_border_color[4];
+     hips_t          *hips;
+     obj_t           *shape; // For zero horizon landscape.
+     bool            active;
+@@ -54,7 +56,19 @@
+     landscape_t *ls = (void*)obj;
+     fader_init(&ls->visible, false);
+     vec4_set(ls->color, 1.0, 1.0, 1.0, 1.0);
+-    return 0;
++    vec4_set(ls->horizon_color, 0.1, 0.15, 0.1, 1.0);
++    vec4_set(ls->horizon_border_color, 0.2, 0.4, 0.1, 1.0);
++    return 0;
++}
++
++// Configure the existing zero-horizon shape only; panoramas have no shape.
++static void landscape_on_horizon_color_changed(obj_t *obj,
++                                              const attribute_t *attr)
++{
++    landscape_t *ls = (void*)obj;
++    if (!ls->shape) return;
++    obj_set_attr(ls->shape, "color", ls->horizon_color);
++    obj_set_attr(ls->shape, "border_color", ls->horizon_border_color);
+ }
+ 
+ static int landscape_update(obj_t *obj, double dt)
+@@ -219,8 +233,8 @@
+         obj_set_attr(ls->shape, "pos", VEC(0, 0, -1, 0));
+         obj_set_attr(ls->shape, "frame", FRAME_OBSERVED);
+         obj_set_attr(ls->shape, "size", VEC(M_PI, M_PI));
+-        obj_set_attr(ls->shape, "color", VEC(0.1, 0.15, 0.1, 1.0));
+-        obj_set_attr(ls->shape, "border_color", VEC(0.2, 0.4, 0.1, 1.0));
++        obj_set_attr(ls->shape, "color", ls->horizon_color);
++        obj_set_attr(ls->shape, "border_color", ls->horizon_border_color);
+         ls->info.name = strdup("Zero Horizon");
+     }
+     return ls;
+@@ -327,6 +341,11 @@
+         PROPERTY(name, TYPE_STRING_PTR, MEMBER(landscape_t, info.name)),
+         PROPERTY(visible, TYPE_BOOL, MEMBER(landscape_t, visible.target)),
+         PROPERTY(color, TYPE_COLOR, MEMBER(landscape_t, color)),
++        PROPERTY(horizon_color, TYPE_COLOR, MEMBER(landscape_t, horizon_color),
++                 .on_changed = landscape_on_horizon_color_changed),
++        PROPERTY(horizon_border_color, TYPE_COLOR,
++                 MEMBER(landscape_t, horizon_border_color),
++                 .on_changed = landscape_on_horizon_color_changed),
+         PROPERTY(active, TYPE_BOOL, MEMBER(landscape_t, active),
+                  .on_changed = landscape_on_active_changed),
+         PROPERTY(description, TYPE_STRING_PTR,

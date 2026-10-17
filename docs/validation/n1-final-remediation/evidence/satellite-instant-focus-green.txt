@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: standalone keeps native landscape selection and visibility toggles
+ok 1 - standalone keeps native landscape selection and visibility toggles
+  ---
+  duration_ms: 2.753774
+  type: 'test'
+  ...
+# Subtest: embedded landscape selects the illustrative panorama and releases native choices
+ok 2 - embedded landscape selects the illustrative panorama and releases native choices
+  ---
+  duration_ms: 1.490541
+  type: 'test'
+  ...
+# Subtest: panorama never recolors or reactivates the original zero circle
+ok 3 - panorama never recolors or reactivates the original zero circle
+  ---
+  duration_ms: 0.80573
+  type: 'test'
+  ...
+# Subtest: native Sky navigation rejects false elevation provenance and keeps provided zero
+ok 4 - native Sky navigation rejects false elevation provenance and keeps provided zero
+  ---
+  duration_ms: 3.684526
+  type: 'test'
+  ...
+# Subtest: native satellite point selection retains source-backed NORAD details and Focus availability
+ok 5 - native satellite point selection retains source-backed NORAD details and Focus availability
+  ---
+  duration_ms: 1.186952
+  type: 'test'
+  ...
+# Subtest: absent or blank URL coordinates do not identify a native zero observer as a missing-height fallback
+ok 6 - absent or blank URL coordinates do not identify a native zero observer as a missing-height fallback
+  ---
+  duration_ms: 1.732966
+  type: 'test'
+  ...
+# Subtest: embedded reduced-motion satellite Focus retains native locking without a visible animation
+ok 7 - embedded reduced-motion satellite Focus retains native locking without a visible animation
+  ---
+  duration_ms: 2.154294
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23.430369

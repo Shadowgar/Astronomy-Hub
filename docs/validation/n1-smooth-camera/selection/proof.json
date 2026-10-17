@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "width": 1280,
+      "touch": false,
+      "status": "PASS",
+      "selection": {
+        "layerId": "oras-site",
+        "name": "Oil Region Astronomical Society",
+        "detail": "41.321903, -79.585394 · site elevation 432.816 m; no measured horizon",
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        }
+      },
+      "cameraHeightM": 35105.09495729529,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "touch": true,
+      "status": "PASS",
+      "selection": {
+        "layerId": "oras-site",
+        "name": "Oil Region Astronomical Society",
+        "detail": "41.321903, -79.585394 · site elevation 432.816 m; no measured horizon",
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        }
+      },
+      "cameraHeightM": 35105.09495729529,
+      "pageErrors": []
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering; touch emulation, not physical-device qualification."
+  ]
+}

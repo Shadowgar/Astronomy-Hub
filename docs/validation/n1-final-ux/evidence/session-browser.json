@@ -1,0 +1,116 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "frontend/src/features/runtime/productState.ts": "116d6077c6a0ed2fc1297ec10e379fe2dd114b7b99e90a8babaa4be490e627ff",
+    "frontend/src/features/workspace/observerProvenance.ts": "aa49472cb44998f669cc3c10be3e8539aea68aa98bef019fc68f0603edf7bb8c",
+    "output/n1/final-ux/review-only/session-browser.mjs": "22092cf12de13d3d3c307058c1cd63f50a5acae8fc603b9c554da62ad0e527e8"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "cases": [
+        {
+          "saved": "date=2026-06-05T02%3A10%3A00.000Z&lat=40.7829&lng=-73.9654&elev=0&elevationSource=unavailable-zero",
+          "restoredWithoutUrlObserver": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "source": "unavailable-zero"
+        },
+        {
+          "saved": "date=2026-06-05T02%3A10%3A00.000Z&lat=40.7829&lng=-73.9654&elev=0&elevationSource=provided",
+          "restoredWithoutUrlObserver": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "source": "provided"
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "cases": [
+        {
+          "saved": "date=2026-06-05T02%3A10%3A00.000Z&lat=40.7829&lng=-73.9654&elev=0&elevationSource=unavailable-zero",
+          "restoredWithoutUrlObserver": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "source": "unavailable-zero"
+        },
+        {
+          "saved": "date=2026-06-05T02%3A10%3A00.000Z&lat=40.7829&lng=-73.9654&elev=0&elevationSource=provided",
+          "restoredWithoutUrlObserver": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "source": "provided"
+        }
+      ],
+      "pageErrors": []
+    }
+  ]
+}

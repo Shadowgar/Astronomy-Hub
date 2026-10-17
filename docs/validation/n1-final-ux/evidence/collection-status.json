@@ -1,0 +1,42 @@
+{
+  "status": "PARTIAL",
+  "proofs": [
+    {
+      "family": "browser",
+      "status": "PASS"
+    },
+    {
+      "family": "satellite-recheck/browser",
+      "status": "PASS"
+    },
+    {
+      "family": "satellite-recheck/symbol-pixels",
+      "status": "PASS"
+    },
+    {
+      "family": "native-satellites",
+      "status": "PASS"
+    },
+    {
+      "family": "pennsylvania",
+      "status": "PASS"
+    },
+    {
+      "family": "journeys-desktop",
+      "status": "FAIL"
+    },
+    {
+      "family": "journeys-mobile",
+      "status": "FAIL"
+    },
+    {
+      "family": "observer-history",
+      "status": "PASS"
+    },
+    {
+      "family": "product-paths",
+      "status": "PASS"
+    }
+  ],
+  "qualifiedDelivery": false
+}

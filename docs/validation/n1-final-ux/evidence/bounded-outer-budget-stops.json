@@ -1,0 +1,18 @@
+[
+  {
+    "suite": "journeys-desktop",
+    "timeoutPid": 422545,
+    "elapsedSeconds": 240.000318,
+    "signal": "SIGTERM to owned timeout supervisor",
+    "reason": "Reduced overall ceiling240s; no stage timeout increased; run remains incomplete, never functional PASS",
+    "at": "2026-10-16T17:49:29.173096+00:00"
+  },
+  {
+    "suite": "journeys-mobile",
+    "timeoutPid": 428515,
+    "elapsedSeconds": 240.000847,
+    "signal": "SIGTERM to owned timeout supervisor",
+    "reason": "Reduced overall ceiling240s; no stage timeout increased; run remains incomplete, never functional PASS",
+    "at": "2026-10-16T17:53:29.360307+00:00"
+  }
+]

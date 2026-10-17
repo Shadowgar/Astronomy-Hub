@@ -1,0 +1,2 @@
+{"width":1774,"height":887,"transparent":766767,"opaque":155,"nearOpaque":791436}
+{"source":{"path":"panorama.png","sha256":"3c9582921ad8e774b321cc41b7d65ed7efdaaaa377e2214269fa6205c5f7c6d4","width":1774,"height":887,"transparentPixels":766767,"opaquePixels":155},"files":15,"bytes":3831965}

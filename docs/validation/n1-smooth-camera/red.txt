@@ -1,0 +1,186 @@
+TAP version 13
+# Subtest: one wheel event moves only on frames and supplies many monotonic intermediate positions
+not ok 1 - one wheel event moves only on frames and supplies many monotonic intermediate positions
+  ---
+  duration_ms: 4.816675
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:37:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    no event-time teleport
+    + actual - expected
+
+    + 26190.0470266575
+    - 40000
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 26190.0470266575
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:38:41)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+ok 2 - equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+  ---
+  duration_ms: 2.482082
+  type: 'test'
+  ...
+# Subtest: scroll accumulates and decelerates to actual rest without idle rendering
+ok 3 - scroll accumulates and decelerates to actual rest without idle rendering
+  ---
+  duration_ms: 1.935915
+  type: 'test'
+  ...
+# Subtest: opposite input reverses the next frame, discarding unconsumed inward motion
+ok 4 - opposite input reverses the next frame, discarding unconsumed inward motion
+  ---
+  duration_ms: 1.940231
+  type: 'test'
+  ...
+# Subtest: small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+not ok 5 - small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+  ---
+  duration_ms: 11.542034
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:54:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    100 !== 40000
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 100
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:56:72)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: pointer, keyboard and all camera navigation actions cancel residual zoom
+ok 6 - pointer, keyboard and all camera navigation actions cancel residual zoom
+  ---
+  duration_ms: 5.178165
+  type: 'test'
+  ...
+# Subtest: bounds preserve the center target and orientation even on oblique approach
+not ok 7 - bounds preserve the center target and orientation even on oblique approach
+  ---
+  duration_ms: 2.943946
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:63:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+
+    + V {
+    - {
+        x: 0,
+        y: 0,
+        z: 1
+      }
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    x: 0
+    y: 0
+    z: 1
+  actual:
+    x: 0
+    y: 0
+    z: 1
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:65:122)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: missing intersection and teardown leave no callbacks or corrupted position
+not ok 8 - missing intersection and teardown leave no callbacks or corrupted position
+  ---
+  duration_ms: 0.656033
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:69:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+
+    + 26190.0470266575
+    - 40000
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 26190.0470266575
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:70:79)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+ok 9 - animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+  ---
+  duration_ms: 1.305158
+  type: 'test'
+  ...
+# Subtest: bridge wheel interaction does not cancel the animation it just started
+not ok 10 - bridge wheel interaction does not cancel the animation it just started
+  ---
+  duration_ms: 1.51364
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:78:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+
+    + 26190.0470266575
+    - 40000
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 26190.0470266575
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:79:60)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 5
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 96.799778

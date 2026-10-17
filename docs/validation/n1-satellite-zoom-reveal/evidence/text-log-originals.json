@@ -1,0 +1,51 @@
+[
+  {
+    "original": "output/n1/satellite-zoom-reveal/typecheck.txt",
+    "originalSha256": "eaf8519de1a7c341ec55d8ac83722fe2065100ebfbcb6936cb60b1b30be155d3",
+    "reportCopy": "typecheck.txt",
+    "reportCopySha256": "42b32de2d71dc9ec5cb42ba208886d0727efa8688428f75591aabbd700224fcd",
+    "whitespaceNormalized": true
+  },
+  {
+    "original": "output/n1/satellite-zoom-reveal/runtime-tests.txt",
+    "originalSha256": "0a85a85bca51e0e7ba61e9195f5bafbd35aa2991ae0fbc5b38a3e5493db55e0b",
+    "reportCopy": "runtime-tests.txt",
+    "reportCopySha256": "0a85a85bca51e0e7ba61e9195f5bafbd35aa2991ae0fbc5b38a3e5493db55e0b",
+    "whitespaceNormalized": false
+  },
+  {
+    "original": "output/n1/satellite-zoom-reveal/policy-green.txt",
+    "originalSha256": "b5f97a904be5f6169036c992a862aed4629753f0540c360989770058a73c6aa8",
+    "reportCopy": "policy-green.txt",
+    "reportCopySha256": "b5f97a904be5f6169036c992a862aed4629753f0540c360989770058a73c6aa8",
+    "whitespaceNormalized": false
+  },
+  {
+    "original": "output/n1/satellite-zoom-reveal/promotion-tests.txt",
+    "originalSha256": "11b04565887fda392d128133935757c1d2cacd7442b729447058ea08e86c98b1",
+    "reportCopy": "promotion-tests.txt",
+    "reportCopySha256": "11b04565887fda392d128133935757c1d2cacd7442b729447058ea08e86c98b1",
+    "whitespaceNormalized": false
+  },
+  {
+    "original": "output/n1/satellite-zoom-reveal/frontend-tests.txt",
+    "originalSha256": "7c96263df690a248fae780f7c6e9c9f70b0ef5be153058712e51d3d20c645236",
+    "reportCopy": "frontend-tests.txt",
+    "reportCopySha256": "7cb7388b1297b8d6f80493c7e35eec66ace8594ce767b3f97f338d15c8be8fbc",
+    "whitespaceNormalized": true
+  },
+  {
+    "original": "output/n1/satellite-zoom-reveal/policy-red.txt",
+    "originalSha256": "99c74ee20389351e0c1011d2f807f1062f72926c93122c661f7e25d4713f57a7",
+    "reportCopy": "policy-red.txt",
+    "reportCopySha256": "5f4339d18288f4e111ac7d193403c29d4938e5ab623bd82b2c9a5e10c739ddaf",
+    "whitespaceNormalized": true
+  },
+  {
+    "original": "output/n1/satellite-zoom-reveal/source-tests.txt",
+    "originalSha256": "ad45db4ebd928beacbb7256c061174d231b060143504e1e58762d8ca9806dcc0",
+    "reportCopy": "source-tests.txt",
+    "reportCopySha256": "ad45db4ebd928beacbb7256c061174d231b060143504e1e58762d8ca9806dcc0",
+    "whitespaceNormalized": false
+  }
+]

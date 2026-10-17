@@ -1,0 +1,69 @@
+# Working directory: /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+# Default Mode, single agent. Accepted runtime baseline: 301f9eb3.
+git status --short
+git rev-parse HEAD
+git branch --show-current
+gh pr view 75 --json state,headRefName,headRefOid,baseRefName,url,comments,reviews
+# Native source inspection (read only), both vendored full source and existing build source:
+# src/modules/landscape.c, src/modules/circle.c, src/js/obj.js, src/module.c, src/obj.c
+# SHA-256 equality/pin recorded in native-source-identity.json.
+node scripts/validation/investigate_n1_horizon.mjs
+npm --prefix frontend test -- tests/viewNavigation.test.ts tests/workspaceNavigation.test.ts tests/runtimeProductState.test.ts
+npm --prefix frontend test
+npm --prefix frontend run typecheck
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend run build -- --outDir /tmp/n1-horizon-hub-build
+python3 scripts/runtime/earth_artifact.py verify --source output/n1/earth
+N1_EVIDENCE_DIR=output/n1/horizon/journeys node scripts/validation/verify_n1_navigation.mjs
+python3 scripts/validation/validate_architecture_docs.py
+docker inspect oras-n1-owner-preview --format '{{json .Mounts}}'
+# Exact serving verifier: reuse its assertions, write a NEW horizon record only.
+python3 - <<'PY'
+from pathlib import Path
+p=Path('scripts/validation/verify_n1_motion_served.py').resolve()
+source=p.read_text().replace("(root/'output/n1/motion-preview.json')", "(root/'output/n1/horizon/served-identity.json')")
+exec(compile(source,str(p),'exec'),{'__file__':str(p),'__name__':'__main__'})
+PY
+# Compare rebuilt index/assets against current frontend/dist byte-for-byte;
+# SHA-256 evidence: hub-rebuild-comparison.json.
+# Hash all 96 locked Sky files; validate all 512 prior Earth rollback files;
+# hash owner settings; assert readonly preview mounts: preservation.json.
+git diff --exit-code 301f9eb3 -- runtimes packages/runtime-protocol integrations frontend/src frontend/public frontend/package.json frontend/package-lock.json frontend/vite.config.mjs vendor
+# Actual thread reply uses structured JSON saved outside the repository:
+gh api repos/Shadowgar/Astronomy-Hub/pulls/75/comments/4279320866/replies --input /tmp/n1-p2-reply.json
+gh api graphql -f 'query=mutation { resolveReviewThread(input:{threadId:"PRRT_kwDORt_rys6sobg8"}) { thread { id isResolved } } }'
+# Final review-thread query also checks every thread, including previously resolved P1s.
+gh api graphql -f 'query=query { repository(owner:"Shadowgar",name:"Astronomy-Hub") { pullRequest(number:75) { reviewThreads(first:100) { nodes { id isResolved isOutdated path comments(first:30) { nodes { databaseId body url } } } } } } }'
+git diff --check
+git status --short
+git diff --cached --check
+git log --oneline -5
+# Commit only the named acceptance, regression, investigation and evidence files;
+# push this existing branch; update PR #75 via --body-file. Never merge/deploy.
+
+# Exact preservation assertions used for this evidence:
+python3 - <<'PY'
+from pathlib import Path
+import hashlib,json,subprocess
+lock=json.loads(Path('integrations/renderers.lock.json').read_text())
+old=json.loads(Path('docs/validation/n1-smooth-camera/preservation-after.json').read_text())
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+for row in lock['sky']['artifact_files']:
+ p=Path('frontend/public/oras-sky-engine')/row['path']
+ assert sha(p)==row['sha256'] and p.stat().st_size==row['bytes']
+assert lock['sky']['artifact_sha256']==old['skyArtifact']
+assert lock['earth']['artifact_sha256']==old['newEarthArtifact']
+assert sha(Path('/home/rocco/Astronomy-Hub/.vscode/settings.json'))==old['rootOwnerSettingsSha256']
+release=json.loads(Path('output/n1/earth-before-smooth-camera/release.json').read_text())
+for row in release['files']:
+ assert sha(Path('output/n1/earth-before-smooth-camera')/row['path'])==row['sha256']
+assert Path('output/n1/hub-before-smooth-camera/index.html').is_file()
+assert all(not m['RW'] for m in json.loads(Path('output/n1/horizon/preview-mounts.json').read_text()))
+PY
+# Compare fresh supporting Hub build to unchanged served build:
+python3 - <<'PY'
+from pathlib import Path
+built=Path('/tmp/n1-horizon-hub-build');served=Path('frontend/dist')
+for name in ['index.html',*['assets/'+p.name for p in (built/'assets').iterdir()]]:
+ assert (built/name).read_bytes()==(served/name).read_bytes(),name
+PY

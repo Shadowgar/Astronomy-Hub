@@ -1,0 +1,23 @@
+{
+  "status": "FAIL",
+  "scenario": "real native reduced-motion satellite Focus",
+  "width": 390,
+  "nativeFocusResult": [
+    {
+      "ok": true
+    }
+  ],
+  "nativeSelectionNorad": "28096",
+  "nativeLock": null,
+  "sourceHashes": {
+    "scripts/validation/verify_n1_satellites.mjs": "f74544d6c00f015a95e2fcb1c077b6c2c5e938cea8a207b6b9a09fa7e7945a4a",
+    "tests/runtime/fixtures/native-satellite-selection.json": "0f177a7bba4e969b74ec003d56fd07e1ae8af043f037d552e03a3b133b4c890f",
+    "runtimes/sky-adapter/plugin.js": "c5002f63fbf62f35edba720a67feba1ba8f6c11a963bd98de2d8934f4a2d7e4d",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "8e015954f5fcc014de08bee2d342d977e51fd0c0f2a0566886538f6aed0bcb1f",
+    "integrations/renderers.lock.json": "d4ae09fcf8efdf6ebf6d95b8ad11941ca62db3505e70d2750c9a6356a2f9689f",
+    "frontend/public/runtime-versions.json": "cf3329405efd3ea06ab353e92dbc7f4219aad7ba0d5a511acaed1279bd827f7f"
+  },
+  "error": "frame.waitForFunction: Timeout 12000ms exceeded.\n    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_satellites.mjs:41:305",
+  "sourceFinding": "Pinned core_point_and_lock calls core_lookat(0), whose target-struct reset clears the lock.",
+  "rawProof": "output/n1/remediation/satellites-native-instant-focus-red/proof.json"
+}

@@ -1,0 +1,19 @@
+server {
+ listen 8877;
+ server_name _;
+ include /etc/nginx/mime.types;
+ types { application/javascript mjs; application/wasm wasm; }
+ root /frontend;
+ add_header Cache-Control no-store;
+ # Existing catalog is a gzip HTTP representation of native gzip payload.
+ location = /oras-sky-engine/skydata/tle_satellite.jsonl.gz {
+  alias /skydata/tle_satellite.jsonl.gz;
+  add_header Content-Encoding gzip;
+  add_header Cache-Control no-store;
+ }
+ location /oras-sky-engine/skydata/ { alias /skydata/; }
+ location /earth-runtime/ { alias /earth/; }
+ location /api/ { proxy_pass http://oras-r1b-backend:8000; }
+ location /evidence/ { alias /evidence/; autoindex on; }
+ location / { try_files $uri $uri/ /index.html; }
+}

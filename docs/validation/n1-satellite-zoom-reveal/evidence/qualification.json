@@ -1,0 +1,178 @@
+{
+  "status": "PASS",
+  "head": "9cb158e35a1623be81263155c10839e14626c312",
+  "committedSources": false,
+  "proofs": [
+    {
+      "name": "browser",
+      "proofSha256": "5020e410ca1482d070b4fd73b2de30ab74bded8837510f8ced140e2bf4d298a3",
+      "runs": 7,
+      "groups": 112,
+      "scenes": 93,
+      "resourceFailures": null,
+      "pageErrors": 0
+    },
+    {
+      "name": "symbol-pixels",
+      "proofSha256": "09ce36f0cf5488fdbb01ce1e96c5517a308992bbfd2824ec1d290acfdd481ed1",
+      "runs": 7,
+      "groups": 0,
+      "scenes": 21,
+      "resourceFailures": null,
+      "pageErrors": 0
+    },
+    {
+      "name": "native-regressions",
+      "proofSha256": "f1e8619c950a8526b58b4be468ee13cec7125a835ef2b3150a413b4d8a9dc8fc",
+      "runs": 2,
+      "groups": 0,
+      "scenes": 30,
+      "resourceFailures": null,
+      "pageErrors": 0
+    },
+    {
+      "name": "journeys-desktop",
+      "proofSha256": "fcb76032f7fd65d535f7e5731477faa6188a8c91974c78d05097a33eba28e292",
+      "runs": 1,
+      "groups": 22,
+      "scenes": 0,
+      "resourceFailures": 619,
+      "pageErrors": 0
+    },
+    {
+      "name": "journeys-mobile",
+      "proofSha256": "a9e46c0ba6354814b14877ec07f80e8f7fc703d82bcb277be8c86a83cf5533c9",
+      "runs": 1,
+      "groups": 22,
+      "scenes": 0,
+      "resourceFailures": 672,
+      "pageErrors": 0
+    },
+    {
+      "name": "observer-history",
+      "proofSha256": "56303bbf57a853c52b32c6344e1eba06e1b2161b8dbb72a264c1902304bdf081",
+      "runs": 4,
+      "groups": 0,
+      "scenes": 0,
+      "resourceFailures": null,
+      "pageErrors": 0
+    }
+  ],
+  "actualInputPixels": [
+    {
+      "width": 1440,
+      "method": "wheel",
+      "norad": "14136",
+      "closeFov": 4.793883850419292,
+      "pointDifference": 60,
+      "automaticIdentificationPixels": 104,
+      "outwardIdentificationPixels": 0,
+      "returnIdentificationPixels": 104,
+      "trustedInputEvents": 45,
+      "centralIconPixels": {
+        "automatic-close": 104,
+        "outward-hidden": 0,
+        "automatic-return": 104
+      }
+    },
+    {
+      "width": 1440,
+      "method": "wheel",
+      "norad": "28096",
+      "closeFov": 4.793883850419292,
+      "pointDifference": 55312,
+      "automaticIdentificationPixels": 164,
+      "outwardIdentificationPixels": 0,
+      "returnIdentificationPixels": 165,
+      "trustedInputEvents": 45,
+      "centralIconPixels": {
+        "automatic-close": 0,
+        "outward-hidden": 0,
+        "automatic-return": 0
+      }
+    },
+    {
+      "width": 1440,
+      "method": "trackpad",
+      "norad": "14136",
+      "closeFov": 4.793883850419292,
+      "pointDifference": 60,
+      "automaticIdentificationPixels": 104,
+      "outwardIdentificationPixels": 0,
+      "returnIdentificationPixels": 284,
+      "trustedInputEvents": 49,
+      "centralIconPixels": {
+        "automatic-close": 104,
+        "outward-hidden": 0,
+        "automatic-return": 104
+      }
+    },
+    {
+      "width": 1440,
+      "method": "trackpad",
+      "norad": "28096",
+      "closeFov": 4.793883850419292,
+      "pointDifference": 55312,
+      "automaticIdentificationPixels": 164,
+      "outwardIdentificationPixels": 0,
+      "returnIdentificationPixels": 165,
+      "trustedInputEvents": 49,
+      "centralIconPixels": {
+        "automatic-close": 0,
+        "outward-hidden": 0,
+        "automatic-return": 0
+      }
+    },
+    {
+      "width": 390,
+      "method": "wheel",
+      "norad": "28096",
+      "closeFov": 4.793883850419292,
+      "pointDifference": 54104,
+      "automaticIdentificationPixels": 219,
+      "outwardIdentificationPixels": 0,
+      "returnIdentificationPixels": 219,
+      "trustedInputEvents": 47,
+      "centralIconPixels": {
+        "automatic-close": 55,
+        "outward-hidden": 0,
+        "automatic-return": 55
+      }
+    },
+    {
+      "width": 390,
+      "method": "trackpad",
+      "norad": "28096",
+      "closeFov": 4.793883850419292,
+      "pointDifference": 54104,
+      "automaticIdentificationPixels": 219,
+      "outwardIdentificationPixels": 0,
+      "returnIdentificationPixels": 212,
+      "trustedInputEvents": 51,
+      "centralIconPixels": {
+        "automatic-close": 55,
+        "outward-hidden": 0,
+        "automatic-return": 48
+      }
+    },
+    {
+      "width": 390,
+      "method": "pinch",
+      "norad": "28096",
+      "closeFov": 2.7000000000087723,
+      "pointDifference": 55176,
+      "automaticIdentificationPixels": 208,
+      "outwardIdentificationPixels": 0,
+      "returnIdentificationPixels": 208,
+      "trustedInputEvents": 66,
+      "centralIconPixels": {
+        "automatic-close": 44,
+        "outward-hidden": 0,
+        "automatic-return": 44
+      }
+    }
+  ],
+  "protectedFilesUnchanged": 72,
+  "mountsUnchanged": 7,
+  "skyArtifact": "4f0cd37f0b555917ed46b906db84083c34c6f664ee47c38a694c81cc0f8f2448"
+}

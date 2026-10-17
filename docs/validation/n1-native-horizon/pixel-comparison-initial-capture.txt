@@ -1,0 +1,20 @@
+{
+  groundPixels: 128880,
+  changedGroundPixels: 128880,
+  beforeGround: [ 26, 38, 26, 255 ],
+  afterGround: [ 9, 10, 13, 255 ],
+  aboveBrightPixelsBefore: 175,
+  aboveBrightPixelsAfter: 0,
+  aboveBrightPixelsMatched: 0,
+  landscapeOffBrightPixelsBelowHorizon: 131
+}
+{
+  groundPixels: 128880,
+  changedGroundPixels: 128880,
+  beforeGround: [ 26, 38, 26, 255 ],
+  afterGround: [ 9, 10, 13, 255 ],
+  aboveBrightPixelsBefore: 175,
+  aboveBrightPixelsAfter: 0,
+  aboveBrightPixelsMatched: 0,
+  landscapeOffBrightPixelsBelowHorizon: 131
+}

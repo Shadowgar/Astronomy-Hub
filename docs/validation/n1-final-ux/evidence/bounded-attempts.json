@@ -1,0 +1,50 @@
+[
+  {
+    "suite": "journeys-desktop",
+    "width": 1440,
+    "command": [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=15s",
+      "12m",
+      "node",
+      "scripts/validation/verify_n1_navigation.mjs"
+    ],
+    "environment": {
+      "N1_WIDTHS": "1440",
+      "N1_EVIDENCE_DIR": "output/n1/final-ux/bounded-delivery-20261016/journeys-desktop"
+    },
+    "started": "2026-10-16T17:45:29.146681+00:00",
+    "status": "FAIL",
+    "exitCode": 1,
+    "finished": "2026-10-16T17:49:29.328826+00:00",
+    "proofStatus": "FAIL",
+    "proofSha256": "0e79a1cc6d7fcaabf0386ee60ae51a82f970cf8a30d6df64d66be9109a3dd94c",
+    "error": "page.screenshot: Target crashed \nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\n    at shot (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:33:72)\n    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:74:140",
+    "steps": 5
+  },
+  {
+    "suite": "journeys-mobile",
+    "width": 390,
+    "command": [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=15s",
+      "12m",
+      "node",
+      "scripts/validation/verify_n1_navigation.mjs"
+    ],
+    "environment": {
+      "N1_WIDTHS": "390",
+      "N1_EVIDENCE_DIR": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile"
+    },
+    "started": "2026-10-16T17:49:29.331607+00:00",
+    "status": "FAIL",
+    "exitCode": 1,
+    "finished": "2026-10-16T17:53:29.489654+00:00",
+    "proofStatus": "FAIL",
+    "proofSha256": "e16b33cc65663ef34a565d2ea7cb1bf112763348754d17de17e88b12802df361",
+    "error": "locator.count: Target page, context or browser has been closed\n    at ready (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:32:324)\n    at async outward (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:59:167)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:77:3",
+    "steps": 7
+  }
+]

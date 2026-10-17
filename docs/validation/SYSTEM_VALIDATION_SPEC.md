@@ -6,11 +6,17 @@ The owner-approved [Adaptive Explorer requirements](../product/PRODUCT_VISION.md
 and proposed [R0–R5 checkpoints](../execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5)
 use this existing validation hierarchy. Product direction is not implementation,
 final-screen acceptance, source qualification or permission for a later package.
-R0 is merged. The separately authorized R1-A design-only task requires actual
+R0 is merged. Historical R1-A design-only qualification required actual
 local-browser rendering, desktop/mobile captures, contextual interaction/keyboard
 checks and document/reference/manifest/whitespace/preservation checks. Isolated
 design HTML/CSS/JS is allowed; application source, builds and Docker changes are not.
 Design-browser proof does not qualify application runtime, devices or owner taste.
+
+R1-B is now separately authorized against accepted PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef`.
+Application source, bounded Sky artifact rebuilds and isolated read-only-data
+Docker previews are permitted within that instruction. Real application browser
+proof is required; the historical design-only restrictions above do not apply
+to this bounded implementation. No merge, deployment or later milestone.
 
 Future UI acceptance must cite owner-approved reference revisions and compare
 actual rendered screens/interactions against them. A coder-generated substitute,

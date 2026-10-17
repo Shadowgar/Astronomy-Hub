@@ -1,0 +1,7 @@
+1440-wheel-14136 real input / automatic glyph / outward hide / click / Focus / native tracking PASS
+1440-wheel-28096 real input / automatic glyph / outward hide / click / Focus / native tracking PASS
+1440-trackpad-14136 real input / automatic glyph / outward hide / click / Focus / native tracking PASS
+1440-trackpad-28096 real input / automatic glyph / outward hide / click / Focus / native tracking PASS
+390-wheel-28096 real input / automatic glyph / outward hide / click / Focus / native tracking PASS
+390-trackpad-28096 real input / automatic glyph / outward hide / click / Focus / native tracking PASS
+390-pinch-28096 real input / automatic glyph / outward hide / click / Focus / native tracking PASS

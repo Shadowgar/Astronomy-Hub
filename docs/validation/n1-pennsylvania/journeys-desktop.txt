@@ -1,0 +1,22 @@
+1440 initial ORAS Sky and served source identity 2039ms
+1440 native Landscape toggle and Sky Night Mode ON 7544ms
+1440 Explore dismissal and focus return 584ms
+1440 arrival and short outward overshoot stay in Sky 1988ms
+1440 reverse input leaves boundary hysteresis 962ms
+1440 ORAS Sky → Earth by deliberate wheel 11481ms
+1440 Earth → ORAS Sky through accessible Explore 9295ms
+1440 native desktop drag explores Earth 20741ms
+1440 Earth geographic exploration to Central Park coordinates 4841ms
+1440 ordinary inward zoom reaches boundary without a mode change 16791ms
+1440 Earth → New York Sky by deliberate inward wheel 7315ms
+1440 New York Sky → Earth by trackpad-sized outward input 11901ms
+1440 Browser Back restores New York sky observer/time/camera 2360ms
+1440 repeat 1: outward/inward, reversal and preserved observer/time/night 50633ms
+1440 repeat 2: outward/inward, reversal and preserved observer/time/night 50520ms
+1440 repeat 3: outward/inward, reversal and preserved observer/time/night 53437ms
+1440 cancel while destination loading restores source 2859ms
+1440 Browser Back interrupts pending native snapshot delivery 5034ms
+1440 Escape interrupts handoff 3442ms
+1440 Browser Back and Forward preserve geographic context 13907ms
+1440 Night Mode OFF persists across reload 16925ms
+1440 Live time remains live through Earth and Sky 19333ms

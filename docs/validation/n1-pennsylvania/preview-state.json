@@ -1,0 +1,75 @@
+{
+  "Name": "/oras-n1-owner-preview",
+  "Image": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e",
+  "State": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 5622,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-15T04:22:05.7548772Z",
+    "FinishedAt": "2026-10-15T04:20:28.179478547Z"
+  },
+  "Mounts": [
+    {
+      "Type": "bind",
+      "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/earth",
+      "Destination": "/earth",
+      "Mode": "ro",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/nginx.conf",
+      "Destination": "/etc/nginx/conf.d/default.conf",
+      "Mode": "ro",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1",
+      "Destination": "/evidence",
+      "Mode": "ro",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend/dist",
+      "Destination": "/frontend",
+      "Mode": "ro",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+      "Destination": "/skydata",
+      "Mode": "ro",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+      "Destination": "/skydata/catalog-packs",
+      "Mode": "ro",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+      "Destination": "/skydata/dense-star-tiles",
+      "Mode": "ro",
+      "RW": false,
+      "Propagation": "rprivate"
+    }
+  ]
+}

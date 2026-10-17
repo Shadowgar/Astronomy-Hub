@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "ownerSettingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "priorSky": "98263fecda9ed4a3b2daad74d72b142d36bb2aab97232084485e3ca14b366d45",
+  "currentSky": "ee789ec45b306b82aea465c4274ae0a1dcb5968ca3842d81acf1b1ab6b82068a",
+  "earthUnchanged": "2f2c8530cd8499ef3c646b244d37c9a5ae8574047cabcdc751976e4908234794",
+  "nativeWasmUnchanged": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942",
+  "upstreamLandscapeSourceUnchanged": "9dbc682aecc0ca3b76f205647e0d2479bd82f82906174a6b33790e9bc0cb5acc",
+  "priorSkyFilesVerified": 96,
+  "currentSkyFilesVerified": 111,
+  "acceptedNavigationUnchanged": [
+    "runtimes/earth-runtime/core/CameraController.mjs",
+    "runtimes/earth-runtime/core/RuntimeBridge.mjs",
+    "runtimes/sky-adapter/native-wheel.mjs",
+    "frontend/src/features/workspace/ImmersiveController.ts",
+    "frontend/src/features/workspace/useViewNavigation.ts",
+    "packages/runtime-protocol/navigation.mjs",
+    "packages/runtime-protocol/continued-input.mjs"
+  ],
+  "noDiffSincePriorHead": [
+    "runtimes/earth-runtime",
+    "packages/runtime-protocol",
+    "frontend/src",
+    "runtimes/sky-adapter/entry.mjs",
+    "runtimes/sky-adapter/native-wheel.mjs",
+    "integrations/sky-patches"
+  ],
+  "readOnlyMountsUnchanged": true,
+  "priorRollbackDirectoriesRetained": [
+    "sky-before-native-horizon",
+    "hub-before-native-horizon",
+    "earth-before-smooth-camera",
+    "earth-before-zoom-curve"
+  ],
+  "newMatchingRollback": "output/n1/pennsylvania/rollback",
+  "spendUSD": 0
+}

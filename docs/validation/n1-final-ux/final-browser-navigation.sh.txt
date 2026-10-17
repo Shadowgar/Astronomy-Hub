@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+run_recorded(){
+ local task_name="$1"; shift
+ local task_status=0
+ "$@" > "output/n1/final-ux/$task_name-run.txt" 2>&1 || task_status=$?
+ python3 - "$task_name" "$task_status" "$@" <<'PY'
+import sys,json,datetime
+from pathlib import Path
+p=Path('output/n1/final-ux/final-navigation-exits.json');rows=json.loads(p.read_text()) if p.exists() else []
+rows.append({'name':sys.argv[1],'exitCode':int(sys.argv[2]),'command':sys.argv[3:],'finished':datetime.datetime.now(datetime.timezone.utc).isoformat()});p.write_text(json.dumps(rows,indent=2)+'\n')
+PY
+ test "$task_status" -eq 0
+}
+run_recorded journeys-mobile env N1_WIDTHS=390 N1_EVIDENCE_DIR=output/n1/final-ux/journeys-mobile timeout --signal=TERM --kill-after=15s 12m node scripts/validation/verify_n1_navigation.mjs
+run_recorded journeys-desktop env N1_WIDTHS=1440 N1_EVIDENCE_DIR=output/n1/final-ux/journeys-desktop timeout --signal=TERM --kill-after=15s 12m node scripts/validation/verify_n1_navigation.mjs

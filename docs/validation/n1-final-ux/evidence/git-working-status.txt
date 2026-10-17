@@ -1,0 +1,39 @@
+ M AGENTS.md
+ M docs/context/LIVE_SESSION_BRIEF.md
+ M docs/execution/MASTER_PLAN.md
+ M docs/execution/PROJECT_STATE.md
+ M frontend/public/oras-sky-engine/index.html
+ D frontend/public/oras-sky-engine/js/app.db9f2a50.js
+ M frontend/public/oras-sky-engine/oras-runtime-build.json
+ M frontend/public/runtime-versions.json
+ M frontend/src/features/sky-engine/RuntimeHost.tsx
+ M frontend/src/features/workspace/AdaptiveSkyChrome.tsx
+ M frontend/src/features/workspace/DiagnosticsSurface.tsx
+ M frontend/src/features/workspace/SelectionDrawer.tsx
+ M frontend/src/features/workspace/WorkspaceShell.tsx
+ M frontend/src/features/workspace/adaptiveSky.css
+ M frontend/src/features/workspace/workspace.css
+ M frontend/src/features/workspace/workspaceRuntimeAdapter.ts
+ M frontend/tests/workspaceRuntimeAdapter.test.ts
+ M frontend/vite.config.mjs
+ M integrations/renderers.lock.json
+ M runtimes/sky-adapter/entry.mjs
+ M runtimes/sky-adapter/native-panels.d.mts
+ M runtimes/sky-adapter/native-panels.mjs
+ M runtimes/sky-adapter/plugin.js
+ M scripts/validation/verify_n1_navigation.mjs
+ M scripts/validation/verify_n1_observer_history.mjs
+ M tests/runtime/sky-native-controls.test.mjs
+ M tests/runtime/sky-page-lifecycle.test.mjs
+?? docs/validation/n1-final-ux/
+?? frontend/public/licenses/
+?? frontend/public/oras-sky-engine/js/app.1a6796d9.js
+?? frontend/src/features/workspace/AboutLicenses.tsx
+?? frontend/src/features/workspace/SkyFovIndicator.tsx
+?? frontend/tests/aboutLicenses.test.tsx
+?? frontend/tests/licenseAssets.test.js
+?? frontend/tests/selectionPublicLink.test.tsx
+?? frontend/tests/skyFov.test.tsx
+?? scripts/validation/verify_n1_final_ux.mjs
+?? scripts/validation/verify_n1_final_ux_product_paths.mjs
+?? tests/runtime/sky-fov-report.test.mjs

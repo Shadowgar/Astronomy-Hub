@@ -519,17 +519,18 @@
     ],
     "reconstruction": {
       "status": "qualified",
-      "native_wasm_identical": true,
+      "native_wasm_identical": false,
       "emscripten": "1.39.17",
       "emsdk_image": "emscripten/emsdk@sha256:1e264934c11ffde8511441eaed6bdc44eaa30ec027e46d38be7ae67106aefdab",
       "build_image_id": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
       "node_image": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
       "bridge_overlay": "workspace.1",
-      "regression": "34 API/search/browser checks and 86 native conformance tests"
+      "baseline_native_wasm_identical": true,
+      "baseline_regression": "34 API/search/browser checks and 86 native conformance tests"
     },
     "overlay_version": "oras-sky-workspace.1",
-    "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d",
+    "build_recipe": "scripts/runtime/build_sky_horizon.sh",
+    "artifact_sha256": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -984,17 +985,17 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "3c92467d07536e55c2a74e17c2b6b28b8f212ca0ef0c7a8522dc39ab6859a579"
+        "sha256": "e08896a8b7712d8f4b4b8dd0f26d6adfd1e9f3ffa6837d4b7370c7d2f4d62590"
       },
       {
-        "path": "js/app.d996d430.js",
-        "bytes": 571750,
-        "sha256": "c65a9d796d5bd537513d7638c7a830feaa2f1a59d453188506c45d39aa2b0c0b"
+        "path": "js/app.1a6796d9.js",
+        "bytes": 602156,
+        "sha256": "2fcd745ae7486c829f00e8205fa2477ea6d67c713f3396a747a836f684dca99f"
       },
       {
-        "path": "js/chunk-2d2253ec.1b0c9439.js",
+        "path": "js/chunk-2d2253ec.81e41965.js",
         "bytes": 249,
-        "sha256": "460796e24b13821b2d7515baa7b2d01b43cf129a811855d5c8bcf0f56e041d55"
+        "sha256": "d3f803f08754c11aaeb96cbc5f1ed46b05fdbc6164ba9a91eabc6a64cbe4716c"
       },
       {
         "path": "js/chunk-vendors.c8723c79.js",
@@ -1002,23 +1003,117 @@
         "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260"
       },
       {
-        "path": "js/stellarium-web-engine.f0d016d1.wasm",
-        "bytes": 1200810,
-        "sha256": "54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09"
+        "path": "js/stellarium-web-engine.a41e078b.wasm",
+        "bytes": 1200963,
+        "sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Allsky.png",
+        "bytes": 284565,
+        "sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix0.png",
+        "bytes": 20555,
+        "sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix1.png",
+        "bytes": 7308,
+        "sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix10.png",
+        "bytes": 553591,
+        "sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix11.png",
+        "bytes": 577286,
+        "sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix2.png",
+        "bytes": 7419,
+        "sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix3.png",
+        "bytes": 12461,
+        "sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix4.png",
+        "bytes": 392640,
+        "sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix5.png",
+        "bytes": 328225,
+        "sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix6.png",
+        "bytes": 231251,
+        "sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix7.png",
+        "bytes": 261540,
+        "sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix8.png",
+        "bytes": 578107,
+        "sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix9.png",
+        "bytes": 576406,
+        "sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/description.en.utf8",
+        "bytes": 371,
+        "sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/properties",
+        "bytes": 240,
+        "sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
       },
       {
         "path": "oras-runtime-build.json",
-        "bytes": 810,
-        "sha256": "80006bbf5af2a9e214ed86186fa1f89e76bb9bd873253c8f74fd1c140a06f6a8"
+        "bytes": 2078,
+        "sha256": "e82006877d6abe61e2874c475712a723b78bfc0842701feb6a5cbb77e9efc5e7"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "ccecdf404b1ecd9a850a2b853949409642731bbad79cd25b990d0e1e76356ed7",
+    "workspace_adapter_sha256": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
     "artifact_hash_scope": "Application files excluding identity marker",
-    "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9",
+    "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
     "bridge_input_sha256": {
-      "entry.mjs": "42b563d3c77e84b70e0ef3825e6b6289ec2252e9e699ddb3057e82c90574aeca",
-      "native-panels.mjs": "52a012e28bb62f8c362fa97b8a89c9afff01bbeb953b711c354e81d40a28997f"
+      "entry.mjs": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+      "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+      "satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2"
+    },
+    "navigation_input_sha256": {
+      "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+      "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+      "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+    },
+    "native_horizon": {
+      "purpose": "embedded-zero-horizon-colors",
+      "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+      "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+      "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+      "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+      "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+      "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+      "native_output_sha256": {
+        "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+        "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+      }
     }
   },
   "earth": {
@@ -1027,7 +1122,7 @@
     "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
     "runtime_version": "oras-earth.v1",
     "cesium": "1.138.0",
-    "artifact_sha256": "822b1baeb933636cc5570077e905b57a029ea003902173b48142e0bbaf8fa552",
+    "artifact_sha256": "662e617078a4448d8235a2c9925c339ea7126cd430ec38cca5426fe8b60345b5",
     "public_exports": [
       "sources/adsb-lol",
       "sources/live",
@@ -1038,11 +1133,11 @@
       "layers/perimeters"
     ],
     "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
-    "source_input_sha256": "0bae2e8d50e2199d7d3dfd99e46611405bd6ba5b447e95b2df7097e41d0630a9"
+    "source_input_sha256": "da9cedaece9974df8a5d961876336d76bf004fc7917bcfe55f04bf00d99c5f9e"
   },
   "bridge": {
     "major": 1,
-    "minor": 1
+    "minor": 2
   },
   "hub": {
     "version": "phase-c-cesium.v1",

@@ -1,0 +1,3471 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_snapshots.mjs": "d508e229f77033f4365a64d466687a1b28a361b95877309ad720c17c912a48d6",
+    "runtimes/earth-runtime/core/RuntimeBridge.mjs": "2243f52ea3f6bf50a6b24a581dc2c7ecccb3c1ad9533db84d01afa9033c048ee",
+    "runtimes/earth-runtime/core/CameraController.mjs": "1c9af9d135759de1e0e17daf9e91d559c67e42a5481bdc58d9eff272ac567a29",
+    "runtimes/earth-runtime/core/EarthRuntime.mjs": "93c127f6ad955dcb7246a6d33e87eea764b5a35cc5f586067714eca09ce70b55",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "integrations/renderers.lock.json": "4a0da651561b0e1bc0107c10262d6f1a4169dda2f7c7a20254b62a5255d22c71",
+    "frontend/public/runtime-versions.json": "a03c695521ded3d57955c62c4fc1d2fdef5f7a9d48efb60e0900f0d25bbbc621"
+  },
+  "liveProviderAttempt": {
+    "provider": {
+      "status": "unavailable",
+      "temporalMode": "LIVE_ONLY",
+      "message": "Source unavailable. Retry the layer; Earth remains interactive."
+    },
+    "visibleCount": 0,
+    "qualified": false
+  },
+  "historicalSourceBackedFixture": {
+    "utc": "2026-06-05T02:10:00.000Z",
+    "tleSha256": "109c006c52adf17b918151bb0acdb393938e184afdca4391c35362bcd65dae57",
+    "mountedAssetSha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436",
+    "norad": "25544",
+    "ground": {
+      "lat": 24.57381154736348,
+      "lon": -127.14733695307551
+    },
+    "description": "Unchanged historical TLE lines from the mounted catalog, real production satellite.js propagation/renderer, controlled browser Date. This is not live-provider qualification."
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "evidenceClass": "historical-source-backed-provider-fixture-real-Cesium",
+      "status": "PASS",
+      "target": "satellites:25544",
+      "cancellations": [
+        {
+          "cycle": 0,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.199999999254942,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial loading \u00b7 CONUS only; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 12,
+                "loaded": 8,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 4,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "loading",
+                "requested": 4,
+                "loaded": 0,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 4,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 27,
+                "loaded": 27,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 40,
+                "loaded": 36,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 4,
+                "peak": 4
+              }
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 27,
+                "loaded": 27,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 40,
+                "loaded": 40,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 27,
+                "loaded": 27,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 40,
+                "loaded": 40,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          }
+        },
+        {
+          "cycle": 2,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 27,
+                "loaded": 27,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 40,
+                "loaded": 40,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 27,
+                "loaded": 27,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 40,
+                "loaded": 40,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          }
+        },
+        {
+          "cycle": 3,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 27,
+                "loaded": 27,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 40,
+                "loaded": 40,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 26,
+                "loaded": 26,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 27,
+                "loaded": 27,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 40,
+                "loaded": 40,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          }
+        }
+      ],
+      "pageErrors": [],
+      "removals": [
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/?lat=24.57381154736348&lng=-127.14733695307551&elev=0&elevationSource=unavailable-zero&date=2026-06-05T02%3A10%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+          "earth": null
+        },
+        {
+          "url": "http://127.0.0.1:4202/earth-runtime/?lat=24.573811547358027&lng=-127.14733695308568&elev=0&elevationSource=unavailable-zero&date=2026-06-05T02%3A10%3A00.000Z&orasEmbedded=1",
+          "earth": {
+            "owner": "Astronomy Hub",
+            "ready": false,
+            "disposed": true,
+            "viewerDestroyed": true,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "destroyed"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "destroyed"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "destroyed"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "destroyed"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "destroyed"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "destroyed"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "destroyed"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 1.599999999627471,
+                  "renderMs": 0.30000000074505806
+                }
+              }
+            },
+            "entityCount": 0,
+            "timings": {
+              "moduleLoadedMs": 117.80000000074506,
+              "shellInteractiveMs": 165.59999999962747,
+              "viewerReadyMs": 168.59999999962747,
+              "firstLayerReadyMs": 866.2000000011176,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1671.9000000003725,
+              "firstHdTileMs": 26828.400000000373
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": null,
+            "navigation": null,
+            "tracking": null,
+            "selection": null,
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {}
+          }
+        }
+      ],
+      "peakRenderers": 1
+    },
+    {
+      "width": 390,
+      "evidenceClass": "historical-source-backed-provider-fixture-real-Cesium",
+      "status": "PASS",
+      "target": "satellites:25544",
+      "cancellations": [
+        {
+          "cycle": 0,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 12,
+                "loaded": 8,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 4,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 12,
+                "loaded": 8,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 4,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 18,
+                "loaded": 18,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 24,
+                "loaded": 24,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 18,
+                "loaded": 18,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 24,
+                "loaded": 24,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 18,
+                "loaded": 18,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 24,
+                "loaded": 24,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          }
+        },
+        {
+          "cycle": 2,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 18,
+                "loaded": 18,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 24,
+                "loaded": 24,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 18,
+                "loaded": 18,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 24,
+                "loaded": 24,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          }
+        },
+        {
+          "cycle": 3,
+          "before": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 18,
+                "loaded": 18,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 24,
+                "loaded": 24,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          },
+          "after": {
+            "owner": "Astronomy Hub",
+            "ready": true,
+            "disposed": false,
+            "viewerDestroyed": false,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "ready"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "disabled"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "ready"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "disabled"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "disabled"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "disabled"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "disabled"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 2,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": 414031.7706141207,
+            "navigation": {
+              "mode": "earth",
+              "observer": {
+                "lat": 28.069249328509326,
+                "lon": -127.14733693727759,
+                "elevationM": 0
+              },
+              "elevationSource": "unavailable-zero",
+              "camera": {
+                "latitudeRad": 0.4288839716498857,
+                "longitudeRad": -2.2191396649738224,
+                "heightM": 414031.7706141207,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -0.8328765864002459,
+                "rollRad": 6.283185307179586
+              },
+              "utc": "2026-06-05T02:10:00.000Z",
+              "live": false
+            },
+            "tracking": "satellites:25544",
+            "selection": {
+              "layerId": "satellites",
+              "name": "International Space Station",
+              "detail": "Modeled position from current CelesTrak station elements.",
+              "facts": [
+                {
+                  "label": "NORAD",
+                  "value": "25544"
+                },
+                {
+                  "label": "Propagation time",
+                  "value": "2026-06-05T02:10:00.000Z"
+                },
+                {
+                  "label": "TLE epoch",
+                  "value": "2026-06-03T17:01:40.101Z"
+                },
+                {
+                  "label": "Model",
+                  "value": "satellite.js SGP4"
+                }
+              ]
+            },
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {
+              "local": {
+                "state": "ready",
+                "requested": 19,
+                "loaded": 19,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "gibs": {
+                "state": "ready",
+                "requested": 18,
+                "loaded": 18,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              },
+              "usgs": {
+                "state": "ready",
+                "requested": 24,
+                "loaded": 24,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 4
+              }
+            }
+          }
+        }
+      ],
+      "pageErrors": [],
+      "removals": [
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/?lat=24.57381154736348&lng=-127.14733695307551&elev=0&elevationSource=unavailable-zero&date=2026-06-05T02%3A10%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+          "earth": null
+        },
+        {
+          "url": "http://127.0.0.1:4202/earth-runtime/?lat=24.573811547358027&lng=-127.14733695308568&elev=0&elevationSource=unavailable-zero&date=2026-06-05T02%3A10%3A00.000Z&orasEmbedded=1",
+          "earth": {
+            "owner": "Astronomy Hub",
+            "ready": false,
+            "disposed": true,
+            "viewerDestroyed": true,
+            "site": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816
+            },
+            "layers": [
+              {
+                "id": "oras-site",
+                "title": "ORAS site",
+                "category": "Site context",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "ORAS canonical site",
+                "status": "destroyed"
+              },
+              {
+                "id": "aircraft",
+                "title": "Aircraft near ORAS",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "adsb.lol \u00b7 ODbL 1.0",
+                "status": "destroyed"
+              },
+              {
+                "id": "satellites",
+                "title": "Satellites \u00b7 stations",
+                "category": "Live Earth",
+                "capabilities": [
+                  "selection",
+                  "tracking",
+                  "live-only"
+                ],
+                "attribution": "CelesTrak \u00b7 satellite.js",
+                "status": "destroyed"
+              },
+              {
+                "id": "weather",
+                "title": "Weather at ORAS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "live-only"
+                ],
+                "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+                "status": "destroyed"
+              },
+              {
+                "id": "earthquakes",
+                "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+                "category": "Events",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "U.S. Geological Survey",
+                "status": "destroyed"
+              },
+              {
+                "id": "fire-perimeters",
+                "title": "Fire perimeters \u00b7 recent subset",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NIFC/WFIGS",
+                "status": "destroyed"
+              },
+              {
+                "id": "weather-radar",
+                "title": "Radar reflectivity \u00b7 CONUS",
+                "category": "Environment",
+                "capabilities": [
+                  "selection",
+                  "focus"
+                ],
+                "attribution": "NOAA/NWS nowCOAST",
+                "status": "destroyed"
+              }
+            ],
+            "providers": {
+              "satellites": {
+                "status": "ready",
+                "temporalMode": "LIVE_ONLY",
+                "observedAt": "2026-06-05T02:10:00.000Z",
+                "count": 1,
+                "metrics": {
+                  "acquisitionMs": 2.099999999627471,
+                  "renderMs": 0.7999999988824129
+                }
+              }
+            },
+            "entityCount": 0,
+            "timings": {
+              "moduleLoadedMs": 121.80000000074506,
+              "shellInteractiveMs": 161.09999999962747,
+              "viewerReadyMs": 164.5,
+              "firstLayerReadyMs": 715.4000000003725,
+              "firstLayerActivationMs": 0,
+              "firstImageryTileMs": 1239.9000000003725,
+              "firstHdTileMs": 17282.199999999255
+            },
+            "cameraMotion": {
+              "active": false
+            },
+            "cameraHeightM": null,
+            "navigation": null,
+            "tracking": null,
+            "selection": null,
+            "quality": {
+              "imagery": "USGS aerial \u00b7 CONUS only \u00b7 2017\u20132021 mosaic; global fallback elsewhere",
+              "terrain": "Terrain unavailable \u00b7 ellipsoid",
+              "buildings": "Not configured",
+              "photorealistic": "Not configured"
+            },
+            "imagery": {}
+          }
+        }
+      ],
+      "peakRenderers": 1
+    }
+  ],
+  "started": "2026-10-16T06:04:23.497Z",
+  "finished": "2026-10-16T06:06:24.088Z"
+}

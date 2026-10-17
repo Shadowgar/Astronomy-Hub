@@ -1,0 +1,3278 @@
+{
+  "groups": [
+    {
+      "label": "start",
+      "fovDeg": 119.99999999998879,
+      "reactiveFovDeg": 119.99999999998879,
+      "hints": false,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [],
+      "pixels": {
+        "green": 0,
+        "white": 14
+      }
+    },
+    {
+      "label": "in-1",
+      "fovDeg": 73.66959042488892,
+      "reactiveFovDeg": 73.66959042488892,
+      "hints": false,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 1.28577691151,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 0,
+        "white": 24
+      }
+    },
+    {
+      "label": "in-2",
+      "fovDeg": 45.22673794477631,
+      "reactiveFovDeg": 45.22673794477631,
+      "hints": false,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.789355487073,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 0,
+        "white": 59
+      }
+    },
+    {
+      "label": "in-3",
+      "fovDeg": 27.765293838699407,
+      "reactiveFovDeg": 27.765293838699407,
+      "hints": false,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.484595795269,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 0,
+        "white": 128
+      }
+    },
+    {
+      "label": "in-4",
+      "fovDeg": 17.045481876044704,
+      "reactiveFovDeg": 17.045481876044704,
+      "hints": false,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.297499781326,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 0,
+        "white": 220
+      }
+    },
+    {
+      "label": "in-5",
+      "fovDeg": 10.46444723666348,
+      "reactiveFovDeg": 10.46444723666348,
+      "hints": false,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.182639058681,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 0,
+        "white": 356
+      }
+    },
+    {
+      "label": "in-6",
+      "fovDeg": 6.424262849595801,
+      "reactiveFovDeg": 6.424262849595801,
+      "hints": false,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.112124538739,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 0,
+        "white": 504
+      }
+    },
+    {
+      "label": "in-7",
+      "fovDeg": 3.943940107595449,
+      "reactiveFovDeg": 3.943940107595449,
+      "hints": true,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.068834740379,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 164,
+        "white": 697
+      }
+    },
+    {
+      "label": "in-8",
+      "fovDeg": 2.421237103240695,
+      "reactiveFovDeg": 2.421237103240695,
+      "hints": true,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.042258559423,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 164,
+        "white": 877
+      }
+    },
+    {
+      "label": "in-9",
+      "fovDeg": 1.4864295476257956,
+      "reactiveFovDeg": 1.4864295476257956,
+      "hints": true,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.025943089705,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 164,
+        "white": 1069
+      }
+    },
+    {
+      "label": "in-10",
+      "fovDeg": 0.9125387997594706,
+      "reactiveFovDeg": 0.9125387997594706,
+      "hints": true,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.015926806608,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 164,
+        "white": 1226
+      }
+    },
+    {
+      "label": "in-11",
+      "fovDeg": 0.560219663529238,
+      "reactiveFovDeg": 0.560219663529238,
+      "hints": true,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.009777677663,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 155,
+        "white": 1422
+      }
+    },
+    {
+      "label": "in-12",
+      "fovDeg": 0.3439262763252823,
+      "reactiveFovDeg": 0.3439262763252823,
+      "hints": true,
+      "offset": 2,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.006002645906,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 130,
+        "white": 1601
+      }
+    },
+    {
+      "label": "diagnostic-offset-8",
+      "fovDeg": 0.3439262763252823,
+      "reactiveFovDeg": 0.3439262763252823,
+      "hints": true,
+      "offset": 8,
+      "selected": null,
+      "locked": null,
+      "vmag": 2.605776334588,
+      "radec": [
+        -0.000002144808,
+        -0.000007079551,
+        0.000003633991,
+        1
+      ],
+      "view": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.006002645906,
+          "yawRad": 1.847221790196,
+          "pitchRad": 0.991322115361,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "wheel": [
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        },
+        {
+          "dy": -120,
+          "wheelDelta": 120,
+          "mode": 0,
+          "trusted": true
+        }
+      ],
+      "pixels": {
+        "green": 130,
+        "white": 1601
+      }
+    }
+  ],
+  "errors": []
+}

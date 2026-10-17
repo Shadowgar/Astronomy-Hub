@@ -1,0 +1,4 @@
+oras-n1-owner-preview Up 2 hours 80/tcp, 127.0.0.1:4202->8877/tcp
+oras-r1b-owner-preview Up 2 hours 80/tcp, 127.0.0.1:4201->8877/tcp
+oras-r1b-backend Up 2 hours 8000/tcp
+astronomy-hub-frontend-1 Up 2 hours (healthy) 0.0.0.0:4173->4173/tcp, [::]:4173->4173/tcp

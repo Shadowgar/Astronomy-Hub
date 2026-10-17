@@ -1,0 +1,20 @@
+{
+  "oldHead": "18e1ffd985e5bb86428e6343c6d5a488f379bbe1",
+  "testedApplicationHead": "fa29b01ce589afa689bf02ce1b196e3ab3cb33f7",
+  "ordinaryNotchesBefore": 7,
+  "ordinaryNotchesAfter": 17,
+  "firstNotchM": {
+    "before": 15080.279768441118,
+    "after": 26190.047026646058
+  },
+  "orbitToRegionalNotches": {
+    "before": 6,
+    "after": 7
+  },
+  "rapid12EventFinalHeightM": {
+    "before": 1733.7865939071673,
+    "after": 4970.543881405625
+  },
+  "earthArtifact": "38f6bfd71993d4282c82883d39f78f2147263a1742583e42e6091cf84b41fd65",
+  "pageErrors": []
+}

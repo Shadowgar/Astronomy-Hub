@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "deliveryHead": "b7b5da90b34f33124084cf73e36ee7c2644575f0",
+  "reports": [
+    {
+      "evidence": "elevation-desktop",
+      "status": "PASS",
+      "sourceInputs": 12,
+      "widths": [
+        1440
+      ]
+    },
+    {
+      "evidence": "elevation-mobile",
+      "status": "PASS",
+      "sourceInputs": 12,
+      "widths": [
+        390
+      ]
+    },
+    {
+      "evidence": "snapshots-final",
+      "status": "PASS",
+      "sourceInputs": 7,
+      "widths": [
+        1440,
+        390
+      ]
+    },
+    {
+      "evidence": "satellites-final",
+      "status": "PASS",
+      "sourceInputs": 6,
+      "widths": [
+        390,
+        1440
+      ]
+    },
+    {
+      "evidence": "journeys-desktop",
+      "status": "PASS",
+      "sourceInputs": 30,
+      "widths": [
+        1440
+      ]
+    },
+    {
+      "evidence": "journeys-mobile",
+      "status": "PASS",
+      "sourceInputs": 30,
+      "widths": [
+        390
+      ]
+    },
+    {
+      "evidence": "landscape",
+      "status": "PASS",
+      "sourceInputs": 5,
+      "widths": [
+        1440,
+        390
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+from pathlib import Path
+import hashlib,json
+r=Path('output/n1/final-ux');sha=lambda b:hashlib.sha256(b).hexdigest()
+def tree(p):return {str(f.relative_to(p)):sha(f.read_bytes()) for f in sorted(p.rglob('*')) if f.is_file()}
+a=tree(Path('output/n1/remediation/native-default/upstream/apps/web-frontend/dist'));b=tree(Path('output/n1/remediation/native-alternate/upstream/apps/web-frontend/dist'));assert a==b
+x=tree(Path('frontend/dist'));y=tree(r/'hub-alternate');assert x==y
+old=json.loads((r/'preservation-before.json').read_text())['protectedFiles']
+for f,h in old.items():assert sha(Path(f).read_bytes())==h,f
+lock=json.loads(Path('integrations/renderers.lock.json').read_text());marker=json.loads(Path('frontend/public/oras-sky-engine/oras-runtime-build.json').read_text());baseline=json.loads((r/'rollback/frontend/public/oras-sky-engine/oras-runtime-build.json').read_text());assert marker['native_horizon']['native_output_sha256']==baseline['native_horizon']['native_output_sha256'];assert marker['native_wasm_identical']==baseline['native_wasm_identical'] and marker['native_vendor_chunks_identical']==baseline['native_vendor_chunks_identical']
+result={'status':'PASS','skyBuildFiles':len(a),'hubBuildFiles':len(x),'hubArtifacts':x,'skyArtifact':lock['sky']['artifact_sha256'],'earthArtifact':lock['earth']['artifact_sha256'],'protectedFilesUnchanged':len(old),'nativeUnchanged':marker['native_horizon']['native_output_sha256'],'attestations':{}}
+for k in ['default','alternate']:
+ d=json.loads(Path('output/n1/remediation/native-'+k+'/native-horizon-attestation.json').read_text());result['attestations'][k]={q:d[q] for q in ['source_repository','source_revision','source_input_sha256','native_output_sha256']};assert d['native_output_sha256']==result['nativeUnchanged']
+(r/'reproduction.json').write_text(json.dumps(result,indent=2)+'\n');print('Independent Sky',len(a),'Hub',len(x),'protected',len(old),'PASS',result['skyArtifact'])

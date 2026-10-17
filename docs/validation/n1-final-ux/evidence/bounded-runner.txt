@@ -1,0 +1,3 @@
+journeys-desktop FAIL exit 1
+journeys-mobile FAIL exit 1
+One bounded attempt per suite finished; no automatic retries.

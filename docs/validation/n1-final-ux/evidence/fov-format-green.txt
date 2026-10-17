@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/skyFov.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  10:16:58
+   Duration  208ms (transform 36ms, setup 0ms, import 73ms, tests 6ms, environment 0ms)

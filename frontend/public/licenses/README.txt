@@ -1,0 +1,1 @@
+License texts are unchanged copies of the pinned Stellarium Web Engine LICENSE-AGPL-3.0.txt and installed Cesium LICENSE.md. Sky data credits preserve the pinned upstream dialog acknowledgments; no assertion of complete catalog/provider qualification is made. Modified source and build instructions: https://github.com/Shadowgar/Astronomy-Hub/tree/n1-sky-earth-navigation-1
