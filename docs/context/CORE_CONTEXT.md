@@ -20,6 +20,10 @@ PR #74, and the owner has separately authorized bounded N1 Sky ↔ Earth navigat
 from its exact head. PR #73 remains its unmerged dependency. PR #71 imagery, search
 and visual acceptance remain open. Old C6 roadmaps cannot activate implementation.
 
+N1 is now OWNER ACCEPTED and PR75 merged into PR74 at `d1e3a75c`. The owner
+separately activates R2-A Earth search/navigation/location context. LIVE and
+PROJECT_STATE record the current bounded authorization; R3 remains unauthorized.
+
 ## Purpose
 
 This document defines the permanent system rules of Astronomy Hub.

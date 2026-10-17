@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r2-a-earth-search-1/frontend
+
+
+ Test Files  41 passed (41)
+      Tests  289 passed (289)
+   Start at  14:30:23
+   Duration  6.17s (transform 22.38s, setup 0ms, import 35.45s, tests 11.22s, environment 11ms)

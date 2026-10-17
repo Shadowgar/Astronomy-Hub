@@ -114,3 +114,16 @@ async def radar_image(time:str=Query(max_length=40)):
         image=read_radar_image(time)
         return Response(image,media_type='image/png',headers={'Cache-Control':'no-store','Content-License':'https://www.weather.gov/disclaimer'})
     except ValueError:raise HTTPException(503,'Radar image unavailable') from None
+
+# Product-owned submitted place search; candidates never replace observer science.
+from ..services.earth_search import SOURCE, ATTRIBUTION_URL, SearchBusy, search_places
+
+@router.get('/earth/search')
+async def earth_search(response:Response,q:str=Query(min_length=2,max_length=200)):
+    query=q.strip()
+    if len(query)<2 or any(ord(c)<32 for c in query):raise HTTPException(422,'Enter at least two characters for a place or address.')
+    response.headers['Cache-Control']='no-store'
+    try:
+        return {'results':await search_places(query),'source':SOURCE,'attributionUrl':ATTRIBUTION_URL}
+    except SearchBusy:raise HTTPException(429,'Search is busy. Please wait a moment and try again.',headers={'Retry-After':'2'})from None
+    except ValueError:raise HTTPException(503,'Place search is unavailable. Coordinates still work.')from None

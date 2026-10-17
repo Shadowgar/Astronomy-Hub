@@ -1,5 +1,16 @@
 # `DOC_INVENTORY.md`
 
+## R2-A support inventory — 2026-10-17
+
+- `docs/validation/r2-a-earth-search/README.md` — bounded implementation, actual preview,
+  commands/browser/screenshots, exact identities and remaining qualification.
+- `docs/validation/r2-a-earth-search/plan.md` — owner-authorized inline design/implementation.
+- `docs/validation/r2-a-earth-search/PR71_REUSE.md` — exact-head reuse/integration and
+  retained rights/hardware limitations; does not authorize PR71 merge.
+
+LIVE/PROJECT_STATE activate R2-A and record N1 OWNER ACCEPTED. Historical R1/N1
+inventory/acceptance language below describes earlier checkpoints only.
+
 ## R1-A design reference inventory — SUPPORT, 2026-10-13
 
 - `docs/design/adaptive-explorer-r1a/README.md`: design scope, preview, evidence and open decisions; routed through five applicable context packs.
