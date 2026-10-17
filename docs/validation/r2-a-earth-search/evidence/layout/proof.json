@@ -1,0 +1,352 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_r2_earth_search_layout.mjs": "48ba3aa863ceed3b607b8c600d6b60189010590f11e4a53268e0586a6c02e511",
+    "frontend/src/features/workspace/earthSearch.css": "ea0af391b4c8f51996047a0172326cc5ba6b293dd78d1a24a6ec96731aff9ed1",
+    "frontend/src/features/workspace/EarthSearch.tsx": "9fbb191bd7f02a0285adb10309e9340d75fed2a2e0d74c78a2e307a1b372e9c5",
+    "frontend/src/features/workspace/EarthExplore.tsx": "cfcda9e8ff6c717b182f323f43065b137355fad54804a9a21e5ce96a5447c0f3"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "pageErrors": [],
+      "sourceResults": {
+        "results": [
+          {
+            "id": "osm:R:1181618",
+            "name": "Springfield",
+            "description": "Hampden, Massachusetts, United States",
+            "kind": "city",
+            "lat": 42.1018764,
+            "lon": -72.5886727
+          },
+          {
+            "id": "osm:R:126326",
+            "name": "Springfield",
+            "description": "Sangamon, Illinois, United States",
+            "kind": "city",
+            "lat": 39.7990175,
+            "lon": -89.6439575
+          },
+          {
+            "id": "osm:R:141244",
+            "name": "Springfield",
+            "description": "Greene, Missouri, United States",
+            "kind": "city",
+            "lat": 37.2081729,
+            "lon": -93.2922715
+          },
+          {
+            "id": "osm:R:182868",
+            "name": "Springfield",
+            "description": "Clark, Ohio, United States",
+            "kind": "city",
+            "lat": 39.9234046,
+            "lon": -83.810138
+          },
+          {
+            "id": "osm:R:186721",
+            "name": "Springfield",
+            "description": "Lane, Oregon, United States",
+            "kind": "city",
+            "lat": 44.0462362,
+            "lon": -123.0220289
+          }
+        ],
+        "source": "Photon / OpenStreetMap",
+        "attributionUrl": "https://www.openstreetmap.org/copyright"
+      },
+      "layout": [
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 564,
+          "scrollWidth": 564,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 564,
+          "scrollWidth": 564,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 564,
+          "scrollWidth": 564,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 564,
+          "scrollWidth": 564,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 564,
+          "scrollWidth": 564,
+          "display": "grid",
+          "align": "stretch"
+        }
+      ],
+      "file": "1440-search-results.png",
+      "sha256": "8a7741ffd2d85ff3a91a8c35e6506009c0bb59e2f0399288a16a851939ef4859",
+      "actual": {
+        "mode": "earth",
+        "observer": {
+          "lat": 42.10187640101921,
+          "lon": -72.58867269990728,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.734816364447697,
+          "longitudeRad": -1.2669113382675221,
+          "heightM": 39999.999999979416,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707754644135368,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      },
+      "addressSource": {
+        "results": [
+          {
+            "id": "osm:N:3916613190",
+            "name": "Sherlock Holmes Museum",
+            "description": "221B Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+            "kind": "house",
+            "lat": 51.5237629,
+            "lon": -0.1584743
+          },
+          {
+            "id": "osm:N:5568763423",
+            "name": "221B Baker Street",
+            "description": "Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+            "kind": "house",
+            "lat": 51.5233879,
+            "lon": -0.1582367
+          },
+          {
+            "id": "osm:W:176312585",
+            "name": "221B Baker Street",
+            "description": "Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+            "kind": "house",
+            "lat": 51.523748,
+            "lon": -0.1585699
+          }
+        ],
+        "source": "Photon / OpenStreetMap",
+        "attributionUrl": "https://www.openstreetmap.org/copyright"
+      },
+      "addressFile": "1440-address-context.png",
+      "addressSha256": "c344951305beb9cbcf77527859c3aa42761721be718cb92fcd8b90811e95363d",
+      "addressActual": {
+        "mode": "earth",
+        "observer": {
+          "lat": 51.523762900015335,
+          "lon": -0.15847429999712664,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.8992593056219017,
+          "longitudeRad": -0.002765898314793591,
+          "heightM": 39999.99999997082,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707759098548157,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "pageErrors": [],
+      "sourceResults": {
+        "results": [
+          {
+            "id": "osm:R:1181618",
+            "name": "Springfield",
+            "description": "Hampden, Massachusetts, United States",
+            "kind": "city",
+            "lat": 42.1018764,
+            "lon": -72.5886727
+          },
+          {
+            "id": "osm:R:126326",
+            "name": "Springfield",
+            "description": "Sangamon, Illinois, United States",
+            "kind": "city",
+            "lat": 39.7990175,
+            "lon": -89.6439575
+          },
+          {
+            "id": "osm:R:141244",
+            "name": "Springfield",
+            "description": "Greene, Missouri, United States",
+            "kind": "city",
+            "lat": 37.2081729,
+            "lon": -93.2922715
+          },
+          {
+            "id": "osm:R:182868",
+            "name": "Springfield",
+            "description": "Clark, Ohio, United States",
+            "kind": "city",
+            "lat": 39.9234046,
+            "lon": -83.810138
+          },
+          {
+            "id": "osm:R:186721",
+            "name": "Springfield",
+            "description": "Lane, Oregon, United States",
+            "kind": "city",
+            "lat": 44.0462362,
+            "lon": -123.0220289
+          }
+        ],
+        "source": "Photon / OpenStreetMap",
+        "attributionUrl": "https://www.openstreetmap.org/copyright"
+      },
+      "layout": [
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 322,
+          "scrollWidth": 322,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 322,
+          "scrollWidth": 322,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 322,
+          "scrollWidth": 322,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 322,
+          "scrollWidth": 322,
+          "display": "grid",
+          "align": "stretch"
+        },
+        {
+          "height": 88.78125,
+          "clientHeight": 87,
+          "scrollHeight": 87,
+          "clientWidth": 322,
+          "scrollWidth": 322,
+          "display": "grid",
+          "align": "stretch"
+        }
+      ],
+      "file": "390-search-results.png",
+      "sha256": "e7b19e0b396181a0186c75aec2aabf1b812563056d03f5be10d8452781eb596b",
+      "actual": {
+        "mode": "earth",
+        "observer": {
+          "lat": 42.10187640101921,
+          "lon": -72.58867269990728,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.734816364447697,
+          "longitudeRad": -1.2669113382675221,
+          "heightM": 39999.999999979416,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707754644135368,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      },
+      "addressSource": {
+        "results": [
+          {
+            "id": "osm:N:3916613190",
+            "name": "Sherlock Holmes Museum",
+            "description": "221B Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+            "kind": "house",
+            "lat": 51.5237629,
+            "lon": -0.1584743
+          },
+          {
+            "id": "osm:N:5568763423",
+            "name": "221B Baker Street",
+            "description": "Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+            "kind": "house",
+            "lat": 51.5233879,
+            "lon": -0.1582367
+          },
+          {
+            "id": "osm:W:176312585",
+            "name": "221B Baker Street",
+            "description": "Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+            "kind": "house",
+            "lat": 51.523748,
+            "lon": -0.1585699
+          }
+        ],
+        "source": "Photon / OpenStreetMap",
+        "attributionUrl": "https://www.openstreetmap.org/copyright"
+      },
+      "addressFile": "390-address-context.png",
+      "addressSha256": "6be508497bd9920158f43904638374aba4fe81cc8f405fc1d6dcb39d5c31d417",
+      "addressActual": {
+        "mode": "earth",
+        "observer": {
+          "lat": 51.523762900015335,
+          "lon": -0.15847429999712673,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.8992593056219017,
+          "longitudeRad": -0.002765898314793592,
+          "heightM": 39999.99999997082,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707759098548157,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      }
+    }
+  ],
+  "scope": "Current R2 candidate: desktop/mobile text containment, source-backed result choice and actual native camera context."
+}

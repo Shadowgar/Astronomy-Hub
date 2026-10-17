@@ -1,5 +1,30 @@
 # LIVE SESSION BRIEF
 
+## Active R2-A — owner authorization 2026-10-17
+
+**N1 OWNER ACCEPTED. R2-A Earth Search, Navigation and Location Context ACTIVE.**
+The owner explicitly accepts N1 and authorizes implementation on a separate branch
+stacked on PR74 (`r1-b-adaptive-sky-implementation-1`) at integrated PR75 merge
+`d1e3a75c4fa3b48a41fc5167786b3147bf763e71`. PR74 and PR73 remain OPEN; no merge,
+deployment, paid provider/account/spending, new dependency or R3 is authorized.
+Deliver a working desktop/mobile Earth search preview and draft PR, then stop.
+
+Preserve accepted Sky/Earth scrolling/camera, Pennsylvania scenery, satellite
+presentation, science/data/source pins, settings, volumes and original artifacts.
+N1's historical full navigation record remains desktop5/22 and mobile7/22 at240s
+caps, cause UNKNOWN, no assertion mismatch reproduced. Owner acceptance does not
+turn those records into a fresh44-group pass. Do not reopen N1 acceptance or rerun
+its timeout/resource investigation. Earlier N1 stop/pending-acceptance directives
+below are historical and superseded by this explicit owner instruction.
+
+R2-A restores Hub contextual address/place/coordinate search through qualified
+existing functionality, explicit ambiguous-result choice, native Cesium navigation,
+location context and honest source/error states. Assess PR71 implementation and
+evidence for reuse without merging, closing, discarding or blindly cherry-picking.
+R2 imagery/cache integration beyond this assessment remains subsequent work.
+Scoped implementation and proof: [R2-A Earth search](../validation/r2-a-earth-search/README.md).
+
+
 ## Active N1 delivery authorization — owner override 2026-10-16
 
 **PARTIALLY QUALIFIED. PR #75 MERGE EXPLICITLY OWNER-AUTHORIZED.**

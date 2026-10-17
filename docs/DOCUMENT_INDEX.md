@@ -1,5 +1,15 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## Current R2-A execution — owner authorization 2026-10-17
+
+N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`. The owner activates
+R2-A Earth Search, Navigation and Location Context on a separate stacked draft PR.
+PR74/73 stay open; no deployment or R3. Earlier R1/N1 activation statements below
+are historical. Current scope/proof: [R2-A](validation/r2-a-earth-search/README.md),
+[implementation plan](validation/r2-a-earth-search/plan.md),
+[PR71 reuse assessment](validation/r2-a-earth-search/PR71_REUSE.md).
+N1's partial full-navigation evidence remains historical, not a new44-group pass.
+
 ## Current R1-B execution
 
 PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef` is the accepted visual target.

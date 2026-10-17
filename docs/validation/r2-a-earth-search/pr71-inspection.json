@@ -1,0 +1,103 @@
+{
+  "pr": 71,
+  "state": "OPEN",
+  "head": "35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e",
+  "mutated": false,
+  "files": [
+    {
+      "path": "packages/imagery-cache/client.d.mts",
+      "sha256": "1ed019dd89ba5f762ce8b21778fd55513821ba48be8990bfbea9a971522937e2",
+      "bytes": 429
+    },
+    {
+      "path": "packages/imagery-cache/client.mjs",
+      "sha256": "041f09253e489b4924d2301800453a2b864fca1fb431658f43a085738b2360a3",
+      "bytes": 1374
+    },
+    {
+      "path": "runtimes/earth-runtime/core/AdmittedMapSources.mjs",
+      "sha256": "0b0e087ac647df2b525c16d746fe3d07009aa11810f5c4cc2b3b82320b7d41a1",
+      "bytes": 6660
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ImageryController.mjs",
+      "sha256": "1303cf8ef870dcb45dc88d3ad18003f62ac6b6ced49535ce48b1c1f144bede3f",
+      "bytes": 21945
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs",
+      "sha256": "0affdc0326cf2498f7024d1190ffa6cffd1615184916526344f7ceccf641367c",
+      "bytes": 1880
+    },
+    {
+      "path": "runtimes/earth-runtime/core/LocalVisualProof.mjs",
+      "sha256": "84f87b4e328b0ce9d876778b53d4f35a61b3563d432f533dcfc35ed25c4c981d",
+      "bytes": 2676
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ViewerController.mjs",
+      "sha256": "bf4929301504d22af79f3387122be61237b4a9661efc1a83188a9e7e929b332f",
+      "bytes": 3388
+    },
+    {
+      "path": "runtimes/earth-runtime/core/displayConfig.mjs",
+      "sha256": "b9fb9e67aa461a68a8accf5ddad78e190c2bb29b32cdf8800cb97cfae9bf5359",
+      "bytes": 1919
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryCachePolicy.mjs",
+      "sha256": "873e2415c8f87f3f80be92c6fd3c5ce096f1212b14b7db3dbaffe07cba88721d",
+      "bytes": 3078
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryCacheStore.mjs",
+      "sha256": "24c0cd6b591637a77d8740cabd8f8c9d45c3871e52f1c69c72fd085bdc51b034",
+      "bytes": 5654
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryCacheWorker.mjs",
+      "sha256": "41428795008a7f93f1e5a052c03f9f2f2617fcf8eea99c07b76354dd665e86b0",
+      "bytes": 1326
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryRequests.mjs",
+      "sha256": "e25281aa25af408a9e762747e29c2fe52216076f6d64c03fba4138968f20db3d",
+      "bytes": 2982
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imagerySession.mjs",
+      "sha256": "0d7252c9d5689f59a8044f23a1089757c51f22e5ca431e23cb8f408f433629b7",
+      "bytes": 861
+    },
+    {
+      "path": "runtimes/earth-runtime/entry.mjs",
+      "sha256": "31a10d36e1fc8fb88c5f2b6c5d8449e751a996e8b1e9a12e7822fd7df8391c28",
+      "bytes": 3295
+    },
+    {
+      "path": "runtimes/earth-runtime/index.html",
+      "sha256": "8acc51db3408d4c01e3cb8425f2dba54025f18ce56f1ab831ce655d444b23c2c",
+      "bytes": 1416
+    },
+    {
+      "path": "runtimes/earth-runtime/style.css",
+      "sha256": "1372bb840e78aea9c41c4d768fdf869c47b316b99c19c6359c832287df2c069d",
+      "bytes": 2574
+    },
+    {
+      "path": "runtimes/earth-runtime/vite.config.mjs",
+      "sha256": "f6a37b0f174aa1e25cea2a98d72eb9056f59a49262b075d71e823960815021df",
+      "bytes": 1878
+    },
+    {
+      "path": "docs/validation/EARTH_HD_MAPPING_EVIDENCE.md",
+      "sha256": "05ba1d55b7b3f03f18ede41668f2f6ef54faf104aab42ce05674bd885df6aeec",
+      "bytes": 109297
+    },
+    {
+      "path": "frontend/src/features/workspace/ImageryCacheSection.tsx",
+      "sha256": "8655c82ce93844aafadee5d09e2cbe1d058de8504fd38f38c2e4dc199365b728",
+      "bytes": 2151
+    }
+  ]
+}

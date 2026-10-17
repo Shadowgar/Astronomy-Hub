@@ -1,5 +1,15 @@
 # FEATURE TRACKER
 
+## Current bounded checkpoint — 2026-10-17
+
+N1 is OWNER ACCEPTED. R2-A Earth search/navigation/location context is explicitly
+owner-authorized on a separate branch stacked on current PR74. PR74/73 remain open.
+No R3, deployment or merge is authorized. R2-A provides the next bounded technical
+proof; it does not accept all R2 imagery/cache, global detail or physical speed.
+[Implementation and current proof](../validation/r2-a-earth-search/README.md).
+N1 historical desktop5/22 and mobile7/22 full navigation results remain partial;
+no retry or retroactive pass. Earlier R0/R1/N1 gates below are historical.
+
 ## Adaptive Explorer acceptance status — R0, 2026-10-13
 
 This current product matrix precedes the dated bounded feature inventory below.

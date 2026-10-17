@@ -1,0 +1,29 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/earthSearch.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r2-a-earth-search-1/frontend
+
+ ❯ tests/earthSearch.test.ts (15 tests | 3 failed) 69ms
+   × submits place/address Essen rather than rejecting as coordinates 6ms
+   × submits place/address 123 Elm St, 10001 rather than rejecting as coordinates 1ms
+   × submits place/address 10 Rue de la Paix, 75002 Paris rather than rejecting as coordinates 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/earthSearch.test.ts > submits place/address Essen rather than rejecting as coordinates
+ FAIL  tests/earthSearch.test.ts > submits place/address 123 Elm St, 10001 rather than rejecting as coordinates
+ FAIL  tests/earthSearch.test.ts > submits place/address 10 Rue de la Paix, 75002 Paris rather than rejecting as coordinates
+Error: Invalid coordinates. Use latitude −90 to 90, longitude −180 to 180.
+ ❯ searchEarth src/features/workspace/earthSearch.ts:13:26
+
+ ❯ tests/earthSearch.test.ts:9:240
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 12 passed (15)
+   Start at  14:30:04
+   Duration  579ms (transform 156ms, setup 0ms, import 186ms, tests 69ms, environment 1ms)
