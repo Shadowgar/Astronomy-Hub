@@ -27,7 +27,7 @@ async function initialize(){
 }
 document.querySelector('#retry').addEventListener('click',()=>{void start()});
 window.addEventListener('pagehide',event=>{
- if(event.persisted){runtime?.camera?.interrupt();return;} // Preserve the runtime, never a pending camera gesture.
+ if(event.persisted){runtime?.camera?.interrupt(true,{preserveTracking:true});return;} // Preserve the runtime, never a pending camera gesture.
  leaving=true;void stop();
 });
 window.addEventListener('pageshow',async event=>{

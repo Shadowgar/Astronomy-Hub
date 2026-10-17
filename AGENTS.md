@@ -39,6 +39,18 @@ helper correction is explicitly recorded, while data/settings/native/source pins
 rollback copies remain unchanged. Earlier browser evidence is historical with the
 reviewed source deltas qualified separately. Full navigation5/22 and7/22 remains FAIL.
 
+
+Latest review of eb84f3f1 identified persisted Earth departure clearing satellite
+tracking. The narrow correction preserves tracking only for persisted pagehide;
+ordinary input and teardown still stop tracking. Focused lifecycle RED/GREEN and
+161 runtime/Earth tests PASS; separately bound desktop/mobile real-Cesium checks use
+controlled persisted events, not actual bfcache/Back qualification. Earth entry is
+rebuilt reproducibly and admission metadata updated; original artifacts retained.
+71/73 baseline protected paths are unchanged, with observerProvenance and the tiny
+CameraController lifecycle option explicitly reviewed/qualified. No accepted scroll
+gain/damping/threshold change. Full navigation5/22 and7/22 remains FAIL/UNKNOWN,
+no rerun. Existing owner-authorized PR75-only merge exception and stop gate apply.
+
 Earlier N1 execution sections below are historical where they conflict with this override.
 
 ## Active N1 final UX corrections — owner directive 2026-10-16

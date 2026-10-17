@@ -92,7 +92,7 @@ export class CameraController {
   camera.setView({destination:ellipsoid.cartographicToCartesian(position),orientation:{direction:Cartesian3.clone(camera.directionWC),up:Cartesian3.clone(camera.upWC)}});
  }
  home(site){this.interrupt();this.viewer.camera.setView({destination:Cartesian3.fromDegrees(site.lon,site.lat,(this.viewer.canvas.clientWidth<768?16_000_000:22_000_000)-6378137),orientation:{heading:0,pitch:-Math.PI/2,roll:0}});this.viewer.scene.requestRender();}
- interrupt(reset=true){this.cancelZoom();this.userMoved=true;++this.flightGeneration;this.viewer.camera.cancelFlight();this.stopTracking();if(reset)this.resetNavigation();}
+ interrupt(reset=true,{preserveTracking=false}={}){this.cancelZoom();this.userMoved=true;++this.flightGeneration;this.viewer.camera.cancelFlight();if(!preserveTracking)this.stopTracking();if(reset)this.resetNavigation();}
  resetNavigation({preserveMotion=false}={}){if(!preserveMotion)this.cancelZoom();this.gate.reset(performance.now()+1000);this.boundary=false;this.lastPhase='idle';this.onNavigation?.({target:'sky',phase:'idle',progress:0});}
  surfacePoint(){
   const {camera,scene,canvas}=this.viewer,point=new Cartesian2(canvas.clientWidth/2,canvas.clientHeight/2),ray=camera.getPickRay(point);

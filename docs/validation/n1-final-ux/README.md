@@ -441,3 +441,43 @@ called byte-identical.72 of73 originally protected paths remain unchanged; the s
 changed helper is observerProvenance.ts for this verified P2. Original baseline
 hashes and all native outputs/data/settings/source pins/rollback copies are preserved.
 The prior coordinate-flight fix remains separately qualified and unchanged.
+
+
+## Cached Earth tracking review correction — 2026-10-17
+
+The [review of eb84f3f1](https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4298238214)
+found persisted Earth departure called the ordinary camera interrupt, clearing
+`trackedEntity` while retaining the Viewer. The narrow correction adds a default-off
+preserveTracking option, used only by persisted pagehide. Flight cancellation,
+flight-generation invalidation, wheel cancellation and navigation reset still run.
+Ordinary wheel/pointer/keyboard/navigation/teardown behavior is unchanged. The
+accepted scrolling gain, spring and handoff thresholds are byte-for-byte unchanged.
+
+One focused test reproduced tracking loss; all5 lifecycle tests and161 runtime/Earth
+regressions PASS. Actual desktop/mobile Cesium tracking is checked with the retained
+source-backed historical TLE and controlled persisted pagehide/pageshow events,
+then real pointer input must still exit tracking. This is explicitly NOT actual
+bfcache eligibility or browser Back qualification; the no-store preview and failed
+full navigation results are not waived or relabeled. Evidence includes failed
+harness attempts (preview initially stopped, missing command DTO mode, invalid
+synthetic pointer capture); these are not application regressions. Only the tracked
+entity mismatch on the old served artifact is the browser RED.
+
+Two independent fresh Vite builds have8 identical compiled outputs. Existing static
+Cesium/asset bytes are reused unchanged from the retained original artifact; the
+complete512-file Earth release is verified and its admission hashes updated. Two
+129-file Hub builds match. The original Earth artifact and all earlier failed/PASS
+proofs remain intact. Earlier browser families are historical evidence on their
+original Earth artifact, with this small lifecycle/source/metadata delta separately
+qualified.71/73 original protected paths remain unchanged: observerProvenance and
+CameraController are the two explicit review corrections. Native Sky C/WASM, science,
+data, source pins, owner settings, mounts and all113 tracked rollback files remain
+unchanged. Full navigation remains desktop5/22 and mobile7/22 FAIL at240s caps,
+underlying cause UNKNOWN; no stalled full suite was rerun. N1 NOT FINALIZED.
+
+[Qualification](evidence/review-cache-qualification.json),
+[focused browser](evidence/cache-browser.json),
+[browser RED](evidence/cache-browser-red.json),
+[Earth builds](evidence/cache-earth-builds.json),
+[Hub builds](evidence/cache-hub-builds.json),
+[driver](cache-browser.mjs.txt).

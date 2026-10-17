@@ -11,6 +11,7 @@ docs/validation/n1-final-ux/bounded-run-once.py.txt
 docs/validation/n1-final-ux/browser-regressions.sh.txt
 docs/validation/n1-final-ux/browser-remaining.sh.txt
 docs/validation/n1-final-ux/build-ui.sh.txt
+docs/validation/n1-final-ux/cache-browser.mjs.txt
 docs/validation/n1-final-ux/collect-evidence.py.txt
 docs/validation/n1-final-ux/context-review-delivery.json
 docs/validation/n1-final-ux/coordinate-flight-browser.mjs.txt
@@ -76,6 +77,21 @@ docs/validation/n1-final-ux/evidence/browser-run.txt
 docs/validation/n1-final-ux/evidence/browser-silent-fov-attempt.txt
 docs/validation/n1-final-ux/evidence/browser.json
 docs/validation/n1-final-ux/evidence/build-ui-run.txt
+docs/validation/n1-final-ux/evidence/cache-browser-green.txt
+docs/validation/n1-final-ux/evidence/cache-browser-pointer-attempt.json
+docs/validation/n1-final-ux/evidence/cache-browser-qualified.txt
+docs/validation/n1-final-ux/evidence/cache-browser-red-live.txt
+docs/validation/n1-final-ux/evidence/cache-browser-red-qualified.txt
+docs/validation/n1-final-ux/evidence/cache-browser-red.json
+docs/validation/n1-final-ux/evidence/cache-browser-red.txt
+docs/validation/n1-final-ux/evidence/cache-browser.json
+docs/validation/n1-final-ux/evidence/cache-earth-builds.json
+docs/validation/n1-final-ux/evidence/cache-green.txt
+docs/validation/n1-final-ux/evidence/cache-hub-builds.json
+docs/validation/n1-final-ux/evidence/cache-red-detailed.txt
+docs/validation/n1-final-ux/evidence/cache-red-direct.txt
+docs/validation/n1-final-ux/evidence/cache-red.txt
+docs/validation/n1-final-ux/evidence/cache-runtime-tests.txt
 docs/validation/n1-final-ux/evidence/catalog-planning-snapshot.json
 docs/validation/n1-final-ux/evidence/collect-partial-run.txt
 docs/validation/n1-final-ux/evidence/collection-status.json
@@ -163,6 +179,7 @@ docs/validation/n1-final-ux/evidence/reproduction-run-current.txt
 docs/validation/n1-final-ux/evidence/reproduction-run-final.txt
 docs/validation/n1-final-ux/evidence/reproduction-run.txt
 docs/validation/n1-final-ux/evidence/reproduction.json
+docs/validation/n1-final-ux/evidence/review-cache-qualification.json
 docs/validation/n1-final-ux/evidence/review-continuation-start.txt
 docs/validation/n1-final-ux/evidence/review-current-summary.json
 docs/validation/n1-final-ux/evidence/review-delivery-candidate-before.json
@@ -255,6 +272,8 @@ frontend/tests/viewNavigation.test.ts
 frontend/tests/workspaceRuntimeAdapter.test.ts
 frontend/vite.config.mjs
 integrations/renderers.lock.json
+runtimes/earth-runtime/core/CameraController.mjs
+runtimes/earth-runtime/entry.mjs
 runtimes/sky-adapter/entry.mjs
 runtimes/sky-adapter/native-panels.d.mts
 runtimes/sky-adapter/native-panels.mjs
@@ -263,6 +282,7 @@ scripts/validation/verify_n1_final_ux.mjs
 scripts/validation/verify_n1_final_ux_product_paths.mjs
 scripts/validation/verify_n1_navigation.mjs
 scripts/validation/verify_n1_observer_history.mjs
+tests/earth/page-lifecycle.test.mjs
 tests/runtime/sky-fov-report.test.mjs
 tests/runtime/sky-native-controls.test.mjs
 tests/runtime/sky-page-lifecycle.test.mjs

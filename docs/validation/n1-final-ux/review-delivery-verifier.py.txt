@@ -2,6 +2,12 @@ import json,hashlib,subprocess,os,urllib.request
 from pathlib import Path
 r=Path('output/n1/final-ux');delivery=r/'review-only';delivery.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();committed=os.environ.get('N1_COMMITTED')=='1'
 session_fix=json.loads((delivery/'review-session-qualification.json').read_text());assert session_fix['status']=='PASS'
+cache_fix=json.loads((delivery/'review-cache-qualification.json').read_text());assert cache_fix['status']=='PASS'
+# Admission metadata may differ only in the two Earth build identity fields.
+for f in ['integrations/renderers.lock.json','frontend/public/runtime-versions.json']:
+ before=json.loads((delivery/'cache-baseline'/f).read_text());after=json.loads(Path(f).read_text())
+ assert {k:v for k,v in before.items()if k!='earth'}=={k:v for k,v in after.items()if k!='earth'}
+ assert {k:v for k,v in before['earth'].items()if k not in ['artifact_sha256','source_input_sha256']}=={k:v for k,v in after['earth'].items()if k not in ['artifact_sha256','source_input_sha256']}
 names=['browser','satellite-recheck/browser','satellite-recheck/symbol-pixels','native-satellites','pennsylvania','journeys-desktop','journeys-mobile','observer-history','product-paths'];rows=[]
 for name in names:
  p=r/name/'proof.json';d=json.loads(p.read_text());expected='FAIL' if name in ['journeys-desktop','journeys-mobile'] else 'PASS';assert d['status']==expected,(name,d.get('error'))
@@ -15,6 +21,8 @@ for name in names:
    assert name in ['journeys-desktop','journeys-mobile'],'Unexpected changed PASS-proof source';old=subprocess.check_output(['git','show','97eacd2d:'+f]);assert sha(old)==h;assert old.replace(b'<button className="ws-primary" onClick=',b'<button className="ws-primary" disabled={busy||pending} onClick=')==Path(f).read_bytes();actual_expected=sha(Path(f).read_bytes())
   if f in session_fix['sourceBefore'] and sha(Path(f).read_bytes())!=h:
    assert session_fix['sourceBefore'][f]==h and sha(Path(f).read_bytes())==session_fix['sourceAfter'][f];actual_expected=session_fix['sourceAfter'][f]
+  if f in cache_fix['sourceBefore'] and sha(Path(f).read_bytes())!=h:
+   assert cache_fix['sourceBefore'][f]==h and sha(Path(f).read_bytes())==cache_fix['sourceAfter'][f];actual_expected=cache_fix['sourceAfter'][f]
   assert sha(Path(f).read_bytes())==actual_expected,(name,f,'working source')
   if committed:assert sha(subprocess.check_output(['git','show',head+':'+f]))==actual_expected,(name,f,'committed source')
  rows.append({'name':name,'sha256':sha(p.read_bytes()),'runs':len(d['runs']),'steps':sum(len(x.get('steps',x.get('checks',[]))) for x in d['runs']),'scenes':sum(len(x.get('scenes',[])) for x in d['runs']),'pageErrors':sum(len(x.get('pageErrors',[])) for x in d['runs']),'resourceFailures':sum(len(x['resourceFailures']) for x in d['runs']) if all('resourceFailures' in x for x in d['runs']) else None})
@@ -35,6 +43,7 @@ for run in icons['runs']:
 protected=json.loads((r/'preservation-before.json').read_text())['protectedFiles']
 for f,h in protected.items():
  if f=='frontend/src/features/workspace/observerProvenance.ts':assert h==session_fix['sourceBefore'][f] and sha(Path(f).read_bytes())==session_fix['sourceAfter'][f],('qualified provenance correction',f)
+ elif f=='runtimes/earth-runtime/core/CameraController.mjs':assert h==cache_fix['sourceBefore'][f] and sha(Path(f).read_bytes())==cache_fix['sourceAfter'][f]
  else:assert sha(Path(f).read_bytes())==h,('protected',f)
 mounts=json.loads(subprocess.check_output(['docker','inspect','oras-n1-owner-preview','--format','{{json .Mounts}}'],text=True));old=json.loads((r/'mounts-before.json').read_text());assert sorted(mounts,key=lambda x:x['Destination'])==sorted(old,key=lambda x:x['Destination']);(r/'mounts-after.json').write_text(json.dumps(mounts,indent=2)+'\n')
 served=[]
@@ -53,7 +62,11 @@ legal=[]
 for original,copy in [('/var/tmp/oras-phase-c/sky-reconstruction/upstream/LICENSE-AGPL-3.0.txt','frontend/public/licenses/stellarium-web-engine-AGPL-3.0.txt'),('frontend/node_modules/cesium/LICENSE.md','frontend/public/licenses/cesium-license.txt')]:
  assert Path(original).read_bytes()==Path(copy).read_bytes();legal.append({'original':original,'copy':copy,'sha256':sha(Path(copy).read_bytes())})
 frozen=json.loads((delivery/'candidate-before.json').read_text())
-for name,h in frozen.items():assert (sha(Path(name).read_bytes()) if Path(name).is_file() else None)==h,('implementation changed',name)
+for name,h in frozen.items():
+ expected=h
+ if name in cache_fix['sourceBefore']:
+  assert h==cache_fix['sourceBefore'][name];expected=cache_fix['sourceAfter'][name]
+ assert (sha(Path(name).read_bytes()) if Path(name).is_file() else None)==expected,('implementation changed',name)
 assert 'review only' in json.loads((delivery/'owner-review-authorization.json').read_text())['body'].lower()
 fix=json.loads((delivery/'review-fix-qualification.json').read_text());assert fix['status']=='PASS';focused=json.loads((delivery/'flight-browser-qualified/proof.json').read_text());assert focused['status']=='PASS' and len(focused['runs'])==2 and all(x['status']=='PASS' and not x['pageErrors']for x in focused['runs'])
 for f,h in focused['sourceHashes'].items():
@@ -68,4 +81,10 @@ for f,h in session_proof['sourceHashes'].items():
  if committed:
   target='docs/validation/n1-final-ux/session-browser.mjs.txt' if f.endswith('/session-browser.mjs')else f
   assert sha(subprocess.check_output(['git','show',head+':'+target]))==h
-result={'status':'PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE','identityChecks':'PASS','fullNavigationQualified':False,'focusedReviewCorrection':fix,'historicalSourceDeltas':'EarthExplore pending guard plus validated productState/observerProvenance session-source correction; original records unchanged, changed behavior independently qualified; full navigation remains FAIL.','historicalEvidenceNotRerun':True,'originalLicenseByteIdentity':legal,'head':head,'committedSources':committed,'records':rows,'uxMeasurements':summary,'protectedFilesUnchanged':len(protected)-1,'protectedSourceReviewCorrection':'observerProvenance.ts - validated saved-source fallback only','sessionReviewCorrection':session_fix,'mountsUnchanged':len(mounts),'servedExtensionsAndNotices':served,'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(delivery/('committed-identities.json' if committed else 'working-identities.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+cache_proof=json.loads((delivery/'cache-browser-qualified/proof.json').read_text());assert cache_proof['status']=='PASS' and len(cache_proof['runs'])==2 and all(x['status']=='PASS'and not x['pageErrors']for x in cache_proof['runs'])
+for f,h in cache_proof['sourceHashes'].items():
+ assert sha(Path(f).read_bytes())==h
+ if committed:
+  target='docs/validation/n1-final-ux/cache-browser.mjs.txt'if f.endswith('/cache-browser.mjs')else f
+  assert sha(subprocess.check_output(['git','show',head+':'+target]))==h
+result={'status':'PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE','identityChecks':'PASS','fullNavigationQualified':False,'focusedReviewCorrection':fix,'historicalSourceDeltas':'EarthExplore pending guard, productState/observerProvenance session-source correction and tracking-preserving persisted Earth departure with Earth-only admission metadata; original records unchanged, changed behavior independently qualified; full navigation remains FAIL.','historicalEvidenceNotRerun':True,'originalLicenseByteIdentity':legal,'head':head,'committedSources':committed,'records':rows,'uxMeasurements':summary,'protectedFilesUnchanged':len(protected)-2,'cachedLifecycleReviewCorrection':cache_fix,'protectedSourceReviewCorrection':'observerProvenance.ts - validated saved-source fallback only','sessionReviewCorrection':session_fix,'mountsUnchanged':len(mounts),'servedExtensionsAndNotices':served,'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(delivery/('committed-identities.json' if committed else 'working-identities.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
