@@ -1,5 +1,12 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## R2-B imagery/cache support — 2026-10-17
+
+[Implementation and evidence](validation/r2-b-earth-imagery-cache/README.md) ·
+[Bounded integration plan](validation/r2-b-earth-imagery-cache/plan.md).
+R2-A remains draft and N1 owner accepted; historical records retain their identities.
+
+
 ## Current R2-A execution — owner authorization 2026-10-17
 
 N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`. The owner activates

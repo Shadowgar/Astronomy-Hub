@@ -24,6 +24,10 @@ N1 is now OWNER ACCEPTED and PR75 merged into PR74 at `d1e3a75c`. The owner
 separately activates R2-A Earth search/navigation/location context. LIVE and
 PROJECT_STATE record the current bounded authorization; R3 remains unauthorized.
 
+The subsequent R2-B owner directive authorizes bounded PR71 imagery/cache reuse
+from the R2-A head, with current navigation preserved; LIVE/PROJECT_STATE record
+its scope. No merge, deployment, provider spending or R3 is authorized.
+
 ## Purpose
 
 This document defines the permanent system rules of Astronomy Hub.

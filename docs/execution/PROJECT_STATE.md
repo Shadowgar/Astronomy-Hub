@@ -1,5 +1,19 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## Active R2-B — owner authorization 2026-10-17
+
+N1 remains OWNER ACCEPTED. R2-A is delivered in draft PR78 at
+`27f34a94198f2061c0a5083a68beebd567c7d87f`. The owner now authorizes bounded
+R2-B automatic imagery/native dispatch/eligible persistent-cache integration from
+PR71 `35dcc94c` on a separate branch/draft stacked on R2-A. Earlier R2-A stop gates
+below are superseded only for this package. No merge of71/73/74/78/R2-B, deployment,
+R3, new provider spending/accounts/dependencies, terrain/buildings or upstream edits.
+Preserve accepted camera/scrolling, observer/time/tracking/selection, search, Sky
+landscape/satellites, data/settings/volumes and existing artifact/rollback identities.
+PEMA release rights and ion remain gated; imagery/cache and physical performance
+claims require source-bound proof. [Scope and evidence](../validation/r2-b-earth-imagery-cache/README.md).
+
+
 ## Active R2-A — owner authorization 2026-10-17
 
 **N1 OWNER ACCEPTED. R2-A Earth Search, Navigation and Location Context ACTIVE.**

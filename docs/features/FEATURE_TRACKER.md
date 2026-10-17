@@ -1,5 +1,12 @@
 # FEATURE TRACKER
 
+## Current R2-B checkpoint — 2026-10-17
+
+Bounded imagery/cache integration is owner-authorized from R2-A PR78. N1 remains
+OWNER ACCEPTED. [Current proof and limits](../validation/r2-b-earth-imagery-cache/README.md).
+No merge/deploy/R3 or physical performance acceptance is implied.
+
+
 ## Current bounded checkpoint — 2026-10-17
 
 N1 is OWNER ACCEPTED. R2-A Earth search/navigation/location context is explicitly
