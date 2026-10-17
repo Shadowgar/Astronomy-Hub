@@ -33,7 +33,7 @@ not ok 5 - cached departure cancels native flight and wheel motion but retains t
   error: |-
     Expected values to be strictly equal:
     + actual - expected
-    
+
     + undefined
     - {
     -   id: 'tracked-satellite',
@@ -41,7 +41,7 @@ not ok 5 - cached departure cancels native flight and wheel motion but retains t
     -     layerId: 'satellites'
     -   }
     - }
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected:
