@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "files": 110,
+  "skyArtifact": "ee789ec45b306b82aea465c4274ae0a1dcb5968ca3842d81acf1b1ab6b82068a",
+  "description": "Second complete offline frontend build produced identical payload bytes; native engine not rebuilt."
+}

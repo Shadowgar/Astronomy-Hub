@@ -1,0 +1,5358 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_observer_history.mjs": "f9ac04afad5026953846afaba24b1367b00fe57bad717fd60796fb9dffde7003",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "53fa5194388c27152eef103c8e8ce2c267d1f2d8f90ec8068bf505f72aba6d12",
+    "frontend/src/features/workspace/observerProvenance.ts": "3d5d925bc1099245335c761fa8fd1c1da406efae9e8ed9657807b614f0e07fcd",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "06516fc247180405f5a2d7dc77bef899a764b5d602bf4dcd5069bc6bad7a7739",
+    "packages/runtime-protocol/observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3",
+    "runtimes/sky-adapter/plugin.js": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+    "runtimes/earth-runtime/core/EarthRuntime.mjs": "93c127f6ad955dcb7246a6d33e87eea764b5a35cc5f586067714eca09ce70b55",
+    "integrations/renderers.lock.json": "61069be9e2b440edc2614bbc43e902e7ee7550f088b05c6404d11e7e9e12efd1",
+    "frontend/public/runtime-versions.json": "5260cf466a5b85dc8e9ba819d7689234b98fc4af4ee18e7d22609b1442f52fdd"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "mode": "sky",
+      "status": "PASS",
+      "pageErrors": [],
+      "states": [
+        {
+          "name": "new-coordinate-missing-height",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-provided-zero",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-missing-height",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-provided",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-unavailable-zero",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 18,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 18,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-provided",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 18,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 21,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 18,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 21,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-unavailable-zero",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 18,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 21,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "result",
+              "id": 23,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 18,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 21,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "059260bd9fe9b692f456c5d6eeb9c9b9",
+              "generation": 1,
+              "type": "command",
+              "id": 23,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.782900000023176,
+          "lon": -73.96540000002213,
+          "elevationM": 123
+        },
+        "elevationSource": "provided",
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "transferred": {
+        "mode": "earth",
+        "observer": {
+          "lat": 36.169901348586976,
+          "lon": -115.13980010193804,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.6312838451169999,
+          "longitudeRad": -2.0095686100880004,
+          "heightM": 15621862.999999998,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.568520854607284,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "width": 1440,
+      "mode": "earth",
+      "status": "PASS",
+      "pageErrors": [],
+      "states": [
+        {
+          "name": "new-coordinate-missing-height",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d802ba2604b9e5dedb39ce7aed02ea89",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-provided-zero",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d802ba2604b9e5dedb39ce7aed02ea89",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-missing-height",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d802ba2604b9e5dedb39ce7aed02ea89",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-provided",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d802ba2604b9e5dedb39ce7aed02ea89",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-unavailable-zero",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 50,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d802ba2604b9e5dedb39ce7aed02ea89",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 50,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-provided",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 50,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 54,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d802ba2604b9e5dedb39ce7aed02ea89",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 50,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 54,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-unavailable-zero",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 50,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 54,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "result",
+              "id": 59,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d802ba2604b9e5dedb39ce7aed02ea89",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 35,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 40,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 45,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 50,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 54,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "2d8e8caa8926b4e3feb5ab7ef942a297",
+              "generation": 2,
+              "type": "command",
+              "id": 59,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "mode": "earth",
+        "observer": {
+          "lat": 36.16989999988344,
+          "lon": -115.13980000037606,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.6312838451170969,
+          "longitudeRad": -2.0095686100877668,
+          "heightM": 39999.99999998262,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707763386214406,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      },
+      "transferred": {
+        "mode": "sky",
+        "observer": {
+          "lat": 36.16989999987985,
+          "lon": -115.13980000035711,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "width": 390,
+      "mode": "sky",
+      "status": "PASS",
+      "pageErrors": [],
+      "states": [
+        {
+          "name": "new-coordinate-missing-height",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-provided-zero",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-missing-height",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-provided",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-unavailable-zero",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 17,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 17,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-provided",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 17,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 19,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 17,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 19,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-unavailable-zero",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 17,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 19,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "result",
+              "id": 21,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 17,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 19,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "5e475d066bdb67413091a7fab43a9932",
+              "generation": 1,
+              "type": "command",
+              "id": 21,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.782900000023176,
+          "lon": -73.96540000002213,
+          "elevationM": 123
+        },
+        "elevationSource": "provided",
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "transferred": {
+        "mode": "earth",
+        "observer": {
+          "lat": 36.16990083062346,
+          "lon": -115.13980006279111,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.6312838451169999,
+          "longitudeRad": -2.0095686100880004,
+          "heightM": 9621862.999999998,
+          "headingRad": 6.2831853071795845,
+          "pitchRad": -1.56886899551025,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "width": 390,
+      "mode": "earth",
+      "status": "PASS",
+      "pageErrors": [],
+      "states": [
+        {
+          "name": "new-coordinate-missing-height",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "dc7ac2d405ce4d510158272a38f3afa1",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-provided-zero",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "dc7ac2d405ce4d510158272a38f3afa1",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "same-numeric-missing-height",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "dc7ac2d405ce4d510158272a38f3afa1",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-provided",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "dc7ac2d405ce4d510158272a38f3afa1",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goBack-unavailable-zero",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 39,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "dc7ac2d405ce4d510158272a38f3afa1",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 39,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-provided",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 39,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 41,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "dc7ac2d405ce4d510158272a38f3afa1",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 39,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 41,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            }
+          ]
+        },
+        {
+          "name": "goForward-unavailable-zero",
+          "url": "http://127.0.0.1:4202/earth?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 36.16989999988344,
+              "lon": -115.13980000037606,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6312838451170969,
+              "longitudeRad": -2.0095686100877668,
+              "heightM": 39999.99999998262,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707763386214406,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "wire": [
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.782900000023176,
+                  "lon": -73.96540000002213,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 39,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 41,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "result",
+              "id": 43,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "dc7ac2d405ce4d510158272a38f3afa1",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.782900000023176,
+                "lon": -73.96540000002213,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 27,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 30,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 34,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 37,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 39,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 41,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "earth",
+              "nonce": "e2273a76bf2ccc485c248ea8707c255c",
+              "generation": 2,
+              "type": "command",
+              "id": 43,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0,
+                "elevationSource": "unavailable-zero"
+              }
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "mode": "earth",
+        "observer": {
+          "lat": 36.16989999988344,
+          "lon": -115.13980000037606,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.6312838451170969,
+          "longitudeRad": -2.0095686100877668,
+          "heightM": 39999.99999998262,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707763386214406,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      },
+      "transferred": {
+        "mode": "sky",
+        "observer": {
+          "lat": 36.16989999987985,
+          "lon": -115.13980000035711,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Same-document query entries are created through browser History and delivered to the real router; subsequent Back/Forward uses browser navigation. No runtime result, observer calculation or position is fabricated.",
+    "Software Chromium/emulated mobile, not physical-device acceptance."
+  ],
+  "started": "2026-10-16T13:34:17.015Z",
+  "finished": "2026-10-16T13:36:22.114Z"
+}

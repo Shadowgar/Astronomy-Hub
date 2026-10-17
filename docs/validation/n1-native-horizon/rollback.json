@@ -1,0 +1,8 @@
+{
+  "sourceCommit": "f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1",
+  "sky": "3b80bb352c8d1680d9217ce9b8e7fc5dbb8ed0b71b59c2f0f66d1143d103b50f",
+  "earth": "2f2c8530cd8499ef3c646b244d37c9a5ae8574047cabcdc751976e4908234794",
+  "skyFiles": 96,
+  "skyBackup": "output/n1/sky-before-native-horizon",
+  "hubBackup": "output/n1/hub-before-native-horizon"
+}

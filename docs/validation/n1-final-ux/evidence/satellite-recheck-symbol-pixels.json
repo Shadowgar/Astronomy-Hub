@@ -1,0 +1,261 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_satellite_symbol_pixels.mjs": "b55a2692f186120e949996a52bf3a6a5e946cb5c85f1cd426867ccb64f1039c1"
+  },
+  "journeySha256": "3c653cab01396d6fbb20eabd5d841379280a773066499aa1bfcd6c1aba982726",
+  "runs": [
+    {
+      "width": 1440,
+      "method": "wheel",
+      "id": "14136",
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "automatic-close",
+          "file": "1440-wheel-14136-automatic-close.png",
+          "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+          "pixels": {
+            "icon": 104,
+            "identification": 104
+          }
+        },
+        {
+          "name": "outward-hidden",
+          "file": "1440-wheel-14136-outward-hidden.png",
+          "sha256": "01200571e1b91d8f86f4ed23f5666b08ccab09c736f6988d8a25c16e019b215f",
+          "pixels": {
+            "icon": 0,
+            "identification": 0
+          }
+        },
+        {
+          "name": "automatic-return",
+          "file": "1440-wheel-14136-automatic-return.png",
+          "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+          "pixels": {
+            "icon": 104,
+            "identification": 104
+          }
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "method": "wheel",
+      "id": "28096",
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "automatic-close",
+          "file": "1440-wheel-28096-automatic-close.png",
+          "sha256": "00441c4aa5cb4aa652be60160d0d60a60eac017ac218de8d9f61157c8062d570",
+          "pixels": {
+            "icon": 0,
+            "identification": 164
+          }
+        },
+        {
+          "name": "outward-hidden",
+          "file": "1440-wheel-28096-outward-hidden.png",
+          "sha256": "503099bcb3ff716dfc4f6a2148e83e05096f1a95bb8280566fa8b913274c01d4",
+          "pixels": {
+            "icon": 0,
+            "identification": 0
+          }
+        },
+        {
+          "name": "automatic-return",
+          "file": "1440-wheel-28096-automatic-return.png",
+          "sha256": "3d27a8f6f42f25dfd1bbf656aecb8a796d0949ab025a26b1e343e90b675cacbf",
+          "pixels": {
+            "icon": 0,
+            "identification": 165
+          }
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "method": "trackpad",
+      "id": "14136",
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "automatic-close",
+          "file": "1440-trackpad-14136-automatic-close.png",
+          "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+          "pixels": {
+            "icon": 104,
+            "identification": 104
+          }
+        },
+        {
+          "name": "outward-hidden",
+          "file": "1440-trackpad-14136-outward-hidden.png",
+          "sha256": "01200571e1b91d8f86f4ed23f5666b08ccab09c736f6988d8a25c16e019b215f",
+          "pixels": {
+            "icon": 0,
+            "identification": 0
+          }
+        },
+        {
+          "name": "automatic-return",
+          "file": "1440-trackpad-14136-automatic-return.png",
+          "sha256": "38fd1caa48b4c559cb732d8746b84f46caf18644ad72a1516efb2abe81f73e3c",
+          "pixels": {
+            "icon": 104,
+            "identification": 284
+          }
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "method": "trackpad",
+      "id": "28096",
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "automatic-close",
+          "file": "1440-trackpad-28096-automatic-close.png",
+          "sha256": "acc93f228ff6ffc1a51952ab02a1e6a0cffe3f4e5fd343e7672cfc704c144d4c",
+          "pixels": {
+            "icon": 0,
+            "identification": 164
+          }
+        },
+        {
+          "name": "outward-hidden",
+          "file": "1440-trackpad-28096-outward-hidden.png",
+          "sha256": "503099bcb3ff716dfc4f6a2148e83e05096f1a95bb8280566fa8b913274c01d4",
+          "pixels": {
+            "icon": 0,
+            "identification": 0
+          }
+        },
+        {
+          "name": "automatic-return",
+          "file": "1440-trackpad-28096-automatic-return.png",
+          "sha256": "a924451b789515719fcad9dd91d0be66e508e3ecf35054b744da9e92a56ed265",
+          "pixels": {
+            "icon": 0,
+            "identification": 165
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "method": "wheel",
+      "id": "28096",
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "automatic-close",
+          "file": "390-wheel-28096-automatic-close.png",
+          "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+          "pixels": {
+            "icon": 55,
+            "identification": 219
+          }
+        },
+        {
+          "name": "outward-hidden",
+          "file": "390-wheel-28096-outward-hidden.png",
+          "sha256": "d522bb63f7c537b755d98be6e4b56a666f02b0252201fafe0abe75b8a4a9238c",
+          "pixels": {
+            "icon": 0,
+            "identification": 0
+          }
+        },
+        {
+          "name": "automatic-return",
+          "file": "390-wheel-28096-automatic-return.png",
+          "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+          "pixels": {
+            "icon": 55,
+            "identification": 219
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "method": "trackpad",
+      "id": "28096",
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "automatic-close",
+          "file": "390-trackpad-28096-automatic-close.png",
+          "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+          "pixels": {
+            "icon": 55,
+            "identification": 219
+          }
+        },
+        {
+          "name": "outward-hidden",
+          "file": "390-trackpad-28096-outward-hidden.png",
+          "sha256": "d522bb63f7c537b755d98be6e4b56a666f02b0252201fafe0abe75b8a4a9238c",
+          "pixels": {
+            "icon": 0,
+            "identification": 0
+          }
+        },
+        {
+          "name": "automatic-return",
+          "file": "390-trackpad-28096-automatic-return.png",
+          "sha256": "6333f9a72989078c40776aa7ed368902fcbca8c2a9c86f7fb5d5cb7ad517dcd7",
+          "pixels": {
+            "icon": 47,
+            "identification": 211
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "method": "pinch",
+      "id": "28096",
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "automatic-close",
+          "file": "390-pinch-28096-automatic-close.png",
+          "sha256": "fe20677612e4b59308f6acce093808b4b7d06f9709b6924b1bf2d67bc6954f0b",
+          "pixels": {
+            "icon": 44,
+            "identification": 208
+          }
+        },
+        {
+          "name": "outward-hidden",
+          "file": "390-pinch-28096-outward-hidden.png",
+          "sha256": "0faba3b066510b4d294e38ac456bb7781e87d8a13ed1271a7fe63ffa57cdd478",
+          "pixels": {
+            "icon": 0,
+            "identification": 0
+          }
+        },
+        {
+          "name": "automatic-return",
+          "file": "390-pinch-28096-automatic-return.png",
+          "sha256": "fe20677612e4b59308f6acce093808b4b7d06f9709b6924b1bf2d67bc6954f0b",
+          "pixels": {
+            "icon": 44,
+            "identification": 208
+          }
+        }
+      ]
+    }
+  ]
+}

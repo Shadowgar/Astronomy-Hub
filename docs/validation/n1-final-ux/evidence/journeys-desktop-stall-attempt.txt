@@ -1,0 +1,23 @@
+1440 initial ORAS Sky and served source identity 3270ms
+1440 native Landscape toggle and Sky Night Mode ON 11010ms
+1440 Explore dismissal and focus return 840ms
+1440 arrival and short outward overshoot stay in Sky 2091ms
+1440 reverse input leaves boundary hysteresis 1024ms
+1440 ORAS Sky → Earth by deliberate wheel 12809ms
+1440 Earth → ORAS Sky through accessible Explore 4775ms
+1440 native desktop drag explores Earth 22586ms
+1440 Earth geographic exploration to Central Park coordinates 4997ms
+1440 ordinary inward zoom reaches boundary without a mode change 23521ms
+1440 Earth → New York Sky by deliberate inward wheel 6920ms
+1440 New York Sky → Earth by trackpad-sized outward input 12586ms
+1440 Browser Back restores New York sky observer/time/camera 3062ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+cdpSession.send: Target page, context or browser has been closed
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:39:305
+    at async wheelBurst (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:39:146)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:82:157
+
+Node.js v22.22.0

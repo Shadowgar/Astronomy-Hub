@@ -1,0 +1,13 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: controlled command timeout
+    at eval (eval at evaluate (:290:30), <anonymous>:1:203)
+    at ClockController._callFirstTimer (<anonymous>:280:20)
+    at ClockController._runTo (<anonymous>:115:33)
+    at <anonymous>:163:38
+    at cmd (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/review-only/cache-browser.mjs:2:2335)
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/review-only/cache-browser.mjs:2:2841
+
+Node.js v22.22.0

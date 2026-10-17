@@ -15,8 +15,10 @@ this existing hierarchy; [workspace design](../design/UNIFIED_WORKSPACE_DESIGN_S
 contains the design approval boundary. Continuity may use controlled renderer
 handoffs; cross-body travel is planned, not established by the existing Sky/Earth
 bridge. Old ORA-6/ORA-7 acceptance describes its historical baseline only. Current
-activation is always LIVE/PROJECT_STATE: R0 merged; bounded R1-B real Sky implementation authorized, PR #71 unmerged with imagery,
-search and visual acceptance open. Old C6 roadmaps cannot activate implementation.
+activation is always LIVE/PROJECT_STATE: R0 merged; R1-B is implemented in unmerged
+PR #74, and the owner has separately authorized bounded N1 Sky ↔ Earth navigation
+from its exact head. PR #73 remains its unmerged dependency. PR #71 imagery, search
+and visual acceptance remain open. Old C6 roadmaps cannot activate implementation.
 
 ## Purpose
 

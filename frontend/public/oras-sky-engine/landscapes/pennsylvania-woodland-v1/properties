@@ -1,0 +1,8 @@
+hips_order = 0
+hips_order_min = 0
+hips_tile_width = 512
+hips_tile_format = png
+dataproduct_type = image
+obs_title = Illustrative Pennsylvania woodland
+hips_service_url = /oras-sky-engine/landscapes/pennsylvania-woodland-v1
+type = landscape

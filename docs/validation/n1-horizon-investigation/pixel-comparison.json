@@ -1,0 +1,22 @@
+{
+  "region": [
+    300,
+    550,
+    1300,
+    750
+  ],
+  "pixels": 200000,
+  "changedPixels": 0,
+  "beforeFirstPixel": [
+    26,
+    38,
+    26,
+    255
+  ],
+  "afterFirstPixel": [
+    26,
+    38,
+    26,
+    255
+  ]
+}

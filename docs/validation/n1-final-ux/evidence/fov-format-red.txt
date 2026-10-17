@@ -1,0 +1,23 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/skyFov.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/skyFov.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/skyFov.test.tsx [ tests/skyFov.test.tsx ]
+Error: Cannot find module '../src/features/workspace/SkyFovIndicator' imported from /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend/tests/skyFov.test.tsx
+ ❯ tests/skyFov.test.tsx:4:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  10:16:02
+   Duration  299ms (transform 50ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)

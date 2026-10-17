@@ -1,0 +1,1237 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_satellite_zoom.mjs": "516afa4a27f35c778cf4faf17dd193b83db58735b4afa1e058ff7918f21ac452",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "8e015954f5fcc014de08bee2d342d977e51fd0c0f2a0566886538f6aed0bcb1f",
+    "runtimes/sky-adapter/plugin.js": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+    "runtimes/sky-adapter/native-wheel.mjs": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+    "integrations/renderers.lock.json": "8f73e59fb1e638c2a457cbd67d2f9d9de0241dbced824bb3de663e7db8de08b8",
+    "frontend/public/runtime-versions.json": "a03c695521ded3d57955c62c4fc1d2fdef5f7a9d48efb60e0900f0d25bbbc621",
+    "frontend/public/oras-sky-engine/oras-runtime-build.json": "f28ed27564caf8919d756994e1f8a0eaf511730008f4fbd49e5e95a223a6e196",
+    "tests/runtime/fixtures/native-satellite-zoom-boundary.json": "92614a54a6e667e0268f0fb73c334ceacebcb0b32de4c94765c39259ffef119e",
+    "tests/runtime/fixtures/native-satellite-zoom-point.json": "0435196f17c2a5f00db31b6a15db92caf7886184b5b80dd1974e7e4fa3b23529",
+    "tests/runtime/fixtures/native-satellite-zoom-too-faint.json": "65a4d5190c06523f988406fbdf77128695065d90ecdac220431d81e1fc92413b",
+    "tests/runtime/fixtures/native-satellite-selection.json": "0f177a7bba4e969b74ec003d56fd07e1ae8af043f037d552e03a3b133b4c890f"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "method": "wheel",
+      "id": "14136",
+      "status": "RUNNING",
+      "pageErrors": [],
+      "groups": [
+        {
+          "direction": "in",
+          "fov": 89.54584759638679,
+          "reactiveFov": 89.54584759638679,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 1.562869872046,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 3
+        },
+        {
+          "direction": "in",
+          "fov": 66.82049018128696,
+          "reactiveFov": 66.82049018128696,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 1.16623756146,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 6
+        },
+        {
+          "direction": "in",
+          "fov": 49.86247858411689,
+          "reactiveFov": 49.86247858411689,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.870264424498,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 9
+        },
+        {
+          "direction": "in",
+          "fov": 37.208149233902255,
+          "reactiveFov": 37.208149233902255,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.649404712705,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 12
+        },
+        {
+          "direction": "in",
+          "fov": 27.765293838699407,
+          "reactiveFov": 27.765293838699407,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.484595795269,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 15
+        },
+        {
+          "direction": "in",
+          "fov": 20.71888975457193,
+          "reactiveFov": 20.71888975457193,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.361612843575,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 18
+        },
+        {
+          "direction": "in",
+          "fov": 15.460754536065995,
+          "reactiveFov": 15.460754536065995,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.269841071497,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 21
+        },
+        {
+          "direction": "in",
+          "fov": 11.537053078432804,
+          "reactiveFov": 11.537053078432804,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.201359562196,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 24
+        },
+        {
+          "direction": "in",
+          "fov": 8.609126638959708,
+          "reactiveFov": 8.609126638959708,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.150257605571,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 27
+        },
+        {
+          "direction": "in",
+          "fov": 6.424262849595801,
+          "reactiveFov": 6.424262849595801,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.112124538739,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 30
+        },
+        {
+          "direction": "in",
+          "fov": 5.826995781958648,
+          "reactiveFov": 5.826995781958648,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.101700261895,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 31
+        },
+        {
+          "direction": "in",
+          "fov": 5.285256945048882,
+          "reactiveFov": 5.285256945048882,
+          "hints": false,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.092245135505,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 32
+        },
+        {
+          "direction": "in",
+          "fov": 4.793883850419292,
+          "reactiveFov": 4.793883850419292,
+          "hints": true,
+          "offset": 2,
+          "selected": null,
+          "locked": null,
+          "vmag": 12.770532136241,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 14136,
+              "tle": [
+                "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+              ],
+              "mag": 7.4,
+              "status": "Unknown",
+              "subtype": "Pam-d",
+              "owner": "United States",
+              "launch_site": "Air Force Eastern Test Range, Florida, USA",
+              "type": "Rocket body",
+              "group": [
+                "Pam-d"
+              ],
+              "designation": "83059E"
+            },
+            "names": [
+              "NAME Palapa B1 PAMD",
+              "NAME PALAPA B1 R/B [PAM-D]",
+              "NORAD 14136",
+              "COSPAR 1983-059E"
+            ],
+            "short_name": "Palapa B1 PAMD"
+          },
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 0.083669057148,
+              "yawRad": -2.818183519664,
+              "pitchRad": 0.819805432446,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "inputCount": 33
+        }
+      ],
+      "scenes": [
+        {
+          "name": "normal",
+          "file": "1440-wheel-14136-normal.png",
+          "state": {
+            "fov": 119.99999999998879,
+            "reactiveFov": 119.99999999998879,
+            "hints": false,
+            "offset": 2,
+            "selected": null,
+            "locked": null,
+            "vmag": 12.770532136241,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 14136,
+                "tle": [
+                  "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                  "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+                ],
+                "mag": 7.4,
+                "status": "Unknown",
+                "subtype": "Pam-d",
+                "owner": "United States",
+                "launch_site": "Air Force Eastern Test Range, Florida, USA",
+                "type": "Rocket body",
+                "group": [
+                  "Pam-d"
+                ],
+                "designation": "83059E"
+              },
+              "names": [
+                "NAME Palapa B1 PAMD",
+                "NAME PALAPA B1 R/B [PAM-D]",
+                "NORAD 14136",
+                "COSPAR 1983-059E"
+              ],
+              "short_name": "Palapa B1 PAMD"
+            },
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": -2.818183519664,
+                "pitchRad": 0.819805432446,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            },
+            "inputCount": 0
+          },
+          "pixels": {
+            "green": 0
+          }
+        },
+        {
+          "name": "automatic-close",
+          "file": "1440-wheel-14136-automatic-close.png",
+          "state": {
+            "fov": 4.793883850419292,
+            "reactiveFov": 4.793883850419292,
+            "hints": true,
+            "offset": 2,
+            "selected": null,
+            "locked": null,
+            "vmag": 12.770532136241,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 14136,
+                "tle": [
+                  "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                  "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+                ],
+                "mag": 7.4,
+                "status": "Unknown",
+                "subtype": "Pam-d",
+                "owner": "United States",
+                "launch_site": "Air Force Eastern Test Range, Florida, USA",
+                "type": "Rocket body",
+                "group": [
+                  "Pam-d"
+                ],
+                "designation": "83059E"
+              },
+              "names": [
+                "NAME Palapa B1 PAMD",
+                "NAME PALAPA B1 R/B [PAM-D]",
+                "NORAD 14136",
+                "COSPAR 1983-059E"
+              ],
+              "short_name": "Palapa B1 PAMD"
+            },
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.083669057148,
+                "yawRad": -2.818183519664,
+                "pitchRad": 0.819805432446,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            },
+            "inputCount": 33
+          },
+          "pixels": {
+            "green": 0
+          }
+        },
+        {
+          "name": "native-point",
+          "file": "1440-wheel-14136-native-point.png",
+          "state": {
+            "fov": 4.793883850419292,
+            "reactiveFov": 4.793883850419292,
+            "hints": false,
+            "offset": 2,
+            "selected": null,
+            "locked": null,
+            "vmag": 12.770532136241,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 14136,
+                "tle": [
+                  "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                  "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+                ],
+                "mag": 7.4,
+                "status": "Unknown",
+                "subtype": "Pam-d",
+                "owner": "United States",
+                "launch_site": "Air Force Eastern Test Range, Florida, USA",
+                "type": "Rocket body",
+                "group": [
+                  "Pam-d"
+                ],
+                "designation": "83059E"
+              },
+              "names": [
+                "NAME Palapa B1 PAMD",
+                "NAME PALAPA B1 R/B [PAM-D]",
+                "NORAD 14136",
+                "COSPAR 1983-059E"
+              ],
+              "short_name": "Palapa B1 PAMD"
+            },
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.083669057148,
+                "yawRad": -2.818183519664,
+                "pitchRad": 0.819805432446,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            },
+            "inputCount": 33
+          },
+          "pixels": {
+            "green": 0
+          }
+        },
+        {
+          "name": "native-hidden",
+          "file": "1440-wheel-14136-native-hidden.png",
+          "state": {
+            "fov": 4.793883850419292,
+            "reactiveFov": 4.793883850419292,
+            "hints": false,
+            "offset": 2,
+            "selected": null,
+            "locked": null,
+            "vmag": 12.770532136241,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 14136,
+                "tle": [
+                  "1 14136U 83059E   26152.97180580  .00000267  00000-0  42235-3 0  9998",
+                  "2 14136  25.6742  54.6948 6912348 279.6876  14.3754  2.71152454346601"
+                ],
+                "mag": 7.4,
+                "status": "Unknown",
+                "subtype": "Pam-d",
+                "owner": "United States",
+                "launch_site": "Air Force Eastern Test Range, Florida, USA",
+                "type": "Rocket body",
+                "group": [
+                  "Pam-d"
+                ],
+                "designation": "83059E"
+              },
+              "names": [
+                "NAME Palapa B1 PAMD",
+                "NAME PALAPA B1 R/B [PAM-D]",
+                "NORAD 14136",
+                "COSPAR 1983-059E"
+              ],
+              "short_name": "Palapa B1 PAMD"
+            },
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.083669057148,
+                "yawRad": -2.818183519664,
+                "pitchRad": 0.819805432446,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            },
+            "inputCount": 33
+          },
+          "pixels": {
+            "green": 0
+          }
+        }
+      ],
+      "build": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
+          "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
+          "satellite-presentation.mjs": "8e015954f5fcc014de08bee2d342d977e51fd0c0f2a0566886538f6aed0bcb1f"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "d293874321c60bd3bd154c5a1696037d72d9a1f35c2415c6141d62fab6224d57"
+      },
+      "pointDifference": 60
+    }
+  ],
+  "limitations": [
+    "Historical mounted TLE/native SGP4 scenario; no current-provider or current-orbit qualification.",
+    "Software Chromium/emulated mobile; physical owner mouse retest remains required.",
+    "Native pointAndLock orients the fixture without selection/lock before input. Time is fixed; no native FOV assignment, brightness change, position injection or parallel markers.",
+    "Point-isolation diagnostics temporarily hide native hints/satellites after automatic-reveal capture; those diagnostics are not counted as reveal input."
+  ],
+  "started": "2026-10-16T12:53:27.893Z",
+  "error": "AssertionError [ERR_ASSERTION]: automatic native symbol pixels must appear without selection\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_satellite_zoom.mjs:29:120",
+  "failureDOM": "Skip to workspace\nASTRONOMY HUB\nSky View\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nSET TIME\nJun 3, 10:58 PM EDT\nChange time",
+  "finished": "2026-10-16T12:54:31.809Z"
+}

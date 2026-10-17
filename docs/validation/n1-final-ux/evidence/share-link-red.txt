@@ -1,0 +1,28 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/selectionPublicLink.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/selectionPublicLink.test.tsx (1 test | 1 failed) 9ms
+   × Copy link keeps object identity and scene context inside Astronomy Hub 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/selectionPublicLink.test.tsx > Copy link keeps object identity and scene context inside Astronomy Hub
+AssertionError: expected '/oras-sky-engine/skysource/sat' to be '/sky-engine' // Object.is equality
+
+Expected: "/sky-engine"
+Received: "/oras-sky-engine/skysource/sat"
+
+ ❯ tests/selectionPublicLink.test.tsx:9:293
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  10:20:45
+   Duration  200ms (transform 50ms, setup 0ms, import 77ms, tests 9ms, environment 0ms)

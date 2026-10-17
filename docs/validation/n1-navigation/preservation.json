@@ -1,0 +1,28 @@
+{
+  "base": "a57532796502a1db9ae1a7e4e4dc83e113db558f",
+  "skyArtifact": "3077fe46d2b5df4d45482ebd1eb3073a3f9e8548b6ce1aba3060d2df1bd028c1",
+  "earthArtifact": "7b90e515892f507bb3ff1388ade53469193652f22f9f197bb94392f950345319",
+  "skyNativeAndVendor": [
+    {
+      "path": "css/chunk-vendors.11c203ce.css",
+      "sha256": "c190ae569a8bbacd73b194d3e1b14d7ac0412ad1187d1907a5dddcbff5239c4b",
+      "preserved": true
+    },
+    {
+      "path": "js/chunk-vendors.c8723c79.js",
+      "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260",
+      "preserved": true
+    },
+    {
+      "path": "js/stellarium-web-engine.f0d016d1.wasm",
+      "sha256": "54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09",
+      "preserved": true
+    }
+  ],
+  "skyPinPreserved": true,
+  "earthPinPreserved": true,
+  "ownerSettingsHashUnchanged": true,
+  "astronomyData": "Existing owner Skydata/catalog/dense-star bind mounts are read-only; no data source or dataset changes in the branch.",
+  "homeDefinition": "frontend/src/config/orasSite.json remains byte-identical to base; fresh browser session proof starts at ORAS.",
+  "oldPreview": "Port 4201 and all original mounted artifacts are preserved."
+}

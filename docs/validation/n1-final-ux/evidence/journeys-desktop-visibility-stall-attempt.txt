@@ -1,0 +1,30 @@
+1440 initial ORAS Sky and served source identity 2770ms
+1440 native Landscape toggle and Sky Night Mode ON 9006ms
+1440 Explore dismissal and focus return 1001ms
+1440 arrival and short outward overshoot stay in Sky 2042ms
+1440 reverse input leaves boundary hysteresis 1051ms
+1440 ORAS Sky → Earth by deliberate wheel 14515ms
+Debugger listening on ws://127.0.0.1:9229/b3f0b23c-8069-441d-b197-46dcd3bb5bc9
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+Debugger ending on ws://127.0.0.1:9229/b3f0b23c-8069-441d-b197-46dcd3bb5bc9
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+Debugger ending on ws://127.0.0.1:9229/b3f0b23c-8069-441d-b197-46dcd3bb5bc9
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+Debugger ending on ws://127.0.0.1:9229/b3f0b23c-8069-441d-b197-46dcd3bb5bc9
+For help, see: https://nodejs.org/en/docs/inspector
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.isVisible: Target page, context or browser has been closed
+Call log:
+[2m    - checking visibility of locator('.ws-reveal')[22m
+
+    at explore (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:43:83)
+    at alt (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:44:34)
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:73:9
+
+Node.js v22.22.0

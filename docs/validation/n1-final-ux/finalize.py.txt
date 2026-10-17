@@ -1,0 +1,32 @@
+import hashlib,json,subprocess
+from pathlib import Path
+r=Path('output/n1/final-ux');head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert not subprocess.check_output(['git','status','--porcelain'],text=True),'dirty worktree'
+assert subprocess.check_output(['git','branch','--show-current'],text=True).strip()=='n1-sky-earth-navigation-1'
+remote=subprocess.check_output(['git','ls-remote','origin','refs/heads/n1-sky-earth-navigation-1'],text=True).split()[0];assert remote==head
+review=json.loads((r/'review-current-summary.json').read_text());assert review['deliveryHead']==head and review['state']=='OPEN' and not review['unresolved'];assert review['base']=='r1-b-adaptive-sky-implementation-1'
+states=[s['code_review'] for s in review['codexStates'] if s.get('code_review',{}).get('commit_sha')==head];assert states and states[-1]['status']=='completed' and states[-1]['has_any_findings'] is False and states[-1]['has_unresolved_findings'] is False,states
+assert review['chain']['p74']['state']=='OPEN' and review['chain']['p74']['baseRefName']=='r1-a-adaptive-explorer-design-1';assert review['chain']['p73']['state']=='OPEN' and review['chain']['p73']['baseRefName']=='main'
+baseline=json.loads((r/'review-start.json').read_text())
+for name in ['p74','p73']:assert review['chain'][name]==baseline['chain'][name],('dependency changed',name)
+for row in review['checks']['statusCheckRollup']:
+ if row.get('__typename')=='CheckRun':assert row.get('status')=='COMPLETED' and row.get('conclusion') in ['SUCCESS','NEUTRAL','SKIPPED'],row
+ else:assert row.get('state')=='SUCCESS',row
+certificate=json.loads((r/'committed-certificate.json').read_text());served=json.loads((r/'served-committed.json').read_text());assert certificate['status']==served['status']=='PASS';assert certificate['head']==served['deliveryHead']==head;assert certificate['committedSources'] and not served['workingTreeRuntimeChanges']
+files=subprocess.check_output(['git','diff-tree','--no-commit-id','--name-status','-r',head],text=True).splitlines();proofs={}
+for n in ['browser','satellite-recheck/browser','satellite-recheck/symbol-pixels','native-satellites','pennsylvania','journeys-desktop','journeys-mobile','observer-history','product-paths']:
+ p=r/n/'proof.json';proofs[n]={'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+result={'status':'PASS','deliveryHead':head,'remoteHead':remote,'branch':'n1-sky-earth-navigation-1','pullRequest':'https://github.com/Shadowgar/Astronomy-Hub/pull/75','filesChanged':files,'qualification':certificate,'served':served,'review':review,'proofs':proofs,'acceptance':{'scrolling':'OWNER ACCEPTED','pennsylvaniaLandscape':'OWNER ACCEPTED','priorFiveP2Findings':'RESOLVED subject to no regressions','satelliteZoomReveal':'PENDING FINAL OWNER ACCEPTANCE','selectionTimeCorrection':'PENDING OWNER RETEST','fovIndicator':'PENDING OWNER VISUAL ACCEPTANCE','productNavigation':'PENDING OWNER ACCEPTANCE','entireN1':'NOT YET FINALIZED'},'prohibitedActionsPerformed':[],'limitations':['Historical mounted native SGP4 scenario; no current orbit/provider qualification.','Software Chromium and emulated mobile/touch are representative; owner physical mouse test remains mandatory.','Reproduced selection time-rebase failure class; exact original owner target/time/device are unknown.'],'verifiedAt':subprocess.check_output(['date','-u','+%Y-%m-%dT%H:%M:%SZ'],text=True).strip()};(r/'final-delivery.json').write_text(json.dumps(result,indent=2)+'\n')
+
+report=f"""# N1 final UX delivery
+
+Commit `{head}` pushed to [existing PR #75](https://github.com/Shadowgar/Astronomy-Hub/pull/75). PR #75 → #74 → #73 remains OPEN and unmerged. No deployment or R2/R3.
+
+Selection preserves native time and illumination; native FOV is visible; public standalone escape links are removed and About & Licenses preserves notices/source access.
+
+All acceptance remains with the owner. Entire N1: **NOT YET FINALIZED**.
+
+[Consolidated report](https://github.com/Shadowgar/Astronomy-Hub/blob/{head}/docs/validation/n1-final-ux/README.md) · [Guarded final receipt](final-delivery.json) · [Owner preview](http://127.0.0.1:4202/sky-engine).
+
+This receipt binds the final commit, remote head, clean tree, Docker-served bytes, nine browser proof families and exact-head review. Chromium/mobile emulation is representative; current satellite orbits, physical devices and legal compliance certification are not established.
+"""
+(r/'final-report.md').write_text(report);print('Final guarded delivery PASS',head)

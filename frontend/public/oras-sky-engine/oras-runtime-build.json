@@ -2,14 +2,33 @@
   "runtime": "oras-sky-engine",
   "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
   "overlay_version": "oras-sky-workspace.1",
-  "native_wasm_identical": true,
-  "native_vendor_chunks_identical": true,
+  "native_wasm_identical": false,
+  "native_vendor_chunks_identical": false,
   "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
-  "adapter_sha256": "c22f20434593f3605fb1cb21459f5e23b867d0f1584ade66f2a8a57574e39734",
-  "bridge_input_sha256": {
-    "entry.mjs": "0f715ec3cfd8ec8becafefdb01d4a5bab365dd0d927c58c495e877569b05e18d",
-    "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749"
+  "adapter_sha256": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
+  "native_horizon": {
+    "purpose": "embedded-zero-horizon-colors",
+    "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+    "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+    "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+    "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+    "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+    "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+    "native_output_sha256": {
+      "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+      "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+    }
   },
-  "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9",
-  "artifact_sha256": "3b630bc63f8d8cf89b607886f7964f76522b0bdced450abf2663300c0e27c813"
+  "bridge_input_sha256": {
+    "entry.mjs": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+    "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+    "satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2"
+  },
+  "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+  "navigation_input_sha256": {
+    "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+    "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+    "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+  },
+  "artifact_sha256": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19"
 }

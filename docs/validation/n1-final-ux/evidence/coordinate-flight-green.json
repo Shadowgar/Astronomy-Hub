@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "frontend/src/features/workspace/EarthExplore.tsx": "a5a4c73fb6f4745dbd81aaba3e7cb65679a53e5e5f289717ae66eb1042cdd788",
+    "output/n1/final-ux/review-only/flight-browser.mjs": "fd3d568c57052c34cbbc998d3b648543bc98d468218e2876b13869bfeb551dc8"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "pageErrors": [],
+      "servedHub": {
+        "url": "/assets/index-Cgz3fh7E.js",
+        "sha256": "b5bc4f4b242253011717d272f622a527553a1a387ab4cdbef12b3327636b560e"
+      },
+      "pending": {
+        "label": "Approaching…",
+        "disabled": true,
+        "url": "http://127.0.0.1:4202/earth?date=2026-06-05T02%3A10%3A00.000Z"
+      },
+      "nativeCompletion": {
+        "result": {
+          "runtime": "earth",
+          "nonce": "92508776dd6be658ae98f86a41e581b8",
+          "generation": 1,
+          "type": "result",
+          "id": 24,
+          "command": "navigateLocation",
+          "payload": {
+            "ok": true
+          }
+        },
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 40.78290000056302,
+            "lon": -73.96539999902186,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7117958835115952,
+            "longitudeRad": -1.2909397625546142,
+            "heightM": 39999.999999977364,
+            "headingRad": 6.283185307179585,
+            "pitchRad": -1.5707755823875065,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false
+        }
+      },
+      "final": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.78290000053884,
+          "lon": -73.9653999990481,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "pageErrors": [],
+      "servedHub": {
+        "url": "/assets/index-Cgz3fh7E.js",
+        "sha256": "b5bc4f4b242253011717d272f622a527553a1a387ab4cdbef12b3327636b560e"
+      },
+      "pending": {
+        "label": "Approaching…",
+        "disabled": true,
+        "url": "http://127.0.0.1:4202/earth?date=2026-06-05T02%3A10%3A00.000Z"
+      },
+      "nativeCompletion": {
+        "result": {
+          "runtime": "earth",
+          "nonce": "ce73006bb3b7f5d927936d1d3516c85b",
+          "generation": 1,
+          "type": "result",
+          "id": 21,
+          "command": "navigateLocation",
+          "payload": {
+            "ok": true
+          }
+        },
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 40.78290000056302,
+            "lon": -73.96539999902186,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7117958835115952,
+            "longitudeRad": -1.2909397625546142,
+            "heightM": 39999.999999977364,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5707755823875065,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false
+        }
+      },
+      "final": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.78290000053884,
+          "lon": -73.9653999990481,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    }
+  ],
+  "fixture": "Actual native coordinate flight. Its genuine completion result is held at the MessagePort transport boundary until explicitly released; no native calculation/result is fabricated."
+}

@@ -1,0 +1,17 @@
+390 initial ORAS Sky and served source identity 2610ms
+390 native Landscape toggle and Sky Night Mode ON 4334ms
+390 Explore dismissal and focus return 399ms
+390 arrival and short outward overshoot stay in Sky 1616ms
+390 reverse input leaves boundary hysteresis 660ms
+390 ORAS Sky → Earth by deliberate wheel 8883ms
+390 Earth → ORAS Sky through accessible Explore 3358ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.count: Target page, context or browser has been closed
+    at ready (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:32:324)
+    at async outward (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:59:167)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:77:3
+
+Node.js v22.22.0

@@ -5,12 +5,14 @@ import type {RuntimeMode} from '../../../../packages/runtime-protocol/index.mjs'
 import {useRuntimeProductState,parseSceneDate} from '../runtime/productState'
 import {workspaceModePath} from '../workspace/workspaceNavigation'
 import {probeRuntime,RuntimeProbeError} from '../runtime/runtimeProbeService'
-import {validSkyPanelReport,validSkyNightReport} from '../../../../runtimes/sky-adapter/native-panels.mjs'
+import {validSkyPanelReport,validSkyNightReport,validSkyFovReport} from '../../../../runtimes/sky-adapter/native-panels.mjs'
 import {readSkyNightMode} from '../workspace/skyNightMode'
+import {observerWithProvenance} from '../workspace/observerProvenance'
+import {validNavigationState} from '../../../../packages/runtime-protocol/navigation.mjs'
 export type RuntimeStatus='checking'|'loading'|'ready'|'error'
 let disposal:Promise<void>=Promise.resolve()
-export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel,onNightMode}:{mode?:RuntimeMode;onClient?:(client:RuntimeClient|null)=>void;onStatus?:(status:RuntimeStatus)=>void;onNativePanel?:(open:boolean)=>void;onNightMode?:(enabled:boolean)=>void}){
- const container=useRef<HTMLDivElement>(null),location=useLocation(),navigate=useNavigate(),latest=useRef({location,onClient,onStatus,onNativePanel,onNightMode});latest.current={location,onClient,onStatus,onNativePanel,onNightMode}
+export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel,onNightMode,onFov}:{mode?:RuntimeMode;onClient?:(client:RuntimeClient|null)=>void;onStatus?:(status:RuntimeStatus)=>void;onNativePanel?:(open:boolean)=>void;onNightMode?:(enabled:boolean)=>void;onFov?:(fovRad:number|null)=>void}){
+ const container=useRef<HTMLDivElement>(null),location=useLocation(),navigate=useNavigate(),latest=useRef({location,onClient,onStatus,onNativePanel,onNightMode,onFov});latest.current={location,onClient,onStatus,onNativePanel,onNightMode,onFov}
  const [retry,setRetry]=useState(0),[status,setStatus]=useState<RuntimeStatus>('checking'),[mismatch,setMismatch]=useState(false);const [statusKey,setStatusKey]=useState('');const mountKey=`${mode}:${retry}`;const visibleStatus=statusKey===mountKey?status:'checking'
  useEffect(()=>{
   let cancelled=false,frame:HTMLIFrameElement|null=null,client:RuntimeClient|null=null
@@ -20,9 +22,11 @@ export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel,
   if(live)params.delete('date')
   if(live)useRuntimeProductState.setState({requestedTime:new Date().toISOString()})
   const generation=product.activate(mode),bytes=crypto.getRandomValues(new Uint8Array(16)),nonce=Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('')
-  let panelSequence=0,nightSequence=0
+  let panelSequence=0,nightSequence=0,fovSequence=0
   const nativePanel=(event:MessageEvent)=>{if(!cancelled&&mode==='sky'&&client&&frame&&validSkyPanelReport(event,{source:frame.contentWindow,origin:window.location.origin,nonce,generation})&&event.data.id>panelSequence){panelSequence=event.data.id;latest.current.onNativePanel?.(event.data.open)}}
   const nativeNight=(event:MessageEvent)=>{if(!cancelled&&mode==='sky'&&frame&&validSkyNightReport(event,{source:frame.contentWindow,origin:window.location.origin,nonce,generation})&&event.data.id>nightSequence){nightSequence=event.data.id;latest.current.onNightMode?.(event.data.enabled)}}
+  const nativeFov=(event:MessageEvent)=>{if(!cancelled&&mode==='sky'&&frame&&validSkyFovReport(event,{source:frame.contentWindow,origin:window.location.origin,nonce,generation})&&event.data.id>fovSequence){fovSequence=event.data.id;latest.current.onFov?.(event.data.fovRad)}}
+  latest.current.onFov?.(null);window.addEventListener('message',nativeFov)
   window.addEventListener('message',nativeNight)
   window.addEventListener('message',nativePanel);latest.current.onNativePanel?.(false)
   function update(value:RuntimeStatus){if(cancelled)return;setStatus(value);latest.current.onStatus?.(value)}
@@ -41,13 +45,16 @@ export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel,
     if(client.capabilities.includes('presentation'))await client.request('setPresentation',{embedded:true})
     if(cancelled)return
     if(client.capabilities.includes('timeIntent')){const result=await client.request('setTimeIntent',{utc:state.requestedTime,live},12000);if(cancelled)return;state.report(mode,{requestedTime:state.requestedTime,...result})}
-    if(client.capabilities.includes('observerIntent')){await client.request('setObserverIntent',state.observer,12000);if(cancelled)return}
+    if(client.capabilities.includes('observerIntent')){await client.request('setObserverIntent',observerWithProvenance(state.observer,search),12000);if(cancelled)return}
+    const saved=latest.current.location.state?.n1View
+    if(validNavigationState(saved)&&saved.mode===mode&&client.capabilities.includes('viewNavigation')){const result=await client.request('setNavigationView',{mode,camera:saved.camera,...(mode==='earth'&&latest.current.location.state?.n1Center?{center:{lat:saved.observer.lat,lon:saved.observer.lon}}:{})},4000);if(cancelled)return;if(!result.ok)throw new Error('View restore failed')}
     update('ready');latest.current.onClient?.(client)
    }catch(cause){if(cancelled)return;client?.close();frame?.remove();setMismatch(cause instanceof RuntimeProbeError&&cause.code==='artifact-mismatch');update('error')}
   }
   void mount()
   return ()=>{
    cancelled=true;abort.abort();latest.current.onClient?.(null)
+   window.removeEventListener('message',nativeFov);latest.current.onFov?.(null)
    window.removeEventListener('message',nativePanel);window.removeEventListener('message',nativeNight);latest.current.onNativePanel?.(false)
    const previous=client,previousFrame=frame
    disposal=disposal.then(async()=>{try{if(previous?.capabilities.includes('destroy'))await previous.request('destroy',{},1000)}catch{/* bounded removal releases a failed document */}finally{previous?.close();previousFrame?.remove()}})

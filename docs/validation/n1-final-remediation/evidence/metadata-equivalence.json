@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "browserQualifiedBase": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621",
+  "scope": "Only two identity flags and their admission row changed; all rendering payloads, Hub JS, versions and browser proof source inputs remain byte-identical. Original proof hashes are retained, not rewritten.",
+  "markerSha256": "f28ed27564caf8919d756994e1f8a0eaf511730008f4fbd49e5e95a223a6e196",
+  "lockSha256": "8f73e59fb1e638c2a457cbd67d2f9d9de0241dbced824bb3de663e7db8de08b8",
+  "hubFiles": 125,
+  "reports": [
+    {
+      "name": "observer-history",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    },
+    {
+      "name": "elevation-desktop",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    },
+    {
+      "name": "elevation-mobile",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    },
+    {
+      "name": "snapshots-final",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    },
+    {
+      "name": "satellites-final",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    },
+    {
+      "name": "journeys-desktop",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    },
+    {
+      "name": "journeys-mobile",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    },
+    {
+      "name": "landscape",
+      "status": "PASS",
+      "metadataDelta": "integrations/renderers.lock.json",
+      "originalSourceHashesPreserved": true
+    }
+  ]
+}

@@ -1,0 +1,1251 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_elevation.mjs": "be855cea529beb6ee19d2c1510a87409d9a4b5b4b23f0cc2ad40243ab5fd9f83",
+    "packages/runtime-protocol/observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3",
+    "packages/runtime-protocol/index.mjs": "68942038408a0854940d5154b094ba18246ddb05fe561b1eb90cc3f8ac991b84",
+    "runtimes/sky-adapter/plugin.js": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+    "runtimes/sky-adapter/entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
+    "runtimes/earth-runtime/core/navigationObserver.mjs": "361e1e3d50e67cb89b7561d628b4325c95bffd7858aa478f5aec56d6cafb25f1",
+    "runtimes/earth-runtime/core/EarthRuntime.mjs": "93c127f6ad955dcb7246a6d33e87eea764b5a35cc5f586067714eca09ce70b55",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "53fa5194388c27152eef103c8e8ce2c267d1f2d8f90ec8068bf505f72aba6d12",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "frontend/src/features/workspace/observerProvenance.ts": "3d5d925bc1099245335c761fa8fd1c1da406efae9e8ed9657807b614f0e07fcd",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "06516fc247180405f5a2d7dc77bef899a764b5d602bf4dcd5069bc6bad7a7739",
+    "integrations/renderers.lock.json": "4a0da651561b0e1bc0107c10262d6f1a4169dda2f7c7a20254b62a5255d22c71",
+    "frontend/public/runtime-versions.json": "a03c695521ded3d57955c62c4fc1d2fdef5f7a9d48efb60e0900f0d25bbbc621"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "pageErrors": [],
+      "cases": [
+        {
+          "name": "qualified-oras",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=41.321903&lng=-79.585394&date=2026-06-05T02%3A10%3A00.000Z&elev=432.816&elevationSource=oras-site",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 41.32190153934777,
+              "lon": -79.58539410405697,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "camera": {
+              "latitudeRad": 0.7212032605399997,
+              "longitudeRad": -1.3890271617970003,
+              "heightM": 15621863.000000002,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568429161529859,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219015393746,
+              "lon": -79.58539410405257,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 41.32190153934774,
+              "lon": -79.58539410405697,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "camera": {
+              "latitudeRad": 0.7212032605399997,
+              "longitudeRad": -1.3890271617970003,
+              "heightM": 15621863.000000002,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684291615299055,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219015393746,
+              "lon": -79.58539410405257,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219015393746,
+              "lon": -79.58539410405257,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "provided-new-york",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=40.7829&lng=-73.9654&date=2026-06-05T02%3A10%3A00.000Z&elev=123&elevationSource=provided",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057345,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684352035298916,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "false-oras",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=40.7829&lng=-73.9654&date=2026-06-05T02%3A10%3A00.000Z&elev=123&elevationSource=oras-site",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057345,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684352035298916,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "false-zero",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=40.7829&lng=-73.9654&date=2026-06-05T02%3A10%3A00.000Z&elev=123&elevationSource=unavailable-zero",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057345,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684352035298916,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "genuine-zero-fallback",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=40.7829&lng=-73.9654&date=2026-06-05T02%3A10%3A00.000Z&elevationSource=unavailable-zero",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057345,
+              "lon": -73.96540050827545,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684352035298916,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "malformed-source",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=40.7829&lng=-73.9654&date=2026-06-05T02%3A10%3A00.000Z&elev=123&elevationSource=invalid",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057345,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684352035298916,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "missing-source",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=40.7829&lng=-73.9654&date=2026-06-05T02%3A10%3A00.000Z&elev=123",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057345,
+              "lon": -73.96540050827545,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684352035298916,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "explicit-provided-zero",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=40.7829&lng=-73.9654&date=2026-06-05T02%3A10%3A00.000Z&elev=0&elevationSource=provided",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057345,
+              "lon": -73.96540050827545,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684352035298916,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "provided-height-at-oras",
+          "originalURL": "http://127.0.0.1:4202/sky-engine?lat=41.321903&lng=-79.585394&date=2026-06-05T02%3A10%3A00.000Z&elev=123&elevationSource=oras-site",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 41.32190153934777,
+              "lon": -79.58539410405697,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.7212032605399997,
+              "longitudeRad": -1.3890271617970003,
+              "heightM": 15621863.000000002,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568429161529859,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219015393746,
+              "lon": -79.58539410405257,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "back": {
+            "mode": "earth",
+            "observer": {
+              "lat": 41.32190153934774,
+              "lon": -79.58539410405697,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.7212032605399997,
+              "longitudeRad": -1.3890271617970003,
+              "heightM": 15621863.000000002,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5684291615299055,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "forward": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219015393746,
+              "lon": -79.58539410405257,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219015393746,
+              "lon": -79.58539410405257,
+              "elevationM": 123
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "name": "restored-provided-zero-bare-url",
+          "sky": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "unboundClaim": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782900000023176,
+              "lon": -73.96540000002213,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "earth": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.78289896057342,
+              "lon": -73.96540050827545,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.711795883512,
+              "longitudeRad": -1.290939762555,
+              "heightM": 15621862.999999996,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568435203529845,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          },
+          "returned": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "reloaded": {
+            "mode": "sky",
+            "observer": {
+              "lat": 40.782898960563145,
+              "lon": -73.96540050829299,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        }
+      ],
+      "live": [
+        {
+          "mode": "sky",
+          "observer": {
+            "lat": 40.782900000023176,
+            "lon": -73.96540000002213,
+            "elevationM": 123
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-16T06:47:52.621Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        {
+          "mode": "earth",
+          "observer": {
+            "lat": 40.78289896057342,
+            "lon": -73.96540050827545,
+            "elevationM": 123
+          },
+          "elevationSource": "provided",
+          "camera": {
+            "latitudeRad": 0.711795883512,
+            "longitudeRad": -1.290939762555,
+            "heightM": 15621862.999999996,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.568435203529845,
+            "rollRad": 0
+          },
+          "utc": "2026-10-16T06:47:56.357Z",
+          "live": true
+        },
+        {
+          "mode": "sky",
+          "observer": {
+            "lat": 40.782898960563145,
+            "lon": -73.96540050829299,
+            "elevationM": 123
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-16T06:48:12.295Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Real Chromium with emulated mobile; no physical-device qualification."
+  ],
+  "started": "2026-10-16T06:40:22.098Z",
+  "finished": "2026-10-16T06:48:13.122Z"
+}

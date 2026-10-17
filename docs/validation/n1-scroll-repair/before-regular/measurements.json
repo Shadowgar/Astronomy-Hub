@@ -1,0 +1,865 @@
+{
+  "head": "8fe05ca1a8505dc20449635fa47b615e4bd23a0c",
+  "started": "2026-10-14T09:53:13.762Z",
+  "base": "http://127.0.0.1:4202",
+  "measurements": [
+    {
+      "name": "continuous mouse",
+      "delta": 120,
+      "intervalMs": 100,
+      "sent": 16,
+      "elapsedMs": 6677,
+      "transitioned": true,
+      "state": {
+        "owner": "Astronomy Hub",
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "loading"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 111.19999999925494,
+          "shellInteractiveMs": 154.30000000074506,
+          "viewerReadyMs": 157.19999999925494,
+          "firstImageryTileMs": 1408.0999999977648
+        },
+        "cameraHeightM": 15621863.000000002,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.32190153934777,
+            "lon": -79.58539410405697,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605399997,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 15621863.000000002,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.568429161529859,
+            "rollRad": 0
+          },
+          "utc": "2026-10-14T02:10:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "Blue Marble · NASA static 500m · USGS aerial at regional zoom",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "local": {
+            "state": "ready",
+            "requested": 6,
+            "loaded": 2,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 4,
+            "peak": 4
+          },
+          "gibs": {
+            "state": "ready",
+            "requested": 4,
+            "loaded": 1,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 3,
+            "peak": 4
+          },
+          "usgs": {
+            "state": "standby",
+            "requested": 0,
+            "loaded": 0,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "slow discrete mouse",
+      "delta": 120,
+      "intervalMs": 600,
+      "sent": 14,
+      "elapsedMs": 10149,
+      "transitioned": false,
+      "state": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-14T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 3.22885911619,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "name": "trackpad sized",
+      "delta": 12,
+      "intervalMs": 20,
+      "sent": 267,
+      "elapsedMs": 43899,
+      "transitioned": true,
+      "state": {
+        "owner": "Astronomy Hub",
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "loading"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 120,
+          "shellInteractiveMs": 161.89999999850988,
+          "viewerReadyMs": 165.19999999925494,
+          "firstImageryTileMs": 1408.300000000745
+        },
+        "cameraHeightM": 15621863.000000002,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.32190153934777,
+            "lon": -79.58539410405697,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605399997,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 15621863.000000002,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.568429161529859,
+            "rollRad": 0
+          },
+          "utc": "2026-10-14T02:10:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "Blue Marble · NASA static 500m · USGS aerial at regional zoom",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "local": {
+            "state": "ready",
+            "requested": 6,
+            "loaded": 2,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 4,
+            "peak": 4
+          },
+          "gibs": {
+            "state": "ready",
+            "requested": 6,
+            "loaded": 2,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 4,
+            "peak": 4
+          },
+          "usgs": {
+            "state": "standby",
+            "requested": 0,
+            "loaded": 0,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 0
+          }
+        }
+      }
+    }
+  ],
+  "pageErrors": [],
+  "limitations": [
+    "Headless Chromium software rendering; the owner’s ChatGPT browser and physical wheel/trackpad hardware cannot be automated here. Device input is sent through Chromium, never synthetic DOM events."
+  ],
+  "served": {
+    "/assets/index-C5OMHOaJ.js": "47634ba76da42d854515069ce940d622c30626ba762cba7a0fafd83c8a99cd79",
+    "/oras-sky-engine/oras-runtime-build.json": "929f0f8ccc694602742b90a2267f70c04e17f684a37aed4c4a39313bdb1f6673",
+    "/earth-runtime/release.json": "ad6f2742c842be0090dbcd683cd853c36b9f0934c801d010c1e9a7e6628b5fd0"
+  },
+  "earth": {
+    "delta": -120,
+    "intervalMs": 250,
+    "initialHeightM": 15621863.000000002,
+    "sent": 47,
+    "elapsedMs": 46085,
+    "samples": [
+      {
+        "sent": 1,
+        "elapsedMs": 1074,
+        "heightM": 12807796.426121784,
+        "observer": {
+          "lat": 41.32190180246733,
+          "lon": -79.58539408531314,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 2,
+        "elapsedMs": 2262,
+        "heightM": 10500645.748396195,
+        "observer": {
+          "lat": 41.321902018188645,
+          "lon": -79.58539406994576,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 3,
+        "elapsedMs": 3505,
+        "heightM": 8609096.948826117,
+        "observer": {
+          "lat": 41.321902195049425,
+          "lon": -79.5853940573466,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 4,
+        "elapsedMs": 4982,
+        "heightM": 7058284.990292837,
+        "observer": {
+          "lat": 41.32190234005196,
+          "lon": -79.58539404701702,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 5,
+        "elapsedMs": 6615,
+        "heightM": 5786830.75592339,
+        "observer": {
+          "lat": 41.32190282337757,
+          "lon": -79.58539403854816,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 6,
+        "elapsedMs": 8121,
+        "heightM": 4744411.743611321,
+        "observer": {
+          "lat": 41.321903113566904,
+          "lon": -79.5853939362032,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 7,
+        "elapsedMs": 9534,
+        "heightM": 3889770.366943441,
+        "observer": {
+          "lat": 41.321903093110045,
+          "lon": -79.58539394769595,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 8,
+        "elapsedMs": 10805,
+        "heightM": 3189081.0336888237,
+        "observer": {
+          "lat": 41.321903076336845,
+          "lon": -79.58539395711844,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 9,
+        "elapsedMs": 11671,
+        "heightM": 2614611.3729124386,
+        "observer": {
+          "lat": 41.321903062584774,
+          "lon": -79.58539396484359,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 10,
+        "elapsedMs": 12584,
+        "heightM": 2143624.6238785246,
+        "observer": {
+          "lat": 41.32190305130977,
+          "lon": -79.58539397117715,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 11,
+        "elapsedMs": 13524,
+        "heightM": 1757479.744677222,
+        "observer": {
+          "lat": 41.321903042065905,
+          "lon": -79.58539397636982,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 12,
+        "elapsedMs": 14652,
+        "heightM": 1440893.6240717634,
+        "observer": {
+          "lat": 41.3219030344872,
+          "lon": -79.5853939806271,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 13,
+        "elapsedMs": 15575,
+        "heightM": 1181336.1958670304,
+        "observer": {
+          "lat": 41.32190302975192,
+          "lon": -79.58539400027284,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 14,
+        "elapsedMs": 16681,
+        "heightM": 968534.5152141808,
+        "observer": {
+          "lat": 41.32190302439155,
+          "lon": -79.58539400022431,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 15,
+        "elapsedMs": 17465,
+        "heightM": 794066.1688375294,
+        "observer": {
+          "lat": 41.321903019996775,
+          "lon": -79.58539400018454,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 16,
+        "elapsedMs": 18408,
+        "heightM": 651025.9268901236,
+        "observer": {
+          "lat": 41.32190301639324,
+          "lon": -79.58539400015191,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 17,
+        "elapsedMs": 19198,
+        "heightM": 533752.4429528132,
+        "observer": {
+          "lat": 41.321903013438494,
+          "lon": -79.58539400012516,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 18,
+        "elapsedMs": 20194,
+        "heightM": 437604.1853187619,
+        "observer": {
+          "lat": 41.32190301101592,
+          "lon": -79.58539400010325,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 19,
+        "elapsedMs": 21042,
+        "heightM": 358775.7312156376,
+        "observer": {
+          "lat": 41.32190300902924,
+          "lon": -79.58539400008527,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 20,
+        "elapsedMs": 22118,
+        "heightM": 294147.15313011187,
+        "observer": {
+          "lat": 41.32190300740008,
+          "lon": -79.58539400007052,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 21,
+        "elapsedMs": 23008,
+        "heightM": 241160.53614160986,
+        "observer": {
+          "lat": 41.32190300606414,
+          "lon": -79.58539400005846,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 22,
+        "elapsedMs": 24008,
+        "heightM": 197718.73898228933,
+        "observer": {
+          "lat": 41.32190300496883,
+          "lon": -79.58539400004854,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 23,
+        "elapsedMs": 24888,
+        "heightM": 162102.39191787,
+        "observer": {
+          "lat": 41.3219030040701,
+          "lon": -79.58539400004042,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 24,
+        "elapsedMs": 25760,
+        "heightM": 132901.84633359776,
+        "observer": {
+          "lat": 41.321903003332906,
+          "lon": -79.58539400003376,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 25,
+        "elapsedMs": 26636,
+        "heightM": 108961.3826786089,
+        "observer": {
+          "lat": 41.32190300272778,
+          "lon": -79.5853940000283,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 26,
+        "elapsedMs": 27532,
+        "heightM": 89333.46859180192,
+        "observer": {
+          "lat": 41.321903002231494,
+          "lon": -79.58539400002383,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 27,
+        "elapsedMs": 28531,
+        "heightM": 73241.25680546783,
+        "observer": {
+          "lat": 41.321903001824566,
+          "lon": -79.58539400002016,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 28,
+        "elapsedMs": 29519,
+        "heightM": 60047.83854253031,
+        "observer": {
+          "lat": 41.32190300149069,
+          "lon": -79.58539400001715,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 29,
+        "elapsedMs": 30428,
+        "heightM": 49231.03549693166,
+        "observer": {
+          "lat": 41.321903001216576,
+          "lon": -79.58539400001467,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 30,
+        "elapsedMs": 31282,
+        "heightM": 40362.73269659173,
+        "observer": {
+          "lat": 41.32190300099158,
+          "lon": -79.58539400001266,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 31,
+        "elapsedMs": 32120,
+        "heightM": 33091.93427056895,
+        "observer": {
+          "lat": 41.32190300080693,
+          "lon": -79.585394000011,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 32,
+        "elapsedMs": 32966,
+        "heightM": 27130.871489784317,
+        "observer": {
+          "lat": 41.32190300065534,
+          "lon": -79.58539400000963,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 33,
+        "elapsedMs": 33820,
+        "heightM": 22243.61325562894,
+        "observer": {
+          "lat": 41.321903000530575,
+          "lon": -79.58539400000853,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 34,
+        "elapsedMs": 34771,
+        "heightM": 18236.728254462185,
+        "observer": {
+          "lat": 41.321903000427966,
+          "lon": -79.58539400000761,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 35,
+        "elapsedMs": 35444,
+        "heightM": 14951.629198234225,
+        "observer": {
+          "lat": 41.32190300034412,
+          "lon": -79.58539400000686,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 36,
+        "elapsedMs": 36310,
+        "heightM": 12258.296146228935,
+        "observer": {
+          "lat": 41.32190300027524,
+          "lon": -79.58539400000625,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 37,
+        "elapsedMs": 37209,
+        "heightM": 10050.130485207821,
+        "observer": {
+          "lat": 41.321903000219,
+          "lon": -79.58539400000575,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 38,
+        "elapsedMs": 38053,
+        "heightM": 8239.73589516686,
+        "observer": {
+          "lat": 41.32190300017252,
+          "lon": -79.58539400000534,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 39,
+        "elapsedMs": 39009,
+        "heightM": 6755.459316875534,
+        "observer": {
+          "lat": 41.32190299992149,
+          "lon": -79.585394000005,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 40,
+        "elapsedMs": 39946,
+        "heightM": 5538.55501712501,
+        "observer": {
+          "lat": 41.32190299992759,
+          "lon": -79.58539400000473,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 41,
+        "elapsedMs": 40828,
+        "heightM": 4540.859509150532,
+        "observer": {
+          "lat": 41.32190299993234,
+          "lon": -79.5853940000045,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 42,
+        "elapsedMs": 41727,
+        "heightM": 3722.885304579901,
+        "observer": {
+          "lat": 41.32190299993581,
+          "lon": -79.5853940000043,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 43,
+        "elapsedMs": 42625,
+        "heightM": 3052.258050069718,
+        "observer": {
+          "lat": 41.32190299993812,
+          "lon": -79.58539400000414,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 44,
+        "elapsedMs": 43599,
+        "heightM": 2502.4351926078352,
+        "observer": {
+          "lat": 41.32190299993995,
+          "lon": -79.58539400000403,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 45,
+        "elapsedMs": 44309,
+        "heightM": 2051.6554598170123,
+        "observer": {
+          "lat": 41.321902999941265,
+          "lon": -79.58539400000392,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 46,
+        "elapsedMs": 45135,
+        "heightM": 1682.0775771681251,
+        "observer": {
+          "lat": 41.321902999942836,
+          "lon": -79.58539400000383,
+          "elevationM": 432.816
+        }
+      },
+      {
+        "sent": 47,
+        "elapsedMs": 46085,
+        "heightM": 1379.0741335585365,
+        "observer": {
+          "lat": 41.32190299994356,
+          "lon": -79.58539400000377,
+          "elevationM": 432.816
+        }
+      }
+    ]
+  },
+  "standalone": {
+    "landscape": "zero",
+    "visible": true
+  },
+  "finished": "2026-10-14T09:55:31.547Z"
+}

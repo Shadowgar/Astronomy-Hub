@@ -1,0 +1,9 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: Visible FOV does not agree with native angle
+    at fov (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_final_ux.mjs:21:456)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_final_ux.mjs:43:121
+
+Node.js v22.22.0

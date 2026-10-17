@@ -1,0 +1,74 @@
+Workdir: /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+Default Mode; single agent. Existing dependency/build directories reused. No installs.
+
+Source/native-format inspection:
+  src/modules/landscape.c, src/hips.c, src/algos/healpix.c, render_visitor/uv mapping
+  from pinned /var/tmp/oras-phase-c/sky-reconstruction/upstream
+  git status --short
+  git rev-parse HEAD
+
+Original artwork:
+  Built-in image_gen tool: original generation, then targeted opacity/seam edit.
+  Exact prompts: runtimes/sky-adapter/assets/pennsylvania-woodland-v1/provenance.json
+  Original PNG viewed before edit; selected PNG preserved unchanged.
+
+RED/GREEN adapter regression:
+  node --test tests/runtime/sky-landscape-context.test.mjs
+  RED: 1 passed / 2 failed before implementation.
+  GREEN: 3 passed / 0 failed after implementation.
+
+Asset encoding (run twice, existing C compiler + Chromium only):
+  node scripts/runtime/build_pennsylvania_landscape.mjs
+  Internal compiler:
+  cc -std=gnu11 -O2 -I/var/tmp/oras-phase-c/sky-reconstruction/upstream/src scripts/runtime/landscape_hips_sample.c /var/tmp/oras-phase-c/sky-reconstruction/upstream/src/algos/healpix.c -lm -o output/n1/pennsylvania/packing/sample
+  Initial exact-255 alpha assertions failed; logs retained. Final near-opaque matte
+  encoding is explicit and source-preserving. Second run: 16/16 identical files.
+
+Offline Sky UI-only build (run twice; no native rebuild):
+  python3 scripts/runtime/integrate_sky_bridge.py output/n1/pennsylvania-app
+  docker run --rm --network none --user 1001:1001 -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/pennsylvania-app:/work -v /var/tmp/oras-phase-c/sky-reconstruction/upstream/apps/web-frontend/node_modules:/work/node_modules:ro -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096' node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 npm run build
+  python3 scripts/runtime/record_sky_workspace.py output/n1/pennsylvania-app/dist
+  python3 scripts/runtime/record_runtime_versions.py output/n1/earth
+  npm --prefix frontend run build
+  Native/vendor identity guard passed; second Sky UI build: 110 identical payload files.
+
+Final regression/verification:
+  node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+  npm --prefix frontend test
+  npm --prefix frontend run typecheck
+  python3 scripts/runtime/earth_artifact.py verify --source output/n1/earth
+  python3 scripts/validation/validate_architecture_docs.py
+  N1_SERVED_EVIDENCE=output/n1/pennsylvania/served-before-commit.json python3 scripts/validation/verify_n1_motion_served.py
+  node scripts/validation/verify_n1_pennsylvania.mjs
+  N1_WIDTHS=1440 N1_EVIDENCE_DIR=output/n1/pennsylvania/journeys-desktop node scripts/validation/verify_n1_navigation.mjs
+  N1_WIDTHS=390 N1_EVIDENCE_DIR=output/n1/pennsylvania/journeys-mobile node scripts/validation/verify_n1_navigation.mjs
+  Initial combined navigation invocation (not qualifying):
+  N1_EVIDENCE_DIR=output/n1/pennsylvania/journeys node scripts/validation/verify_n1_navigation.mjs
+  It exited 143 without proof; retained partial evidence. A detached launch produced no proof.
+
+Separate P2 investigations (production sources unchanged):
+  node /tmp/n1-p2-snapshot.mjs
+  node /tmp/n1-p2-elevation.mjs
+  python3 /tmp/n1-p2-attester.py
+  Reusable copies: review/snapshot-audit.mjs, review/elevation-audit.mjs,
+  review/attester-audit.py (run from repository root).
+  The attester audit intentionally aborts intercepted git archive before a native build.
+
+Docker/preservation/review state:
+  COMPOSE_BAKE=false docker compose ps
+  (No services in this worktree Compose project; existing preview is a separate Docker container.)
+  docker inspect oras-n1-owner-preview
+  docker ps --filter name=oras-n1-owner-preview --format '{{.Names}} {{.Status}} {{.Ports}}'
+  sha256sum /home/rocco/Astronomy-Hub/.vscode/settings.json
+  git diff --quiet 0c0718a0eea51f000878f7f8fb1ef4ec32197b79 -- runtimes/earth-runtime packages/runtime-protocol frontend/src runtimes/sky-adapter/entry.mjs runtimes/sky-adapter/native-wheel.mjs integrations/sky-patches
+  git diff --quiet 301f9eb3ddfd21a22ad04378bf09ee45c59e8adc -- runtimes/earth-runtime/core/CameraController.mjs runtimes/earth-runtime/core/RuntimeBridge.mjs runtimes/sky-adapter/native-wheel.mjs frontend/src/features/workspace/ImmersiveController.ts frontend/src/features/workspace/useViewNavigation.ts packages/runtime-protocol/navigation.mjs packages/runtime-protocol/continued-input.mjs
+  gh pr view 75 --repo Shadowgar/Astronomy-Hub --json number,title,state,headRefName,headRefOid,baseRefName,statusCheckRollup,reviews
+  gh api graphql -f query='{repository(owner:"Shadowgar",name:"Astronomy-Hub"){pullRequest(number:75){reviewThreads(first:100){nodes{id isResolved comments(first:20){nodes{url body path originalCommit{oid}}}}}}}}'
+  gh pr view 74 --repo Shadowgar/Astronomy-Hub --json number,state,headRefName,headRefOid,baseRefName
+  gh pr view 73 --repo Shadowgar/Astronomy-Hub --json number,state,headRefName,headRefOid,baseRefName
+  git status --short
+  git diff --check
+  git diff --cached --check
+
+Validation output and pass/fail counts accompany this ledger. Browser proofs record
+exact SHA-256 source inputs; delivery-head served identity is written after commit.

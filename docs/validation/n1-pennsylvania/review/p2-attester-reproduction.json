@@ -1,0 +1,16 @@
+{
+  "status": "REPRODUCED",
+  "evidenceClass": "actual attester command-routing audit; valid pinned source override verified with real git; git shim records archive request then intentionally aborts before compilation/attestation; not a full native rebuild",
+  "configuredSource": "/tmp/n1-attestation-audit-3o_dhmpr/selected-source",
+  "configuredPinVerified": "023e3b26babf7ffddf45f39293230b14cfe96993",
+  "actualGitArguments": [
+    "-C",
+    "/var/tmp/oras-phase-c/sky-reconstruction/upstream",
+    "archive",
+    "023e3b26babf7ffddf45f39293230b14cfe96993"
+  ],
+  "ignoredOverride": true,
+  "controlledAbortExit": 1,
+  "sourceSha256": "01b937218867e96b58a8f27e5b792f1ff7fb572567a0a272677d19affd70bfe1",
+  "limitation": "Configured source is a valid alternate-path symlink to the same pinned checkout. This proves ignored routing, not differing native bytes."
+}

@@ -1,0 +1,36 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/immersiveReveal.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/immersiveReveal.test.ts (1 test | 1 failed) 8ms
+   × revealing controls cancels pending and delayed exploration hides so a touch user can open Explore 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/immersiveReveal.test.ts > revealing controls cancels pending and delayed exploration hides so a touch user can open Explore
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/immersiveReveal.test.ts:11:126
+      9| it('revealing controls cancels pending and delayed exploration hides s…
+     10|  vi.useFakeTimers();const chrome=useImmersive({pin:false,panel:false,m…
+     11|  chrome.interact(true,false);vi.advanceTimersByTime(100);chrome.reveal…
+       |                                                                                                                              ^
+     12|  // Renderer interaction delivery can trail the user’s reveal tap.
+     13|  chrome.interact(true,false);vi.advanceTimersByTime(300);expect(store.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  06:10:53
+   Duration  164ms (transform 34ms, setup 0ms, import 48ms, tests 8ms, environment 0ms)
