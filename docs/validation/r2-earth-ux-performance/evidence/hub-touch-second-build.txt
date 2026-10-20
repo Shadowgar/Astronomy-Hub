@@ -3,7 +3,8 @@
 > vite build --outDir ../output/r2-earth-ux/hub-touch-second
 
 vite v8.0.16 building client environment for production...
-[2Ktransforming...✓ 141 modules transformed.
+[2K
+transforming...✓ 141 modules transformed.
 
 (!) outDir /home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/output/r2-earth-ux/hub-touch-second is not inside project root and will not be emptied.
 Use --emptyOutDir to override.

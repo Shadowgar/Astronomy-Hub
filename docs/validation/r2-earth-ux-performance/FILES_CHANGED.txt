@@ -45,6 +45,7 @@ docs/validation/r2-earth-ux-performance/evidence/label-scale-green.txt
 docs/validation/r2-earth-ux-performance/evidence/label-scale-red.txt
 docs/validation/r2-earth-ux-performance/evidence/live-proof.json
 docs/validation/r2-earth-ux-performance/evidence/live-smoke.txt
+docs/validation/r2-earth-ux-performance/evidence/log-formatting.json
 docs/validation/r2-earth-ux-performance/evidence/map-controls-green.txt
 docs/validation/r2-earth-ux-performance/evidence/map-controls-red.txt
 docs/validation/r2-earth-ux-performance/evidence/mobile-context-red.json

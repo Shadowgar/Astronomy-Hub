@@ -212,9 +212,9 @@ not ok 35 - native camera settlement starts source selection immediately, withou
   failureType: 'testCodeFailure'
   error: |-
     settled native camera must not wait for an application debounce
-    
+
     0 !== 1
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 1

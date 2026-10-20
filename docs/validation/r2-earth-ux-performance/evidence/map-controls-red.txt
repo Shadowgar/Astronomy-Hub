@@ -9,10 +9,10 @@ not ok 1 - bounded opt-in zoomStep contract rejects invalid directions and extra
   error: |-
     Expected values to be strictly equal:
     + actual - expected
-    
+
     + undefined
     - 'zoomControls'
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 'zoomControls'
@@ -33,9 +33,9 @@ not ok 2 - map zoom delegates to accepted smooth wheel controller without a scro
   failureType: 'testCodeFailure'
   error: |-
     The expression evaluated to a falsy value:
-    
+
       assert.ok(handler.capabilities.includes('zoomControls'))
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true

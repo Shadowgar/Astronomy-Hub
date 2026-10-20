@@ -218,9 +218,9 @@ not ok 36 - regional raster labels use a native terrain-level limit rather than 
   failureType: 'testCodeFailure'
   error: |-
     Expected values to be strictly equal:
-    
+
     undefined !== 12
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 12

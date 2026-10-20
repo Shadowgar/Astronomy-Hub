@@ -50,7 +50,10 @@ then failed the actual duplicate-field assertion against preserved baseline Expl
 (`explore-duplicate-red.txt`) before final293-test GREEN. Intermediate JSX syntax
 was corrected before qualification. Initial Docker143-test attempt failed only the
 known missing-Python export harness;142 application tests passed. The corrected
-Docker selection and complete host suite both pass. No failed attempt is relabeled.
+Docker selection and complete host suite both pass. No failed attempt is relabeled. Published text-log copies have trailing whitespace
+and empty EOF lines stripped to satisfy diff checks; original raw logs remain
+local. [Formatting receipt](evidence/log-formatting.json). The initial evidence
+commit exposed that formatting issue; the final aggregate diff check passes.
 
 The baseline observation patch was checked against158a7705 in a temporary Git index:
 `git read-tree 158a77053ea18e4d0aed8725f715ca373930fd13`, followed by

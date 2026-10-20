@@ -60,4 +60,3 @@ AssertionError: expected '<button class="ws-earth-explore" aria…' not to conta
 
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
-
