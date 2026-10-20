@@ -1,5 +1,7 @@
 # R2-B Earth imagery and persistent cache
 
+Final-search follow-up2026-10-20: [bounded classification and deterministic search qualification](final-search/README.md). The original implementation report below retains its historical results and limitations.
+
 **Owner-review candidate; no merge or deployment. Live place-search requalification remains blocked.**
 
 Branch `r2-b-earth-imagery-cache-1` starts at R2-A
