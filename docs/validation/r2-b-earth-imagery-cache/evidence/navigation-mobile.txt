@@ -1,0 +1,7 @@
+390 Invalid coordinates rejected; genuine zero coordinates reach native camera
+390 Accepted native wheel zoom preserves center anchor
+390 Back/Forward restores actual coordinate and panned/zoomed bookmarks
+390 Reload preserves coordinate destination and native time
+390 Sky/Earth round trip 1: native observer/time/panorama and one renderer preserved
+390 Sky/Earth round trip 2: native observer/time/panorama and one renderer preserved
+390 Canonical ORAS context restored

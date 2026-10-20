@@ -1,5 +1,12 @@
 # `DOC_INVENTORY.md`
 
+## R2-B imagery/cache support — 2026-10-17
+
+[Implementation and evidence](validation/r2-b-earth-imagery-cache/README.md) ·
+[Bounded integration plan](validation/r2-b-earth-imagery-cache/plan.md).
+R2-A remains draft and N1 owner accepted; historical records retain their identities.
+
+
 ## R2-A support inventory — 2026-10-17
 
 - `docs/validation/r2-a-earth-search/README.md` — bounded implementation, actual preview,

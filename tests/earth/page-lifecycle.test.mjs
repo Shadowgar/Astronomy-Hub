@@ -11,13 +11,13 @@ function page(){
  let actualCamera;
  const document={querySelector(selector){if(!nodes.has(selector))nodes.set(selector,{hidden:false,dataset:{},replaceChildren(){},addEventListener(){}});return nodes.get(selector);}};
  class EarthRuntime {
-  constructor(){viewers++;peak=Math.max(peak,++live);this.destroyed=false;this.lifecycle={closed:false};this.ready=false;this.site={};actualCamera=harness();this.camera=actualCamera.camera;actualCamera.wheel(-120);actualCamera.viewer.trackedEntity={id:'tracked-satellite',orasMetadata:{layerId:'satellites'}};this.registry={snapshot:()=>[]};this.timings={};this.providerStatus={values:new Map()};this.viewer={entities:{values:[]},isDestroyed:()=>this.destroyed,camera:{positionCartographic:{height:1000}}};}
+  constructor(){viewers++;peak=Math.max(peak,++live);this.destroyed=false;this.lifecycle={closed:false};this.ready=false;this.site={};actualCamera=harness();this.camera=actualCamera.camera;actualCamera.wheel(-120);actualCamera.viewer.trackedEntity={id:'tracked-satellite',orasMetadata:{layerId:'satellites'}};this.registry={snapshot:()=>[]};this.timings={};this.providerStatus={values:new Map()};this.viewer={scene:{globe:{tilesLoaded:true}},entities:{values:[]},isDestroyed:()=>this.destroyed,camera:{positionCartographic:{height:1000}}};}
   async initialize(){await Promise.resolve();this.ready=true;}
   navigation(){return null;}
   async destroy(){if(this.lifecycle.closed)return;this.lifecycle.closed=true;this.ready=false;for(let i=0;i<6;i++)await Promise.resolve();this.destroyed=true;live--;}
  }
  function RuntimeBridge(){bridges++;let closed=false;return {ready(){},close(){if(!closed){closed=true;bridges--;}}};}
- runInNewContext(source,{window,document,EarthRuntime,RuntimeBridge});
+ runInNewContext(source,{window,document,EarthRuntime,RuntimeBridge,startImageryCache:async()=>null,installLocalVisualProof(){},performance});
  return {window,actual:()=>actualCamera,counts:()=>({viewers,bridges}),peak:()=>peak,dispatch(type,persisted){const event=new Event(type);Object.defineProperty(event,'persisted',{value:persisted});window.dispatchEvent(event);}};
 }
 test('persisted pagehide preserves Viewer and bridge; repeated pageshow does not duplicate startup',async()=>{
