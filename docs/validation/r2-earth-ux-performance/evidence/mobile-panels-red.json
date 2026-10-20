@@ -1,0 +1,15 @@
+{
+  "status": "FAIL",
+  "steps": [],
+  "hit": {
+    "close": {
+      "x": 337,
+      "y": 205,
+      "width": 44,
+      "height": 44
+    },
+    "target": "SECTION",
+    "reachable": false
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expanded mobile Sources Close must receive pointer input\n\nfalse !== true\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/scripts/validation/verify_r2_earth_mobile_panels.mjs:4:714"
+}

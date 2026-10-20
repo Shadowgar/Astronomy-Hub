@@ -1,0 +1,1920 @@
+{
+  "status": "PASS",
+  "startedHead": "f24c16505d94259546ce47fada313eb4f5a0a39b",
+  "evidenceClass": "deterministic-recorded-normalized-results-through-real-backend",
+  "livePhotonQualified": false,
+  "base": "http://127.0.0.1:4207",
+  "sourceHashes": {
+    "frontend/src/features/workspace/earthWorkspace.css": "16602a54ba3852220e2ab34bd892e53586c44029344e277b64917bad9326e746",
+    "frontend/src/features/workspace/earthSearch.css": "ea0af391b4c8f51996047a0172326cc5ba6b293dd78d1a24a6ec96731aff9ed1",
+    "scripts/validation/verify_r2_earth_direct_search.mjs": "be725c9d8b80534b2ee6312061cad33943011e23de2f96eabcff3d20e861c9f2",
+    "scripts/validation/recorded_earth_search_app.py": "7b0b4997a05744de90db7d230e113645a86e4801be0fa5eef50f3722988256ea",
+    "tests/fixtures/earth/r2a-search-recording.json": "466515b1c87c217f909c9740981360a8ac3b77bd1a4fc7bbd5dd12738e3b517f",
+    "scripts/validation/verify_r2_earth_search.mjs": "e74c5bf26816d03fca58e0b6137d690a66ab67032b06a8f49507ad6da3eca016",
+    "frontend/src/features/workspace/EarthSearch.tsx": "805c9f99dc1d53601ee8610b0ab3fc831e7f91869114e23ac2ef023733dcab1b",
+    "frontend/src/features/workspace/earthSearch.ts": "38e68d4e164977e5a7b6b269fb7a16f5f596fb54eacbc4eac1d004239e1700fe",
+    "frontend/src/features/workspace/EarthExplore.tsx": "17b21848c93e2fa10ff80d22612aeb485c7171b9c5e596c4df74ad1b6b65e8d9",
+    "frontend/src/features/workspace/earthLocationNavigation.ts": "069cf7d852dc973140d8992b05affe3a0112ba10257965a7ecd8de597fadab87",
+    "frontend/src/features/workspace/useEarthLocation.ts": "1d6c07cc4349ce61b30af9fdbdcec3bfe27ee057c608b2e25e62065d601d16b8",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "2e6482fb5f85810d55eb0d75d7b289b8c0c63778db7526c4f2e58665d72dc2be",
+    "backend/app/services/earth_search.py": "86f9a9d173ea870b4a7b8be00a8a175ecabddcd11070f8c5d17506d793278859",
+    "backend/app/routes/earth.py": "adea444c69d2db3f4bfe9a6da82a8e5c71681c9bb4b7b98cdb8996c9ebd73315",
+    "integrations/renderers.lock.json": "1a24fd581b3d8ee0022411fd711d381207067c70a95d8d897a71557ba5856677",
+    "frontend/public/runtime-versions.json": "441080fd41f8d7a1231b61b19972f4b9ec67cd629e74e7e727ab2006be7e65e4"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "steps": [
+        "Earth ready; permanent Search Earth without Explore; exactly one owned renderer",
+        "Typing does not fetch; Escape dismisses nonmodal results",
+        "Ambiguous recorded city: explicit second candidate; native destination matches",
+        "Dismiss/reopen preserves query/results/place with interactive map",
+        "Real zoom/pan; center anchoring preserved",
+        "Recorded named place: native camera and contextual details",
+        "Same-runtime Back/Forward restores actual panned/search camera bookmarks",
+        "Reload restores search destination through qualified host/native bookmark",
+        "Invalid coordinates declined without navigation",
+        "Reviewed hemisphere-letter city name reaches recorded backend provider seam and native destination",
+        "Offline coordinate search reaches genuine zero latitude/longitude",
+        "Recorded street address: provider details and actual Cesium destination",
+        "Declared no-result, unavailable and busy cases remain distinct and usable",
+        "Explicit recorded search recovers after backend empty/unavailable/busy errors",
+        "Native smooth zoom controls and accessible imagery/source context",
+        "Unchanged automatic native imagery and owned-cache worker are active during search journey",
+        "Sky return uses actual searched surface observer/time; accepted panorama unchanged",
+        "Back from Sky restores searched Earth camera; one active renderer",
+        "Existing manual Explore coordinates and canonical ORAS context preserved"
+      ],
+      "scenes": [
+        {
+          "name": "city-results",
+          "file": "1440-city-results.png",
+          "sha256": "890926b983205df9615662348432868e7ca4501eed1188bc66d6e050a394e8fa"
+        },
+        {
+          "name": "native-earth",
+          "file": "1440-native-earth.png",
+          "sha256": "022585dc221d3dcb4b19b529cf108b49b23a72afb569138c2d404bc843c5c743"
+        },
+        {
+          "name": "street-address",
+          "file": "1440-street-address.png",
+          "sha256": "64e1af4f522e76e3cbdab418fbe1288dbad06b29a459abf39fffe601e8ee0a70"
+        },
+        {
+          "name": "no-results",
+          "file": "1440-no-results.png",
+          "sha256": "46a3cefa1aca2ac723e047769103039a3097b736bd682ae99b222967a7db9fdb"
+        },
+        {
+          "name": "provider-unavailable",
+          "file": "1440-provider-unavailable.png",
+          "sha256": "c1398b7d00f9ba6c9a9223918ebe9542fe6e41f376f18eca415d4c9873e94c6a"
+        },
+        {
+          "name": "source-context",
+          "file": "1440-source-context.png",
+          "sha256": "d880b9f7203ebb00321781b8e91e79dd231b57942f0cf68367f27289d2109b47"
+        },
+        {
+          "name": "sky-return",
+          "file": "1440-sky-return.png",
+          "sha256": "a4bc28d2d7a91f88c1912e71d44e46fe62d5ad44341dc1c8eca8db60c6523663"
+        }
+      ],
+      "responses": [
+        {
+          "query": "Springfield",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:1181618",
+              "name": "Springfield",
+              "description": "Hampden, Massachusetts, United States",
+              "kind": "city",
+              "lat": 42.1018764,
+              "lon": -72.5886727
+            },
+            {
+              "id": "osm:R:126326",
+              "name": "Springfield",
+              "description": "Sangamon, Illinois, United States",
+              "kind": "city",
+              "lat": 39.7990175,
+              "lon": -89.6439575
+            },
+            {
+              "id": "osm:R:141244",
+              "name": "Springfield",
+              "description": "Greene, Missouri, United States",
+              "kind": "city",
+              "lat": 37.2081729,
+              "lon": -93.2922715
+            },
+            {
+              "id": "osm:R:182868",
+              "name": "Springfield",
+              "description": "Clark, Ohio, United States",
+              "kind": "city",
+              "lat": 39.9234046,
+              "lon": -83.810138
+            },
+            {
+              "id": "osm:R:186721",
+              "name": "Springfield",
+              "description": "Lane, Oregon, United States",
+              "kind": "city",
+              "lat": 44.0462362,
+              "lon": -123.0220289
+            }
+          ]
+        },
+        {
+          "query": "Eiffel Tower Paris",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:W:5013364",
+              "name": "Eiffel Tower",
+              "description": "5 Avenue Anatole France, Paris, Île-de-France, 75007, France",
+              "kind": "house",
+              "lat": 48.8582599,
+              "lon": 2.2945006
+            },
+            {
+              "id": "osm:W:115878663",
+              "name": "Novotel Paris Centre Eiffel Tower",
+              "description": "Rue Gaston de Caillavet, Paris, Île-de-France, 75015, France",
+              "kind": "house",
+              "lat": 48.8496595,
+              "lon": 2.2837039
+            },
+            {
+              "id": "osm:N:9322116894",
+              "name": "The Eiffel Tower of Paris, Maine",
+              "description": "South Paris, Paris, Oxford, Maine, 04281, United States",
+              "kind": "other",
+              "lat": 44.2159384,
+              "lon": -70.518416
+            },
+            {
+              "id": "osm:W:354915873",
+              "name": "Eiffel Tower Park",
+              "description": "Hancock, Paris, Henry, Tennessee, United States",
+              "kind": "other",
+              "lat": 36.2870954,
+              "lon": -88.3007407
+            },
+            {
+              "id": "osm:W:1051308117",
+              "name": "Eiffel Tower Park",
+              "description": "Hancock, Paris, Henry, Tennessee, United States",
+              "kind": "other",
+              "lat": 36.2870171,
+              "lon": -88.305595
+            }
+          ]
+        },
+        {
+          "query": "Essen",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:62713",
+              "name": "Essen",
+              "description": "North Rhine-Westphalia, Germany",
+              "kind": "city",
+              "lat": 51.4582235,
+              "lon": 7.0158171
+            },
+            {
+              "id": "osm:R:964003",
+              "name": "Essen",
+              "description": "Antwerp, 2910, Belgium",
+              "kind": "city",
+              "lat": 51.4679229,
+              "lon": 4.4698256
+            },
+            {
+              "id": "osm:N:4623339106",
+              "name": "Essen",
+              "description": "Handelsstraat, Antwerp, 2910, Belgium",
+              "kind": "house",
+              "lat": 51.4626799,
+              "lon": 4.45117
+            },
+            {
+              "id": "osm:N:45506571",
+              "name": "Essen",
+              "description": "Kootwijkerbroek, Gelderland, 3774 JD, Netherlands",
+              "kind": "district",
+              "lat": 52.1580407,
+              "lon": 5.6889224
+            },
+            {
+              "id": "osm:R:4012841",
+              "name": "Essene",
+              "description": "Halle-Vilvoorde, Flemish Brabant, Belgium",
+              "kind": "city",
+              "lat": 50.8973851,
+              "lon": 4.1390421
+            }
+          ]
+        },
+        {
+          "query": "221B Baker Street London",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:N:3916613190",
+              "name": "Sherlock Holmes Museum",
+              "description": "221B Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5237629,
+              "lon": -0.1584743
+            },
+            {
+              "id": "osm:N:5568763423",
+              "name": "221B Baker Street",
+              "description": "Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5233879,
+              "lon": -0.1582367
+            },
+            {
+              "id": "osm:W:176312585",
+              "name": "221B Baker Street",
+              "description": "Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.523748,
+              "lon": -0.1585699
+            }
+          ]
+        },
+        {
+          "query": "Essen",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:62713",
+              "name": "Essen",
+              "description": "North Rhine-Westphalia, Germany",
+              "kind": "city",
+              "lat": 51.4582235,
+              "lon": 7.0158171
+            },
+            {
+              "id": "osm:R:964003",
+              "name": "Essen",
+              "description": "Antwerp, 2910, Belgium",
+              "kind": "city",
+              "lat": 51.4679229,
+              "lon": 4.4698256
+            },
+            {
+              "id": "osm:N:4623339106",
+              "name": "Essen",
+              "description": "Handelsstraat, Antwerp, 2910, Belgium",
+              "kind": "house",
+              "lat": 51.4626799,
+              "lon": 4.45117
+            },
+            {
+              "id": "osm:N:45506571",
+              "name": "Essen",
+              "description": "Kootwijkerbroek, Gelderland, 3774 JD, Netherlands",
+              "kind": "district",
+              "lat": 52.1580407,
+              "lon": 5.6889224
+            },
+            {
+              "id": "osm:R:4012841",
+              "name": "Essene",
+              "description": "Halle-Vilvoorde, Flemish Brabant, Belgium",
+              "kind": "city",
+              "lat": 50.8973851,
+              "lon": 4.1390421
+            }
+          ]
+        },
+        {
+          "query": "221B Baker Street London",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:N:3916613190",
+              "name": "Sherlock Holmes Museum",
+              "description": "221B Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5237629,
+              "lon": -0.1584743
+            },
+            {
+              "id": "osm:N:5568763423",
+              "name": "221B Baker Street",
+              "description": "Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5233879,
+              "lon": -0.1582367
+            },
+            {
+              "id": "osm:W:176312585",
+              "name": "221B Baker Street",
+              "description": "Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.523748,
+              "lon": -0.1585699
+            }
+          ]
+        }
+      ],
+      "pageErrors": [],
+      "resourceFailures": [
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/10/351/518.jpg",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/10/352/518.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/11/702/1035.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/10/351/518.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/11/702/1038.jpg",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/10/352/518.jpg",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/11/702/1038.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/11/703/1038.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/11/703/1035.jpg",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/11/703/1035.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/11/702/1035.jpg",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4207/api/earth/search?q=R2+busy+fixture",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4207/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?f=json&geometry=%7B%22x%22%3A-79.58539400000913%2C%22y%22%3A41.32190300100932%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPoint&inSR=4326&outSR=4326&spatialRel=esriSpatialRelIntersects&where=Category%3D1&outFields=Name&returnGeometry=true&resultRecordCount=1",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "nativeAcknowledgments": [
+        {
+          "query": "Springfield",
+          "selectedId": "osm:R:126326",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 39.79901750005982,
+              "lon": -89.64395749999935,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6946238944338422,
+              "longitudeRad": -1.564582212892865,
+              "heightM": 39999.99999997986,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.570775699066271,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "Eiffel Tower Paris",
+          "selectedId": "osm:W:5013364",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 48.858259900829765,
+              "lon": 2.2945005999652315,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8527375020501153,
+              "longitudeRad": 0.04004659015898479,
+              "heightM": 39999.99999997309,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.570775555351195,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "Essen",
+          "selectedId": "osm:R:62713",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.458223498977915,
+              "lon": 7.015817100077943,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8981154273021201,
+              "longitudeRad": 0.12244910811272025,
+              "heightM": 39999.999999979635,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707758990093765,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "221B Baker Street London",
+          "selectedId": "osm:N:3916613190",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.523762900015335,
+              "lon": -0.1584742999971267,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8992593056219015,
+              "longitudeRad": -0.002765898314793591,
+              "heightM": 39999.99999997912,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707759098548157,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "Essen",
+          "selectedId": "osm:R:62713",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.458223498977894,
+              "lon": 7.015817100077923,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8981154273021201,
+              "longitudeRad": 0.12244910811271989,
+              "heightM": 39999.99999998168,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707758990148113,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "221B Baker Street London",
+          "selectedId": "osm:N:3916613190",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.523762900015335,
+              "lon": -0.15847429999712673,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8992593056219017,
+              "longitudeRad": -0.002765898314793592,
+              "heightM": 39999.99999998042,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707759098548157,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        }
+      ],
+      "backBookmark": {
+        "mode": "earth",
+        "observer": {
+          "lat": 39.80374843027288,
+          "lon": -89.66112129045649,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.6947064643166234,
+          "longitudeRad": -1.5648817775486141,
+          "heightM": 26191.78166360875,
+          "headingRad": 1.7763568394002505e-15,
+          "pitchRad": -1.5707826897898096,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      },
+      "coordinateProviderCalls": {
+        "before": 39,
+        "after": 39
+      },
+      "imageryCache": {
+        "status": {
+          "ok": true,
+          "status": "available",
+          "entries": 283,
+          "bytes": 3682916,
+          "maxBytes": 86368396,
+          "hits": 120,
+          "misses": 351,
+          "writes": 283,
+          "evictions": 0,
+          "errors": 0,
+          "skipped": 51,
+          "performance": {
+            "lookup": {
+              "count": 471,
+              "totalMs": 777.8999999975786,
+              "maxMs": 11.599999999627471
+            },
+            "networkHeaders": {
+              "count": 351,
+              "totalMs": 66183.29999999981,
+              "maxMs": 1517.6000000000931
+            }
+          }
+        },
+        "worker": "http://127.0.0.1:4207/earth-runtime/imagery-cache-sw.js",
+        "imagery": {
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "EOX · Global Satellite",
+            "product": "Sentinel-2 cloudless · 2016 mosaic",
+            "date": null,
+            "gsd": 10,
+            "coverage": "Web Mercator ±85.051°; capture dates vary",
+            "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+            "url": "https://maps.eox.at/",
+            "host": "tiles.maps.eox.at",
+            "cap": 14,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "eox-2016",
+            "status": "ready",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 0,
+            "requested": 518
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 37602.158092913785,
+            "rect": [
+              -0.4724735160070287,
+              51.40882674213745,
+              0.15552491683867264,
+              51.63786062461774
+            ],
+            "point": [
+              -0.15847429999712673,
+              51.52376290001533
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 2,
+              "loaded": 2,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 2,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            },
+            "eox-2016": {
+              "requested": 258,
+              "loaded": 258,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 14,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "skyReturn": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 51.523762900005615,
+            "lon": -0.15847430001184593,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "final": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 19999.19999999972,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "disabled"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 120.59999999962747,
+          "shellInteractiveMs": 162.59999999962747,
+          "viewerReadyMs": 165.1999999997206,
+          "firstImageryTileMs": 1405
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 39999.999999968044,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.321903001007314,
+            "lon": -79.5853940000091,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605397223,
+            "longitudeRad": -1.38902716179694,
+            "heightM": 39999.999999968044,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.570775528851808,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "EOX · Global Satellite · partial · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "partial",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "EOX · Global Satellite",
+            "product": "Sentinel-2 cloudless · 2016 mosaic",
+            "date": null,
+            "gsd": 10,
+            "coverage": "Web Mercator ±85.051°; capture dates vary",
+            "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+            "url": "https://maps.eox.at/",
+            "host": "tiles.maps.eox.at",
+            "cap": 14,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "eox-2016",
+            "status": "partial",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 13,
+            "requested": 167
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 1,
+          "metadataPending": false,
+          "view": {
+            "height": 39999.999999968044,
+            "rect": [
+              -79.86213217534615,
+              41.199522415471854,
+              -79.308655826372,
+              41.44361812342679
+            ],
+            "point": [
+              -79.5853940000091,
+              41.32190300100732
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 2,
+              "loaded": 2,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 2,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            },
+            "eox-2016": {
+              "requested": 85,
+              "loaded": 77,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 8,
+              "peak": 13,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "recordedBackendCalls": [
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London"
+      ]
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "steps": [
+        "Earth ready; permanent Search Earth without Explore; exactly one owned renderer",
+        "Typing does not fetch; Escape dismisses nonmodal results",
+        "Ambiguous recorded city: explicit second candidate; native destination matches",
+        "Dismiss/reopen preserves query/results/place with interactive map",
+        "Real zoom/pan; center anchoring preserved",
+        "Recorded named place: native camera and contextual details",
+        "Same-runtime Back/Forward restores actual panned/search camera bookmarks",
+        "Reload restores search destination through qualified host/native bookmark",
+        "Invalid coordinates declined without navigation",
+        "Reviewed hemisphere-letter city name reaches recorded backend provider seam and native destination",
+        "Offline coordinate search reaches genuine zero latitude/longitude",
+        "Recorded street address: provider details and actual Cesium destination",
+        "Declared no-result, unavailable and busy cases remain distinct and usable",
+        "Explicit recorded search recovers after backend empty/unavailable/busy errors",
+        "Native smooth zoom controls and accessible imagery/source context",
+        "Unchanged automatic native imagery and owned-cache worker are active during search journey",
+        "Sky return uses actual searched surface observer/time; accepted panorama unchanged",
+        "Back from Sky restores searched Earth camera; one active renderer",
+        "Existing manual Explore coordinates and canonical ORAS context preserved"
+      ],
+      "scenes": [
+        {
+          "name": "city-results",
+          "file": "390-city-results.png",
+          "sha256": "7e2e5a1bb20102f8433584b3de47329e77d9a98b4b37faddf3bcc3912427aa96"
+        },
+        {
+          "name": "native-earth",
+          "file": "390-native-earth.png",
+          "sha256": "b83823641d554568e33253516b0a068ac2e6e148534e0c1b9b665f96d4343564"
+        },
+        {
+          "name": "street-address",
+          "file": "390-street-address.png",
+          "sha256": "7be0ab204b9e899f38aeeda10ec12da9a1297011c9e6f00d8562a9612e9f6ba9"
+        },
+        {
+          "name": "no-results",
+          "file": "390-no-results.png",
+          "sha256": "5e896a001dd5d77eb7ca3b86e0d91733c7c4196168af51cddede8af29e367133"
+        },
+        {
+          "name": "provider-unavailable",
+          "file": "390-provider-unavailable.png",
+          "sha256": "d339f9696e4232512f60763530862127179af20464ce5ee3d27f52b20927a930"
+        },
+        {
+          "name": "source-context",
+          "file": "390-source-context.png",
+          "sha256": "0a1aecd167d3dd33bfa859c035781a56b9971bc17abf85fc76d4b4f8b495dd03"
+        },
+        {
+          "name": "sky-return",
+          "file": "390-sky-return.png",
+          "sha256": "fd4d7ce68e8cae18d72f4045cdf41bfcfb7b0f165db03b65753913950acc51c1"
+        }
+      ],
+      "responses": [
+        {
+          "query": "Springfield",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:1181618",
+              "name": "Springfield",
+              "description": "Hampden, Massachusetts, United States",
+              "kind": "city",
+              "lat": 42.1018764,
+              "lon": -72.5886727
+            },
+            {
+              "id": "osm:R:126326",
+              "name": "Springfield",
+              "description": "Sangamon, Illinois, United States",
+              "kind": "city",
+              "lat": 39.7990175,
+              "lon": -89.6439575
+            },
+            {
+              "id": "osm:R:141244",
+              "name": "Springfield",
+              "description": "Greene, Missouri, United States",
+              "kind": "city",
+              "lat": 37.2081729,
+              "lon": -93.2922715
+            },
+            {
+              "id": "osm:R:182868",
+              "name": "Springfield",
+              "description": "Clark, Ohio, United States",
+              "kind": "city",
+              "lat": 39.9234046,
+              "lon": -83.810138
+            },
+            {
+              "id": "osm:R:186721",
+              "name": "Springfield",
+              "description": "Lane, Oregon, United States",
+              "kind": "city",
+              "lat": 44.0462362,
+              "lon": -123.0220289
+            }
+          ]
+        },
+        {
+          "query": "Eiffel Tower Paris",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:W:5013364",
+              "name": "Eiffel Tower",
+              "description": "5 Avenue Anatole France, Paris, Île-de-France, 75007, France",
+              "kind": "house",
+              "lat": 48.8582599,
+              "lon": 2.2945006
+            },
+            {
+              "id": "osm:W:115878663",
+              "name": "Novotel Paris Centre Eiffel Tower",
+              "description": "Rue Gaston de Caillavet, Paris, Île-de-France, 75015, France",
+              "kind": "house",
+              "lat": 48.8496595,
+              "lon": 2.2837039
+            },
+            {
+              "id": "osm:N:9322116894",
+              "name": "The Eiffel Tower of Paris, Maine",
+              "description": "South Paris, Paris, Oxford, Maine, 04281, United States",
+              "kind": "other",
+              "lat": 44.2159384,
+              "lon": -70.518416
+            },
+            {
+              "id": "osm:W:354915873",
+              "name": "Eiffel Tower Park",
+              "description": "Hancock, Paris, Henry, Tennessee, United States",
+              "kind": "other",
+              "lat": 36.2870954,
+              "lon": -88.3007407
+            },
+            {
+              "id": "osm:W:1051308117",
+              "name": "Eiffel Tower Park",
+              "description": "Hancock, Paris, Henry, Tennessee, United States",
+              "kind": "other",
+              "lat": 36.2870171,
+              "lon": -88.305595
+            }
+          ]
+        },
+        {
+          "query": "Essen",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:62713",
+              "name": "Essen",
+              "description": "North Rhine-Westphalia, Germany",
+              "kind": "city",
+              "lat": 51.4582235,
+              "lon": 7.0158171
+            },
+            {
+              "id": "osm:R:964003",
+              "name": "Essen",
+              "description": "Antwerp, 2910, Belgium",
+              "kind": "city",
+              "lat": 51.4679229,
+              "lon": 4.4698256
+            },
+            {
+              "id": "osm:N:4623339106",
+              "name": "Essen",
+              "description": "Handelsstraat, Antwerp, 2910, Belgium",
+              "kind": "house",
+              "lat": 51.4626799,
+              "lon": 4.45117
+            },
+            {
+              "id": "osm:N:45506571",
+              "name": "Essen",
+              "description": "Kootwijkerbroek, Gelderland, 3774 JD, Netherlands",
+              "kind": "district",
+              "lat": 52.1580407,
+              "lon": 5.6889224
+            },
+            {
+              "id": "osm:R:4012841",
+              "name": "Essene",
+              "description": "Halle-Vilvoorde, Flemish Brabant, Belgium",
+              "kind": "city",
+              "lat": 50.8973851,
+              "lon": 4.1390421
+            }
+          ]
+        },
+        {
+          "query": "221B Baker Street London",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:N:3916613190",
+              "name": "Sherlock Holmes Museum",
+              "description": "221B Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5237629,
+              "lon": -0.1584743
+            },
+            {
+              "id": "osm:N:5568763423",
+              "name": "221B Baker Street",
+              "description": "Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5233879,
+              "lon": -0.1582367
+            },
+            {
+              "id": "osm:W:176312585",
+              "name": "221B Baker Street",
+              "description": "Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.523748,
+              "lon": -0.1585699
+            }
+          ]
+        },
+        {
+          "query": "Essen",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:62713",
+              "name": "Essen",
+              "description": "North Rhine-Westphalia, Germany",
+              "kind": "city",
+              "lat": 51.4582235,
+              "lon": 7.0158171
+            },
+            {
+              "id": "osm:R:964003",
+              "name": "Essen",
+              "description": "Antwerp, 2910, Belgium",
+              "kind": "city",
+              "lat": 51.4679229,
+              "lon": 4.4698256
+            },
+            {
+              "id": "osm:N:4623339106",
+              "name": "Essen",
+              "description": "Handelsstraat, Antwerp, 2910, Belgium",
+              "kind": "house",
+              "lat": 51.4626799,
+              "lon": 4.45117
+            },
+            {
+              "id": "osm:N:45506571",
+              "name": "Essen",
+              "description": "Kootwijkerbroek, Gelderland, 3774 JD, Netherlands",
+              "kind": "district",
+              "lat": 52.1580407,
+              "lon": 5.6889224
+            },
+            {
+              "id": "osm:R:4012841",
+              "name": "Essene",
+              "description": "Halle-Vilvoorde, Flemish Brabant, Belgium",
+              "kind": "city",
+              "lat": 50.8973851,
+              "lon": 4.1390421
+            }
+          ]
+        },
+        {
+          "query": "221B Baker Street London",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:N:3916613190",
+              "name": "Sherlock Holmes Museum",
+              "description": "221B Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5237629,
+              "lon": -0.1584743
+            },
+            {
+              "id": "osm:N:5568763423",
+              "name": "221B Baker Street",
+              "description": "Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5233879,
+              "lon": -0.1582367
+            },
+            {
+              "id": "osm:W:176312585",
+              "name": "221B Baker Street",
+              "description": "Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.523748,
+              "lon": -0.1585699
+            }
+          ]
+        }
+      ],
+      "pageErrors": [],
+      "resourceFailures": [
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/5/10/16.jpg",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/5/11/16.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/5/10/16.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/5/11/16.jpg",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/5/9/16.png",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4207/api/earth/search?q=R2+busy+fixture",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4207/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "nativeAcknowledgments": [
+        {
+          "query": "Springfield",
+          "selectedId": "osm:R:126326",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 39.79901750005983,
+              "lon": -89.64395749999932,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.6946238944338422,
+              "longitudeRad": -1.5645822128928646,
+              "heightM": 39999.999999990476,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.570775699060889,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "Eiffel Tower Paris",
+          "selectedId": "osm:W:5013364",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 48.85825990082977,
+              "lon": 2.294500599965268,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8527375020501153,
+              "longitudeRad": 0.040046590158985415,
+              "heightM": 39999.99999998107,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707755553458504,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "Essen",
+          "selectedId": "osm:R:62713",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.458223498977894,
+              "lon": 7.015817100077942,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.89811542730212,
+              "longitudeRad": 0.12244910811272025,
+              "heightM": 39999.99999998168,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707758990148113,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "221B Baker Street London",
+          "selectedId": "osm:N:3916613190",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.523762900015335,
+              "lon": -0.15847429999710705,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8992593056219017,
+              "longitudeRad": -0.0027658983147932498,
+              "heightM": 39999.99999999075,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707759098548157,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "Essen",
+          "selectedId": "osm:R:62713",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.458223498977894,
+              "lon": 7.015817100077942,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.89811542730212,
+              "longitudeRad": 0.12244910811272025,
+              "heightM": 39999.99999998168,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707758990148113,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        },
+        {
+          "query": "221B Baker Street London",
+          "selectedId": "osm:N:3916613190",
+          "native": {
+            "mode": "earth",
+            "observer": {
+              "lat": 51.523762900015335,
+              "lon": -0.15847429999710702,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.8992593056219017,
+              "longitudeRad": -0.00276589831479325,
+              "heightM": 39999.99999998042,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707759098548157,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false
+          }
+        }
+      ],
+      "backBookmark": {
+        "mode": "earth",
+        "observer": {
+          "lat": 39.805474061464345,
+          "lon": -89.6627809828192,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.6947365821265646,
+          "longitudeRad": -1.5649107446448498,
+          "heightM": 26192.415788058996,
+          "headingRad": 2.6645352591003757e-15,
+          "pitchRad": -1.5707826526754967,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      },
+      "coordinateProviderCalls": {
+        "before": 48,
+        "after": 48
+      },
+      "imageryCache": {
+        "status": {
+          "ok": true,
+          "status": "available",
+          "entries": 161,
+          "bytes": 2068149,
+          "maxBytes": 86246727,
+          "hits": 77,
+          "misses": 226,
+          "writes": 161,
+          "evictions": 0,
+          "errors": 0,
+          "skipped": 47,
+          "performance": {
+            "lookup": {
+              "count": 303,
+              "totalMs": 439.7000000006519,
+              "maxMs": 5.199999999720603
+            },
+            "networkHeaders": {
+              "count": 226,
+              "totalMs": 38505.89999999851,
+              "maxMs": 772.8999999999069
+            }
+          }
+        },
+        "worker": "http://127.0.0.1:4207/earth-runtime/imagery-cache-sw.js",
+        "imagery": {
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "EOX · Global Satellite",
+            "product": "Sentinel-2 cloudless · 2016 mosaic",
+            "date": null,
+            "gsd": 10,
+            "coverage": "Web Mercator ±85.051°; capture dates vary",
+            "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+            "url": "https://maps.eox.at/",
+            "host": "tiles.maps.eox.at",
+            "cap": 14,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "eox-2016",
+            "status": "ready",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 0,
+            "requested": 345
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 37602.16034532347,
+            "rect": [
+              -0.30380944538198207,
+              51.32830903328268,
+              -0.013139154362974019,
+              51.719031715520124
+            ],
+            "point": [
+              -0.15847429999710702,
+              51.52376290001533
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 4,
+              "loaded": 4,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 4,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            },
+            "eox-2016": {
+              "requested": 171,
+              "loaded": 171,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 13,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "skyReturn": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 51.523762900005615,
+            "lon": -0.15847430001184593,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "final": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 5435.899999999907,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "disabled"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 118.39999999990687,
+          "shellInteractiveMs": 147.5,
+          "viewerReadyMs": 149.89999999990687,
+          "firstImageryTileMs": 916
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 39999.99999997743,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.3219030010073,
+            "lon": -79.58539400000909,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605397223,
+            "longitudeRad": -1.3890271617969399,
+            "heightM": 39999.99999997743,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.570775528851808,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "EOX · Global Satellite · partial · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "partial",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "EOX · Global Satellite",
+            "product": "Sentinel-2 cloudless · 2016 mosaic",
+            "date": null,
+            "gsd": 10,
+            "coverage": "Web Mercator ±85.051°; capture dates vary",
+            "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+            "url": "https://maps.eox.at/",
+            "host": "tiles.maps.eox.at",
+            "cap": 14,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "eox-2016",
+            "status": "partial",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 10,
+            "requested": 76
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 1,
+          "metadataPending": true,
+          "view": {
+            "height": 39999.99999997743,
+            "rect": [
+              -79.71342317204879,
+              41.113621863928344,
+              -79.45736482678134,
+              41.53003507180138
+            ],
+            "point": [
+              -79.58539400000923,
+              41.32190300102268
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 6,
+              "loaded": 6,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 6,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            },
+            "eox-2016": {
+              "requested": 31,
+              "loaded": 25,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 6,
+              "peak": 12,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "recordedBackendCalls": [
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London",
+        "Springfield",
+        "Eiffel Tower Paris",
+        "Essen",
+        "221B Baker Street London",
+        "R2 no-results fixture",
+        "R2 unavailable fixture",
+        "R2 busy fixture",
+        "Essen",
+        "221B Baker Street London"
+      ]
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering/emulated mobile; no physical-device or full R2 imagery/cache acceptance.",
+    "Candidates are exact recorded R2-A Photon/OpenStreetMap results replayed at the normalized service seam. Raw Photon transport/normalization and production admission are not qualified by this replay. Real FastAPI validation/error handlers and native selection remain in use. Live provider availability is separately measured.",
+    "N1 historical full navigation5/22 and7/22 is unchanged and not rerun."
+  ],
+  "recordingIdentity": {
+    "mode": "recorded-normalized-r2a",
+    "recordingSha256": "466515b1c87c217f909c9740981360a8ac3b77bd1a4fc7bbd5dd12738e3b517f",
+    "originalR2aCommit": "27f34a94198f2061c0a5083a68beebd567c7d87f",
+    "seam": "normalized search service results; real FastAPI route and browser; no live Photon claim",
+    "queries": [
+      "Springfield",
+      "Eiffel Tower Paris",
+      "Essen",
+      "221B Baker Street London"
+    ],
+    "calls": [
+      "Springfield",
+      "Eiffel Tower Paris",
+      "Essen",
+      "221B Baker Street London",
+      "R2 no-results fixture",
+      "R2 unavailable fixture",
+      "R2 busy fixture",
+      "Essen",
+      "221B Baker Street London",
+      "Springfield",
+      "Eiffel Tower Paris",
+      "Essen",
+      "221B Baker Street London",
+      "R2 no-results fixture",
+      "R2 unavailable fixture",
+      "R2 busy fixture",
+      "Essen",
+      "221B Baker Street London",
+      "Springfield",
+      "Eiffel Tower Paris",
+      "Essen",
+      "221B Baker Street London",
+      "R2 no-results fixture",
+      "R2 unavailable fixture",
+      "R2 busy fixture",
+      "Essen",
+      "221B Baker Street London",
+      "Springfield",
+      "Eiffel Tower Paris",
+      "Essen",
+      "221B Baker Street London",
+      "R2 no-results fixture",
+      "R2 unavailable fixture",
+      "R2 busy fixture",
+      "Essen",
+      "221B Baker Street London",
+      "Springfield",
+      "Eiffel Tower Paris",
+      "Essen",
+      "221B Baker Street London",
+      "R2 no-results fixture",
+      "R2 unavailable fixture",
+      "R2 busy fixture",
+      "Essen",
+      "221B Baker Street London"
+    ]
+  }
+}

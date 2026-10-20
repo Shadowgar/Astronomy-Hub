@@ -1,0 +1,27 @@
+/* Earth-only Adaptive Explorer composition. Sky's accepted chrome is unchanged. */
+.ws-shell[data-workspace-mode=earth] .ws-stage{inset:0}
+.ws-shell[data-workspace-mode=earth] .ws-header{position:absolute;top:12px;left:16px;right:16px;z-index:30;height:48px;min-height:48px;border:1px solid var(--ws-border);border-radius:14px;background:#101b29e8;box-shadow:0 4px 24px #0003}
+.ws-earth-direct{position:absolute;z-index:32;top:76px;left:16px;width:min(390px,calc(100vw - 32px));pointer-events:none}
+.ws-earth-direct .ws-earth-search{margin:0;padding:12px;border:1px solid var(--ws-border);border-radius:14px;background:#101b29f5;box-shadow:0 4px 24px #0003;pointer-events:auto}
+.ws-earth-direct label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
+.ws-earth-direct .ws-earth-search-input{display:flex;flex-wrap:nowrap;gap:6px}
+.ws-earth-direct input{width:100%;min-width:0;font-size:16px;flex-basis:auto!important}
+.ws-earth-direct .ws-earth-search-input button{width:auto;min-width:76px;padding-inline:10px}
+.ws-earth-direct .ws-search-reopen{display:flex;width:100%;justify-content:space-between;margin-top:6px;min-height:36px;font-size:12px;text-align:left;overflow-wrap:anywhere}
+.ws-search-content{max-height:min(45dvh,430px);overflow:auto;overscroll-behavior:contain;padding-top:4px}
+.ws-search-panel-heading{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ws-muted)}
+.ws-search-panel-heading button{min-height:44px}
+.ws-earth-map-tools{position:absolute;z-index:7;right:16px;bottom:96px;display:grid;gap:2px;padding:5px;border-radius:13px;background:#101b29ee}
+.ws-earth-map-tools button{min-height:44px;min-width:44px;font-size:12px}
+.ws-earth-map-tools button:nth-child(-n+2){font-size:24px}
+.ws-shell[data-workspace-mode=earth] .ws-rail{left:auto;right:16px;top:80px}
+.ws-shell[data-workspace-mode=earth] .ws-layers{left:auto;right:80px}
+.ws-shell[data-workspace-mode=earth] .ws-header .ws-context-access{display:none}
+@media(max-width:767px){.ws-shell[data-workspace-mode=earth] .ws-header{left:10px;right:10px;top:8px;padding-inline:10px}.ws-shell[data-workspace-mode=earth] .ws-brand{gap:5px;font-size:13px}.ws-earth-direct{left:10px;top:66px;width:calc(100vw - 20px)}.ws-earth-direct .ws-earth-search{padding:10px}.ws-search-content{max-height:36dvh}.ws-earth-map-tools{right:10px;bottom:172px;grid-template-columns:44px 44px 56px auto}.ws-earth-direct .ws-search-reopen{min-height:44px}.ws-shell[data-workspace-mode=earth] .ws-earth-explore{min-width:44px;padding-inline:8px}}
+
+.ws-shell[data-workspace-mode=earth]:not(.ws-shell--immersive) .ws-header{opacity:1;visibility:visible;pointer-events:auto}
+.ws-shell[data-workspace-mode=earth].ws-shell--immersive .ws-earth-direct,.ws-shell[data-workspace-mode=earth].ws-shell--immersive .ws-earth-map-tools{visibility:hidden;pointer-events:none}
+.ws-shell[data-workspace-mode=earth] .ws-menu{z-index:40}
+
+/* A contextual mobile sheet owns its controls; retain search state behind it. */
+.ws-shell[data-workspace-mode=earth].ws-shell--sheet-open .ws-earth-direct{visibility:hidden;pointer-events:none}

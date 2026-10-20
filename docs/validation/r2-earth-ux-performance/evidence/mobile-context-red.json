@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "steps": [],
+  "contextReachable": false,
+  "error": "AssertionError [ERR_ASSERTION]: Map tools must not cover Tonight context\n\nfalse !== true\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/scripts/validation/verify_r2_earth_mobile_panels.mjs:4:414\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:453:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)"
+}

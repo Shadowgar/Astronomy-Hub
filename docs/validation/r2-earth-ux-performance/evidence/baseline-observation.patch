@@ -1,0 +1,155 @@
+--- a/runtimes/earth-runtime/core/ImageryController.mjs
++++ b/runtimes/earth-runtime/core/ImageryController.mjs
+@@ -20,11 +20,11 @@
+  async initialize(config){
+   this.config=config;
+   if(!this.base){
+-   const local=await TileMapServiceImageryProvider.fromUrl('/earth-runtime/cesium/Assets/Textures/NaturalEarthII');
++   this.runtime.imageryTrace?.record('local.construct.start');const local=await TileMapServiceImageryProvider.fromUrl('/earth-runtime/cesium/Assets/Textures/NaturalEarthII');
+    if(this.runtime.lifecycle.closed)return;
+-   this.base=this.viewer.imageryLayers.addImageryProvider(local,0);this.localAllocations++;
+-   this.localGuard=observeImageryRequests(local,{onLoad:()=>this.runtime.timings.firstImageryTileMs??=performance.now()});
+-   this.offCamera=this.viewer.camera.moveEnd.addEventListener(()=>{clearTimeout(this.cameraTimer);this.cameraTimer=setTimeout(()=>void this.updateView(),250)});
++   this.runtime.imageryTrace?.record('local.construct.end');this.base=this.viewer.imageryLayers.addImageryProvider(local,0);this.localAllocations++;
++   this.localGuard=observeImageryRequests(local,{onLoad:(_image,args)=>{this.runtime.timings.firstImageryTileMs??=performance.now();this.runtime.imageryTrace?.record('decode.local',{level:args[2]})}});
++   this.offCamera=this.viewer.camera.moveEnd.addEventListener(()=>{this.runtime.imageryTrace?.record('camera.end');clearTimeout(this.cameraTimer);this.cameraTimer=setTimeout(()=>void this.updateView(),250)});
+    this.wakeTimer=setInterval(()=>{if(this.runtime.lifecycle.closed)return;const previous=this.status,unsettled=this.viewer.scene.globe.tilesLoaded===false;if(this.map){this.status=this.loadingStatus();}if(this.map&&(previous!==this.status||unsettled||this.budget.stats.active))this.refresh();if(this.mode==='auto'&&!this.updating&&!this.switching&&this.needsUpdate())void this.updateView();},500);
+    this.offCacheScene=this.viewer.camera.moveStart?.addEventListener(()=>imageryCacheScene());
+    imageryCacheScene();this.mountStatus();
+@@ -89,11 +89,12 @@
+   });
+  }
+  async provider(id,factory,{signal},epoch){
++  this.runtime.imageryTrace?.record('provider.construct.start',{source:id});
+   if(!this.eligible(id))throw Error('Source cooling down');
+   let provider;
+   try{provider=await factory();signal.throwIfAborted();if(epoch!==this.epoch)throw Error('Stale imagery construction');}
+   catch(error){if(provider&&typeof provider.destroy==='function'&&!provider.isDestroyed?.())provider.destroy();if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.budget.block(SOURCE_FACTS[id].host,error);this.markFailed(id);this.failedConstructions.add(id);}throw error;}
+-  const record={id,provider,loaded:false,epoch,reportedErrors:new WeakSet()};
++  this.runtime.imageryTrace?.record('provider.construct.end',{source:id});const record={id,provider,loaded:false,epoch,reportedErrors:new WeakSet()};
+   const owned=()=>epoch===this.epoch&&this.activeRecord===record&&!this.runtime.lifecycle.closed;
+   const live=()=>owned()&&this.map?.getState().status!=='switching'&&!record.guard.paused;
+   const hardFailure=error=>{this.budget.block(SOURCE_FACTS[id].host,error?.error??error);return !this.budget.eligible(SOURCE_FACTS[id].host);};
+@@ -104,6 +105,7 @@
+   };
+   record.guard=observeImageryRequests(provider,{budget:this.budget,host:SOURCE_FACTS[id].host,
+    canDispatch:()=>id!=='ion'||this.session.canUseIon(this.config.ionSessionTileLimit),
++   onObserve:event=>this.runtime.imageryTrace?.record(event.kind==='loaded'?'decode.'+id:'request.'+event.kind,{...event,source:id}),
+    onDispatch:()=>{if(id==='ion')this.session.recordIonRequest();},onLimit:()=>fail(Error('Ion tab-session limit reached or ledger unavailable')),
+    isEmpty:id==='usgs-naip'?(image,args)=>this.emptyImage(image,record,args[2]):()=>false,
+    onLoad:(_image,args)=>{if(!live())return;record.loaded=true;this.failureCounts.delete(id);this.status=this.loadingStatus();this.runtime.timings.firstImageryTileMs??=performance.now();if((id==='usgs-naip'&&args[2]>=17)||(id==='pema'&&args[2]>=18))this.runtime.timings.firstHdTileMs??=performance.now();},onError:fail});
+@@ -160,6 +162,7 @@
+  async retrySelected(){return this.updateView();}
+  cameraKey(view=this.view()){const c=this.viewer.camera,p=c.positionCartographic;return JSON.stringify([p.longitude,p.latitude,p.height,c.heading,c.pitch,c.roll,view.rect]);}
+  async updateView(){
++  this.runtime.imageryTrace?.record('update.start');
+   if(this.runtime.lifecycle.closed||!this.base)return;
+   const generation=this.updateGeneration=(this.updateGeneration??0)+1;
+   if(this.metadataPending&&this.metadataKey!==this.cameraKey())this.metadataAbort?.abort();
+--- /dev/null
++++ b/runtimes/earth-runtime/core/ImageryTrace.mjs
+@@ -0,0 +1,15 @@
++// Observation only. The pinned Cesium scene owns all scheduling and rendering.
++const fields=new Set(['source','level','x','y','elapsedMs','count','generation','status','maxLevel','kind']);
++export class ImageryTrace {
++ constructor({clock=()=>performance.now(),maxEvents=256}={}){this.clock=clock;this.maxEvents=maxEvents;this.pageFirst={};this.afterEnd=new Set();this.reset('startup');}
++ reset(label){this.origin=this.clock();this.label=String(label).slice(0,96);this.events=[];this.counts={};this.first={};this.visible=[];this.previousVisible='';this.lastEnd=null;this.afterEnd.clear();}
++ record(type,detail={}){const event={type,pageMs:this.clock(),caseMs:this.clock()-this.origin};for(const [k,v]of Object.entries(detail))if(fields.has(k)&&(typeof v==='number'&&Number.isFinite(v)||typeof v==='string'))event[k]=typeof v==='string'?v.slice(0,96):v;if(type==='camera.end'){this.lastEnd=event.pageMs;this.afterEnd.clear()}if(!(type in this.pageFirst)&&Object.keys(this.pageFirst).length<64)this.pageFirst[type]={...event};this.counts[type]=(this.counts[type]??0)+1;if(!(type in this.first)&&Object.keys(this.first).length<64)this.first[type]={...event};this.events.push(event);if(this.events.length>this.maxEvents)this.events.shift();}
++ snapshot(){return {label:this.label,caseOriginMs:this.origin,timeOrigin:globalThis.performance?.timeOrigin??null,events:this.events.map(e=>({...e})),counts:{...this.counts},first:{...this.first},pageFirst:{...this.pageFirst},visible:this.visible.map(r=>({...r})),sensor:'read-only Cesium1.138 native tilesToRender/readyImagery textures; decode is separate from visibility; native idle is not complete coverage'};}
++ attach(runtime){const scene=runtime.viewer.scene;
++  const offProgress=scene.globe.tileLoadProgressEvent.addEventListener(count=>this.record('native.pending',{count}));
++  const offRender=scene.postRender.addEventListener(()=>{const imagery=runtime.visual?.imagery;if(!imagery)return;const layers=new Map([[imagery.base,'local'],[imagery.managed,imagery.actual]]);this.visible=visibleImagery(scene.globe._surface?._tilesToRender??[],layers);if(this.lastEnd!==null)for(const row of this.visible)if(!this.afterEnd.has(row.source)){this.afterEnd.add(row.source);this.record('target.visible.'+row.source,row)}const key=JSON.stringify(this.visible);if(key!==this.previousVisible){this.previousVisible=key;for(const row of this.visible)this.record('visible.'+row.source,row);}});
++  runtime.lifecycle.add(()=>{offProgress();offRender()});this.record('viewer.ready');
++ }
++}
++export function visibleImagery(tiles,layers){const rows=new Map();for(const tile of tiles)for(const attachment of tile.data?.imagery??[]){const image=attachment.readyImagery,layer=image?.imageryLayer,source=layers.get(layer);if(!source||!image||!image.texture&&!image.textureWebMercator||layer.show===false||layer.alpha===0)continue;const row=rows.get(source)??{source,count:0,maxLevel:0};row.count++;row.maxLevel=Math.max(row.maxLevel,image.level??0);rows.set(source,row);}return [...rows.values()];}
++export function installImageryTrace(runtime,location=globalThis.location){if(!location||!['127.0.0.1','localhost','[::1]'].includes(location.hostname)||new URLSearchParams(location.search).get('orasPerf')!=='1')return null;runtime.imageryTrace=new ImageryTrace();runtime.imageryTrace.record('runtime.created');return runtime.imageryTrace;}
+--- a/runtimes/earth-runtime/core/LocalVisualProof.mjs
++++ b/runtimes/earth-runtime/core/LocalVisualProof.mjs
+@@ -10,8 +10,9 @@
+  };
+  // Deterministic provider tests are loopback-only and never persist a preference.
+  window.orasEarthProofSelect=id=>{const entity=runtime.viewer.entities.getById(id);if(!entity?.orasMetadata)throw Error('Unknown proof entity');runtime.viewer.selectedEntity=entity;runtime.viewer.scene.requestRender();};
++ window.orasEarthPerformanceFlight=({lon,lat,height,utc})=>new Promise(resolve=>{if(runtime.lifecycle.closed||![lon,lat,height].every(Number.isFinite)||Math.abs(lon)>180||Math.abs(lat)>90||height<100||height>30000000)throw Error('Invalid performance view');if(utc)runtime.setTime(utc);if(!runtime.imageryTrace)throw Error('Explicit local performance probe required');runtime.imageryTrace.reset('native-flight');runtime.viewer.camera.flyTo({destination:Cartesian3.fromDegrees(lon,lat,height),orientation:{heading:0,pitch:-Math.PI/2,roll:0},duration:0.3,complete:resolve,cancel:resolve});runtime.viewer.scene.requestRender()});
+  window.orasEarthProofSource=async id=>{await runtime.visual.configPromise;await runtime.visual.imagery.select(id);};
+  window.orasEarthProofLabels=async enabled=>runtime.visual.imagery.setLabels(enabled);
+  window.orasEarthProofState=()=>{const v=runtime.viewer,c=v.camera,p=c.positionCartographic,gl=v.canvas.getContext('webgl2')??v.canvas.getContext('webgl');const ext=gl?.getExtension('WEBGL_debug_renderer_info');return {camera:{longitude:p.longitude,latitude:p.latitude,height:p.height,heading:c.heading,pitch:c.pitch,roll:c.roll,position:[c.positionWC.x,c.positionWC.y,c.positionWC.z]},utc:JulianDate.toDate(v.clock.currentTime).toISOString(),viewport:{width:v.canvas.clientWidth,height:v.canvas.clientHeight,dpr:devicePixelRatio},renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):'unavailable',globeTilesLoaded:v.scene.globe.tilesLoaded,imageryOrder:Array.from({length:v.imageryLayers.length},(_,i)=>{const layer=v.imageryLayers.get(i);return layer===runtime.visual.imagery.base?'local':layer===runtime.visual.imagery.managed?runtime.visual.imagery.actual:layer===runtime.visual.imagery.labels?.layer?'labels':'independent-overlay';})};};
+- runtime.lifecycle.add(()=>{delete window.orasEarthProofView;delete window.orasEarthProofState;delete window.orasEarthProofSource;delete window.orasEarthProofLabels;delete window.orasEarthProofSelect;});
++ runtime.lifecycle.add(()=>{delete window.orasEarthPerformanceFlight;delete window.orasEarthProofView;delete window.orasEarthProofState;delete window.orasEarthProofSource;delete window.orasEarthProofLabels;delete window.orasEarthProofSelect;});
+ }
+--- a/runtimes/earth-runtime/core/imageryCacheWorker.mjs
++++ b/runtimes/earth-runtime/core/imageryCacheWorker.mjs
+@@ -1,6 +1,8 @@
+ import {cacheResource} from './imageryCachePolicy.mjs';
+ import {ImageryCacheStore} from './imageryCacheStore.mjs';
+ const store=new ImageryCacheStore(),scenes=new Map();
++const now=()=>globalThis.performance?.now?.()??Date.now(),timings={lookup:{count:0,totalMs:0,maxMs:0},networkHeaders:{count:0,totalMs:0,maxMs:0}};
++const observed=(kind,start)=>{const ms=Math.max(0,now()-start),row=timings[kind];row.count++;row.totalMs+=ms;row.maxMs=Math.max(row.maxMs,ms);};
+ const earthClient=client=>client?.url&&new URL(client.url).origin===self.location.origin&&new URL(client.url).pathname.startsWith('/earth-runtime/');
+ self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));
+ self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
+@@ -9,8 +11,8 @@
+  const epoch=store.epoch,id=event.clientId;let scene=scenes.get(id);if(!scene){scene={generation:0,active:true};scenes.set(id,scene);}
+  const canWrite=async()=>!!id&&scene.active&&scenes.get(id)===scene&&earthClient(await self.clients.get(id));
+  let finish;const maintenance=new Promise(resolve=>{finish=resolve});event.waitUntil(maintenance);
+- event.respondWith((async()=>{try{const cached=await store.get(resource);if(cached){finish();return cached;}
+-  const response=await fetch(event.request);void store.put(resource,response.clone(),epoch,canWrite).finally(finish);return response;
++ event.respondWith((async()=>{try{const readAt=now(),cached=await store.get(resource);observed('lookup',readAt);if(cached){finish();return cached;}
++  const networkAt=now(),response=await fetch(event.request);observed('networkHeaders',networkAt);void store.put(resource,response.clone(),epoch,canWrite).finally(finish);return response;
+  }catch(error){finish();throw error;}})());
+ });
+ self.addEventListener('message',event=>{
+@@ -21,5 +23,5 @@
+  }
+  if(!event.source?.url||new URL(event.source.url).origin!==self.location.origin||!event.ports[0])return;
+  if(!['imagery-cache-status','imagery-cache-clear'].includes(event.data?.type))return;
+- event.waitUntil((async()=>{try{const result=event.data.type==='imagery-cache-clear'?await store.clear():await store.status();event.ports[0].postMessage({ok:true,...result});}catch{event.ports[0].postMessage({ok:false,status:'unavailable'});}})());
++ event.waitUntil((async()=>{try{const result=event.data.type==='imagery-cache-clear'?await store.clear():await store.status();event.ports[0].postMessage({ok:true,...result,performance:timings});}catch{event.ports[0].postMessage({ok:false,status:'unavailable'});}})());
+ });
+--- a/runtimes/earth-runtime/core/imageryRequests.mjs
++++ b/runtimes/earth-runtime/core/imageryRequests.mjs
+@@ -4,7 +4,7 @@
+  const blocked=new Map(),stats={active:0,requested:0};
+  return {clock,blocked,stats,eligible(host){return !blocked.has(host)},block(host,error){const status=error?.statusCode??error?.status;if(![401,403,429].includes(status))return;const raw=error?.responseHeaders?.['retry-after']??error?.retryAfter,seconds=Number(raw),wait=Number.isFinite(seconds)?seconds*1000:Math.max(0,Date.parse(raw)-Date.now())||0;blocked.set(host,{status,until:clock()+Math.max(300000,wait)});},retryHost(host){const item=blocked.get(host);if(!item)return true;if(item.status!==429||clock()<item.until)return false;blocked.delete(host);return true;}};
+ }
+-export function observeImageryRequests(provider,{budget,host='',onLoad=()=>{},onError=()=>{},isEmpty=()=>false,canDispatch=()=>true,onDispatch=()=>{},onLimit=()=>{}}={}){
++export function observeImageryRequests(provider,{budget,host='',onLoad=()=>{},onError=()=>{},isEmpty=()=>false,canDispatch=()=>true,onDispatch=()=>{},onLimit=()=>{},onObserve=()=>{}}={}){
+  const original=provider.requestImage.bind(provider),pending=new Set();let stopped=false,paused=false;
+  const stats={requested:0,loaded:0,failed:0,cancelled:0,active:0,peak:0};
+  provider.requestImage=(...args)=>{
+@@ -12,11 +12,11 @@
+   if(!canDispatch()){onLimit();return undefined;}
+   let image;try{image=original(...args);}catch(error){budget?.block(host,error);onError(error);return Promise.reject(error);}
+   if(image===undefined)return undefined;
+-  onDispatch();stats.requested++;stats.active++;stats.peak=Math.max(stats.peak,stats.active);if(budget){budget.stats.requested++;budget.stats.active++;}
++  const started=globalThis.performance?.now?.()??Date.now();onObserve({kind:'start',level:args[2],x:args[0],y:args[1]});onDispatch();stats.requested++;stats.active++;stats.peak=Math.max(stats.peak,stats.active);if(budget){budget.stats.requested++;budget.stats.active++;}
+   return new Promise((resolve,reject)=>{
+    let finished=false;
+    const finish=(kind,value)=>{if(finished){if(kind==='loaded')disposeImage(value);return;}finished=true;pending.delete(cancel);stats.active--;if(budget)budget.stats.active--;stats[kind]++;
+-    if(kind==='loaded'){onLoad(value,args);resolve(value);}else{reject(value);if(kind==='failed'&&!stopped&&!paused){budget?.block(host,value);onError(value);}}};
++    onObserve({kind,level:args[2],x:args[0],y:args[1],elapsedMs:(globalThis.performance?.now?.()??Date.now())-started,status:value?.statusCode??value?.status});if(kind==='loaded'){onLoad(value,args);resolve(value);}else{reject(value);if(kind==='failed'&&!stopped&&!paused){budget?.block(host,value);onError(value);}}};
+    const cancel=message=>{args[3]?.cancel?.();finish('cancelled',Error(message));};pending.add(cancel);
+    Promise.resolve(image).then(value=>{let empty;try{empty=isEmpty(value,args);}catch(error){disposeImage(value);finish('failed',error);return;}
+     try{if(empty){disposeImage(value);finish('failed',Object.assign(Error('No imagery data'),{imageryGuardFailure:true}));}else finish('loaded',value);}catch(error){finish('failed',error);}
+--- a/runtimes/earth-runtime/entry.mjs
++++ b/runtimes/earth-runtime/entry.mjs
+@@ -1,3 +1,4 @@
++import {installImageryTrace} from './core/ImageryTrace.mjs';
+ import {startImageryCache} from '../../packages/imagery-cache/client.mjs';
+ import {installLocalVisualProof} from './core/LocalVisualProof.mjs';
+ import 'cesium/Build/Cesium/Widgets/widgets.css';
+@@ -20,12 +21,12 @@
+  document.querySelector('#layers').replaceChildren();document.querySelector('#selection').hidden=true;
+  document.querySelector('#earth').dataset.status='loading';
+  document.querySelector('#failure').hidden=true;document.querySelector('#loading').hidden=false;
+- try{runtime=new EarthRuntime();await runtime.initialize();
++ try{runtime=new EarthRuntime();installImageryTrace(runtime);await runtime.initialize();runtime.imageryTrace?.attach(runtime);
+   if(leaving||runtime.lifecycle.closed){await stop();return;}
+   bridge=RuntimeBridge(runtime);bridge.ready();installLocalVisualProof(runtime);
+   // Serializable lifecycle evidence; no renderer objects exposed to the Hub.
+   window.orasEarthVisibleTargets=()=>{if(runtime.viewer.isDestroyed())return [];const viewer=runtime.viewer,occluder=new EllipsoidalOccluder(viewer.scene.globe.ellipsoid,viewer.camera.positionWC);return viewer.entities.values.filter(entity=>entity.orasMetadata&&entity.show).flatMap(entity=>{const point=entity.position?.getValue(viewer.clock.currentTime);if(!point||!occluder.isPointVisible(point))return [];const screen=viewer.scene.cartesianToCanvasCoordinates(point);return screen?[{id:entity.id,name:entity.name,kind:entity.orasMetadata.layerId,x:screen.x,y:screen.y}]:[]})};
+-  window.orasEarthDiagnostics=()=>({owner:'Astronomy Hub',monotonicMs:performance.now(),globeTilesLoaded:runtime.viewer.isDestroyed()?null:runtime.viewer.scene.globe.tilesLoaded,ready:runtime.ready,disposed:runtime.lifecycle.closed,viewerDestroyed:runtime.viewer.isDestroyed(),site:{...runtime.site},layers:runtime.registry.snapshot(),providers:Object.fromEntries(runtime.providerStatus.values),entityCount:runtime.viewer.isDestroyed()?0:runtime.viewer.entities.values.length,timings:{...runtime.timings},cameraMotion:runtime.camera.motionState(),cameraHeightM:runtime.viewer.isDestroyed()?null:runtime.viewer.camera.positionCartographic.height,navigation:runtime.viewer.isDestroyed()?null:runtime.navigation(),tracking:runtime.viewer.isDestroyed()?null:runtime.viewer.trackedEntity?.id??null,selection:runtime.selectionMetadata,quality:runtime.visual?.quality,imagery:runtime.visual?.imagery.diagnostics()});
++  window.orasEarthDiagnostics=()=>({owner:'Astronomy Hub',monotonicMs:performance.now(),globeTilesLoaded:runtime.viewer.isDestroyed()?null:runtime.viewer.scene.globe.tilesLoaded,ready:runtime.ready,disposed:runtime.lifecycle.closed,viewerDestroyed:runtime.viewer.isDestroyed(),site:{...runtime.site},layers:runtime.registry.snapshot(),providers:Object.fromEntries(runtime.providerStatus.values),entityCount:runtime.viewer.isDestroyed()?0:runtime.viewer.entities.values.length,timings:{...runtime.timings},cameraMotion:runtime.camera.motionState(),cameraHeightM:runtime.viewer.isDestroyed()?null:runtime.viewer.camera.positionCartographic.height,navigation:runtime.viewer.isDestroyed()?null:runtime.navigation(),tracking:runtime.viewer.isDestroyed()?null:runtime.viewer.trackedEntity?.id??null,selection:runtime.selectionMetadata,quality:runtime.visual?.quality,imagery:runtime.visual?.imagery.diagnostics(),imageryTrace:runtime.imageryTrace?.snapshot()});
+  }catch{await stop();document.querySelector('#failure').hidden=false;document.querySelector('#loading').hidden=true;}
+ }
+ document.querySelector('#retry').addEventListener('click',()=>{void start()});
