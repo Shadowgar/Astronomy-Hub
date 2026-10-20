@@ -1,0 +1,199 @@
+TAP version 13
+# Subtest: remote-only registry strips terrain and unselected billing sources, preserves exact product URLs and caps
+ok 1 - remote-only registry strips terrain and unselected billing sources, preserves exact product URLs and caps
+  ---
+  duration_ms: 5.424387
+  type: 'test'
+  ...
+# Subtest: explicit admitted opt-in executes actual pinned ion factory with fixture-only SDK, and requires no default token
+ok 2 - explicit admitted opt-in executes actual pinned ion factory with fixture-only SDK, and requires no default token
+  ---
+  duration_ms: 1.52878
+  type: 'test'
+  ...
+# Subtest: PEMA is fail-closed on public origins while eligible public imagery remains available
+not ok 3 - PEMA is fail-closed on public origins while eligible public imagery remains available
+  ---
+  duration_ms: 2.719706
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/admitted-map-sources.test.mjs:23:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    true !== false
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/admitted-map-sources.test.mjs:23:198)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: worker rejects a response completed after client scene
+not ok 4 - worker rejects a response completed after client scene
+  ---
+  duration_ms: 23.366932
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache-lifetime.test.mjs:2:41'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    1 !== 0
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache-lifetime.test.mjs:9:94)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: worker rejects a response completed after client dispose
+not ok 5 - worker rejects a response completed after client dispose
+  ---
+  duration_ms: 1.449044
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache-lifetime.test.mjs:2:41'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    1 !== 0
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache-lifetime.test.mjs:9:94)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: exact provider edition and WMS parameters identify anonymous eligible resources only
+ok 6 - exact provider edition and WMS parameters identify anonymous eligible resources only
+  ---
+  duration_ms: 23.063387
+  type: 'test'
+  ...
+# Subtest: freshness never resets origin age and honors revalidation/no-store/private/vary restrictions
+ok 7 - freshness never resets origin age and honors revalidation/no-store/private/vary restrictions
+  ---
+  duration_ms: 2.697424
+  type: 'test'
+  ...
+# Subtest: actual response bytes survive a new store instance and expired entries miss
+ok 8 - actual response bytes survive a new store instance and expired entries miss
+  ---
+  duration_ms: 10.066423
+  type: 'test'
+  ...
+# Subtest: confirmed owned clear isolates preferences and suppresses pre-clear delayed writes
+ok 9 - confirmed owned clear isolates preferences and suppresses pre-clear delayed writes
+  ---
+  duration_ms: 2.162972
+  type: 'test'
+  ...
+# Subtest: storage denial falls back, corruption is evicted, and oldest entries yield to quota
+ok 10 - storage denial falls back, corruption is evicted, and oldest entries yield to quota
+  ---
+  duration_ms: 5.357441
+  type: 'test'
+  ...
+# Subtest: opaque and no-store imagery are not persisted; budget cannot consume other user storage
+ok 11 - opaque and no-store imagery are not persisted; budget cannot consume other user storage
+  ---
+  duration_ms: 0.505091
+  type: 'test'
+  ...
+# Subtest: an HTML error falsely labeled as imagery is not persisted
+ok 12 - an HTML error falsely labeled as imagery is not persisted
+  ---
+  duration_ms: 0.409211
+  type: 'test'
+  ...
+# Subtest: index maintenance purges expired tiles even when their URL is never requested again
+ok 13 - index maintenance purges expired tiles even when their URL is never requested again
+  ---
+  duration_ms: 1.777977
+  type: 'test'
+  ...
+# Subtest: credential-bearing and local-only unqualified PEMA requests never enter managed storage
+not ok 14 - credential-bearing and local-only unqualified PEMA requests never enter managed storage
+  ---
+  duration_ms: 1.489431
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache.test.mjs:41:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+
+    + {
+    +   edition: 'NaturalEarthII-cesium1.138.0',
+    +   key: 'https://hub.example/earth-runtime/__imagery_cache__/v1/local/NaturalEarthII-cesium1.138.0?url=https%3A%2F%2Fhub.example%2Fearth-runtime%2Fcesium%2FAssets%2FTextures%2FNaturalEarthII%2F0%2F0%2F0.jpg',
+    +   provider: 'local',
+    +   url: 'https://hub.example/earth-runtime/cesium/Assets/Textures/NaturalEarthII/0/0/0.jpg'
+    + }
+    - null
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual:
+    provider: 'local'
+    edition: 'NaturalEarthII-cesium1.138.0'
+    url: 'https://hub.example/earth-runtime/cesium/Assets/Textures/NaturalEarthII/0/0/0.jpg'
+    key: 'https://hub.example/earth-runtime/__imagery_cache__/v1/local/NaturalEarthII-cesium1.138.0?url=https%3A%2F%2Fhub.example%2Fearth-runtime%2Fcesium%2FAssets%2FTextures%2FNaturalEarthII%2F0%2F0%2F0.jpg'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache.test.mjs:42:195)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: a scene/disposal generation changed during async maintenance cannot persist late bytes
+not ok 15 - a scene/disposal generation changed during async maintenance cannot persist late bytes
+  ---
+  duration_ms: 2.655013
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache.test.mjs:46:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    1 !== 0
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache.test.mjs:49:129)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 10
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 103.660793

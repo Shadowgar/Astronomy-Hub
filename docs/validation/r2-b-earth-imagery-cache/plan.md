@@ -64,3 +64,16 @@ cache guard requires new Earth builds and final current-source browser proof;
 qualification remains pending. Paris debug established a startup waiter race:
 local ready immediately precedes EOX loading;36 EOX tiles decoded and native
 settlement within about10s. Driver now waits for remote decode first.
+
+Qualification continuation2026-10-20: reviewed cache fallback ownership fix has
+focused RED/GREEN and223 complete runtime/Earth tests;135 scoped Docker Earth,
+291frontend/typecheck and fresh Docker backend43 tests pass (7deprecation warnings).
+Final Earth independent artifacts match e0a904a2…, Hub130 files match; served
+513Earth/130Hub bytes verified. Genuine cold/warm/restart and controlled cache/
+fallback/recovery plus actual Hub/wheel and fresh coordinate/history/two Sky
+round trips pass on desktop/mobile. Final live-search suites fail Springfield503
+at the first place lookup, cause unknown, not a browser stall; historical14/14
+phase1 proofs retained explicitly. ORAS aerial browser failures/fallback retained,
+not a high-resolution pass. Eight external state records drift, original103IDs/
+mounts and90volumes/settings preserved. Exact-head review/draft delivery pending;
+no merge/deployment/R3.

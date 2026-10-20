@@ -83,7 +83,7 @@ export class ImageryController {
    if(!this.managed||this.viewer.imageryLayers.indexOf(this.managed)<0){this.terminal('Remote construction failed');return;}
    if(state.switchOrigin==='automatic'&&state.activeId!==this.requestedId){for(const id of this.failedConstructions)this.cachedFallbacks.add(id);}
    if(state.switchOrigin==='automatic'&&this.replacedRecord?.tileFailures&&this.replacedRecord.id!==state.activeId)this.markFailed(this.replacedRecord.id);this.replacedRecord=null;
-   this.actual=state.activeId;this.activeRecord=this.records.get(this.managed.imageryProvider);if(this.eligible(this.actual))this.activeRecord?.guard.resume();else{this.status='unavailable';queueMicrotask(()=>{if(epoch===this.epoch&&!this.runtime.lifecycle.closed)void this.select(this.mode,true)});return;}
+   if(this.actual!==state.activeId)imageryCacheScene();this.actual=state.activeId;this.activeRecord=this.records.get(this.managed.imageryProvider);if(this.eligible(this.actual))this.activeRecord?.guard.resume();else{this.status='unavailable';queueMicrotask(()=>{if(epoch===this.epoch&&!this.runtime.lifecycle.closed)void this.select(this.mode,true)});return;}
    this.status=this.loadingStatus();if(state.lastError)this.reason='Selected source unavailable; showing fallback';
    this.order();void this.syncLabels();this.refresh();
   });

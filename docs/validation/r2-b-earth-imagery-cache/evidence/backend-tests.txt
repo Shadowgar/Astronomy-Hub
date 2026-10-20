@@ -1,0 +1,21 @@
+...........................................                              [100%]
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/testclient.py:29
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:29: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    [], typing.ContextManager[anyio.abc.BlockingPortal]
+
+../usr/local/lib/python3.12/site-packages/httpx/_client.py:690
+../usr/local/lib/python3.12/site-packages/httpx/_client.py:690
+backend/tests/test_earth_events.py::test_routes_fail_closed_without_upstream_details[earthquakes]
+backend/tests/test_earth_events.py::test_routes_fail_closed_without_upstream_details[fire-perimeters]
+backend/tests/test_earth_events.py::test_routes_fail_closed_without_upstream_details[weather-radar]
+backend/tests/test_earth_events.py::test_image_refuses_timestamp_mismatch_and_unbounded_time
+  /usr/local/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+../usr/local/lib/python3.12/site-packages/_pytest/cacheprovider.py:469
+  /usr/local/lib/python3.12/site-packages/_pytest/cacheprovider.py:469: PytestCacheWarning: could not create cache path /work/.pytest_cache/v/cache/nodeids: [Errno 30] Read-only file system: '/work/pytest-cache-files-xci44bkt'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+43 passed, 8 warnings in 1.61s

@@ -1,0 +1,102 @@
+{
+  "status": "AVAILABLE_FUNCTIONALITY_VERIFIED; LIVE_PLACE_REQUALIFICATION_BLOCKED; AERIAL_SOURCE_LIMITATIONS",
+  "head": "8d5bbe42479b4523245a15d2fa0ef00030cc2f70",
+  "committed": false,
+  "earthArtifact": "e0a904a201b11b7c6202cc1467b2cd3c80c02beed58bb0956eab2372c37ac0bf",
+  "earthFilesServed": 513,
+  "hubFilesServed": 130,
+  "skyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
+  "protected": [
+    "runtimes/earth-runtime/core/CameraController.mjs",
+    "runtimes/earth-runtime/core/RuntimeBridge.mjs",
+    "runtimes/earth-runtime/core/EarthRuntime.mjs",
+    "packages/runtime-protocol",
+    "vendor",
+    "runtimes/sky-adapter",
+    "frontend/public/oras-sky-engine",
+    "packages/earth-search",
+    "backend",
+    "frontend/src/features/workspace/EarthSearch.tsx",
+    "frontend/src/features/workspace/earthSearch.ts",
+    "frontend/src/features/workspace/EarthExplore.tsx",
+    "frontend/src/features/workspace/earthLocationNavigation.ts",
+    "frontend/src/features/workspace/useEarthLocation.ts",
+    "package.json",
+    "package-lock.json",
+    "frontend/package.json",
+    "frontend/package-lock.json"
+  ],
+  "proofs": [
+    {
+      "suite": "r2-b-navigation-1440",
+      "proofSha256": "eb82d15e7d04e528b63023d14ba35009e3adc7fc8d50dddae22c99b26fdd5411",
+      "status": "PASS"
+    },
+    {
+      "suite": "r2-b-navigation-390",
+      "proofSha256": "aeb480181edd28c37627164b6c3d933914197db8f91f24b8f290d839bf22ec37",
+      "status": "PASS"
+    },
+    {
+      "suite": "r2-b-imagery-1440",
+      "proofSha256": "738939dc2ecc651c5b9e5f03ecb2f3bce45da284f047b8718155552a54a46435",
+      "status": "PASS"
+    },
+    {
+      "suite": "r2-b-imagery-390",
+      "proofSha256": "603d6633812e7ba3e0803102e4ceab510b182558c0acb497febb3d6f22e1446b",
+      "status": "PASS"
+    },
+    {
+      "suite": "r2-b-cache-failures-1440",
+      "proofSha256": "ed053923e78bd5b420c748b3d883b8b86556149b2c32eb4b85d0441dfba2273c",
+      "status": "PASS"
+    },
+    {
+      "suite": "r2-b-cache-failures-390",
+      "proofSha256": "a9f8551d8f312c5c452614caebac200e234565f0a66d45186625ddff99bfd2a5",
+      "status": "PASS"
+    },
+    {
+      "suite": "r2-b-hub-1440",
+      "proofSha256": "99101ba5d939761871df956999594e28dbe45c0b133be16e02610f6ee7450947",
+      "status": "PASS"
+    },
+    {
+      "suite": "r2-b-hub-390",
+      "proofSha256": "960a7fe7e6cd7bca3c3da50f37c338714047809b9455d0e85d3a15129c3141d5",
+      "status": "PASS"
+    }
+  ],
+  "liveSearch": [
+    {
+      "suite": "desktop",
+      "fresh": "FAIL: first real Springfield lookup503, expected200; remaining13 groups not reached",
+      "historical": "Phase1 PASS14 groups; previous artifact3c6c5ffa, not a new pass",
+      "currentProofSha256": "6b6dbdfc2dc28551565818db3633ab5c5e5239bd604b70ad2fefebc76e574108"
+    },
+    {
+      "suite": "mobile",
+      "fresh": "FAIL: first real Springfield lookup503, expected200; remaining13 groups not reached",
+      "historical": "Phase1 PASS14 groups; previous artifact3c6c5ffa, not a new pass",
+      "currentProofSha256": "9d6d60a98ec814379a19035ceac260ed8f764835054c8d90a5e64f4be51c30d9"
+    }
+  ],
+  "reviewedRuntimeDeltaFromPhase1": [
+    "core/ImageryController.mjs"
+  ],
+  "originalContainersAndMountsIntact": 103,
+  "volumesIntact": 90,
+  "settingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "stateDriftNote": "Observed upon continuation after interruption; cause unknown. No unrelated container was restarted/stopped by this continuation. Only two owned R2-B containers were started.",
+  "originalN1Artifact": "662e617078a4448d8235a2c9925c339ea7126cd430ec38cca5426fe8b60345b5",
+  "limitations": [
+    "Software Chromium/emulated mobile; not physical owner hardware acceptance.",
+    "Public providers best effort; partial/fallback observations remain in proof.",
+    "PEMA local-only, no managed persistence or public screenshot redistribution."
+  ],
+  "originalContainerStateDriftCounts": {
+    "stopped": 7,
+    "laterStartedAt": 1
+  }
+}

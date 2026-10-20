@@ -155,3 +155,9 @@ test('a cached fallback from an obsolete factory recovers automatically after a 
 });
 
 test('terminal source changes invalidate pending cache writes; disposal keeps the client released',async()=>{const h=harness();await h.controller.retry({});const n=h.cacheScenes.length;h.controller.terminal('Declared terminal source failure');assert.ok(h.cacheScenes.length>n);h.cleanups[0]();assert.equal(h.cacheScenes.at(-1),false)});
+
+test('native automatic fallback invalidates pending cache ownership',async()=>{
+ const h=harness();try{await h.controller.retry({});await h.controller.select('eox-2016');const before=h.cacheScenes.length;
+ h.providers.get('eox-2016').errorEvent.raiseEvent({retry:false,error:Error('Declared EOX tile failure')});await new Promise(resolve=>setTimeout(resolve,0));assert.equal(h.controller.actual,'nasa');assert.ok(h.cacheScenes.length>before);
+ }finally{h.cleanups[0]()}
+});
