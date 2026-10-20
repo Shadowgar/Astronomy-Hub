@@ -1,12 +1,16 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
-## R2 Earth UX/performance ACTIVE — owner directive2026-10-20
+## R2 Earth UX/performance — owner review candidate2026-10-20
 
 Separate branch from PR79 at158a7705, new draft stacked79. Deliver direct
 submitted nonmodal Earth search, refined map UI and instrumented before/after
 imagery evidence. Optimize only measured avoidable latency. N1 remains accepted;
 previous Photon response-header timeout and deterministic16/16 results retained.
 No merge/deploy/R3, paid/new providers or unrelated service changes.
+Desktop/mobile direct-search19/19 each;231 runtime/Earth,143 Docker Earth,293
+frontend,52 backend checks and typecheck passed; recorded/live evidence stays
+separate. Existing partial aerial/rights/hardware limits remain. Owner preview
+http://127.0.0.1:4206/earth; no acceptance or merge authority inferred.
 [Scope and evidence](../validation/r2-earth-ux-performance/README.md).
 
 ## R2-B final search qualification — owner authorization2026-10-20

@@ -1,0 +1,13 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/frontend
+
+
+ Test Files  42 passed (42)
+      Tests  293 passed (293)
+   Start at  13:21:30
+   Duration  2.34s (transform 5.22s, setup 0ms, import 10.34s, tests 4.13s, environment 5ms)
+

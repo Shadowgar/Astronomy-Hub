@@ -1,0 +1,63 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/earthExploreBaselineProof.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/frontend
+
+ ❯ tests/earthExploreBaselineProof.test.tsx (1 test | 1 failed) 16ms
+   × Explore must not duplicate the direct search field 15ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  13:30:51
+   Duration  270ms (transform 81ms, setup 0ms, import 146ms, tests 16ms, environment 0ms)
+
+stderr | tests/earthExploreBaselineProof.test.tsx > Explore must not duplicate the direct search field
+Warning: useLayoutEffect does nothing on the server, because its effect cannot be encoded into the server renderer's output format. This will lead to a mismatch between the initial, non-hydrated UI and the intended UI. To avoid this, useLayoutEffect should only be used in components that render exclusively on the client. See https://reactjs.org/link/uselayouteffect-ssr for common fixes.
+    at MemoryRouter (/home/rocco/Astronomy-Hub/frontend/node_modules/react-router/dist/umd/react-router.development.js:1097:7)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/earthExploreBaselineProof.test.tsx > Explore must not duplicate the direct search field
+AssertionError: expected '<button class="ws-earth-explore" aria…' not to contain 'earth-search-query'
+
+- Expected
++ Received
+
+- earth-search-query
++ <button class="ws-earth-explore" aria-label="Explore"><span class="ws-icon" aria-hidden="true"><svg
++   xmlns="http://www.w3.org/2000/svg"
++   width="24"
++   height="24"
++   viewBox="0 0 24 24"
++   fill="none"
++   stroke="currentColor"
++   stroke-width="2"
++   stroke-linecap="round"
++   stroke-linejoin="round"
++ >
++   <polygon points="3 11 22 2 13 21 11 13 3 11" />
++ </svg>
++ </span>Explore</button><dialog class="as-dialog ws-panel" aria-labelledby="earth-explore-title"><div class="ws-panel-heading"><h2 id="earth-explore-title">Explore</h2><button type="button" class="ws-icon-button" aria-label="Close dialog" title="Close dialog"><span class="ws-icon" aria-hidden="true"><svg
++   xmlns="http://www.w3.org/2000/svg"
++   width="24"
++   height="24"
++   viewBox="0 0 24 24"
++   fill="none"
++   stroke="currentColor"
++   stroke-width="2"
++   stroke-linecap="round"
++   stroke-linejoin="round"
++ >
++   <path d="M18 6 6 18" />
++   <path d="m6 6 12 12" />
++ </svg>
++ </span></button></div><p>Drag to explore Earth. Zoom toward a location, pause, then continue inward to enter its sky.</p><div class="ws-actions"><button class="ws-primary">Enter Sky here</button></div><section class="ws-earth-search ws-panel" data-earth-search="true" aria-label="Earth location search"><form><label for="earth-search-query">Search Earth</label><div class="ws-earth-search-input"><input id="earth-search-query" type="search" placeholder="City, street address, or latitude, longitude" autoComplete="off" maxLength="200" value=""/><button class="ws-primary" type="submit" disabled="">Search Earth</button></div></form><button class="ws-search-reopen" type="button" aria-label="Show search results and location" aria-expanded="false" aria-controls="earth-search-content">Results &amp; location <span aria-hidden="true">+</span></button></section><details><summary>Go to exact coordinates</summary><form><p>Explore a location by coordinates.</p><label>Latitude<input type="text" inputMode="decimal" required="" value=""/></label><label>Longitude<input type="text" inputMode="decimal" required="" value=""/></label><button type="submit">Explore location</button></form></details></dialog>
+
+ ❯ tests/earthExploreBaselineProof.test.tsx:1:469
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

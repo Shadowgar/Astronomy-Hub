@@ -1,0 +1,25 @@
+vite v6.4.3 building for production...
+transforming...
+✓ 1502 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /hub/runtimes/earth-runtime/layers/EventLayers.mjs is dynamically imported by /hub/runtimes/earth-runtime/core/EarthRuntime.mjs but also statically imported by /hub/runtimes/earth-runtime/core/EarthRuntime.mjs, dynamic import will not move module into another chunk.
+
+computing gzip size...
+../../../proof/earth-final-first/module-policy.json                               1.17 kB │ gzip:     0.40 kB
+../../../proof/earth-final-first/index.html                                       1.39 kB │ gzip:     0.70 kB
+../../../proof/earth-final-first/assets/index-CuYsBwff.css                       26.76 kB │ gzip:     6.14 kB
+../../../proof/earth-final-first/assets/entities-BWIZlD1Q.js                      2.16 kB │ gzip:     1.13 kB
+../../../proof/earth-final-first/assets/GodsEyeWeatherAdapter-BIEnV2GI.js         2.42 kB │ gzip:     1.29 kB
+../../../proof/earth-final-first/assets/GodsEyeFlightsAdapter-Gt8qnr9M.js         3.32 kB │ gzip:     1.56 kB
+../../../proof/earth-final-first/imagery-cache-sw.js                              9.01 kB │ gzip:     3.42 kB
+../../../proof/earth-final-first/assets/GodsEyeSatellitesAdapter-B7Hcohe7.js     34.47 kB │ gzip:    14.98 kB
+../../../proof/earth-final-first/assets/index-ogXPckjv.js                     4,131.20 kB │ gzip: 1,133.20 kB
+✓ built in 14.35s
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+DEPENDENCY LICENSES: 111
+OWNED_EARTH_ARTIFACT cb1f579d3f7625ad776d6182740da581c152c3a79684b4f2520477672eb12c3e 513 files; Cesium 1.138.0

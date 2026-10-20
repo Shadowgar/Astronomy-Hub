@@ -34,7 +34,7 @@
       "sourceMatchedPriorContextAtLoad": true,
       "loadedAtFinalSearchStartSha256": "5d79c81b41b9686c23d1e1c04fefc1af7804e49db40d6de06c0e7e501c90752e",
       "loadedAtR2EarthUxStartSha256": "e535e6419c1f956fb72b1d7052724b138d71bfe4f52f32b2894d28d10f239bf6",
-      "currentSha256": "752d07817924fb3ffd311ff96f4c4fb9b8b482060adadedc94fa4d5df999bfb1"
+      "currentSha256": "257619ac1dd001ac3d8039f97b5eb18abf34fa511b44558ec3cdf9344877f582"
     },
     {
       "path": "docs/context/CONTEXT_MANIFEST.yaml",
@@ -223,7 +223,7 @@
       "sourceMatchedPriorContextAtLoad": true,
       "loadedAtFinalSearchStartSha256": "6b7bc4c594ab88f7e4ec2d41d9fc3b8bcf301bb924779d223ec17b162133ea29",
       "loadedAtR2EarthUxStartSha256": "25a715ef405c01d72ed38f2154028c1688cad0a998091b0d58bc2f80d7a41d5e",
-      "currentSha256": "c61d900ce6a8f41e36b49f2223e0f75b54480e3eda2cfd64417e19a3fcd9cc3a"
+      "currentSha256": "9cc219f6978d0855514b7fa1e4e60ff2bc8c13bf6247c0fe103c9d8907a7f3fa"
     },
     {
       "path": "docs/execution/MASTER_PLAN.md",

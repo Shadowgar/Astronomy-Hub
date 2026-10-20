@@ -1,0 +1,138 @@
+TAP version 13
+# Subtest: native scheduler undefined never counts as a dispatched or loaded request
+ok 1 - native scheduler undefined never counts as a dispatched or loaded request
+  ---
+  duration_ms: 2.757718
+  type: 'test'
+  ...
+# Subtest: a native pending request has no Hub timeout and retains its native result
+ok 2 - a native pending request has no Hub timeout and retains its native result
+  ---
+  duration_ms: 21.547514
+  type: 'test'
+  ...
+# Subtest: teardown cancels active tiles; late resolution cannot call loaded hook
+ok 3 - teardown cancels active tiles; late resolution cannot call loaded hook
+  ---
+  duration_ms: 0.754789
+  type: 'test'
+  ...
+# Subtest: Cesium cancellation rejects without a value and must not become a loaded tile
+ok 4 - Cesium cancellation rejects without a value and must not become a loaded tile
+  ---
+  duration_ms: 0.282273
+  type: 'test'
+  ...
+# Subtest: native HTTP failure preserves the original rejection and host restrictions
+ok 5 - native HTTP failure preserves the original rejection and host restrictions
+  ---
+  duration_ms: 0.500611
+  type: 'test'
+  ...
+# Subtest: cached provider guard pauses reversibly without dispatch or late callbacks
+ok 6 - cached provider guard pauses reversibly without dispatch or late callbacks
+  ---
+  duration_ms: 0.201251
+  type: 'test'
+  ...
+# Subtest: availability telemetry shares counts without admitting or queuing requests
+ok 7 - availability telemetry shares counts without admitting or queuing requests
+  ---
+  duration_ms: 0.469058
+  type: 'test'
+  ...
+# Subtest: 429 stops the whole host until explicit cooldown retry; unauthorized hosts never retry
+ok 8 - 429 stops the whole host until explicit cooldown retry; unauthorized hosts never retry
+  ---
+  duration_ms: 0.389836
+  type: 'test'
+  ...
+# Subtest: a provider session cap counts accepted SDK requests, with no dispatch beyond cap
+ok 9 - a provider session cap counts accepted SDK requests, with no dispatch beyond cap
+  ---
+  duration_ms: 0.360019
+  type: 'test'
+  ...
+# Subtest: late decoded imagery after cancellation releases its owned bitmap
+ok 10 - late decoded imagery after cancellation releases its owned bitmap
+  ---
+  duration_ms: 0.409333
+  type: 'test'
+  ...
+# Subtest: rejected decoded bitmap closes once when empty detection empty
+ok 11 - rejected decoded bitmap closes once when empty detection empty
+  ---
+  duration_ms: 0.454349
+  type: 'test'
+  ...
+# Subtest: rejected decoded bitmap closes once when empty detection throws
+ok 12 - rejected decoded bitmap closes once when empty detection throws
+  ---
+  duration_ms: 0.210273
+  type: 'test'
+  ...
+# Subtest: accepted decoded bitmap stays open for Cesium
+ok 13 - accepted decoded bitmap stays open for Cesium
+  ---
+  duration_ms: 0.797808
+  type: 'test'
+  ...
+# Subtest: late cancelled bitmap closes once when empty detection empty
+ok 14 - late cancelled bitmap closes once when empty detection empty
+  ---
+  duration_ms: 0.233014
+  type: 'test'
+  ...
+# Subtest: late cancelled bitmap closes once when empty detection throws
+ok 15 - late cancelled bitmap closes once when empty detection throws
+  ---
+  duration_ms: 0.089567
+  type: 'test'
+  ...
+# Subtest: canvas and HTML images without disposal stay supported on accept and reject
+ok 16 - canvas and HTML images without disposal stay supported on accept and reject
+  ---
+  duration_ms: 0.231344
+  type: 'test'
+  ...
+# Subtest: a throwing bitmap close preserves the original failure and releases its slot
+ok 17 - a throwing bitmap close preserves the original failure and releases its slot
+  ---
+  duration_ms: 0.344161
+  type: 'test'
+  ...
+# Subtest: native SDK dispatch is not limited by a Hub rate or concurrency budget
+ok 18 - native SDK dispatch is not limited by a Hub rate or concurrency budget
+  ---
+  duration_ms: 0.291293
+  type: 'test'
+  ...
+# Subtest: optional diagnostic observer cannot alter native image outcomes or counters
+not ok 19 - optional diagnostic observer cannot alter native image outcomes or counters
+  ---
+  duration_ms: 0.240753
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/tests/earth/imagery-requests.test.mjs:72:1'
+  failureType: 'testCodeFailure'
+  error: 'diagnostic failed'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    onObserve (file:///home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/tests/earth/imagery-requests.test.mjs:72:211)
+    provider.requestImage (file:///home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/runtimes/earth-runtime/core/imageryRequests.mjs:15:61)
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/tests/earth/imagery-requests.test.mjs:72:269)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 18
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 48.116303
