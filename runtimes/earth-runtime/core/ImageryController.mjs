@@ -20,11 +20,11 @@ export class ImageryController {
  async initialize(config){
   this.config=config;
   if(!this.base){
-   const local=await TileMapServiceImageryProvider.fromUrl('/earth-runtime/cesium/Assets/Textures/NaturalEarthII');
+   this.runtime.imageryTrace?.record('local.construct.start');const local=await TileMapServiceImageryProvider.fromUrl('/earth-runtime/cesium/Assets/Textures/NaturalEarthII');
    if(this.runtime.lifecycle.closed)return;
-   this.base=this.viewer.imageryLayers.addImageryProvider(local,0);this.localAllocations++;
-   this.localGuard=observeImageryRequests(local,{onLoad:()=>this.runtime.timings.firstImageryTileMs??=performance.now()});
-   this.offCamera=this.viewer.camera.moveEnd.addEventListener(()=>{clearTimeout(this.cameraTimer);this.cameraTimer=setTimeout(()=>void this.updateView(),250)});
+   this.runtime.imageryTrace?.record('local.construct.end');this.base=this.viewer.imageryLayers.addImageryProvider(local,0);this.localAllocations++;
+   this.localGuard=observeImageryRequests(local,{onLoad:(_image,args)=>{this.runtime.timings.firstImageryTileMs??=performance.now();this.runtime.imageryTrace?.record('decode.local',{level:args[2]})}});
+   this.offCamera=this.viewer.camera.moveEnd.addEventListener(()=>{this.runtime.imageryTrace?.record('camera.end');void this.updateView()});
    this.wakeTimer=setInterval(()=>{if(this.runtime.lifecycle.closed)return;const previous=this.status,unsettled=this.viewer.scene.globe.tilesLoaded===false;if(this.map){this.status=this.loadingStatus();}if(this.map&&(previous!==this.status||unsettled||this.budget.stats.active))this.refresh();if(this.mode==='auto'&&!this.updating&&!this.switching&&this.needsUpdate())void this.updateView();},500);
    this.offCacheScene=this.viewer.camera.moveStart?.addEventListener(()=>imageryCacheScene());
    imageryCacheScene();this.mountStatus();
@@ -89,11 +89,12 @@ export class ImageryController {
   });
  }
  async provider(id,factory,{signal},epoch){
+  this.runtime.imageryTrace?.record('provider.construct.start',{source:id});
   if(!this.eligible(id))throw Error('Source cooling down');
   let provider;
   try{provider=await factory();signal.throwIfAborted();if(epoch!==this.epoch)throw Error('Stale imagery construction');}
   catch(error){if(provider&&typeof provider.destroy==='function'&&!provider.isDestroyed?.())provider.destroy();if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.budget.block(SOURCE_FACTS[id].host,error);this.markFailed(id);this.failedConstructions.add(id);}throw error;}
-  const record={id,provider,loaded:false,epoch,reportedErrors:new WeakSet()};
+  this.runtime.imageryTrace?.record('provider.construct.end',{source:id});const record={id,provider,loaded:false,epoch,reportedErrors:new WeakSet()};
   const owned=()=>epoch===this.epoch&&this.activeRecord===record&&!this.runtime.lifecycle.closed;
   const live=()=>owned()&&this.map?.getState().status!=='switching'&&!record.guard.paused;
   const hardFailure=error=>{this.budget.block(SOURCE_FACTS[id].host,error?.error??error);return !this.budget.eligible(SOURCE_FACTS[id].host);};
@@ -104,6 +105,7 @@ export class ImageryController {
   };
   record.guard=observeImageryRequests(provider,{budget:this.budget,host:SOURCE_FACTS[id].host,
    canDispatch:()=>id!=='ion'||this.session.canUseIon(this.config.ionSessionTileLimit),
+   onObserve:event=>this.runtime.imageryTrace?.record(event.kind==='loaded'?'decode.'+id:'request.'+event.kind,{...event,source:id}),
    onDispatch:()=>{if(id==='ion')this.session.recordIonRequest();},onLimit:()=>fail(Error('Ion tab-session limit reached or ledger unavailable')),
    isEmpty:id==='usgs-naip'?(image,args)=>this.emptyImage(image,record,args[2]):()=>false,
    onLoad:(_image,args)=>{if(!live())return;record.loaded=true;this.failureCounts.delete(id);this.status=this.loadingStatus();this.runtime.timings.firstImageryTileMs??=performance.now();if((id==='usgs-naip'&&args[2]>=17)||(id==='pema'&&args[2]>=18))this.runtime.timings.firstHdTileMs??=performance.now();},onError:fail});
@@ -160,6 +162,7 @@ export class ImageryController {
  async retrySelected(){return this.updateView();}
  cameraKey(view=this.view()){const c=this.viewer.camera,p=c.positionCartographic;return JSON.stringify([p.longitude,p.latitude,p.height,c.heading,c.pitch,c.roll,view.rect]);}
  async updateView(){
+  this.runtime.imageryTrace?.record('update.start');
   if(this.runtime.lifecycle.closed||!this.base)return;
   const generation=this.updateGeneration=(this.updateGeneration??0)+1;
   if(this.metadataPending&&this.metadataKey!==this.cameraKey())this.metadataAbort?.abort();
@@ -196,7 +199,8 @@ export class ImageryController {
   if(!this.labelsWanted||!this.map||this.actual==='local'||!this.budget.eligible('tiles.maps.eox.at')){this.removeLabels();return;}
   if(this.labels){this.labels.guard.resume();this.order();return;}
   const provider=createLabels(),record={provider};record.guard=observeImageryRequests(provider,{budget:this.budget,host:'tiles.maps.eox.at',onError:()=>{this.labelsWanted=false;this.removeLabels();this.refresh();},onLoad:()=>this.viewer.scene.requestRender()});
-  record.off=provider.errorEvent.addEventListener(error=>{if(error)error.retry=false;this.labelsWanted=false;this.removeLabels();this.refresh();});record.layer=this.viewer.imageryLayers.addImageryProvider(provider,2);this.labels=record;
+  record.off=provider.errorEvent.addEventListener(error=>{if(error)error.retry=false;this.labelsWanted=false;this.removeLabels();this.refresh();});// Native level gate prevents max-order-12 regional labels stretching over street imagery.
+  record.layer=this.viewer.imageryLayers.add(new ImageryLayer(provider,{maximumTerrainLevel:12}),2);this.labels=record;
   this.runtime.attribution.set('map-labels','EOX::Maps · EOX/MapServer · © OpenStreetMap contributors','https://maps.eox.at/');this.order();
  }
  removeLabels(){if(!this.labels)return;this.labels.off();this.labels.guard.stop();this.viewer.imageryLayers.remove(this.labels.layer,true);this.labels=null;this.runtime.attribution.remove('map-labels');}
@@ -220,5 +224,5 @@ export class ImageryController {
   this.viewer.scene.requestRender();
  }
  diagnostics(){return {selected:this.mode,actual:this.actual,status:this.status,fallbackReason:this.reason??null,metadata:this.metadata,localAllocations:this.localAllocations,controllersCreated:this.controllersCreated,managedLayers:this.managed&&this.viewer.imageryLayers.indexOf(this.managed)>=0?1:0,labelsLayers:this.labels?1:0,budget:{...this.budget.stats},ionSessionRequests:this.session.ionUsed,ionSessionLedgerAvailable:this.session.available,metadataRequests:this.metadataCount,metadataPending:!!this.metadataPending,view:this.runtime.lifecycle.closed?null:this.view(),sources:Object.fromEntries([...this.records.values()].map(record=>[record.id,{...record.guard.stats,paused:record.guard.paused,partial:!!record.partial,preparing:false}]))};}
- clear(){imageryCacheScene(false);this.offCacheScene?.();clearTimeout(this.cameraTimer);clearInterval(this.wakeTimer);this.metadataAbort?.abort();this.offCamera?.();this.disposeController();this.localGuard?.stop();if(this.base)this.viewer.imageryLayers.remove(this.base,true);this.base=null;}
+ clear(){imageryCacheScene(false);this.offCacheScene?.();clearInterval(this.wakeTimer);this.metadataAbort?.abort();this.offCamera?.();this.disposeController();this.localGuard?.stop();if(this.base)this.viewer.imageryLayers.remove(this.base,true);this.base=null;}
 }

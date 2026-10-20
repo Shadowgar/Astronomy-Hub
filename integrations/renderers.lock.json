@@ -1122,7 +1122,7 @@
     "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
     "runtime_version": "oras-earth.v1",
     "cesium": "1.138.0",
-    "artifact_sha256": "e0a904a201b11b7c6202cc1467b2cd3c80c02beed58bb0956eab2372c37ac0bf",
+    "artifact_sha256": "cb1f579d3f7625ad776d6182740da581c152c3a79684b4f2520477672eb12c3e",
     "public_exports": [
       "maps/controller",
       "maps/defaults",
@@ -1137,7 +1137,7 @@
       "layers/perimeters"
     ],
     "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
-    "source_input_sha256": "98bccfe49583886f8e6de7f9e447b06abe8a5d7b03c589d31ec79427f0ffa0b8"
+    "source_input_sha256": "ea096f91cbf1782c00d68783c17568d731f848b151a581c6bafebfc93f2cd82d"
   },
   "bridge": {
     "major": 1,

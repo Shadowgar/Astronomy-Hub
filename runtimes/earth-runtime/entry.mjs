@@ -1,3 +1,4 @@
+import {installImageryTrace} from './core/ImageryTrace.mjs';
 import {startImageryCache} from '../../packages/imagery-cache/client.mjs';
 import {installLocalVisualProof} from './core/LocalVisualProof.mjs';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
@@ -20,12 +21,12 @@ async function initialize(){
  document.querySelector('#layers').replaceChildren();document.querySelector('#selection').hidden=true;
  document.querySelector('#earth').dataset.status='loading';
  document.querySelector('#failure').hidden=true;document.querySelector('#loading').hidden=false;
- try{runtime=new EarthRuntime();await runtime.initialize();
+ try{runtime=new EarthRuntime();installImageryTrace(runtime);await runtime.initialize();runtime.imageryTrace?.attach(runtime);
   if(leaving||runtime.lifecycle.closed){await stop();return;}
   bridge=RuntimeBridge(runtime);bridge.ready();installLocalVisualProof(runtime);
   // Serializable lifecycle evidence; no renderer objects exposed to the Hub.
   window.orasEarthVisibleTargets=()=>{if(runtime.viewer.isDestroyed())return [];const viewer=runtime.viewer,occluder=new EllipsoidalOccluder(viewer.scene.globe.ellipsoid,viewer.camera.positionWC);return viewer.entities.values.filter(entity=>entity.orasMetadata&&entity.show).flatMap(entity=>{const point=entity.position?.getValue(viewer.clock.currentTime);if(!point||!occluder.isPointVisible(point))return [];const screen=viewer.scene.cartesianToCanvasCoordinates(point);return screen?[{id:entity.id,name:entity.name,kind:entity.orasMetadata.layerId,x:screen.x,y:screen.y}]:[]})};
-  window.orasEarthDiagnostics=()=>({owner:'Astronomy Hub',monotonicMs:performance.now(),globeTilesLoaded:runtime.viewer.isDestroyed()?null:runtime.viewer.scene.globe.tilesLoaded,ready:runtime.ready,disposed:runtime.lifecycle.closed,viewerDestroyed:runtime.viewer.isDestroyed(),site:{...runtime.site},layers:runtime.registry.snapshot(),providers:Object.fromEntries(runtime.providerStatus.values),entityCount:runtime.viewer.isDestroyed()?0:runtime.viewer.entities.values.length,timings:{...runtime.timings},cameraMotion:runtime.camera.motionState(),cameraHeightM:runtime.viewer.isDestroyed()?null:runtime.viewer.camera.positionCartographic.height,navigation:runtime.viewer.isDestroyed()?null:runtime.navigation(),tracking:runtime.viewer.isDestroyed()?null:runtime.viewer.trackedEntity?.id??null,selection:runtime.selectionMetadata,quality:runtime.visual?.quality,imagery:runtime.visual?.imagery.diagnostics()});
+  window.orasEarthDiagnostics=()=>({owner:'Astronomy Hub',monotonicMs:performance.now(),globeTilesLoaded:runtime.viewer.isDestroyed()?null:runtime.viewer.scene.globe.tilesLoaded,ready:runtime.ready,disposed:runtime.lifecycle.closed,viewerDestroyed:runtime.viewer.isDestroyed(),site:{...runtime.site},layers:runtime.registry.snapshot(),providers:Object.fromEntries(runtime.providerStatus.values),entityCount:runtime.viewer.isDestroyed()?0:runtime.viewer.entities.values.length,timings:{...runtime.timings},cameraMotion:runtime.camera.motionState(),cameraHeightM:runtime.viewer.isDestroyed()?null:runtime.viewer.camera.positionCartographic.height,navigation:runtime.viewer.isDestroyed()?null:runtime.navigation(),tracking:runtime.viewer.isDestroyed()?null:runtime.viewer.trackedEntity?.id??null,selection:runtime.selectionMetadata,quality:runtime.visual?.quality,imagery:runtime.visual?.imagery.diagnostics(),imageryTrace:runtime.imageryTrace?.snapshot()});
  }catch{await stop();document.querySelector('#failure').hidden=false;document.querySelector('#loading').hidden=true;}
 }
 document.querySelector('#retry').addEventListener('click',()=>{void start()});

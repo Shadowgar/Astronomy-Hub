@@ -68,3 +68,5 @@ test('native SDK dispatch is not limited by a Hub rate or concurrency budget',as
  const requests=Array.from({length:20},()=>p.requestImage()),admitted=tasks.length;
  for(const task of tasks)task.resolve('image');await Promise.all(requests.filter(Boolean));guard.stop();assert.equal(admitted,20);assert.equal(guard.stats.loaded,20);
 });
+
+test('optional diagnostic observer cannot alter native image outcomes or counters',async()=>{const provider={requestImage:()=>Promise.resolve('pixels')},guard=observeImageryRequests(provider,{onObserve(){throw Error('diagnostic failed')}});assert.equal(await provider.requestImage(1,2,3),'pixels');assert.equal(guard.stats.loaded,1);assert.equal(guard.stats.active,0);guard.stop()});

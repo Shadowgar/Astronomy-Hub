@@ -1,5 +1,16 @@
 # LIVE SESSION BRIEF
 
+## R2 Earth UX and visual performance — owner authorization2026-10-20
+
+New bounded branch/draft stacked on verified PR79 head158a7705; direct submitted
+Earth search and nonmodal results, approved Adaptive Explorer visual integration,
+measured native imagery delivery and only proven latency optimizations. Owner
+directive supersedes the prior qualification-only task, whose results and live
+Photon limitations remain historical evidence. N1 OWNER ACCEPTED. Preserve
+scientific/observer/time/search/source/cache/lifecycle boundaries and original
+branches/artifacts/settings/volumes. No merge/deploy/R3/providers/spending or
+unrelated service actions. [Current work](../validation/r2-earth-ux-performance/README.md).
+
 ## R2-B final search qualification — owner authorization2026-10-20
 
 Continue draftPR79 at e5239e01 on `r2-b-earth-imagery-cache-1`, base draftPR78.
