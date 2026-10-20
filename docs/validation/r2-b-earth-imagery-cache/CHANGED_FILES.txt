@@ -3,6 +3,7 @@ docs/DOCUMENT_INDEX.md
 docs/DOC_INVENTORY.md
 docs/context/CORE_CONTEXT.md
 docs/context/LIVE_SESSION_BRIEF.md
+docs/execution/EARTH_CAPABILITY_PLAN.md
 docs/execution/MASTER_PLAN.md
 docs/execution/PROJECT_STATE.md
 docs/features/FEATURE_TRACKER.md
@@ -20,7 +21,10 @@ docs/validation/r2-b-earth-imagery-cache/evidence/delivery-working-summary.json
 docs/validation/r2-b-earth-imagery-cache/evidence/docker-earth-test-command.json
 docs/validation/r2-b-earth-imagery-cache/evidence/docker-earth-tests.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/docker-runtime-tests.txt
+docs/validation/r2-b-earth-imagery-cache/evidence/docs-architecture-final.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/docs-architecture.txt
+docs/validation/r2-b-earth-imagery-cache/evidence/docs-reconciliation-final.txt
+docs/validation/r2-b-earth-imagery-cache/evidence/docs-reconciliation-red.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/docs-reconciliation.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/earth-final-first-build.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/earth-final-second-build.txt
@@ -55,6 +59,7 @@ docs/validation/r2-b-earth-imagery-cache/evidence/r2-b-search-mobile.json
 docs/validation/r2-b-earth-imagery-cache/evidence/reuse-tests.json
 docs/validation/r2-b-earth-imagery-cache/evidence/reused-pr71.json
 docs/validation/r2-b-earth-imagery-cache/evidence/review-native-fallback-red.txt
+docs/validation/r2-b-earth-imagery-cache/evidence/runtime-final-host.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/runtime-reviewed-green.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/search-desktop-final.txt
 docs/validation/r2-b-earth-imagery-cache/evidence/search-mobile-final.txt

@@ -105,7 +105,7 @@ journeys qualify the final renderer's coordinate/history/Sky behavior separately
 
 ## Tests, builds and review
 
-- Complete host runtime/Earth:223/223 PASS (`node --test --test-isolation=none tests/runtime/*.test.mjs tests/earth/*.test.mjs`).
+- Complete host runtime/Earth:223/223 PASS (`GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs`).
 - Pinned Docker Earth scope:135/135 PASS; exact argv in
   [docker-earth-test-command.json](evidence/docker-earth-test-command.json).
   Initial all-runtime Docker attempt failed7 deployment-preflight tests because
@@ -120,7 +120,10 @@ journeys qualify the final renderer's coordinate/history/Sky behavior separately
   backend/tests/test_earth_search.py backend/tests/test_earth_aircraft.py
   backend/tests/test_earth_events.py -q -p no:cacheprovider`:43PASS,7deprecation warnings.
 - Architecture/context validator PASS:309 manifest entries/8packs.
-  Reconciliation validator PASS:57documents/1551references/9ADRs.
+  Architecture links PASS:57documents/1552references/9ADRs.
+  Reconciliation PASS:67records/51source entrypoints/434links/65fragments, after
+  correcting the stale basemaps row from removed boundImageryRequests to current
+  observeImageryRequests; its earlier failure remains recorded.
 - Earth built independently twice in pinned readonly-dependency Docker,50source
   inputs/513payload files/111 notices; final artifact
   `e0a904a201b11b7c6202cc1467b2cd3c80c02beed58bb0956eab2372c37ac0bf`.
@@ -133,7 +136,9 @@ journeys qualify the final renderer's coordinate/history/Sky behavior separately
 - Independent provisional review of8d5bbe42 found one P2: automatic native source
   fallback could admit late old-scene writes. Reproduced33pass/1fail, corrected
   subscriber invalidation, complete223GREEN and rebuilt both final artifacts.
-  Final exact-head review result is recorded in REVIEW.md after delivery review.
+  Independent source review of2a788110 found no new actionable findings;82
+  focused tests and independent artifact verify PASS. Final documentation-only
+  exact-head follow-up is recorded in the PR and local review receipt.
 
 Exact commands and raw outputs: [evidence](evidence/), full ignored originals
 `output/r2-b/`; browser drivers are `scripts/validation/verify_r2b_{imagery,cache_failures,hub_imagery,navigation}.mjs`.
@@ -165,3 +170,8 @@ Do not merge71/73/74/78/R2-B or beginR3.
 
 [Loaded context](context.json), [61-document ledger](loaded-documents.txt),
 [plan](plan.md), [exact changed files](CHANGED_FILES.txt).
+
+EOX Paris screenshots in [desktop](evidence/paris-1440.png) and
+[mobile](evidence/paris-390.png) are Sentinel-2 cloudless2016, ©EOX::Maps,
+CC BY4.0; [source and attribution](https://maps.eox.at/). Partial resolution is
+retained as captured. ORAS/PEMA pixels are not included in the public evidence.
