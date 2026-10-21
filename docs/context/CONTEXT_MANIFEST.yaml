@@ -13,6 +13,7 @@ tasks:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
@@ -77,6 +78,7 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -112,6 +114,7 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
@@ -151,6 +154,7 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
@@ -200,6 +204,7 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -227,6 +232,7 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
@@ -278,6 +284,7 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/product/PRODUCT_VISION.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
@@ -317,6 +324,7 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md

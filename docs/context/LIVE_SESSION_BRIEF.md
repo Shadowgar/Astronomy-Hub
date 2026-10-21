@@ -1,6 +1,31 @@
 # LIVE SESSION BRIEF
 
-## R2 Earth UX and visual performance — owner review candidate2026-10-20
+## Current owner direction — 2026-10-21
+
+The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
+from PR #80 `23f5c41f830fad7eb66b67fec297962c2599428e`. R0 is completed/merged;
+R1/N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`.
+PR73/74 remain OPEN; PR78/79/80 are delivered OPEN DRAFTS, not merged or deployed.
+PR71 stays OPEN and independent. No production deployment from this stack.
+
+Preserve accepted Sky/Earth scrolling, Pennsylvania landscape, satellite presentation,
+Earth search/imagery/cache, scientific data, settings, source pins, volumes and rollbacks.
+Historical N1 desktop5/22 and mobile7/22 stopped at240s; no assertion mismatch reproduced,
+cause UNKNOWN. Those records remain PARTIALLY QUALIFIED, never a fresh44/44 pass.
+Browser proof is distinct from physical-device acceptance and OWNER ACCEPTED is distinct
+from TECHNICALLY QUALIFIED, PARTIALLY QUALIFIED, OPEN PR, MERGED and DEPLOYED.
+
+Only R3-A is activated: Sun/Earth/Mars source-backed positions, controlled epoch,
+selection/focus, accessible entry/return, isolated renderer lifetime and a tested R4
+interface. Full R3, R4 surfaces, R5 and X1–X4 need separate owner authorization.
+No merge, deployment, paid provider/account/spending, Google activation or advanced
+tracker/stellar/DSO implementation. Stop for owner review of the bounded slice.
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+Earlier dated execution directions below are historical where superseded here; permanent architecture and validation rules still apply.
+
+## Historical — R2 Earth UX and visual performance — owner review candidate2026-10-20
 
 Branch `r2-earth-ux-performance-1`, new draft stacked on verified PR79 head158a7705; direct submitted
 Earth search and nonmodal results, approved Adaptive Explorer visual integration,
@@ -14,7 +39,7 @@ reduction and source limits recorded,107 original container states/mounts and90
 volumes preserved. Preview http://127.0.0.1:4206/earth; owner acceptance pending.
 Final commit/review receipt belongs in the new draft PR conversation. [Current work](../validation/r2-earth-ux-performance/README.md).
 
-## R2-B final search qualification — owner authorization2026-10-20
+## Historical — R2-B final search qualification — owner authorization2026-10-20
 
 Continue draftPR79 at e5239e01 on `r2-b-earth-imagery-cache-1`, base draftPR78.
 Bounded task: classify normalized503 with server-side evidence, replay recorded
@@ -25,7 +50,7 @@ identity; no production correction without reproduced defect. No merge of79/78/
 74/73/71, deployment, unrelated container action or R3. Current report:
 [final search qualification](../validation/r2-b-earth-imagery-cache/final-search/README.md).
 
-## Active R2-B — owner authorization 2026-10-17
+## Historical — Active R2-B — owner authorization 2026-10-17
 
 N1 remains OWNER ACCEPTED. R2-A is delivered in draft PR78 at
 `27f34a94198f2061c0a5083a68beebd567c7d87f`. The owner now authorizes bounded
@@ -39,7 +64,7 @@ PEMA release rights and ion remain gated; imagery/cache and physical performance
 claims require source-bound proof. [Scope and evidence](../validation/r2-b-earth-imagery-cache/README.md).
 
 
-## Active R2-A — owner authorization 2026-10-17
+## Historical — Active R2-A — owner authorization 2026-10-17
 
 **N1 OWNER ACCEPTED. R2-A Earth Search, Navigation and Location Context ACTIVE.**
 The owner explicitly accepts N1 and authorizes implementation on a separate branch
@@ -64,7 +89,7 @@ R2 imagery/cache integration beyond this assessment remains subsequent work.
 Scoped implementation and proof: [R2-A Earth search](../validation/r2-a-earth-search/README.md).
 
 
-## Active N1 delivery authorization — owner override 2026-10-16
+## Historical — Active N1 delivery authorization — owner override 2026-10-16
 
 **PARTIALLY QUALIFIED. PR #75 MERGE EXPLICITLY OWNER-AUTHORIZED.**
 
@@ -117,7 +142,7 @@ no rerun. Existing owner-authorized PR75-only merge exception and stop gate appl
 
 Earlier N1 execution sections below are historical where they conflict with this override.
 
-## Active N1 final UX corrections — owner directive 2026-10-16
+## Historical — Active N1 final UX corrections — owner directive 2026-10-16
 
 This earlier N1 directive is historical for delivery gates; the active owner override is above.
 
@@ -160,7 +185,7 @@ push or exact-new-head review. Local/remote baseline remains
 [Bounded handoff](../validation/n1-final-ux/QUALIFICATION_HANDOFF.md). N1 NOT FINALIZED; no merge/deploy/R2/R3.
 
 
-## Active N1 satellite zoom reveal repair — owner directive 2026-10-16
+## Historical — Active N1 satellite zoom reveal repair — owner directive 2026-10-16
 
 Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73.
 The owner rejects the satellite presentation at `9cb158e35a1623be81263155c10839e14626c312`:
@@ -379,7 +404,7 @@ errors and one renderer at a time; 118 runtime and 239 frontend tests pass. Owne
 port 4201 remains the PR #74 fallback. No N2, merge or deployment.
 
 
-## Active N1 — Sky ↔ Earth navigation, 2026-10-14
+## Historical — Active N1 — Sky ↔ Earth navigation, 2026-10-14
 
 The owner explicitly authorizes functional bidirectional navigation on one isolated
 `n1-sky-earth-navigation-1` branch, based on PR #74 at
@@ -419,7 +444,7 @@ branch continue; PR #73 remains the unmerged dependency. No scroll/FOV milestone
 cold-search optimization, unrelated work, merge or deployment. STOP for owner review.
 
 
-## Active R1-B — real Adaptive Explorer Sky, 2026-10-13
+## Historical — Active R1-B — real Adaptive Explorer Sky, 2026-10-13
 
 The owner accepts PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` as the visual
 implementation target, including the revised Sky observing controls, and separately
@@ -468,7 +493,7 @@ applicable reference revision AND separate implementation authorization.
 
 ## Historical R0 authorization and evidence — superseded for task activation
 
-## Active R0 — Adaptive Explorer authority reset, 2026-10-13
+## Historical — Active R0 — Adaptive Explorer authority reset, 2026-10-13
 
 The owner approves **Astronomy Hub — Adaptive Explorer** product direction.
 This task authorizes documentation/governance only: inspect, reconcile, validate,
@@ -504,7 +529,7 @@ STOP after documentation PR handoff for owner review and separate next-task auth
 
 ## Historical execution briefs — superseded for task activation
 
-## Active C6-0 free global mapping qualification — 2026-10-11
+## Historical — Active C6-0 free global mapping qualification — 2026-10-11
 
 Default Mode; SINGLE AGENT ONLY. Owner authorizes **C6-0 research, provider
 qualification, adoption planning and documentation only**. Verified main
@@ -546,7 +571,7 @@ screenshots must be owner-approved before any later implementation merge.
 The unchanged dated records below retain prior active/open-PR/stop-point language;
 they are historical and do not override the current C6-0 scope above.
 
-## Active C5.7-D / PR #69 documentation finalization — 2026-10-11
+## Historical — Active C5.7-D / PR #69 documentation finalization — 2026-10-11
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
 Only **C5.7-D** is active: standard bundled Cesium stars, atmosphere and appearance

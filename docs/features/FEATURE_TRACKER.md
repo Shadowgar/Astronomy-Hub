@@ -1,13 +1,38 @@
 # FEATURE TRACKER
 
-## Current R2-B checkpoint — 2026-10-17
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
+## Current product status — 2026-10-21
+
+| Requirement | Current evidence and remaining acceptance |
+| --- | --- |
+| AE-01/02/11 Sky, Sky↔Earth, shared visuals | R1/N1 OWNER ACCEPTED; PR75 merged into open PR74, dependent on open PR73. Historical partial N1 full-navigation record retained. |
+| AE-03 Solar System | R3-A AUTHORIZED / not yet qualified. Source/renderer/body/time contracts, browser focus/history/lifecycle and owner slice acceptance required. Full R3 remains incomplete. |
+| AE-04 Planet View | BLOCKED pending separate R4 body/source qualification and authority; Earth/Mars/Moon candidates. |
+| AE-05 Earth search | Draft PR78 plus PR79/80 follow-ups technically qualified in their bounded scope; coordinate path independent of Photon. Live provider availability remains variable; no universal address guarantee or owner acceptance inferred. |
+| AE-06/07 imagery | Draft PR79/80 bounded source/cache/native integration and measured UX; PEMA redistribution rights, ion eligibility, global aerial detail and physical performance remain open. PR71 separate. |
+| AE-08 cache | Draft PR79 qualified eligible-byte cache within recorded source/browser scope; no unrestricted provider rights or physical-device acceptance. |
+| AE-09/10 contextual tools/accessibility | N1 accepted, R2 desktop/mobile software journeys qualified within reports. R3/R4/R5 and physical device matrix not yet qualified. |
+| X1/X2/X3/X4 | DEFERRED planning requirements in canonical MASTER_PLAN; no implementation authorized. |
+
+Current technical proof: [R2-A](../validation/r2-a-earth-search/README.md),
+[R2-B](../validation/r2-b-earth-imagery-cache/README.md),
+[R2 search qualification](../validation/r2-b-earth-imagery-cache/final-search/README.md),
+[R2 UX](../validation/r2-earth-ux-performance/README.md).
+No historical result below is relabeled a fresh candidate pass.
+
+## Historical — Current R2-B checkpoint — 2026-10-17
 
 Bounded imagery/cache integration is owner-authorized from R2-A PR78. N1 remains
 OWNER ACCEPTED. [Current proof and limits](../validation/r2-b-earth-imagery-cache/README.md).
 No merge/deploy/R3 or physical performance acceptance is implied.
 
 
-## Current bounded checkpoint — 2026-10-17
+## Historical — Current bounded checkpoint — 2026-10-17
 
 N1 is OWNER ACCEPTED. R2-A Earth search/navigation/location context is explicitly
 owner-authorized on a separate branch stacked on current PR74. PR74/73 remain open.
@@ -17,9 +42,9 @@ proof; it does not accept all R2 imagery/cache, global detail or physical speed.
 N1 historical desktop5/22 and mobile7/22 full navigation results remain partial;
 no retry or retroactive pass. Earlier R0/R1/N1 gates below are historical.
 
-## Adaptive Explorer acceptance status — R0, 2026-10-13
+## Historical — Adaptive Explorer acceptance status — R0, 2026-10-13
 
-This current product matrix precedes the dated bounded feature inventory below.
+This historical R0 product matrix precedes the dated bounded feature inventory below.
 REAL remains valid only for the precise historically proved slice; it is not
 whole-product acceptance. A backend, fixture, installed artifact or green unit
 suite alone cannot promote these rows. AE IDs refer to
@@ -96,7 +121,7 @@ FEATURE_ACCEPTANCE.md
 
 ---
 
-## Current Execution Checkpoint — 2026-10-11
+## Historical — Current Execution Checkpoint — 2026-10-11
 
 C0–C5.6 bounded implementation packages are complete; PRs #63/#64/#65 merged.
 PR #69 is merged; appearance from space is owner-accepted. Current work is

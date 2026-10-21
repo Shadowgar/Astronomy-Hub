@@ -1,6 +1,31 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active R2-B — owner authorization 2026-10-17
+## Current owner direction — 2026-10-21
+
+The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
+from PR #80 `23f5c41f830fad7eb66b67fec297962c2599428e`. R0 is completed/merged;
+R1/N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`.
+PR73/74 remain OPEN; PR78/79/80 are delivered OPEN DRAFTS, not merged or deployed.
+PR71 stays OPEN and independent. No production deployment from this stack.
+
+Preserve accepted Sky/Earth scrolling, Pennsylvania landscape, satellite presentation,
+Earth search/imagery/cache, scientific data, settings, source pins, volumes and rollbacks.
+Historical N1 desktop5/22 and mobile7/22 stopped at240s; no assertion mismatch reproduced,
+cause UNKNOWN. Those records remain PARTIALLY QUALIFIED, never a fresh44/44 pass.
+Browser proof is distinct from physical-device acceptance and OWNER ACCEPTED is distinct
+from TECHNICALLY QUALIFIED, PARTIALLY QUALIFIED, OPEN PR, MERGED and DEPLOYED.
+
+Only R3-A is activated: Sun/Earth/Mars source-backed positions, controlled epoch,
+selection/focus, accessible entry/return, isolated renderer lifetime and a tested R4
+interface. Full R3, R4 surfaces, R5 and X1–X4 need separate owner authorization.
+No merge, deployment, paid provider/account/spending, Google activation or advanced
+tracker/stellar/DSO implementation. Stop for owner review of the bounded slice.
+
+Current execution: [PROJECT_STATE](docs/execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](docs/execution/MASTER_PLAN.md).
+
+Earlier dated execution directions below are historical where superseded here; permanent architecture and validation rules still apply.
+
+## Historical — Active R2-B — owner authorization 2026-10-17
 
 N1 remains OWNER ACCEPTED. R2-A is delivered in draft PR78 at
 `27f34a94198f2061c0a5083a68beebd567c7d87f`. The owner now authorizes bounded
@@ -14,7 +39,7 @@ PEMA release rights and ion remain gated; imagery/cache and physical performance
 claims require source-bound proof. [Scope and evidence](docs/validation/r2-b-earth-imagery-cache/README.md).
 
 
-## Active R2-A — owner authorization 2026-10-17
+## Historical — Active R2-A — owner authorization 2026-10-17
 
 **N1 OWNER ACCEPTED. R2-A Earth Search, Navigation and Location Context ACTIVE.**
 The owner explicitly accepts N1 and authorizes implementation on a separate branch
@@ -39,7 +64,7 @@ R2 imagery/cache integration beyond this assessment remains subsequent work.
 Scoped implementation and proof: [R2-A Earth search](docs/validation/r2-a-earth-search/README.md).
 
 
-## Active N1 delivery authorization — owner override 2026-10-16
+## Historical — Active N1 delivery authorization — owner override 2026-10-16
 
 **PARTIALLY QUALIFIED. PR #75 MERGE EXPLICITLY OWNER-AUTHORIZED.**
 
@@ -92,7 +117,7 @@ no rerun. Existing owner-authorized PR75-only merge exception and stop gate appl
 
 Earlier N1 execution sections below are historical where they conflict with this override.
 
-## Active N1 final UX corrections — owner directive 2026-10-16
+## Historical — Active N1 final UX corrections — owner directive 2026-10-16
 
 This earlier N1 directive is historical for delivery gates; the active owner override is above.
 
@@ -128,7 +153,7 @@ then STOP for owner testing at <http://127.0.0.1:4202/sky-engine>.
 Scoped evidence: [N1 final UX corrections](docs/validation/n1-final-ux/README.md).
 
 
-## Active N1 satellite zoom reveal repair — owner directive 2026-10-16
+## Historical — Active N1 satellite zoom reveal repair — owner directive 2026-10-16
 
 Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73.
 The owner rejects the satellite presentation at `9cb158e35a1623be81263155c10839e14626c312`:
@@ -159,7 +184,7 @@ the report's post-commit receipt. Satellite remains PENDING OWNER RETEST; no mer
 
 
 
-## Active N1 final remediation — PR #75, owner directive 2026-10-15
+## Historical — Active N1 final remediation — PR #75, owner directive 2026-10-15
 
 Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 →
 #73. The owner accepts smooth scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`,
@@ -603,7 +628,7 @@ Rules:
 - source IDs must remain stable.
 - catalog namespaces must be explicit and durable.
 
-### Current approved catalog/data directions
+### Historical — Current approved catalog/data directions
 
 Stars:
 
