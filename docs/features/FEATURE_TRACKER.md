@@ -1,5 +1,9 @@
 # FEATURE TRACKER
 
+## Latest visual acceptance distinction — 2026-10-21
+
+Owner **APPROVED** one cinematic concept-art design family for Solar/Earth/Sky ([source hash/approval record](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md)); this does **not** mean actual implementation or physical/scientific accuracy accepted. R3-A's technically verified Sun/Earth/Mars slice remains **OWNER VISUALLY REJECTED** at delivered screenshot, while its science/navigation evidence remains qualified only as reported. AE-11 cinematic fidelity and AE-03 Solar visual quality: **OPEN — visual implementation and owner's real-browser acceptance pending**. Existing N1 Sky/Earth mechanical OWNER ACCEPTED status remains unchanged. Future X1–X4 features remain deferred; no R3-B expansion/R4 development currently authorized.
+
 ## Current scope reconciliation — 2026-10-21
 
 Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
