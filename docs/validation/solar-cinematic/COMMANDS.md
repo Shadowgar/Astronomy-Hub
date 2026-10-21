@@ -83,3 +83,20 @@ The same three build commands above ran again after the single CSS correction, w
 runner predates the additive effects-button reachability assertion/hash capture; it
 fails on the first blocked Overview pointer target. GREEN includes all controls and
 source hashes. Docs/link/artifact/preservation checks ran again for the delivery SHA.
+
+## Completed responsive remediation
+
+```bash
+CINEMATIC_COMPACT_EVIDENCE=output/playwright/solar-cinematic-short-red timeout 90s node scripts/validation/verify_cinematic_compact.mjs
+CINEMATIC_COMPACT_EVIDENCE=output/playwright/solar-cinematic-responsive-red timeout 90s node scripts/validation/verify_cinematic_compact.mjs
+CINEMATIC_COMPACT_EVIDENCE=output/playwright/solar-cinematic-responsive-green timeout 90s node scripts/validation/verify_cinematic_compact.mjs
+CINEMATIC_EVIDENCE=output/playwright/solar-cinematic-delivered timeout 90s node scripts/validation/verify_solar_cinematic.mjs
+R3_EVIDENCE=output/playwright/solar-cinematic-delivered-navigation timeout 240s node scripts/validation/verify_cinematic_navigation.mjs
+```
+
+The final same three build commands write `responsive-build-*` logs. The suite grew
+from4 to10 viewports and includes expanded-card hit targets. Intermediate seven-viewport
+GREEN and unchanged-limit scene/return passes remain private output evidence; they do
+not substitute for the final frozen-source proofs. Screenshot filenames now include
+both width and height; original files/records were not overwritten. Final docs, source,
+all served bytes and preservation checks are repeated for the committed delivery SHA.

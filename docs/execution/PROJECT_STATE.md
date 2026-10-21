@@ -9,8 +9,8 @@ preserved; new presentation uses source-attributed NASA Earth/Mars imagery, an
 illustrative luminous Sun/starfield, compact HUD and contextual details/time.
 Desktop/mobile cinematic9/9 each and native navigation14/14 each, lifecycle7/7,
 identity/races5/5, frontend305, runtime231 and focused Docker ephemeris15passed/2skipped.
-Independent review found and reproduced one compact-landscape overlap P2; one CSS
-rule fixes it, with16 focused browser groups and fresh desktop/mobile scene/native
+Independent review found and reproduced one compact-landscape overlap P2; scoped CSS
+layouts cover compact landscape, short portrait and expanded cards, with40 browser groups and fresh desktop/mobile scene/native
 journeys passing. [Review record](../validation/solar-cinematic/REVIEW.md).
 Three reproduced builds and served bytes match; original native artifacts, kernel,
 owner settings,114 container states/mounts and90 volumes preserved.
