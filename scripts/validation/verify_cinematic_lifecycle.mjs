@@ -1,5 +1,5 @@
 import{chromium}from'../../node_modules/playwright/index.mjs';import assert from'node:assert/strict';import{mkdir,writeFile}from'node:fs/promises';
-const out='output/playwright/solar-cinematic-lifecycle',base='http://127.0.0.1:4211';await mkdir(out,{recursive:true});const browser=await chromium.launch(),proof={status:'RUNNING',checks:[],errors:[],consoleErrors:[]};
+const out=process.env.CINEMATIC_LIFECYCLE_EVIDENCE||'output/playwright/solar-cinematic-lifecycle',base='http://127.0.0.1:4211';await mkdir(out,{recursive:true});const browser=await chromium.launch(),proof={status:'RUNNING',checks:[],errors:[],consoleErrors:[]};
 try{
  const c=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'reduce'}),p=await c.newPage();p.setDefaultTimeout(12000);p.on('pageerror',e=>proof.errors.push(e.message));p.on('console',m=>{if(m.type()==='error'&&!m.text().includes('net::ERR_FAILED'))proof.consoleErrors.push(m.text())});
  const ready=()=>p.waitForFunction(()=>window.orasSolarDiagnostics?.().texturesReady===2&&!window.orasSolarDiagnostics().disposed),diag=()=>p.evaluate(()=>window.orasSolarDiagnostics());

@@ -1,5 +1,7 @@
 # Cinematic Solar — review candidate, 2026-10-21
 
+**Latest PR83 refinement:** [fresh reference/actual comparisons, remaining-gap matrix and qualification](refinement/README.md). Reviewed23806bca is the historical baseline below; it was technically qualified but never visually accepted. The current pass remains pending owner review.
+
 **IMPLEMENTED AND FOCUSED-QUALIFIED; OWNER VISUAL ACCEPTANCE PENDING. DO NOT MERGE OR DEPLOY.**
 
 Branch `r3-a-cinematic-solar-1`, stacked on documentation PR82 at

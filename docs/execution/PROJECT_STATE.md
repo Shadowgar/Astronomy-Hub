@@ -1,6 +1,23 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
-## Cinematic Solar implementation — review candidate 2026-10-21
+## PR83 cinematic visual refinement — 2026-10-21
+
+The owner directs continued visual refinement on existing draft PR83; reviewed
+23806bca was technically qualified but has **not achieved owner visual acceptance**.
+The approved primary/Adaptive direction is unchanged. Refined Sun optics, static NASA
+clouds/atmosphere, Mars lighting, depth/framing, mobile summary and explicit display
+quality retain exact science and accepted native behavior. [Fresh comparisons, gap
+matrix, commands and qualification](../validation/solar-cinematic/refinement/README.md).
+Desktop/mobile native14/14 each, cinematic9/9 each, refinement6/6 each, compact40/40,
+lifecycle7/7, identity/races5/5; frontend310/310 and Docker15 passed/2 existing skips.
+Three identical136-file builds and served bytes verified;116 existing containers and90
+volumes/settings/native artifacts/kernel/rollback protected. SwiftShader high-DPI frame
+cost and unavailable GPU timing remain explicit limitations. Independent final-head
+review is required before handoff; owner review remains the next task. No merge,
+deployment, new design direction, R3-B/R4 or Earth/Sky redesign.
+
+
+## Historical first cinematic candidate — reviewed 23806bca
 
 Branch `r3-a-cinematic-solar-1`, stacked on qualified original-image import PR82
 `7aaeeef4`; working [Docker preview](http://127.0.0.1:4211/solar-system?date=2026-02-28T00:00:00Z).

@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "scene": {
+    "epoch": "2026-02-28T00:00:00Z",
+    "frame": "ICRF",
+    "origin": "Sun center (10)",
+    "units": "AU",
+    "selected": "earth",
+    "renderCount": 8,
+    "disposed": false,
+    "animating": false,
+    "camera": [
+      0.11692248795883442,
+      0.813599992607511,
+      0.3684952914224924
+    ],
+    "target": [
+      -0.9249420238042889,
+      0.3250757982699974,
+      0.14091794045040631
+    ],
+    "bodies": [
+      {
+        "id": "sun",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "glyphRadius": 0.44,
+        "screen": [
+          -745.9077641177273,
+          775.137048790498
+        ]
+      },
+      {
+        "id": "earth",
+        "position": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "glyphRadius": 0.23,
+        "screen": [
+          537.6,
+          360.00000000000034
+        ]
+      },
+      {
+        "id": "mars",
+        "position": [
+          1.0527080101912634,
+          -0.8086912557963634,
+          -0.39932068357522316
+        ],
+        "glyphRadius": 0.175,
+        "screen": [
+          274161.65585025045,
+          -93705.31165875326
+        ]
+      }
+    ],
+    "drawCalls": 9,
+    "geometries": 11,
+    "textures": 2,
+    "texturesReady": 1,
+    "cloudsReady": true,
+    "quality": "balanced",
+    "backgroundVisible": true,
+    "gpuMs": {
+      "supported": false,
+      "samples": 0,
+      "median": null,
+      "p95": null
+    },
+    "orbitsVisible": true,
+    "effectsVisible": true,
+    "starfield": "illustrative",
+    "starCount": 4000,
+    "renderCpuMs": {
+      "samples": 5,
+      "median": 0.30000000074505806,
+      "p95": 27.799999998882413
+    },
+    "pixelRatio": 1
+  },
+  "url": "http://127.0.0.1:4211/solar-system?date=2026-02-28T00%3A00%3A00.000Z&solarBody=earth",
+  "heading": "Earth"
+}

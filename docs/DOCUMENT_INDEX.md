@@ -1,5 +1,9 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## Current PR83 refinement evidence
+
+[Reference/actual screenshots, remaining gaps, fresh qualification and exact commands](validation/solar-cinematic/refinement/README.md). Supporting evidence; existing approved direction and draft stack, OWNER VISUAL ACCEPTANCE PENDING. No new phase or merge/deployment authority.
+
 ## Cinematic Solar implementation evidence — 2026-10-21
 
 [Validation](validation/solar-cinematic/README.md), [fidelity/screenshots](validation/solar-cinematic/FIDELITY.md), [commands](validation/solar-cinematic/COMMANDS.md), [plan](validation/solar-cinematic/PLAN.md).

@@ -21,6 +21,16 @@
       "download": "https://assets.science.nasa.gov/content/dam/science/psd/mars/resources/gltf_files/24881_Mars_1_6792.glb",
       "credit": "NASA/JPL-Caltech",
       "notes": "Original GLB bytes. Original color atlas and matching 2034-vertex UV mesh reused, isotropically scaled for display. Source normals and normal map are not used as terrain. Static illustrative orientation."
+    },
+    {
+      "file": "earth-clouds-2002.jpg",
+      "bytes": 829367,
+      "sha256": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+      "sourcePage": "https://visibleearth.nasa.gov/images/57747/blue-marble-clouds/77558l",
+      "currentContext": "https://science.nasa.gov/earth/earth-observatory/the-blue-marble-2181/",
+      "download": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_2048.jpg",
+      "credit": "NASA Goddard Space Flight Center; Reto Stockli",
+      "notes": "Original 2048x1024 grayscale JPEG, historical Blue Marble cloud composite published 2002. Two days visible imagery and polar thermal imagery; static illustrative shell, no live weather, cloud altitude or rotation claim. Legacy catalog redirects; original NASA asset remains available."
     }
   ]
 }

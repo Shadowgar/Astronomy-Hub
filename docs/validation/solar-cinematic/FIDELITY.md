@@ -1,5 +1,7 @@
 # Reference versus actual — cinematic Solar
 
+**Latest PR83 refinement:** [fresh reference/actual comparisons, remaining-gap matrix and qualification](refinement/README.md). Reviewed23806bca is the historical baseline below; it was technically qualified but never visually accepted. The current pass remains pending owner review.
+
 Primary authority: [exact primary PNG](../../design/cinematic-references-2026-10-21/solar-primary-cinematic.png).
 Secondary layout input: [exact Adaptive Explorer PNG](../../design/cinematic-references-2026-10-21/solar-adaptive-explorer.png).
 Both are conceptual images, not astronomical source data. Every “before” screenshot
