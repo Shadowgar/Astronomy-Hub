@@ -1,5 +1,30 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Current owner direction — 2026-10-21
+
+The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
+from PR #80 `23f5c41f830fad7eb66b67fec297962c2599428e`. R0 is completed/merged;
+R1/N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`.
+PR73/74 remain OPEN; PR78/79/80 are delivered OPEN DRAFTS, not merged or deployed.
+PR71 stays OPEN and independent. No production deployment from this stack.
+
+Preserve accepted Sky/Earth scrolling, Pennsylvania landscape, satellite presentation,
+Earth search/imagery/cache, scientific data, settings, source pins, volumes and rollbacks.
+Historical N1 desktop5/22 and mobile7/22 stopped at240s; no assertion mismatch reproduced,
+cause UNKNOWN. Those records remain PARTIALLY QUALIFIED, never a fresh44/44 pass.
+Browser proof is distinct from physical-device acceptance and OWNER ACCEPTED is distinct
+from TECHNICALLY QUALIFIED, PARTIALLY QUALIFIED, OPEN PR, MERGED and DEPLOYED.
+
+Only R3-A is activated: Sun/Earth/Mars source-backed positions, controlled epoch,
+selection/focus, accessible entry/return, isolated renderer lifetime and a tested R4
+interface. Full R3, R4 surfaces, R5 and X1–X4 need separate owner authorization.
+No merge, deployment, paid provider/account/spending, Google activation or advanced
+tracker/stellar/DSO implementation. Stop for owner review of the bounded slice.
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+Earlier dated execution directions below are historical where superseded here; permanent architecture and validation rules still apply.
+
 ## Adaptive Explorer product authority — 2026-10-13
 
 Astronomy Hub — Adaptive Explorer is one universe-first interface and shared
@@ -102,7 +127,7 @@ Ingestion -> Normalization -> Storage -> Cache -> API -> Client Rendering
 
 Do not introduce features that bypass these models.
 
-## Current Runtime Reality
+## Historical — Current Runtime Reality
 
 The active public ORAS sky runtime is:
 

@@ -1,0 +1,20 @@
+{
+  "originalFilename": "frontend-all.txt",
+  "rawSha256": "24658b2cd3bd3e5cf1d0d967ca4a4dad4a6202c78c95f12a8940fcfa441b80e0",
+  "encoding": "UTF-8; concatenate lines to recover original exact bytes",
+  "lines": [
+    "\n",
+    "> astronomy-hub-frontend@0.0.1 test\n",
+    "> vitest run\n",
+    "\n",
+    "\n",
+    " RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/frontend\n",
+    "\n",
+    "\n",
+    " Test Files  43 passed (43)\n",
+    "      Tests  302 passed (302)\n",
+    "   Start at  10:02:00\n",
+    "   Duration  2.25s (transform 5.55s, setup 0ms, import 9.83s, tests 3.79s, environment 6ms)\n",
+    "\n"
+  ]
+}

@@ -1,5 +1,11 @@
 # Unified Universe Architecture
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ## R0 product reconciliation — 2026-10-13
 
 [Adaptive Explorer](../product/PRODUCT_VISION.md) is current approved product intent:
@@ -31,7 +37,7 @@ governs proof; CORE/LIVE/PROJECT_STATE govern execution. No future feature is
 authorized by this document. [ADR0009](decisions/0009-owned-earth-feature-reuse.md)
 supersedes full-app topology while preserving applicable capability scope.
 
-## Current, planned and open
+## Historical — Current, planned and open
 
 Architecture lifecycle labels are separate from REAL/PARTIAL/FAKE/BLOCKED feature
 truth. A completed bounded package does not claim all user-facing feature parity.
@@ -41,12 +47,12 @@ truth. A completed bounded package does not claim all user-facing feature parity
 | Product shell | Unified Sky-first `/`, `/sky-engine`, `/earth`, contextual Tonight/Observe and focused routes; [workspace](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md) | Further immersive/navigation UX requires bounded approval. |
 | Sky | Contained SWE `/oras-sky-engine/`; native wheel/search/selection/math and qualified source/artifact chain, PR65 merged | Deeper Gaia/DSO/media/survey coverage and physical performance remain limited; no BabylonJS replacement. |
 | Earth | Independent Hub-owned Cesium `/earth-runtime/`, selective pinned feature modules, C0–C5.6 bounded packages; [Earth proof](../validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md), [audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md) | Four critical divergence areas; broader applicable capabilities deferred, no complete parity/global weather/terrain. |
-| State/lifecycle | Small Hub intent, versioned runtime bridge, canonical integration state, serial Sky/Earth lifetime; bounded N1 deliberate FOV/surface navigation and the PR #75 scroll-repair candidate are recorded in [workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md) | Owner retesting required after initial N1 rejection; ISS/body/solar-scale handoffs remain unimplemented; no universal scene object graph. |
+| State/lifecycle | Small Hub intent, versioned runtime bridge, canonical integration state, serial Sky/Earth lifetime; bounded N1 deliberate FOV/surface navigation and the PR #75 scroll-repair candidate are recorded in [workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md) | N1 OWNER ACCEPTED; bounded R3-A has source-backed Docker/browser qualification within its report, pending owner review; ISS and R4 surfaces remain unimplemented; no universal scene object graph. |
 | Aircraft | Observer100NM source, typed geometric admission,30-second-step entities; audit HTTP 503 and altitude visibility gate | Approved scope/fallback/motion/follow decisions and C5.7 proof; global coverage unapproved. |
 | Satellites | Stations-only/cap 100, strict TLE/epoch/finite guards,15-second position Entity updates | Core group/LOD/cache/tracking expansion proposed; no proven count deficit; dense opt-in/budgets unresolved. |
 | Weather | Modeled observer point, source/time facts; separate latest-CONUS radar snapshot | Point usability repair proposed; cloud/wind/lightning/cyclone/history remain separate products/approvals. |
 | Mapping | C5.5 historical CONUS HD/coarse global fallback; ellipsoid; optional ion branches dormant | C6 global imagery/terrain/3D direction, provider/accounts/budgets not chosen; no free Google Earth claim. |
-| Planet / scale | No qualified body-surface or solar-system runtime | E Mars first/body-specific providers; H renderer OPEN; no Earth data relabeling. |
+| Planet / scale | Bounded R3-A Sun/Earth/Mars-system Solar runtime candidate, [ADR0010](decisions/0010-r3-a-solar-runtime.md); no qualified body-surface runtime | R4 body/source decision pending (Earth/Mars/Moon candidates); R3-A renderer decision required; no Earth data relabeling. |
 | Astronomy additions | ORAS-site context and bounded external adapters/registry exist | Broad eclipse/aurora/light pollution/measured horizon/seeing extensions F, source/science qualified. |
 
 ## Ownership and reuse policy
@@ -113,11 +119,11 @@ fake visibility/science. Provider success/fixtures/scene rendering are separate 
 
 D ISS handoff must prove identity, same relevant UTC, observer/frame, propagation,
 focus and actual science before Sky↔Earth claims. E Planet Mode uses body-aware
-Cesium candidates with real body/radii/datum/imagery/terrain sources, Mars first;
+Cesium candidates with real body/radii/datum/imagery/terrain sources, with first body separately selected;
 gas giant views must not invent solid surfaces. F astronomy layers are external
 source-backed extensions, including measured horizon, not current implementations.
 G scene/cockpit/drawing/share/AR UX requires ownership/media/device qualification.
-H solar-system scale remains renderer/open-coordinate study; controlled handoffs
+H is historical planning; current R3-A establishes the bounded solar renderer/frame contract; controlled handoffs
 do not promise mathematically perfect infinite zoom or one renderer for all scales.
 No second SWE behind Earth or port of Sky scene into React/Babylon.
 
@@ -140,7 +146,7 @@ perfect infinite zoom or one renderer at all scales is promised.
 Body candidates include Moon, Mars, Mercury, Europa, Ganymede, Io, Callisto and
 Titan when qualified datasets permit. Mars may add geology, missions, rover/landing
 sites and nomenclature; Moon may add lunar sites/missions/nomenclature. First proof
-is Mars only. Gas giants may require atmosphere/globe views, without fake terrain.
+is undecided after Earth/Mars/Moon qualification. Gas giants may require atmosphere/globe views, without fake terrain.
 
 F retains eclipse paths/lunar-eclipse geography, meteor/fireball events, smoke/haze,
 light pollution, qualified passes, flight-to-sky projection, aurora/space weather,

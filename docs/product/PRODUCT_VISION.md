@@ -1,5 +1,11 @@
 # Astronomy Hub Product Vision
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ## Approved Adaptive Explorer intent — 2026-10-13
 
 **Astronomy Hub — Adaptive Explorer** is the owner-approved product direction.
@@ -90,7 +96,7 @@ explicit pinning and immersive mode, and show only relevant controls. Supporting
 facts and planning belong in context, rather than an expanding chain of dashboards.
 Future UX must start with approved visual concepts/mockups before implementation.
 
-## Current foundation
+## Historical — Current foundation
 
 PR #52's Home, Observe, Tonight and Sky host share an ORAS public shell. SWE at
 `/oras-sky-engine/` remains the contained sky renderer. Existing observing/science

@@ -1,5 +1,15 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## Current scope reconciliation — 2026-10-21
+R3-A renderer/science decision: [ADR0010](architecture/decisions/0010-r3-a-solar-runtime.md).
+
+R3-A reconciliation/proof: [package ledger](validation/r3-a-solar-system/RECONCILIATION.md), [context inventory](validation/r3-a-solar-system/context.json). These are evidence under the existing authority, not a new master plan.
+
+
+Current execution: [PROJECT_STATE](execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ## R2-B imagery/cache support — 2026-10-17
 
 [Implementation and evidence](validation/r2-b-earth-imagery-cache/README.md) ·
@@ -7,7 +17,7 @@
 R2-A remains draft and N1 owner accepted; historical records retain their identities.
 
 
-## Current R2-A execution — owner authorization 2026-10-17
+## Historical — Current R2-A execution — owner authorization 2026-10-17
 
 N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`. The owner activates
 R2-A Earth Search, Navigation and Location Context on a separate stacked draft PR.
@@ -17,7 +27,7 @@ are historical. Current scope/proof: [R2-A](validation/r2-a-earth-search/README.
 [PR71 reuse assessment](validation/r2-a-earth-search/PR71_REUSE.md).
 N1's partial full-navigation evidence remains historical, not a new44-group pass.
 
-## Current R1-B execution
+## Historical — Current R1-B execution
 
 PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef` is the accepted visual target.
 LIVE/PROJECT_STATE authorize bounded real Sky implementation on a dependent branch;

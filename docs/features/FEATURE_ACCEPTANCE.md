@@ -1,5 +1,27 @@
 # `FEATURE_ACCEPTANCE.md`
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
+## R3-A bounded qualification contract — 2026-10-21
+
+Owner directive supplies bounded implementation authority within approved Adaptive
+Explorer styling; new Solar screens remain PENDING OWNER VISUAL ACCEPTANCE.
+Sun/Earth/Mars must render from a named source/epoch/frame/units, with two independent
+known-time reference checks; no visual-plausibility substitute. Selected identity
+must agree with actual camera target. State display exaggeration and orbit model
+limits. Exercise desktop/mobile keyboard/reduced-motion, Back/Forward and return,
+abort/error/retry and serial cleanup. R4 contract tests must preserve identity,
+origin/frame/time/camera intent/radii/units/shape/orientation provenance/surface
+availability/capabilities and cancellation/failure/return. No unsupported surface
+entry. Docker runtime, exact served source/artifacts and preservation required.
+Initial R3-A budgets: three body glyphs, at most two bounded orbit lines, one active
+heavy renderer, no polling ephemeris or background renderer, no network on gestures.
+Report measured software browser timing; no unmeasured physical speed claim.
+
 ## Adaptive Explorer product acceptance — R0, 2026-10-13
 
 Apply the existing gates below to [AE-01–AE-11](../product/PRODUCT_VISION.md#minimum-user-visible-acceptance-requirements)
