@@ -15,22 +15,32 @@ export function overviewPose(bodies:Anchor[],aspect:number):CameraPose{
  for(const b of bodies){const p=new T.Vector3(...b.position_au).sub(center),r=glyphRadius[b.source_id];distance=Math.max(distance,p.dot(direction)+(Math.abs(p.dot(right))+r)/(tan*Math.max(.25,aspect)*.82),p.dot(direction)+(Math.abs(p.dot(vertical))+r)/(tan*.7))}
  return{position:center.clone().addScaledVector(direction,distance).toArray(),target:center.toArray()}
 }
-export function focusPose(id:BodyId,p:Vector,aspect:number,close=false):CameraPose{
+export function focusPose(id:BodyId,p:Vector,aspect:number,close=false,height=0):CameraPose{
  const target=new T.Vector3(...p),sunward=target.clone().negate().normalize()
  if(id==='sun')sunward.copy(direction)
  // View mostly the illuminated hemisphere, with a visible terminator. This changes
  // only the camera; texture longitude/orientation remains an illustrative choice.
  const side=new T.Vector3(0,0,1).cross(sunward).normalize()
  const view=sunward.multiplyScalar(.72).addScaledVector(side,.7).add(new T.Vector3(0,0,.3)).normalize()
- const distance=glyphRadius[id]*(close?3.5:5.1)/Math.min(1,Math.max(.52,aspect))
+ let distance=glyphRadius[id]*(close?3.5:5.1)/Math.min(1,Math.max(.52,aspect))
+ const limit=focusViewport(aspect*height,height).maxGlobeRadius*(close?1:.82)
+ if(Number.isFinite(limit))distance=Math.max(distance,glyphRadius[id]*Math.sqrt(1+(height/(2*Math.tan(21*Math.PI/180)*limit))**2))
  return{position:target.clone().addScaledVector(view,distance).toArray(),target:[...p]}
 }
 /** Shift the optical frame, never the orbit target or ephemeris anchor. */
 export function focusViewport(width:number,height:number){
  const portrait=width<560
  const x=portrait?width*.5:width*.42
- const y=portrait?Math.max(185,height*.40):height*.5
- return{offsetX:width*.5-x,offsetY:height*.5-y}
+ let y=portrait?Math.max(185,height*.40):height*.5,maxGlobeRadius=Infinity
+ // Short landscape has a full-width bottom card and a clear strip between the
+ // body/effects rails. Fit the selected glyph there; do not move its source target.
+ if(width>=480&&width<560&&height<=560){
+  const cardHeight=Math.min(136,Math.max(100,Math.min(220,height-400)),Math.max(0,height-324))
+  const cardTop=height-146-cardHeight
+  y=(78+cardTop-10)/2
+  maxGlobeRadius=Math.max(18,Math.min(y-78,x-186,width-120-x)-12)
+ }
+ return{offsetX:width*.5-x,offsetY:height*.5-y,maxGlobeRadius}
 }
 export type SolarQuality='efficient'|'balanced'|'detailed'
 export function qualityBudget(quality:SolarQuality,dpr:number){

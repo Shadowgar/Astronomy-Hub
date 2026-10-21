@@ -14,11 +14,11 @@ for path,digest in first.items():
  if path.startswith('earth-runtime/'):continue
  with urllib.request.urlopen('http://127.0.0.1:4211/'+path,timeout=15)as response:served[path]=sha(response.read())
  assert served[path]==digest,path
-proof=json.loads((ROOT/'output/playwright/solar-refinement-navigation/proof.json').read_text());assert proof['status']=='PASS'
+proof=json.loads((ROOT/'output/playwright/solar-refinement-corrected-navigation/proof.json').read_text());assert proof['status']=='PASS'
 for path,digest in proof['sourceHashes'].items():
  assert sha((ROOT/path).read_bytes())==digest,'Browser source changed: '+path
  assert '--candidate' in __import__('sys').argv or sha(git('show','HEAD:'+path))==digest,'Uncommitted qualified source: '+path
-compact=json.loads((ROOT/'output/playwright/solar-refinement-compact/proof.json').read_text());assert compact['status']=='PASS'
+compact=json.loads((ROOT/'output/playwright/solar-refinement-corrected-compact/proof.json').read_text());assert compact['status']=='PASS'
 for path,digest in compact['sourceHashes'].items():
  assert sha((ROOT/path).read_bytes())==digest,path
  assert '--candidate' in __import__('sys').argv or sha(git('show','HEAD:'+path))==digest,path
@@ -45,10 +45,15 @@ for path in protected:assert not git('diff',BASE,'--',path).strip(),path
 subprocess.check_call(['python3','scripts/validation/verify_cinematic_references.py'],cwd=ROOT)
 subprocess.check_call(['python3','scripts/validation/verify_solar_assets.py'],cwd=ROOT)
 baseline=tree(OUT/'baseline-hub');assert sha(json.dumps(baseline,sort_keys=True,separators=(',',':')).encode())=='9f53469f9bc36db1cda6ec8eeb8050565fef73aa924cf92263f93e5392c8d031'
-refinement=json.loads((ROOT/'output/playwright/solar-refinement-final/proof.json').read_text());assert refinement['status']=='PASS'
+refinement=json.loads((ROOT/'output/playwright/solar-refinement-corrected/proof.json').read_text());assert refinement['status']=='PASS'
 for path,digest in refinement['sourceHashes'].items():
  assert sha((ROOT/path).read_bytes())==digest,path
  assert '--candidate' in __import__('sys').argv or sha(git('show','HEAD:'+path))==digest,path
+focus=json.loads((ROOT/'output/playwright/solar-refinement-focus-final/proof.json').read_text());assert focus['status']=='PASS'
+for path,digest in focus['sourceHashes'].items():
+ assert sha((ROOT/path).read_bytes())==digest,path
+ assert '--candidate' in __import__('sys').argv or sha(git('show','HEAD:'+path))==digest,path
+reviewed=tree(OUT/'reviewed-a92c741f-hub');assert sha(json.dumps(reviewed,sort_keys=True,separators=(',',':')).encode())=='7776afd6ebed951aa96eda357636fabe85c8825ffa895169eeb18fd88c3938da'
 before=json.loads((OUT/'preservation-before.json').read_text())
 ids=[c['Id']for c in before['containers']];now=json.loads(subprocess.check_output(['docker','inspect',*ids]))
 for old,c in zip(before['containers'],now):assert old['Id']==c['Id']and old['Status']==c['State']['Status']and sorted(old['Mounts'],key=lambda m:m['Destination'])==sorted(c['Mounts'],key=lambda m:m['Destination']),old['Name']
@@ -58,5 +63,5 @@ kernel=Path('/home/rocco/Astronomy-Hub/data/runtime-packs/planetary-ephemeris/re
 # Ensure every committed pre-existing rollback remains byte-identical.
 rollbacks=[p for p in git('ls-tree','-r','--name-only',BASE).decode().splitlines()if 'rollback'in p.lower()]
 for p in rollbacks:assert git('show',BASE+':'+p)==git('show','HEAD:'+p),p
-receipt={'status':'PASS_CANDIDATE_BYTES_AND_PRESERVATION' if '--candidate' in __import__('sys').argv else 'PASS_EXACT_SOURCE_BYTES_AND_PRESERVATION','head':git('rev-parse','HEAD').decode().strip(),'base':BASE,'hubArtifact':sha(json.dumps(first,sort_keys=True,separators=(',',':')).encode()),'reproducibleBuilds':3,'hubFiles':len(first),'hubFilesServed':len(served),'earthFilesServed':len(earth_files),'earthArtifact':lock['earth']['artifact_sha256'],'skyArtifact':lock['sky']['artifact_sha256'],'baselineArtifact':'9f53469f9bc36db1cda6ec8eeb8050565fef73aa924cf92263f93e5392c8d031','refinementChecks':{str(r['width']):len(r['checks'])for r in refinement['runs']},'qualityMeasurements':len(refinement['performance']),'sourceAssets':json.loads((ROOT/'frontend/src/features/solar/assets/provenance.json').read_text())['assets'],'browserProofSha256':sha((ROOT/'output/playwright/solar-refinement-navigation/proof.json').read_bytes()),'browserGroups':{str(r['width']):len(r['steps'])for r in proof['runs']},'compactBrowserChecks':{str(r['width'])+'x'+str(r['height']):len(r['checks'])for r in compact['runs']},'matchedBrowserSources':len(proof['sourceHashes']),'committedBrowserSources':0 if '--candidate' in __import__('sys').argv else len(proof['sourceHashes']),'preservedOriginalContainers':len(now),'preservedVolumes':len(before['volumes']),'settingsSha256':before['settingsSha256'],'preservedTrackedRollbackFiles':len(rollbacks),'kernelSha256':sha(kernel.read_bytes()),'preview':'http://127.0.0.1:4211/solar-system?date=2026-02-28T00:00:00Z','limits':['Browser evidence is source-matched; this verifier does not execute browser journeys.','GPU timer extension unavailable on SwiftShader; frame intervals are not hardware GPU timings.','No owner visual, physical hardware, full R3/R4, merge or production deployment acceptance.']}
+receipt={'status':'PASS_CANDIDATE_BYTES_AND_PRESERVATION' if '--candidate' in __import__('sys').argv else 'PASS_EXACT_SOURCE_BYTES_AND_PRESERVATION','head':git('rev-parse','HEAD').decode().strip(),'base':BASE,'hubArtifact':sha(json.dumps(first,sort_keys=True,separators=(',',':')).encode()),'reproducibleBuilds':3,'hubFiles':len(first),'hubFilesServed':len(served),'earthFilesServed':len(earth_files),'earthArtifact':lock['earth']['artifact_sha256'],'skyArtifact':lock['sky']['artifact_sha256'],'baselineArtifact':'9f53469f9bc36db1cda6ec8eeb8050565fef73aa924cf92263f93e5392c8d031','refinementChecks':{str(r['width']):len(r['checks'])for r in refinement['runs']},'qualityMeasurements':len(refinement['performance']),'compactFocusChecks':sum(len(r['checks'])for r in focus['runs']),'preservedReviewedArtifact':'7776afd6ebed951aa96eda357636fabe85c8825ffa895169eeb18fd88c3938da','sourceAssets':json.loads((ROOT/'frontend/src/features/solar/assets/provenance.json').read_text())['assets'],'browserProofSha256':sha((ROOT/'output/playwright/solar-refinement-corrected-navigation/proof.json').read_bytes()),'browserGroups':{str(r['width']):len(r['steps'])for r in proof['runs']},'compactBrowserChecks':{str(r['width'])+'x'+str(r['height']):len(r['checks'])for r in compact['runs']},'matchedBrowserSources':len(proof['sourceHashes']),'committedBrowserSources':0 if '--candidate' in __import__('sys').argv else len(proof['sourceHashes']),'preservedOriginalContainers':len(now),'preservedVolumes':len(before['volumes']),'settingsSha256':before['settingsSha256'],'preservedTrackedRollbackFiles':len(rollbacks),'kernelSha256':sha(kernel.read_bytes()),'preview':'http://127.0.0.1:4211/solar-system?date=2026-02-28T00:00:00Z','limits':['Browser evidence is source-matched; this verifier does not execute browser journeys.','GPU timer extension unavailable on SwiftShader; frame intervals are not hardware GPU timings.','No owner visual, physical hardware, full R3/R4, merge or production deployment acceptance.']}
 (OUT/'delivery.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2))

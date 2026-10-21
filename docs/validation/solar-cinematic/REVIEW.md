@@ -1,6 +1,6 @@
 # Independent exact-head review and responsive correction
 
-**Latest PR83 refinement:** [fresh reference/actual comparisons, remaining-gap matrix and qualification](refinement/README.md). Reviewed23806bca is the historical baseline below; it was technically qualified but never visually accepted. The current pass remains pending owner review.
+**Latest PR83 refinement:** [fresh reference/actual comparisons, remaining-gap matrix and qualification](refinement/correction/README.md). Reviewed23806bca is the historical baseline below; it was technically qualified but never visually accepted. The current pass remains pending owner review.
 
 Base: `7aaeeef4e4e9b6ad406752814270ea0970666104`. Independent Codex review is distinct
 from GitHub approval, physical GPU qualification and owner visual acceptance.

@@ -90,20 +90,24 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
    const visible=v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88
    o.label.hidden=!visible;o.label.style.left=`${Math.min(rect.width-o.label.offsetWidth-10,Math.max(10,(v.x+1)*rect.width/2+pixelRadius+12))}px`;o.label.style.top=`${(1-v.y)*rect.height/2}px`;o.label.style.setProperty('--body-color',colors[o.id]);o.label.setAttribute('aria-pressed',String(o.id===selected))
   }
+  // Keep another body's screen label from intercepting the selected globe.
+  // All bodies remain selectable through the persistent body controls.
+  if(!marker.hidden){const selectedRect=marker.getBoundingClientRect();for(const o of objects){if(o.id===selected||o.label.hidden)continue;const labelRect=o.label.getBoundingClientRect();if(labelRect.left<selectedRect.right&&labelRect.right>selectedRect.left&&labelRect.top<selectedRect.bottom&&labelRect.bottom>selectedRect.top)o.label.hidden=true}}
  }
  function updateControls(){updatingControls=true;controls.update();updatingControls=false}
  function projection(){const {width,height}=host.getBoundingClientRect();if(selected){const v=focusViewport(width,height);camera.setViewOffset(width,height,v.offsetX,v.offsetY,width,height)}else camera.clearViewOffset();camera.updateProjectionMatrix()}
  function cancelFlight(){flight=null;cancelAnimationFrame(raf);raf=0}
  function tick(now:number){if(disposed)return;raf=0;if(flight){const u=Math.min(1,Math.max(0,(now-flight.start)/900)),ease=u*u*(3-2*u);camera.position.fromArray(flight.from).lerp(new T.Vector3(...flight.pose.position),ease);controls.target.fromArray(flight.targetFrom).lerp(new T.Vector3(...flight.pose.target),ease);updateControls();if(u===1)flight=null;else raf=requestAnimationFrame(tick)}draw()}
  function move(pose:CameraPose,immediate=false){cancelFlight();if(reduced||immediate){camera.position.fromArray(pose.position);controls.target.fromArray(pose.target);updateControls();draw()}else{flight={start:performance.now(),from:camera.position.toArray(),targetFrom:controls.target.toArray(),pose};raf=requestAnimationFrame(tick)}}
- function focus(id:BodyId|null,close=false){if(disposed)return;selected=id;closeView=close;projection();controls.minDistance=id?glyphRadius[id]*1.65:.15;const p=snapshot.bodies.find(b=>b.source_id===id)?.position_au;move(id&&p?focusPose(id,p,camera.aspect,close):overviewPose(snapshot.bodies,camera.aspect))}
+ function focus(id:BodyId|null,close=false){if(disposed)return;selected=id;closeView=close;projection();controls.minDistance=id?glyphRadius[id]*1.65:.15;const p=snapshot.bodies.find(b=>b.source_id===id)?.position_au;move(id&&p?focusPose(id,p,camera.aspect,close,host.clientHeight):overviewPose(snapshot.bodies,camera.aspect))}
  const change=()=>{if(!updatingControls)draw()},start=()=>cancelFlight();controls.addEventListener('change',change);controls.addEventListener('start',start)
- let initialSize=true,lastAspect=0
+ let initialSize=true,lastAspect=0,lastFramingLimit=Infinity
  const resize=new ResizeObserver(()=>{const{width,height}=host.getBoundingClientRect();if(!width||!height)return
-  const aspect=width/height,changedOrientation=(lastAspect<.75)!==(aspect<.75)
+  const aspect=width/height,changedOrientation=(lastAspect<.75)!==(aspect<.75),framingLimit=focusViewport(width,height).maxGlobeRadius
+  const compactResize=selected!==null&&(Number.isFinite(framingLimit)||Number.isFinite(lastFramingLimit))
   camera.aspect=aspect;camera.up.fromArray(overviewUp(aspect));projection();renderer.setSize(width,height)
-  if(initialSize||changedOrientation){const p=snapshot.bodies.find(b=>b.source_id===selected)?.position_au;move(selected&&p?focusPose(selected,p,aspect,closeView):overviewPose(snapshot.bodies,aspect),true)}else draw()
-  initialSize=false;lastAspect=aspect
+  if(initialSize||changedOrientation||compactResize){const p=snapshot.bodies.find(b=>b.source_id===selected)?.position_au;move(selected&&p?focusPose(selected,p,aspect,closeView,height):overviewPose(snapshot.bodies,aspect),true)}else draw()
+  initialSize=false;lastAspect=aspect;lastFramingLimit=framingLimit
  });resize.observe(host)
  const down=(e:PointerEvent)=>{if(e.isPrimary)press={x:e.clientX,y:e.clientY,id:e.pointerId};else press=null}
  const up=(e:PointerEvent)=>{if(!press||press.id!==e.pointerId||Math.hypot(e.clientX-press.x,e.clientY-press.y)>5){press=null;return}press=null;const r=renderer.domElement.getBoundingClientRect();pointer.set(2*(e.clientX-r.left)/r.width-1,1-2*(e.clientY-r.top)/r.height);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(objects.map(o=>o.mesh))[0],found=objects.find(o=>o.mesh===hit?.object);if(found)onPick(found.id)}

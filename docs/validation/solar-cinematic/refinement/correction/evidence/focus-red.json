@@ -1,0 +1,17 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "frontend/src/features/solar/SolarScene.ts": "0a3d8c01fa0efab05d2d0e73bce539279751cf2541c12e24930a9598ee3c843a",
+    "frontend/src/features/solar/solarPresentation.ts": "c7101a3ecd5a3570354225427282a6fc77b3500a29e85416d239dbac56c6807b",
+    "frontend/src/features/solar/solar.css": "13fecec8f19517698f0b58af79fdbc695828c4460f920a770fe6702de63b371a",
+    "scripts/validation/verify_solar_compact_focus.mjs": "90866a401490a93d1a334cdd32940024ee11077405dda6549b14b6ec1769c266"
+  },
+  "runs": [
+    {
+      "width": 540,
+      "height": 390,
+      "checks": []
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: 540x390 Earth focus selected center covered\n+ actual - expected\n\n+ 'SECTION'\n- 'CANVAS'\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_solar_compact_focus.mjs:5:691"
+}

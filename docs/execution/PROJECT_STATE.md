@@ -9,7 +9,10 @@ clouds/atmosphere, Mars lighting, depth/framing, mobile summary and explicit dis
 quality retain exact science and accepted native behavior. [Fresh comparisons, gap
 matrix, commands and qualification](../validation/solar-cinematic/refinement/README.md).
 Desktop/mobile native14/14 each, cinematic9/9 each, refinement6/6 each, compact40/40,
-lifecycle7/7, identity/races5/5; frontend310/310 and Docker15 passed/2 existing skips.
+lifecycle7/7, identity/races5/5; corrected compact focus43/43 and frontend311/311.
+Docker15 passed/2 existing skips is reused unchanged-source evidence.
+The a92 independent compact-framing P2 was reproduced and corrected; [fresh
+qualification and remaining limits](../validation/solar-cinematic/refinement/correction/README.md).
 Three identical136-file builds and served bytes verified;116 existing containers and90
 volumes/settings/native artifacts/kernel/rollback protected. SwiftShader high-DPI frame
 cost and unavailable GPU timing remain explicit limitations. Independent final-head

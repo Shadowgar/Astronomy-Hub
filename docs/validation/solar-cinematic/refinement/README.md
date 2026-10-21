@@ -1,6 +1,6 @@
-# PR83 visual refinement — owner review pending
+# Initial a92 refinement — historical qualification
 
-**FOCUSED FUNCTIONAL QUALIFICATION PASSED. VISUAL ACCEPTANCE PENDING. DRAFT — DO NOT MERGE OR DEPLOY.**
+**LATEST CANDIDATE: [corrected refinement and fresh qualification](correction/README.md).** The evidence below records a92c741f before its independent compact-framing P2 was corrected; it is retained as historical. Visual acceptance remains pending.
 
 Branch `r3-a-cinematic-solar-1`; continuation from reviewed `23806bcaff704b13bcf54eaf898e306e4f51e3af` on existing PR83, base PR82 `7aaeeef4`. No new design direction, R3-B/R4, upstream renderer edits, paid services, dependencies or production changes. The PR83→82→81→80→79→78→74→73 stack remains; PR71 stays independent. N1 remains OWNER ACCEPTED. Historical partial N1 and broad R3 backend results are retained as historical, not relabeled.
 
