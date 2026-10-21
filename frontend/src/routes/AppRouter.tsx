@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{lazy,Suspense} from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import WorkspaceShell from '../features/workspace/WorkspaceShell'
@@ -10,6 +10,8 @@ import Progress from '../pages/Progress'
 import TonightPage from '../features/tonight/TonightPage'
 import ObservePage from '../features/observe/ObservePage'
 
+const SolarWorkspace=lazy(()=>import('../features/solar/SolarWorkspace'))
+
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -17,6 +19,7 @@ export default function AppRouter() {
         <Route path="/" element={<WorkspaceShell mode="sky" />} />
         <Route path="/sky-engine" element={<WorkspaceShell mode="sky" />} />
         <Route path="/earth" element={<WorkspaceShell mode="earth" />} />
+        <Route path="/solar-system" element={<Suspense fallback={<p role="status">Opening Solar System…</p>}><SolarWorkspace/></Suspense>} />
         <Route element={<OrasAppShell />}>
           <Route path="/observe" element={<ObservePage />} />
           <Route path="/tonight" element={<TonightPage />} />

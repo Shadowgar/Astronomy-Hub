@@ -11,6 +11,8 @@ import {observerWithProvenance} from '../workspace/observerProvenance'
 import {validNavigationState} from '../../../../packages/runtime-protocol/navigation.mjs'
 export type RuntimeStatus='checking'|'loading'|'ready'|'error'
 let disposal:Promise<void>=Promise.resolve()
+// Other isolated renderers wait for the same bounded native teardown barrier.
+export function waitForRuntimeDisposal(){return disposal}
 export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel,onNightMode,onFov}:{mode?:RuntimeMode;onClient?:(client:RuntimeClient|null)=>void;onStatus?:(status:RuntimeStatus)=>void;onNativePanel?:(open:boolean)=>void;onNightMode?:(enabled:boolean)=>void;onFov?:(fovRad:number|null)=>void}){
  const container=useRef<HTMLDivElement>(null),location=useLocation(),navigate=useNavigate(),latest=useRef({location,onClient,onStatus,onNativePanel,onNightMode,onFov});latest.current={location,onClient,onStatus,onNativePanel,onNightMode,onFov}
  const [retry,setRetry]=useState(0),[status,setStatus]=useState<RuntimeStatus>('checking'),[mismatch,setMismatch]=useState(false);const [statusKey,setStatusKey]=useState('');const mountKey=`${mode}:${retry}`;const visibleStatus=statusKey===mountKey?status:'checking'

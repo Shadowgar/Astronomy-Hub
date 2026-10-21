@@ -11,7 +11,7 @@ R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCE
 | Requirement | Current evidence and remaining acceptance |
 | --- | --- |
 | AE-01/02/11 Sky, Sky↔Earth, shared visuals | R1/N1 OWNER ACCEPTED; PR75 merged into open PR74, dependent on open PR73. Historical partial N1 full-navigation record retained. |
-| AE-03 Solar System | R3-A AUTHORIZED / not yet qualified. Source/renderer/body/time contracts, browser focus/history/lifecycle and owner slice acceptance required. Full R3 remains incomplete. |
+| AE-03 Solar System | R3-A bounded Sun/Earth/Mars-system source/contract/Docker/browser slice TECHNICALLY QUALIFIED; [proof](../validation/r3-a-solar-system/README.md). Owner visual acceptance, broader R3 and R4 remain incomplete. |
 | AE-04 Planet View | BLOCKED pending separate R4 body/source qualification and authority; Earth/Mars/Moon candidates. |
 | AE-05 Earth search | Draft PR78 plus PR79/80 follow-ups technically qualified in their bounded scope; coordinate path independent of Photon. Live provider availability remains variable; no universal address guarantee or owner acceptance inferred. |
 | AE-06/07 imagery | Draft PR79/80 bounded source/cache/native integration and measured UX; PEMA redistribution rights, ion eligibility, global aerial detail and physical performance remain open. PR71 separate. |

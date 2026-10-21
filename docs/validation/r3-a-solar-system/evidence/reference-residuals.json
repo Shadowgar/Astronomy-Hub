@@ -1,0 +1,22 @@
+[
+  {
+    "target": "399",
+    "epoch": "2000-01-01T12:00:00Z",
+    "maxAxisResidualKm": 0.0029305096235508446
+  },
+  {
+    "target": "399",
+    "epoch": "2026-02-28T00:00:00Z",
+    "maxAxisResidualKm": 0.013923637946546141
+  },
+  {
+    "target": "4",
+    "epoch": "2000-01-01T12:00:00Z",
+    "maxAxisResidualKm": 0.0030571818107842335
+  },
+  {
+    "target": "4",
+    "epoch": "2026-02-28T00:00:00Z",
+    "maxAxisResidualKm": 0.0772292427909037
+  }
+]

@@ -23,6 +23,15 @@ tracker/stellar/DSO implementation. Stop for owner review of the bounded slice.
 
 Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
 
+R3-A candidate: source-backed Sun/Earth/Mars-system render/select/focus/time,
+explicit contextual entry/return and R4 unavailable/cancellation contract. Desktop14/14
+and emulated mobile14/14 actual Docker/browser groups passed; Three glyphs/colors are
+illustrative and exaggerated, Mars anchor is system barycenter, no R4 surfaces.
+Owner preview http://127.0.0.1:4210/solar-system?date=2026-02-28T00:00:00Z.
+[Current qualification and limitations](../validation/r3-a-solar-system/README.md).
+Owner visual acceptance, full R3 and physical hardware remain open. Final exact
+commit/served identities and independent review are recorded in the draft PR/receipt.
+
 Earlier dated execution directions below are historical where superseded here; permanent architecture and validation rules still apply.
 
 ## Historical — R2 Earth UX and visual performance — owner review candidate2026-10-20

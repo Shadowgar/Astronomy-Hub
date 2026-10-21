@@ -17,7 +17,7 @@ export function parseObserverDraft(draft:ObserverDraft):ObserverIntent|null{
  return result
 }
 
-export default function AdaptiveSkyChrome({onEarth,onContext,onMenu,observer,onObserver,busy,elevationFallback=false,fovRad=null}:{onEarth:()=>void;onContext:(tab:'tonight'|'observe')=>void;onMenu:()=>void;observer:ObserverIntent;onObserver:(value:ObserverIntent)=>Promise<boolean>;busy:boolean;elevationFallback?:boolean;fovRad?:number|null}){
+export default function AdaptiveSkyChrome({onSolar,onEarth,onContext,onMenu,observer,onObserver,busy,elevationFallback=false,fovRad=null}:{onSolar?:()=>void;onEarth:()=>void;onContext:(tab:'tonight'|'observe')=>void;onMenu:()=>void;observer:ObserverIntent;onObserver:(value:ObserverIntent)=>Promise<boolean>;busy:boolean;elevationFallback?:boolean;fovRad?:number|null}){
  const dialog=useRef<HTMLDialogElement>(null),launcher=useRef<HTMLElement|null>(null)
  const [surface,setSurface]=useState<'explore'|'location'>('explore'),[draft,setDraft]=useState(()=>observerDraft(observer)),[pending,setPending]=useState(false),[error,setError]=useState('')
  const isOras=Math.abs(observer.lat-ORAS_SITE.latitude)<1e-5&&Math.abs(observer.lon-ORAS_SITE.longitude)<1e-5
@@ -37,7 +37,7 @@ export default function AdaptiveSkyChrome({onEarth,onContext,onMenu,observer,onO
    {surface==='explore'?<div className="as-destinations">
     <button onClick={close}><Icon name="eye"/><span>Sky View<small>Your observing sky · current view</small></span></button>
     <button onClick={()=>{close();onEarth()}}><Icon name="globe"/><span>Earth<small>Explore our planet</small></span></button>
-    <button disabled><Icon name="globe"/><span>Solar System<small>Not yet available</small></span></button>
+    <button disabled={busy||!onSolar} onClick={()=>{close();onSolar?.()}}><Icon name="globe"/><span>Solar System<small>Explore Sun, Earth and Mars</small></span></button>
     <button disabled><Icon name="moon"/><span>Moon<small>Surface exploration not yet available</small></span></button>
     <div className="ws-actions"><button onClick={()=>{close();onContext('tonight')}}>Tonight</button><button onClick={()=>{close();onContext('observe')}}>Observe</button></div>
    </div>:<form noValidate onSubmit={event=>void submit(event)}>

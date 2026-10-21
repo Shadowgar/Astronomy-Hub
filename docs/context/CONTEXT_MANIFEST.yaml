@@ -14,6 +14,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
@@ -79,6 +80,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -115,6 +117,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
@@ -155,6 +158,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
@@ -205,6 +209,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -233,6 +238,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md
@@ -285,6 +291,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
@@ -325,6 +332,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/adaptive-explorer-r1a/README.md

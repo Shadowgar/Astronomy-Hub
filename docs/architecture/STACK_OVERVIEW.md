@@ -291,7 +291,7 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
   immutable external pin used through selected public feature exports; its full
   application and Viewer startup are prohibited by the Phase C owner pivot.
 * Planet: body-aware Cesium surface direction, first proof Mars; not implemented.
-* Solar-system scale: renderer OPEN; no implementation in Phase C.
+* Solar-system scale: R3-A uses already-installed Three.js0.180 in an isolated lazy Solar engine, geometric DE442s API and serial disposal barrier; [ADR0010](decisions/0010-r3-a-solar-runtime.md). Full R3 remains incomplete; historical Phase C contained no Solar implementation.
 
 Sky and Earth are independent builds in serial same-origin disposable frames,
 with a validated versioned capability bridge. SWE remains contained. FastAPI is

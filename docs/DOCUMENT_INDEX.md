@@ -1,6 +1,8 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
 ## Current scope reconciliation — 2026-10-21
+R3-A renderer/science decision: [ADR0010](architecture/decisions/0010-r3-a-solar-runtime.md).
+
 R3-A reconciliation/proof: [package ledger](validation/r3-a-solar-system/RECONCILIATION.md), [context inventory](validation/r3-a-solar-system/context.json). These are evidence under the existing authority, not a new master plan.
 
 

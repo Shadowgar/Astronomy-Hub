@@ -40,6 +40,7 @@ ADR_NAMES = (
     '0005-cesium-planetary-direction.md', '0006-controlled-renderer-handoffs.md',
     '0007-immutable-upstream-source.md', '0008-provider-licensing-boundaries.md',
     '0009-owned-earth-feature-reuse.md',
+    '0010-r3-a-solar-runtime.md',
 )
 
 

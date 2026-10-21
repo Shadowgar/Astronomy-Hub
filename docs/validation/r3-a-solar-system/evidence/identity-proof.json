@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "steps": [
+    "Shared Solar URL preserves observer/time/incoming canonical identity",
+    "Actual native Mars identity and observer retained; controlled Solar time follows return",
+    "Failed epoch retains last qualified astronomical time on return"
+  ],
+  "before": {
+    "navigation": {
+      "mode": "sky",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "utc": "2026-02-28T00:00:00.000Z",
+      "live": false,
+      "camera": {
+        "projection": 2,
+        "fovRad": 2.094395102393,
+        "yawRad": 0,
+        "pitchRad": 0.523598775598,
+        "rollRad": 0,
+        "landscapeVisible": true
+      }
+    },
+    "selection": {
+      "id": "Solar System (JPL):mars:planet",
+      "name": "Mars",
+      "kind": "planet",
+      "catalog": "Solar System (JPL)",
+      "source_id": "mars",
+      "model": "planet",
+      "ra": 330.5183185013515,
+      "dec": -13.210802915651026,
+      "facts": [
+        {
+          "label": "Catalog",
+          "value": "Solar System (JPL)"
+        },
+        {
+          "label": "Source ID",
+          "value": "mars"
+        }
+      ],
+      "available": true,
+      "focusable": true,
+      "trackable": false,
+      "link": "/oras-sky-engine/skysource/Mars?catalog=Solar+System+%28JPL%29&source_id=mars&model=planet&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=330.5183185013515&dec=-13.210802915651026"
+    }
+  },
+  "after": {
+    "navigation": {
+      "mode": "sky",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "utc": "2026-03-01T00:00:00.000Z",
+      "live": false,
+      "camera": {
+        "projection": 2,
+        "fovRad": 2.094395102393,
+        "yawRad": 0,
+        "pitchRad": 0.523598775598,
+        "rollRad": 0,
+        "landscapeVisible": true
+      }
+    },
+    "selection": {
+      "id": "Solar System (JPL):mars:planet",
+      "name": "Mars",
+      "kind": "planet",
+      "catalog": "Solar System (JPL)",
+      "source_id": "mars",
+      "model": "planet",
+      "ra": 331.27678430293673,
+      "dec": -12.937252411124957,
+      "facts": [
+        {
+          "label": "Catalog",
+          "value": "Solar System (JPL)"
+        },
+        {
+          "label": "Source ID",
+          "value": "mars"
+        }
+      ],
+      "available": true,
+      "focusable": true,
+      "trackable": false,
+      "link": "/oras-sky-engine/skysource/Mars?catalog=Solar+System+%28JPL%29&source_id=mars&model=planet&date=2026-03-01T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=331.27678430293673&dec=-12.937252411124957"
+    }
+  }
+}
