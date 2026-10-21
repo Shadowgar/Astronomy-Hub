@@ -38,7 +38,7 @@ for directory,digest in [(previous/'output/r2-b/earth-first','e0a904a201b11b7c62
  for row in release['files']:assert sha((directory/row['path']).read_bytes())==row['sha256']
 before=json.loads(Path('/tmp/r3-preservation-before.json').read_text())
 ids=[c['id']for c in before['containers']];now=json.loads(subprocess.check_output(['docker','inspect',*ids]))
-for old,c in zip(before['containers'],now):assert old['id']==c['Id']and old['status']==c['State']['Status']and old['mounts']==c['Mounts'],old['name']
+for old,c in zip(before['containers'],now):assert old['id']==c['Id']and old['status']==c['State']['Status']and sorted(old['mounts'],key=lambda m:m['Destination'])==sorted(c['Mounts'],key=lambda m:m['Destination']),old['name']
 assert subprocess.check_output(['docker','volume','ls','-q'],text=True).split()==before['volumes']
 assert sha(Path('/home/rocco/Astronomy-Hub/.vscode/settings.json').read_bytes())==before['settingsSha256']
 kernel=Path('/home/rocco/Astronomy-Hub/data/runtime-packs/planetary-ephemeris/release/de442s.bsp');assert sha(kernel.read_bytes())=='54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c'

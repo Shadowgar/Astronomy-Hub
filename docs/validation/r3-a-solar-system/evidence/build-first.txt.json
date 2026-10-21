@@ -1,6 +1,6 @@
 {
   "originalFilename": "build-first.txt",
-  "rawSha256": "58e2fbe4dffc44c22ba624800bcc8334be4d33394ad1d5e66e2947de327dc1eb",
+  "rawSha256": "864aa0bf836ea7c10f26281171ad0579805666812ff73e3560c81dc643f5c7a9",
   "encoding": "UTF-8; concatenate lines to recover original exact bytes",
   "lines": [
     "\n",
@@ -143,10 +143,10 @@
     "../output/r3-a/hub-first/oras-sky-engine/css/app.e3189512.css                                             3.93 kB \u2502 gzip:   1.43 kB\n",
     "../output/r3-a/hub-first/assets/index-BYTdN-7m.css                                                      105.50 kB \u2502 gzip:  18.84 kB\n",
     "../output/r3-a/hub-first/oras-sky-engine/css/chunk-vendors.11c203ce.css                                 654.20 kB \u2502 gzip:  91.95 kB\n",
-    "../output/r3-a/hub-first/assets/index-7FZEUsKI.js                                                       355.22 kB \u2502 gzip: 108.10 kB\n",
-    "../output/r3-a/hub-first/assets/SolarWorkspace-Dc-xqR-C.js                                              524.79 kB \u2502 gzip: 132.63 kB\n",
+    "../output/r3-a/hub-first/assets/index-Gl9qp8p-.js                                                       355.48 kB \u2502 gzip: 108.17 kB\n",
+    "../output/r3-a/hub-first/assets/SolarWorkspace-Bxi_fGeq.js                                              524.88 kB \u2502 gzip: 132.66 kB\n",
     "\n",
-    "\u2713 built in 360ms\n",
+    "\u2713 built in 323ms\n",
     "[plugin builtin:vite-reporter] \n",
     "(!) Some chunks are larger than 500 kB after minification. Consider:\n",
     "- Using dynamic import() to code-split the application\n",

@@ -57,7 +57,15 @@ docs/validation/r3-a-solar-system/evidence/build-first.txt.json
 docs/validation/r3-a-solar-system/evidence/build-identity.json
 docs/validation/r3-a-solar-system/evidence/docker-backend-clean.txt
 docs/validation/r3-a-solar-system/evidence/docker-build.txt.json
+docs/validation/r3-a-solar-system/evidence/entry-race-green.json
+docs/validation/r3-a-solar-system/evidence/entry-race-green.txt
+docs/validation/r3-a-solar-system/evidence/entry-race-red.json
+docs/validation/r3-a-solar-system/evidence/entry-race-red.txt
 docs/validation/r3-a-solar-system/evidence/frontend-all.txt.json
+docs/validation/r3-a-solar-system/evidence/history-race-green.json
+docs/validation/r3-a-solar-system/evidence/history-race-green.txt
+docs/validation/r3-a-solar-system/evidence/history-race-red.json
+docs/validation/r3-a-solar-system/evidence/history-race-red.txt
 docs/validation/r3-a-solar-system/evidence/identity-proof.json
 docs/validation/r3-a-solar-system/evidence/identity-red.txt
 docs/validation/r3-a-solar-system/evidence/legacy-provider-baseline.txt
@@ -91,6 +99,8 @@ frontend/vite.config.mjs
 scripts/validation/start_r3_preview.py
 scripts/validation/validate_architecture_docs.py
 scripts/validation/verify_r3_delivery.py
+scripts/validation/verify_r3_entry_race.mjs
+scripts/validation/verify_r3_history_race.mjs
 scripts/validation/verify_r3_identity.mjs
 scripts/validation/verify_r3_solar.mjs
 tests/fixtures/solar/horizons-399.json

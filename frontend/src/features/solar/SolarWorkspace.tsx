@@ -12,13 +12,14 @@ export default function SolarWorkspace(){
  const params=new URLSearchParams(location.search),epoch=parseSceneDate(params.get('date'))||parseSceneDate(useRuntimeProductState.getState().requestedTime)!,bodyId=(['sun','earth','mars'].includes(params.get('solarBody')||'')?params.get('solarBody'):null)as BodyId|null
  const [snapshot,setSnapshot]=useState<SolarSnapshot|null>(null),[status,setStatus]=useState('Preparing Solar System…'),[error,setError]=useState(''),[retry,setRetry]=useState(0),[draft,setDraft]=useState(epoch.slice(0,16)),[notice,setNotice]=useState(''),[reduced,setReduced]=useState(()=>matchMedia('(prefers-reduced-motion: reduce)').matches)
  const returnContext=location.state?.solarReturn,returnPath=typeof returnContext?.path==='string'?returnContext.path:(params.get('solarFrom')==='earth'?'/earth':'/sky-engine')+location.search,selected=snapshot?.bodies.find(b=>b.source_id===bodyId)
+ const latestBody=useRef(bodyId),latestPick=useRef(selectBody);latestBody.current=bodyId;latestPick.current=selectBody
  const approvedEpoch=useRef(parseSceneDate(returnContext?.state?.n1View?.utc)||useRuntimeProductState.getState().requestedTime)
  useEffect(()=>{heading.current?.focus();const old=document.title;document.title='Solar System · Astronomy Hub';const media=matchMedia('(prefers-reduced-motion: reduce)'),change=()=>setReduced(media.matches);media.addEventListener('change',change);return()=>{media.removeEventListener('change',change);document.title=old}},[])
  useEffect(()=>{setDraft(epoch.slice(0,16));setSnapshot(null);setError('');setStatus('Preparing Solar System…');const abort=new AbortController();let scene:SolarScene|null=null
   const failure=()=>{scene?.dispose();engine.current=null;setError('The Solar renderer stopped. Retry or return to your previous view.');setStatus('')}
   host.current?.addEventListener('solar-render-error',failure)
   void(async()=>{try{const [data]=await Promise.all([loadSolarSnapshot(epoch,abort.signal),waitForRuntimeDisposal()]);if(abort.signal.aborted||!host.current)return
-   scene=mountSolarScene(host.current,data,reduced,id=>selectBody(id));engine.current=scene;window.orasSolarDiagnostics=scene.diagnostics;approvedEpoch.current=data.epoch;setSnapshot(data);setStatus('Solar System ready');useRuntimeProductState.setState({requestedTime:data.epoch});scene.focus(bodyId)
+   scene=mountSolarScene(host.current,data,reduced,id=>latestPick.current(id));engine.current=scene;window.orasSolarDiagnostics=scene.diagnostics;approvedEpoch.current=data.epoch;setSnapshot(data);setStatus('Solar System ready');useRuntimeProductState.setState({requestedTime:data.epoch});scene.focus(latestBody.current)
   }catch(cause){if(!abort.signal.aborted){setError(cause instanceof Error?cause.message:'Solar System is unavailable.');setStatus('')}}})()
   const element=host.current;return()=>{abort.abort();element?.removeEventListener('solar-render-error',failure);scene?.dispose();if(engine.current===scene)engine.current=null;if(window.orasSolarDiagnostics===scene?.diagnostics)delete window.orasSolarDiagnostics}
  },[epoch,retry,reduced])

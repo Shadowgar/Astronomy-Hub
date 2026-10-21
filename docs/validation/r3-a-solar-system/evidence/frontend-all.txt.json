@@ -1,6 +1,6 @@
 {
   "originalFilename": "frontend-all.txt",
-  "rawSha256": "fe267ea22a4e2f24aee4d76ead606325faba35f765742e097b5c0ae3491e33f7",
+  "rawSha256": "24658b2cd3bd3e5cf1d0d967ca4a4dad4a6202c78c95f12a8940fcfa441b80e0",
   "encoding": "UTF-8; concatenate lines to recover original exact bytes",
   "lines": [
     "\n",
@@ -13,8 +13,8 @@
     "\n",
     " Test Files  43 passed (43)\n",
     "      Tests  302 passed (302)\n",
-    "   Start at  09:50:24\n",
-    "   Duration  2.62s (transform 6.87s, setup 0ms, import 12.14s, tests 4.50s, environment 6ms)\n",
+    "   Start at  10:02:00\n",
+    "   Duration  2.25s (transform 5.55s, setup 0ms, import 9.83s, tests 3.79s, environment 6ms)\n",
     "\n"
   ]
 }

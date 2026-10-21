@@ -58,7 +58,7 @@ Scope qualification:
   ICRF/Sun10/geometric/AU/UTC input explicit,50km inter-kernel tolerance; actual
   maximum measured axis residual0.07723km (77.23m), residuals retained. No inferred coordinates from visual plausibility.
 - Two clean host builds and pinned offline Docker Node24 build: identical133-file
-  Hub artifact `9eee5bd01edb77c9c810c5ef99d5b0a85a1e7a6cd26fee9f31e65cb4f6081cf8`.
+  Hub artifact recorded in [build identity](evidence/build-identity.json).
   Lazy Solar bundle525kB causes the visible500kB build advisory; not suppressed.
   Initial native-config invocation lacked its legacy `__dirname`; task-only wrapper
   supplies it. Initial reused output directories retained old chunks; clean builds
@@ -116,3 +116,25 @@ Do not merge any PR or deploy. Stop for owner review of this slice.
 [mobile overview](evidence/390-overview.png), [mobile Mars focus](evidence/390-mars-focused.png).
 Commit/served identity is verified after commit with `verify_r3_delivery.py` and
 published as `/evidence/r3-a/delivery.json`; it is not a replacement browser run.
+
+## Independent review corrections
+
+Review of `9666a34683d2d2f5257cb93c51a6048a37649819` identified a P2 stale body
+focus while a genuine epoch response was pending. Delayed-response browser RED
+showed Earth URL/details with actual Mars camera target. The completion now reads
+the latest identity; callback reads current navigation context. Identical browser
+GREEN targets Earth. A second review hypothesis reproduced as P2: a delayed genuine
+native navigation ACK overrode same-frame Back with a stale Solar entry. Entry is
+now bound to current route/client identity, invalidated on history/client changes
+and unmount. Same native ACK browser GREEN remains at the restored Earth location.
+No accepted native camera/controller or scientific-source changes.
+
+The preservation verifier initially compared Docker mount-array order. Read-only
+inspection established112 unchanged container states and identical complete mount
+records after sorting by destination. The verifier retains every field and compares
+order-independent mount identity; no workload was restarted or modified.
+
+Some exact raw console logs contain trailing whitespace/blank final lines; JSON
+wrappers retain original UTF-8 lines and SHA256 so repository whitespace checks pass
+without altering the original console bytes. Latest exact-head review and served
+receipt are reported in PR81's conversation; an earlier review is not a later-head pass.

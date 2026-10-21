@@ -20,6 +20,8 @@ python3 scripts/validation/start_r3_preview.py
 docker exec -e PYTHONPATH=/work -e ORAS_PLANETARY_EPHEMERIS_DIR=/runtime/planetary-ephemeris -w /work oras-r3-a-backend python3 -m pytest -o cache_dir=/tmp/r3-pytest-cache backend/tests/test_solar_exploration.py backend/tests/test_planetary_ephemeris_service.py backend/tests/test_planetary_ephemeris_provider.py -q
 R3_EVIDENCE=output/playwright/r3-a-qualified timeout 240s node scripts/validation/verify_r3_solar.mjs
 R3_IDENTITY_EVIDENCE=output/playwright/r3-identity-green timeout 90s node scripts/validation/verify_r3_identity.mjs
+R3_RACE_EVIDENCE=output/playwright/r3-history-race-green timeout 40s node scripts/validation/verify_r3_history_race.mjs
+R3_ENTRY_EVIDENCE=output/playwright/r3-entry-race-green timeout 90s node scripts/validation/verify_r3_entry_race.mjs
 python3 scripts/validation/verify_r3_delivery.py
 ```
 

@@ -1,15 +1,6 @@
 {
   "status": "PASS",
   "sourceHashes": {
-    "backend/app/routes/solar_exploration.py": "4c3f5d45591ac543d581f0f22b1b83e14d8765a6e26bfb8ba030c6ebc3ef66aa",
-    "backend/app/schemas/solar_exploration.py": "61dfe43cd63768ea91bfd219412c68e14fc5dbec504df28773c294b5c02e5b5e",
-    "backend/app/services/solar_exploration.py": "e66c7cc9444c1104af171e2e8923c5cb5bba336bec4a291abacd764ec22c01a5",
-    "frontend/src/features/solar/SolarScene.ts": "b9f14fc80d6fed2d0f9fe6ceb21414ee259c07307b3eff1006fbf4fe75ddbc5d",
-    "frontend/src/features/solar/SolarWorkspace.tsx": "effc70bc2b810f14e90c937e3ef6e54ac4b7fa63053b0599a58f173cd5130774",
-    "frontend/src/features/solar/solar.css": "ff34ace853e6c4c177ea08cdeaaf939662d595132443a7f835d672a99442c08a",
-    "frontend/src/features/solar/solarContracts.ts": "94a40041d70d3dcd3670115aefe86633e9ba32891cbd292fdc4f6fb4d5de72b8",
-    "frontend/src/features/solar/threeBoundary.d.ts": "5369746351f35d2fb45736a5070b61d84e0ef7f886a841369e3583c697b3021e",
-    "scripts/validation/verify_r3_solar.mjs": "d5fbc378c28c3814fee592f310451039f5f614af28a0daf8511fd98959e600be",
     "backend/app/__init__.py": "51ac1ca26aa823690419d98a0f7155cf90f7f237d02a3f1de6a0e0aa051fd6cf",
     "backend/app/api/__init__.py": "23826703bf9962da36326481089ad262cc7ed0b685ca757359c63c1b8911b46f",
     "backend/app/api/routes/__init__.py": "e1e3e06e8eb9b141dc043c67e2a0166cc89a859c7cedd48e1ae8062a39bae40d",
@@ -45,11 +36,13 @@
     "backend/app/routes/scopes.py": "e3b1d53d25289768ba2980322f7b2e7d4b9975b19c76a7257a92b8ce61275cb9",
     "backend/app/routes/sky.py": "0a990efb1ddd22afb59d1c1e67ccdf28096ccdba413b69c4a35cf7137850389f",
     "backend/app/routes/sky_mirror.py": "bc4dcac7981212113b6b1e52692315d2dc272586dc0c7eaca507c73c52239504",
+    "backend/app/routes/solar_exploration.py": "4c3f5d45591ac543d581f0f22b1b83e14d8765a6e26bfb8ba030c6ebc3ef66aa",
     "backend/app/routes/targets.py": "53efe24dbd3ef81c4c0becf3587425372ed6f18f62bd60c035c5a1a9bb0b796e",
     "backend/app/routes/tonight.py": "311d8737ac1de8346f70c1e2b3eda39a05c2c3bc1a01ba3b20695216aad0f0c9",
     "backend/app/schemas/__init__.py": "4485f27d03c9844c481153907c33fd31f85e0c584186368d374c234514af946f",
     "backend/app/schemas/conditions.py": "499957eb2ad50bf49f29c66df54c18ed3286b8a146bc3c0ceda97468790591dd",
     "backend/app/schemas/response_envelope.py": "cba9e2b00f6287e97cfc348b96e4b920ce4d98bbeff9f31f268943844f04e081",
+    "backend/app/schemas/solar_exploration.py": "61dfe43cd63768ea91bfd219412c68e14fc5dbec504df28773c294b5c02e5b5e",
     "backend/app/schemas/tonight.py": "d8d70bf6eb75a95967d5f8a6107335407113c27ae7cf7f719c665fae421e5486",
     "backend/app/services/_legacy_scene_logic.py": "b13f2b44e166379c67013f114b504cb83b35ef39c778dfa82ca79b75cf7381d8",
     "backend/app/services/above_me_service.py": "8eb147c294c3b16660556ad5fa6e8d40b2e0a944552ff31f6b5dc4bfac9ac0b3",
@@ -82,6 +75,7 @@
     "backend/app/services/sky_mirror_manager.py": "38d2c092eaf4f510ac34acd3a44c4984536e9dcfee3ac0af98c4ecd50f864471",
     "backend/app/services/sky_object_enrichment.py": "f767748b6740de30ebc7f284659a5aff7daa93d3c3ffb0c7528ef1398fe88a12",
     "backend/app/services/sky_star_catalog.py": "9eb260ca026963615cfdfeab03bf2b52c37c2082c92e3f7adcecab7234aa13af",
+    "backend/app/services/solar_exploration.py": "e66c7cc9444c1104af171e2e8923c5cb5bba336bec4a291abacd764ec22c01a5",
     "backend/app/services/solar_system_catalog_service.py": "1a8714d33fe7e07f8e40e338754817965f29370d35aad93023d6e79495b00bd6",
     "backend/app/services/star_science.py": "419f28a3789f26f6837184ce74d102d7b6d71f16fbdb768f44b706cdbe93b496",
     "backend/app/services/targets_service.py": "15b46cd982e690ea3746faedd89e97f6a6d4fa6445c4bbf0c1d2f0b4a8251f0d",
@@ -174,6 +168,11 @@
     "frontend/src/features/sky-engine/stellarium/README.md": "028436a7961a47f9ac0026d09272ee57f338262ab3a3c4f65400aeebabc3612a",
     "frontend/src/features/sky-engine/stellarium/stellariumRuntimeBridge.ts": "3aac7bbe8f6a10412cc450ae676f2132acf19cfc41ff62fbaf4055051e285b28",
     "frontend/src/features/sky-engine/stellarium/stellariumRuntimeDiscovery.ts": "4a463983fdd9206c3f2fa69b242a60d0aaba89fa49a32a2b03e34e2579db309a",
+    "frontend/src/features/solar/SolarScene.ts": "b9f14fc80d6fed2d0f9fe6ceb21414ee259c07307b3eff1006fbf4fe75ddbc5d",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "cd70c867b8868b6f2f2d563f895d43f8c9d369a4cef4ea5fda00ef226daadbb0",
+    "frontend/src/features/solar/solar.css": "ff34ace853e6c4c177ea08cdeaaf939662d595132443a7f835d672a99442c08a",
+    "frontend/src/features/solar/solarContracts.ts": "94a40041d70d3dcd3670115aefe86633e9ba32891cbd292fdc4f6fb4d5de72b8",
+    "frontend/src/features/solar/threeBoundary.d.ts": "5369746351f35d2fb45736a5070b61d84e0ef7f886a841369e3583c697b3021e",
     "frontend/src/features/targets/queries.ts": "af40756bcbb1b0a992aeece90f83ed2ff6d9b2ea7e5845cc806cc103d9746b10",
     "frontend/src/features/tonight/TonightPage.tsx": "75945d5523e0b6678a643fca3c12845a0880bb4b94ae97705509ce4bf4d807e1",
     "frontend/src/features/tonight/model.ts": "bceb058539c8b470e9ef0cae79be70bf43c74a4171c4253c064e9b4a7bd8441b",
@@ -199,7 +198,7 @@
     "frontend/src/features/workspace/TargetRow.tsx": "f4a1d975a958779380ce91ba8c4e3bb66e1d0ee345717e23f4c4da7ec8a00f1c",
     "frontend/src/features/workspace/TimeSurface.tsx": "a2f254f6040f5cc17eec33560438cbfe404cd759f0d1a5000e899e25d9432f0d",
     "frontend/src/features/workspace/TonightSurface.tsx": "9f5dbbe9602ca7f1429872a4eb76d10c05c574f8d49a4e9cc5c9ef97f6d0cf4c",
-    "frontend/src/features/workspace/WorkspaceShell.tsx": "4a8458349eb312932b2b810c5384c317fdb052527198514e02f54741fdc9135b",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "65523283e869c3e457a50e49a30fde0f34c0b0a1a732fdc0549e3b51268d3e4f",
     "frontend/src/features/workspace/adaptiveSky.css": "61e9fd05fdeceae32b63495ff99b5d40a8db304a4f08dfd9cd959132585bdc6e",
     "frontend/src/features/workspace/assets/LICENSES.txt": "ec59a3987e5c2e79a6d1ad6d1ae32ab1194969777b4c15de6239167ab6ecc1d2",
     "frontend/src/features/workspace/assets/plex-0.ttf": "6dbe082463cf749cfa057d45c3048c90f4df031496498e5b5bdfd0b6babb9d16",
@@ -250,7 +249,8 @@
     "packages/runtime-protocol/navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
     "packages/runtime-protocol/observer-elevation.d.mts": "6d2733646bc3a8a4c7323fbe75cda8f707f5e94b52a0224caa73f9987c847e19",
     "packages/runtime-protocol/observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3",
-    "packages/runtime-protocol/workspace.mjs": "032d6fe1b84fd9b513d8f3a1f1ab772a3ceb854445d869758eb14101e5c7a110"
+    "packages/runtime-protocol/workspace.mjs": "032d6fe1b84fd9b513d8f3a1f1ab772a3ceb854445d869758eb14101e5c7a110",
+    "scripts/validation/verify_r3_solar.mjs": "d5fbc378c28c3814fee592f310451039f5f614af28a0daf8511fd98959e600be"
   },
   "runs": [
     {
@@ -287,7 +287,7 @@
         },
         {
           "file": "1440-sky-return.png",
-          "sha256": "f293ffac995563a1e505c322da3b452a8c83959621cdf6361db12821147d2f95"
+          "sha256": "a9c6b3dbf8b5e6435a47d01b182b3d50af91530e10dc427110ebf6a541aaa7e9"
         }
       ],
       "initial": {
@@ -296,7 +296,7 @@
         "origin": "Sun center (10)",
         "units": "AU",
         "selected": null,
-        "renderCount": 8,
+        "renderCount": 7,
         "disposed": false,
         "animating": true,
         "camera": [
@@ -356,7 +356,7 @@
         "origin": "Sun center (10)",
         "units": "AU",
         "selected": "earth",
-        "renderCount": 90,
+        "renderCount": 87,
         "disposed": false,
         "animating": false,
         "camera": [
@@ -416,7 +416,7 @@
         "origin": "Sun center (10)",
         "units": "AU",
         "selected": "mars",
-        "renderCount": 166,
+        "renderCount": 155,
         "disposed": false,
         "animating": false,
         "camera": [
@@ -476,7 +476,7 @@
         "origin": "Sun center (10)",
         "units": "AU",
         "selected": null,
-        "renderCount": 16,
+        "renderCount": 15,
         "disposed": false,
         "animating": true,
         "camera": [
@@ -626,7 +626,7 @@
         },
         {
           "file": "390-sky-return.png",
-          "sha256": "09058ef36bdc2e36a9b244ebcc47e3ca405af9da5e73a6f16b19596f0461f49f"
+          "sha256": "e762b6be47322c7c9606688a3219047e526a009cf778ee4ef59cdbe91062eb40"
         }
       ],
       "initial": {
