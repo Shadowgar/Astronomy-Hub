@@ -1,5 +1,46 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## PR83 cinematic visual refinement — 2026-10-21
+
+The owner directs continued visual refinement on existing draft PR83; reviewed
+23806bca was technically qualified but has **not achieved owner visual acceptance**.
+The approved primary/Adaptive direction is unchanged. Refined Sun optics, static NASA
+clouds/atmosphere, Mars lighting, depth/framing, mobile summary and explicit display
+quality retain exact science and accepted native behavior. [Fresh comparisons, gap
+matrix, commands and qualification](../validation/solar-cinematic/refinement/README.md).
+Desktop/mobile native14/14 each, cinematic9/9 each, refinement6/6 each, compact40/40,
+lifecycle7/7, identity/races5/5; corrected compact focus43/43 and frontend311/311.
+Docker15 passed/2 existing skips is reused unchanged-source evidence.
+The a92 independent compact-framing P2 was reproduced and corrected; [fresh
+qualification and remaining limits](../validation/solar-cinematic/refinement/correction/README.md).
+Three identical136-file builds and served bytes verified;116 existing containers and90
+volumes/settings/native artifacts/kernel/rollback protected. SwiftShader high-DPI frame
+cost and unavailable GPU timing remain explicit limitations. Independent final-head
+review is required before handoff; owner review remains the next task. No merge,
+deployment, new design direction, R3-B/R4 or Earth/Sky redesign.
+
+
+## Historical first cinematic candidate — reviewed 23806bca
+
+Branch `r3-a-cinematic-solar-1`, stacked on qualified original-image import PR82
+`7aaeeef4`; working [Docker preview](http://127.0.0.1:4211/solar-system?date=2026-02-28T00:00:00Z).
+Original four approved PNGs are byte-verified. Source-backed three-body science is
+preserved; new presentation uses source-attributed NASA Earth/Mars imagery, an
+illustrative luminous Sun/starfield, compact HUD and contextual details/time.
+Desktop/mobile cinematic9/9 each and native navigation14/14 each, lifecycle7/7,
+identity/races5/5, frontend305, runtime231 and focused Docker ephemeris15passed/2skipped.
+Independent review found and reproduced one compact-landscape overlap P2; scoped CSS
+layouts cover compact landscape, short portrait and expanded cards, with40 browser groups and fresh desktop/mobile scene/native
+journeys passing. [Review record](../validation/solar-cinematic/REVIEW.md).
+Three reproduced builds and served bytes match; original native artifacts, kernel,
+owner settings,114 container states/mounts and90 volumes preserved.
+[Qualification, fidelity, screenshots and limits](../validation/solar-cinematic/README.md).
+**OWNER VISUAL ACCEPTANCE PENDING.** PR81's former appearance remains historically
+rejected; this candidate does not change accepted N1/R2 mechanics. SwiftShader frame
+stutter and physical GPU/mobile qualification remain limitations. No merge/deploy,
+Earth/Sky redesign, R3-B, R4 or provider spending. Prior partial suites remain historical.
+
+
 ## ACTIVE — cinematic visual direction and R3-A presentation, owner decision 2026-10-21
 
 **OWNER APPROVES DESIGN FAMILY** for Solar System, Earth and Sky: exact reference images and SHA-256 values in [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). R1-A/ORA-6 UX sketches remain relevant; do not synthesize a new unrelated interface. Owner **REJECTS the current R3-A Solar appearance** (flat Sun/Earth/Mars spheres, excessive panels/empty dark stage) while accepting it as a bounded scientific/technical foundation. This visually rejected candidate remains draft PR81, stacked on PR80; no merge/production deployment.

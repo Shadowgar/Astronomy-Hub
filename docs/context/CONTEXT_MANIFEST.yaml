@@ -17,6 +17,7 @@ tasks:
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
@@ -122,6 +123,7 @@ tasks:
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/ASTRONOMY_HUB_DIAGRAM.md
@@ -164,6 +166,7 @@ tasks:
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -245,6 +248,7 @@ tasks:
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -340,6 +344,7 @@ tasks:
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md

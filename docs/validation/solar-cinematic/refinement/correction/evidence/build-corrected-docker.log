@@ -1,0 +1,148 @@
+vite v8.0.16 building client environment for production...
+[2K
+transforming...✓ 154 modules transformed.
+rendering chunks...
+computing gzip size...
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/star.svg                                 0.23 kB │ gzip:   0.20 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/properties                   0.24 kB
+../../proof/hub-docker/oras-sky-engine/js/chunk-2d2253ec.81e41965.js                                    0.24 kB
+../../proof/hub-docker/oras-sky-engine/img/fullscreen_exit.c223388f.svg                                 0.29 kB │ gzip:   0.23 kB
+../../proof/hub-docker/oras-sky-engine/img/fullscreen.ddcd813e.svg                                      0.30 kB │ gzip:   0.23 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/nebula_default.svg                       0.31 kB │ gzip:   0.23 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/moon_full.svg                            0.31 kB │ gzip:   0.23 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/moon_new.svg                             0.31 kB │ gzip:   0.23 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/bright_emission_nebula.svg               0.33 kB │ gzip:   0.24 kB
+../../proof/hub-docker/oras-sky-engine/img/remove_circle_outline.558922b2.svg                           0.35 kB │ gzip:   0.26 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/transit.svg                              0.37 kB │ gzip:   0.25 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/description.en.utf8          0.37 kB
+../../proof/hub-docker/licenses/README.txt                                                              0.37 kB │ gzip:   0.27 kB
+../../proof/hub-docker/oras-sky-engine/img/add_circle_outline.24a5986c.svg                              0.37 kB │ gzip:   0.27 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/moon_eclipse.svg                         0.38 kB │ gzip:   0.26 kB
+../../proof/hub-docker/index.html                                                                       0.41 kB │ gzip:   0.28 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/moon_last_quarter.svg                    0.44 kB │ gzip:   0.29 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/variable_star.svg                        0.44 kB │ gzip:   0.25 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/moon_first_quarter.svg                   0.46 kB │ gzip:   0.30 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/globular_star_cluster.svg                0.47 kB │ gzip:   0.26 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-night-mode.bc3006ed.svg                                  0.49 kB │ gzip:   0.31 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/vertical_alignment.svg                   0.50 kB │ gzip:   0.30 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/planet.svg                               0.50 kB │ gzip:   0.30 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/double_star.svg                          0.51 kB │ gzip:   0.30 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/sun_sup_conjunction.svg                  0.58 kB │ gzip:   0.33 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/sun_inf_conjunction.svg                  0.61 kB │ gzip:   0.34 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/sun_opposition.svg                       0.61 kB │ gzip:   0.34 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/conjunction.svg                          0.62 kB │ gzip:   0.27 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/shooting_star.svg                        0.71 kB │ gzip:   0.37 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/comet.svg                                0.74 kB │ gzip:   0.39 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-cst-art.e7785b5a.svg                                     0.74 kB │ gzip:   0.46 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-landscape.8fc552f5.svg                                   0.78 kB │ gzip:   0.40 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/planetary_nebula.svg                     0.80 kB │ gzip:   0.44 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-atmosphere.26bed3a1.svg                                  0.84 kB │ gzip:   0.44 kB
+../../proof/hub-docker/oras-sky-engine/img/point_to.4133dbcc.svg                                        0.88 kB │ gzip:   0.46 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/artificial_satellite.svg                 0.97 kB │ gzip:   0.45 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/group_of_stars.svg                       0.98 kB │ gzip:   0.35 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/unknown.svg                              1.01 kB │ gzip:   0.56 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-equatorial-grid.37de933f.svg                             1.01 kB │ gzip:   0.44 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/deep_sky.svg                             1.06 kB │ gzip:   0.40 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-nebulae.923eae18.svg                                     1.06 kB │ gzip:   0.40 kB
+../../proof/hub-docker/licenses/three-MIT.txt                                                           1.08 kB │ gzip:   0.67 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/sun.svg                                  1.13 kB │ gzip:   0.34 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/sun_eclipse.svg                          1.27 kB │ gzip:   0.40 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/nebula_cluster.svg                       1.28 kB │ gzip:   0.39 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/constellation.svg                        1.37 kB │ gzip:   0.44 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-cst-lines.1844e97d.svg                                   1.37 kB │ gzip:   0.44 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/quasar.svg                               1.37 kB │ gzip:   0.76 kB
+../../proof/hub-docker/oras-sky-engine/img/btn-azimuthal-grid.bd02effc.svg                              1.47 kB │ gzip:   0.48 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/interstellar_matter.svg                  1.51 kB │ gzip:   0.83 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/open_star_cluster.svg                    1.55 kB │ gzip:   0.37 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/region_defined_in_the_sky.svg            1.68 kB │ gzip:   0.45 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/multiple_objects.svg                     1.74 kB │ gzip:   0.64 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/open_galactic_cluster.svg                1.87 kB │ gzip:   0.43 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/interacting_galaxy.svg                   1.88 kB │ gzip:   1.01 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/galaxy.svg                               1.94 kB │ gzip:   1.04 kB
+../../proof/hub-docker/oras-sky-engine/index.html                                                       1.96 kB │ gzip:   0.86 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/moon.svg                                 2.04 kB │ gzip:   0.75 kB
+../../proof/hub-docker/oras-sky-engine/oras-runtime-build.json                                          2.07 kB │ gzip:   1.08 kB
+../../proof/hub-docker/oras-sky-engine/favicon.ico                                                      2.16 kB
+../../proof/hub-docker/packages/runtime-protocol/continued-input.mjs                                    2.25 kB
+../../proof/hub-docker/packages/runtime-protocol/endpoint.mjs                                           2.54 kB
+../../proof/hub-docker/packages/runtime-protocol/navigation.mjs                                         2.58 kB
+../../proof/hub-docker/licenses/gods-eye-search-MIT.txt                                                 3.28 kB │ gzip:   1.72 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/pair_of_galaxies.svg                     3.61 kB │ gzip:   1.10 kB
+../../proof/hub-docker/runtime-versions.json                                                            4.05 kB │ gzip:   1.97 kB
+../../proof/hub-docker/packages/runtime-protocol/workspace.mjs                                          4.46 kB
+../../proof/hub-docker/runtime-bridge/sky/entry.mjs                                                     4.66 kB
+../../proof/hub-docker/packages/runtime-protocol/index.mjs                                              4.86 kB
+../../proof/hub-docker/runtime-bridge/sky/native-panels.mjs                                             5.76 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/part_of_galaxy.svg                       6.95 kB │ gzip:   1.49 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/group_of_galaxies.svg                    6.98 kB │ gzip:   1.68 kB
+../../proof/hub-docker/licenses/sky-data-credits.html                                                   7.20 kB │ gzip:   2.79 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix1.png       7.30 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix2.png       7.41 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/globular_cluster.svg                     8.38 kB │ gzip:   0.89 kB
+../../proof/hub-docker/oras-sky-engine/img/header.f792b4d9.png                                         11.06 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix3.png      12.46 kB
+../../proof/hub-docker/oras-sky-engine/images/svg/target_types/minor_planet.svg                        13.79 kB │ gzip:   4.42 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix0.png      20.55 kB
+../../proof/hub-docker/licenses/stellarium-web-engine-AGPL-3.0.txt                                     34.52 kB │ gzip:  11.86 kB
+../../proof/hub-docker/licenses/cesium-license.txt                                                     60.92 kB │ gzip:  12.68 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Thin.ad538a69.woff2                                63.04 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Light.d26871e8.woff2                               64.32 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Regular.73f0a88b.woff2                             64.63 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Bold.b52fac2b.woff2                                64.74 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Black.59eb3601.woff2                               64.96 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Medium.90d16760.woff2                              65.48 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-ThinItalic.5b4a33e1.woff2                          68.32 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-RegularItalic.4357beb8.woff2                       70.28 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-BoldItalic.94008e69.woff2                          70.36 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-LightItalic.e8eaae90.woff2                         70.76 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-MediumItalic.13ec0eb5.woff2                        71.28 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-BlackItalic.f75569f8.woff2                         72.08 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Thin.d3b47375.woff                                 84.22 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Light.c73eb1ce.woff                                85.69 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Regular.35b07eb2.woff                              85.87 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Bold.50d75e48.woff                                 86.18 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Medium.1d659482.woff                               86.44 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Black.313a6563.woff                                86.50 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-ThinItalic.8a96edbb.woff                           90.78 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-RegularItalic.f5902d5e.woff                        91.72 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-BoldItalic.4fe0f73c.woff                           91.96 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-LightItalic.13efe6cb.woff                          92.86 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-MediumItalic.83e114c3.woff                         93.22 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-BlackItalic.cc2fadc3.woff                          94.04 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Bold.ttf                                          170.76 kB
+../../proof/hub-docker/oras-sky-engine/fonts/Roboto-Regular.ttf                                       171.67 kB
+../../proof/hub-docker/assets/plex-0-BTB9ndPq.ttf                                                     205.25 kB
+../../proof/hub-docker/assets/plex-2-DzahmYX0.ttf                                                     205.28 kB
+../../proof/hub-docker/assets/plex-1-DPg3uh6f.ttf                                                     205.29 kB
+../../proof/hub-docker/oras-sky-engine/fonts/materialdesignicons-webfont.c61b9c12.woff2               224.34 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix6.png     231.25 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix7.png     261.54 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Allsky.png         284.56 kB
+../../proof/hub-docker/oras-sky-engine/fonts/materialdesignicons-webfont.ff13d121.woff                319.30 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix5.png     328.22 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix4.png     392.64 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix10.png    553.59 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix9.png     576.40 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix11.png    577.28 kB
+../../proof/hub-docker/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix8.png     578.10 kB
+../../proof/hub-docker/oras-sky-engine/js/app.1a6796d9.js                                             602.15 kB
+../../proof/hub-docker/oras-sky-engine/fonts/materialdesignicons-webfont.fc03f7f1.ttf                 662.92 kB
+../../proof/hub-docker/oras-sky-engine/fonts/materialdesignicons-webfont.541e65fb.eot                 663.14 kB
+../../proof/hub-docker/assets/earth-clouds-2002-Daoe7Ck3.jpg                                          829.36 kB
+../../proof/hub-docker/oras-sky-engine/js/stellarium-web-engine.a41e078b.wasm                       1,200.96 kB │ gzip: 584.37 kB
+../../proof/hub-docker/assets/earth-blue-marble-DGdC6oh9.png                                        1,511.37 kB
+../../proof/hub-docker/oras-sky-engine/js/chunk-vendors.c8723c79.js                                 2,975.03 kB
+../../proof/hub-docker/assets/mars-nasa-CvpPatzZ.glb                                                4,032.14 kB
+../../proof/hub-docker/oras-sky-engine/css/app.e3189512.css                                             3.93 kB │ gzip:   1.43 kB
+../../proof/hub-docker/assets/SolarWorkspace-CRo9DRMQ.css                                              12.96 kB │ gzip:   3.31 kB
+../../proof/hub-docker/assets/index-BYTdN-7m.css                                                      105.50 kB │ gzip:  18.84 kB
+../../proof/hub-docker/oras-sky-engine/css/chunk-vendors.11c203ce.css                                 654.20 kB │ gzip:  91.95 kB
+../../proof/hub-docker/assets/index-DlWJjVtn.js                                                       355.48 kB │ gzip: 108.17 kB
+../../proof/hub-docker/assets/SolarWorkspace-CbWZN5yz.js                                              620.55 kB │ gzip: 159.65 kB
+
+✓ built in 636ms
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

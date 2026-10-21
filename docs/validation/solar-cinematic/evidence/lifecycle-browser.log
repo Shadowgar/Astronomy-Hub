@@ -1,0 +1,9 @@
+PASS [
+  'Unavailable local imagery is disclosed; source geometry/camera remain usable',
+  'Reload after imagery recovery loads both source assets',
+  'Scene display preferences survive a time change without settings writes',
+  'Actual WebGL context loss removes the renderer; explicit Retry recovers',
+  'Portrait/landscape resize retains native focus; reduced motion remains immediate',
+  'Camera animation ends; renderer is idle between interactions (no perpetual RAF)',
+  'Late original GLB response cannot revive a disposed Solar renderer'
+]

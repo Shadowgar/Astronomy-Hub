@@ -1,5 +1,26 @@
 # FEATURE TRACKER
 
+## Cinematic Solar implementation — review candidate 2026-10-21
+
+Branch `r3-a-cinematic-solar-1`, stacked on qualified original-image import PR82
+`7aaeeef4`; working [Docker preview](http://127.0.0.1:4211/solar-system?date=2026-02-28T00:00:00Z).
+Original four approved PNGs are byte-verified. Source-backed three-body science is
+preserved; new presentation uses source-attributed NASA Earth/Mars imagery, an
+illustrative luminous Sun/starfield, compact HUD and contextual details/time.
+Desktop/mobile cinematic9/9 each and native navigation14/14 each, lifecycle7/7,
+identity/races5/5, frontend305, runtime231 and focused Docker ephemeris15passed/2skipped.
+Independent review found and reproduced one compact-landscape overlap P2; scoped CSS
+layouts cover compact landscape, short portrait and expanded cards, with40 browser groups and fresh desktop/mobile scene/native
+journeys passing. [Review record](../validation/solar-cinematic/REVIEW.md).
+Three reproduced builds and served bytes match; original native artifacts, kernel,
+owner settings,114 container states/mounts and90 volumes preserved.
+[Qualification, fidelity, screenshots and limits](../validation/solar-cinematic/README.md).
+**OWNER VISUAL ACCEPTANCE PENDING.** PR81's former appearance remains historically
+rejected; this candidate does not change accepted N1/R2 mechanics. SwiftShader frame
+stutter and physical GPU/mobile qualification remain limitations. No merge/deploy,
+Earth/Sky redesign, R3-B, R4 or provider spending. Prior partial suites remain historical.
+
+
 ## Latest visual acceptance distinction — 2026-10-21
 
 Owner **APPROVED** one cinematic concept-art design family for Solar/Earth/Sky ([source hash/approval record](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md)); this does **not** mean actual implementation or physical/scientific accuracy accepted. R3-A's technically verified Sun/Earth/Mars slice remains **OWNER VISUALLY REJECTED** at delivered screenshot, while its science/navigation evidence remains qualified only as reported. AE-11 cinematic fidelity and AE-03 Solar visual quality: **OPEN — visual implementation and owner's real-browser acceptance pending**. Existing N1 Sky/Earth mechanical OWNER ACCEPTED status remains unchanged. Future X1–X4 features remain deferred; no R3-B expansion/R4 development currently authorized.

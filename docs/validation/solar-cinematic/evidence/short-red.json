@@ -1,0 +1,59 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "frontend/src/features/solar/solar.css": "a86fdc08d161001b0416c52300ae66206286a1e8cc95536d49d2a935bfb9202c",
+    "scripts/validation/verify_cinematic_compact.mjs": "d20ae2764ac1282206c9a4917567d23d469303bf8c443783ad6fe626d6e0be94"
+  },
+  "runs": [
+    {
+      "width": 667,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 844,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 540,
+      "checks": []
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Visible control must receive pointer: null\n    at hit (file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_cinematic_compact.mjs:9:327)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_cinematic_compact.mjs:10:117"
+}

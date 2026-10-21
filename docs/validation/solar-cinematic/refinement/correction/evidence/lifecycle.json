@@ -1,0 +1,104 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Unavailable local imagery is disclosed; source geometry/camera remain usable",
+    "Reload after imagery recovery loads both source assets",
+    "Scene display preferences survive a time change without settings writes",
+    "Actual WebGL context loss removes the renderer; explicit Retry recovers",
+    "Portrait/landscape resize retains native focus; reduced motion remains immediate",
+    "Camera animation ends; renderer is idle between interactions (no perpetual RAF)",
+    "Late original GLB response cannot revive a disposed Solar renderer"
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "frameTiming": {
+    "frames": 27,
+    "median": 16.800000000000182,
+    "p95": 83.39999999999964,
+    "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "diagnostics": {
+      "epoch": "2026-03-01T00:00:00Z",
+      "frame": "ICRF",
+      "origin": "Sun center (10)",
+      "units": "AU",
+      "selected": "mars",
+      "renderCount": 23,
+      "disposed": false,
+      "animating": false,
+      "camera": [
+        0.27711703116354336,
+        -0.9150908909019179,
+        0.013238918958259738
+      ],
+      "target": [
+        1.0622798496961037,
+        -0.7977963757673066,
+        -0.39458162382170137
+      ],
+      "bodies": [
+        {
+          "id": "sun",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "glyphRadius": 0.44,
+          "screen": [
+            10024.883301907465,
+            -519.0258109035465
+          ]
+        },
+        {
+          "id": "earth",
+          "position": [
+            -0.93122863093717,
+            0.3102305324258698,
+            0.13448340640221867
+          ],
+          "glyphRadius": 0.23,
+          "screen": [
+            2296.770709126182,
+            -24.60015611980777
+          ]
+        },
+        {
+          "id": "mars",
+          "position": [
+            1.062279849696104,
+            -0.7977963757673064,
+            -0.3945816238217013
+          ],
+          "glyphRadius": 0.175,
+          "screen": [
+            604.8,
+            449.99999999999955
+          ]
+        }
+      ],
+      "drawCalls": 7,
+      "geometries": 12,
+      "textures": 3,
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "quality": "balanced",
+      "backgroundVisible": true,
+      "gpuMs": {
+        "supported": false,
+        "samples": 0,
+        "median": null,
+        "p95": null
+      },
+      "orbitsVisible": true,
+      "effectsVisible": true,
+      "starfield": "illustrative",
+      "starCount": 4000,
+      "renderCpuMs": {
+        "samples": 20,
+        "median": 0.5,
+        "p95": 22.700000001117587
+      },
+      "pixelRatio": 1
+    }
+  }
+}

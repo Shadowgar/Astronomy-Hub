@@ -1,5 +1,14 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## Current PR83 refinement evidence
+
+[Reference/actual screenshots, remaining gaps, fresh qualification and exact commands](validation/solar-cinematic/refinement/README.md). Supporting evidence; existing approved direction and draft stack, OWNER VISUAL ACCEPTANCE PENDING. No new phase or merge/deployment authority.
+
+## Cinematic Solar implementation evidence — 2026-10-21
+
+[Validation](validation/solar-cinematic/README.md), [fidelity/screenshots](validation/solar-cinematic/FIDELITY.md), [commands](validation/solar-cinematic/COMMANDS.md), [plan](validation/solar-cinematic/PLAN.md).
+Supporting evidence only; owner visual acceptance pending, no merge/deployment or new phase.
+
 ## Current cinematic visual direction — owner approved 2026-10-21
 
 [Owner-approved reference family, image hashes and required fidelity protocol](design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md) — supporting approval record under the canonical [Unified Workspace Design Contract](design/UNIFIED_WORKSPACE_DESIGN_SPEC.md), not a new authority tier. Original R1-A and ORA-6 sketches remain structural/interaction references. Current R3-A science foundation retained, current screen appearance OWNER REJECTED; next bounded implementation is Solar cinematic fidelity, with Earth/Sky style alignment later. Exact PNGs are imported byte for byte from the owner-committed archive; [original manifest](design/cinematic-references-2026-10-21/manifest.json). No current PR merge/deployment or broader R3-B/R4 start.

@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/frontend
+
+
+ Test Files  44 passed (44)
+      Tests  305 passed (305)
+   Start at  11:40:23
+   Duration  4.11s (transform 18.45s, setup 0ms, import 28.74s, tests 7.30s, environment 7ms)

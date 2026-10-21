@@ -1,0 +1,93 @@
+[
+  {
+    "suite": "cinematic",
+    "command": [
+      "timeout",
+      "90s",
+      "node",
+      "scripts/validation/verify_solar_cinematic.mjs"
+    ],
+    "env": {
+      "CINEMATIC_EVIDENCE": "output/playwright/solar-refinement-corrected-cinematic"
+    },
+    "exit": 0
+  },
+  {
+    "suite": "compact",
+    "command": [
+      "timeout",
+      "90s",
+      "node",
+      "scripts/validation/verify_cinematic_compact.mjs"
+    ],
+    "env": {
+      "CINEMATIC_COMPACT_EVIDENCE": "output/playwright/solar-refinement-corrected-compact"
+    },
+    "exit": 0
+  },
+  {
+    "suite": "lifecycle",
+    "command": [
+      "timeout",
+      "90s",
+      "node",
+      "scripts/validation/verify_cinematic_lifecycle.mjs"
+    ],
+    "env": {
+      "CINEMATIC_LIFECYCLE_EVIDENCE": "output/playwright/solar-refinement-corrected-lifecycle"
+    },
+    "exit": 0
+  },
+  {
+    "suite": "navigation",
+    "command": [
+      "timeout",
+      "240s",
+      "node",
+      "scripts/validation/verify_cinematic_navigation.mjs"
+    ],
+    "env": {
+      "R3_EVIDENCE": "output/playwright/solar-refinement-corrected-navigation"
+    },
+    "exit": 0
+  },
+  {
+    "suite": "identity",
+    "command": [
+      "timeout",
+      "90s",
+      "node",
+      "output/solar-cinematic/run_identity.mjs"
+    ],
+    "env": {
+      "R3_IDENTITY_EVIDENCE": "output/playwright/solar-refinement-corrected-identity"
+    },
+    "exit": 0
+  },
+  {
+    "suite": "history-race",
+    "command": [
+      "timeout",
+      "40s",
+      "node",
+      "output/solar-cinematic/run_history_race.mjs"
+    ],
+    "env": {
+      "R3_RACE_EVIDENCE": "output/playwright/solar-refinement-corrected-history-race"
+    },
+    "exit": 0
+  },
+  {
+    "suite": "entry-race",
+    "command": [
+      "timeout",
+      "90s",
+      "node",
+      "output/solar-cinematic/run_entry_race.mjs"
+    ],
+    "env": {
+      "R3_ENTRY_EVIDENCE": "output/playwright/solar-refinement-corrected-entry-race"
+    },
+    "exit": 0
+  }
+]

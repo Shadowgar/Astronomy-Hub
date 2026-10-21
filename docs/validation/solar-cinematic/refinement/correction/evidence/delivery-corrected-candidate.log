@@ -1,0 +1,89 @@
+PASS: solar-primary-cinematic.png: 2260404 original bytes; SHA256 045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab
+PASS: solar-adaptive-explorer.png: 2047493 original bytes; SHA256 c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7
+PASS: earth-cinematic.png: 2658442 original bytes; SHA256 83601f768035502c1b7fbc9265866135ba40c838b0c6b598127d506112f812b1
+PASS: sky-cinematic.png: 2092968 original bytes; SHA256 e932e4a7cf59cf92d810e4dffbcbb5873d0fee8b51997d3f3ae162c84c7a7c91
+PASS: archive SHA256 1d886cd105b8cc20da7c765057e1594b5c15895bbbce87e0946a20b65cd8abe2; four original images and manifest byte-identical.
+PASS original source bytes: earth-blue-marble.png 1511379 ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35
+PASS original source bytes: mars-nasa.glb 4032148 0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac
+PASS original source bytes: earth-clouds-2002.jpg 829367 daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793
+PASS: Mars original UV-linked color atlas; no equirectangular remapping or generated surface.
+{
+  "status": "PASS_CANDIDATE_BYTES_AND_PRESERVATION",
+  "head": "a92c741f5a4abbc853387683455aa04c2780ec0e",
+  "base": "23806bcaff704b13bcf54eaf898e306e4f51e3af",
+  "hubArtifact": "b7c87d77143c3cdd8a6cab9ad6bd401651c9612f53827e5a71a6b0652c1ac7b2",
+  "reproducibleBuilds": 3,
+  "hubFiles": 136,
+  "hubFilesServed": 136,
+  "earthFilesServed": 514,
+  "earthArtifact": "cb1f579d3f7625ad776d6182740da581c152c3a79684b4f2520477672eb12c3e",
+  "skyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
+  "baselineArtifact": "9f53469f9bc36db1cda6ec8eeb8050565fef73aa924cf92263f93e5392c8d031",
+  "refinementChecks": {
+    "1440": 6,
+    "390": 6
+  },
+  "qualityMeasurements": 8,
+  "compactFocusChecks": 43,
+  "preservedReviewedArtifact": "7776afd6ebed951aa96eda357636fabe85c8825ffa895169eeb18fd88c3938da",
+  "sourceAssets": [
+    {
+      "file": "earth-blue-marble.png",
+      "bytes": 1511379,
+      "sha256": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+      "sourcePage": "https://svs.gsfc.nasa.gov/2915/",
+      "download": "https://svs.gsfc.nasa.gov/vis/a000000/a002900/a002915/bluemarble-2048.png",
+      "credit": "NASA/GSFC Scientific Visualization Studio; Reto Stockli; NASA Earth Observatory",
+      "notes": "Historical Blue Marble; 2048x1024; no live clouds/night lights. Original downloaded bytes."
+    },
+    {
+      "file": "mars-nasa.glb",
+      "bytes": 4032148,
+      "sha256": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+      "sourcePage": "https://science.nasa.gov/resource/planet-mars-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/mars/resources/gltf_files/24881_Mars_1_6792.glb",
+      "credit": "NASA/JPL-Caltech",
+      "notes": "Original GLB bytes. Original color atlas and matching 2034-vertex UV mesh reused, isotropically scaled for display. Source normals and normal map are not used as terrain. Static illustrative orientation."
+    },
+    {
+      "file": "earth-clouds-2002.jpg",
+      "bytes": 829367,
+      "sha256": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+      "sourcePage": "https://visibleearth.nasa.gov/images/57747/blue-marble-clouds/77558l",
+      "currentContext": "https://science.nasa.gov/earth/earth-observatory/the-blue-marble-2181/",
+      "download": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_2048.jpg",
+      "credit": "NASA Goddard Space Flight Center; Reto Stockli",
+      "notes": "Original 2048x1024 grayscale JPEG, historical Blue Marble cloud composite published 2002. Two days visible imagery and polar thermal imagery; static illustrative shell, no live weather, cloud altitude or rotation claim. Legacy catalog redirects; original NASA asset remains available."
+    }
+  ],
+  "browserProofSha256": "391715bd38359639e45f8902ad40a18c733719cebd0283c5e4f5565384b224b4",
+  "browserGroups": {
+    "1440": 14,
+    "390": 14
+  },
+  "compactBrowserChecks": {
+    "667x375": 4,
+    "568x320": 4,
+    "844x375": 4,
+    "390x900": 4,
+    "390x540": 4,
+    "390x480": 4,
+    "540x390": 4,
+    "390x667": 4,
+    "560x640": 4,
+    "320x568": 4
+  },
+  "matchedBrowserSources": 257,
+  "committedBrowserSources": 0,
+  "preservedOriginalContainers": 116,
+  "preservedVolumes": 90,
+  "settingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "preservedTrackedRollbackFiles": 1,
+  "kernelSha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+  "preview": "http://127.0.0.1:4211/solar-system?date=2026-02-28T00:00:00Z",
+  "limits": [
+    "Browser evidence is source-matched; this verifier does not execute browser journeys.",
+    "GPU timer extension unavailable on SwiftShader; frame intervals are not hardware GPU timings.",
+    "No owner visual, physical hardware, full R3/R4, merge or production deployment acceptance."
+  ]
+}
