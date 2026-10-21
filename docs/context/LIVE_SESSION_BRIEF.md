@@ -1,5 +1,11 @@
 # LIVE SESSION BRIEF
 
+## ACTIVE OWNER DESIGN DECISION — 2026-10-21
+
+The owner **APPROVED the cinematic design family for Solar, Earth and Sky**, as shown in this conversation. The original concept-art PNG hashes, visual acceptance scope, original R1-A/ORA-6 UX sketch dependencies and hard scientific/rights boundaries are recorded in [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). This is the current **visual-direction authority**; supersede older pending-style statements. The existing R3-A scene appearance is **OWNER REJECTED**; its scientific Sun/Earth/Mars ephemeris, camera/selection/return implementation and focused qualification must be retained.
+
+The next bounded task is original image ingestion plus direct browser visual-fidelity implementation for Solar R3-A on an isolated draft PR stacked on PR81 (or its documentation-only successor); contrast to approved sketches, do not invent design, preserve owner-accepted N1 and completed R2. Maintain $0 spend, no deployment/merge, and no R3-B expansion or R4 activation. The four PNGs are delivered separately as a user-downloadable ZIP; they are **not yet in GitHub** at this documentation checkpoint. Do not claim image provenance/pixel match without first verifying actual imported hashes.
+
 ## Current owner direction — 2026-10-21
 
 The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
