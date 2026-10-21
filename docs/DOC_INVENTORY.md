@@ -1,5 +1,9 @@
 # `DOC_INVENTORY.md`
 
+## Cinematic owner-approved reference inventory — 2026-10-21
+
+- `docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md` — **SUPPORT, owner-approved visual decision/provenance**, with exact concept image hashes, original R1-A/ORA-6 sketch links, source limitations and implementation comparison gates. The canonical design authority remains `docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md`. The four original image assets are delivered as a separate owner ZIP and **not yet committed**; do not misclassify missing image paths as existing repository proof. This document must be routed through appropriate context packs before visual production implementation.
+
 ## Current scope reconciliation — 2026-10-21
 R3-A renderer/science decision: [ADR0010](architecture/decisions/0010-r3-a-solar-runtime.md).
 
