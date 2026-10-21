@@ -34,7 +34,7 @@
     "1440": 14,
     "390": 14
   },
-  "committedBrowserSources": 255,
+  "committedBrowserSources": 0,
   "preservedOriginalContainers": 114,
   "preservedVolumes": 90,
   "settingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
@@ -44,5 +44,6 @@
   "limits": [
     "Browser evidence is source-matched; this verifier does not execute browser journeys.",
     "No owner visual, physical hardware, full R3/R4, merge or production deployment acceptance."
-  ]
+  ],
+  "matchedBrowserSources": 255
 }

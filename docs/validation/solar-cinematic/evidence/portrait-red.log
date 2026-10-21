@@ -1,0 +1,24 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/solarPresentation.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/frontend
+
+ ❯ tests/solarPresentation.test.ts (3 tests | 1 failed) 60ms
+     × fits all source body spheres into portrait and landscape overview without moving their anchors 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/solarPresentation.test.ts > Cinematic presentation stays separate from source geometry > fits all source body spheres into portrait and landscape overview without moving their anchors
+AssertionError: expected 0.00921892059849125 to be greater than 0.5795841573886794
+ ❯ tests/solarPresentation.test.ts:13:181
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  11:39:10
+   Duration  237ms (transform 33ms, setup 0ms, import 75ms, tests 60ms, environment 0ms)

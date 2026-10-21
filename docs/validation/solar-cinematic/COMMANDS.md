@@ -2,6 +2,7 @@
 
 Working directory: `.worktrees/r3-a-cinematic-solar-1`, baseline `7aaeeef4`.
 The original PR81/82 and owner checkout are preserved. No package installation.
+Versioned text logs trim trailing whitespace only; raw outputs remain in the task output directory.
 The commands below produced the versioned logs/JSON in this package; source-sensitive
 browser evidence is tied to255 inputs in `evidence/navigation.json`, including both
 source assets. Final exact-head verifier does not re-execute historical browser tests.
