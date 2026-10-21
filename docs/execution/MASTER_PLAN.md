@@ -1,5 +1,11 @@
 # `MASTER_PLAN.md`
 
+## Visual quality checkpoint — approved direction, 2026-10-21
+
+The owner approved the coherent cinematic Solar/Earth/Sky **visual direction**, not the current R3-A rendering. [Exact cinematic reference/hash ledger](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). Recover and preserve the existing Adaptive Explorer and ORA-6 sketches as UX references. Primary near-term work is a bounded R3-A **visual-fidelity implementation** on the existing JPL/Skyfield/Three.js foundation, before R3-B expansion. R3-A current view remains TECHNICALLY QUALIFIED within its cited scope and OWNER VISUALLY REJECTED. Actual implemented scene fidelity/owner approval remain open.
+
+The canonical R0–R5 table below is unchanged: cinematic design is an execution/acceptance refinement, not a new roadmap, planetary scientific permission or paid source. Sky/Earth accepted navigation and source/asset rights are protected. Earth/Sky style harmonization and Planet View follow independently scoped packages. X1–X4 remain deferred, including advanced satellite/aircraft 3D, DSO effects and paid-member Google mapping. No PR merges, production deployment or paid-provider activation are authorized by this acceptance.
+
 ## Current scope reconciliation — 2026-10-21
 
 Current execution: [PROJECT_STATE](PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](MASTER_PLAN.md).
