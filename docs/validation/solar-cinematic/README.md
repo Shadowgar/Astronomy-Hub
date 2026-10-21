@@ -47,21 +47,35 @@ color imagery is used; no normal-map terrain or body-fixed orientation claim.
 
 | Qualification | Result and evidence |
 | --- | --- |
-| Cinematic desktop1440×900 / mobile390×900 | **9/9 each**; source positions, textures, controls, camera focus/approach, direct geometry selection, UTC, keyboard, source dialog. [JSON](evidence/cinematic.json) |
-| Native navigation desktop / emulated mobile | **14/14 each**; actual Cesium coordinate destination, Earth/Sky round trips, Pennsylvania landscape, observer/time, URL/history, single renderer. [JSON + 255 source hashes](evidence/navigation.json) |
+| Cinematic desktop1440×900 / mobile390×900 | **9/9 each**; source positions, textures, controls, camera focus/approach, direct geometry selection, UTC, keyboard, source dialog. [Current JSON](evidence/review-cinematic.json) |
+| Native navigation desktop / emulated mobile | **14/14 each**; actual Cesium coordinate destination, Earth/Sky round trips, Pennsylvania landscape, observer/time, URL/history, single renderer. [Current JSON + 255 source hashes](evidence/review-navigation.json) |
 | Failure/lifecycle | **7/7**; asset outage/recovery, preferences across time, real WebGL context loss/retry, responsive focus, idle renderer, delayed asset after disposal. [JSON](evidence/lifecycle.json) |
 | Native identity / races | **3 + 1 + 1**; unchanged incoming Mars identity, controlled time, rejected-time return, concurrent history and delayed entry ACK. [Identity](evidence/identity.json), [history](evidence/history-race.json), [entry](evidence/entry-race.json) |
 | Frontend | **305/305, 44 files**; TypeScript PASS. [Tests](evidence/frontend-tests.log), [typecheck](evidence/typecheck.log) |
 | Runtime/Earth | **231/231**. [Log](evidence/runtime-tests-host.log) |
 | Solar science | **7/7** host; authoritative Docker focused ephemeris **15 passed, 2 skipped**, two existing deprecation warnings. [Host](evidence/science-tests-host.log), [Docker](evidence/docker-ephemeris.log) |
-| Builds | Two clean host builds plus independent offline pinned Node Docker build: identical **135 files**, artifact `c4ed5c48ca59057e20a5f896fd3da9d2347f84da89ab5bcd538f257569334115`. All135 Hub and514 native Earth served files match. |
-| Assets/preservation | Four original approved PNGs, two NASA source files, unchanged source pins/native artifacts/kernel/settings/rollback;114 original container states/mounts and90 volumes exact. [Candidate receipt](evidence/candidate-preservation.json); exact committed receipt follows delivery. |
+| Builds | Two clean host builds plus independent offline pinned Node Docker build: identical **135 files**, artifact `34f10726bb96f22eed623bbbd4e2845a2b9f7b63276c7c484e0e3a178d69ec27`. All135 Hub and514 native Earth served files match. |
+| Assets/preservation | Four original approved PNGs, two NASA source files, unchanged source pins/native artifacts/kernel/settings/rollback;114 original container states/mounts and90 volumes exact. [Initial candidate receipt](evidence/candidate-preservation.json); final exact committed/served receipt is linked in PR83. |
 
 Science/API/contracts and physical radii are unchanged. Actual native scene positions
 are asserted equal to Docker-returned JPL/Skyfield vectors at controlled UTC; new unit
 tests prove display framing does not mutate those positions. Earlier independent
 Horizons comparisons remain historical, source-matched PR81 evidence; they were not
 requeried or relabeled as fresh. Mars remains target4 system barycenter, not499 center.
+
+## Independent review correction
+
+Initial exact-head review of `1aecca42723ab19d34c6b96133e8df55cc7770ff` found one
+P2: compact landscape time/card overlays blocked camera/body/effect pointer targets.
+A single560–767px-width/short-height CSS rule separates those regions. Actual touch
+RED then GREEN: **4/4 groups at667×375,568×320,844×375 and390×900** (16groups total).
+[Review record](REVIEW.md), [RED](evidence/compact-red.json), [GREEN](evidence/compact-green.json).
+Cinematic9/9 and native-navigation14/14 per desktop/mobile viewport were rerun after
+this correction; latest255 source hashes match the corrected source. All three builds
+were reproduced again. Unit/type/runtime/science and lifecycle/identity/race evidence
+is reused: those implementations did not change; only the bounded responsive rule did.
+Earlier evidence is retained under its original filename, never relabeled as a fresh run.
+Final exact-head independent follow-up is recorded in draftPR83 before owner handoff.
 
 ## Failures and limits retained honestly
 

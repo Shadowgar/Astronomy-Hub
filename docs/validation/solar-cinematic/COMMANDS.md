@@ -68,3 +68,18 @@ git ls-remote origin refs/heads/r3-a-cinematic-solar-1
 
 No broad backend sweep, old N1 timeout investigation, production deployment, unrelated
 service restart, resource pruning or native artifact rebuild was performed.
+
+## Review-driven responsive correction
+
+```bash
+CINEMATIC_COMPACT_EVIDENCE=output/playwright/solar-cinematic-compact-red timeout 90s node scripts/validation/verify_cinematic_compact.mjs
+timeout 90s node scripts/validation/verify_cinematic_compact.mjs
+CINEMATIC_EVIDENCE=output/playwright/solar-cinematic-reviewed timeout 90s node scripts/validation/verify_solar_cinematic.mjs
+R3_EVIDENCE=output/playwright/solar-cinematic-reviewed-navigation timeout 240s node scripts/validation/verify_cinematic_navigation.mjs
+```
+
+The same three build commands above ran again after the single CSS correction, writing
+`review-build-{first,second,docker}.log`. No timeout was increased. The original RED
+runner predates the additive effects-button reachability assertion/hash capture; it
+fails on the first blocked Overview pointer target. GREEN includes all controls and
+source hashes. Docs/link/artifact/preservation checks ran again for the delivery SHA.

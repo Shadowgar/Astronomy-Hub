@@ -16,7 +16,7 @@ was edited or composited; hashes and browser assertions are in the evidence pack
 | Panels | Compact glass body context | Permanent information area | No empty panel; collapsible detail card, modal time/source/help; portrait card moves below globe |
 | Typography/colors | Light headings, warm light, restrained blue | Dense engineering text | Light hierarchy, pale text, charcoal glass, amber Sun; system font rather than unlicensed concept typeface |
 | Interaction | Concept depicts controls only | Real science/navigation | Native camera/direct selection, orbit/effect toggles, source time/returns/history retained and browser asserted |
-| Mobile | No exact mobile concept supplied | Desktop controls compressed | Vertical body fit, reachable44px controls, compact bottom card/time, reduced-motion focus immediate |
+| Mobile | No exact mobile concept supplied | Desktop controls compressed | Vertical body fit, compact touch controls, compact bottom card/time, reduced-motion focus immediate |
 | Science | Extra illustrative bodies/positions/asteroids | Qualified three-body slice | Exactly Sun10/Earth399/Mars4; source trajectories retained, no invented moons/asteroids/rotations/surfaces |
 
 ## Matched browser states
@@ -48,3 +48,16 @@ cloud/flare detail. Those remain omitted because this package has neither qualif
 body data nor appropriate visual assets/models for them. Subdued paths remain actual
 open source trajectories; no decorative replacement curves. There is no pixel-perfect
 or owner-acceptance claim. See [performance and qualification limits](README.md).
+
+## Compact landscape review correction
+
+The final responsive rule separates the selected card/time capsule from camera and
+body controls on short560–767px-wide viewports. Actual browser hit-target/touch checks
+also prove camera changes do not change UTC. [Selected667×375](screenshots/compact-667-selected.png),
+[overview667×375](screenshots/compact-667-overview.png),
+[selected568×320](screenshots/compact-568-selected.png),
+[portrait390×900](screenshots/compact-390-selected.png).
+The original before/after matrix images above remain valid for1440×900 and390×900:
+the new conditional CSS does not apply there. Fresh repeat journeys/screenshots on the
+corrected build are retained at `output/playwright/solar-cinematic-reviewed`; their
+hashes are in [the repeated browser proof](evidence/review-cinematic.json).
