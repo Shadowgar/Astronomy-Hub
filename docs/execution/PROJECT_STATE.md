@@ -1,5 +1,11 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## ACTIVE — cinematic visual direction and R3-A presentation, owner decision 2026-10-21
+
+**OWNER APPROVES DESIGN FAMILY** for Solar System, Earth and Sky: exact reference images and SHA-256 values in [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). R1-A/ORA-6 UX sketches remain relevant; do not synthesize a new unrelated interface. Owner **REJECTS the current R3-A Solar appearance** (flat Sun/Earth/Mars spheres, excessive panels/empty dark stage) while accepting it as a bounded scientific/technical foundation. This visually rejected candidate remains draft PR81, stacked on PR80; no merge/production deployment.
+
+The owner directs forward work: import hash-matched original concept PNGs, audit actual browser views vs approved references, and begin a **separate bounded Solar R3-A cinematic fidelity implementation** with source-backed geometry, asset rights, GPU/accessibility budgets and screenshots. New Earth/Sky cinematic styling is a later bounded package; protect N1 OWNER ACCEPTED navigation/scenery and existing R2 code. Do not start broad R3-B body expansion, R4 Planet View, X1–X4, new paid providers or unrelated fixes. Existing R3-A broad backend sweep remains historically incomplete, not retroactively green. This supersedes earlier current-status wording on pending visual-direction choice only; technical/scientific gates remain in force.
+
 ## Current owner direction — 2026-10-21
 
 The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
