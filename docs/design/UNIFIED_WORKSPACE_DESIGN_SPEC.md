@@ -1,5 +1,11 @@
 # Unified workspace design contract
 
+## Current owner-approved visual direction — 2026-10-21
+
+**OWNER APPROVED:** the exact cinematic Solar System, Earth and Sky design-family illustrations delivered in the current owner session, identified by immutable SHA-256 in [Cinematic Design Reference](ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). **Primary Solar reference:** `solar-primary-cinematic.png`. The previous Adaptive Explorer R1-A and ORA-6 sketches remain binding inputs for UX behaviors, progressive disclosure, context-specific controls and accessibility. The newer images supply the approved premium scene-first cinematic presentation, not substitute scientific datasets or permission to copy third-party assets.
+
+The current R3-A scene's large static panels, flat glyphs and overly diagrammatic appearance are **OWNER VISUALLY REJECTED**; retain its verified scientific/selection/return foundation. Future visual packages must import original PNG reference bytes from the owner asset pack, verify hashes, compare actual browser screenshots against them side by side, and request a separate visual-fidelity decision. Approval of design direction does **not** claim exact pixel alignment, physical performance, real Solar/sky positions in illustrations or new provider rights. Next bounded implementation: Solar R3-A cinematic visual fidelity; Sky and Earth styling subsequently, without modifying N1 accepted mechanics.
+
 ## Current scope reconciliation — 2026-10-21
 
 Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
