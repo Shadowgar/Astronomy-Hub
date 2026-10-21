@@ -1,5 +1,11 @@
 # Astronomy Hub Product Vision
 
+## Owner-approved cinematic presentation — 2026-10-21
+
+The owner explicitly selected one **premium, immersive, scene-first cinematic Astronomy Hub design family** spanning Solar System, Earth and Sky. The exact original concept PNGs are hash-identified in the [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). This supersedes visually incompatible generic dashboard treatments while retaining prior R1-A/ORA-6 Adaptive Explorer UX sketches as the structural/interaction foundation.
+
+**Order:** implement bounded Solar visual-fidelity correction against the primary cinematic reference while preserving the R3-A scientific engine; subsequently harmonize Earth, Sky and eventual Planet View. R3-A's code/science is technically qualified within existing evidence, but its current visual implementation was **OWNER REJECTED**. The accepted original N1 Sky/Earth behavior remains intact. Rendered concept art is illustrative and must never be mistaken for live source-backed scene objects, licensed Earth imagery or valid orbital geometry. Further R3-B body expansion and R4 remain gated; no paid provider, merge or deployment authorization follows from style approval.
+
 ## Current scope reconciliation — 2026-10-21
 
 Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).

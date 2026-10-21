@@ -1,5 +1,9 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Latest owner visual decision — 2026-10-21
+
+The cinematic Solar/Earth/Sky visual family is OWNER APPROVED as the presentation direction, with exact concept PNG hashes and scientific/rights caveats in [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). The original Adaptive Explorer and ORA-6 sketches remain required UX evidence. R3-A science remains qualified in its bounded scope, while its **current visual appearance is OWNER REJECTED**; next work is isolated Solar visual-fidelity implementation with actual browser screenshot comparisons. No implicit merge, deployment, provider spending, R3-B or R4 authority. N1 accepted mechanics and mounted data remain protected.
+
 ## Current owner direction — 2026-10-21
 
 The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
