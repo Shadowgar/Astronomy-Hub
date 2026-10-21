@@ -1,5 +1,9 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## Current cinematic visual direction — owner approved 2026-10-21
+
+[Owner-approved reference family, image hashes and required fidelity protocol](design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md) — supporting approval record under the canonical [Unified Workspace Design Contract](design/UNIFIED_WORKSPACE_DESIGN_SPEC.md), not a new authority tier. Original R1-A and ORA-6 sketches remain structural/interaction references. Current R3-A science foundation retained, current screen appearance OWNER REJECTED; next bounded implementation is Solar cinematic fidelity, with Earth/Sky style alignment later. Exact PNGs await controlled import from owner-provided asset pack. No current PR merge/deployment or broader R3-B/R4 start.
+
 ## Current scope reconciliation — 2026-10-21
 R3-A renderer/science decision: [ADR0010](architecture/decisions/0010-r3-a-solar-runtime.md).
 
