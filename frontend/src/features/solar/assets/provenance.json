@@ -1,0 +1,26 @@
+{
+  "retrieved": "2026-10-21",
+  "rights": "NASA media usage guidelines; educational/informational computer graphical simulation, credit required, no endorsement. No identifiable persons, logos or third-party copyright designation on the selected source pages.",
+  "rightsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+  "runtime": "Bundled small assets, no live imagery provider, account or network dependency; no source images were generated or edited.",
+  "assets": [
+    {
+      "file": "earth-blue-marble.png",
+      "bytes": 1511379,
+      "sha256": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+      "sourcePage": "https://svs.gsfc.nasa.gov/2915/",
+      "download": "https://svs.gsfc.nasa.gov/vis/a000000/a002900/a002915/bluemarble-2048.png",
+      "credit": "NASA/GSFC Scientific Visualization Studio; Reto Stockli; NASA Earth Observatory",
+      "notes": "Historical Blue Marble; 2048x1024; no live clouds/night lights. Original downloaded bytes."
+    },
+    {
+      "file": "mars-nasa.glb",
+      "bytes": 4032148,
+      "sha256": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+      "sourcePage": "https://science.nasa.gov/resource/planet-mars-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/mars/resources/gltf_files/24881_Mars_1_6792.glb",
+      "credit": "NASA/JPL-Caltech",
+      "notes": "Original GLB bytes. Original color atlas and matching 2034-vertex UV mesh reused, isotropically scaled for display. Source normals and normal map are not used as terrain. Static illustrative orientation."
+    }
+  ]
+}

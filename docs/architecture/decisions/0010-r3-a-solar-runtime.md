@@ -68,3 +68,19 @@ R3-B proposed after owner slice review: extend qualified body/time/navigation co
 [Three OrbitControls](https://threejs.org/docs/pages/OrbitControls.html),
 [NASA facts](https://nssdc.gsfc.nasa.gov/planetary/factsheet/),
 [IAU2015 nominal constants](https://arxiv.org/abs/1510.07674).
+
+## Cinematic presentation extension — owner authorization 2026-10-21
+
+The earlier no-texture statement records the original PR81 scope. The owner-approved
+cinematic package now reuses two small attributed NASA assets through existing Three
+TextureLoader/GLTFLoader; no new dependency or native-renderer patch. Original Earth
+PNG and original Mars GLB/color-atlas/UV geometry remain byte-preserved. Source positions,
+identities, trajectories, epochs, physical radii and R4 contract do not change.
+Fixed visual orientations are explicitly illustrative, not a body-fixed frame. Sphere
+sizes remain exaggerated. Sun granulation/corona, atmospheric rims, background stars
+and optical brightness are presentation effects without scientific measurement claims.
+React owns HUD/dialogs only; the contained Three engine owns scene/camera/disposal.
+Async texture/model arrivals after disposal release resources and cannot revive it.
+No continuous animation loop; capped pixel ratio1.5,4000 points, three body meshes,
+two source paths. Reduced motion is immediate, effects and paths can be disabled.
+[Provenance, browser qualification and real software-GPU limits](../../validation/solar-cinematic/README.md).

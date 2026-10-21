@@ -1,0 +1,48 @@
+{
+  "status": "PASS_CANDIDATE_BYTES_AND_PRESERVATION",
+  "head": "7aaeeef4e4e9b6ad406752814270ea0970666104",
+  "base": "7aaeeef4e4e9b6ad406752814270ea0970666104",
+  "hubArtifact": "c4ed5c48ca59057e20a5f896fd3da9d2347f84da89ab5bcd538f257569334115",
+  "reproducibleBuilds": 3,
+  "hubFiles": 135,
+  "hubFilesServed": 135,
+  "earthFilesServed": 514,
+  "earthArtifact": "cb1f579d3f7625ad776d6182740da581c152c3a79684b4f2520477672eb12c3e",
+  "skyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
+  "sourceAssets": [
+    {
+      "file": "earth-blue-marble.png",
+      "bytes": 1511379,
+      "sha256": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+      "sourcePage": "https://svs.gsfc.nasa.gov/2915/",
+      "download": "https://svs.gsfc.nasa.gov/vis/a000000/a002900/a002915/bluemarble-2048.png",
+      "credit": "NASA/GSFC Scientific Visualization Studio; Reto Stockli; NASA Earth Observatory",
+      "notes": "Historical Blue Marble; 2048x1024; no live clouds/night lights. Original downloaded bytes."
+    },
+    {
+      "file": "mars-nasa.glb",
+      "bytes": 4032148,
+      "sha256": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+      "sourcePage": "https://science.nasa.gov/resource/planet-mars-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/mars/resources/gltf_files/24881_Mars_1_6792.glb",
+      "credit": "NASA/JPL-Caltech",
+      "notes": "Original GLB bytes. Original color atlas and matching 2034-vertex UV mesh reused, isotropically scaled for display. Source normals and normal map are not used as terrain. Static illustrative orientation."
+    }
+  ],
+  "browserProofSha256": "6b632aad60f58f5975bedd2e36282154cd8e8719914aa34c3352e38c1acd3b60",
+  "browserGroups": {
+    "1440": 14,
+    "390": 14
+  },
+  "committedBrowserSources": 255,
+  "preservedOriginalContainers": 114,
+  "preservedVolumes": 90,
+  "settingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "preservedTrackedRollbackFiles": 1,
+  "kernelSha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+  "preview": "http://127.0.0.1:4211/solar-system?date=2026-02-28T00:00:00Z",
+  "limits": [
+    "Browser evidence is source-matched; this verifier does not execute browser journeys.",
+    "No owner visual, physical hardware, full R3/R4, merge or production deployment acceptance."
+  ]
+}

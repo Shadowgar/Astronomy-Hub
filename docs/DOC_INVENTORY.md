@@ -1,5 +1,10 @@
 # `DOC_INVENTORY.md`
 
+## Cinematic Solar implementation evidence — 2026-10-21
+
+[Validation](validation/solar-cinematic/README.md), [fidelity/screenshots](validation/solar-cinematic/FIDELITY.md), [commands](validation/solar-cinematic/COMMANDS.md), [plan](validation/solar-cinematic/PLAN.md).
+Supporting evidence only; owner visual acceptance pending, no merge/deployment or new phase.
+
 ## Cinematic owner-approved reference inventory — 2026-10-21
 
 - `docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md` — **SUPPORT, owner-approved visual decision/provenance**, with exact concept image hashes, original R1-A/ORA-6 sketch links, source limitations and implementation comparison gates. The canonical design authority remains `docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md`. The four original image assets are imported byte for byte from the owner-committed repository ZIP into `docs/design/cinematic-references-2026-10-21/`; all four hashes match the approval ledger and original manifest. This document must be routed through appropriate context packs before visual production implementation.
