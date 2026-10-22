@@ -4,6 +4,7 @@ import{waitForRuntimeDisposal}from'../sky-engine/RuntimeHost'
 import{parseSceneDate,useRuntimeProductState}from'../runtime/productState'
 import{loadSolarSnapshot,planetIntent,negotiatePlanet,solarReturnPath,type SolarSnapshot,type BodyId}from'./solarContracts'
 import{mountSolarScene,type SolarScene}from'./SolarScene'
+import {CinematicBrand} from '../workspace/cinematic'
 import type {SolarQuality} from './solarPresentation'
 import'../workspace/workspace.css'
 import'./solar.css'
@@ -41,7 +42,7 @@ export default function SolarWorkspace(){
   <a className="ws-skip" href="#solar-controls">Skip to Solar controls</a>
   <main className="solar-stage" aria-label="Solar System workspace"><div ref={host} className="solar-canvas"/></main>
   <header className="solar-header">
-   <div className="solar-brand"><span className="solar-mark" aria-hidden="true"/><div><span className="solar-wordmark">Astronomy Hub</span><h1 ref={heading} tabIndex={-1}>Solar System</h1></div></div>
+   <CinematicBrand mode="solar" headingRef={heading} disabled={!snapshot} onMode={next=>{if(next!=='solar')leave((next==='earth'?'/earth':'/sky-engine')+location.search)}}/>
    <div className="solar-header-actions"><button className="solar-return" onClick={()=>leave()}><Icon kind="back"/><span>Return to {returnPath.startsWith('/earth')?'Earth':'Sky'}</span></button><button className="solar-icon-button" aria-label="Science, scale & sources" title="Science, scale & sources" onClick={()=>setPanel('sources')}><Icon kind="info"/></button></div>
   </header>
   <div id="solar-controls" className="solar-hud">
@@ -55,7 +56,7 @@ export default function SolarWorkspace(){
    <dl className="solar-distance"><dt>Distance from Sun</dt><dd>{Math.hypot(...selected.position_au).toFixed(4)} <span>AU</span></dd></dl>
    {expanded?<div className="solar-details"><dl><dt>Reference radius</dt><dd>{selected.shape.mean_radius_km.toLocaleString()} km</dd></dl><p>{selected.position_reference} · target {selected.ephemeris_target}</p><p>Enlarged globe; static illustrative orientation. Rotation and surface coordinates are not qualified.</p><button onClick={()=>{const intent=planetIntent(snapshot!,selected,returnPath,crypto.randomUUID());const result=negotiatePlanet(intent,{bodyIds:[],frames:[]},false);setNotice(result.status==='unavailable'?result.reason:'Visit cancelled.')}}>Planet View availability</button></div>:null}
    <div className="solar-object-actions"><button aria-label="Approach selected body" onClick={()=>engine.current?.focus(bodyId,true)}>Approach {selected.name}<span aria-hidden="true">↗</span></button><button aria-label="Focus selected" title="Refocus selected body" className="solar-icon-button" onClick={()=>engine.current?.focus(bodyId)}><Icon kind="focus"/></button></div>
-  </section>:<div className="solar-introduction"><span>OUR PLANETARY NEIGHBORHOOD</span><p>Three worlds.<br/>One extraordinary perspective.</p></div>}
+  </section>:null}
   <div className="solar-time-bar solar-glass"><button aria-label="Simulation time" aria-expanded={panel==='time'} onClick={()=>setPanel('time')}><Icon kind="clock"/><time dateTime={epoch}>{new Date(epoch).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'})}<span>{epoch.slice(11,16)} UTC</span></time><Icon kind="chevron"/></button><div className="solar-time-steps"><button aria-label="−1 day" title="Previous day" onClick={()=>setTime(new Date(Date.parse(epoch)-86400000).toISOString())}>‹</button><button aria-label="+1 day" title="Next day" onClick={()=>setTime(new Date(Date.parse(epoch)+86400000).toISOString())}>›</button></div></div>
   <div className="solar-caption"><span>JPL positions · sizes exaggerated</span><button onClick={()=>setPanel('help')}>Controls{reduced?' · reduced motion':''}</button></div>
   {!snapshot&&!error?<p className="solar-loading solar-glass" role="status">{status}</p>:null}

@@ -1,5 +1,37 @@
 # Astronomy Hub — owner-approved cinematic visual direction
 
+## Active owner authorization — complete cinematic Hub and R3-B (2026-10-22)
+
+The new owner directive supersedes earlier limits to Solar R3-A and the earlier
+prohibition on Earth/Sky cinematic integration and R3-B. PR83 at b68e2b40 remains
+technically qualified within its recorded scope and **OWNER VISUALLY REJECTED**.
+The approved original Solar/Earth/Sky images are the common visual targets; Adaptive
+Explorer remains the interaction reference. This is an implementation extension of
+existing R0–R5 authority, not a new roadmap or competing design specification.
+
+Authorized bounded packages: shared cinematic UI and slogan removal; source-backed
+R3-B Sun plus eight planets and honestly modeled aggregate main belt; Earth cinematic
+UX; Sky cinematic UX; cross-mode fidelity/integration. Use separately reviewable
+draft branches stacked on the preserved PR83 chain. Each renderer retains its own
+science, scene and lifecycle. UI tokens/branding are shared; tools stay contextual.
+Earth search must be directly visible. Sky retains real Stellarium observing controls,
+scientific object positions, Pennsylvania horizon and accepted Sky/Earth scrolling.
+
+All planets must have qualified identities, explicit centers/barycenters, frames and
+UTC, independent reference checks, selection/focus and honest appearance. Aggregate
+belt particles carry no individual ephemeris identities; density/LOD/visibility are
+explicit. Identified asteroids require qualified orbital data. Pluto/dwarfs, Kuiper
+Belt, moons and comets are subsequent source-qualified content; not a blocker for
+this eight-planet/main-belt slice. No R4 surfaces, paid sources, merge or deployment.
+
+Actual before/after desktop/mobile screenshots against original references, selected
+and expanded/collapsed states, short screens, time/navigation, focused runtime tests
+and independent technical review are required. Green tests do not grant visual
+acceptance. Hardware qualification remains distinct from SwiftShader evidence.
+Preserve data, source pins, settings, rollback and historical partial qualification.
+[Execution and evidence](../validation/cinematic-hub/README.md).
+
+
 **Decision date:** 2026-10-21. **Status:** OWNER APPROVED visual direction for Sky, Earth and Solar System, subject to implementation fidelity and scientific/technical qualification. **Authority:** Owner's explicit in-conversation approval ("I love your design" and "lets go with this design. make it so in the documentation and lets proceed"). This decision supersedes visually incompatible *presentation* choices in existing implementations; it does not erase R1/N1 accepted behavior or scientific evidence.
 
 This is a supporting visual-decision record under the existing [Unified Workspace Design Contract](UNIFIED_WORKSPACE_DESIGN_SPEC.md), [Product Vision](../product/PRODUCT_VISION.md) and [Master Plan](../execution/MASTER_PLAN.md). It creates no independent authority hierarchy. Existing owner-approved Adaptive Explorer/R1-A references and ORA-6 concepts remain important design sources; do **not** replace them with arbitrary new sketches.
