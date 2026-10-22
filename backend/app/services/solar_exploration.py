@@ -9,8 +9,14 @@ from backend.app.services import planetary_ephemeris_service as ephemeris
 # Reference mean radii: NASA/NSSDC; Sun: IAU2015 nominal. Not display glyph sizes.
 BODIES = (
     ('sun', 'Sun', 'sun', 10, 'Sun center', 695700.0, 0),
+    ('mercury', 'Mercury', 'planet', 199, 'Mercury center', 2439.7, 87.969),
+    ('venus', 'Venus', 'planet', 299, 'Venus center', 6051.8, 224.701),
     ('earth', 'Earth', 'planet', 399, 'Earth center', 6371.0, 365.25),
     ('mars', 'Mars', 'planet', 4, 'Mars system barycenter (not body center)', 3389.5, 687.0),
+    ('jupiter', 'Jupiter', 'planet', 5, 'Jupiter system barycenter (not body center)', 69911.0, 4332.59),
+    ('saturn', 'Saturn', 'planet', 6, 'Saturn system barycenter (not body center)', 58232.0, 10759.22),
+    ('uranus', 'Uranus', 'planet', 7, 'Uranus system barycenter (not body center)', 25362.0, 30688.5),
+    ('neptune', 'Neptune', 'planet', 8, 'Neptune system barycenter (not body center)', 24622.0, 60182.0),
 )
 
 
@@ -48,4 +54,4 @@ def solar_snapshot(epoch: datetime) -> dict:
         origin='Sun center (10)', frame='ICRF', units='AU', km_per_au=149597870.7,
         corrections='geometric; no light-time or aberration',
         source=dict(id=ephemeris.SOURCE_KEY, release=runtime.manifest['release_version'], sha256=runtime.manifest['sha256']),
-        trajectory_model='Open DE442s sampled prior paths: Earth365.25d, Mars687d; clipped at kernel coverage. Not osculating elements or closed ellipses.', bodies=bodies)
+        trajectory_model='Open DE442s sampled prior paths over nominal sidereal periods for each planet (129 samples); clipped at kernel coverage. Not osculating elements or closed ellipses.', bodies=bodies)

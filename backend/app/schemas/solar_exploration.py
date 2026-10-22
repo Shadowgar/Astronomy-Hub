@@ -23,7 +23,7 @@ class Surface(BaseModel):
 
 class Body(BaseModel):
     catalog: Literal['Solar System (JPL)']
-    source_id: Literal['sun','earth','mars']
+    source_id: Literal['sun','mercury','venus','earth','mars','jupiter','saturn','uranus','neptune']
     model: Literal['sun','planet']
     name: str
     ephemeris_target: str
@@ -51,7 +51,7 @@ class SolarSnapshot(BaseModel):
     corrections: str
     source: Source
     trajectory_model: str
-    bodies: conlist(Body,min_items=3,max_items=3)
+    bodies: conlist(Body,min_items=9,max_items=9)
 
     class Config:
         fields = {'schema_version': 'schema'}

@@ -58,3 +58,27 @@ export function starsMaterial(pixelRatio:number){return new T.ShaderMaterial({tr
  #include <colorspace_fragment>
  }`
 })}
+/** Scientifically motivated color/banding only: no maps, current weather or
+ * qualified orientation. All inputs are authored locally; no external imagery. */
+export function planetMaterial(id:string){
+ const palettes:Record<string,[string,string,number]>={mercury:['#756b60','#bbb4a5',0],venus:['#a97c45','#f3d7a0',1],jupiter:['#81563d','#ead4af',2],saturn:['#9b8155','#e9d6a3',3],uranus:['#53aeb8','#b5e1df',4],neptune:['#183f9a','#4b7cca',5]}
+ const [dark,light,kind]=palettes[id]||palettes.mercury
+ return new T.ShaderMaterial({uniforms:{dark:{value:new T.Color(dark)},light:{value:new T.Color(light)},kind:{value:kind}},vertexShader:surfaceVertex,
+ fragmentShader:`uniform vec3 dark;uniform vec3 light;uniform float kind;varying vec3 vLocal;varying vec3 vNormal;varying vec3 vEye;varying vec3 vSun;${noise}
+ void main(){vec3 p=normalize(vLocal);float rough=fbm(p*22.);float latitude=p.y;
+ float bands=.5+.5*sin(latitude*65.+fbm(p*5.)*2.);float value=rough;
+ if(kind>1.5&&kind<3.5)value=mix(rough,bands,.7);
+ if(kind>.5&&kind<1.5)value=.55+fbm(p*7.)*.35;
+ if(kind>3.5)value=.65+sin(latitude*25.)*.035+rough*.06;
+ vec3 albedo=mix(dark,light,value);float day=max(0.,dot(normalize(vNormal),normalize(vSun)));vec3 color=albedo*(.035+day*.98);gl_FragColor=vec4(color,1.);
+ #include <tonemapping_fragment>
+ #include <colorspace_fragment>
+ }`})
+}
+export function ringMaterial(){return new T.ShaderMaterial({transparent:true,side:T.DoubleSide,depthWrite:false,uniforms:{inner:{value:1.2},outer:{value:2.27}},
+ vertexShader:`varying vec3 local;varying vec3 world;void main(){local=position;world=(modelMatrix*vec4(position,1.)).xyz;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+ fragmentShader:`varying vec3 local;varying vec3 world;uniform float inner;uniform float outer;
+ void main(){float r=length(local.xy);float bands=.65+.15*sin(r*190.)+.12*sin(r*62.);float gap=1.-smoothstep(.008,.025,abs(r-1.96));float alpha=bands*(1.-gap*.95)*smoothstep(inner,inner+.04,r)*(1.-smoothstep(outer-.06,outer,r));gl_FragColor=vec4(vec3(.58,.47,.32)*(bands+.3),alpha*.75);
+ #include <tonemapping_fragment>
+ #include <colorspace_fragment>
+ }`})}

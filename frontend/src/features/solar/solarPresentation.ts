@@ -2,7 +2,7 @@ import * as T from 'three'
 import type {BodyId,Vector} from './solarContracts'
 
 // Display radii in scene units. Source positions/physical radii are never changed.
-export const glyphRadius:Record<BodyId,number>={sun:.44,earth:.23,mars:.175}
+export const glyphRadius:Record<BodyId,number>={sun:.20,mercury:.07,venus:.21,earth:.23,mars:.175,jupiter:.65,saturn:.55,uranus:.36,neptune:.35}
 type Anchor={source_id:BodyId;position_au:Vector}
 export type CameraPose={position:Vector;target:Vector}
 const direction=new T.Vector3(-.78,-.48,.4).normalize()

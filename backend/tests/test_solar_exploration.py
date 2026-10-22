@@ -10,13 +10,16 @@ from backend.app.services.planetary_ephemeris_service import EphemerisUnavailabl
 
 REFERENCE = json.loads((Path(__file__).resolve().parents[2] / 'tests/fixtures/solar/reference.json').read_text())
 
-@pytest.mark.parametrize('row', REFERENCE['rows'])
+@pytest.mark.parametrize('row', REFERENCE['rows'] + json.loads((Path(__file__).resolve().parents[2] / 'tests/fixtures/solar/r3b-reference.json').read_text())['rows'])
 def test_known_epoch_vector_matches_independent_horizons(row):
     epoch = datetime.fromtimestamp((row['jdUtc'] - 2440587.5) * 86400, timezone.utc)
     result = solar.solar_snapshot(epoch)
     body = next(b for b in result['bodies'] if b['ephemeris_target'] == row['target'])
-    # DE442s local versus Horizons current DE441: bounded 50 km inter-kernel tolerance.
-    assert max(abs(a-b) for a,b in zip(body['position_au'], row['positionAu'])) * 149597870.7 < 50
+    # Different dynamical fits: DE441 Horizons vs pinned DE442s. This is a
+    # regression envelope, NOT a statement of positional measurement accuracy.
+    # Uranus/Neptune use a separately disclosed 1500 km vector-norm envelope.
+    tolerance_km = 1500 if row['target'] in ('7','8') else 50
+    assert sum(((a-b)*149597870.7)**2 for a,b in zip(body['position_au'], row['positionAu']))**.5 < tolerance_km
     assert result['origin'] == 'Sun center (10)'
     assert result['frame'] == 'ICRF'
     assert result['units'] == 'AU'
@@ -25,7 +28,7 @@ def test_known_epoch_vector_matches_independent_horizons(row):
 
 def test_source_orbits_identity_and_no_invented_body_orientation():
     result = solar.solar_snapshot(datetime(2026,3,1,tzinfo=timezone.utc))
-    assert [b['source_id']for b in result['bodies']] == ['sun','earth','mars']
+    assert [b['source_id']for b in result['bodies']] == ['sun','mercury','venus','earth','mars','jupiter','saturn','uranus','neptune']
     assert result['bodies'][0]['position_au'] == [0,0,0]
     for body in result['bodies']:
         assert body['catalog'] == 'Solar System (JPL)'
@@ -35,11 +38,11 @@ def test_source_orbits_identity_and_no_invented_body_orientation():
         assert body['body_fixed_frame'] is None
         assert len(body['trajectory']) <= 129
         assert all(len(s['position_au']) == 3 for s in body['trajectory'])
-    mars = result['bodies'][2]
+    mars = next(b for b in result['bodies'] if b['source_id']=='mars')
     assert mars['ephemeris_target'] == '4'
     assert 'barycenter' in mars['position_reference']
     assert mars['shape']['mean_radius_km'] == 3389.5
-    assert result['bodies'][1]['trajectory'][-1]['position_au'] == result['bodies'][1]['position_au']
+    assert result['bodies'][3]['trajectory'][-1]['position_au'] == result['bodies'][3]['position_au']
 
 def test_route_validates_epoch_and_uses_no_fallback_when_kernel_missing(monkeypatch):
     c = TestClient(app)
