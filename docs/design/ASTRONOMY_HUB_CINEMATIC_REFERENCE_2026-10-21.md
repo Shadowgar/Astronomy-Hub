@@ -66,7 +66,7 @@ The owner reviewed four original generated cinematic concept illustrations: a ma
 ### Solar System target (first implementation priority)
 
 - The high-fidelity Solar concept is the **visual direction**, not an astrophysical screenshot. The existing JPL/Skyfield ICRF vectors, controlled epoch, identity and return paths remain authoritative for geometry/time.
-- A luminous visually compelling Sun, recognizable 3D Earth/Mars and appropriate space background, camera depth and controlled orbit lines; scientific distance separate from exaggerated presentation. Additional planets shown in concept remain future R3-B data/renderer qualification, not a promise of R3-A content.
+- A luminous visually compelling Sun, recognizable 3D Earth/Mars and appropriate space background, camera depth and controlled orbit lines; scientific distance separate from exaggerated presentation. Additional major planets and the main belt are now explicitly authorized R3-B implementation content, with independent scientific qualification; they were outside historical R3-A.
 - Selected bodies have compact contextual detail and spatial camera approach; no oversized always-open right sidebar or bottom instruction bar.
 - Mode-appropriate, low-profile identity/navigation, body selection and simulation-time HUD. Natural gesture input, keyboard/touch and reduced-motion alternatives.
 - Maintain R4 compatibility; **do not** simulate an implemented Mars surface before R4 qualification.
@@ -98,7 +98,7 @@ The owner reviewed four original generated cinematic concept illustrations: a ma
 
 - R1/N1 remains OWNER ACCEPTED. R2-A PR78, R2-B PR79, Earth UX PR80 and R3-A PR81 remain drafts/open; no automatic merge or production deployment.
 - R3-A's scientific vertical slice is retained while its **current appearance is OWNER REJECTED**; existing technical qualification stands within its measured scope (historical broad-backend sweep remains incomplete).
-- Initial next execution is one bounded Solar cinematic visual implementation on a separate draft branch stacked on PR81 (or the documentation branch if it is incorporated without changing source contracts). A separate review/approval is needed before broad R3-B expansion or R4.
+- Initial next execution is one bounded Solar cinematic visual implementation on a separate draft branch stacked on PR81 (or the documentation branch if it is incorporated without changing source contracts). The new owner directive explicitly activates bounded R3-B expansion and shared Earth/Sky cinematic integration; R4 still needs separate authorization.
 - Do not add Google, paid providers, new astronomy data, satellites/flight tracking, speculative game assets or unqualified scientific effects. Protect native source pins, settings, data, containers, volumes and rollback artifacts.
 
 ## Import and documentation qualification — 2026-10-21

@@ -30,3 +30,21 @@ catalog. None authorizes R4 terrain/body-fixed surfaces.
 Package SHAs, browser proof, reference comparisons, preservation, exact commands and
 remaining gaps will be recorded as each package is qualified. Existing PR83/N1 evidence
 remains historical, not relabeled as fresh. No merge/deployment/paid-provider authority.
+
+## Shared foundation qualification
+
+Remote PR83 baseline verified before implementation. Branch `cinematic-foundation-1`
+stacks on PR83; subsequent content/UI packages are separately reviewable drafts.
+`npm --prefix frontend test`:311passed/46files. `npm --prefix frontend run typecheck`:PASS.
+`npm --prefix frontend run build -- --emptyOutDir --outDir ../output/cinematic-hub/hub`:PASS.
+Actual isolated Docker/browser4212: desktop1440×900/mobile390×900/short540×390 all pass
+copy removal, mode chooser visibility, Escape focus restoration and preserved source UTC.
+[Browser proof and screenshots](foundation/browser/proof.json); exact executed browser
+script and command logs are stored in `foundation/`. Full integration proof is pending.
+Independent preliminary source review of6e733580 reports no actionable finding; final
+exact-head combined review remains mandatory. No owner visual acceptance is inferred.
+
+Only task-owned exited preview/backend containers were started; new task preview4212
+uses read-only native/data mounts. Unrelated services, databases, volumes and settings
+were not modified. Original PR83 preview4211 remains separately available. Physical
+GPU/mobile performance remains unqualified; software measurements must be labeled.

@@ -95,7 +95,7 @@ The existing R0–R5 matrix below remains the sole proposed milestone plan.
 
 This is the canonical R0–R5 checkpoint reference; activation belongs to LIVE/PROJECT_STATE.
 [PRODUCT_VISION](../product/PRODUCT_VISION.md) defines AE-01–AE-11. The following
-boundaries retain their product acceptance gates; R0 is merged, R1/N1 owner accepted, R2 delivered in drafts and bounded R3-A now authorized in LIVE/PROJECT_STATE. R0's merge, any former C6 order, and acceptance
+boundaries retain their product acceptance gates; R0 is merged, R1/N1 owner accepted, R2 delivered in drafts and R3-A plus bounded R3-B/cross-mode cinematic integration now authorized in LIVE/PROJECT_STATE. R0's merge, any former C6 order, and acceptance
 of one checkpoint never authorize the next. Each implementation package needs
 separate named scope, dependencies, measurable budgets and explicit owner authority.
 
@@ -120,8 +120,10 @@ The checkpoint matrix remains canonical. Priority is reusable globe interfaces �
 R3-A → separately qualified R4 → R5. Existing R2 is preserved; close only actual
 Solar/Planet blockers. Further global HD completion, Google parity, extensive
 address refinement and advanced tracking are deferred. R3-A does not waive R2
-merge/rights/physical-device gates. R3-B proposed next: extend the qualified body
-set/time controls and repeated cross-mode navigation only after owner slice review.
+merge/rights/physical-device gates. R3-B is now owner-authorized for all eight major
+planets and an honestly modeled main belt, alongside cinematic Earth/Sky integration.
+Owner acceptance is still required for the resulting visible experience. R4 remains
+unactivated. The current authorization at the top supersedes this older priority order.
 
 R2 foundation must support body dimensions/ellipsoids, units, coordinate and longitude
 conventions, orientation/rotation, qualified imagery/terrain, body camera, source
