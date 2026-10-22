@@ -1,5 +1,37 @@
 # `MASTER_PLAN.md`
 
+## Active owner authorization — complete cinematic Hub and R3-B (2026-10-22)
+
+The new owner directive supersedes earlier limits to Solar R3-A and the earlier
+prohibition on Earth/Sky cinematic integration and R3-B. PR83 at b68e2b40 remains
+technically qualified within its recorded scope and **OWNER VISUALLY REJECTED**.
+The approved original Solar/Earth/Sky images are the common visual targets; Adaptive
+Explorer remains the interaction reference. This is an implementation extension of
+existing R0–R5 authority, not a new roadmap or competing design specification.
+
+Authorized bounded packages: shared cinematic UI and slogan removal; source-backed
+R3-B Sun plus eight planets and honestly modeled aggregate main belt; Earth cinematic
+UX; Sky cinematic UX; cross-mode fidelity/integration. Use separately reviewable
+draft branches stacked on the preserved PR83 chain. Each renderer retains its own
+science, scene and lifecycle. UI tokens/branding are shared; tools stay contextual.
+Earth search must be directly visible. Sky retains real Stellarium observing controls,
+scientific object positions, Pennsylvania horizon and accepted Sky/Earth scrolling.
+
+All planets must have qualified identities, explicit centers/barycenters, frames and
+UTC, independent reference checks, selection/focus and honest appearance. Aggregate
+belt particles carry no individual ephemeris identities; density/LOD/visibility are
+explicit. Identified asteroids require qualified orbital data. Pluto/dwarfs, Kuiper
+Belt, moons and comets are subsequent source-qualified content; not a blocker for
+this eight-planet/main-belt slice. No R4 surfaces, paid sources, merge or deployment.
+
+Actual before/after desktop/mobile screenshots against original references, selected
+and expanded/collapsed states, short screens, time/navigation, focused runtime tests
+and independent technical review are required. Green tests do not grant visual
+acceptance. Hardware qualification remains distinct from SwiftShader evidence.
+Preserve data, source pins, settings, rollback and historical partial qualification.
+[Execution and evidence](../validation/cinematic-hub/README.md).
+
+
 ## Visual quality checkpoint — approved direction, 2026-10-21
 
 The owner approved the coherent cinematic Solar/Earth/Sky **visual direction**, not the current R3-A rendering. [Exact cinematic reference/hash ledger](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). Recover and preserve the existing Adaptive Explorer and ORA-6 sketches as UX references. Primary near-term work is a bounded R3-A **visual-fidelity implementation** on the existing JPL/Skyfield/Three.js foundation, before R3-B expansion. R3-A current view remains TECHNICALLY QUALIFIED within its cited scope and OWNER VISUALLY REJECTED. Actual implemented scene fidelity/owner approval remain open. The latest bounded pass continues existing draft PR83 from23806bca; [refinement evidence and gap matrix](../validation/solar-cinematic/refinement/README.md) distinguish technical qualification from pending visual acceptance.
@@ -63,7 +95,7 @@ The existing R0–R5 matrix below remains the sole proposed milestone plan.
 
 This is the canonical R0–R5 checkpoint reference; activation belongs to LIVE/PROJECT_STATE.
 [PRODUCT_VISION](../product/PRODUCT_VISION.md) defines AE-01–AE-11. The following
-boundaries retain their product acceptance gates; R0 is merged, R1/N1 owner accepted, R2 delivered in drafts and bounded R3-A now authorized in LIVE/PROJECT_STATE. R0's merge, any former C6 order, and acceptance
+boundaries retain their product acceptance gates; R0 is merged, R1/N1 owner accepted, R2 delivered in drafts and R3-A plus bounded R3-B/cross-mode cinematic integration now authorized in LIVE/PROJECT_STATE. R0's merge, any former C6 order, and acceptance
 of one checkpoint never authorize the next. Each implementation package needs
 separate named scope, dependencies, measurable budgets and explicit owner authority.
 
@@ -88,8 +120,10 @@ The checkpoint matrix remains canonical. Priority is reusable globe interfaces �
 R3-A → separately qualified R4 → R5. Existing R2 is preserved; close only actual
 Solar/Planet blockers. Further global HD completion, Google parity, extensive
 address refinement and advanced tracking are deferred. R3-A does not waive R2
-merge/rights/physical-device gates. R3-B proposed next: extend the qualified body
-set/time controls and repeated cross-mode navigation only after owner slice review.
+merge/rights/physical-device gates. R3-B is now owner-authorized for all eight major
+planets and an honestly modeled main belt, alongside cinematic Earth/Sky integration.
+Owner acceptance is still required for the resulting visible experience. R4 remains
+unactivated. The current authorization at the top supersedes this older priority order.
 
 R2 foundation must support body dimensions/ellipsoids, units, coordinate and longitude
 conventions, orientation/rotation, qualified imagery/terrain, body camera, source
