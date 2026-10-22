@@ -26,12 +26,12 @@ import {Icon,IconButton} from './primitives'
 import {workspaceModePath,nativeSelectionSearch} from './workspaceNavigation'
 import {readSkyNightMode,saveSkyNightMode} from './skyNightMode'
 import AdaptiveSkyChrome from './AdaptiveSkyChrome'
-import './skyCinematic.css'
 import AboutLicenses from './AboutLicenses'
 import {useViewNavigation} from './useViewNavigation'
 import {useEarthLocation}from'./useEarthLocation'
 import './workspace.css'
 import './adaptiveSky.css'
+import './skyCinematic.css'
 type LayerSession={client:RuntimeClient;cancelled:boolean;tail:Promise<RuntimeResult|null>;touched:Set<string>;pending:Set<string>}
 function useMobile(){const [mobile,setMobile]=useState(()=>typeof window!=='undefined'&&window.innerWidth<768);useEffect(()=>{const media=matchMedia('(max-width:767px)'),update=()=>setMobile(media.matches);media.addEventListener('change',update);update();return ()=>media.removeEventListener('change',update)},[]);return mobile}
 export default function WorkspaceShell({mode='sky'}:{mode?:RuntimeMode}){
