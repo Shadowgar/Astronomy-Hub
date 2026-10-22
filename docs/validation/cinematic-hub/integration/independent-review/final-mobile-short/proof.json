@@ -1,0 +1,267 @@
+{
+  "source": "34eb8f08392a1886ac409e39d3f50938c0491ac6",
+  "status": "FAIL",
+  "runs": [
+    {
+      "mode": "solar",
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "44px chooser, unobstructed mode options, Escape focus",
+        "Native9body selectedSaturn and expandedscientificdetails"
+      ],
+      "chooserBox": {
+        "x": 49,
+        "y": 40,
+        "width": 111.078125,
+        "height": 44
+      },
+      "menuHits": [
+        true,
+        true,
+        true
+      ],
+      "status": "PASS"
+    },
+    {
+      "mode": "earth",
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "44px chooser, unobstructed mode options, Escape focus",
+        "NativeTabescape; actualcoordinatecamera; expandedlocation; modepopupclearofsearch; firstEscapepreservesSources"
+      ],
+      "chooserBox": {
+        "x": 43,
+        "y": 25,
+        "width": 63,
+        "height": 44
+      },
+      "menuHits": [
+        true,
+        true,
+        true
+      ],
+      "status": "PASS"
+    },
+    {
+      "mode": "sky",
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "44px chooser, unobstructed mode options, Escape focus",
+        "Siriusnativecatalogidentity and source direction centered; UTC/Pennsylvaniahorizon; collapsed/expanded; sourcecreditsclear"
+      ],
+      "chooserBox": {
+        "x": 43,
+        "y": 34,
+        "width": 49.703125,
+        "height": 44
+      },
+      "menuHits": [
+        true,
+        true,
+        true
+      ],
+      "focus": {
+        "rd": [
+          -0.187426940872,
+          0.939160681782,
+          -0.287833902852,
+          0
+        ],
+        "view": [
+          1.1862733018119798e-13,
+          2.177147351289932e-13,
+          -0.9999999999999999,
+          0
+        ],
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 2.697432585727,
+            "pitchRad": 0.489673041216,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": {
+          "id": "Bright Star Catalog (local):star-sirius:star",
+          "name": "Sirius",
+          "kind": "star",
+          "catalog": "Bright Star Catalog (local)",
+          "source_id": "star-sirius",
+          "model": "star",
+          "ra": 101.28715539,
+          "dec": -16.71611582,
+          "facts": [
+            {
+              "label": "Catalog",
+              "value": "Bright Star Catalog (local)"
+            },
+            {
+              "label": "Source ID",
+              "value": "star-sirius"
+            },
+            {
+              "label": "Magnitude",
+              "value": "-1.44"
+            }
+          ],
+          "available": true,
+          "focusable": true,
+          "trackable": false,
+          "link": "/oras-sky-engine/skysource/Sirius?catalog=Bright+Star+Catalog+%28local%29&source_id=star-sirius&model=star&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=101.28715539&dec=-16.71611582"
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "creditBox": {
+        "x": 16,
+        "y": 872,
+        "width": 210.59375,
+        "height": 28
+      },
+      "observerBox": {
+        "x": 12,
+        "y": 760,
+        "width": 168.0625,
+        "height": 44
+      },
+      "status": "PASS"
+    },
+    {
+      "mode": "solar",
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "44px chooser, unobstructed mode options, Escape focus",
+        "Native9body selectedSaturn and expandedscientificdetails"
+      ],
+      "chooserBox": {
+        "x": 49,
+        "y": 40,
+        "width": 111.078125,
+        "height": 44
+      },
+      "menuHits": [
+        true,
+        true,
+        true
+      ],
+      "status": "PASS"
+    },
+    {
+      "mode": "earth",
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "44px chooser, unobstructed mode options, Escape focus",
+        "NativeTabescape; actualcoordinatecamera; expandedlocation; modepopupclearofsearch; firstEscapepreservesSources"
+      ],
+      "chooserBox": {
+        "x": 43,
+        "y": 25,
+        "width": 63,
+        "height": 44
+      },
+      "menuHits": [
+        true,
+        true,
+        true
+      ],
+      "status": "PASS"
+    },
+    {
+      "mode": "sky",
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "44px chooser, unobstructed mode options, Escape focus"
+      ],
+      "chooserBox": {
+        "x": 43,
+        "y": 34,
+        "width": 49.703125,
+        "height": 44
+      },
+      "menuHits": [
+        true,
+        true,
+        true
+      ],
+      "focus": {
+        "rd": [
+          -0.187426940872,
+          0.939160681782,
+          -0.287833902852,
+          0
+        ],
+        "view": [
+          0.22715223950758068,
+          0.012455711584957674,
+          -0.9737796030599546,
+          0
+        ],
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 2.437101817939,
+            "pitchRad": 0.491244253367,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": {
+          "id": "Bright Star Catalog (local):star-sirius:star",
+          "name": "Sirius",
+          "kind": "star",
+          "catalog": "Bright Star Catalog (local)",
+          "source_id": "star-sirius",
+          "model": "star",
+          "ra": 101.28715539,
+          "dec": -16.71611582,
+          "facts": [
+            {
+              "label": "Catalog",
+              "value": "Bright Star Catalog (local)"
+            },
+            {
+              "label": "Source ID",
+              "value": "star-sirius"
+            },
+            {
+              "label": "Magnitude",
+              "value": "-1.44"
+            }
+          ],
+          "available": true,
+          "focusable": true,
+          "trackable": false,
+          "link": "/oras-sky-engine/skysource/Sirius?catalog=Bright+Star+Catalog+%28local%29&source_id=star-sirius&model=star&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=101.28715539&dec=-16.71611582"
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      }
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Actual native source direction centered on view axis\n    at file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-foundation-1/output/cinematic-hub-review/final-browser.mjs:5:801"
+}

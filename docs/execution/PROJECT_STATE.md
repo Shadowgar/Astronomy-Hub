@@ -1,5 +1,22 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## Integrated cinematic candidate — technical proof, owner visual review pending (2026-10-22)
+
+Drafts #84 foundation → #85 nine-body Solar/main belt → #86 Earth → #87 Sky
+are delivered; final integration package adds scoped keyboard/touch/overlay/credit
+corrections. The final combined Docker/browser journey passes desktop14/14 and
+mobile14/14 with real native Cesium/Sky returns, observer/UTC/history and renderer
+cleanup. Frontend316/48files, TypeScript and Docker science23 pass. Three identical
+136-file builds and136Hub/514Earth served bytes match; original science/data/settings/
+source pins/rollback/native assets remain protected. Old N1 partial and broad R3
+records remain historical. PR83's appearance remains unaccepted; no new acceptance
+is inferred. [Integrated evidence and explicit limits](../validation/cinematic-hub/integration/README.md).
+[All-mode original reference/actual comparison](../validation/cinematic-hub/gallery/index.html).
+Independent final exact-head review and hardware/software performance limits are
+recorded in the delivery PR/receipt. Owner visual and physical-device acceptance
+remain open. No merge, deployment, paid providers or R4 authorization.
+
+
 ## Active owner authorization — complete cinematic Hub and R3-B (2026-10-22)
 
 The new owner directive supersedes earlier limits to Solar R3-A and the earlier

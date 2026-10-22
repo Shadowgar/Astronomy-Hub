@@ -1,0 +1,2685 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "mode": "solar",
+      "before": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795883442,
+          0.813599992607511,
+          0.3684952914224924
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              -999.5847051471593,
+              968.9213109881225
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              -223.6448248700055,
+              639.6388921069795
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              6759.946188224879,
+              -1866.6595550969719
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8,
+              450.0000000000004
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.869812813,
+              -117131.63957344157
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              27645.1044426774,
+              -8069.285153217765
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1210.7947129950032,
+              185.7362967385704
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              -95.42161739805215,
+              646.8914551937752
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              1179.1580982169,
+              222.5640843159171
+            ]
+          }
+        ],
+        "drawCalls": 14,
+        "geometries": 22,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 0.5,
+          "p95": 27
+        },
+        "pixelRatio": 1
+      },
+      "after": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 35,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795882887,
+          0.8135999926075079,
+          0.36849529142249005
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              -999.5847051471808,
+              968.9213109881281
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              -223.64482487001476,
+              639.6388921069804
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              6759.946188224612,
+              -1866.6595550968664
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.7999999999998,
+              450
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.8698123904,
+              -117131.63957329615
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              27645.10444267798,
+              -8069.285153217957
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1210.7947129950016,
+              185.73629673857144
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              -95.42161739805279,
+              646.8914551937759
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              1179.158098216899,
+              222.56408431591788
+            ]
+          }
+        ],
+        "drawCalls": 14,
+        "geometries": 25,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 32,
+          "median": 0.6000000000931323,
+          "p95": 24.300000000279397
+        },
+        "pixelRatio": 1
+      },
+      "cameraSamples": [
+        [
+          0.11692248795883442,
+          0.813599992607511,
+          0.3684952914224924
+        ],
+        [
+          -0.04501754988615081,
+          1.0666083124083967,
+          0.36849529142249227
+        ],
+        [
+          -0.26692298648470947,
+          1.269082416811171,
+          0.36849529142249204
+        ],
+        [
+          -0.5336713330487228,
+          1.407224030205063,
+          0.36849529142249204
+        ],
+        [
+          -0.8270841305823389,
+          1.4716190299270888,
+          0.36849529142249204
+        ],
+        [
+          -1.127165781821216,
+          1.4578790031639608,
+          0.3684952914224918
+        ],
+        [
+          -1.4134662181418005,
+          1.366940310033119,
+          0.3684952914224918
+        ],
+        [
+          -1.6664745379426864,
+          1.2050002721881334,
+          0.3684952914224917
+        ],
+        [
+          -1.8689486423454602,
+          0.9830948355895748,
+          0.3684952914224916
+        ],
+        [
+          -2.007090255739352,
+          0.716346489025562,
+          0.3684952914224914
+        ],
+        [
+          -2.0714852554613783,
+          0.4229336914919466,
+          0.36849529142249127
+        ],
+        [
+          -2.057745228698251,
+          0.12285204025307003,
+          0.36849529142249116
+        ],
+        [
+          -1.9668065355674098,
+          -0.163448396067514,
+          0.36849529142249116
+        ],
+        [
+          -1.8048664977224251,
+          -0.41645671586839944,
+          0.3684952914224908
+        ],
+        [
+          -1.582961061123867,
+          -0.6189308202711734,
+          0.3684952914224906
+        ],
+        [
+          -1.3162127145598541,
+          -0.7570724336650647,
+          0.3684952914224905
+        ],
+        [
+          -1.022799917026239,
+          -0.8214674333870904,
+          0.3684952914224905
+        ],
+        [
+          -0.7227182657873628,
+          -0.8077274066239628,
+          0.36849529142249027
+        ],
+        [
+          -0.436417829466779,
+          -0.7167887134931212,
+          0.36849529142249027
+        ],
+        [
+          -0.18340950966589387,
+          -0.5548486756481368,
+          0.3684952914224905
+        ],
+        [
+          0.019064594736879936,
+          -0.33294323904957907,
+          0.36849529142249027
+        ],
+        [
+          0.1572062081307719,
+          -0.0661948924855667,
+          0.36849529142249027
+        ],
+        [
+          0.2216012078527978,
+          0.2272179050480483,
+          0.36849529142249027
+        ],
+        [
+          0.20786118108967044,
+          0.5272995562869244,
+          0.36849529142249016
+        ]
+      ],
+      "steps": 24,
+      "elapsedMs": 3064.5,
+      "intervalMs": {
+        "median": 98.29999999981374,
+        "p95": 140.8000000002794,
+        "max": 278.79999999981374
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "timerExtensionAvailable": false,
+      "gpuMs": null,
+      "width": 1440
+    },
+    {
+      "mode": "earth",
+      "before": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 3430.2000000001863,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "loading"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 164.70000000018626,
+          "shellInteractiveMs": 212.29999999981374,
+          "viewerReadyMs": 216.89999999990687,
+          "firstImageryTileMs": 1846.2999999998137
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 15621863.000000002,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 40.988918546396896,
+            "lon": -79.5853938426803,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7212032605397225,
+            "longitudeRad": -1.3890271617969399,
+            "heightM": 15621863.000000002,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "loading",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "NASA · Blue Marble",
+            "product": "Static Blue Marble composite",
+            "date": null,
+            "gsd": 500,
+            "coverage": "Global overview; not current photography",
+            "credit": "NASA GIBS · Blue Marble",
+            "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+            "host": "gibs.earthdata.nasa.gov",
+            "cap": 8,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "loading",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 22,
+            "requested": 22
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 15621863.000000002,
+            "rect": [
+              -180,
+              -90,
+              180,
+              90
+            ],
+            "point": [
+              -79.58539384237304,
+              40.98826309429207
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 4,
+              "loaded": 0,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 4,
+              "peak": 4,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "after": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 19147.200000000186,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "ready"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "unavailable",
+            "temporalMode": "LIVE_ONLY",
+            "message": "Source unavailable. Retry the layer; Earth remains interactive."
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 164.70000000018626,
+          "shellInteractiveMs": 212.29999999981374,
+          "viewerReadyMs": 216.89999999990687,
+          "firstImageryTileMs": 1846.2999999998137
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 12288378.859649142,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.27033183083827,
+            "lon": -79.58539502977679,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7185334923779306,
+            "longitudeRad": -1.3890271764562605,
+            "heightM": 12288378.859649142,
+            "headingRad": 6.283185297544181,
+            "pitchRad": -1.567686716776024,
+            "rollRad": 0
+          },
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "partial",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "NASA · Blue Marble",
+            "product": "Static Blue Marble composite",
+            "date": null,
+            "gsd": 500,
+            "coverage": "Global overview; not current photography",
+            "credit": "NASA GIBS · Blue Marble",
+            "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+            "host": "gibs.earthdata.nasa.gov",
+            "cap": 8,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "partial",
+            "reason": "",
+            "loadingNote": "Detail is refining slowly; currently available imagery remains usable."
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 24,
+            "requested": 116
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 12288378.859649142,
+            "rect": [
+              -180,
+              -90,
+              180,
+              90
+            ],
+            "point": [
+              -79.58539502990591,
+              41.27040084648685
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 26,
+              "loaded": 20,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 6,
+              "peak": 10,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "cameraSamples": [
+        {
+          "latitudeRad": 0.7212032605397225,
+          "longitudeRad": -1.3890271617969399,
+          "heightM": 15621863.000000002,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7190889627245721,
+          "longitudeRad": -1.3890271607930746,
+          "heightM": 5249634.7584111625,
+          "headingRad": 6.646265759968628e-10,
+          "pitchRad": -1.567819668901223,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184045988152233,
+          "longitudeRad": -1.3890271602106539,
+          "heightM": 15341732.516778328,
+          "headingRad": 1.047623321426272e-9,
+          "pitchRad": -1.5676558257280475,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7191008728828604,
+          "longitudeRad": -1.3890271634885645,
+          "heightM": 5156420.587326245,
+          "headingRad": 6.283185306071674,
+          "pitchRad": -1.5678225193422612,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.718414877608492,
+          "longitudeRad": -1.3890271630684645,
+          "heightM": 15062082.47087168,
+          "headingRad": 6.283185306347928,
+          "pitchRad": -1.5676582868001123,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.719112961458585,
+          "longitudeRad": -1.3890271634959648,
+          "heightM": 5063326.000461224,
+          "headingRad": 6.283185306066807,
+          "pitchRad": -1.5678254127689963,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184254137877156,
+          "longitudeRad": -1.3890271630749191,
+          "heightM": 14782804.471312156,
+          "headingRad": 6.283185306343683,
+          "pitchRad": -1.5676608098113034,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7191252321766429,
+          "longitudeRad": -1.3890271635034763,
+          "heightM": 4970355.05628301,
+          "headingRad": 6.283185306061867,
+          "pitchRad": -1.5678283497682957,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184362168897972,
+          "longitudeRad": -1.3890271630815372,
+          "heightM": 14503911.358920328,
+          "headingRad": 6.28318530633933,
+          "pitchRad": -1.5676633967216804,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7191376885519606,
+          "longitudeRad": -1.3890271635111016,
+          "heightM": 4877512.187243564,
+          "headingRad": 6.283185306056852,
+          "pitchRad": -1.5678313311803374,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184472938569744,
+          "longitudeRad": -1.3890271641024863,
+          "heightM": 14225417.128212065,
+          "headingRad": 6.28318530566796,
+          "pitchRad": -1.5676660525836925,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7191503292014648,
+          "longitudeRad": -1.3890271653911284,
+          "heightM": 4784801.330544258,
+          "headingRad": 6.283185304820557,
+          "pitchRad": -1.567834362934394,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184586576096068,
+          "longitudeRad": -1.3890271651309827,
+          "heightM": 13947334.326049801,
+          "headingRad": 6.283185304991626,
+          "pitchRad": -1.5676687771230569,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7191631628091606,
+          "longitudeRad": -1.3890271672651637,
+          "heightM": 4692227.443406529,
+          "headingRad": 6.283185303588201,
+          "pitchRad": -1.567837440826123,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184703188460075,
+          "longitudeRad": -1.3890271675288266,
+          "heightM": 13669678.646059712,
+          "headingRad": 6.283185303414816,
+          "pitchRad": -1.5676715727471104,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7191761926873171,
+          "longitudeRad": -1.3890271665948513,
+          "heightM": 4599796.596731383,
+          "headingRad": 6.283185304028994,
+          "pitchRad": -1.5678405659332815,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184822881370526,
+          "longitudeRad": -1.389027167154906,
+          "heightM": 13392469.112849452,
+          "headingRad": 6.283185303660703,
+          "pitchRad": -1.567674442453956,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7191894231684941,
+          "longitudeRad": -1.389027165926856,
+          "heightM": 4507511.538099899,
+          "headingRad": 6.2831853044682635,
+          "pitchRad": -1.5678437390029822,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7184945776602722,
+          "longitudeRad": -1.3890271667780105,
+          "heightM": 13115714.938962156,
+          "headingRad": 6.283185303908548,
+          "pitchRad": -1.5676773888462003,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7192028583772246,
+          "longitudeRad": -1.3890271701640717,
+          "heightM": 4415378.6422654,
+          "headingRad": 6.283185301681895,
+          "pitchRad": -1.567846960466965,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7185071998310416,
+          "longitudeRad": -1.3890271704838586,
+          "heightM": 12839436.152571771,
+          "headingRad": 6.283185301471601,
+          "pitchRad": -1.5676804144343666,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.719216501499072,
+          "longitudeRad": -1.3890271719370504,
+          "heightM": 4323403.603768275,
+          "headingRad": 6.283185300515994,
+          "pitchRad": -1.567850231918182,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7185201668849324,
+          "longitudeRad": -1.3890271728055938,
+          "heightM": 12563650.906705797,
+          "headingRad": 6.28318529994484,
+          "pitchRad": -1.5676835227648591,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7192303568424235,
+          "longitudeRad": -1.3890271760639905,
+          "heightM": 4231592.604536218,
+          "headingRad": 6.283185297802142,
+          "pitchRad": -1.567853553841347,
+          "rollRad": 0
+        }
+      ],
+      "steps": 24,
+      "elapsedMs": 15716.100000000093,
+      "intervalMs": {
+        "median": 616.2999999998137,
+        "p95": 824.6000000000931,
+        "max": 1020.2999999998137
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "timerExtensionAvailable": false,
+      "gpuMs": null,
+      "width": 1440
+    },
+    {
+      "mode": "sky",
+      "before": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "after": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "cameraSamples": [
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      ],
+      "steps": 24,
+      "elapsedMs": 1922.7999999998137,
+      "intervalMs": {
+        "median": 46.89999999990687,
+        "p95": 62.5,
+        "max": 62.89999999990687
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "glVersion": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+      "timerExtensionAvailable": false,
+      "gpuMs": null,
+      "width": 1440
+    },
+    {
+      "mode": "solar",
+      "before": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740179,
+          1.2645454027652159,
+          0.5785666923198026
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              201.99854747148177,
+              -182.88250202692967
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              224.83368708076844,
+              64.67441173854469
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              152.1641813065801,
+              -889.5563020729901
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              194.9999999999999,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.0751689942191,
+              -1844.785957305066
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              110.06724262358236,
+              4503.240361196081
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              260.09659343451733,
+              1119.4223960312145
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              235.27019734837867,
+              -419.6799284013284
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              228.0532595406427,
+              1003.3968346024615
+            ]
+          }
+        ],
+        "drawCalls": 16,
+        "geometries": 22,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 0.6000000000931323,
+          "p95": 26.600000000093132
+        },
+        "pixelRatio": 1
+      },
+      "after": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 35,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.0786435757401702,
+          1.2645454027652085,
+          0.5785666923197993
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              201.998547471482,
+              -182.88250202693337
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              224.83368708076887,
+              64.67441173854299
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              152.16418130657962,
+              -889.5563020730056
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              195.00000000000017,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.07516899421893,
+              -1844.785957305094
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              110.0672426235825,
+              4503.240361196099
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              260.0965934345175,
+              1119.4223960312104
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              235.27019734837893,
+              -419.6799284013299
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              228.053259540643,
+              1003.3968346024589
+            ]
+          }
+        ],
+        "drawCalls": 16,
+        "geometries": 24,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 32,
+          "median": 0.6000000000931323,
+          "p95": 20
+        },
+        "pixelRatio": 1
+      },
+      "cameraSamples": [
+        [
+          1.078643575740179,
+          1.2645454027652159,
+          0.5785666923198026
+        ],
+        [
+          0.7672204260382847,
+          1.7510998639207658,
+          0.5785666923198023
+        ],
+        [
+          0.34047920181028646,
+          2.140473141618409,
+          0.5785666923198022
+        ],
+        [
+          -0.17249838773589343,
+          2.4061300904528165,
+          0.5785666923198022
+        ],
+        [
+          -0.736753767608232,
+          2.5299666283797886,
+          0.578566692319802
+        ],
+        [
+          -1.3138338661445341,
+          2.503543499989158,
+          0.5785666923198017
+        ],
+        [
+          -1.8644116282995047,
+          2.328661397814462,
+          0.5785666923198015
+        ],
+        [
+          -2.350966089455054,
+          2.0172382481125677,
+          0.5785666923198015
+        ],
+        [
+          -2.740339367152697,
+          1.5904970238845708,
+          0.5785666923198015
+        ],
+        [
+          -3.005996315987105,
+          1.0775194343383918,
+          0.5785666923198012
+        ],
+        [
+          -3.1298328539140785,
+          0.5132640544660537,
+          0.5785666923198008
+        ],
+        [
+          -3.1034097255234494,
+          -0.06381604407024777,
+          0.5785666923198011
+        ],
+        [
+          -2.9285276233487547,
+          -0.6143938062252179,
+          0.5785666923198013
+        ],
+        [
+          -2.6171044736468607,
+          -1.100948267380767,
+          0.5785666923198015
+        ],
+        [
+          -2.190363249418864,
+          -1.4903215450784097,
+          0.5785666923198011
+        ],
+        [
+          -1.677385659872685,
+          -1.7559784939128165,
+          0.5785666923198013
+        ],
+        [
+          -1.1131302800003473,
+          -1.8798150318397895,
+          0.5785666923198008
+        ],
+        [
+          -0.5360501814640461,
+          -1.8533919034491595,
+          0.5785666923198008
+        ],
+        [
+          0.014527580690923081,
+          -1.6785098012744644,
+          0.5785666923198004
+        ],
+        [
+          0.5010820418464719,
+          -1.3670866515725704,
+          0.5785666923198002
+        ],
+        [
+          0.8904553195441138,
+          -0.9403454273445744,
+          0.5785666923198
+        ],
+        [
+          1.1561122683785214,
+          -0.4273678377983963,
+          0.5785666923198001
+        ],
+        [
+          1.279948806305494,
+          0.13688754207394055,
+          0.5785666923197996
+        ],
+        [
+          1.253525677914865,
+          0.7139676406102409,
+          0.5785666923197995
+        ]
+      ],
+      "steps": 24,
+      "elapsedMs": 1905,
+      "intervalMs": {
+        "median": 40.89999999990687,
+        "p95": 66.20000000018626,
+        "max": 257.20000000018626
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "timerExtensionAvailable": false,
+      "gpuMs": null,
+      "width": 390
+    },
+    {
+      "mode": "earth",
+      "before": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 2063.600000000093,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "loading"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 130.5,
+          "shellInteractiveMs": 170,
+          "viewerReadyMs": 173.10000000009313,
+          "firstImageryTileMs": 1076.2999999998137
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 9621863,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.148187059229414,
+            "lon": -79.58539412166371,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7212032605397221,
+            "longitudeRad": -1.3890271617969399,
+            "heightM": 9621863,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "loading",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "NASA · Blue Marble",
+            "product": "Static Blue Marble composite",
+            "date": null,
+            "gsd": 500,
+            "coverage": "Global overview; not current photography",
+            "credit": "NASA GIBS · Blue Marble",
+            "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+            "host": "gibs.earthdata.nasa.gov",
+            "cap": 8,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "loading",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 22,
+            "requested": 22
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 9621863,
+            "rect": [
+              -180,
+              -90,
+              180,
+              90
+            ],
+            "point": [
+              -79.58539412192448,
+              41.147812884238355
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 4,
+              "loaded": 0,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 4,
+              "peak": 4,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "after": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 10239.100000000093,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "loading"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 130.5,
+          "shellInteractiveMs": 170,
+          "viewerReadyMs": 173.10000000009313,
+          "firstImageryTileMs": 1076.2999999998137
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 5821204.061590504,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.27748386265702,
+            "lon": -79.58539497593982,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7196493749137635,
+            "longitudeRad": -1.389027176135302,
+            "heightM": 5821204.061590504,
+            "headingRad": 6.283185297734928,
+            "pitchRad": -1.5683545667758585,
+            "rollRad": 0
+          },
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "partial",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "NASA · Blue Marble",
+            "product": "Static Blue Marble composite",
+            "date": null,
+            "gsd": 500,
+            "coverage": "Global overview; not current photography",
+            "credit": "NASA GIBS · Blue Marble",
+            "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+            "host": "gibs.earthdata.nasa.gov",
+            "cap": 8,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "partial",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 9,
+            "requested": 98
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 5821204.061590504,
+            "rect": [
+              -180,
+              -90,
+              180,
+              90
+            ],
+            "point": [
+              -79.58539497597083,
+              41.27749282703383
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 17,
+              "loaded": 17,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 9,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      },
+      "cameraSamples": [
+        {
+          "latitudeRad": 0.7212032605397221,
+          "longitudeRad": -1.3890271617969399,
+          "heightM": 9621863,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7198763717744673,
+          "longitudeRad": -1.3890271627288269,
+          "heightM": 3256115.458605427,
+          "headingRad": 6.283185306562868,
+          "pitchRad": -1.5685912927241472,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7194593555353133,
+          "longitudeRad": -1.3890271629296236,
+          "heightM": 9323803.386202252,
+          "headingRad": 6.283185306430646,
+          "pitchRad": -1.5681562564137788,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7198878312094822,
+          "longitudeRad": -1.389027164170848,
+          "heightM": 3154912.638250941,
+          "headingRad": 6.283185305613323,
+          "pitchRad": -1.5686032525723466,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7194791821577246,
+          "longitudeRad": -1.3890271649652892,
+          "heightM": 8866997.534055902,
+          "headingRad": 6.2831853050901945,
+          "pitchRad": -1.5681769489988096,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199057461817441,
+          "longitudeRad": -1.3890271655351176,
+          "heightM": 3000915.273059681,
+          "headingRad": 6.283185304714975,
+          "pitchRad": -1.5686219449385348,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7194913338701252,
+          "longitudeRad": -1.3890271658177407,
+          "heightM": 8599919.92016457,
+          "headingRad": 6.283185304528869,
+          "pitchRad": -1.5681896332374108,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199163632911523,
+          "longitudeRad": -1.389027166897466,
+          "heightM": 2911967.402056537,
+          "headingRad": 6.283185303817891,
+          "pitchRad": -1.5686330256482068,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7195094173286263,
+          "longitudeRad": -1.389027166677033,
+          "heightM": 8219394.030769663,
+          "headingRad": 6.283185303963039,
+          "pitchRad": -1.568208506603625,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199318442824506,
+          "longitudeRad": -1.3890271682324071,
+          "heightM": 2785272.093804419,
+          "headingRad": 6.283185302938856,
+          "pitchRad": -1.568649178802095,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7195248275854409,
+          "longitudeRad": -1.38902716862748,
+          "heightM": 7910065.059920961,
+          "headingRad": 6.283185302678701,
+          "pitchRad": -1.5682245902047725,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199447477144296,
+          "longitudeRad": -1.3890271695105807,
+          "heightM": 2682282.039630841,
+          "headingRad": 6.2831853020972,
+          "pitchRad": -1.5686626433882855,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7195396707029816,
+          "longitudeRad": -1.3890271694482264,
+          "heightM": 7624275.788824984,
+          "headingRad": 6.2831853021382535,
+          "pitchRad": -1.5682400820183608,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199569318178245,
+          "longitudeRad": -1.3890271707692787,
+          "heightM": 2587138.450021836,
+          "headingRad": 6.283185301268368,
+          "pitchRad": -1.5686753574778662,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7195564158168203,
+          "longitudeRad": -1.3890271713242694,
+          "heightM": 7315306.910742421,
+          "headingRad": 6.283185300902911,
+          "pitchRad": -1.5682575579035865,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199704045877339,
+          "longitudeRad": -1.3890271719700182,
+          "heightM": 2484238.4754978037,
+          "headingRad": 6.283185300477703,
+          "pitchRad": -1.5686894152423094,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7195731879008189,
+          "longitudeRad": -1.3890271721076548,
+          "heightM": 7019225.079456174,
+          "headingRad": 6.283185300387065,
+          "pitchRad": -1.5682750618270798,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199835970027395,
+          "longitudeRad": -1.3890271731481205,
+          "heightM": 2385746.863378425,
+          "headingRad": 6.283185299701943,
+          "pitchRad": -1.5687031802949822,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7195918909787395,
+          "longitudeRad": -1.3890271728934729,
+          "heightM": 6703818.9469867265,
+          "headingRad": 6.283185299869617,
+          "pitchRad": -1.568294580144225,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7199980103043582,
+          "longitudeRad": -1.3890271743001934,
+          "heightM": 2280619.5399435656,
+          "headingRad": 6.283185298943323,
+          "pitchRad": -1.5687182182610941,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7196094812047488,
+          "longitudeRad": -1.3890271746621934,
+          "heightM": 6420451.867137448,
+          "headingRad": 6.283185298704945,
+          "pitchRad": -1.5683129368098356,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7200112495353651,
+          "longitudeRad": -1.3890271753937933,
+          "heightM": 2186256.0827031415,
+          "headingRad": 6.2831852982232075,
+          "pitchRad": -1.5687320314548088,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7196321565433994,
+          "longitudeRad": -1.3890271754017736,
+          "heightM": 6072813.533896826,
+          "headingRad": 6.283185298217944,
+          "pitchRad": -1.5683365987068778,
+          "rollRad": 0
+        },
+        {
+          "latitudeRad": 0.7200278961377609,
+          "longitudeRad": -1.389027176453132,
+          "heightM": 2070496.5482221865,
+          "headingRad": 6.283185297525652,
+          "pitchRad": -1.5687493977200933,
+          "rollRad": 0
+        }
+      ],
+      "steps": 24,
+      "elapsedMs": 8175.399999999907,
+      "intervalMs": {
+        "median": 255.20000000018626,
+        "p95": 438.89999999990687,
+        "max": 517
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "glVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "timerExtensionAvailable": false,
+      "gpuMs": null,
+      "width": 390
+    },
+    {
+      "mode": "sky",
+      "before": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "after": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "cameraSamples": [
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        {
+          "projection": 2,
+          "fovRad": 1.899678097409,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      ],
+      "steps": 24,
+      "elapsedMs": 1235.7999999998137,
+      "intervalMs": {
+        "median": 22,
+        "p95": 25.600000000093132,
+        "max": 26.200000000186265
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "glVersion": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+      "timerExtensionAvailable": false,
+      "gpuMs": null,
+      "width": 390
+    }
+  ],
+  "limits": "Chromium headless, emulated mobile, software rendering is identified literally. RAF intervals include browser/render scheduling for fixed real camera interactions; not GPUms or physical GPU qualification."
+}

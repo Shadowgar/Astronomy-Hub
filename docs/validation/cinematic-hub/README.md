@@ -1,6 +1,6 @@
 # Complete cinematic Hub — staged implementation
 
-OWNER VISUAL ACCEPTANCE PENDING. Work in progress; no broad completion claim.
+OWNER VISUAL ACCEPTANCE PENDING. The separately reviewable packages are implemented; [combined technical qualification and remaining limits](integration/README.md) and [all-mode reference/actual gallery](gallery/index.html) are current. No whole-project acceptance claim.
 
 Owner directive dated2026-10-21, received2026-10-22. Verified remote PR83 OPEN DRAFT
 at b68e2b40b2d94719f9afe5c3c37cc30ae36432d7 before edits. Existing chain preserved.
