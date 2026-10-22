@@ -55,3 +55,7 @@
 @media(max-width:1199px){.ws-earth-direct{left:100px}.ce-location{right:24px;top:100px}}
 @media(max-width:767px){.ws-earth-direct{left:12px}.ce-location{left:12px;right:12px;top:auto;bottom:230px}}
 @media(max-height:600px){.ce-location{top:178px;bottom:auto}}
+/* Results own the interaction surface until dismissed, especially on short screens. */
+.ws-earth-direct:has(.ws-search-content) .ce-location{display:none}
+@media(max-height:600px){.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools{top:210px;display:flex}.ws-shell[data-workspace-mode=earth] .ws-rail{top:270px;display:flex;flex-direction:row}.ce-location{left:auto;right:12px;top:204px;width:min(300px,calc(100vw - 24px));max-height:calc(100dvh - 286px)}}
+@media(max-height:600px) and (max-width:559px){.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools{top:auto;bottom:94px}.ce-location{top:190px;max-height:calc(100dvh - 340px)}}
