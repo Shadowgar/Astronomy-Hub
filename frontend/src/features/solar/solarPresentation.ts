@@ -1,30 +1,62 @@
 import * as T from 'three'
-import type {BodyId,Vector} from './solarContracts'
+import type {BodyId,Vector,SolarSnapshot} from './solarContracts'
 
-// Display radii in scene units. Source positions/physical radii are never changed.
-export const glyphRadius:Record<BodyId,number>={sun:.20,mercury:.07,venus:.21,earth:.23,mars:.175,jupiter:.65,saturn:.55,uranus:.36,neptune:.35}
+export type BodyRadii=Record<BodyId,number>
+export type SolarPreset='full'|'inner'|'outer'
+export type SolarCameraView=SolarPreset|'body'|'custom'
+export type SolarSizeMode='cinematic'|'physical'
+/** Allocate adjacent disks proportionally, keeping their real projected centers. */
+export function diskBudget(desired:number,neighbors:{distance:number;desired:number}[],edge:number){
+ return Math.max(0,Math.min(desired,edge,...neighbors.map(n=>n.distance*.92*desired/(desired+n.desired))))
+}
+/** Presentation-only enlargement. Source radii/positions remain immutable. */
+export function displayScale(mode:SolarSizeMode,physicalPixels:number,desiredPixels:number,nearestPixels:number){
+ if(mode==='physical'||!Number.isFinite(physicalPixels)||physicalPixels<=0)return 1
+ return Math.max(1,Math.min(desiredPixels,nearestPixels*.44)/physicalPixels)
+}
+/** Physical mean radii and source positions share AU. No display enlargement. */
+export function physicalRadii(snapshot:SolarSnapshot):BodyRadii{
+ return Object.fromEntries(snapshot.bodies.map(b=>[b.source_id,b.shape.mean_radius_km/snapshot.km_per_au])) as BodyRadii
+}
+// Ring extent/orientation and optical atmosphere remain disclosed illustrations.
+export const visualRadius=(radii:BodyRadii,id:BodyId)=>radii[id]*(id==='saturn'?2.27:1.03)
 type Anchor={source_id:BodyId;position_au:Vector}
+export function presetAnchors<A extends Anchor>(bodies:A[],preset:SolarPreset):A[]{
+ const inner=new Set<BodyId>(['sun','mercury','venus','earth','mars'])
+ return bodies.filter(b=>preset==='full'||(preset==='inner'?inner.has(b.source_id):!inner.has(b.source_id)))
+}
 export type CameraPose={position:Vector;target:Vector}
+/** Logarithmic distance interpolation makes true-scale close-ups navigable. */
+export function cameraTransition(from:Vector,targetFrom:Vector,to:CameraPose,u:number):CameraPose{
+ if(u<=0)return{position:[...from],target:[...targetFrom]}
+ if(u>=1)return{position:[...to.position],target:[...to.target]}
+ const ease=u*u*(3-2*u),start=new T.Vector3(...from).sub(new T.Vector3(...targetFrom)),end=new T.Vector3(...to.position).sub(new T.Vector3(...to.target))
+ const a=Math.max(1e-15,start.length()),b=Math.max(1e-15,end.length());start.normalize();end.normalize()
+ const rotation=new T.Quaternion().setFromUnitVectors(start,end),turn=new T.Quaternion().slerpQuaternions(new T.Quaternion(),rotation,ease)
+ const target=new T.Vector3(...targetFrom).lerp(new T.Vector3(...to.target),ease),position=target.clone().add(start.applyQuaternion(turn).multiplyScalar(Math.exp(Math.log(a)+(Math.log(b)-Math.log(a))*ease)))
+ return{position:position.toArray(),target:target.toArray()}
+}
 const direction=new T.Vector3(-.78,-.48,.4).normalize()
 export const overviewUp=(aspect:number):Vector=>aspect<.75?[1,0,0]:[.15,0,1]
-export function overviewPose(bodies:Anchor[],aspect:number):CameraPose{
+export function overviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,height=0,frame?:ReturnType<typeof clearViewport>,rectangular=false):CameraPose{
  const bounds=new T.Box3()
- for(const b of bodies){const p=new T.Vector3(...b.position_au),r=glyphRadius[b.source_id];bounds.expandByPoint(p.clone().addScalar(r));bounds.expandByPoint(p.clone().addScalar(-r))}
+ for(const b of bodies){const p=new T.Vector3(...b.position_au),r=visualRadius(radii,b.source_id);bounds.expandByPoint(p.clone().addScalar(r));bounds.expandByPoint(p.clone().addScalar(-r))}
  const center=bounds.getCenter(new T.Vector3()),up=new T.Vector3(...overviewUp(aspect)),right=up.clone().cross(direction).normalize(),vertical=direction.clone().cross(right).normalize()
  const tan=Math.tan(21*Math.PI/180);let distance=1
- for(const b of bodies){const p=new T.Vector3(...b.position_au).sub(center),r=glyphRadius[b.source_id];distance=Math.max(distance,p.dot(direction)+(Math.abs(p.dot(right))+r)/(tan*Math.max(.25,aspect)*.82),p.dot(direction)+(Math.abs(p.dot(vertical))+r)/(tan*.7))}
+ const horizontal=frame?(rectangular?frame.clearWidth:frame.maxGlobeRadius*2)/height:Math.max(.25,aspect)*.82,verticalFit=frame?(rectangular?frame.clearHeight:frame.maxGlobeRadius*2)/height:.7
+ for(const b of bodies){const p=new T.Vector3(...b.position_au).sub(center),r=visualRadius(radii,b.source_id);distance=Math.max(distance,p.dot(direction)+(Math.abs(p.dot(right))+r)/(tan*horizontal),p.dot(direction)+(Math.abs(p.dot(vertical))+r)/(tan*verticalFit))}
  return{position:center.clone().addScaledVector(direction,distance).toArray(),target:center.toArray()}
 }
-export function focusPose(id:BodyId,p:Vector,aspect:number,close=false,height=0):CameraPose{
+export function focusPose(radii:BodyRadii,id:BodyId,p:Vector,aspect:number,close=false,height=0,frame=focusViewport(aspect*height,height)):CameraPose{
  const target=new T.Vector3(...p),sunward=target.clone().negate().normalize()
  if(id==='sun')sunward.copy(direction)
  // View mostly the illuminated hemisphere, with a visible terminator. This changes
  // only the camera; texture longitude/orientation remains an illustrative choice.
  const side=new T.Vector3(0,0,1).cross(sunward).normalize()
  const view=sunward.multiplyScalar(.72).addScaledVector(side,.7).add(new T.Vector3(0,0,.3)).normalize()
- let distance=glyphRadius[id]*(close?3.5:5.1)/Math.min(1,Math.max(.52,aspect))
- const limit=focusViewport(aspect*height,height).maxGlobeRadius*(close?1:.82)
- if(Number.isFinite(limit))distance=Math.max(distance,glyphRadius[id]*Math.sqrt(1+(height/(2*Math.tan(21*Math.PI/180)*limit))**2))
+ let distance=radii[id]*(close?3.5:5.1)/Math.min(1,Math.max(.52,aspect))
+ const limit=frame.maxGlobeRadius*(close?1:.82)
+ if(Number.isFinite(limit))distance=Math.max(distance,visualRadius(radii,id)*Math.sqrt(1+(height/(2*Math.tan(21*Math.PI/180)*limit))**2))
  return{position:target.clone().addScaledVector(view,distance).toArray(),target:[...p]}
 }
 /** Shift the optical frame, never the orbit target or ephemeris anchor. */
@@ -41,6 +73,57 @@ export function focusViewport(width:number,height:number){
   maxGlobeRadius=Math.max(18,Math.min(y-78,x-186,width-120-x)-12)
  }
  return{offsetX:width*.5-x,offsetY:height*.5-y,maxGlobeRadius}
+}
+export type ScreenRect={left:number;top:number;right:number;bottom:number}
+/** Largest clear HUD rectangle. Only the optical frame and camera distance move. */
+export function clearViewport(width:number,height:number,obstacles:ScreenRect[]){
+ const inset=14,pad=10,preferred=focusViewport(width,height)
+ const clipped=obstacles.map(r=>({left:Math.max(inset,r.left-pad),right:Math.min(width-inset,r.right+pad),top:Math.max(inset,r.top-pad),bottom:Math.min(height-inset,r.bottom+pad)})).filter(r=>r.right>r.left&&r.bottom>r.top)
+ const xs=[inset,width-inset,...clipped.flatMap(r=>[r.left,r.right])].sort((a,b)=>a-b),ys=[inset,height-inset,...clipped.flatMap(r=>[r.top,r.bottom])].sort((a,b)=>a-b)
+ let best={x:width*.5-preferred.offsetX,y:height*.5-preferred.offsetY,radius:18,clearWidth:36,clearHeight:36,rectangleOffsetX:preferred.offsetX,rectangleOffsetY:preferred.offsetY},score=-Infinity
+ for(let l=0;l<xs.length;l++)for(let r=l+1;r<xs.length;r++)for(let t=0;t<ys.length;t++)for(let b=t+1;b<ys.length;b++){
+  const left=xs[l],right=xs[r],top=ys[t],bottom=ys[b],radius=Math.min(right-left,bottom-top)/2
+  if(radius<16||clipped.some(o=>left<o.right&&right>o.left&&top<o.bottom&&bottom>o.top))continue
+  const x=Math.max(left+radius,Math.min(right-radius,width*.5-preferred.offsetX)),y=Math.max(top+radius,Math.min(bottom-radius,height*.5-preferred.offsetY))
+  const candidate=radius*1000-Math.hypot(x-(width*.5-preferred.offsetX),y-(height*.5-preferred.offsetY))
+  if(candidate>score){best={x,y,radius:radius-(radius<22?1:radius<26?4:12),clearWidth:Math.max(8,right-left-24),clearHeight:Math.max(8,bottom-top-24),rectangleOffsetX:width*.5-(left+right)/2,rectangleOffsetY:height*.5-(top+bottom)/2};score=candidate}
+ }
+ return{offsetX:width*.5-best.x,offsetY:height*.5-best.y,maxGlobeRadius:best.radius,clearWidth:best.clearWidth,clearHeight:best.clearHeight,rectangleOffsetX:best.rectangleOffsetX,rectangleOffsetY:best.rectangleOffsetY}
+}
+/** Place a label near its true anchor; a leader connects displaced text. */
+export function labelPosition(anchor:{x:number;y:number;radius:number},w:number,h:number,width:number,height:number,occupied:ScreenRect[]):[number,number]|null{
+ const {x,y,radius}=anchor
+ const angles=[0,Math.PI,-Math.PI/2,Math.PI/2,-Math.PI/4,Math.PI/4,-3*Math.PI/4,3*Math.PI/4]
+ for(const gap of [12,64,116,168,220,272,324])for(const a of angles){
+  const left=x+Math.cos(a)*(radius+gap+w/2)-w/2,top=y+Math.sin(a)*(radius+gap+h/2)-h/2
+  const box={left,top,right:left+w,bottom:top+h}
+  if(left>=10&&top>=10&&box.right<=width-10&&box.bottom<=height-10&&!occupied.some(o=>box.left<o.right&&box.right>o.left&&box.top<o.bottom&&box.bottom>o.top))return[left,top]
+ }
+ // Crowded inner-system anchors can exhaust radial candidates. Search the
+ // edges of existing clear boxes, still choosing the closest legal label slot.
+ const xs=[10,width-w-10,x-w/2,...occupied.flatMap(r=>[r.left-w-6,r.right+6])],ys=[10,height-h-10,y-h/2,...occupied.flatMap(r=>[r.top-h-6,r.bottom+6])]
+ let best:[number,number]|null=null,score=Infinity
+ for(const left of xs)for(const top of ys){
+  const box={left,top,right:left+w,bottom:top+h}
+  if(left<10||top<10||box.right>width-10||box.bottom>height-10||occupied.some(o=>box.left<o.right&&box.right>o.left&&box.top<o.bottom&&box.bottom>o.top))continue
+  const distance=Math.hypot(left+w/2-x,top+h/2-y)
+  if(distance<score){score=distance;best=[left,top]}
+ }
+ return best
+}
+export type LabelAnchor={id:string;x:number;y:number;radius:number;width:number;height:number}
+/** Retry bounded placement orders when a crowded group defeats greedy placement. */
+export function arrangeLabels(labels:LabelAnchor[],width:number,height:number,obstacles:ScreenRect[],selected?:string|null):Map<string,[number,number]|null>{
+ const orders=[labels,[...labels].reverse(),[...labels].sort((a,b)=>a.y-b.y),[...labels].sort((a,b)=>b.y-a.y),[...labels].sort((a,b)=>a.x-b.x),[...labels].sort((a,b)=>b.x-a.x)]
+ for(let i=1;i<labels.length;i++)orders.push([...labels.slice(i),...labels.slice(0,i)])
+ let best=new Map<string,[number,number]|null>(),count=-1
+ for(const order of orders){
+  order.sort((a,b)=>Number(b.id===selected)-Number(a.id===selected))
+  const occupied=[...obstacles],result=new Map<string,[number,number]|null>();let found=0
+  for(const label of order){const spot=labelPosition(label,label.width,label.height,width,height,occupied);result.set(label.id,spot);if(spot){found++;occupied.push({left:spot[0]-3,top:spot[1]-3,right:spot[0]+label.width+3,bottom:spot[1]+label.height+3})}}
+  if(found>count){best=result;count=found}if(found===labels.length)break
+ }
+ return best
 }
 export type SolarQuality='efficient'|'balanced'|'detailed'
 export function qualityBudget(quality:SolarQuality,dpr:number){

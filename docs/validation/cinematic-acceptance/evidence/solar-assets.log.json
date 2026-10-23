@@ -1,0 +1,5 @@
+{
+  "format": "Lossless UTF-8 command stdout/stderr; original terminal whitespace retained by JSON escaping",
+  "original_sha256": "bbb2f96ee4f7ef7340af9ad37052ae1221d069e3d7836ae6608f509b9fc81332",
+  "stdout": "PASS original source bytes: earth-blue-marble.png 1511379 ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35\nPASS original source bytes: mars-nasa.glb 4032148 0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac\nPASS original source bytes: earth-clouds-2002.jpg 829367 daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793\nPASS: Mars original UV-linked color atlas; no equirectangular remapping or generated surface.\n"
+}

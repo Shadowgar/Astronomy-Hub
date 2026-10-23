@@ -1,0 +1,13 @@
+{
+  "url": "http://127.0.0.1:4216/earth-runtime/?date=2026-02-28T00%3A00%3A00Z&orasEmbedded=1",
+  "utc": "2026-02-28T00:00:00.000Z",
+  "dpr": 3,
+  "canvas": [
+    {
+      "width": 195,
+      "height": 450,
+      "cssWidth": 390,
+      "cssHeight": 900
+    }
+  ]
+}

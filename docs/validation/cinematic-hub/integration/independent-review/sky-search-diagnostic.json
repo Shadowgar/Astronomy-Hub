@@ -1,0 +1,12 @@
+{
+  "responses": [
+    {
+      "url": "http://127.0.0.1:4216/api/sky/search?q=Sirius",
+      "status": 200,
+      "body": "{\"status\":\"ok\",\"data\":{\"query\":\"Sirius\",\"recognized_query\":false,\"results\":[{\"catalog\":\"Bright Star Catalog (local)\",\"source_id\":\"star-sirius\",\"display_name\":\"Sirius\",\"model\":\"star\",\"names\":[\"NAME Sirius\",\"Sirius\"],\"types\":[\"*\"],\"ra\":101.28715539,\"dec\":-16.71611582,\"indexed\":true,\"status\":\"indexed\",\"message\":\"Resolved from local bright-star index.\",\"provenance\":{\"source_key\":\"oras_catalog_pack\",\"pack_id\":\"star-science-supplement\",\"pack_version\":\"2026.09.star-contract.2\"},\"star_science\":{\"ambiguous_cross_ids\":{},\"bv\":0.009,\"bv_method\":\"johnson\",\"canonical_catalog\":\"Hipparcos (CDS)\",\"canonical_source_id\":\"hip-32349\",\"color_index\":0.009,\"color_index_band\":\"Johnson B-V\",\"coordinate_epoch\":2000.0,\"coordinate_frame\":\"ICRS\",\"dec\":-16.71611582,\"gaia_id\":null,\"hip_id\":\"32349\",\"native_tile\":{\"identity\":\"HIP 32349\",\"order\":3,\"pix\":327},\"parallax_mas\":379.21,\"photometry_source_catalog\":\"Hipparcos (CDS)\",\"photometry_source_id\":\"hip-32349\",\"proper_motion_dec_mas_per_year\":-1223.08,\"proper_motion_ra_"
+    }
+  ],
+  "errors": [],
+  "search": "Sirius\nStar \nBright Star Catalog (local)\nORAS Enhanced",
+  "input": "Sirius"
+}

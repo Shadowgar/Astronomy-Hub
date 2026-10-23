@@ -14426,7 +14426,37 @@ var siteObserver = {
   lat: oras_site.latitude,
   lon: oras_site.longitude,
   elevationM: oras_site.elevationMeters
-};
+}; // Native SWE owns the atmosphere calculation. This embedded-only product default
+// is applied once; subsequent native user choices survive renderer recreation.
+
+function installAtmospherePreference(app) {
+  var key = 'oras.sky.atmosphere.v1';
+  var applied = false;
+  var stop = app.$watch(function () {
+    return app.$store.state.stel.atmosphere.visible;
+  }, function (value) {
+    if (!applied || typeof value !== 'boolean') return;
+
+    try {
+      window.localStorage.setItem(key, String(value));
+    } catch (error) {}
+  });
+  return {
+    apply: function apply() {
+      if (applied) return;
+      var value = false;
+
+      try {
+        value = window.localStorage.getItem(key) === 'true';
+      } catch (error) {}
+
+      applied = true;
+      app.$stel.core.atmosphere.visible = value;
+    },
+    stop: stop
+  };
+}
+
 /* harmony default export */ var orasRuntime = __webpack_exports__["default"] = ({
   guiComponents: [{
     name: 'oras-workspace-search',
@@ -14762,6 +14792,7 @@ var siteObserver = {
     var nativeLandscape = null;
     var hasLandscape = false;
     var observerContext = null;
+    var atmospherePreference = installAtmospherePreference(app);
 
     var set = function set(key, value) {
       return app.$store.commit('setValue', {
@@ -14800,7 +14831,12 @@ var siteObserver = {
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop);
       window.dispatchEvent(new Event('oras-sky-fov'));
       set('orasEmbeddedPresentation', embedded);
-      if (embedded) neutral();
+
+      if (embedded) {
+        atmospherePreference.apply();
+        neutral();
+      }
+
       updateSatellites();
       if (!embedded && nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId) app.$stel.core.landscapes.current_id = nativeLandscape;
 
@@ -14906,6 +14942,7 @@ var siteObserver = {
       },
       stop: function stop() {
         window.dispatchEvent(new Event('oras-sky-dispose'));
+        atmospherePreference.stop();
         stopPanelWatch();
         stopNightWatch();
         stopLandscapeWatch();

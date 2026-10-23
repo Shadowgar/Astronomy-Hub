@@ -18,6 +18,9 @@ tasks:
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
     - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
@@ -124,6 +127,9 @@ tasks:
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
     - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/ASTRONOMY_HUB_DIAGRAM.md
@@ -167,6 +173,9 @@ tasks:
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
     - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -249,6 +258,9 @@ tasks:
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
     - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -345,6 +357,9 @@ tasks:
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
     - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md

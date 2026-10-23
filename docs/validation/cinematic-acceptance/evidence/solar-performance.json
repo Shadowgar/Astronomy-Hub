@@ -1,0 +1,2040 @@
+{
+  "status": "MEASURED",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1,
+      "errors": [],
+      "console": [
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x1ca40013f600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x1ca40013f600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x1ca40013f600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x1ca40013f600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        }
+      ],
+      "measurement": {
+        "before": {
+          "overviewScope": "inner",
+          "epoch": "2026-02-28T00:00:00Z",
+          "frame": "ICRF",
+          "origin": "Sun center (10)",
+          "units": "AU",
+          "selected": "earth",
+          "renderCount": 12,
+          "disposed": false,
+          "animating": false,
+          "camera": [
+            0.11692248795883442,
+            0.813599992607511,
+            0.3684952914224924
+          ],
+          "target": [
+            -0.9249420238042889,
+            0.3250757982699974,
+            0.14091794045040631
+          ],
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 469.65706037082435,
+              "screen": [
+                -897.1503301471593,
+                972.9213109881225
+              ]
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 145.4415182221136,
+              "screen": [
+                -121.21044987000539,
+                643.6388921069795
+              ]
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 1466.015604200549,
+              "screen": [
+                6862.380563224879,
+                -1862.6595550969716
+              ]
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 236.75662382070166,
+              "screen": [
+                707.234375,
+                454.0000000000004
+              ]
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 32207.842083402487,
+              "screen": [
+                342737.304187813,
+                -117127.63957344159
+              ]
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": false,
+              "screenRadius": 4233.993028194772,
+              "screen": [
+                27747.538817677396,
+                -8065.285153217766
+              ]
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": false,
+              "screenRadius": 179.29125497613276,
+              "screen": [
+                1313.2290879950033,
+                189.73629673857036
+              ]
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": false,
+              "screenRadius": 27.429580944662373,
+              "screen": [
+                7.01275760194795,
+                650.8914551937752
+              ]
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": false,
+              "screenRadius": 16.052099899015666,
+              "screen": [
+                1281.5924732169,
+                226.5640843159171
+              ]
+            }
+          ],
+          "drawCalls": 16,
+          "geometries": 20,
+          "textures": 2,
+          "texturesReady": 2,
+          "cloudsReady": true,
+          "quality": "balanced",
+          "backgroundVisible": true,
+          "gpuMs": {
+            "supported": false,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "orbitsVisible": true,
+          "effectsVisible": true,
+          "belt": {
+            "visible": true,
+            "requestedDensity": 2400,
+            "drawCount": 2400,
+            "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+          },
+          "starfield": "illustrative",
+          "starCount": 4000,
+          "renderCpuMs": {
+            "samples": 9,
+            "median": 0.7999999998137355,
+            "p95": 29.299999999813735
+          },
+          "pixelRatio": 1
+        },
+        "after": {
+          "overviewScope": "inner",
+          "epoch": "2026-02-28T00:00:00Z",
+          "frame": "ICRF",
+          "origin": "Sun center (10)",
+          "units": "AU",
+          "selected": "earth",
+          "renderCount": 36,
+          "disposed": false,
+          "animating": false,
+          "camera": [
+            0.11692248795882887,
+            0.8135999926075079,
+            0.36849529142249005
+          ],
+          "target": [
+            -0.9249420238042889,
+            0.3250757982699974,
+            0.14091794045040631
+          ],
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 469.65706037083055,
+              "screen": [
+                -897.1503301471806,
+                972.9213109881282
+              ]
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 145.4415182221152,
+              "screen": [
+                -121.21044987001467,
+                643.6388921069803
+              ]
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 1466.015604200488,
+              "screen": [
+                6862.380563224613,
+                -1862.6595550968661
+              ]
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 236.75662382070286,
+              "screen": [
+                707.2343749999999,
+                454
+              ]
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 32207.842083362706,
+              "screen": [
+                342737.3041873904,
+                -117127.63957329617
+              ]
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": false,
+              "screenRadius": 4233.993028194854,
+              "screen": [
+                27747.538817677978,
+                -8065.285153217956
+              ]
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": false,
+              "screenRadius": 179.29125497613245,
+              "screen": [
+                1313.2290879950017,
+                189.7362967385714
+              ]
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": false,
+              "screenRadius": 27.42958094466229,
+              "screen": [
+                7.01275760194739,
+                650.8914551937758
+              ]
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": false,
+              "screenRadius": 16.052099899015666,
+              "screen": [
+                1281.5924732168987,
+                226.56408431591785
+              ]
+            }
+          ],
+          "drawCalls": 16,
+          "geometries": 21,
+          "textures": 3,
+          "texturesReady": 2,
+          "cloudsReady": true,
+          "quality": "balanced",
+          "backgroundVisible": true,
+          "gpuMs": {
+            "supported": false,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "orbitsVisible": true,
+          "effectsVisible": true,
+          "belt": {
+            "visible": true,
+            "requestedDensity": 2400,
+            "drawCount": 2400,
+            "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+          },
+          "starfield": "illustrative",
+          "starCount": 4000,
+          "renderCpuMs": {
+            "samples": 33,
+            "median": 0.5,
+            "p95": 20.59999999962747
+          },
+          "pixelRatio": 1
+        },
+        "steps": [
+          {
+            "step": 1,
+            "doubleRafWallMs": 77.29999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 2,
+            "doubleRafWallMs": 78.20000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 3,
+            "doubleRafWallMs": 103.59999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 4,
+            "doubleRafWallMs": 86.30000000074506,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 5,
+            "doubleRafWallMs": 271.29999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 6,
+            "doubleRafWallMs": 83.29999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 7,
+            "doubleRafWallMs": 106.09999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 8,
+            "doubleRafWallMs": 99.70000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 9,
+            "doubleRafWallMs": 98.59999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 10,
+            "doubleRafWallMs": 148.79999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 11,
+            "doubleRafWallMs": 145.1000000005588,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 12,
+            "doubleRafWallMs": 103.5,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 13,
+            "doubleRafWallMs": 115.59999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 14,
+            "doubleRafWallMs": 65.59999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 15,
+            "doubleRafWallMs": 66.90000000037253,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 16,
+            "doubleRafWallMs": 66.29999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 17,
+            "doubleRafWallMs": 71.29999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 18,
+            "doubleRafWallMs": 70.6000000005588,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 19,
+            "doubleRafWallMs": 84.3999999994412,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 20,
+            "doubleRafWallMs": 104.1000000005588,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 21,
+            "doubleRafWallMs": 114.29999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 22,
+            "doubleRafWallMs": 88.70000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 23,
+            "doubleRafWallMs": 100,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 24,
+            "doubleRafWallMs": 66.79999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          }
+        ],
+        "doubleRafWallMs": {
+          "median": 93.64999999990687,
+          "p95": 148.79999999981374,
+          "max": 271.29999999981374
+        },
+        "canvas": {
+          "buffer": [
+            1440,
+            900
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          }
+        },
+        "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "dpr": 1,
+      "errors": [],
+      "console": [],
+      "measurement": {
+        "before": {
+          "overviewScope": "inner",
+          "epoch": "2026-02-28T00:00:00Z",
+          "frame": "ICRF",
+          "origin": "Sun center (10)",
+          "units": "AU",
+          "selected": "earth",
+          "renderCount": 12,
+          "disposed": false,
+          "animating": false,
+          "camera": [
+            1.2340149721223979,
+            1.3373981445408905,
+            0.6125048967660429
+          ],
+          "target": [
+            -0.9249420238042889,
+            0.3250757982699974,
+            0.14091794045040631
+          ],
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 136.29094707616593,
+              "screen": [
+                172.30762320203715,
+                -54.28699558279283
+              ]
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 45.964954387810664,
+              "screen": [
+                192.99562922160678,
+                167.76852912028016
+              ]
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 233.75907174768182,
+              "screen": [
+                130.07201339500952,
+                -613.0491199286095
+              ]
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 114.25346810938369,
+              "screen": [
+                166.0000000000003,
+                434.99999999999994
+              ]
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 168.8907481920418,
+              "screen": [
+                155.7424375727634,
+                -1461.5241171793266
+              ]
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": false,
+              "screenRadius": 543.8758694961642,
+              "screen": [
+                91.36273637325034,
+                4075.9994525086613
+              ]
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": false,
+              "screenRadius": 211.94513740132166,
+              "screen": [
+                232.74557544868432,
+                1213.6595604685576
+              ]
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": false,
+              "screenRadius": 29.79414557936663,
+              "screen": [
+                206.75303120341718,
+                -354.02817823157744
+              ]
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": false,
+              "screenRadius": 16.857400448733973,
+              "screen": [
+                199.2838930325755,
+                1082.8862211478367
+              ]
+            }
+          ],
+          "drawCalls": 17,
+          "geometries": 20,
+          "textures": 2,
+          "texturesReady": 2,
+          "cloudsReady": true,
+          "quality": "balanced",
+          "backgroundVisible": true,
+          "gpuMs": {
+            "supported": false,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "orbitsVisible": true,
+          "effectsVisible": true,
+          "belt": {
+            "visible": true,
+            "requestedDensity": 2400,
+            "drawCount": 2400,
+            "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+          },
+          "starfield": "illustrative",
+          "starCount": 4000,
+          "renderCpuMs": {
+            "samples": 9,
+            "median": 0.7000000001862645,
+            "p95": 22.700000000186265
+          },
+          "pixelRatio": 1
+        },
+        "after": {
+          "overviewScope": "inner",
+          "epoch": "2026-02-28T00:00:00Z",
+          "frame": "ICRF",
+          "origin": "Sun center (10)",
+          "units": "AU",
+          "selected": "earth",
+          "renderCount": 36,
+          "disposed": false,
+          "animating": false,
+          "camera": [
+            1.2340149721223894,
+            1.3373981445408827,
+            0.6125048967660397
+          ],
+          "target": [
+            -0.9249420238042889,
+            0.3250757982699974,
+            0.14091794045040631
+          ],
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 136.29094707616684,
+              "screen": [
+                172.30762320203704,
+                -54.28699558279543
+              ]
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 45.96495438781098,
+              "screen": [
+                192.99562922160678,
+                167.76852912027906
+              ]
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 233.75907174768454,
+              "screen": [
+                130.0720133950088,
+                -613.0491199286195
+              ]
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 114.25346810938423,
+              "screen": [
+                166.00000000000017,
+                435.00000000000017
+              ]
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 168.8907481920437,
+              "screen": [
+                155.7424375727631,
+                -1461.524117179346
+              ]
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": false,
+              "screenRadius": 543.8758694961663,
+              "screen": [
+                91.36273637324955,
+                4075.999452508675
+              ]
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": false,
+              "screenRadius": 211.94513740132106,
+              "screen": [
+                232.74557544868415,
+                1213.6595604685533
+              ]
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": false,
+              "screenRadius": 29.79414557936664,
+              "screen": [
+                206.75303120341727,
+                -354.0281782315794
+              ]
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": false,
+              "screenRadius": 16.85740044873394,
+              "screen": [
+                199.28389303257543,
+                1082.886221147834
+              ]
+            }
+          ],
+          "drawCalls": 17,
+          "geometries": 21,
+          "textures": 3,
+          "texturesReady": 2,
+          "cloudsReady": true,
+          "quality": "balanced",
+          "backgroundVisible": true,
+          "gpuMs": {
+            "supported": false,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "orbitsVisible": true,
+          "effectsVisible": true,
+          "belt": {
+            "visible": true,
+            "requestedDensity": 2400,
+            "drawCount": 2400,
+            "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+          },
+          "starfield": "illustrative",
+          "starCount": 4000,
+          "renderCpuMs": {
+            "samples": 33,
+            "median": 0.5,
+            "p95": 15.700000000186265
+          },
+          "pixelRatio": 1
+        },
+        "steps": [
+          {
+            "step": 1,
+            "doubleRafWallMs": 52.200000000186265,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 2,
+            "doubleRafWallMs": 47.60000000055879,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 3,
+            "doubleRafWallMs": 49.89999999944121,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 4,
+            "doubleRafWallMs": 50.200000000186265,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 5,
+            "doubleRafWallMs": 42.700000000186265,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 6,
+            "doubleRafWallMs": 232.5,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 7,
+            "doubleRafWallMs": 58.10000000055879,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 8,
+            "doubleRafWallMs": 66.40000000037253,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 9,
+            "doubleRafWallMs": 55.09999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 10,
+            "doubleRafWallMs": 44.80000000074506,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 11,
+            "doubleRafWallMs": 50,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 12,
+            "doubleRafWallMs": 52.799999999813735,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 13,
+            "doubleRafWallMs": 47.799999999813735,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 14,
+            "doubleRafWallMs": 55.89999999944121,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 15,
+            "doubleRafWallMs": 51.60000000055879,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 16,
+            "doubleRafWallMs": 41.59999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 17,
+            "doubleRafWallMs": 49.90000000037253,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 18,
+            "doubleRafWallMs": 50.09999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 19,
+            "doubleRafWallMs": 50,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 20,
+            "doubleRafWallMs": 55.5,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 21,
+            "doubleRafWallMs": 61.299999999813735,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 22,
+            "doubleRafWallMs": 66.40000000037253,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 23,
+            "doubleRafWallMs": 57.39999999944121,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 24,
+            "doubleRafWallMs": 59.200000000186265,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          }
+        ],
+        "doubleRafWallMs": {
+          "median": 51.90000000037253,
+          "p95": 66.40000000037253,
+          "max": 232.5
+        },
+        "canvas": {
+          "buffer": [
+            390,
+            900
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 900,
+            "top": 0,
+            "right": 390,
+            "bottom": 900,
+            "left": 0
+          }
+        },
+        "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "dpr": 3,
+      "errors": [],
+      "console": [],
+      "measurement": {
+        "before": {
+          "overviewScope": "inner",
+          "epoch": "2026-02-28T00:00:00Z",
+          "frame": "ICRF",
+          "origin": "Sun center (10)",
+          "units": "AU",
+          "selected": "earth",
+          "renderCount": 12,
+          "disposed": false,
+          "animating": false,
+          "camera": [
+            1.2340149721223979,
+            1.3373981445408905,
+            0.6125048967660429
+          ],
+          "target": [
+            -0.9249420238042889,
+            0.3250757982699974,
+            0.14091794045040631
+          ],
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 136.29094707616593,
+              "screen": [
+                172.30762320203715,
+                -54.28699558279283
+              ]
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 45.964954387810664,
+              "screen": [
+                192.99562922160678,
+                167.76852912028016
+              ]
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 233.75907174768182,
+              "screen": [
+                130.07201339500952,
+                -613.0491199286095
+              ]
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 114.25346810938369,
+              "screen": [
+                166.0000000000003,
+                434.99999999999994
+              ]
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 168.8907481920418,
+              "screen": [
+                155.7424375727634,
+                -1461.5241171793266
+              ]
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": false,
+              "screenRadius": 543.8758694961642,
+              "screen": [
+                91.36273637325034,
+                4075.9994525086613
+              ]
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": false,
+              "screenRadius": 211.94513740132166,
+              "screen": [
+                232.74557544868432,
+                1213.6595604685576
+              ]
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": false,
+              "screenRadius": 29.79414557936663,
+              "screen": [
+                206.75303120341718,
+                -354.02817823157744
+              ]
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": false,
+              "screenRadius": 16.857400448733973,
+              "screen": [
+                199.2838930325755,
+                1082.8862211478367
+              ]
+            }
+          ],
+          "drawCalls": 17,
+          "geometries": 20,
+          "textures": 2,
+          "texturesReady": 2,
+          "cloudsReady": true,
+          "quality": "balanced",
+          "backgroundVisible": true,
+          "gpuMs": {
+            "supported": false,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "orbitsVisible": true,
+          "effectsVisible": true,
+          "belt": {
+            "visible": true,
+            "requestedDensity": 2400,
+            "drawCount": 2400,
+            "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+          },
+          "starfield": "illustrative",
+          "starCount": 4000,
+          "renderCpuMs": {
+            "samples": 9,
+            "median": 0.7000000001862645,
+            "p95": 28
+          },
+          "pixelRatio": 1.5
+        },
+        "after": {
+          "overviewScope": "inner",
+          "epoch": "2026-02-28T00:00:00Z",
+          "frame": "ICRF",
+          "origin": "Sun center (10)",
+          "units": "AU",
+          "selected": "earth",
+          "renderCount": 36,
+          "disposed": false,
+          "animating": false,
+          "camera": [
+            1.2340149721223894,
+            1.3373981445408827,
+            0.6125048967660397
+          ],
+          "target": [
+            -0.9249420238042889,
+            0.3250757982699974,
+            0.14091794045040631
+          ],
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 136.29094707616684,
+              "screen": [
+                172.30762320203704,
+                -54.28699558279543
+              ]
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 45.96495438781098,
+              "screen": [
+                192.99562922160678,
+                167.76852912027906
+              ]
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 233.75907174768454,
+              "screen": [
+                130.0720133950088,
+                -613.0491199286195
+              ]
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 114.25346810938423,
+              "screen": [
+                166.00000000000017,
+                435.00000000000017
+              ]
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 168.8907481920437,
+              "screen": [
+                155.7424375727631,
+                -1461.524117179346
+              ]
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": false,
+              "screenRadius": 543.8758694961663,
+              "screen": [
+                91.36273637324955,
+                4075.999452508675
+              ]
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": false,
+              "screenRadius": 211.94513740132106,
+              "screen": [
+                232.74557544868415,
+                1213.6595604685533
+              ]
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": false,
+              "screenRadius": 29.79414557936664,
+              "screen": [
+                206.75303120341727,
+                -354.0281782315794
+              ]
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": false,
+              "screenRadius": 16.85740044873394,
+              "screen": [
+                199.28389303257543,
+                1082.886221147834
+              ]
+            }
+          ],
+          "drawCalls": 17,
+          "geometries": 21,
+          "textures": 3,
+          "texturesReady": 2,
+          "cloudsReady": true,
+          "quality": "balanced",
+          "backgroundVisible": true,
+          "gpuMs": {
+            "supported": false,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "orbitsVisible": true,
+          "effectsVisible": true,
+          "belt": {
+            "visible": true,
+            "requestedDensity": 2400,
+            "drawCount": 2400,
+            "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+          },
+          "starfield": "illustrative",
+          "starCount": 4000,
+          "renderCpuMs": {
+            "samples": 33,
+            "median": 0.599999999627471,
+            "p95": 17.299999999813735
+          },
+          "pixelRatio": 1.5
+        },
+        "steps": [
+          {
+            "step": 1,
+            "doubleRafWallMs": 66.09999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 2,
+            "doubleRafWallMs": 50,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 3,
+            "doubleRafWallMs": 73.79999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 4,
+            "doubleRafWallMs": 95.70000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 5,
+            "doubleRafWallMs": 65.70000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 6,
+            "doubleRafWallMs": 285.20000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 7,
+            "doubleRafWallMs": 105.69999999925494,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 8,
+            "doubleRafWallMs": 92.1000000005588,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 9,
+            "doubleRafWallMs": 81.79999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 10,
+            "doubleRafWallMs": 83.70000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 11,
+            "doubleRafWallMs": 82.79999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 12,
+            "doubleRafWallMs": 83.20000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 13,
+            "doubleRafWallMs": 103.8999999994412,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 14,
+            "doubleRafWallMs": 67.09999999962747,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 15,
+            "doubleRafWallMs": 62.200000000186265,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 16,
+            "doubleRafWallMs": 68.79999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 17,
+            "doubleRafWallMs": 68.1000000005588,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 18,
+            "doubleRafWallMs": 64.79999999981374,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 19,
+            "doubleRafWallMs": 81.6000000005588,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 20,
+            "doubleRafWallMs": 73.5,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 21,
+            "doubleRafWallMs": 79,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 22,
+            "doubleRafWallMs": 102.20000000018626,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 23,
+            "doubleRafWallMs": 78.5,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          },
+          {
+            "step": 24,
+            "doubleRafWallMs": 70.8999999994412,
+            "cameraChanged": true,
+            "epoch": "2026-02-28T00:00:00Z",
+            "target": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ]
+          }
+        ],
+        "doubleRafWallMs": {
+          "median": 78.75,
+          "p95": 105.69999999925494,
+          "max": 285.20000000018626
+        },
+        "canvas": {
+          "buffer": [
+            585,
+            1350
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 900,
+            "top": 0,
+            "right": 390,
+            "bottom": 900,
+            "left": 0
+          }
+        },
+        "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    }
+  ],
+  "limitations": [
+    "DOM button activations and double-requestAnimationFrame wall intervals measure this software browser only.",
+    "Render CPU samples exclude GPU execution. GPU timer output is reported as available, never inferred from wall intervals.",
+    "No physical-device, GPU-FPS or owner visual acceptance claim."
+  ]
+}

@@ -7,6 +7,26 @@ import { observerElevationSource, sameObserverLocation } from './observer-elevat
 import site from './oras-site.json'
 import { satellitePresentation } from './satellite-presentation.mjs'
 const siteObserver = { lat: site.latitude, lon: site.longitude, elevationM: site.elevationMeters }
+// Native SWE owns the atmosphere calculation. This embedded-only product default
+// is applied once; subsequent native user choices survive renderer recreation.
+function installAtmospherePreference (app) {
+  const key = 'oras.sky.atmosphere.v1'
+  let applied = false
+  const stop = app.$watch(() => app.$store.state.stel.atmosphere.visible, value => {
+    if (!applied || typeof value !== 'boolean') return
+    try { window.localStorage.setItem(key, String(value)) } catch (error) {}
+  })
+  return {
+    apply () {
+      if (applied) return
+      let value = false
+      try { value = window.localStorage.getItem(key) === 'true' } catch (error) {}
+      applied = true
+      app.$stel.core.atmosphere.visible = value
+    },
+    stop
+  }
+}
 export default {
   guiComponents: [
     { name: 'oras-workspace-search', computed: { embedded () { return this.$store.state.orasEmbeddedPresentation } }, render (h) { return this.embedded ? h('div', { class: 'oras-workspace-search' }, [h(TargetSearch)]) : null } },
@@ -76,6 +96,7 @@ export default {
   ],
   onEngineReady (app) {
     let disposed = false; let selectionGeneration = 0; let nativeLandscape = null; let hasLandscape = false; let observerContext = null
+    const atmospherePreference = installAtmospherePreference(app)
     const set = (key, value) => app.$store.commit('setValue', { varName: key, newValue: value })
     const landscapeId = 'pennsylvania-woodland-v1'
     const satellitePolicy = satellitePresentation(app.$stel.core)
@@ -91,7 +112,7 @@ export default {
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop)
       window.dispatchEvent(new Event('oras-sky-fov'))
       set('orasEmbeddedPresentation', embedded)
-      if (embedded)neutral()
+      if (embedded) { atmospherePreference.apply(); neutral() }
       updateSatellites()
       if (!embedded && nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId)app.$stel.core.landscapes.current_id = nativeLandscape
       for (const key of ['showMainToolBar', 'showLocationButton', 'showTimeButtons', 'showObservingPanelTabsButtons', 'showSelectedInfoButtons'])set(key, !embedded)
@@ -126,7 +147,7 @@ export default {
       nightMode () { return !!app.$store.state.nightmode },
       tools () { set('showViewSettingsDialog', true); return { ok: true } },
       panelOpen () { return !!(app.$store.state.showViewSettingsDialog || app.$store.state.showDataCreditsDialog) },
-      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); stopPanelWatch(); stopNightWatch(); stopLandscapeWatch(); stopSatelliteWatch(); stopFovWatch(); satellitePolicy.release(); removeWheel(); window.removeEventListener('pagehide', wheelPagehide); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
+      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); atmospherePreference.stop(); stopPanelWatch(); stopNightWatch(); stopLandscapeWatch(); stopSatelliteWatch(); stopFovWatch(); satellitePolicy.release(); removeWheel(); window.removeEventListener('pagehide', wheelPagehide); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
       resetNavigation () { removeWheel.reset(); return { ok: true } },
       navigation () {
         const core = app.$stel.core; const o = core.observer; const observer = { lat: o.latitude * 180 / Math.PI, lon: o.longitude * 180 / Math.PI, elevationM: o.elevation }

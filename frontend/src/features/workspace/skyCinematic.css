@@ -12,3 +12,9 @@
 /* The selected-object drawer owns details; avoid a duplicate overlapping context card. */
 .as-sky:has(.ws-drawer) .ws-context{display:none}
 @media(max-width:767px){.as-fov{top:144px}}
+
+/* Keep the location action above native Stellarium/landscape attribution. */
+@media(min-width:768px) and (min-height:601px){.as-sky .as-location{bottom:86px}}
+/* Keep native observing launchers reachable beside Hub context/selection. The
+   native panel temporarily owns this footprint while its controls are open. */
+@media(min-width:768px){.as-sky .ws-context,.ws-shell.as-sky .ws-drawer{right:100px}.as-sky.ws-shell--native-panel .ws-context,.as-sky.ws-shell--native-panel .ws-drawer{visibility:hidden;pointer-events:none}}

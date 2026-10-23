@@ -1,0 +1,157 @@
+{
+  "sourceHashes": {
+    "frontend/src/features/solar/solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+    "frontend/src/features/solar/SolarScene.ts": "70c7e373463b1cf58f771fa6ebea47aa956e8302c0de622569cf816214c61fef",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "ad23b5be1c06117beb5859c8b8b0f87825a82e7a1c38b91a505ebf5ee1b09b0d",
+    "frontend/src/features/solar/solarPresentation.ts": "ce56c3083458ec9d580e6a3c2d27d64c21e086dadaa52554887d2840b3527d44",
+    "frontend/src/features/solar/solar.css": "d0cc7f4258582b7a06bcc561076c6cdaf9418624a7e60818dc80b902e93e4bf8"
+  },
+  "captureProof": "../evidence/browser-qualified.json",
+  "referencePolicy": "Original bytes, no cropping or regeneration. Approved physical-scale direction supersedes enlarged reference disks.",
+  "images": [
+    {
+      "file": "images/solar-primary-cinematic-045227411f.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-primary-cinematic.png",
+      "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+      "label": "Exact approved original solar-primary-cinematic.png",
+      "kind": "approved-original",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/solar-adaptive-explorer-c9a5bfdf05.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-adaptive-explorer.png",
+      "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7",
+      "label": "Exact approved original solar-adaptive-explorer.png",
+      "kind": "approved-original",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-full-4a103511c5.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/1440x900-current-full.png",
+      "sha256": "4a103511c5b0fbeb5e10132b681d41b662c0861defa7891952ea65c6d5e709b5",
+      "label": "Actual 1440x900 full \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-inner-2af8e4e7c6.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/1440x900-current-inner.png",
+      "sha256": "2af8e4e7c6d601a84d66d4dca380eb2b6fd9c4bdde123da35e5037db8caf81d2",
+      "label": "Actual 1440x900 inner \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-outer-cf3c170233.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/1440x900-current-outer.png",
+      "sha256": "cf3c170233a69ed7a230de2d99c63d0c18d548ebb3b3d767d287117df7a93824",
+      "label": "Actual 1440x900 outer \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-earth-42f2ca4e67.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/1440x900-current-earth.png",
+      "sha256": "42f2ca4e676e0f55936a504d83b67066e56c3401e0c6806d992e590af1582100",
+      "label": "Actual 1440x900 earth \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-saturn-f3b6971f6f.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/1440x900-current-saturn.png",
+      "sha256": "f3b6971f6fefcfeedaa282f1ee169943fb3c3946dd5f315a026aa4d13dfc04df",
+      "label": "Actual 1440x900 saturn \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/390x900-current-full-bf51bb63fc.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/390x900-current-full.png",
+      "sha256": "bf51bb63fc30adf638a7244b9aa735c15e81242ff0b016711b4a6594f37c2fc4",
+      "label": "Actual 390x900 full \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/390x900-current-inner-4d4e6e7e61.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/390x900-current-inner.png",
+      "sha256": "4d4e6e7e613f63806ae6f4b6227d4fbcbcd473d870555579fab1194461eb042e",
+      "label": "Actual 390x900 inner \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/390x900-current-outer-b627613e0c.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/390x900-current-outer.png",
+      "sha256": "b627613e0ce125d250ba8ddae9639c42f392a0f3717a921f9b92ef2bd3b2f87f",
+      "label": "Actual 390x900 outer \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/390x900-current-earth-5f7ffe259b.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/390x900-current-earth.png",
+      "sha256": "5f7ffe259bd110e199bde641a5c864aeea4bb6d27385e4f44cff012537ed1438",
+      "label": "Actual 390x900 earth \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/390x900-current-saturn-d21fcfe7fc.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/390x900-current-saturn.png",
+      "sha256": "d21fcfe7fc0df278c0a6b2a5dcdb90a23c42cc6c27f563a017b6e117b07b0552",
+      "label": "Actual 390x900 saturn \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/540x390-current-full-acd387982e.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/540x390-current-full.png",
+      "sha256": "acd387982ea9883896479bbc85a3f8f49d0054f19d59eb5776dbfc1704f5a061",
+      "label": "Actual 540x390 full \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/540x390-current-earth-expanded-0770b16ff5.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/540x390-current-earth-expanded.png",
+      "sha256": "0770b16ff50b8d2d9d3371ee6ba44c86da0f5e1351b36018f8b8c49a5fa98473",
+      "label": "Actual 540x390 earth-expanded \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/540x390-current-saturn-expanded-2f01b6a82a.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/540x390-current-saturn-expanded.png",
+      "sha256": "2f01b6a82a280e778cb5d63826b3a0e76df3716f3eb2ab76c4f40e95d117a7bb",
+      "label": "Actual 540x390 saturn-expanded \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/320x568-current-full-f1b3ad54af.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/320x568-current-full.png",
+      "sha256": "f1b3ad54af85763cbf536d315761b70f6ded46f4acfef5609f604341adb9289c",
+      "label": "Actual 320x568 full \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/320x568-current-earth-expanded-7a9230e4f1.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/320x568-current-earth-expanded.png",
+      "sha256": "7a9230e4f16eac7b9a0efc9de3244a04852f7c737577e98e243bbe7e11ece301",
+      "label": "Actual 320x568 earth-expanded \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    },
+    {
+      "file": "images/320x568-current-saturn-expanded-cb0f13af81.png",
+      "source": "output/solar-scientific-controls/browser-final-qualified/320x568-current-saturn-expanded.png",
+      "sha256": "cb0f13af81cd1ab2323bc7575db566b0e0a84e5debbe99f986ef84c84d92fcb8",
+      "label": "Actual 320x568 saturn-expanded \u00b7 source UTC 2026-10-23T01:05:00.123Z",
+      "kind": "actual-final-qualified",
+      "unalteredOriginalBytes": true
+    }
+  ]
+}

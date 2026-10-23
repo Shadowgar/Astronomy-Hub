@@ -1,5 +1,66 @@
 # LIVE SESSION BRIEF
 
+## Owner-approved cinematic sizing correction — 2026-10-22
+
+The owner rejected155e7df9 visually and reported lag. The owner explicitly selected
+**cinematic system view with disclosed size enlargement** over the physical-size
+default. This supersedes the following physical-default directive, which remains
+historical. Restore readable cinematic globes at immutable source positions/time;
+disclose independent size enlargement persistently and provide True physical scale.
+All/Inner/Outer remain camera presets, never body-visibility filters. Body close-ups
+use the physical globe and camera approach. Original imagery, scientific values,
+native runtimes, accepted navigation, settings, data/pins/rollback remain protected.
+Measure actual browser costs; do not infer the owner's lag cause from software
+rendering alone. Continue draft PR88 only; no merge, deployment or R4. Owner visual
+acceptance remains pending. [Current correction](../validation/solar-cinematic-balance/README.md).
+
+## Owner-approved scientific Solar controls — 2026-10-22
+
+The owner rejects misleading globe enlargement and hidden-body view toggles, and
+explicitly approves true physical mean radii at the same AU scale as source positions.
+All/Inner/Outer are camera framing presets only: every supported body remains in the
+scene, and zooming out from Inner reveals the outer planets without a visibility switch.
+Unresolved bodies use labeled symbolic position points; selecting a body moves the
+camera to a close-up instead of enlarging its globe. Recenter, zoom and orbit are
+separate, with an explicit camera state. Optical/decorative effects and statistical
+belt are optional, off by default, and do not represent measured observations.
+This supersedes earlier enlarged-glyph presentation guidance while preserving the
+approved cinematic visual family, real ephemeris vectors/time/identity, mean-radius
+provenance, original imagery/UVs, illustrative orientation disclosures and all native
+Earth/Sky/accepted navigation. Existing draft PR88 continues; no merge, deployment,
+paid provider or R4. [Current implementation and evidence](../validation/solar-scientific-controls/README.md).
+
+## Final cinematic visual acceptance correction pass — 2026-10-22
+
+The owner directs bounded corrections on existing draft PR88 from verified
+`4e07ebfb4821b57e6bed3df4937eb78cce9755ee`, preserving packages84–88 and the
+approved design family. Diagnose real Earth camera/source/LOD/resolution/loading;
+correct demonstrated defects, Solar clipping/HUD composition and native Sky
+presentation under historical and source-backed dark-sky conditions. Keep real
+science, accepted mechanics, original assets, source pins, data/settings and rollback.
+[Current correction evidence](../validation/cinematic-acceptance/README.md) separates
+source limits, software rendering, technical checks and pending owner visual
+acceptance. Independent final exact-head review is required. No merge, deployment,
+paid provider or R4; stop for owner visual acceptance.
+
+
+## Integrated cinematic candidate — technical proof, owner visual review pending (2026-10-22)
+
+Drafts #84 foundation → #85 nine-body Solar/main belt → #86 Earth → #87 Sky
+are delivered; final integration package adds scoped keyboard/touch/overlay/credit
+corrections. The final combined Docker/browser journey passes desktop14/14 and
+mobile14/14 with real native Cesium/Sky returns, observer/UTC/history and renderer
+cleanup. Frontend316/48files, TypeScript and Docker science23 pass. Three identical
+136-file builds and136Hub/514Earth served bytes match; original science/data/settings/
+source pins/rollback/native assets remain protected. Old N1 partial and broad R3
+records remain historical. PR83's appearance remains unaccepted; no new acceptance
+is inferred. [Integrated evidence and explicit limits](../validation/cinematic-hub/integration/README.md).
+[All-mode original reference/actual comparison](../validation/cinematic-hub/gallery/index.html).
+Independent final exact-head review and hardware/software performance limits are
+recorded in the delivery PR/receipt. Owner visual and physical-device acceptance
+remain open. No merge, deployment, paid providers or R4 authorization.
+
+
 ## Active owner authorization — complete cinematic Hub and R3-B (2026-10-22)
 
 The new owner directive supersedes earlier limits to Solar R3-A and the earlier

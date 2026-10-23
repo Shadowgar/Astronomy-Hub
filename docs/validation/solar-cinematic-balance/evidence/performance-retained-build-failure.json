@@ -1,0 +1,19 @@
+{
+  "status": "FAIL",
+  "runs": [],
+  "limitations": [
+    "Controlled Chromium software rendering, not physical GPU or owner-browser qualification.",
+    "Before uses retained byte-identical155e7df9 static Hub bytes routed locally in the browser; real Docker API and original source assets are unchanged.",
+    "Before/after physical cases match Efficient quality, effects off, source UTC, source vectors and camera framing. Cinematic case is separately measured with default effects on.",
+    "CDP and wall intervals are comparable; old renderCpuMs excludes label layout, current includes it, so that diagnostic is not used for before/after comparison."
+  ],
+  "beforeArtifact": "285dd868da82852c82f735554336d38cadb23667a822e1b637f3b959b93279cc",
+  "beforeIndexSha256": "617843957b70df86c75313efd97d721af4612aaef10e3630307d7f382a8c11ad",
+  "error": "page.waitForFunction: Timeout 15000ms exceeded.\n    at /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/measure_solar_cinematic_balance.mjs:14:72",
+  "failurePages": [
+    {
+      "text": "Skip to Solar controls\nSolar System\nAstronomy Hub\nSOLAR SYSTEM\n⌄\nReturn to Sky\nSun\nMercury\nVenus\nEarth\nMars\nJupiter\nSaturn\nUranus\nNeptune\nAll planets\nInner planets\nOuter planets\nRecenter\n−\n+\n↶\n↷\n\nPhysical scale · position markersAll planets\n\n28 Feb 202600:00 UTC\n‹\n›\nJPL positions · physical mean radii\nControls · reduced motion\n\nFailed to fetch\n\nRetry Solar System",
+      "url": "http://172.26.23.204:4218/solar-system?date=2026-02-28T00:00:00Z"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {radii} from './fixtures/solarRadii'
 import {describe,it,expect} from 'vitest'
 import * as T from 'three'
 import * as presentation from '../src/features/solar/solarPresentation'
@@ -13,10 +14,10 @@ describe('Selected composition and explicit display budgets',()=>{
    else expect(x).toBeLessThan(width*.5)
   }
  })
- it('keeps compact landscape selected glyphs in the open strip without moving source targets',()=>{
+ it('keeps compact landscape selected globes in the open strip without moving source targets',()=>{
   for(const[width,height]of[[540,390],[480,375],[559,560]]){
    const v=presentation.focusViewport(width,height);expect(height/2-v.offsetY).toBeLessThan(180)
-   for(const id of['sun','earth','mars']as const){const source:[number,number,number]=[1,.2,.1],pose=presentation.focusPose(id,source,width/height,true,height),distance=Math.hypot(...pose.position.map((n,i)=>n-source[i])),r=presentation.glyphRadius[id],pixelRadius=height*r/(2*Math.tan(21*Math.PI/180)*Math.sqrt(distance*distance-r*r));expect(pixelRadius).toBeLessThanOrEqual(v.maxGlobeRadius+.001);expect(pose.target).toEqual(source)}
+   for(const id of['sun','earth','mars']as const){const source:[number,number,number]=[1,.2,.1],pose=presentation.focusPose(radii,id,source,width/height,true,height),distance=Math.hypot(...pose.position.map((n,i)=>n-source[i])),r=radii[id],pixelRadius=height*r/(2*Math.tan(21*Math.PI/180)*Math.sqrt(distance*distance-r*r));expect(pixelRadius).toBeLessThanOrEqual(v.maxGlobeRadius+.001);expect(pose.target).toEqual(source)}
   }
  })
  it('reduces display cost explicitly with the same scientific glyphs and data',()=>{

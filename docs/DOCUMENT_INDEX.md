@@ -1,5 +1,16 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+Owner-approved cinematic sizing correction: [current implementation/evidence](validation/solar-cinematic-balance/README.md); prior physical-default qualification remains historical.
+
+Current owner-approved Solar scientific-size/control correction and source-matched
+proof: [Solar scientific controls](validation/solar-scientific-controls/README.md).
+Prior cinematic/current-time evidence remains historical at its recorded source.
+
+## Current integrated PR88 visual correction evidence — 2026-10-22
+
+[Earth/Solar/Sky corrections, exact commands, current screenshots and limits](validation/cinematic-acceptance/README.md) continue the owner-authorized packages84–88 from4e07ebfb. The approved original visual family is unchanged. This supporting validation report is routed through the five visual/docs/review context packs, adding one unique document to their combined inventory. Original technical/historical evidence remains intact; owner visual and hardware acceptance remain separate. Earlier PR83-only execution wording below is historical where superseded by CORE/LIVE/PROJECT_STATE. No merge, deployment, paid provider or R4 authority.
+
+
 ## Current PR83 refinement evidence
 
 [Reference/actual screenshots, remaining gaps, fresh qualification and exact commands](validation/solar-cinematic/refinement/README.md). Supporting evidence; existing approved direction and draft stack, OWNER VISUAL ACCEPTANCE PENDING. No new phase or merge/deployment authority.

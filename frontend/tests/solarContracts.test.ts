@@ -28,6 +28,18 @@ describe('Solar science boundary and R4 capability negotiation',()=>{
   const data={...snapshot,bodies:snapshot.bodies.map(b=>({...b,trajectory:[{epoch:'2026-02-27T23:00:00.187500Z',position_au:b.position_au}]}))}
   expect(()=>validateSnapshot(data)).not.toThrow()
  })
+ it('accepts Python zero-padded milliseconds without changing the instant, source vectors or raw response',async()=>{
+  const raw={...snapshot,epoch:'2026-10-23T01:05:00.123000Z'}
+  const fetcher=vi.fn().mockResolvedValue({ok:true,json:async()=>raw})
+  const result=await loadSolarSnapshot('2026-10-23T01:05:00.123Z',new AbortController().signal,fetcher)
+  expect(result.epoch).toBe('2026-10-23T01:05:00.123Z')
+  expect(Date.parse(result.epoch)).toBe(Date.parse(raw.epoch))
+  expect(raw.epoch).toBe('2026-10-23T01:05:00.123000Z')
+  expect(result.bodies).toBe(raw.bodies);expect(result.source).toBe(raw.source)
+ })
+ it.each(['2026-10-23T01:05:00.123001Z','2026-10-23T01:05:00.1230000Z','2026-02-30T01:05:00.123000Z'])('rejects nonrepresentable or malformed snapshot epochs rather than rounding %s',epoch=>{
+  expect(()=>validateSnapshot({...snapshot,epoch})).toThrow(/source\/frame/)
+ })
  it('surfaces provider failure and respects abort, never fabricates positions',async()=>{
   const controller=new AbortController(),fetcher=vi.fn().mockResolvedValue({ok:false,status:503})
   await expect(loadSolarSnapshot(snapshot.epoch,controller.signal,fetcher)).rejects.toThrow(/unavailable/)

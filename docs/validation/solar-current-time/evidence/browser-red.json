@@ -1,0 +1,37 @@
+{
+  "status": "FAIL",
+  "base": "http://172.26.23.204:4218",
+  "clock": "2026-10-23T01:05:00.123Z",
+  "clockMeaning": "Controlled client wall clock; actual Docker ephemeris API, no mocked responses",
+  "runs": [
+    {
+      "width": 1440,
+      "name": "default-current",
+      "expected": "2026-10-23T01:05:00.123Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-10-23T01:05:00.123000Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "error",
+      "error": null
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Actual Solar entry must render: Skip to Solar controls\nSolar System\nAstronomy Hub\nSOLAR SYSTEM\n⌄\nReturn to Sky\nSun\nMercury\nVenus\nEarth\nMars\nJupiter\nSaturn\nUranus\nNeptune\nOverview\nInner\n−\n+\n↶\n↷\n23 Oct 202601:05 UTC\n‹\n›\nJPL positions · sizes exaggerated\nControls · reduced motion\n\nInvalid Solar source/frame contract.\n\nRetry Solar System\n\n'error' !== 'ready'\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_solar_epoch_precision.mjs:20:11"
+}

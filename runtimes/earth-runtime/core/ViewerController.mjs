@@ -1,7 +1,9 @@
 import {Viewer,EllipsoidTerrainProvider,Color,ScreenSpaceEventType,Resource} from 'cesium';
 export class ViewerController {
   constructor(container,credits){
-    this.viewer=new Viewer(container,{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,baseLayer:false,terrainProvider:new EllipsoidTerrainProvider(),creditContainer:credits,requestRenderMode:true,maximumRenderTimeChange:Infinity,shouldAnimate:false});
+    // Apply the existing 1.5-DPR cap to physical pixels. Cesium's recommended
+    // CSS-pixel mode would otherwise divide high-DPI resolution a second time.
+    this.viewer=new Viewer(container,{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,baseLayer:false,useBrowserRecommendedResolution:false,terrainProvider:new EllipsoidTerrainProvider(),creditContainer:credits,requestRenderMode:true,maximumRenderTimeChange:Infinity,shouldAnimate:false});
     const viewer=this.viewer;
     // Cesium owns refinement and rendering; idle again after native tiles settle.
     this.offTileProgress=viewer.scene.globe.tileLoadProgressEvent.addEventListener(count=>{viewer.scene.requestRenderMode=count===0;viewer.scene.requestRender();});viewer.scene.globe.baseColor=Color.fromCssColorString('#182535');

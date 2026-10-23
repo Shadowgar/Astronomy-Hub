@@ -1,0 +1,10 @@
+{
+  "tab": {
+    "active": "<button class=\"cin-mode-trigger\" aria-label=\"Choose exploration mode\" aria-expanded=\"false\" aria-controls=\"cin-mode-options\"><span>Earth</span><span aria-hidden=\"true\">⌄</span></button>",
+    "chooser": true
+  },
+  "before": 0,
+  "after": 0,
+  "headingRemaining": true,
+  "secondEscapeClosesPanel": true
+}

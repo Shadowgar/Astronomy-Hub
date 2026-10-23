@@ -1,0 +1,5 @@
+{
+  "format": "Lossless UTF-8 command stdout/stderr; original terminal whitespace retained by JSON escaping",
+  "original_sha256": "63136aa32e02a240441405337bc00d8bc632e4cf1a95339f9a63d1a36f2bb277",
+  "stdout": "PASS: index/inventory authority and discovery; eight context packs; D-only approval, five unresolved decisions; zero-cost C6-0 through C6-5 gates.\nPASS: 67 capability records, ten required fields each; audit relationship/gate counts; 51 source entrypoint references; 458 relative links and 65 heading fragments.\n"
+}
