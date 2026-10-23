@@ -1,7 +1,7 @@
 # Qualification command ledger
 
 All commands ran in isolated Earth/Sky worktrees, against disposable Docker
-previews. Logs copied into `evidence/logs/*.txt` retain actual outputs and failed
+previews. Logs copied into `evidence/command-output/*.txt` retain actual outputs and failed
 attempts. Node executable: `/home/rocco/.nvm/versions/node/v22.22.0/bin/node`.
 No full stalled N1 suite or resource-management investigation was rerun.
 
