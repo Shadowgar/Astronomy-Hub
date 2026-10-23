@@ -14018,6 +14018,24 @@ var toConsumableArray = __webpack_require__("2909");
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("1da1");
 
+// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
+var runtime = __webpack_require__("96cf");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
+var es_array_join = __webpack_require__("a15b");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find.js
+var es_array_find = __webpack_require__("7db0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.is-finite.js
+var es_number_is_finite = __webpack_require__("f00c");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
+var es_number_constructor = __webpack_require__("a9e3");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
+var es_array_slice = __webpack_require__("fb6a");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
 var es_array_map = __webpack_require__("d81d");
 
@@ -14045,23 +14063,11 @@ var es_string_search = __webpack_require__("841c");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
 var es_regexp_exec = __webpack_require__("ac1f");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
-var es_array_join = __webpack_require__("a15b");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.trim.js
 var es_string_trim = __webpack_require__("498a");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
-var es_number_constructor = __webpack_require__("a9e3");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
 var es_string_replace = __webpack_require__("5319");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
-var es_array_slice = __webpack_require__("fb6a");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.is-finite.js
-var es_number_is_finite = __webpack_require__("f00c");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
@@ -14071,9 +14077,6 @@ var es_symbol_description = __webpack_require__("e01a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
 var es_array_includes = __webpack_require__("caad");
-
-// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__("96cf");
 
 // EXTERNAL MODULE: ./src/assets/sw_helpers.js
 var sw_helpers = __webpack_require__("13a5");
@@ -14414,6 +14417,7 @@ function satellitePresentation(core) {
 
 
 
+
 // Qualified SWE extension hook. All scientific/scene work remains inside this frame.
 
 
@@ -14426,8 +14430,184 @@ var siteObserver = {
   lat: oras_site.latitude,
   lon: oras_site.longitude,
   elevationM: oras_site.elevationMeters
-}; // Native SWE owns the atmosphere calculation. This embedded-only product default
+}; // Native SSO search records have no Hub catalog identity. Resolve context through
+// the existing JPL API; never replace the selected native object or its position.
+
+function installNativeSolarContext(app) {
+  var core = app.$stel.core;
+  var generation = 0;
+  var value = null;
+  var closed = false;
+
+  var key = function key() {
+    var obj = core.selection;
+    var raw = obj && obj.jsonData;
+    var o = core.observer;
+    return raw && raw.model === 'jpl_sso' ? [obj.v, core.time_speed ? Math.floor(o.utc * 1440) : o.utc, o.latitude, o.longitude, o.elevation].join('|') : '';
+  };
+
+  var resolvedKey = '';
+  var stopWatch = app.$watch(function () {
+    var _state$observer, _state$observer2, _state$observer3, _state$observer4;
+
+    var state = app.$store.state.stel;
+    void state.selection;
+    void state.time_speed;
+    void ((_state$observer = state.observer) === null || _state$observer === void 0 ? void 0 : _state$observer.utc);
+    void ((_state$observer2 = state.observer) === null || _state$observer2 === void 0 ? void 0 : _state$observer2.latitude);
+    void ((_state$observer3 = state.observer) === null || _state$observer3 === void 0 ? void 0 : _state$observer3.longitude);
+    void ((_state$observer4 = state.observer) === null || _state$observer4 === void 0 ? void 0 : _state$observer4.elevation);
+    return key();
+  }, /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var _raw$model_data;
+
+    var current, token, raw, o, name, identity, source;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            current = key();
+            token = ++generation;
+            value = null;
+            resolvedKey = '';
+
+            if (!(!current || closed)) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 6:
+            raw = core.selection.jsonData;
+            o = core.observer;
+            name = (raw.names || []).find(function (n) {
+              return /^NAME [A-Za-z]+$/.test(n);
+            });
+
+            if (!(!name || !Number.isFinite((_raw$model_data = raw.model_data) === null || _raw$model_data === void 0 ? void 0 : _raw$model_data.horizons_id))) {
+              _context.next = 11;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 11:
+            identity = {
+              catalog: 'Solar System (JPL)',
+              sourceId: name.slice(5).toLowerCase(),
+              model: raw.model_data.horizons_id === 301 ? 'moon' : raw.model_data.horizons_id === 10 ? 'sun' : 'planet',
+              time: new Date(Math.round((o.utc - 40587) * 86400000)).toISOString(),
+              lat: o.latitude * 180 / Math.PI,
+              lng: o.longitude * 180 / Math.PI,
+              elev: o.elevation
+            };
+            _context.prev = 12;
+            _context.next = 15;
+            return sw_helpers["a" /* default */].fetchOrasSkySourceByIdentity(identity);
+
+          case 15:
+            source = _context.sent;
+
+            if (!closed && token === generation && current === key() && source && source.status !== 'not_indexed' && sw_helpers["a" /* default */].skySourceMatchesIdentity(source, identity)) {
+              value = Object.assign({}, source, {
+                context_time: identity.time
+              });
+              resolvedKey = current;
+            }
+
+            _context.next = 21;
+            break;
+
+          case 19:
+            _context.prev = 19;
+            _context.t0 = _context["catch"](12);
+
+          case 21:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[12, 19]]);
+  })), {
+    immediate: true
+  });
+  return {
+    snapshot: function snapshot() {
+      return !closed && resolvedKey === key() ? core.time_speed && value ? Object.assign({}, value, {
+        ra: undefined,
+        dec: undefined
+      }) : value : null;
+    },
+    stop: function stop() {
+      closed = true;
+      ++generation;
+      value = null;
+      stopWatch();
+    }
+  };
+} // Display exposure and point size are native visual controls, never magnitudes,
+// observing conditions, source positions or scientific visibility estimates.
+
+
+function installDisplayPreference(app) {
+  var core = app.$stel.core;
+  var key = 'oras.sky.display.v1';
+  var original = {
+    exposure: core.exposure_scale,
+    starScale: core.star_linear_scale
+  };
+  var active = false;
+
+  var valid = function valid(v) {
+    return v && Number.isFinite(v.exposure) && v.exposure >= 1 && v.exposure <= 4 && Number.isFinite(v.starScale) && v.starScale >= 0.5 && v.starScale <= 1.4;
+  };
+
+  var read = function read() {
+    return {
+      exposure: core.exposure_scale,
+      starScale: core.star_linear_scale
+    };
+  };
+
+  var stop = app.$watch(function () {
+    return [app.$store.state.stel.exposure_scale, app.$store.state.stel.star_linear_scale].join('|');
+  }, function () {
+    if (!active || !valid(read())) return;
+
+    try {
+      window.localStorage.setItem(key, JSON.stringify(read()));
+    } catch (error) {}
+  });
+  return {
+    apply: function apply() {
+      if (active) return;
+      original = read();
+      var choice = original.exposure === 2 && original.starScale === 0.8 ? {
+        exposure: 2.5,
+        starScale: 1
+      } : original;
+
+      try {
+        var saved = JSON.parse(window.localStorage.getItem(key));
+        if (valid(saved)) choice = saved;
+      } catch (error) {}
+
+      active = true;
+      core.exposure_scale = choice.exposure;
+      core.star_linear_scale = choice.starScale;
+    },
+    leave: function leave() {
+      if (!active) return;
+      active = false;
+      core.exposure_scale = original.exposure;
+      core.star_linear_scale = original.starScale;
+    },
+    stop: stop
+  };
+} // Native SWE owns the atmosphere calculation. This embedded-only product default
 // is applied once; subsequent native user choices survive renderer recreation.
+
 
 function installAtmospherePreference(app) {
   var key = 'oras.sky.atmosphere.v1';
@@ -14525,58 +14705,58 @@ function installAtmospherePreference(app) {
       toggleFullscreen: function toggleFullscreen() {
         var _this2 = this;
 
-        return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
           var owner;
-          return regeneratorRuntime.wrap(function _callee$(_context) {
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
-              switch (_context.prev = _context.next) {
+              switch (_context2.prev = _context2.next) {
                 case 0:
                   _this2.fullscreenError = '';
 
                   if (!(window.parent === window)) {
-                    _context.next = 4;
+                    _context2.next = 4;
                     break;
                   }
 
                   _this2.setFullscreen(!_this2.$store.state.fullscreen);
 
-                  return _context.abrupt("return");
+                  return _context2.abrupt("return");
 
                 case 4:
-                  _context.prev = 4;
+                  _context2.prev = 4;
                   owner = _this2.fullscreenDocument;
 
                   if (!owner.fullscreenElement) {
-                    _context.next = 11;
+                    _context2.next = 11;
                     break;
                   }
 
-                  _context.next = 9;
+                  _context2.next = 9;
                   return owner.exitFullscreen();
 
                 case 9:
-                  _context.next = 13;
+                  _context2.next = 13;
                   break;
 
                 case 11:
-                  _context.next = 13;
+                  _context2.next = 13;
                   return owner.documentElement.requestFullscreen();
 
                 case 13:
-                  _context.next = 18;
+                  _context2.next = 18;
                   break;
 
                 case 15:
-                  _context.prev = 15;
-                  _context.t0 = _context["catch"](4);
+                  _context2.prev = 15;
+                  _context2.t0 = _context2["catch"](4);
                   _this2.fullscreenError = 'Fullscreen is unavailable in this browser.';
 
                 case 18:
                 case "end":
-                  return _context.stop();
+                  return _context2.stop();
               }
             }
-          }, _callee, null, [[4, 15]]);
+          }, _callee2, null, [[4, 15]]);
         }))();
       },
       dismiss: function dismiss() {
@@ -14644,8 +14824,9 @@ function installAtmospherePreference(app) {
       var controls = [];
 
       if (this.panel === 'constellations') {
-        controls = [toggle('constellations', 'Constellations', state.constellations.lines_visible, function (b) {
+        controls = [toggle('constellations', 'Constellation lines', state.constellations.lines_visible, function (b) {
           core.constellations.lines_visible = b;
+        }), toggle('constellation-labels', 'Constellation labels', state.constellations.labels_visible, function (b) {
           core.constellations.labels_visible = b;
         }), toggle('art', 'Constellation Art', state.constellations.images_visible, function (b) {
           core.constellations.images_visible = b;
@@ -14679,9 +14860,64 @@ function installAtmospherePreference(app) {
       }
 
       if (this.panel === 'display') {
+        var _state$milkyway, _state$dss;
+
         controls = [toggle('night', 'Night Mode', this.$store.state.nightmode, function (b) {
           return _this4.setNightMode(b);
-        }), h('button', {
+        }), toggle('milkyway', 'Milky Way', (_state$milkyway = state.milkyway) === null || _state$milkyway === void 0 ? void 0 : _state$milkyway.visible, function (b) {
+          core.milkyway.visible = b;
+        }), toggle('survey', 'Survey imagery', (_state$dss = state.dss) === null || _state$dss === void 0 ? void 0 : _state$dss.visible, function (b) {
+          core.dss.visible = b;
+        }), h('label', {
+          class: 'as-display-slider'
+        }, ['Display brightness', h('input', {
+          attrs: {
+            type: 'range',
+            min: 1,
+            max: 4,
+            step: 0.1,
+            'aria-label': 'Display brightness'
+          },
+          domProps: {
+            value: state.exposure_scale
+          },
+          on: {
+            input: function input(e) {
+              core.exposure_scale = Number(e.target.value);
+            }
+          }
+        })]), h('label', {
+          class: 'as-display-slider'
+        }, ['Star display size', h('input', {
+          attrs: {
+            type: 'range',
+            min: 0.5,
+            max: 1.4,
+            step: 0.1,
+            'aria-label': 'Star display size'
+          },
+          domProps: {
+            value: state.star_linear_scale
+          },
+          on: {
+            input: function input(e) {
+              core.star_linear_scale = Number(e.target.value);
+            }
+          }
+        })]), h('button', {
+          class: 'as-control',
+          attrs: {
+            type: 'button'
+          },
+          on: {
+            click: function click() {
+              core.exposure_scale = 2;
+              core.star_linear_scale = 0.8;
+            }
+          }
+        }, ['Reset native display']), h('p', {
+          class: 'as-display-note'
+        }, ['Display enhancement changes brightness and point size, not catalog magnitudes or observing conditions. Survey imagery is photographic; this is not a naked-eye visibility estimate.']), h('button', {
           class: 'as-control',
           attrs: {
             type: 'button',
@@ -14793,6 +15029,8 @@ function installAtmospherePreference(app) {
     var hasLandscape = false;
     var observerContext = null;
     var atmospherePreference = installAtmospherePreference(app);
+    var displayPreference = installDisplayPreference(app);
+    var nativeSolarContext = installNativeSolarContext(app);
 
     var set = function set(key, value) {
       return app.$store.commit('setValue', {
@@ -14834,8 +15072,9 @@ function installAtmospherePreference(app) {
 
       if (embedded) {
         atmospherePreference.apply();
+        displayPreference.apply();
         neutral();
-      }
+      } else displayPreference.leave();
 
       updateSatellites();
       if (!embedded && nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId) app.$stel.core.landscapes.current_id = nativeLandscape;
@@ -14855,6 +15094,7 @@ function installAtmospherePreference(app) {
     style.textContent = ".oras-workspace-embedded #toolbar-image,.oras-workspace-embedded #time-controls,.oras-workspace-embedded #location-button,.oras-workspace-embedded #selected-object-info,.oras-workspace-embedded .bottom-toolbar{display:none!important}\n.oras-workspace-embedded #stel{width:100%!important}.oras-workspace-embedded .v-main{padding:0!important}\n.oras-workspace-search,.oras-workspace-bottom,.oras-workspace-source{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;color:#f4f5f7;pointer-events:auto}\n.as-glass,.oras-workspace-search{background:rgba(22,25,30,.88);border:1px solid rgba(228,235,244,.15);border-radius:18px;box-shadow:0 10px 32px #0003,inset 0 1px #ffffff08;backdrop-filter:blur(22px)}\n.oras-workspace-search{position:absolute;top:26px;left:50%;transform:translateX(-50%);width:min(440px,calc(100% - 540px));z-index:5;padding:0 16px;border-radius:16px;min-height:52px}\n.oras-workspace-search .v-input{padding-top:0;margin-top:0}.oras-workspace-search .v-input__slot{margin-bottom:0;min-height:50px}.oras-workspace-search .v-text-field__details{display:none}.oras-workspace-search input{font-size:13px;max-height:none}.oras-workspace-search .v-list{max-height:min(360px,40vh);overflow:auto;width:100%}\n.oras-workspace-bottom{z-index:4}.as-native-rail{position:absolute;right:28px;top:50%;transform:translateY(-50%);padding:6px;display:grid;gap:3px}\n.oras-workspace-bottom button{color:#f4f5f7;font:inherit;background:transparent;border:0;border-radius:10px;min-width:44px;min-height:44px;cursor:pointer}\n.as-native-rail button{width:48px;height:48px;font-size:23px}.as-native-rail button[aria-expanded=true]{color:#b9dcd4;background:#b9dcd413}.oras-workspace-bottom button:hover{background:#ffffff0d}\n.oras-workspace-bottom button:focus-visible,.oras-workspace-bottom summary:focus-visible,.oras-workspace-source:focus-visible{outline:2px solid #b9dcd4;outline-offset:3px}\n.as-tool-tip{position:absolute;right:66px;white-space:nowrap;padding:7px 12px;background:#16191e;border-radius:8px;font-size:12px;opacity:0;pointer-events:none}.as-native-rail button:hover .as-tool-tip,.as-native-rail button:focus-visible .as-tool-tip{opacity:1}\n.as-native-panel{position:absolute;right:100px;top:122px;width:320px;max-height:calc(100% - 205px);padding:22px;overflow:auto;overscroll-behavior:contain;z-index:6}.as-native-heading{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:17px}.as-native-heading small{font-size:10px;letter-spacing:.16em;color:#bac1cb}.as-native-heading h2{font-size:22px;letter-spacing:-.035em;font-weight:550;margin:4px 0 0}.as-native-heading button{font-size:24px;margin:-10px -10px 0 0}\n.as-control{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:10px 0;text-align:left;font-size:13px!important}.as-switch{width:30px;height:18px;border-radius:12px;background:#515966;position:relative;flex-shrink:0}.as-switch:after{content:'';position:absolute;width:12px;height:12px;background:#e8ecf2;border-radius:50%;left:3px;top:3px}[aria-pressed=true] .as-switch{background:#82b8ab}[aria-pressed=true] .as-switch:after{left:15px;background:#152a27}\n.as-native-panel details{border-top:1px solid #e4ebf426;margin-top:12px;padding-top:8px}.as-native-panel summary{min-height:44px;cursor:pointer;font-size:13px;padding:12px 0}.oras-workspace-source{position:absolute;bottom:16px;left:28px;z-index:4;min-height:44px;background:rgba(22,25,30,.88);border:1px solid #e4ebf426;border-radius:9px;font-size:10px;padding:0 10px;cursor:pointer}.oras-credits-compact{display:none}\n.oras-native-panel-open .oras-workspace-bottom,.oras-native-panel-open .oras-workspace-search,.oras-native-panel-open .oras-workspace-source{visibility:hidden;pointer-events:none}.oras-workspace-embedded .v-dialog .v-btn{min-height:44px;min-width:44px}\n@media(max-width:767px){.oras-workspace-search{top:94px;left:16px;right:16px;transform:none;width:auto;min-height:48px}.as-native-rail{right:16px;padding:4px}.as-native-rail button{width:44px;height:44px}.as-native-panel{top:auto;bottom:0;right:0;left:0;width:auto;max-height:calc(100% - 180px);padding:22px 22px calc(22px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0}.oras-workspace-source{bottom:0;left:16px;min-height:28px;font-size:9px;border:0;background:#16191ecc}.oras-credits-full{display:none}.oras-credits-compact{display:inline}.as-tool-tip{display:none}}\n@media(prefers-reduced-transparency:reduce){.as-glass,.oras-workspace-search{background:#16191e;backdrop-filter:none}}\n";
     style.textContent += '\nhtml.oras-sky-night #app,html.oras-sky-night #app *{color:#e6a19a!important;caret-color:#e6a19a!important;border-color:#71332e!important;outline-color:#e6a19a!important}\nhtml.oras-sky-night .as-glass,html.oras-sky-night .oras-workspace-search,html.oras-sky-night .oras-workspace-source,html.oras-sky-night .as-tool-tip,html.oras-sky-night .v-dialog,html.oras-sky-night .v-card,html.oras-sky-night .v-list,html.oras-sky-night .v-menu__content,html.oras-sky-night .v-tooltip__content,html.oras-sky-night .v-chip,html.oras-sky-night .secondary,html.oras-sky-night .primary,html.oras-sky-night .v-input__slot{background-color:#1c0806!important}\nhtml.oras-sky-night .as-switch{background:#54241f}html.oras-sky-night .as-switch:after{background:#e6a19a}html.oras-sky-night [aria-pressed=true] .as-switch{background:#9c493c}html.oras-sky-night [aria-pressed=true] .as-switch:after{background:#240704}\nhtml.oras-sky-night .as-native-rail button[aria-expanded=true],html.oras-sky-night .oras-workspace-bottom button:hover{background:#4b1712}\n';
     style.textContent += 'html.oras-sky-night #app *::selection{background:#602b22;color:#e6a19a}\n';
+    style.textContent += '.as-display-slider{display:block;font-size:13px;margin:12px 0}.as-display-slider input{display:block;width:100%;min-height:44px;accent-color:#b9dcd4}.as-display-note{font-size:12px;line-height:1.5;color:#bac1cb;margin:12px 0}.as-display-slider input:focus-visible{outline:2px solid #b9dcd4;outline-offset:2px}\n';
     document.head.appendChild(style); // Restore through the original native setting before reporting the new instance.
 
     if (new URLSearchParams(location.search).get('orasNightMode') === '1' && !app.$store.state.nightmode) bottom_bar["a" /* default */].methods.setNightMode.call(app, true);
@@ -14943,6 +15183,8 @@ function installAtmospherePreference(app) {
       stop: function stop() {
         window.dispatchEvent(new Event('oras-sky-dispose'));
         atmospherePreference.stop();
+        displayPreference.stop();
+        nativeSolarContext.stop();
         stopPanelWatch();
         stopNightWatch();
         stopLandscapeWatch();
@@ -15033,11 +15275,11 @@ function installAtmospherePreference(app) {
       },
       presentation: presentation,
       select: function select(entity) {
-        return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
           var generation, identity, source, obj;
-          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context3.prev = _context3.next) {
                 case 0:
                   generation = ++selectionGeneration;
                   identity = {
@@ -15051,60 +15293,60 @@ function installAtmospherePreference(app) {
                     lng: app.$stel.core.observer.longitude * 180 / Math.PI,
                     elev: app.$stel.core.observer.elevation
                   };
-                  _context2.next = 4;
+                  _context3.next = 4;
                   return sw_helpers["a" /* default */].fetchOrasSkySourceByIdentity(identity);
 
                 case 4:
-                  source = _context2.sent;
+                  source = _context3.sent;
 
                   if (!(disposed || generation !== selectionGeneration)) {
-                    _context2.next = 7;
+                    _context3.next = 7;
                     break;
                   }
 
-                  return _context2.abrupt("return", {
+                  return _context3.abrupt("return", {
                     ok: false,
                     error: 'Selection superseded'
                   });
 
                 case 7:
                   if (!(!source || source.status === 'not_indexed' || !sw_helpers["a" /* default */].skySourceMatchesIdentity(source, identity))) {
-                    _context2.next = 9;
+                    _context3.next = 9;
                     break;
                   }
 
-                  return _context2.abrupt("return", {
+                  return _context3.abrupt("return", {
                     ok: false,
                     error: 'Object unavailable in this catalog'
                   });
 
                 case 9:
                   if (!(entity.model === 'star')) {
-                    _context2.next = 15;
+                    _context3.next = 15;
                     break;
                   }
 
-                  _context2.next = 12;
+                  _context3.next = 12;
                   return sw_helpers["a" /* default */].resolveCanonicalStar(source);
 
                 case 12:
-                  _context2.t0 = _context2.sent;
-                  _context2.next = 16;
+                  _context3.t0 = _context3.sent;
+                  _context3.next = 16;
                   break;
 
                 case 15:
-                  _context2.t0 = sw_helpers["a" /* default */].skySource2SweObj(source);
+                  _context3.t0 = sw_helpers["a" /* default */].skySource2SweObj(source);
 
                 case 16:
-                  obj = _context2.t0;
+                  obj = _context3.t0;
 
                   if (!(disposed || generation !== selectionGeneration)) {
-                    _context2.next = 20;
+                    _context3.next = 20;
                     break;
                   }
 
                   if (obj && obj.__orasOwnedLookup) obj.destroy();
-                  return _context2.abrupt("return", {
+                  return _context3.abrupt("return", {
                     ok: false,
                     error: 'Selection superseded'
                   });
@@ -15116,11 +15358,11 @@ function installAtmospherePreference(app) {
                   }
 
                   if (obj) {
-                    _context2.next = 23;
+                    _context3.next = 23;
                     break;
                   }
 
-                  return _context2.abrupt("return", {
+                  return _context3.abrupt("return", {
                     ok: false,
                     error: 'Object could not be materialized'
                   });
@@ -15136,16 +15378,16 @@ function installAtmospherePreference(app) {
                     obj.destroy();
                   }
 
-                  return _context2.abrupt("return", {
+                  return _context3.abrupt("return", {
                     ok: true
                   });
 
                 case 29:
                 case "end":
-                  return _context2.stop();
+                  return _context3.stop();
               }
             }
-          }, _callee2);
+          }, _callee3);
         }))();
       },
       clear: function clear() {
@@ -15176,6 +15418,7 @@ function installAtmospherePreference(app) {
         var ss = app.$store.state.selectedObject;
         var native = app.$stel.core.selection;
         var raw = native && native.jsonData;
+        if (raw && raw.model === 'jpl_sso') ss = nativeSolarContext.snapshot();
         var norad = raw && raw.model_data && String(raw.model_data.norad_number);
         if (raw && raw.model === 'tle_satellite' && /^[1-9]\d{0,8}$/.test(norad)) ss = Object.assign({}, raw, {
           catalog: 'Satellite TLE (local)',
@@ -15188,7 +15431,7 @@ function installAtmospherePreference(app) {
         if (ss && ss.catalog && ss.source_id != null && ss.model) {
           var facts = [];
 
-          for (var _i2 = 0, _arr2 = [['Catalog', ss.catalog], ['Source ID', ss.source_id], ['NORAD', ss.model === 'tle_satellite' && ss.model_data ? ss.model_data.norad_number : null], ['Type', ss.object_type], ['Magnitude', ss.magnitude], ['Spectral type', ss.model_data && ss.model_data.spect_t]]; _i2 < _arr2.length; _i2++) {
+          for (var _i2 = 0, _arr2 = [['Catalog', ss.catalog], ['Source ID', ss.source_id], ['Context epoch', ss.context_time], ['NORAD', ss.model === 'tle_satellite' && ss.model_data ? ss.model_data.norad_number : null], ['Type', ss.object_type], ['Magnitude', ss.magnitude], ['Spectral type', ss.model_data && ss.model_data.spect_t]]; _i2 < _arr2.length; _i2++) {
             var _arr2$_i = Object(slicedToArray["a" /* default */])(_arr2[_i2], 2),
                 label = _arr2$_i[0],
                 value = _arr2$_i[1];

@@ -1,6 +1,6 @@
 # Earth and Sky cinematic completion
 
-Work in progress; not qualified or visually accepted. Baseline PR88 `89491f72`.
+Implemented and technically qualified for draft review; **owner Earth/Sky visual acceptance pending**. Baseline PR88 `89491f72`.
 
 Owner feedback: Solar looks better and camera/navigation is smooth on the owner's
 computer. Owner-confirmed satisfactory responsiveness and positive visual feedback
@@ -34,7 +34,11 @@ PR86/87 implementation and PR88 evidence. No full documentation scan.
 
 ## Status
 
-Baseline investigation active. No completion or performance improvement claimed.
+E1 delivered as draft [PR89](https://github.com/Shadowgar/Astronomy-Hub/pull/89),
+`94f98598131f23d9179135ec492fb1ad5d739407`. S1 and combined I1 are delivered on
+`cinematic-sky-completion-1`, stacked on E1. I1 needs no extra implementation branch: the
+S1 head contains both packages and the combined qualification. No merge/deployment.
+No quantified hardware performance improvement or visual acceptance claimed.
 
 ## E1 implementation and focused qualification
 
@@ -80,4 +84,71 @@ preview and all production services remain untouched.
 
 E1 preview: `http://172.26.23.204:4219/earth` (Windows),
 `http://127.0.0.1:4219/earth` (development environment).
-S1 and combined integration/gallery/R4 readiness are still outstanding.
+
+## S1 supported native presentation and context
+
+Fresh native defaults use exposure2.5 and star point scale1, with bounded accessible
+native sliders, original-default reset and isolated persisted display preference.
+Existing custom native choices and standalone display values are preserved. Native
+Milky Way/DSS are exposed; lines/labels/art are independently controlled. No new
+sky projection, star catalog, invented visibility or renderer math.
+
+Actual native Moon selection revealed a missing Hub identity/context record. The
+adapter now resolves that native SSO through the existing JPL API, validates canonical
+identity, rejects stale responses and labels context epoch. Exact paused UTC is
+used; live sampled context omits fallback coordinates. Stellarium still owns the
+selected object, coordinates, focus and scene. API failure leaves native selection
+usable without fabricated context. Focused tests reproduce missing/stale identity
+and prove selection/time/disposal races are guarded.
+
+Final browser proof: [12 groups across three sizes](evidence/sky-final.json),
+[Moon/Jupiter/M42 and native close focus](evidence/sky-scenes.json),
+[10 combined desktop/mobile groups](evidence/integration.json),
+[4 observing/wheel/WebGL recovery groups](evidence/recovery.json).
+Actual camera destinations, time, observer, history, native keyboard/mouse/emulated
+touch and one active renderer are asserted. Reduced motion is enabled in these
+journeys. WebGL loss/retry is exercised in the preserved Solar renderer; no claim
+of new native SWE automatic context recovery. Native display preference and focus
+restoration are tested through reload. Unit cancellation tests cover stale context
+responses; Earth refocus failure uses a labeled controlled response.
+
+Final runtime/native suite250 passed. Frontend336/51, TypeScript, Docker science23
+and Earth search/observability28 passed. Source-preserved E1 evidence is explicitly
+retained rather than relabeled a fresh run. Full prior N1 suites were not rerun.
+See [exact commands and retained failures](COMMANDS.md).
+
+## Unified review surface
+
+Windows: `http://172.26.23.204:4220/earth`,
+`http://172.26.23.204:4220/sky-engine?date=2026-08-13T04:00:00Z`,
+`http://172.26.23.204:4220/solar-system`.
+Development loopback: same routes at `http://127.0.0.1:4220`.
+[Comparison gallery](http://172.26.23.204:4220/evidence/earth-sky-completion/gallery/index.html)
+contains42 original-byte images: exact concepts, fresh PR88/candidate captures at
+1440×900,390×900,667×390, retained E1 selected/expanded views, final S1 native scenes
+and preserved Solar. [Image manifest](evidence/gallery-manifest.json),
+[matched diagnostics](evidence/comparison.json), [specific gap matrix](FIDELITY.md).
+The private development address depends on the current WSL host; no production
+service/public deployment is implied. Windows HTTP200 is verified separately.
+
+## Delivery, rights and preservation
+
+[Source/performance ledger](SOURCES_AND_PERFORMANCE.md),
+[exact repeated/served identities](evidence/delivery.json),
+[protected paths](evidence/preservation.json), [changed files](FILES_CHANGED.txt).
+Original archive/PNGs, Solar assets/source, scientific backend, ephemerides/catalogs,
+native camera/scroll/satellite/panorama inputs and source pins are preserved.
+No paid provider, new account, dependency, data bulk or destructive operation.
+Owner root settings remain untouched. Database/volume bytes are not claimed
+freshly snapshotted. Software measurements remain separate from hardware acceptance.
+
+Independent E1 exact-head review found no remaining actionable issue after its
+red/green corrections. Independent S1 source review likewise found no additional
+issue after independent constellation, standalone preference and exact-epoch
+corrections. Final exact-head result is recorded in the draft PR and handoff,
+without altering a reviewed commit merely to embed its own SHA.
+
+[R4 readiness assessment](R4_READINESS.md) recommends Earth first, with explicit
+surface-frame/altitude/source contracts and existing native Cesium reuse. Moon and
+Mars lack qualified surface orientation/terrain stacks. **R4 is not started.**
+Stop for owner visual acceptance of Earth and Sky; all PRs remain draft.
