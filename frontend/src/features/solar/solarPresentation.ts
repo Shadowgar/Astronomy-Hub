@@ -4,6 +4,16 @@ import type {BodyId,Vector,SolarSnapshot} from './solarContracts'
 export type BodyRadii=Record<BodyId,number>
 export type SolarPreset='full'|'inner'|'outer'
 export type SolarCameraView=SolarPreset|'body'|'custom'
+export type SolarSizeMode='cinematic'|'physical'
+/** Allocate adjacent disks proportionally, keeping their real projected centers. */
+export function diskBudget(desired:number,neighbors:{distance:number;desired:number}[],edge:number){
+ return Math.max(0,Math.min(desired,edge,...neighbors.map(n=>n.distance*.92*desired/(desired+n.desired))))
+}
+/** Presentation-only enlargement. Source radii/positions remain immutable. */
+export function displayScale(mode:SolarSizeMode,physicalPixels:number,desiredPixels:number,nearestPixels:number){
+ if(mode==='physical'||!Number.isFinite(physicalPixels)||physicalPixels<=0)return 1
+ return Math.max(1,Math.min(desiredPixels,nearestPixels*.44)/physicalPixels)
+}
 /** Physical mean radii and source positions share AU. No display enlargement. */
 export function physicalRadii(snapshot:SolarSnapshot):BodyRadii{
  return Object.fromEntries(snapshot.bodies.map(b=>[b.source_id,b.shape.mean_radius_km/snapshot.km_per_au])) as BodyRadii
@@ -28,12 +38,12 @@ export function cameraTransition(from:Vector,targetFrom:Vector,to:CameraPose,u:n
 }
 const direction=new T.Vector3(-.78,-.48,.4).normalize()
 export const overviewUp=(aspect:number):Vector=>aspect<.75?[1,0,0]:[.15,0,1]
-export function overviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,height=0,frame?:ReturnType<typeof clearViewport>):CameraPose{
+export function overviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,height=0,frame?:ReturnType<typeof clearViewport>,rectangular=false):CameraPose{
  const bounds=new T.Box3()
  for(const b of bodies){const p=new T.Vector3(...b.position_au),r=visualRadius(radii,b.source_id);bounds.expandByPoint(p.clone().addScalar(r));bounds.expandByPoint(p.clone().addScalar(-r))}
  const center=bounds.getCenter(new T.Vector3()),up=new T.Vector3(...overviewUp(aspect)),right=up.clone().cross(direction).normalize(),vertical=direction.clone().cross(right).normalize()
  const tan=Math.tan(21*Math.PI/180);let distance=1
- const horizontal=frame?frame.maxGlobeRadius*2/height:Math.max(.25,aspect)*.82,verticalFit=frame?frame.maxGlobeRadius*2/height:.7
+ const horizontal=frame?(rectangular?frame.clearWidth:frame.maxGlobeRadius*2)/height:Math.max(.25,aspect)*.82,verticalFit=frame?(rectangular?frame.clearHeight:frame.maxGlobeRadius*2)/height:.7
  for(const b of bodies){const p=new T.Vector3(...b.position_au).sub(center),r=visualRadius(radii,b.source_id);distance=Math.max(distance,p.dot(direction)+(Math.abs(p.dot(right))+r)/(tan*horizontal),p.dot(direction)+(Math.abs(p.dot(vertical))+r)/(tan*verticalFit))}
  return{position:center.clone().addScaledVector(direction,distance).toArray(),target:center.toArray()}
 }
@@ -70,15 +80,15 @@ export function clearViewport(width:number,height:number,obstacles:ScreenRect[])
  const inset=14,pad=10,preferred=focusViewport(width,height)
  const clipped=obstacles.map(r=>({left:Math.max(inset,r.left-pad),right:Math.min(width-inset,r.right+pad),top:Math.max(inset,r.top-pad),bottom:Math.min(height-inset,r.bottom+pad)})).filter(r=>r.right>r.left&&r.bottom>r.top)
  const xs=[inset,width-inset,...clipped.flatMap(r=>[r.left,r.right])].sort((a,b)=>a-b),ys=[inset,height-inset,...clipped.flatMap(r=>[r.top,r.bottom])].sort((a,b)=>a-b)
- let best={x:width*.5-preferred.offsetX,y:height*.5-preferred.offsetY,radius:18},score=-Infinity
+ let best={x:width*.5-preferred.offsetX,y:height*.5-preferred.offsetY,radius:18,clearWidth:36,clearHeight:36,rectangleOffsetX:preferred.offsetX,rectangleOffsetY:preferred.offsetY},score=-Infinity
  for(let l=0;l<xs.length;l++)for(let r=l+1;r<xs.length;r++)for(let t=0;t<ys.length;t++)for(let b=t+1;b<ys.length;b++){
   const left=xs[l],right=xs[r],top=ys[t],bottom=ys[b],radius=Math.min(right-left,bottom-top)/2
   if(radius<16||clipped.some(o=>left<o.right&&right>o.left&&top<o.bottom&&bottom>o.top))continue
   const x=Math.max(left+radius,Math.min(right-radius,width*.5-preferred.offsetX)),y=Math.max(top+radius,Math.min(bottom-radius,height*.5-preferred.offsetY))
   const candidate=radius*1000-Math.hypot(x-(width*.5-preferred.offsetX),y-(height*.5-preferred.offsetY))
-  if(candidate>score){best={x,y,radius:radius-(radius<22?1:radius<26?4:12)};score=candidate}
+  if(candidate>score){best={x,y,radius:radius-(radius<22?1:radius<26?4:12),clearWidth:Math.max(8,right-left-24),clearHeight:Math.max(8,bottom-top-24),rectangleOffsetX:width*.5-(left+right)/2,rectangleOffsetY:height*.5-(top+bottom)/2};score=candidate}
  }
- return{offsetX:width*.5-best.x,offsetY:height*.5-best.y,maxGlobeRadius:best.radius}
+ return{offsetX:width*.5-best.x,offsetY:height*.5-best.y,maxGlobeRadius:best.radius,clearWidth:best.clearWidth,clearHeight:best.clearHeight,rectangleOffsetX:best.rectangleOffsetX,rectangleOffsetY:best.rectangleOffsetY}
 }
 /** Place a label near its true anchor; a leader connects displaced text. */
 export function labelPosition(anchor:{x:number;y:number;radius:number},w:number,h:number,width:number,height:number,occupied:ScreenRect[]):[number,number]|null{

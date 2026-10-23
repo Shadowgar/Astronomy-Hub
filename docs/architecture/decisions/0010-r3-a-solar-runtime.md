@@ -1,5 +1,19 @@
 # ADR0010 — bounded geometric Solar exploration
 
+## Owner-approved cinematic sizing correction — 2026-10-22
+
+The owner rejected155e7df9 visually and reported lag. The owner explicitly selected
+**cinematic system view with disclosed size enlargement** over the physical-size
+default. This supersedes the following physical-default directive, which remains
+historical. Restore readable cinematic globes at immutable source positions/time;
+disclose independent size enlargement persistently and provide True physical scale.
+All/Inner/Outer remain camera presets, never body-visibility filters. Body close-ups
+use the physical globe and camera approach. Original imagery, scientific values,
+native runtimes, accepted navigation, settings, data/pins/rollback remain protected.
+Measure actual browser costs; do not infer the owner's lag cause from software
+rendering alone. Continue draft PR88 only; no merge, deployment or R4. Owner visual
+acceptance remains pending. [Current correction](../../validation/solar-cinematic-balance/README.md).
+
 ## Owner-approved scientific Solar controls — 2026-10-22
 
 The owner rejects misleading globe enlargement and hidden-body view toggles, and

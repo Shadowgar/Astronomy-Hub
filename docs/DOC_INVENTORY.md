@@ -1,5 +1,7 @@
 # `DOC_INVENTORY.md`
 
+Owner-approved cinematic sizing correction: [current implementation/evidence](validation/solar-cinematic-balance/README.md); prior physical-default qualification remains historical.
+
 Current owner-approved Solar scientific-size/control correction and source-matched
 proof: [Solar scientific controls](validation/solar-scientific-controls/README.md).
 Prior cinematic/current-time evidence remains historical at its recorded source.

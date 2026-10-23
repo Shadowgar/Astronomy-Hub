@@ -1,0 +1,837 @@
+{
+  "status": "PASS",
+  "base": "http://172.26.23.204:4218",
+  "runs": [
+    {
+      "name": "before",
+      "state": {
+        "overviewScope": "inner",
+        "cameraView": "custom",
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 8.517500911194455e-7,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.6477535870794648,
+          0.031568255645376145,
+          -0.07726627065556312,
+          0.7572639296045833
+        ],
+        "epoch": "2026-10-23T01:05:00.123Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 15,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.8679713287680453,
+          0.4462311681899517,
+          0.1935529391064091
+        ],
+        "target": [
+          0.8679826855279342,
+          0.4464453061607563,
+          0.19351844019958775
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.004650467260962158,
+            "cameraDistance": 0.9949669458149172,
+            "inView": false,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 12.352364045642616,
+            "screen": [
+              2733.594217283189,
+              -558.0408403719268
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442348236,
+              -0.10736289623594229,
+              -0.09412889325871707
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.000016308387202198327,
+            "cameraDistance": 0.8077912102643906,
+            "inView": false,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.03737029235550082,
+            "screen": [
+              1625.1362155254565,
+              -534.408551585947
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.635354466501187,
+              0.3306108869583743,
+              0.10857108371709757
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00004045378434654418,
+            "cameraDistance": 0.2733140497456313,
+            "inView": false,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.43358395824707685,
+            "screen": [
+              2852.350455463737,
+              -970.6150281772425
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826855279342,
+              0.4464453061607563,
+              0.19351844019958775
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00004258750455597227,
+            "cameraDistance": 0.00021719627323542806,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 236.75662382143335,
+            "screen": [
+              687.8906249988015,
+              454
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.169072282413181,
+              1.4302037208484393,
+              0.6605611910935444
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.0000226574080509289,
+            "cameraDistance": 1.5039142739202718,
+            "inView": false,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.032502589319491904,
+            "screen": [
+              -936.845835922057,
+              -156.87221508127172
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6160962335326166,
+              3.5464075338064305,
+              1.6081098923836026
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 5.631955857006414,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.21724892608684598,
+            "screen": [
+              -1508.681235715985,
+              -57.953265484354866
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490058753776,
+              1.8905275193172344,
+              0.3834344073133826
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 8.486478678244014,
+            "inView": false,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.565743798359648,
+            "screen": [
+              5877.8515436394855,
+              -647.6860405812297
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857504496502,
+              15.896303010613353,
+              6.836825763347399
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 18.617094321958053,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.014025915060029703,
+            "screen": [
+              1146.9232459883247,
+              -352.93710526024955
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833715596070462,
+              1.6153635646722828,
+              -0.08153613909600249
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 28.99063444494124,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.07330821546730704,
+            "screen": [
+              13018.180730447204,
+              -1483.197586201862
+            ]
+          }
+        ],
+        "drawCalls": 10,
+        "geometries": 22,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 12,
+          "median": 0.900000000372529,
+          "p95": 29.59999999962747
+        },
+        "pixelRatio": 1
+      }
+    },
+    {
+      "name": "after",
+      "state": {
+        "overviewScope": "inner",
+        "cameraView": "custom",
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 8.517500911194455e-7,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.6477535870794648,
+          0.031568255645376145,
+          -0.07726627065556312,
+          0.7572639296045833
+        ],
+        "epoch": "2026-10-23T01:05:00.123Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 16,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.8679713287680453,
+          0.4462311681899517,
+          0.1935529391064091
+        ],
+        "target": [
+          0.8679826855279342,
+          0.4464453061607563,
+          0.19351844019958775
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.004650467260962158,
+            "cameraDistance": 0.9949669458149172,
+            "inView": false,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 12.35236404564251,
+            "screen": [
+              2240.703592283189,
+              -683.040840371927
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442348236,
+              -0.10736289623594229,
+              -0.09412889325871707
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.000016308387202198327,
+            "cameraDistance": 0.8077912102643906,
+            "inView": false,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.03737029235567402,
+            "screen": [
+              1132.2455905254565,
+              -659.4085515859471
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.635354466501187,
+              0.3306108869583743,
+              0.10857108371709757
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00004045378434654418,
+            "cameraDistance": 0.2733140497456313,
+            "inView": false,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.4335839582473966,
+            "screen": [
+              2359.459830463737,
+              -1095.6150281772425
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826855279342,
+              0.4464453061607563,
+              0.19351844019958775
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00004258750455597227,
+            "cameraDistance": 0.00021719627323542806,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 236.75662382143335,
+            "screen": [
+              194.99999999880154,
+              328.99999999999994
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.169072282413181,
+              1.4302037208484393,
+              0.6605611910935444
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.0000226574080509289,
+            "cameraDistance": 1.5039142739202718,
+            "inView": false,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.03250258931933203,
+            "screen": [
+              -1429.7364609220565,
+              -281.8722150812717
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6160962335326166,
+              3.5464075338064305,
+              1.6081098923836026
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 5.631955857006414,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.21724892608729895,
+            "screen": [
+              -2001.5718607159852,
+              -182.95326548435483
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490058753776,
+              1.8905275193172344,
+              0.3834344073133826
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 8.486478678244014,
+            "inView": false,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.5657437983595948,
+            "screen": [
+              5384.960918639485,
+              -772.6860405812297
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857504496502,
+              15.896303010613353,
+              6.836825763347399
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 18.617094321958053,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.014025915060043026,
+            "screen": [
+              654.0326209883245,
+              -477.9371052602495
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833715596070462,
+              1.6153635646722828,
+              -0.08153613909600249
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 28.99063444494124,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.07330821546943866,
+            "screen": [
+              12525.290105447202,
+              -1608.197586201862
+            ]
+          }
+        ],
+        "drawCalls": 10,
+        "geometries": 22,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 13,
+          "median": 0.900000000372529,
+          "p95": 29.59999999962747
+        },
+        "pixelRatio": 1
+      }
+    },
+    {
+      "name": "zoom",
+      "state": {
+        "overviewScope": "inner",
+        "cameraView": "custom",
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 8.517500911194455e-7,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.6477535870794684,
+          0.03156825564533581,
+          -0.0772662706556091,
+          0.7572639296045776
+        ],
+        "epoch": "2026-10-23T01:05:00.123Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 17,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.867963379036123,
+          0.44608127161038846,
+          0.19357708834118406
+        ],
+        "target": [
+          0.8679826855279342,
+          0.4464453061607563,
+          0.19351844019958775
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.004650467260962158,
+            "cameraDistance": 0.9948974908803401,
+            "inView": false,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 12.35649667962556,
+            "screen": [
+              2241.388007359606,
+              -683.379430973173
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442348236,
+              -0.10736289623594229,
+              -0.09412889325871707
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.000016308387202198327,
+            "cameraDistance": 0.8076920421354119,
+            "inView": false,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.037381077982012734,
+            "screen": [
+              1132.51609366333,
+              -659.693821122081
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.635354466501187,
+              0.3306108869583743,
+              0.10857108371709757
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00004045378434654418,
+            "cameraDistance": 0.27325141672920894,
+            "inView": false,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.43416989650030047,
+            "screen": [
+              2362.3848460057507,
+              -1097.5402295787285
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826855279342,
+              0.4464453061607563,
+              0.19351844019958775
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00004258750455597227,
+            "cameraDistance": 0.00036923366450021864,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 139.2686022475621,
+            "screen": [
+              194.9999999996475,
+              328.99999999982373
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.169072282413181,
+              1.4302037208484393,
+              0.6605611910935444
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.0000226574080509289,
+            "cameraDistance": 1.503999371820122,
+            "inView": false,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.03249671949150823,
+            "screen": [
+              -1429.4430405143028,
+              -281.7618941898971
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6160962335326166,
+              3.5464075338064305,
+              1.6081098923836026
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 5.6320259760449165,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.21723621016482397,
+            "screen": [
+              -2001.443291906092,
+              -182.9233000534655
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490058753776,
+              1.8905275193172344,
+              0.3834344073133826
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 8.486511481542482,
+            "inView": false,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.565696824450832,
+            "screen": [
+              5384.529994325025,
+              -772.594567194685
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857504496502,
+              15.896303010613353,
+              6.836825763347399
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 18.617213511617233,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.014025768950751694,
+            "screen": [
+              654.0278392010129,
+              -477.92869931845325
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833715596070462,
+              1.6153635646722828,
+              -0.08153613909600249
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 28.990648662411964,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.07330410433912249,
+            "screen": [
+              12524.598622018959,
+              -1608.088948042186
+            ]
+          }
+        ],
+        "drawCalls": 10,
+        "geometries": 22,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 14,
+          "median": 0.900000000372529,
+          "p95": 29.59999999962747
+        },
+        "pixelRatio": 1
+      }
+    }
+  ]
+}

@@ -17,7 +17,11 @@ try{
    const responsePromise=page.waitForResponse(r=>r.url().includes('/api/v1/solar-system?'));responsePromise.catch(()=>{})
    await page.goto(base+'/solar-system?date='+epoch);const raw=await(await responsePromise).json()
    await page.waitForFunction(()=>document.querySelector('[data-solar-status]')?.getAttribute('data-solar-status')==='ready');await settle()
-   let d=await diag();await shot('all')
+   let d=await diag();await shot('cinematic-default')
+   assert.equal(d.sizeMode,'cinematic');assert.equal(d.overviewScope,'inner');assert.equal(d.effectsVisible,true);assert.equal(d.quality,'efficient');assert.equal(d.belt.visible,false)
+   assert.ok(d.bodies.filter(b=>['sun','mercury','venus','earth','mars'].includes(b.id)&&b.screenRadius>=3).length>=3,'Cinematic system resolves multiple real-position globes');assert.ok(d.bodies.find(b=>b.id==='sun').screenRadius>=8,'Default Sun is resolved');assert.ok(d.bodies.some(b=>b.displayFactor>1));assert.ok(await page.locator('.solar-scale-note').innerText().then(t=>t.includes('Sizes enlarged independently')))
+   record('cinematic default, readable disks and persistent enlargement disclosure',d)
+   await page.getByRole('button',{name:'Science, scale & sources',exact:true}).click();await page.getByRole('combobox',{name:'Body size display',exact:true}).selectOption('physical');await page.getByRole('button',{name:'Show cinematic effects',exact:true}).click();await page.getByRole('button',{name:'Close panel',exact:true}).click();await page.getByRole('button',{name:'All planets',exact:true}).click();await settle();d=await diag();assert.equal(d.sizeMode,'physical');assert.ok(d.bodies.every(b=>b.displayFactor===1));await shot('all')
    for(const body of raw.bodies){const rendered=d.bodies.find(b=>b.id===body.source_id);assert.ok(Math.abs((rendered.radiusAu??rendered.glyphRadius)-body.shape.mean_radius_km/raw.km_per_au)<1e-14,'Physical radius must match API: '+body.source_id);assert.deepEqual(rendered.position,body.position_au);assert.ok(Math.abs(rendered.geometryRadiusAu/(body.shape.mean_radius_km/raw.km_per_au)-1)<1e-5,'Actual mesh geometry uses physical radius')}
    assert.ok(d.bodies.every(b=>Number.isFinite(b.cameraDistance)&&typeof b.inView==='boolean'));assert.equal(d.overviewScope,'full');assert.ok(d.bodies.every(b=>b.inView),'All preset includes every source anchor in the real camera frustum');assert.equal(d.bodies.length,9);assert.ok(d.bodies.every(b=>b.visible));assert.equal(d.effectsVisible,false);assert.equal(d.belt.visible,false);record('default real scale, all bodies/source vectors, illustrative effects off',d)
    for(const label of ['All planets','Inner planets','Outer planets']){const b=page.getByRole('button',{name:label,exact:true});const box=await b.boundingBox();assert.ok(box?.height>=44);assert.ok(box.width>=44);await b.focus();assert.equal(await b.evaluate(el=>el===document.activeElement),true)}
@@ -53,7 +57,7 @@ try{
    }
    await page.getByRole('button',{name:'View selected body',exact:true}).click();await settle();record('explicit selected-body camera approach')
    await page.getByRole('button',{name:'Zoom Solar view out',exact:true}).click();assert.equal((await diag()).cameraView,'custom');await page.getByRole('button',{name:'Recenter view',exact:true}).click();await settle();assert.equal((await diag()).cameraView,'body');record('Recenter restores selected camera')
-   await page.getByRole('button',{name:'All planets',exact:true}).click();await settle();await page.reload();await settle();assert.equal((await diag()).overviewScope,'full');assert.equal(Date.parse((await diag()).epoch),Date.parse(epoch));record('reload/time contract')
+   await page.getByRole('button',{name:'All planets',exact:true}).click();await settle();await page.reload();await settle();assert.equal((await diag()).overviewScope,'inner');assert.equal((await diag()).sizeMode,'cinematic');assert.equal(Date.parse((await diag()).epoch),Date.parse(epoch));record('reload/time contract')
    run.status='PASS';console.log('PASS',width,height,epoch,run.checks.length)
   }finally{await context.close()}
  }
