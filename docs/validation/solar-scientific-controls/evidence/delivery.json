@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "head": "6180cc96a5bf7ca5111dfe11cab404117ab6147b",
+  "note": "Head identifies commit available at capture; sourceHashes identify the actual candidate. Postcommit receipt recorded separately.",
+  "sourceHashes": {
+    "frontend/src/features/solar/solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+    "frontend/src/features/solar/SolarScene.ts": "70c7e373463b1cf58f771fa6ebea47aa956e8302c0de622569cf816214c61fef",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "ad23b5be1c06117beb5859c8b8b0f87825a82e7a1c38b91a505ebf5ee1b09b0d",
+    "frontend/src/features/solar/solarPresentation.ts": "ce56c3083458ec9d580e6a3c2d27d64c21e086dadaa52554887d2840b3527d44",
+    "frontend/src/features/solar/solar.css": "d0cc7f4258582b7a06bcc561076c6cdaf9418624a7e60818dc80b902e93e4bf8"
+  },
+  "hubArtifact": "285dd868da82852c82f735554336d38cadb23667a822e1b637f3b959b93279cc",
+  "hubFiles": 136,
+  "identicalBuilds": 3,
+  "servedBytesMatched": [
+    "127.0.0.1:4217",
+    "172.26.23.204:4218"
+  ],
+  "earthArtifact": "43e822e52ffe01bc7591579e329ce0fb5aed5a521ffb9cd47808173f8beb03d3",
+  "skyArtifact": "b1dbd0f039ccf4ed4c0a669baf5bd7288b1ea07c9db98e199c04949431a644fb",
+  "protectedPathsUnchanged": [
+    "backend/app",
+    "packages",
+    "runtimes",
+    "integrations",
+    "frontend/public",
+    "frontend/src/features/solar/assets",
+    "docs/design/cinematic-references-2026-10-21"
+  ],
+  "ownerVisualAcceptance": "PENDING"
+}

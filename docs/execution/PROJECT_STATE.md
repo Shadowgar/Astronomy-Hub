@@ -1,5 +1,21 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## Owner-approved scientific Solar controls — 2026-10-22
+
+The owner rejects misleading globe enlargement and hidden-body view toggles, and
+explicitly approves true physical mean radii at the same AU scale as source positions.
+All/Inner/Outer are camera framing presets only: every supported body remains in the
+scene, and zooming out from Inner reveals the outer planets without a visibility switch.
+Unresolved bodies use labeled symbolic position points; selecting a body moves the
+camera to a close-up instead of enlarging its globe. Recenter, zoom and orbit are
+separate, with an explicit camera state. Optical/decorative effects and statistical
+belt are optional, off by default, and do not represent measured observations.
+This supersedes earlier enlarged-glyph presentation guidance while preserving the
+approved cinematic visual family, real ephemeris vectors/time/identity, mean-radius
+provenance, original imagery/UVs, illustrative orientation disclosures and all native
+Earth/Sky/accepted navigation. Existing draft PR88 continues; no merge, deployment,
+paid provider or R4. [Current implementation and evidence](../validation/solar-scientific-controls/README.md).
+
 ## Final cinematic visual acceptance correction pass — 2026-10-22
 
 The owner directs bounded corrections on existing draft PR88 from verified

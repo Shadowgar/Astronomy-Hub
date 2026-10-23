@@ -1,3 +1,4 @@
+import {radii} from './fixtures/solarRadii'
 import {describe,it,expect} from 'vitest'
 import * as presentation from '../src/features/solar/solarPresentation'
 import * as T from 'three'
@@ -7,16 +8,16 @@ describe('Cinematic presentation stays separate from source geometry',()=>{
   const before=JSON.stringify(bodies)
   expect(typeof presentation.overviewPose).toBe('function')
   for(const aspect of[1.6,.433,2.3]){
-   const pose=presentation.overviewPose(bodies,aspect)
+   const pose=presentation.overviewPose(radii,bodies,aspect)
    const camera=new T.PerspectiveCamera(42,aspect,.001,200);camera.up.fromArray(presentation.overviewUp?.(aspect)||[0,0,1]);camera.position.fromArray(pose.position);camera.lookAt(new T.Vector3(...pose.target));camera.updateMatrixWorld()
    for(const b of bodies){const v=new T.Vector3(...b.position_au).project(camera);expect(Math.abs(v.x)).toBeLessThan(.88);expect(Math.abs(v.y)).toBeLessThan(.78)}
    if(aspect<.75){const earth=new T.Vector3(...bodies[1].position_au).project(camera),mars=new T.Vector3(...bodies[2].position_au).project(camera);expect(Math.abs(earth.y-mars.y)).toBeGreaterThan(Math.abs(earth.x-mars.x)*aspect)}
   }
   expect(JSON.stringify(bodies)).toBe(before)
  })
- it('keeps a focused camera outside each enlarged glyph and uses illumination direction from its real Sun vector',()=>{
+ it('keeps a focused camera outside each physical globe and uses illumination direction from its real Sun vector',()=>{
   expect(typeof presentation.focusPose).toBe('function')
-  for(const id of['sun','earth','mars']as const){const p:[number,number,number]=id==='sun'?[0,0,0]:[1,.2,.1];const pose=presentation.focusPose(id,p,1.6,true);expect(pose.target).toEqual(p);expect(Math.hypot(...pose.position.map((v:number,i:number)=>v-p[i]))).toBeGreaterThan(presentation.glyphRadius[id]*2)}
+  for(const id of['sun','earth','mars']as const){const p:[number,number,number]=id==='sun'?[0,0,0]:[1,.2,.1];const pose=presentation.focusPose(radii,id,p,1.6,true);expect(pose.target).toEqual(p);expect(Math.hypot(...pose.position.map((v:number,i:number)=>v-p[i]))).toBeGreaterThan(radii[id]*2)}
  })
  it('creates bounded repeatable illustrative spatial points, never source-backed identities',()=>{
   expect(typeof presentation.decorativeStars).toBe('function')
