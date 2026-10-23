@@ -26,3 +26,8 @@
 .solar-quality input[type=range]{width:100%;min-height:44px}.solar-quality input[type=checkbox]{width:20px;height:20px;vertical-align:middle}
 @media(max-width:767px){.solar-bodies{left:14px;right:76px;top:88px;max-height:none;flex-direction:row;max-width:calc(100% - 90px);padding:5px;gap:2px}.solar-bodies button{flex-shrink:0;min-width:52px;min-height:64px}.solar-view-tools{left:14px;right:auto;top:175px}}
 @media(max-height:560px){.solar-bodies{left:14px;right:auto;top:85px;width:156px;max-height:70px;flex-direction:row}.solar-bodies button{flex-shrink:0;min-width:52px}.solar-view-tools{left:14px;top:168px}}
+/* A side card leaves readable details and a clear scene strip on short screens. */
+@media(min-width:480px) and (max-width:767px) and (max-height:560px){.solar-context{left:auto;right:14px;top:86px;bottom:100px;width:210px;max-width:calc(100% - 260px);max-height:none;padding:12px 14px}.solar-context[data-expanded=false]{padding:12px 14px}.solar-time-bar{right:auto;bottom:12px;width:calc(100% - 300px)}}
+@media(min-width:480px) and (max-width:767px) and (max-height:560px){.solar-time-bar>button{gap:5px;padding:6px}.solar-time-bar time{white-space:nowrap}}
+@media(min-width:480px) and (max-width:559px) and (max-height:560px){.solar-time-bar>button{gap:0;padding:4px;min-width:0}.solar-time-bar>button>svg{display:none}}
+@media(max-width:479px) and (max-height:800px){.solar-context{max-height:max(90px,calc(100% - 440px))}.solar-view-tools{flex-direction:row;padding:4px}}

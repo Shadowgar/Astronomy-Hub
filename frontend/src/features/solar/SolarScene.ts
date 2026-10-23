@@ -2,7 +2,7 @@ import * as T from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import type {SolarSnapshot,BodyId,Vector} from './solarContracts'
-import {glyphRadius,overviewPose,overviewUp,focusPose,decorativeStars,focusViewport,qualityBudget,type SolarQuality,type CameraPose} from './solarPresentation'
+import {glyphRadius,visualRadius,overviewPose,overviewUp,focusPose,decorativeStars,clearViewport,qualityBudget,type SolarQuality,type CameraPose,type ScreenRect} from './solarPresentation'
 import {sunMaterial,coronaMaterial,atmosphereMaterial,starsMaterial,earthMaterial,cloudsMaterial,backgroundMaterial,planetMaterial,ringMaterial} from './solarMaterials'
 
 import {aggregateBelt} from './solarBelt'
@@ -26,7 +26,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  const controls=new OrbitControls(camera,renderer.domElement)
  controls.enableDamping=false;controls.minDistance=.15;controls.maxDistance=180;controls.enablePan=false
  const light=new T.PointLight('#fff5ed',2.8,0,0);scene.add(light);scene.add(new T.AmbientLight('#bac6e0',.045))
- const resources=new Set<{dispose:()=>void}>(),objects:{id:BodyId;mesh:any;label:HTMLButtonElement}[]=[],paths:any[]=[],effects:any[]=[]
+ const resources=new Set<{dispose:()=>void}>(),objects:{id:BodyId;mesh:any;label:HTMLButtonElement;extras:any[]}[]=[],paths:any[]=[],effects:any[]=[]
  const keep=<A extends {dispose:()=>void}>(r:A):A=>{resources.add(r);return r}
  let overviewScope:'inner'|'full'='inner'
  const overviewAnchors=()=>overviewScope==='full'?snapshot.bodies:snapshot.bodies.filter(b=>Math.hypot(...b.position_au)<2.2)
@@ -41,7 +41,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   // Static presentation orientation. Never claimed as a measured body-fixed frame.
   mesh.rotation.x=Math.PI/2;mesh.rotation.y=body.source_id==='earth'?-.7:.35
   const label=document.createElement('button');label.className='solar-body-label';label.textContent=body.name;label.setAttribute('aria-label',`Select ${body.name} in 3D view`);label.onclick=()=>onPick(body.source_id);host.append(label)
-  objects.push({id:body.source_id,mesh,label})
+  const object={id:body.source_id,mesh,label,extras:[] as any[]};objects.push(object)
   if(body.source_id==='earth'){
    const texture=keep(new T.TextureLoader().load(earthUrl,(t:any)=>{if(disposed){t.dispose();return}t.colorSpace=T.SRGBColorSpace;t.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());material.uniforms.map.value=t;material.uniforms.hasMap.value=true;texturesReady++;draw()},undefined,()=>textureFailure('Earth')))
    texture.colorSpace=T.SRGBColorSpace
@@ -65,7 +65,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
    },undefined,()=>textureFailure('Mars'))
   }
   if(body.source_id==='saturn'){
-   const ring=new T.Mesh(keep(new T.RingGeometry(1.2,2.27,128)),keep(ringMaterial()));ring.scale.setScalar(radius);ring.position.copy(mesh.position);ring.rotation.x=.48;scene.add(ring)
+   const ring=new T.Mesh(keep(new T.RingGeometry(1.2,2.27,128)),keep(ringMaterial()));ring.scale.setScalar(radius);ring.position.copy(mesh.position);ring.rotation.x=.48;scene.add(ring);object.extras.push(ring)
   }
   if(body.source_id==='earth'||body.source_id==='mars'){
    const atmosphere=new T.Mesh(keep(new T.SphereGeometry(radius*(body.source_id==='earth'?1.018:1.01),48,32)),keep(atmosphereMaterial(body.source_id==='earth'?'#5cafff':'#ef9c68',body.source_id==='earth')))
@@ -85,44 +85,56 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  const backdrop=new T.Mesh(keep(new T.SphereGeometry(110,96,64)),keep(backgroundMaterial()));backdrop.renderOrder=-3;scene.add(backdrop)
  const marker=document.createElement('div');marker.className='solar-selection';marker.setAttribute('aria-hidden','true');marker.hidden=true;host.append(marker)
  const field=new T.Points(starGeometry,keep(starsMaterial(pixelRatio)));field.renderOrder=-2;scene.add(field);effects.push(field)
+ function hudRects(){const bounds=host.getBoundingClientRect();return [...host.closest('.solar-shell')!.querySelectorAll('.solar-header,.solar-bodies,.solar-view-tools,.solar-context,.solar-camera,.solar-time-bar,.solar-caption')].map(e=>{const r=e.getBoundingClientRect();return{left:r.left-bounds.left,right:r.right-bounds.left,top:r.top-bounds.top,bottom:r.bottom-bounds.top}}).filter(r=>r.right>r.left&&r.bottom>r.top)}
+ const viewport=()=>clearViewport(host.clientWidth,host.clientHeight,hudRects())
+ const overlaps=(a:ScreenRect,b:ScreenRect)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top
  function draw(){
   if(disposed)return
+  for(const o of objects){const visible=overviewScope==='full'||o.id===selected||o.mesh.position.length()<2.2;o.mesh.visible=visible;for(const extra of o.extras)extra.visible=visible}
   const start=performance.now();renderCount++;corona.quaternion.copy(camera.quaternion);gpu.begin();renderer.render(scene,camera);gpu.end()
   frameTimes.push(performance.now()-start);if(frameTimes.length>180)frameTimes.shift()
   const rect=host.getBoundingClientRect()
   marker.hidden=true
-  for(const o of objects){
-   const v=o.mesh.position.clone().project(camera),r=glyphRadius[o.id],edge=o.mesh.position.clone().add(new T.Vector3(r,0,0).applyQuaternion(camera.quaternion)).project(camera)
+  const projected=objects.map(o=>{const v=o.mesh.position.clone().project(camera),edge=o.mesh.position.clone().add(new T.Vector3(visualRadius(o.id),0,0).applyQuaternion(camera.quaternion)).project(camera);return{o,v,x:(v.x+1)*rect.width/2,y:(1-v.y)*rect.height/2,radius:Math.abs(edge.x-v.x)*rect.width/2}})
+  const occupied:ScreenRect[]=hudRects().map(r=>({left:r.left-6,right:r.right+6,top:r.top-6,bottom:r.bottom+6}))
+  for(const {o,v,x,y,radius} of projected){
+   const r=glyphRadius[o.id],edge=o.mesh.position.clone().add(new T.Vector3(r,0,0).applyQuaternion(camera.quaternion)).project(camera)
    const pixelRadius=Math.abs(edge.x-v.x)*rect.width/2
    if(o.id===selected&&v.z>-1&&v.z<1){const size=pixelRadius*2+22;marker.hidden=false;Object.assign(marker.style,{left:`${(v.x+1)*rect.width/2-size/2}px`,top:`${(1-v.y)*rect.height/2-size/2}px`,width:`${size}px`,height:`${size}px`})}
-   const visible=v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88
-   o.label.hidden=!visible;o.label.style.left=`${Math.min(rect.width-o.label.offsetWidth-10,Math.max(10,(v.x+1)*rect.width/2+pixelRadius+12))}px`;o.label.style.top=`${(1-v.y)*rect.height/2}px`;o.label.style.setProperty('--body-color',colors[o.id]);o.label.setAttribute('aria-pressed',String(o.id===selected))
+   const visible=o.mesh.visible&&v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88
+   o.label.hidden=!visible;if(!visible)continue
+   const w=o.label.offsetWidth,h=o.label.offsetHeight,candidates=[[x+radius+12,y-h/2],[x-radius-w-12,y-h/2],[x-w/2,y-radius-h-12],[x-w/2,y+radius+12]]
+   const bodies=projected.filter(p=>p.o.mesh.visible&&p.v.z>-1&&p.v.z<1).map(p=>({left:p.x-p.radius-4,right:p.x+p.radius+4,top:p.y-p.radius-4,bottom:p.y+p.radius+4}))
+   const spot=candidates.find(([left,top])=>{const box={left,top,right:left+w,bottom:top+h};return left>=10&&top>=10&&box.right<=rect.width-10&&box.bottom<=rect.height-10&&![...occupied,...bodies].some(r=>overlaps(box,r))})
+   o.label.hidden=!spot;if(spot){const[left,top]=spot;o.label.style.left=`${left}px`;o.label.style.top=`${top+h/2}px`;occupied.push({left,top,right:left+w,bottom:top+h})}o.label.style.setProperty('--body-color',colors[o.id]);o.label.setAttribute('aria-pressed',String(o.id===selected))
   }
   // Keep another body's screen label from intercepting the selected globe.
   // All bodies remain selectable through the persistent body controls.
   if(!marker.hidden){const selectedRect=marker.getBoundingClientRect();for(const o of objects){if(o.id===selected||o.label.hidden)continue;const labelRect=o.label.getBoundingClientRect();if(labelRect.left<selectedRect.right&&labelRect.right>selectedRect.left&&labelRect.top<selectedRect.bottom&&labelRect.bottom>selectedRect.top)o.label.hidden=true}}
  }
  function updateControls(){updatingControls=true;controls.update();updatingControls=false}
- function projection(){const {width,height}=host.getBoundingClientRect();if(selected){const v=focusViewport(width,height);camera.setViewOffset(width,height,v.offsetX,v.offsetY,width,height)}else camera.clearViewOffset();camera.updateProjectionMatrix()}
+ function projection(){const {width,height}=host.getBoundingClientRect();const v=viewport();camera.setViewOffset(width,height,v.offsetX,v.offsetY,width,height);camera.updateProjectionMatrix()}
  function cancelFlight(){flight=null;cancelAnimationFrame(raf);raf=0}
  function tick(now:number){if(disposed)return;raf=0;if(flight){const u=Math.min(1,Math.max(0,(now-flight.start)/900)),ease=u*u*(3-2*u);camera.position.fromArray(flight.from).lerp(new T.Vector3(...flight.pose.position),ease);controls.target.fromArray(flight.targetFrom).lerp(new T.Vector3(...flight.pose.target),ease);updateControls();if(u===1)flight=null;else raf=requestAnimationFrame(tick)}draw()}
  function move(pose:CameraPose,immediate=false){cancelFlight();if(reduced||immediate){camera.position.fromArray(pose.position);controls.target.fromArray(pose.target);updateControls();draw()}else{flight={start:performance.now(),from:camera.position.toArray(),targetFrom:controls.target.toArray(),pose};raf=requestAnimationFrame(tick)}}
- function focus(id:BodyId|null,close=false){if(disposed)return;selected=id;closeView=close;projection();controls.minDistance=id?glyphRadius[id]*1.65:.15;const p=snapshot.bodies.find(b=>b.source_id===id)?.position_au;move(id&&p?focusPose(id,p,camera.aspect,close,host.clientHeight):overviewPose(overviewAnchors(),camera.aspect))}
+ function focus(id:BodyId|null,close=false){if(disposed)return;selected=id;closeView=close;projection();controls.minDistance=id?glyphRadius[id]*1.65:.15;const p=snapshot.bodies.find(b=>b.source_id===id)?.position_au;move(id&&p?focusPose(id,p,camera.aspect,close,host.clientHeight,viewport()):overviewPose(overviewAnchors(),camera.aspect,host.clientHeight,viewport()))}
  const change=()=>{if(!updatingControls)draw()},start=()=>cancelFlight();controls.addEventListener('change',change);controls.addEventListener('start',start)
- let initialSize=true,lastAspect=0,lastFramingLimit=Infinity
  const resize=new ResizeObserver(()=>{const{width,height}=host.getBoundingClientRect();if(!width||!height)return
-  const aspect=width/height,changedOrientation=(lastAspect<.75)!==(aspect<.75),framingLimit=focusViewport(width,height).maxGlobeRadius
-  const compactResize=selected!==null&&(Number.isFinite(framingLimit)||Number.isFinite(lastFramingLimit))
+  const aspect=width/height
   camera.aspect=aspect;camera.up.fromArray(overviewUp(aspect));projection();renderer.setSize(width,height)
-  if(initialSize||changedOrientation||compactResize){const p=snapshot.bodies.find(b=>b.source_id===selected)?.position_au;move(selected&&p?focusPose(selected,p,aspect,closeView,height):overviewPose(overviewAnchors(),aspect),true)}else draw()
-  initialSize=false;lastAspect=aspect;lastFramingLimit=framingLimit
+  const p=snapshot.bodies.find(b=>b.source_id===selected)?.position_au,pose=selected&&p?focusPose(selected,p,aspect,closeView,height,viewport()):overviewPose(overviewAnchors(),aspect,height,viewport())
+  // HUD insertion/reflow may change the fit during an approach. Preserve its
+  // original clock and interpolation; only replace the destination camera pose.
+  if(flight){flight.pose=pose;draw()}else move(pose,true)
  });resize.observe(host)
+ const watchHud=()=>{for(const e of host.closest('.solar-shell')!.querySelectorAll('.solar-header,.solar-bodies,.solar-view-tools,.solar-context,.solar-camera,.solar-time-bar'))resize.observe(e)};watchHud()
+ const layout=new MutationObserver(()=>watchHud());layout.observe(host.closest('.solar-shell')!,{childList:true,subtree:true})
  const down=(e:PointerEvent)=>{if(e.isPrimary)press={x:e.clientX,y:e.clientY,id:e.pointerId};else press=null}
- const up=(e:PointerEvent)=>{if(!press||press.id!==e.pointerId||Math.hypot(e.clientX-press.x,e.clientY-press.y)>5){press=null;return}press=null;const r=renderer.domElement.getBoundingClientRect();pointer.set(2*(e.clientX-r.left)/r.width-1,1-2*(e.clientY-r.top)/r.height);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(objects.map(o=>o.mesh))[0],found=objects.find(o=>o.mesh===hit?.object);if(found)onPick(found.id)}
+ const up=(e:PointerEvent)=>{if(!press||press.id!==e.pointerId||Math.hypot(e.clientX-press.x,e.clientY-press.y)>5){press=null;return}press=null;const r=renderer.domElement.getBoundingClientRect();pointer.set(2*(e.clientX-r.left)/r.width-1,1-2*(e.clientY-r.top)/r.height);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(objects.filter(o=>o.mesh.visible).map(o=>o.mesh))[0],found=objects.find(o=>o.mesh===hit?.object);if(found)onPick(found.id)}
  const cancel=()=>{press=null}
  renderer.domElement.addEventListener('pointerdown',down);renderer.domElement.addEventListener('pointerup',up);renderer.domElement.addEventListener('pointercancel',cancel)
  const contextLost=(e:Event)=>{e.preventDefault();cancelFlight();host.dispatchEvent(new CustomEvent('solar-render-error'))};renderer.domElement.addEventListener('webglcontextlost',contextLost)
- const rect=host.getBoundingClientRect();camera.aspect=rect.width/Math.max(1,rect.height);camera.up.fromArray(overviewUp(camera.aspect));camera.updateProjectionMatrix();renderer.setSize(rect.width,rect.height);move(overviewPose(overviewAnchors(),camera.aspect),true)
+ const rect=host.getBoundingClientRect();camera.aspect=rect.width/Math.max(1,rect.height);camera.up.fromArray(overviewUp(camera.aspect));camera.updateProjectionMatrix();renderer.setSize(rect.width,rect.height);projection();move(overviewPose(overviewAnchors(),camera.aspect,host.clientHeight,viewport()),true)
  return{
   focus,
   zoom(factor){if(disposed)return;cancelFlight();const delta=camera.position.clone().sub(controls.target),distance=Math.max(controls.minDistance,Math.min(controls.maxDistance,delta.length()*factor));camera.position.copy(controls.target).add(delta.setLength(distance));updateControls();draw()},
@@ -132,7 +144,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   setOrbits(visible){orbitsVisible=visible;for(const p of paths)p.visible=visible;draw()},
   setEffects(visible){effectsVisible=visible;for(const e of effects)e.visible=visible;backdrop.visible=visible&&budget.background;draw()},
   setQuality(value){if(disposed)return;gpu.reset();frameTimes.length=0;quality=value;budget=qualityBudget(quality,devicePixelRatio);pixelRatio=budget.pixelRatio;renderer.setPixelRatio(pixelRatio);field.material.uniforms.pixelRatio.value=pixelRatio;starGeometry.setDrawRange(0,budget.starCount);beltGeometry.setDrawRange(0,Math.min(beltDensity,quality==='efficient'?1000:quality==='balanced'?3000:6000));backdrop.visible=effectsVisible&&budget.background;draw()},
-  diagnostics(){const r=renderer.domElement.getBoundingClientRect(),sorted=[...frameTimes].sort((a,b)=>a-b);return{overviewScope,epoch:snapshot.epoch,frame:snapshot.frame,origin:snapshot.origin,units:snapshot.units,selected,renderCount,disposed,animating:!!flight,camera:camera.position.toArray(),target:controls.target.toArray(),bodies:objects.map(o=>{const p=o.mesh.position.clone().project(camera);return{id:o.id,position:o.mesh.position.toArray(),glyphRadius:glyphRadius[o.id],screen:[r.left+(p.x+1)*r.width/2,r.top+(1-p.y)*r.height/2]}}),drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,texturesReady,cloudsReady,quality,backgroundVisible:backdrop.visible,gpuMs:gpu.read(),orbitsVisible,effectsVisible,belt:{visible:beltVisible,requestedDensity:beltDensity,drawCount:beltGeometry.drawRange.count,model:'illustrative aggregate; no identities or precise asteroid ephemerides'},starfield:'illustrative',starCount:budget.starCount,renderCpuMs:{samples:sorted.length,median:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)]},pixelRatio}},
-  dispose(){if(disposed)return;disposed=true;cancelFlight();resize.disconnect();controls.removeEventListener('change',change);controls.removeEventListener('start',start);controls.dispose();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',cancel);renderer.domElement.removeEventListener('webglcontextlost',contextLost);marker.remove();gpu.dispose();for(const o of objects)o.label.remove();for(const r of resources)r.dispose();resources.clear();scene.clear();renderer.dispose();renderer.forceContextLoss();renderer.domElement.remove()}
+  diagnostics(){const r=renderer.domElement.getBoundingClientRect(),sorted=[...frameTimes].sort((a,b)=>a-b);return{overviewScope,epoch:snapshot.epoch,frame:snapshot.frame,origin:snapshot.origin,units:snapshot.units,selected,renderCount,disposed,animating:!!flight,camera:camera.position.toArray(),target:controls.target.toArray(),bodies:objects.map(o=>{const p=o.mesh.position.clone().project(camera),edge=o.mesh.position.clone().add(new T.Vector3(visualRadius(o.id),0,0).applyQuaternion(camera.quaternion)).project(camera);return{id:o.id,position:o.mesh.position.toArray(),glyphRadius:glyphRadius[o.id],visible:o.mesh.visible,screenRadius:Math.abs(edge.x-p.x)*r.width/2,screen:[r.left+(p.x+1)*r.width/2,r.top+(1-p.y)*r.height/2]}}),drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,texturesReady,cloudsReady,quality,backgroundVisible:backdrop.visible,gpuMs:gpu.read(),orbitsVisible,effectsVisible,belt:{visible:beltVisible,requestedDensity:beltDensity,drawCount:beltGeometry.drawRange.count,model:'illustrative aggregate; no identities or precise asteroid ephemerides'},starfield:'illustrative',starCount:budget.starCount,renderCpuMs:{samples:sorted.length,median:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)]},pixelRatio}},
+  dispose(){if(disposed)return;disposed=true;cancelFlight();resize.disconnect();layout.disconnect();controls.removeEventListener('change',change);controls.removeEventListener('start',start);controls.dispose();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',cancel);renderer.domElement.removeEventListener('webglcontextlost',contextLost);marker.remove();gpu.dispose();for(const o of objects)o.label.remove();for(const r of resources)r.dispose();resources.clear();scene.clear();renderer.dispose();renderer.forceContextLoss();renderer.domElement.remove()}
  }
 }

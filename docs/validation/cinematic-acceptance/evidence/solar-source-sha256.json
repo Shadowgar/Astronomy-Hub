@@ -1,0 +1,10 @@
+{
+  "frontend/src/features/solar/SolarScene.ts": "3a73482cb19d0b38c048769932fcca8fb92b6de2448f42cdead3c84d525d47fc",
+  "frontend/src/features/solar/SolarWorkspace.tsx": "ec8ccd8b7b8a4bc5ce346741695244220682b18ccf7b184e74dcf2c9105cc50e",
+  "frontend/src/features/solar/solar.css": "fa14d82311e8251ff371226ff4b50cd487883fcb0790060c624488609432eaff",
+  "frontend/src/features/solar/solarPresentation.ts": "ca0fb1b8a8166adfbb7e19689ab7b7cc02a6cb14a3c261ede7a25d9380629ad7",
+  "frontend/tests/solarAcceptance.test.ts": "b71fcbeed09f00c91ae32e760ed1769fb9cc79df0ebbc529425bafdd18bc48db",
+  "scripts/validation/verify_solar_acceptance.mjs": "a368535b3af4a2fa414e92411974069db49bfa17b72445e6b4e91d700972adc6",
+  "scripts/validation/verify_solar_approach_motion.mjs": "ff91917901b3bb93c922e3731d8aac5a12ba65e82b5097f0085f1f95eb4aec5b",
+  "scripts/validation/measure_solar_acceptance_performance.mjs": "9589b72848604f60acb314d74bac78f99a9f65c1f0017488df7d0d820744e084"
+}

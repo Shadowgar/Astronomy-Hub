@@ -1,0 +1,1374 @@
+{
+  "status": "OWNER_VISUAL_REVIEW_PENDING",
+  "groups": 32,
+  "assets": [
+    {
+      "file": "images/solar-solar-primary-cinematic-045227411f.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-primary-cinematic.png",
+      "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+      "bytes": 2260404,
+      "width": 1672,
+      "height": 941,
+      "mode": "solar",
+      "label": "Exact owner-approved original reference",
+      "role": "reference"
+    },
+    {
+      "file": "images/adaptive-solar-adaptive-explorer-c9a5bfdf05.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-adaptive-explorer.png",
+      "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7",
+      "bytes": 2047493,
+      "width": 1672,
+      "height": 941,
+      "mode": "adaptive",
+      "label": "Exact owner-approved original reference",
+      "role": "reference"
+    },
+    {
+      "file": "images/earth-earth-cinematic-83601f7680.png",
+      "source": "docs/design/cinematic-references-2026-10-21/earth-cinematic.png",
+      "sha256": "83601f768035502c1b7fbc9265866135ba40c838b0c6b598127d506112f812b1",
+      "bytes": 2658442,
+      "width": 1672,
+      "height": 941,
+      "mode": "earth",
+      "label": "Exact owner-approved original reference",
+      "role": "reference"
+    },
+    {
+      "file": "images/sky-sky-cinematic-e932e4a7cf.png",
+      "source": "docs/design/cinematic-references-2026-10-21/sky-cinematic.png",
+      "sha256": "e932e4a7cf59cf92d810e4dffbcbb5873d0fee8b51997d3f3ae162c84c7a7c91",
+      "bytes": 2092968,
+      "width": 1672,
+      "height": 941,
+      "mode": "sky",
+      "label": "Exact owner-approved original reference",
+      "role": "reference"
+    },
+    {
+      "file": "images/solar-1440x900-inner-c3724bf5e8.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/1440x900-inner.png",
+      "sha256": "c3724bf5e81db33ca6a0c89931495941c861f22ba1674343c0229a485b73ff44",
+      "bytes": 440493,
+      "width": 1440,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 1440\u00d7900 inner; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-1440x900-full-998cd60468.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/1440x900-full.png",
+      "sha256": "998cd60468def400fb4a9dfa2e10e84c090bf2a65688b3b580d6b41ed6113b22",
+      "bytes": 433561,
+      "width": 1440,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 1440\u00d7900 full; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-1440x900-earth-collapsed-02baee28b3.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/1440x900-earth-collapsed.png",
+      "sha256": "02baee28b30aae5851a698b22c0539362203b7c915b2176e0509434e9fb343a3",
+      "bytes": 589846,
+      "width": 1440,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 1440\u00d7900 earth-collapsed; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-1440x900-mars-expanded-3907824f92.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/1440x900-mars-expanded.png",
+      "sha256": "3907824f924c36f25385ada34799b189690f736c13d9c880a16a8333538002b4",
+      "bytes": 584962,
+      "width": 1440,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 1440\u00d7900 mars-expanded; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-1440x900-saturn-expanded-ec13492d39.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/1440x900-saturn-expanded.png",
+      "sha256": "ec13492d3965292b68ed8acbcaec6c90298a377d93dda2f99d4532db6d263515",
+      "bytes": 661158,
+      "width": 1440,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 1440\u00d7900 saturn-expanded; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-390x900-inner-26cdc115fa.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/390x900-inner.png",
+      "sha256": "26cdc115fa08945c5297d535af8d89b628569f4b80ecda51bd31a5129c4201dd",
+      "bytes": 172397,
+      "width": 390,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 390\u00d7900 inner; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-390x900-full-a5c7faf012.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/390x900-full.png",
+      "sha256": "a5c7faf012657e130e3357d15c5838798d3a45e087635fbba5ad5b268e173144",
+      "bytes": 173884,
+      "width": 390,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 390\u00d7900 full; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-390x900-earth-collapsed-bb8dbf96d2.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/390x900-earth-collapsed.png",
+      "sha256": "bb8dbf96d28140486929904f7cb6dde7b68e8b2785572471946cbaefdf740d6b",
+      "bytes": 241466,
+      "width": 390,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 390\u00d7900 earth-collapsed; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-390x900-mars-expanded-0f8b61c7a5.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/390x900-mars-expanded.png",
+      "sha256": "0f8b61c7a512ab974fab75e974f7dbfb7f949813186c4eb766dc1537c0db491c",
+      "bytes": 201036,
+      "width": 390,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 390\u00d7900 mars-expanded; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-390x900-saturn-expanded-466dc2bdc7.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/390x900-saturn-expanded.png",
+      "sha256": "466dc2bdc79c20e6c77bf3ecb2cd71636a6367699f6e42efb626b5ed3ec56acf",
+      "bytes": 223344,
+      "width": 390,
+      "height": 900,
+      "mode": "solar",
+      "label": "Solar 390\u00d7900 saturn-expanded; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-320x568-full-987c827e1b.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/320x568-full.png",
+      "sha256": "987c827e1bab2b701364a02043e91d9b133e7a145f0edd104a9d543de2edbca1",
+      "bytes": 121240,
+      "width": 320,
+      "height": 568,
+      "mode": "solar",
+      "label": "Solar 320\u00d7568 full; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        320,
+        568
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-540x390-mars-expanded-39b22595f4.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/540x390-mars-expanded.png",
+      "sha256": "39b22595f404b56d4df0268d69c964e23feea31d7c9e5a028190a3cd583ef7e1",
+      "bytes": 147994,
+      "width": 540,
+      "height": 390,
+      "mode": "solar",
+      "label": "Solar 540\u00d7390 mars-expanded; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        540,
+        390
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/solar-667x375-saturn-expanded-ad57188788.png",
+      "source": "output/cinematic-acceptance/solar/final-qualified/667x375-saturn-expanded.png",
+      "sha256": "ad5718878831bc01cdd6a272b12e897f1e2268bdc9d2b36097992349069daae9",
+      "bytes": 178575,
+      "width": 667,
+      "height": 375,
+      "mode": "solar",
+      "label": "Solar 667\u00d7375 saturn-expanded; final source qualification345/345",
+      "role": "actual",
+      "viewport": [
+        667,
+        375
+      ],
+      "evidence": "solar/final-qualified/proof.json"
+    },
+    {
+      "file": "images/earth-1440-global-b3f7169dca.png",
+      "source": "output/cinematic-acceptance/earth-desktop-final/1440-global.png",
+      "sha256": "b3f7169dcae9889382119b64f98105926eb87acfa009b2c6c78037e4903c8cd0",
+      "bytes": 1306589,
+      "width": 1440,
+      "height": 900,
+      "mode": "earth",
+      "label": "Earth 1440\u00d7900 global; nasa, partial; native height 15621863m",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "nasa",
+        "status": "partial",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "NASA \u00b7 Blue Marble",
+          "product": "Static Blue Marble composite",
+          "date": null,
+          "gsd": 500,
+          "coverage": "Global overview; not current photography",
+          "credit": "NASA GIBS \u00b7 Blue Marble",
+          "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+          "host": "gibs.earthdata.nasa.gov",
+          "cap": 8,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "partial",
+          "reason": "",
+          "loadingNote": "Detail is refining slowly; currently available imagery remains usable."
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 1,
+        "budget": {
+          "active": 0,
+          "requested": 54
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 0,
+        "metadataPending": false,
+        "view": {
+          "height": 15621863.000000002,
+          "rect": [
+            -180,
+            -90,
+            180,
+            90
+          ],
+          "point": [
+            -79.58539384256973,
+            40.988682668795235
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 7,
+            "loaded": 7,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 5,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "nativeProbe": false,
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-1440-selected-collapsed-fd273a15b6.png",
+      "source": "output/cinematic-acceptance/earth-desktop-final/1440-selected-collapsed.png",
+      "sha256": "fd273a15b648257e80ae42b087a53d494b78d792e00cc0cd34d7a98e86bd1499",
+      "bytes": 1710230,
+      "width": 1440,
+      "height": 900,
+      "mode": "earth",
+      "label": "Earth 1440\u00d7900 selected-collapsed; eox-2016, ready; native height 40000m",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 1,
+        "budget": {
+          "active": 0,
+          "requested": 150
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 0,
+        "metadataPending": false,
+        "view": {
+          "height": 39999.99999997852,
+          "rect": [
+            2.036212857765119,
+            48.726187914446186,
+            2.668187142585452,
+            48.986147627108394
+          ],
+          "point": [
+            2.352199999968702,
+            48.85659999787778
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 7,
+            "loaded": 7,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 5,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 50,
+            "loaded": 50,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 12,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "nativeProbe": false,
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-1440-selected-expanded-9e9c1995d7.png",
+      "source": "output/cinematic-acceptance/earth-desktop-final/1440-selected-expanded.png",
+      "sha256": "9e9c1995d739d852897d0747708c370b13540ef97ba4aa19030ffc0cb39df813",
+      "bytes": 1668974,
+      "width": 1440,
+      "height": 900,
+      "mode": "earth",
+      "label": "Earth 1440\u00d7900 selected-expanded; eox-2016, ready; native height 40000m",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 1,
+        "budget": {
+          "active": 0,
+          "requested": 150
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 0,
+        "metadataPending": false,
+        "view": {
+          "height": 39999.99999997852,
+          "rect": [
+            2.036212857765119,
+            48.726187914446186,
+            2.668187142585452,
+            48.986147627108394
+          ],
+          "point": [
+            2.352199999968702,
+            48.85659999787778
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 7,
+            "loaded": 7,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 5,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 50,
+            "loaded": 50,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 12,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "nativeProbe": false,
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-390-global-17cd0c9f7f.png",
+      "source": "output/cinematic-acceptance/earth-mobile/390-global.png",
+      "sha256": "17cd0c9f7f7bd46e994065b32a950b1584b7c89e590fc6a8ae7fd67a408fac0e",
+      "bytes": 1226459,
+      "width": 1170,
+      "height": 2700,
+      "mode": "earth",
+      "label": "Earth 390\u00d7900 global; nasa, ready; native height 9621863m",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "dpr": 3,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "nasa",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "NASA \u00b7 Blue Marble",
+          "product": "Static Blue Marble composite",
+          "date": null,
+          "gsd": 500,
+          "coverage": "Global overview; not current photography",
+          "credit": "NASA GIBS \u00b7 Blue Marble",
+          "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+          "host": "gibs.earthdata.nasa.gov",
+          "cap": 8,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 1,
+        "budget": {
+          "active": 0,
+          "requested": 53
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 0,
+        "metadataPending": false,
+        "view": {
+          "height": 9621863,
+          "rect": [
+            -180,
+            -90,
+            180,
+            90
+          ],
+          "point": [
+            -79.58539412175931,
+            41.14804989982117
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 7,
+            "loaded": 7,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 7,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "nativeProbe": false,
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-390-selected-collapsed-f13490c408.png",
+      "source": "output/cinematic-acceptance/earth-mobile/390-selected-collapsed.png",
+      "sha256": "f13490c408153b87810d19a9a43765cf5f7f1750931b3c3eb38fd4cc7d5b8146",
+      "bytes": 1105400,
+      "width": 1170,
+      "height": 2700,
+      "mode": "earth",
+      "label": "Earth 390\u00d7900 selected-collapsed; eox-2016, ready; native height 40000m",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "dpr": 3,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 1,
+        "budget": {
+          "active": 0,
+          "requested": 110
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 0,
+        "metadataPending": false,
+        "view": {
+          "height": 39999.99999997852,
+          "rect": [
+            2.215086703360374,
+            48.64858968143107,
+            2.489313297174811,
+            49.06444106189958
+          ],
+          "point": [
+            2.3521999999687018,
+            48.85659999787778
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 8,
+            "loaded": 8,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 7,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 30,
+            "loaded": 30,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 13,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "nativeProbe": false,
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-390-selected-expanded-214700f601.png",
+      "source": "output/cinematic-acceptance/earth-mobile/390-selected-expanded.png",
+      "sha256": "214700f60177cb3310db61dd5c60b2b1476bc340acfa903a921e85e1b016e598",
+      "bytes": 1019244,
+      "width": 1170,
+      "height": 2700,
+      "mode": "earth",
+      "label": "Earth 390\u00d7900 selected-expanded; eox-2016, ready; native height 40000m",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "dpr": 3,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 1,
+        "budget": {
+          "active": 0,
+          "requested": 110
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 0,
+        "metadataPending": false,
+        "view": {
+          "height": 39999.99999997852,
+          "rect": [
+            2.215086703360374,
+            48.64858968143107,
+            2.489313297174811,
+            49.06444106189958
+          ],
+          "point": [
+            2.3521999999687018,
+            48.85659999787778
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 8,
+            "loaded": 8,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 7,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 30,
+            "loaded": 30,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 13,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "nativeProbe": false,
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-1440-native-probe-regional-be63447ed4.png",
+      "source": "output/cinematic-acceptance/earth/1440-native-probe-regional.png",
+      "sha256": "be63447ed4472fd87900fb34022f7ae7cfc0a81f0877c6c3a6562de19835cc13",
+      "bytes": 1877494,
+      "width": 1440,
+      "height": 900,
+      "mode": "earth",
+      "label": "Native Cesium camera/LOD probe, no Hub chrome: 1440\u00d7900 regional; EOX ready, height 150000m",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "nativeProbe": true,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 0,
+        "budget": {
+          "active": 0,
+          "requested": 92
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 1,
+        "metadataPending": false,
+        "view": {
+          "height": 149999.99999986545,
+          "rect": [
+            -80.6333053693839,
+            40.82704491198705,
+            -78.5374826349515,
+            41.807083479595626
+          ],
+          "point": [
+            -79.58539400031627,
+            41.32179944127773
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 10,
+            "loaded": 10,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 8,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 82,
+            "loaded": 82,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 18,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-1440-native-probe-close-42bd4b95e5.png",
+      "source": "output/cinematic-acceptance/earth/1440-native-probe-close.png",
+      "sha256": "42bd4b95e5ab70dc5e30d489d59edc1fd82fec7dfd22e20ffe50e62197154b7a",
+      "bytes": 811829,
+      "width": 1440,
+      "height": 900,
+      "mode": "earth",
+      "label": "Native Cesium camera/LOD probe, no Hub chrome: 1440\u00d7900 close; EOX ready, height 2000m",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "nativeProbe": true,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 0,
+        "budget": {
+          "active": 0,
+          "requested": 124
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 1,
+        "metadataPending": false,
+        "view": {
+          "height": 2000.000000000434,
+          "rect": [
+            2.336461274575926,
+            48.85010883765929,
+            2.3679387254429094,
+            48.863088964783515
+          ],
+          "point": [
+            2.3521999999951513,
+            48.85659998124505
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 10,
+            "loaded": 10,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 8,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 114,
+            "loaded": 114,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 18,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-390-native-probe-regional-4b60946e0f.png",
+      "source": "output/cinematic-acceptance/earth-mobile/390-native-probe-regional.png",
+      "sha256": "4b60946e0f1c0f92836082fb4b5651a0d39c1f2f9bc1672ec4c3d5ec7b33a5f5",
+      "bytes": 1151142,
+      "width": 1170,
+      "height": 2700,
+      "mode": "earth",
+      "label": "Native Cesium camera/LOD probe, no Hub chrome: 390\u00d7900 regional; EOX ready, height 150000m",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "dpr": 3,
+      "nativeProbe": true,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 0,
+        "budget": {
+          "active": 0,
+          "requested": 34
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 1,
+        "metadataPending": false,
+        "view": {
+          "height": 149999.99999986545,
+          "rect": [
+            -80.04121169427859,
+            40.53736231761852,
+            -79.12957630702329,
+            42.10429404144789
+          ],
+          "point": [
+            -79.58539400031627,
+            41.3217994408493
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 4,
+            "loaded": 4,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 4,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 30,
+            "loaded": 30,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 18,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/earth-390-native-probe-close-7df472f699.png",
+      "source": "output/cinematic-acceptance/earth-mobile/390-native-probe-close.png",
+      "sha256": "7df472f69901797aa6d92b93bbf77839ba34c2313b36ae2a95c566747d3991dd",
+      "bytes": 728162,
+      "width": 1170,
+      "height": 2700,
+      "mode": "earth",
+      "label": "Native Cesium camera/LOD probe, no Hub chrome: 390\u00d7900 close; EOX ready, height 2000m",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "dpr": 3,
+      "nativeProbe": true,
+      "sourceStatus": {
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "ready",
+        "fallbackReason": "",
+        "metadata": {
+          "label": "EOX \u00b7 Global Satellite",
+          "product": "Sentinel-2 cloudless \u00b7 2016 mosaic",
+          "date": null,
+          "gsd": 10,
+          "coverage": "Web Mercator \u00b185.051\u00b0; capture dates vary",
+          "credit": "EOX::Maps \u00b7 Sentinel-2 cloudless 2016 \u00b7 CC BY 4.0",
+          "url": "https://maps.eox.at/",
+          "host": "tiles.maps.eox.at",
+          "cap": 14,
+          "coverageRasterName": null,
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "ready",
+          "reason": "",
+          "loadingNote": ""
+        },
+        "localAllocations": 1,
+        "controllersCreated": 1,
+        "managedLayers": 1,
+        "labelsLayers": 0,
+        "budget": {
+          "active": 0,
+          "requested": 66
+        },
+        "ionSessionRequests": 0,
+        "ionSessionLedgerAvailable": true,
+        "metadataRequests": 1,
+        "metadataPending": false,
+        "view": {
+          "height": 2000.000000000434,
+          "rect": [
+            2.345379429511697,
+            48.846215771016745,
+            2.359020570495953,
+            48.86698375689894
+          ],
+          "point": [
+            2.3521999999951513,
+            48.85659998124494
+          ],
+          "naipCovered": false,
+          "verifiedOras": false
+        },
+        "sources": {
+          "nasa": {
+            "requested": 4,
+            "loaded": 4,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 4,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          },
+          "eox-2016": {
+            "requested": 62,
+            "loaded": 62,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 18,
+            "paused": false,
+            "partial": false,
+            "preparing": false
+          }
+        }
+      },
+      "epoch": "2026-06-05T12:00:00Z"
+    },
+    {
+      "file": "images/sky-1440x900-historical-settled-72830ff359.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/1440x900-historical-settled.png",
+      "sha256": "72830ff3598e8e2efd0a26e3744631a75e282fdf41952bff1de36fb1c30cf0b1",
+      "bytes": 674768,
+      "width": 1440,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 1440\u00d7900 1440x900-historical-settled; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "epoch": "2026-02-28T00:00:00Z",
+      "darkness": {
+        "state": "nautical_twilight",
+        "sun_altitude_deg": -10.751397029267986,
+        "in_astronomical_darkness": false,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-1440x900-historical-selected-expanded-7b9887bb72.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/1440x900-historical-selected-expanded.png",
+      "sha256": "7b9887bb723e6aff474988750c2fbe9b34f866376478bbaf7b08e25f475b9c8d",
+      "bytes": 653213,
+      "width": 1440,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 1440\u00d7900 1440x900-historical-selected-expanded; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "epoch": "2026-02-28T00:00:00Z",
+      "darkness": {
+        "state": "nautical_twilight",
+        "sun_altitude_deg": -10.751397029267986,
+        "in_astronomical_darkness": false,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-1440x900-astronomical-night-settled-84c1c134b8.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/1440x900-astronomical-night-settled.png",
+      "sha256": "84c1c134b8c9123e0b5d5f6b902cbc5f56d50efda91c0b446b1990b3ab90bf54",
+      "bytes": 363686,
+      "width": 1440,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 1440\u00d7900 1440x900-astronomical-night-settled; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "epoch": "2026-08-13T04:00:00Z",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-1440x900-astronomical-night-selected-expanded-635117a4b6.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/1440x900-astronomical-night-selected-expanded.png",
+      "sha256": "635117a4b6b17e77a338bb95d91e1d41d8aecde4c09d5d29b9b4a8c21a32173a",
+      "bytes": 514837,
+      "width": 1440,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 1440\u00d7900 1440x900-astronomical-night-selected-expanded; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        1440,
+        900
+      ],
+      "epoch": "2026-08-13T04:00:00Z",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-390x900-historical-settled-0083436b87.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/390x900-historical-settled.png",
+      "sha256": "0083436b87b854ceec6667a251397fcdd2343ed54ba8804dde3e4f90e5a20afa",
+      "bytes": 281985,
+      "width": 390,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 390\u00d7900 390x900-historical-settled; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "epoch": "2026-02-28T00:00:00Z",
+      "darkness": {
+        "state": "nautical_twilight",
+        "sun_altitude_deg": -10.751397029267986,
+        "in_astronomical_darkness": false,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-390x900-historical-selected-expanded-40aeb41319.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/390x900-historical-selected-expanded.png",
+      "sha256": "40aeb41319f3f2f660aaba28900191c1130ef96892febbdffb6489a8bab1f477",
+      "bytes": 207829,
+      "width": 390,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 390\u00d7900 390x900-historical-selected-expanded; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "epoch": "2026-02-28T00:00:00Z",
+      "darkness": {
+        "state": "nautical_twilight",
+        "sun_altitude_deg": -10.751397029267986,
+        "in_astronomical_darkness": false,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-390x900-astronomical-night-settled-6cf5b6b8f2.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/390x900-astronomical-night-settled.png",
+      "sha256": "6cf5b6b8f26abe7bee8486c3b21191a716cd254e10f1739bf0eed89c5db791e2",
+      "bytes": 158320,
+      "width": 390,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 390\u00d7900 390x900-astronomical-night-settled; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "epoch": "2026-08-13T04:00:00Z",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-390x900-astronomical-night-selected-expanded-c3e85abbe4.png",
+      "source": "output/cinematic-acceptance/sky/green-scenes/390x900-astronomical-night-selected-expanded.png",
+      "sha256": "c3e85abbe45f0293a1c873f70b4aa4e917d1f8e728111998af7338f577820ca1",
+      "bytes": 171708,
+      "width": 390,
+      "height": 900,
+      "mode": "sky",
+      "label": "Sky 390\u00d7900 390x900-astronomical-night-selected-expanded; completed slice from FAILED enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        390,
+        900
+      ],
+      "epoch": "2026-08-13T04:00:00Z",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "FAILED"
+    },
+    {
+      "file": "images/sky-667x390-astronomical-night-selected-expanded-e2214b5660.png",
+      "source": "output/cinematic-acceptance/sky/green-short-scenes/667x390-astronomical-night-selected-expanded.png",
+      "sha256": "e2214b5660469fe4375d5908b0d57a43d9c135bd1347c111eb03b8daad181e32",
+      "bytes": 88214,
+      "width": 667,
+      "height": 390,
+      "mode": "sky",
+      "label": "Sky 667\u00d7390 667x390-astronomical-night-selected-expanded; completed slice from AUDIT_COMPLETE enclosing attempt",
+      "role": "actual",
+      "viewport": [
+        667,
+        390
+      ],
+      "epoch": "2026-08-13T04:00:00Z",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "sliceAssertions": "PASS",
+      "enclosingAttemptStatus": "AUDIT_COMPLETE"
+    }
+  ],
+  "source": "Actual integrated4217 Docker preview; original approved references",
+  "imageEditing": false
+}

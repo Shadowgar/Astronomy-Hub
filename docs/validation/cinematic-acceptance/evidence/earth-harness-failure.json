@@ -1,0 +1,968 @@
+{
+  "status": "FAIL",
+  "kind": "Actual integrated Docker application; real provider transport; diagnostic query only",
+  "base": "http://127.0.0.1:4216",
+  "runs": [
+    {
+      "width": 1440,
+      "cases": [],
+      "errors": [],
+      "requests": [
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/1/1/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "9932",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:52 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:52 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=0%2C-90%2C180%2C90&width=512&height=512&srs=EPSG%3A4326",
+          "status": 200,
+          "headers": {
+            "x-request-id": "-YvjQgcdAe4x8u0hCpHTCHkg0cutGcMUAJX9CjweyUu0ydSMYcyDwg==",
+            "x-content-type-options": "nosniff",
+            "expires": "Thu, 1 Jan 1970 00:00:00 GMT",
+            "x-cache": "Miss from cloudfront",
+            "x-amz-cf-id": "-YvjQgcdAe4x8u0hCpHTCHkg0cutGcMUAJX9CjweyUu0ydSMYcyDwg==",
+            "date": "Fri, 23 Oct 2026 00:15:52 GMT",
+            "content-type": "image/jpeg",
+            "x-frame-options": "SAMEORIGIN",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "cache-control": "max-age=0, no-store, no-cache, must-revalidate",
+            "pragma": "no-cache",
+            "via": "1.1 7c2520f39522c9e84e812f55c62b3840.cloudfront.net (CloudFront)",
+            "access-control-allow-origin": "*",
+            "x-xss-protection": "1; mode=block",
+            "x-amz-cf-pop": "PIT50-P2",
+            "server": "ServerTokens ProductOnly"
+          }
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-180%2C-90%2C0%2C90&width=512&height=512&srs=EPSG%3A4326",
+          "status": 200,
+          "headers": {
+            "x-request-id": "AH1O3c29NLi-qsGkHwQsjVszDeGmgLvHhn6Drqc2dZ-aTpWtr6rhrg==",
+            "x-content-type-options": "nosniff",
+            "expires": "Thu, 1 Jan 1970 00:00:00 GMT",
+            "x-cache": "Miss from cloudfront",
+            "x-amz-cf-id": "AH1O3c29NLi-qsGkHwQsjVszDeGmgLvHhn6Drqc2dZ-aTpWtr6rhrg==",
+            "date": "Fri, 23 Oct 2026 00:15:52 GMT",
+            "content-type": "image/jpeg",
+            "x-frame-options": "SAMEORIGIN",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "cache-control": "max-age=0, no-store, no-cache, must-revalidate",
+            "pragma": "no-cache",
+            "via": "1.1 7c2520f39522c9e84e812f55c62b3840.cloudfront.net (CloudFront)",
+            "access-control-allow-origin": "*",
+            "x-xss-protection": "1; mode=block",
+            "x-amz-cf-pop": "PIT50-P2",
+            "server": "ServerTokens ProductOnly"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/1/1/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "6596",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:52 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:52 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/1/0/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "18943",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:52 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:52 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/1/0/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "31391",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:52 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:52 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/0/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "11411",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/2/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "4933",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/3/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "116",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/1/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "21108",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/0/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "9014",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/1/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "11020",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/2/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "11204",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/3/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "116",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/0/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "4391",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/1/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "34878",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-180%2C0%2C-90%2C90&width=512&height=512&srs=EPSG%3A4326",
+          "status": 200,
+          "headers": {
+            "x-request-id": "kykU4nHQRPjWbShB62QEsMy8Oh1ejmBF9RyVsrVcxKC6WSUWIYjtvQ==",
+            "x-content-type-options": "nosniff",
+            "expires": "Thu, 1 Jan 1970 00:00:00 GMT",
+            "x-cache": "Miss from cloudfront",
+            "x-amz-cf-id": "kykU4nHQRPjWbShB62QEsMy8Oh1ejmBF9RyVsrVcxKC6WSUWIYjtvQ==",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "content-type": "image/jpeg",
+            "x-frame-options": "SAMEORIGIN",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "cache-control": "max-age=0, no-store, no-cache, must-revalidate",
+            "pragma": "no-cache",
+            "via": "1.1 7c2520f39522c9e84e812f55c62b3840.cloudfront.net (CloudFront)",
+            "access-control-allow-origin": "*",
+            "x-xss-protection": "1; mode=block",
+            "x-amz-cf-pop": "PIT50-P2",
+            "server": "ServerTokens ProductOnly"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/2/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "7960",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/3/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "17965",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/0/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "5181",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/1/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "7177",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:54 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-90%2C0%2C0%2C90&width=512&height=512&srs=EPSG%3A4326",
+          "status": 200,
+          "headers": {
+            "x-request-id": "T67L9ja046K8lWLWdmHX2QQ5xD6kTb0x8h5Wjb7RsuSXEyNHL96nww==",
+            "x-content-type-options": "nosniff",
+            "expires": "Thu, 1 Jan 1970 00:00:00 GMT",
+            "x-cache": "Miss from cloudfront",
+            "x-amz-cf-id": "T67L9ja046K8lWLWdmHX2QQ5xD6kTb0x8h5Wjb7RsuSXEyNHL96nww==",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "content-type": "image/jpeg",
+            "x-frame-options": "SAMEORIGIN",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "cache-control": "max-age=0, no-store, no-cache, must-revalidate",
+            "pragma": "no-cache",
+            "via": "1.1 7c2520f39522c9e84e812f55c62b3840.cloudfront.net (CloudFront)",
+            "access-control-allow-origin": "*",
+            "x-xss-protection": "1; mode=block",
+            "x-amz-cf-pop": "PIT50-P2",
+            "server": "ServerTokens ProductOnly"
+          }
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-180%2C-90%2C-90%2C0&width=512&height=512&srs=EPSG%3A4326",
+          "status": 200,
+          "headers": {
+            "x-request-id": "7MPVejk50cXfQFn9xNHIaxCgOAdnSf8xDcaX8e37no6yr6K1gAKipQ==",
+            "x-content-type-options": "nosniff",
+            "expires": "Thu, 1 Jan 1970 00:00:00 GMT",
+            "x-cache": "Miss from cloudfront",
+            "x-amz-cf-id": "7MPVejk50cXfQFn9xNHIaxCgOAdnSf8xDcaX8e37no6yr6K1gAKipQ==",
+            "date": "Fri, 23 Oct 2026 00:15:54 GMT",
+            "content-type": "image/jpeg",
+            "x-frame-options": "SAMEORIGIN",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "cache-control": "max-age=0, no-store, no-cache, must-revalidate",
+            "pragma": "no-cache",
+            "via": "1.1 7c2520f39522c9e84e812f55c62b3840.cloudfront.net (CloudFront)",
+            "access-control-allow-origin": "*",
+            "x-xss-protection": "1; mode=block",
+            "x-amz-cf-pop": "PIT50-P2",
+            "server": "ServerTokens ProductOnly"
+          }
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-90%2C-90%2C0%2C0&width=512&height=512&srs=EPSG%3A4326",
+          "status": 200,
+          "headers": {
+            "x-request-id": "-DLC_Qd4qjLQmyELFv5MvxJidVTLP72Pztr4v-EOTs9gMD0IyGYdHA==",
+            "x-content-type-options": "nosniff",
+            "expires": "Thu, 1 Jan 1970 00:00:00 GMT",
+            "x-cache": "Miss from cloudfront",
+            "x-amz-cf-id": "-DLC_Qd4qjLQmyELFv5MvxJidVTLP72Pztr4v-EOTs9gMD0IyGYdHA==",
+            "date": "Fri, 23 Oct 2026 00:15:55 GMT",
+            "content-type": "image/jpeg",
+            "x-frame-options": "SAMEORIGIN",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "cache-control": "max-age=0, no-store, no-cache, must-revalidate",
+            "pragma": "no-cache",
+            "via": "1.1 7c2520f39522c9e84e812f55c62b3840.cloudfront.net (CloudFront)",
+            "access-control-allow-origin": "*",
+            "x-xss-protection": "1; mode=block",
+            "x-amz-cf-pop": "PIT50-P2",
+            "server": "ServerTokens ProductOnly"
+          }
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=90%2C0%2C180%2C90&width=512&height=512&srs=EPSG%3A4326",
+          "status": 200,
+          "headers": {
+            "x-request-id": "STh-ftwcYC9-lriOOV8JeE5vMKCBTeZPQQSuAi3cvVJnw8qDq5JOmQ==",
+            "x-content-type-options": "nosniff",
+            "expires": "Thu, 1 Jan 1970 00:00:00 GMT",
+            "x-cache": "Miss from cloudfront",
+            "x-amz-cf-id": "STh-ftwcYC9-lriOOV8JeE5vMKCBTeZPQQSuAi3cvVJnw8qDq5JOmQ==",
+            "date": "Fri, 23 Oct 2026 00:15:55 GMT",
+            "content-type": "image/jpeg",
+            "x-frame-options": "SAMEORIGIN",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "cache-control": "max-age=0, no-store, no-cache, must-revalidate",
+            "pragma": "no-cache",
+            "via": "1.1 7c2520f39522c9e84e812f55c62b3840.cloudfront.net (CloudFront)",
+            "access-control-allow-origin": "*",
+            "x-xss-protection": "1; mode=block",
+            "x-amz-cf-pop": "PIT50-P2",
+            "server": "ServerTokens ProductOnly"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/2/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "4377",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:55 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:55 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/3/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "8391",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:56 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:56 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/0/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "1885",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:56 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:56 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/1/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "3396",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:56 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:56 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/2/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "10247",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/0/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "3932",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/1/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "4566",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/3/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "14093",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/5/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "6403",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/0/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "116",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/4/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "1085",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/1/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "4586",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/2/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "10473",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/4/2.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "13998",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:57 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:57 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/5/1.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "116",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:58 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:58 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/3/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "2459",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:58 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:58 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/5/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "706",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:58 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:58 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/4/0.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "9098",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:58 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:58 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/4/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "3218",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:59 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:59 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/5/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "1965",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:59 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:59 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/0/6.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "2500",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:59 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:59 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/1/6.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "6520",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:15:59 GMT",
+            "expires": "Fri, 30 Oct 2026 00:15:59 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/3/7.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "8480",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:16:01 GMT",
+            "expires": "Fri, 30 Oct 2026 00:16:01 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/2/6.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "7425",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:16:01 GMT",
+            "expires": "Fri, 30 Oct 2026 00:16:01 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/2/7.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "12676",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:16:01 GMT",
+            "expires": "Fri, 30 Oct 2026 00:16:01 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/1/7.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "7997",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:16:01 GMT",
+            "expires": "Fri, 30 Oct 2026 00:16:01 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/0/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "7178",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:16:01 GMT",
+            "expires": "Fri, 30 Oct 2026 00:16:01 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/3/0/7.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "116",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:16:01 GMT",
+            "expires": "Fri, 30 Oct 2026 00:16:01 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        },
+        {
+          "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/2/1/3.png",
+          "status": 200,
+          "headers": {
+            "access-control-allow-credentials": "true",
+            "access-control-allow-origin": "http://127.0.0.1:4216",
+            "cache-control": "max-age=604800",
+            "content-length": "22944",
+            "content-type": "image/png",
+            "date": "Fri, 23 Oct 2026 00:16:01 GMT",
+            "expires": "Fri, 30 Oct 2026 00:16:01 GMT",
+            "last-modified": "Fri, 02 Jul 2021 08:15:32 GMT",
+            "server": "Apache/2.4.59 (Debian)",
+            "strict-transport-security": "max-age=16000000; includeSubDomains; preload;",
+            "vary": "Origin"
+          }
+        }
+      ]
+    }
+  ],
+  "error": "frame.waitForFunction: Timeout 12000ms exceeded.\n    at /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/output/cinematic-acceptance/earth-inspect.mjs:12:231"
+}

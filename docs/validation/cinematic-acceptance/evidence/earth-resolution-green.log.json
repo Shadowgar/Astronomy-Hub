@@ -1,0 +1,5 @@
+{
+  "format": "Lossless UTF-8 command stdout/stderr; original terminal whitespace retained by JSON escaping",
+  "original_sha256": "67a2129abb65f42f4251da78e8eb5a92a0d622dbddf7373ba015b139324b54ed",
+  "stdout": "TAP version 13\n# Subtest: Earth DPR1 keeps sharp bounded framebuffer and unchanged camera/lighting\nok 1 - Earth DPR1 keeps sharp bounded framebuffer and unchanged camera/lighting\n  ---\n  duration_ms: 1.936773\n  type: 'test'\n  ...\n# Subtest: Earth DPR2 keeps sharp bounded framebuffer and unchanged camera/lighting\nok 2 - Earth DPR2 keeps sharp bounded framebuffer and unchanged camera/lighting\n  ---\n  duration_ms: 1.746686\n  type: 'test'\n  ...\n# Subtest: Earth DPR3 keeps sharp bounded framebuffer and unchanged camera/lighting\nok 3 - Earth DPR3 keeps sharp bounded framebuffer and unchanged camera/lighting\n  ---\n  duration_ms: 0.755737\n  type: 'test'\n  ...\n1..3\n# tests 3\n# suites 0\n# pass 3\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 11.485664\n"
+}

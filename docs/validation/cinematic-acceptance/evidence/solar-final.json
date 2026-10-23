@@ -1,0 +1,3333 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "checks": [
+        {
+          "ok": true,
+          "message": "Date and UTC text remain inside time-bar glass",
+          "details": {
+            "text": {
+              "x": 84,
+              "y": 839,
+              "width": 150.890625,
+              "height": 14,
+              "top": 839,
+              "right": 234.890625,
+              "bottom": 853,
+              "left": 84
+            },
+            "bar": {
+              "x": 28,
+              "y": 818,
+              "width": 363.890625,
+              "height": 56,
+              "top": 818,
+              "right": 391.890625,
+              "bottom": 874,
+              "left": 28
+            }
+          }
+        },
+        {
+          "ok": true,
+          "message": "Inner labels clear HUD and body visual envelopes",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Inner visible body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Full system keeps all nine visual envelopes inside canvas",
+          "details": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 7.435459930989475,
+              "screen": [
+                702.7826287896035,
+                774.4280193664284
+              ],
+              "inFront": true,
+              "radius": 7.435459930989475
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 2.6114367156438667,
+              "screen": [
+                691.9155838865686,
+                772.7735650168673
+              ],
+              "inFront": true,
+              "radius": 2.6114367156438667
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 7.662673049073501,
+              "screen": [
+                711.748822652563,
+                757.9441139680903
+              ],
+              "inFront": true,
+              "radius": 7.662673049073501
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 8.717777462634054,
+              "screen": [
+                675.112365682116,
+                787.2822225373665
+              ],
+              "inFront": true,
+              "radius": 8.717777462634054
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 6.389363704523317,
+              "screen": [
+                747.1959266441052,
+                771.3657045180202
+              ],
+              "inFront": true,
+              "radius": 6.389363704523317
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": true,
+              "screenRadius": 24.399273929934026,
+              "screen": [
+                521.19676156227,
+                720.239276794444
+              ],
+              "inFront": true,
+              "radius": 24.399273929934026
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": true,
+              "screenRadius": 36.36027741098402,
+              "screen": [
+                823.1302280612208,
+                607.5883828032852
+              ],
+              "inFront": true,
+              "radius": 36.36027741098402
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": true,
+              "screenRadius": 9.697024521992294,
+              "screen": [
+                464.5915698988101,
+                373.244970024642
+              ],
+              "inFront": true,
+              "radius": 9.697024521992294
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": true,
+              "screenRadius": 7.4959679579591665,
+              "screen": [
+                995.8717829632632,
+                405.4901358020678
+              ],
+              "inFront": true,
+              "radius": 7.4959679579591665
+            }
+          ]
+        },
+        {
+          "ok": true,
+          "message": "Full system body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Sun collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929854,
+              "right": 943.9909988207014,
+              "top": 217.24337617929848,
+              "bottom": 690.7566238207014
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929854,
+              "right": 943.9909988207014,
+              "top": 217.24337617929848,
+              "bottom": 690.7566238207014
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mercury collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929837,
+              "right": 943.9909988207014,
+              "top": 217.24337617929888,
+              "bottom": 690.7566238207019
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929837,
+              "right": 943.9909988207014,
+              "top": 217.24337617929888,
+              "bottom": 690.7566238207019
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Venus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511792985,
+              "right": 943.9909988207013,
+              "top": 217.2433761792987,
+              "bottom": 690.7566238207015
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511792985,
+              "right": 943.9909988207013,
+              "top": 217.2433761792987,
+              "bottom": 690.7566238207015
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Earth collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929837,
+              "right": 943.9909988207016,
+              "top": 217.24337617929874,
+              "bottom": 690.7566238207021
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929837,
+              "right": 943.9909988207016,
+              "top": 217.24337617929874,
+              "bottom": 690.7566238207021
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mars collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511792986,
+              "right": 943.9909988207012,
+              "top": 217.2433761792985,
+              "bottom": 690.7566238207012
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511792986,
+              "right": 943.9909988207012,
+              "top": 217.2433761792985,
+              "bottom": 690.7566238207012
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929837,
+              "right": 943.9909988207016,
+              "top": 217.2433761792985,
+              "bottom": 690.7566238207017
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.47775117929837,
+              "right": 943.9909988207016,
+              "top": 217.2433761792985,
+              "bottom": 690.7566238207017
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Saturn collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 434.4901281803673,
+              "right": 979.9786218196316,
+              "top": 181.25575318036783,
+              "bottom": 726.744246819632
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 434.4901281803673,
+              "right": 979.9786218196316,
+              "top": 181.25575318036783,
+              "bottom": 726.744246819632
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Uranus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511792992,
+              "right": 943.9909988207007,
+              "top": 217.24337617930036,
+              "bottom": 690.7566238207019
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511792992,
+              "right": 943.9909988207007,
+              "top": 217.24337617930036,
+              "bottom": 690.7566238207019
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Neptune collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511793021,
+              "right": 943.9909988207024,
+              "top": 217.24337617929982,
+              "bottom": 690.7566238207002
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 470.4777511793021,
+              "right": 943.9909988207024,
+              "top": 217.24337617929982,
+              "bottom": 690.7566238207002
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "No fatal browser or shader errors",
+          "details": {
+            "page": [],
+            "console": [
+              {
+                "type": "warning",
+                "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+              },
+              {
+                "type": "warning",
+                "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+              },
+              {
+                "type": "warning",
+                "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+              },
+              {
+                "type": "warning",
+                "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+              }
+            ]
+          }
+        }
+      ],
+      "errors": [],
+      "console": [
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x15f40012b600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        }
+      ],
+      "networkFailures": [],
+      "screens": [
+        "1440x900-inner.png",
+        "1440x900-full.png",
+        "1440x900-earth-collapsed.png",
+        "1440x900-earth-expanded.png",
+        "1440x900-mars-collapsed.png",
+        "1440x900-mars-expanded.png",
+        "1440x900-saturn-collapsed.png",
+        "1440x900-saturn-expanded.png"
+      ],
+      "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        {
+          "ok": true,
+          "message": "Date and UTC text remain inside time-bar glass",
+          "details": {
+            "text": {
+              "x": 118.265625,
+              "y": 834.5,
+              "width": 68.46875,
+              "height": 40,
+              "top": 834.5,
+              "right": 186.734375,
+              "bottom": 874.5,
+              "left": 118.265625
+            },
+            "bar": {
+              "x": 14,
+              "y": 826,
+              "width": 362,
+              "height": 54,
+              "top": 826,
+              "right": 376,
+              "bottom": 880,
+              "left": 14
+            }
+          }
+        },
+        {
+          "ok": true,
+          "message": "Inner labels clear HUD and body visual envelopes",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Inner visible body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Full system keeps all nine visual envelopes inside canvas",
+          "details": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 3.7327374656955676,
+              "screen": [
+                320.936731036758,
+                662.1055231801473
+              ],
+              "inFront": true,
+              "radius": 3.7327374656955676
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 1.3087288801165537,
+              "screen": [
+                316.73417171414815,
+                665.7359916436014
+              ],
+              "inFront": true,
+              "radius": 1.3087288801165537
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 3.882602947283127,
+              "screen": [
+                318.2761842746194,
+                654.335960406625
+              ],
+              "inFront": true,
+              "radius": 3.882602947283127
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 4.334330079948413,
+              "screen": [
+                316.37137062967156,
+                675.9354053893428
+              ],
+              "inFront": true,
+              "radius": 4.334330079948413
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 3.236478489614272,
+              "screen": [
+                334.59674853344563,
+                644.2552595936214
+              ],
+              "inFront": true,
+              "radius": 3.236478489614272
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": true,
+              "screenRadius": 12.19009428087802,
+              "screen": [
+                243.44712131253362,
+                716.8708174648123
+              ],
+              "inFront": true,
+              "radius": 12.19009428087802
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": true,
+              "screenRadius": 20.195983333234828,
+              "screen": [
+                301.86502782614264,
+                563.2068713914258
+              ],
+              "inFront": true,
+              "radius": 20.195983333234828
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": true,
+              "screenRadius": 5.642046375579585,
+              "screen": [
+                71.51180093768139,
+                645.002626914615
+              ],
+              "inFront": true,
+              "radius": 5.642046375579585
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": true,
+              "screenRadius": 4.770107111653019,
+              "screen": [
+                282.8546542887525,
+                397.770107111653
+              ],
+              "inFront": true,
+              "radius": 4.770107111653019
+            }
+          ]
+        },
+        {
+          "ok": true,
+          "message": "Full system body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Sun collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.7465318906162,
+              "right": 280.2534681093837,
+              "top": 320.7465318906162,
+              "bottom": 549.2534681093837
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765507,
+              "right": 286.30837220234514,
+              "top": 223.69162779765503,
+              "bottom": 400.3083722023451
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mercury collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.74653189061645,
+              "right": 280.2534681093838,
+              "top": 320.7465318906163,
+              "bottom": 549.2534681093837
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765506,
+              "right": 286.308372202345,
+              "top": 223.69162779765503,
+              "bottom": 400.30837220234497
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Venus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.746531890616126,
+              "right": 280.25346810938356,
+              "top": 320.74653189061627,
+              "bottom": 549.2534681093837
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765507,
+              "right": 286.3083722023451,
+              "top": 223.69162779765486,
+              "bottom": 400.3083722023449
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Earth collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.74653189061662,
+              "right": 280.253468109384,
+              "top": 320.74653189061627,
+              "bottom": 549.2534681093837
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765536,
+              "right": 286.3083722023453,
+              "top": 223.69162779765503,
+              "bottom": 400.30837220234497
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mars collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.746531890616,
+              "right": 280.2534681093835,
+              "top": 320.74653189061604,
+              "bottom": 549.2534681093836
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765507,
+              "right": 286.3083722023451,
+              "top": 223.6916277976552,
+              "bottom": 400.30837220234525
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.746531890616325,
+              "right": 280.25346810938356,
+              "top": 320.74653189061627,
+              "bottom": 549.2534681093834
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.6916277976548,
+              "right": 286.30837220234486,
+              "top": 223.69162779765486,
+              "bottom": 400.3083722023449
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Saturn collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.74653189061604,
+              "right": 280.25346810938345,
+              "top": 320.7465318906161,
+              "bottom": 549.2534681093834
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765477,
+              "right": 286.3083722023448,
+              "top": 223.69162779765477,
+              "bottom": 400.3083722023448
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Uranus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.74653189061628,
+              "right": 280.2534681093838,
+              "top": 320.74653189061627,
+              "bottom": 549.2534681093838
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765495,
+              "right": 286.308372202345,
+              "top": 223.69162779765534,
+              "bottom": 400.3083722023455
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Neptune collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 51.74653189061664,
+              "right": 280.25346810938413,
+              "top": 320.74653189061854,
+              "bottom": 549.253468109386
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 109.69162779765509,
+              "right": 286.3083722023453,
+              "top": 223.6916277976566,
+              "bottom": 400.30837220234685
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "No fatal browser or shader errors",
+          "details": {
+            "page": [],
+            "console": []
+          }
+        }
+      ],
+      "errors": [],
+      "console": [],
+      "networkFailures": [],
+      "screens": [
+        "390x900-inner.png",
+        "390x900-full.png",
+        "390x900-earth-collapsed.png",
+        "390x900-earth-expanded.png",
+        "390x900-mars-collapsed.png",
+        "390x900-mars-expanded.png",
+        "390x900-saturn-collapsed.png",
+        "390x900-saturn-expanded.png"
+      ],
+      "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 540,
+      "height": 390,
+      "checks": [
+        {
+          "ok": true,
+          "message": "Date and UTC text remain inside time-bar glass",
+          "details": {
+            "text": {
+              "x": 57.265625,
+              "y": 332.5,
+              "width": 68.46875,
+              "height": 40,
+              "top": 332.5,
+              "right": 125.734375,
+              "bottom": 372.5,
+              "left": 57.265625
+            },
+            "bar": {
+              "x": 14,
+              "y": 324,
+              "width": 240,
+              "height": 54,
+              "top": 324,
+              "right": 254,
+              "bottom": 378,
+              "left": 14
+            }
+          }
+        },
+        {
+          "ok": true,
+          "message": "Inner labels clear HUD and body visual envelopes",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Inner visible body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Full system keeps all nine visual envelopes inside canvas",
+          "details": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 2.1279095196174556,
+              "screen": [
+                373.72598154950134,
+                296.7013660338895
+              ],
+              "inFront": true,
+              "radius": 2.1279095196174556
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 0.7464722164500287,
+              "screen": [
+                370.62116443899396,
+                296.1205729008626
+              ],
+              "inFront": true,
+              "radius": 0.7464722164500287
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 2.2068098755626813,
+              "screen": [
+                376.3001373800741,
+                292.5343196856128
+              ],
+              "inFront": true,
+              "radius": 2.2068098755626813
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 2.4784512141647337,
+              "screen": [
+                365.867760351012,
+                299.7516419922095
+              ],
+              "inFront": true,
+              "radius": 2.4784512141647337
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 1.839735954738918,
+              "screen": [
+                386.50642016430663,
+                296.38141517746186
+              ],
+              "inFront": true,
+              "radius": 1.839735954738918
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": true,
+              "screenRadius": 6.959793148628848,
+              "screen": [
+                321.9335312555065,
+                280.9436653668851
+              ],
+              "inFront": true,
+              "radius": 6.959793148628848
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": true,
+              "screenRadius": 11.13609768866623,
+              "screen": [
+                410.49553615372514,
+                252.03966406551572
+              ],
+              "inFront": true,
+              "radius": 11.13609768866623
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": true,
+              "screenRadius": 3.0615125846503544,
+              "screen": [
+                298.3936142259513,
+                179.5042884048953
+              ],
+              "inFront": true,
+              "radius": 3.0615125846503544
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": true,
+              "screenRadius": 2.5059682162788954,
+              "screen": [
+                471.49403178372097,
+                188.78272445429167
+              ],
+              "inFront": true,
+              "radius": 2.5059682162788954
+            }
+          ]
+        },
+        {
+          "ok": true,
+          "message": "Full system body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Sun collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268223,
+              "right": 282.49115645731774,
+              "top": 188.50884354268223,
+              "bottom": 290.49115645731774
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268223,
+              "right": 282.49115645731774,
+              "top": 188.50884354268223,
+              "bottom": 290.49115645731774
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mercury collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268229,
+              "right": 282.49115645731774,
+              "top": 188.50884354268234,
+              "bottom": 290.49115645731774
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268229,
+              "right": 282.49115645731774,
+              "top": 188.50884354268234,
+              "bottom": 290.49115645731774
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Venus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268211,
+              "right": 282.49115645731763,
+              "top": 188.50884354268243,
+              "bottom": 290.49115645731797
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268211,
+              "right": 282.49115645731763,
+              "top": 188.50884354268243,
+              "bottom": 290.49115645731797
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Earth collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.5088435426822,
+              "right": 282.4911564573178,
+              "top": 188.5088435426824,
+              "bottom": 290.49115645731797
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.5088435426822,
+              "right": 282.4911564573178,
+              "top": 188.5088435426824,
+              "bottom": 290.49115645731797
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mars collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268214,
+              "right": 282.4911564573177,
+              "top": 188.50884354268237,
+              "bottom": 290.4911564573179
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268214,
+              "right": 282.4911564573177,
+              "top": 188.50884354268237,
+              "bottom": 290.4911564573179
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268217,
+              "right": 282.49115645731774,
+              "top": 188.50884354268234,
+              "bottom": 290.4911564573179
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268217,
+              "right": 282.49115645731774,
+              "top": 188.50884354268234,
+              "bottom": 290.4911564573179
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Saturn collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268217,
+              "right": 282.4911564573177,
+              "top": 188.50884354268214,
+              "bottom": 290.4911564573177
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268217,
+              "right": 282.4911564573177,
+              "top": 188.50884354268214,
+              "bottom": 290.4911564573177
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Uranus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268157,
+              "right": 282.4911564573174,
+              "top": 188.50884354268237,
+              "bottom": 290.4911564573182
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.50884354268157,
+              "right": 282.4911564573174,
+              "top": 188.50884354268237,
+              "bottom": 290.4911564573182
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Neptune collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.5088435426825,
+              "right": 282.49115645731746,
+              "top": 188.50884354268254,
+              "bottom": 290.4911564573175
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 180.5088435426825,
+              "right": 282.49115645731746,
+              "top": 188.50884354268254,
+              "bottom": 290.4911564573175
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "No fatal browser or shader errors",
+          "details": {
+            "page": [],
+            "console": []
+          }
+        }
+      ],
+      "errors": [],
+      "console": [],
+      "networkFailures": [],
+      "screens": [
+        "540x390-inner.png",
+        "540x390-full.png",
+        "540x390-earth-collapsed.png",
+        "540x390-earth-expanded.png",
+        "540x390-mars-collapsed.png",
+        "540x390-mars-expanded.png",
+        "540x390-saturn-collapsed.png",
+        "540x390-saturn-expanded.png"
+      ],
+      "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 667,
+      "height": 375,
+      "checks": [
+        {
+          "ok": true,
+          "message": "Date and UTC text remain inside time-bar glass",
+          "details": {
+            "text": {
+              "x": 102.265625,
+              "y": 317.5,
+              "width": 68.46875,
+              "height": 40,
+              "top": 317.5,
+              "right": 170.734375,
+              "bottom": 357.5,
+              "left": 102.265625
+            },
+            "bar": {
+              "x": 14,
+              "y": 309,
+              "width": 330,
+              "height": 54,
+              "top": 309,
+              "right": 344,
+              "bottom": 363,
+              "left": 14
+            }
+          }
+        },
+        {
+          "ok": true,
+          "message": "Inner labels clear HUD and body visual envelopes",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Inner visible body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Full system keeps all nine visual envelopes inside canvas",
+          "details": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 1.930316835781561,
+              "screen": [
+                456.34428391272206,
+                280.6861924050274
+              ],
+              "inFront": true,
+              "radius": 1.930316835781561
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 0.6770689283309423,
+              "screen": [
+                453.5282868735194,
+                280.14863351014907
+              ],
+              "inFront": true,
+              "radius": 0.6770689283309423
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 2.003285314028045,
+              "screen": [
+                458.68023131424377,
+                276.9614067307964
+              ],
+              "inFront": true,
+              "radius": 2.003285314028045
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 2.2466794984951677,
+              "screen": [
+                449.2217593481498,
+                283.39096702651597
+              ],
+              "inFront": true,
+              "radius": 2.2466794984951677
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 1.6700280868820128,
+              "screen": [
+                467.9450015255503,
+                280.451865767631
+              ],
+              "inFront": true,
+              "radius": 1.6700280868820128
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": true,
+              "screenRadius": 6.311246985283745,
+              "screen": [
+                409.3785136668438,
+                266.3668784922978
+              ],
+              "inFront": true,
+              "radius": 6.311246985283745
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": true,
+              "screenRadius": 10.18064582204433,
+              "screen": [
+                489.95009984174516,
+                240.50376782132176
+              ],
+              "inFront": true,
+              "radius": 10.18064582204433
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": true,
+              "screenRadius": 2.8091222962616786,
+              "screen": [
+                387.2090244237946,
+                174.10614813084425
+              ],
+              "inFront": true,
+              "radius": 2.8091222962616786
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": true,
+              "screenRadius": 2.3161221392880895,
+              "screen": [
+                546.683877860712,
+                182.51130593502708
+              ],
+              "inFront": true,
+              "radius": 2.3161221392880895
+            }
+          ]
+        },
+        {
+          "ok": true,
+          "message": "Full system body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Sun collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986958,
+              "right": 355.8680823001304,
+              "top": 123.13191769986948,
+              "bottom": 269.86808230013037
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986958,
+              "right": 355.8680823001304,
+              "top": 123.13191769986948,
+              "bottom": 269.86808230013037
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mercury collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.1319176998696,
+              "right": 355.86808230013037,
+              "top": 123.13191769986969,
+              "bottom": 269.8680823001305
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.1319176998696,
+              "right": 355.86808230013037,
+              "top": 123.13191769986969,
+              "bottom": 269.8680823001305
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Venus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986946,
+              "right": 355.8680823001304,
+              "top": 123.1319176998695,
+              "bottom": 269.8680823001304
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986946,
+              "right": 355.8680823001304,
+              "top": 123.1319176998695,
+              "bottom": 269.8680823001304
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Earth collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986952,
+              "right": 355.86808230013037,
+              "top": 123.13191769986965,
+              "bottom": 269.8680823001305
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986952,
+              "right": 355.86808230013037,
+              "top": 123.13191769986965,
+              "bottom": 269.8680823001305
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mars collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986946,
+              "right": 355.8680823001303,
+              "top": 123.13191769986948,
+              "bottom": 269.86808230013037
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986946,
+              "right": 355.8680823001303,
+              "top": 123.13191769986948,
+              "bottom": 269.86808230013037
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986935,
+              "right": 355.8680823001304,
+              "top": 123.13191769986942,
+              "bottom": 269.86808230013054
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986935,
+              "right": 355.8680823001304,
+              "top": 123.13191769986942,
+              "bottom": 269.86808230013054
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Saturn collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986952,
+              "right": 355.86808230013037,
+              "top": 123.13191769986948,
+              "bottom": 269.86808230013037
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769986952,
+              "right": 355.86808230013037,
+              "top": 123.13191769986948,
+              "bottom": 269.86808230013037
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Uranus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769987085,
+              "right": 355.8680823001305,
+              "top": 123.13191769987017,
+              "bottom": 269.8680823001298
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769987085,
+              "right": 355.8680823001305,
+              "top": 123.13191769987017,
+              "bottom": 269.8680823001298
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Neptune collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769987046,
+              "right": 355.86808230013094,
+              "top": 123.13191769987012,
+              "bottom": 269.8680823001306
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 209.13191769987046,
+              "right": 355.86808230013094,
+              "top": 123.13191769987012,
+              "bottom": 269.8680823001306
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "No fatal browser or shader errors",
+          "details": {
+            "page": [],
+            "console": []
+          }
+        }
+      ],
+      "errors": [],
+      "console": [],
+      "networkFailures": [],
+      "screens": [
+        "667x375-inner.png",
+        "667x375-full.png",
+        "667x375-earth-collapsed.png",
+        "667x375-earth-expanded.png",
+        "667x375-mars-collapsed.png",
+        "667x375-mars-expanded.png",
+        "667x375-saturn-collapsed.png",
+        "667x375-saturn-expanded.png"
+      ],
+      "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "checks": [
+        {
+          "ok": true,
+          "message": "Date and UTC text remain inside time-bar glass",
+          "details": {
+            "text": {
+              "x": 83.265625,
+              "y": 444.5,
+              "width": 68.46875,
+              "height": 40,
+              "top": 444.5,
+              "right": 151.734375,
+              "bottom": 484.5,
+              "left": 83.265625
+            },
+            "bar": {
+              "x": 14,
+              "y": 436,
+              "width": 292,
+              "height": 54,
+              "top": 436,
+              "right": 306,
+              "bottom": 490,
+              "left": 14
+            }
+          }
+        },
+        {
+          "ok": true,
+          "message": "Inner labels clear HUD and body visual envelopes",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Inner visible body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Full system keeps all nine visual envelopes inside canvas",
+          "details": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "glyphRadius": 0.2,
+              "visible": true,
+              "screenRadius": 1.6558235787205167,
+              "screen": [
+                215.86490091897943,
+                376.90630694367655
+              ],
+              "inFront": true,
+              "radius": 1.6558235787205167
+            },
+            {
+              "id": "mercury",
+              "position": [
+                -0.2066612901565862,
+                0.21619774285346316,
+                0.13691172883352498
+              ],
+              "glyphRadius": 0.07,
+              "visible": true,
+              "screenRadius": 0.5802458981039305,
+              "screen": [
+                213.9727936544988,
+                378.493012419488
+              ],
+              "inFront": true,
+              "radius": 0.5802458981039305
+            },
+            {
+              "id": "venus",
+              "position": [
+                0.7161081832705812,
+                0.11888105030245502,
+                0.008187944250591841
+              ],
+              "glyphRadius": 0.21,
+              "visible": true,
+              "screenRadius": 1.727117618387961,
+              "screen": [
+                214.83755941032376,
+                373.57426543336055
+              ],
+              "inFront": true,
+              "radius": 1.727117618387961
+            },
+            {
+              "id": "earth",
+              "position": [
+                -0.9249420238042889,
+                0.3250757982699974,
+                0.14091794045040631
+              ],
+              "glyphRadius": 0.23,
+              "visible": true,
+              "screenRadius": 1.9171559139155558,
+              "screen": [
+                213.68484556798728,
+                382.8957779443381
+              ],
+              "inFront": true,
+              "radius": 1.9171559139155558
+            },
+            {
+              "id": "mars",
+              "position": [
+                1.0527080101912634,
+                -0.8086912557963634,
+                -0.39932068357522316
+              ],
+              "glyphRadius": 0.175,
+              "visible": true,
+              "screenRadius": 1.4395706796602958,
+              "screen": [
+                222.09198881115037,
+                369.0867594482097
+              ],
+              "inFront": true,
+              "radius": 1.4395706796602958
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -2.1069632004342678,
+                4.38378181845611,
+                1.9302953857716294
+              ],
+              "glyphRadius": 0.65,
+              "visible": true,
+              "screenRadius": 5.39970187726214,
+              "screen": [
+                181.4600482876981,
+                401.1012941761788
+              ],
+              "inFront": true,
+              "radius": 5.39970187726214
+            },
+            {
+              "id": "saturn",
+              "position": [
+                9.474993095952856,
+                0.6864309303320548,
+                -0.12449170078720741
+              ],
+              "glyphRadius": 0.55,
+              "visible": true,
+              "screenRadius": 9.253796959312455,
+              "screen": [
+                208.9655419712612,
+                333.0529883159429
+              ],
+              "inFront": true,
+              "radius": 9.253796959312455
+            },
+            {
+              "id": "uranus",
+              "position": [
+                9.68091944829015,
+                15.533953103185496,
+                6.66640129918404
+              ],
+              "glyphRadius": 0.36,
+              "visible": true,
+              "screenRadius": 2.627928608077905,
+              "screen": [
+                102.48218652003693,
+                371.1606141272861
+              ],
+              "inFront": true,
+              "radius": 2.627928608077905
+            },
+            {
+              "id": "neptune",
+              "position": [
+                29.866823507540502,
+                0.9236217381460939,
+                -0.3654805869736469
+              ],
+              "glyphRadius": 0.35,
+              "visible": true,
+              "screenRadius": 2.300377098223203,
+              "screen": [
+                202.3677770682446,
+                253.3003770982232
+              ],
+              "inFront": true,
+              "radius": 2.300377098223203
+            }
+          ]
+        },
+        {
+          "ok": true,
+          "message": "Full system body envelopes clear HUD"
+        },
+        {
+          "ok": true,
+          "message": "Sun collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671425,
+              "right": 212.22002430328547,
+              "top": 193.7799756967143,
+              "bottom": 264.2200243032855
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671425,
+              "right": 212.22002430328547,
+              "top": 193.7799756967143,
+              "bottom": 264.2200243032855
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Sun labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Sun real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Sun approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mercury collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671447,
+              "right": 212.22002430328564,
+              "top": 193.77997569671442,
+              "bottom": 264.2200243032856
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671447,
+              "right": 212.22002430328564,
+              "top": 193.77997569671442,
+              "bottom": 264.2200243032856
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mercury labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mercury real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mercury approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Venus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671433,
+              "right": 212.22002430328556,
+              "top": 193.7799756967143,
+              "bottom": 264.2200243032855
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671433,
+              "right": 212.22002430328556,
+              "top": 193.7799756967143,
+              "bottom": 264.2200243032855
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Venus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Venus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Venus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Earth collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671453,
+              "right": 212.2200243032857,
+              "top": 193.7799756967145,
+              "bottom": 264.2200243032857
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671453,
+              "right": 212.2200243032857,
+              "top": 193.7799756967145,
+              "bottom": 264.2200243032857
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Earth labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Earth real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Earth approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Mars collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671447,
+              "right": 212.22002430328564,
+              "top": 193.7799756967144,
+              "bottom": 264.2200243032855
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671447,
+              "right": 212.22002430328564,
+              "top": 193.7799756967144,
+              "bottom": 264.2200243032855
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Mars labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Mars real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Mars approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.7799756967143,
+              "right": 212.22002430328553,
+              "top": 193.77997569671436,
+              "bottom": 264.2200243032856
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.7799756967143,
+              "right": 212.22002430328553,
+              "top": 193.77997569671436,
+              "bottom": 264.2200243032856
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Jupiter labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Jupiter real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Jupiter approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Saturn collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671425,
+              "right": 212.2200243032854,
+              "top": 193.77997569671425,
+              "bottom": 264.2200243032854
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671425,
+              "right": 212.2200243032854,
+              "top": 193.77997569671425,
+              "bottom": 264.2200243032854
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Saturn labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Saturn real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Saturn approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Uranus collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671425,
+              "right": 212.22002430328547,
+              "top": 193.77997569671425,
+              "bottom": 264.2200243032854
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.77997569671425,
+              "right": 212.22002430328547,
+              "top": 193.77997569671425,
+              "bottom": 264.2200243032854
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Uranus labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Uranus real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Uranus approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "Neptune collapsed visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.7799756967146,
+              "right": 212.2200243032858,
+              "top": 193.77997569671507,
+              "bottom": 264.22002430328627
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune expanded visual envelope clears canvas/HUD",
+          "details": {
+            "circle": {
+              "left": 141.7799756967146,
+              "right": 212.2200243032858,
+              "top": 193.77997569671507,
+              "bottom": 264.22002430328627
+            },
+            "hits": []
+          }
+        },
+        {
+          "ok": true,
+          "message": "Neptune labels clear HUD and bodies",
+          "details": []
+        },
+        {
+          "ok": true,
+          "message": "Neptune real source vectors and exact focus retained"
+        },
+        {
+          "ok": true,
+          "message": "Neptune approach visual envelope clears canvas and HUD"
+        },
+        {
+          "ok": true,
+          "message": "No fatal browser or shader errors",
+          "details": {
+            "page": [],
+            "console": []
+          }
+        }
+      ],
+      "errors": [],
+      "console": [],
+      "networkFailures": [],
+      "screens": [
+        "320x568-inner.png",
+        "320x568-full.png",
+        "320x568-earth-collapsed.png",
+        "320x568-earth-expanded.png",
+        "320x568-mars-collapsed.png",
+        "320x568-mars-expanded.png",
+        "320x568-saturn-collapsed.png",
+        "320x568-saturn-expanded.png"
+      ],
+      "graphics": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "failures": [],
+  "limitations": [
+    "Software Chromium rendering; no physical GPU/device or owner visual acceptance."
+  ]
+}

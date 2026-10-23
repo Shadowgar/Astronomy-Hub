@@ -1,0 +1,15 @@
+{
+  "changedSamePaths": [
+    "index.html",
+    "oras-runtime-build.json"
+  ],
+  "added": [
+    "js/app.840d5a89.js"
+  ],
+  "removed": [
+    "js/app.1a6796d9.js"
+  ],
+  "preservedSharedArtifacts": 108,
+  "nativeHorizonUnchanged": true,
+  "reconstructionUnchanged": true
+}

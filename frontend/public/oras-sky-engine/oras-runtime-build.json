@@ -5,7 +5,7 @@
   "native_wasm_identical": false,
   "native_vendor_chunks_identical": false,
   "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
-  "adapter_sha256": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
+  "adapter_sha256": "98dcab7a1f411350d3df4fca6cec3d7df565600dd5d53c787f0fe571b8116a16",
   "native_horizon": {
     "purpose": "embedded-zero-horizon-colors",
     "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
@@ -30,5 +30,5 @@
     "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
     "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
   },
-  "artifact_sha256": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19"
+  "artifact_sha256": "b1dbd0f039ccf4ed4c0a669baf5bd7288b1ea07c9db98e199c04949431a644fb"
 }
