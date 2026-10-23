@@ -1,8 +1,8 @@
 /* Earth-only Adaptive Explorer composition. Sky's accepted chrome is unchanged. */
 .ws-shell[data-workspace-mode=earth] .ws-stage{inset:0}
-.ws-shell[data-workspace-mode=earth] .ws-header{position:absolute;top:12px;left:16px;right:16px;z-index:30;height:48px;min-height:48px;border:1px solid var(--ws-border);border-radius:14px;background:#101b29e8;box-shadow:0 4px 24px #0003}
+.ws-shell[data-workspace-mode=earth] .ws-header{position:absolute;top:12px;left:16px;right:16px;z-index:30;height:48px;min-height:48px;border:1px solid var(--ws-border);border-radius:14px;background:var(--glass-fill);box-shadow:0 4px 24px #0003}
 .ws-earth-direct{position:absolute;z-index:32;top:76px;left:16px;width:min(390px,calc(100vw - 32px));pointer-events:none}
-.ws-earth-direct .ws-earth-search{margin:0;padding:12px;border:1px solid var(--ws-border);border-radius:14px;background:#101b29f5;box-shadow:0 4px 24px #0003;pointer-events:auto}
+.ws-earth-direct .ws-earth-search{margin:0;padding:12px;border:1px solid var(--ws-border);border-radius:14px;background:var(--glass-raised);box-shadow:0 4px 24px #0003;pointer-events:auto}
 .ws-earth-direct label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
 .ws-earth-direct .ws-earth-search-input{display:flex;flex-wrap:nowrap;gap:6px}
 .ws-earth-direct input{width:100%;min-width:0;font-size:16px;flex-basis:auto!important}
@@ -11,7 +11,7 @@
 .ws-search-content{max-height:min(45dvh,430px);overflow:auto;overscroll-behavior:contain;padding-top:4px}
 .ws-search-panel-heading{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ws-muted)}
 .ws-search-panel-heading button{min-height:44px}
-.ws-earth-map-tools{position:absolute;z-index:7;right:16px;bottom:96px;display:grid;gap:2px;padding:5px;border-radius:13px;background:#101b29ee}
+.ws-earth-map-tools{position:absolute;z-index:7;right:16px;bottom:96px;display:grid;gap:2px;padding:5px;border-radius:13px;background:var(--glass-fill)}
 .ws-earth-map-tools button{min-height:44px;min-width:44px;font-size:12px}
 .ws-earth-map-tools button:nth-child(-n+2){font-size:24px}
 .ws-shell[data-workspace-mode=earth] .ws-rail{left:auto;right:16px;top:80px}
@@ -77,3 +77,5 @@
 @media(max-height:600px){.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools{top:190px;bottom:auto}.ws-shell[data-workspace-mode=earth] .ws-rail{top:250px}.ce-location{top:190px;bottom:auto;max-height:calc(100dvh - 262px);width:280px}}
 @media(max-height:600px) and (min-width:560px){.ws-earth-direct{left:12px;width:calc(100vw - 324px)}.ce-location{top:80px;max-height:calc(100dvh - 152px)}}
 .ws-shell[data-workspace-mode=earth] .ws-reveal{top:auto;bottom:52px;left:24px}
+/* Selected context must not cover the portrait map rail, including Sources. */
+@media(max-width:767px) and (min-height:601px){.ce-location{left:84px;right:12px;width:auto}}

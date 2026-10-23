@@ -1,0 +1,22 @@
+/* One material contract, used inside each renderer's document and by the Hub. */
+:root {
+  --glass-fill: linear-gradient(145deg, rgb(88 112 139 / 24%), rgb(15 24 36 / 43%) 52%, rgb(7 13 23 / 52%));
+  --glass-raised: linear-gradient(145deg, rgb(80 103 129 / 36%), rgb(10 18 29 / 64%));
+  --glass-dialog: linear-gradient(145deg, rgb(45 60 80 / 66%), rgb(8 16 27 / 78%));
+  --glass-border: rgb(209 231 255 / 32%);
+  --glass-shadow: inset 0 1px 0 rgb(255 255 255 / 26%), inset 1px 0 0 rgb(235 247 255 / 10%), inset 0 -1px 0 rgb(255 255 255 / 5%), 0 8px 28px rgb(0 6 16 / 28%);
+  --glass-blur: blur(16px) saturate(145%);
+  --glass-text: #f4f8ff;
+  --glass-muted: #d0dce9;
+  --glass-radius: 24px;
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass-fill:#142030; --glass-raised:#192737; --glass-dialog:#142030; --glass-blur:none; }
+}
+:root[data-glass=opaque] { --glass-fill:#142030; --glass-raised:#192737; --glass-dialog:#142030; --glass-blur:none; }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  :root { --glass-fill:#142030; --glass-raised:#192737; --glass-dialog:#142030; --glass-blur:none; }
+}
+@media (forced-colors:active) {
+  :root { --glass-fill:Canvas; --glass-raised:Canvas; --glass-dialog:Canvas; --glass-border:CanvasText; --glass-blur:none; --glass-text:CanvasText; --glass-muted:CanvasText; }
+}

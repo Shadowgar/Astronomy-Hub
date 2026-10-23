@@ -6,7 +6,7 @@ class SkyPromotion(unittest.TestCase):
  def promote(self,horizon,wasm=True,vendor=None):
   with tempfile.TemporaryDirectory() as temp:
    repo=Path(temp);script=repo/'scripts/runtime/record_sky_workspace.py';script.parent.mkdir(parents=True);shutil.copyfile(ROOT/'scripts/runtime/record_sky_workspace.py',script)
-   paths=['runtimes/sky-adapter/'+n for n in ['plugin.js','entry.mjs','native-panels.mjs','satellite-presentation.mjs','native-wheel.mjs']]+['packages/runtime-protocol/'+n for n in ['continued-input.mjs','navigation.mjs','observer-elevation.mjs']]+['integrations/sky-overlay/apps/web-frontend/src/components/gui.vue']
+   paths=['runtimes/shared/glass.css','runtimes/sky-adapter/native-material.css']+['runtimes/sky-adapter/'+n for n in ['plugin.js','entry.mjs','native-panels.mjs','satellite-presentation.mjs','native-wheel.mjs']]+['packages/runtime-protocol/'+n for n in ['continued-input.mjs','navigation.mjs','observer-elevation.mjs']]+['integrations/sky-overlay/apps/web-frontend/src/components/gui.vue']
    for path in paths:
     target=repo/path;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/path,target)
    dist=repo/'dist';(dist/'js').mkdir(parents=True);(dist/'js/chunk-vendors.fixture.js').write_text('qualified native vendor fixture');(dist/'js/engine.wasm').write_bytes(b'qualified wasm fixture');(dist/'js/app.fixture.js').write_text('UI-only fixture')

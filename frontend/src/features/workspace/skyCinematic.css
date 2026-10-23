@@ -1,5 +1,5 @@
 /* Hub cinematic observing tools; native Stellarium image and calculations are untouched. */
-.ws-shell.as-sky:not(.as-sky-night){--ws-surface:rgba(12,20,31,.88);--ws-border:#b5d4ef30;--ws-text:#edf5ff;--ws-secondary:#bacbde;--ws-muted:#a1b3c9;--ws-accent:#acd4ff}
+.ws-shell.as-sky:not(.as-sky-night){--ws-surface:var(--glass-fill);--ws-border:#b5d4ef30;--ws-text:#edf5ff;--ws-secondary:#bacbde;--ws-muted:#a1b3c9;--ws-accent:#acd4ff}
 .as-sky .as-header{top:20px;left:24px;right:24px}.as-sky .as-identity-row{align-items:flex-start;gap:12px}.as-sky .as-explore{min-height:48px;border:1px solid var(--ws-border);border-radius:14px;background:var(--ws-surface)}
 
 

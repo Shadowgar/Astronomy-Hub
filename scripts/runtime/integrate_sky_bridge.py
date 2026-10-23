@@ -5,6 +5,10 @@ import hashlib,json,shutil,sys
 repo=Path(__file__).resolve().parents[2]; app=Path(sys.argv[1])
 plugin=app/'src/plugins/orasRuntime';plugin.mkdir(parents=True,exist_ok=True)
 (plugin/'index.js').write_bytes((repo/'runtimes/sky-adapter/plugin.js').read_bytes())
+# One canonical material definition, compiled inside the native frame so backdrop
+# filters sample the Stellarium canvas rather than the host iframe element.
+(plugin/'glass.css').write_bytes((repo/'runtimes/shared/glass.css').read_bytes())
+(plugin/'native-material.css').write_bytes((repo/'runtimes/sky-adapter/native-material.css').read_bytes())
 (plugin/'satellite-presentation.mjs').write_bytes((repo/'runtimes/sky-adapter/satellite-presentation.mjs').read_bytes())
 (plugin/'observer-elevation.mjs').write_bytes((repo/'packages/runtime-protocol/observer-elevation.mjs').read_bytes())
 (plugin/'oras-site.json').write_bytes((repo/'frontend/src/config/orasSite.json').read_bytes())

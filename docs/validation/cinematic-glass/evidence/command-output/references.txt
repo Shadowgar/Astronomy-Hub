@@ -1,0 +1,5 @@
+PASS: solar-primary-cinematic.png: 2260404 original bytes; SHA256 045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab
+PASS: solar-adaptive-explorer.png: 2047493 original bytes; SHA256 c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7
+PASS: earth-cinematic.png: 2658442 original bytes; SHA256 83601f768035502c1b7fbc9265866135ba40c838b0c6b598127d506112f812b1
+PASS: sky-cinematic.png: 2092968 original bytes; SHA256 e932e4a7cf59cf92d810e4dffbcbb5873d0fee8b51997d3f3ae162c84c7a7c91
+PASS: archive SHA256 1d886cd105b8cc20da7c765057e1594b5c15895bbbce87e0946a20b65cd8abe2; four original images and manifest byte-identical.

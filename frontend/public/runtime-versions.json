@@ -25,9 +25,9 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_sky_horizon.sh",
-    "artifact_sha256": "7170519bb7adb72195ce0081f52d224f5c01a6165ef67166258c66a89d3fcf8c",
+    "artifact_sha256": "f755a7262087ad58c3ec0801531cb55214f4e451bfd3843d53aa6469b921652d",
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "b00a2f2b042680cd2890ae50e14e0bd37fa24312f89d76f6abb9dddebc2cd062",
+    "workspace_adapter_sha256": "a257ea41150bd2c28c78c7f8a05eeef31aa1e35270867f789ea5945c5d5199e6",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
     "bridge_input_sha256": {
@@ -52,6 +52,10 @@
         "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
         "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
       }
+    },
+    "material_input_sha256": {
+      "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+      "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
     }
   },
   "earth": {

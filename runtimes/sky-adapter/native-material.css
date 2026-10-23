@@ -1,0 +1,65 @@
+/* Native presentation only. All material values come from shared/glass.css. */
+html.oras-workspace-embedded:not(.oras-sky-night) :is(.as-glass, .oras-workspace-source, .as-tool-tip, .oras-workspace-search .v-list, .v-menu__content, .v-tooltip__content, .v-dialog > .v-card),
+html.oras-workspace-embedded:not(.oras-sky-night) .oras-workspace-search::before {
+  background: var(--glass-fill) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  color: var(--glass-text);
+}
+
+html.oras-workspace-embedded:not(.oras-sky-night) :is(.oras-workspace-search .v-list, .v-menu__content) {
+  background: var(--glass-raised) !important;
+}
+html.oras-workspace-embedded:not(.oras-sky-night) .v-dialog > .v-card {
+  background: var(--glass-dialog) !important;
+}
+
+/* Keep the search itself out of the backdrop root chain. The detached results
+   list can then frost the native sky directly instead of an already blurred box. */
+html.oras-workspace-embedded .oras-workspace-search::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+html.oras-workspace-embedded .oras-workspace-search {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+html.oras-workspace-embedded :is(.oras-workspace-search .v-list, .v-menu__content, .v-dialog > .v-card) {
+  border-radius: 18px;
+}
+html.oras-workspace-embedded :is(.v-dialog, .v-menu__content) {
+  /* Native elevation shadows otherwise create a second dark rectangle. */
+  box-shadow: none;
+}
+html.oras-workspace-embedded .v-dialog :is(.v-toolbar, .v-sheet:not(.v-card), .v-list),
+html.oras-workspace-embedded .v-menu__content > :is(.v-list, .v-card),
+html.oras-workspace-embedded .oras-workspace-search :is(.v-input__slot, .v-list-item) {
+  background: transparent !important;
+}
+html.oras-workspace-embedded :is(.v-dialog, .v-menu__content, .oras-workspace-search) :is(input, .v-label, .v-icon, .v-list-item__title, .v-list-item__subtitle, .v-card__text) {
+  color: var(--glass-text) !important;
+}
+html.oras-workspace-embedded .oras-workspace-search .v-list-item {
+  min-height: 56px;
+}
+html.oras-workspace-embedded .oras-workspace-search .v-list-item:hover {
+  background: #ffffff12 !important;
+}
+
+/* Native night mode remains red and opaque. Do not brighten an observing UI
+   with the regular material gradient, including the search pseudo-surface. */
+html.oras-sky-night.oras-workspace-embedded .oras-workspace-search::before {
+  background: #1c0806 !important;
+  border-color: #71332e !important;
+  box-shadow: none !important;
+}
+html.oras-sky-night.oras-workspace-embedded :is(.v-dialog, .v-menu__content, .oras-workspace-search) :is(input, .v-label, .v-icon, .v-list-item__title, .v-list-item__subtitle, .v-card__text) {
+  color: #e6a19a !important;
+}

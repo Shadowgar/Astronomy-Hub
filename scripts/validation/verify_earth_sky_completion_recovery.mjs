@@ -1,7 +1,7 @@
 import { chromium } from '../../node_modules/playwright/index.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
-const base='http://127.0.0.1:4220', out='output/earth-sky-completion/recovery';
+const base=process.env.INTEGRATION_BASE||'http://127.0.0.1:4220', out=process.env.INTEGRATION_OUT||'output/earth-sky-completion/recovery';
 await mkdir(out,{recursive:true});
 const browser=await chromium.launch(), proof={status:'RUNNING',checks:[],errors:[]};
 try {
