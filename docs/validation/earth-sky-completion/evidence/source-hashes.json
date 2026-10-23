@@ -1,0 +1,22 @@
+{
+  "docs/DOCUMENT_INDEX.md": "1e097143c02dc395b5bc9eb9dc7ab5a7538aaf0e5f220b566371b7e16a0d520e",
+  "docs/DOC_INVENTORY.md": "3830c67393fa87216e20a05dfcd149beea5133e273ce7b43157823b48acbb74a",
+  "docs/context/CONTEXT_MANIFEST.yaml": "8d8e0d862adb4351b4b29bb6fcbcf11bca41f0dc80628d2688348bd5e52438f7",
+  "docs/context/CORE_CONTEXT.md": "90f8119b0b1f14e3b4b93dd598c31524b1f9c651d005c25a9f14bad5414dbaa2",
+  "docs/context/LIVE_SESSION_BRIEF.md": "a4f32c101722c57b93f7cedfa43d118fde9cae1e317a6fbc65ebc9fb47951637",
+  "docs/execution/MASTER_PLAN.md": "de904029e3f20dc926309350c1a5eddcfeff45270a1dc51c3e0da4ec00e06b66",
+  "docs/execution/PROJECT_STATE.md": "96e2a0c0f3121fdd845db4718d8a85faab2756e04d9416bda2b96dcc812b922b",
+  "frontend/public/runtime-versions.json": "d3ccc8224dd832e10178529bb255e5183d6ec45b620b60e7c0ea821d7aad2006",
+  "frontend/src/features/workspace/EarthSearch.tsx": "887669d04c04b3aebfe68e5b465e845d1a101166b575cbb69fc9e03725cca7fb",
+  "frontend/src/features/workspace/WorkspaceShell.tsx": "44447706de778f0490ba2dcbba99fc16f6ff6f63bae8474983afc2d2d27ab54d",
+  "frontend/src/features/workspace/earthWorkspace.css": "44ba64bb6beca87fc11a93b1a3775b1d98429119e2b0098139a3c38ca12f8872",
+  "frontend/src/features/workspace/useEarthLocation.ts": "1fa68be33099eb59d82718ee7d46e5a8d1739f7e7156c808c5d1e799d919553f",
+  "frontend/tests/earthDirectSearch.test.tsx": "a3e039e58245bdbd1162790e74a657dd3058bc30a959057e5aff42695e652dee",
+  "integrations/renderers.lock.json": "1fdf01d3378a883c842e6db4dbba3c6a90d054531e0a1e2acfddceeec3417beb",
+  "packages/runtime-protocol/workspace.mjs": "45cabb50f00cd2b9f06e8569d295e84e9a89e4c25861b567d238f947d17d8a6a",
+  "runtimes/earth-runtime/core/EarthRuntime.mjs": "899bf5f0d45bf8a744617f9efb9edcff9c60f623810c3cf7575cf756ac6b6cc7",
+  "runtimes/earth-runtime/core/ImageryController.mjs": "15d071313aacb45f205a5027d135bc7aec3853bbe43991bc0777d5542d74ba79",
+  "runtimes/earth-runtime/core/RuntimeBridge.mjs": "8eff4dc15aca5808b6bc0622244741b653831969d3e947b384d77821373e81ba",
+  "tests/earth/imagery-controller.test.mjs": "34534f5a409679f31a5a8a242b7aa0443ded893f280033e73c8196fa5ef9b67a",
+  "tests/runtime/navigation.test.mjs": "264eed81b3c0c1acce88b9b086a8600a879a4611f739ba1da6f73965725bb4c6"
+}

@@ -61,3 +61,19 @@
 @media(max-height:600px) and (max-width:559px){.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools{top:auto;bottom:94px}.ce-location{top:190px;max-height:calc(100dvh - 340px)}}
 /* An open mode chooser owns interaction above the independent direct-search surface. */
 .ws-shell[data-workspace-mode=earth] .ws-header:has(.cin-brand[data-cinematic-open=true]){z-index:45}
+/* E1: one direct search line and a compact contextual card using shared materials. */
+.ws-earth-direct .ws-earth-search{margin-top:0;background:var(--cin-glass);box-shadow:var(--cin-shadow);padding:4px 8px}
+.ws-earth-direct .ws-earth-search-input{flex-wrap:nowrap;gap:4px}
+.ws-earth-direct .ws-earth-search-input input{flex:1;flex-basis:auto;height:44px;background:transparent;border:0;padding:8px;font-size:14px}
+.ws-earth-direct .ws-earth-search-input button{width:44px;min-width:44px;padding:10px;border-radius:12px}
+.ws-earth-direct .ws-search-reopen{font-size:11px;min-height:28px}
+.ce-location{background:var(--cin-glass);box-shadow:var(--cin-shadow);padding:16px;width:300px}
+.ce-location>button{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+.ce-location .ws-primary{background:#84bfff1a;color:var(--cin-text)}
+.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools button{border:0;background:transparent;border-radius:10px}
+.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools{border-radius:18px;padding:5px}
+.ws-shell[data-workspace-mode=earth] .ws-rail{top:395px}
+@media(max-width:767px){.ws-earth-direct .ws-search-reopen{min-height:44px}.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools{top:210px}.ce-location{width:calc(100vw - 24px);bottom:190px;max-height:36dvh}}
+@media(max-height:600px){.ws-shell[data-workspace-mode=earth] .ws-earth-map-tools{top:190px;bottom:auto}.ws-shell[data-workspace-mode=earth] .ws-rail{top:250px}.ce-location{top:190px;bottom:auto;max-height:calc(100dvh - 262px);width:280px}}
+@media(max-height:600px) and (min-width:560px){.ws-earth-direct{left:12px;width:calc(100vw - 324px)}.ce-location{top:80px;max-height:calc(100dvh - 152px)}}
+.ws-shell[data-workspace-mode=earth] .ws-reveal{top:auto;bottom:52px;left:24px}

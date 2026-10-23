@@ -30,3 +30,8 @@ test('optional observer provenance accepts honest zero/provided intents and reje
  const observer={lat:40.7829,lon:-73.9654,elevationM:123};assert.equal(command({...observer,elevationSource:'provided'}),true);assert.equal(command({...observer,elevationM:0,elevationSource:'provided'}),true);assert.equal(command({...observer,elevationM:0,elevationSource:'unavailable-zero'}),true);
  assert.equal(command({...observer,elevationSource:'unavailable-zero'}),false);assert.equal(command({...observer,elevationSource:'unknown'}),false);assert.equal(command({...observer,elevationSource:'provided',unexpected:true}),false);
 });
+test('search-location marker is optional bounded geographic context, never arbitrary renderer data',()=>{
+ const s={...session,runtime:'earth'};const command=p=>validateMessage(envelope(s,'command',1,'setSearchLocation',p),s);
+ assert.equal(command({location:{lat:41.3,lon:-79.5}}),true);assert.equal(command({location:null}),true);
+ for(const bad of [{location:{lat:91,lon:0}},{location:{lat:0,lon:181}},{location:{lat:0,lon:0,height:100}},{location:{lat:NaN,lon:0}},{location:{lat:0,lon:0},extra:1}])assert.equal(command(bad),false);
+});

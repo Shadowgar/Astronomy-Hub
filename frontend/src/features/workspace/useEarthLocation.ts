@@ -8,6 +8,12 @@ import type{EarthDestination}from'./earthSearch'
 export function useEarthLocation(mode:RuntimeMode,status:RuntimeStatus,client:RuntimeClient|null,request:(command:string,payload?:unknown,deadline?:number,expectedClient?:RuntimeClient)=>Promise<RuntimeResult|null>,notice:(value:string)=>void){
  const location=useLocation(),navigate=useNavigate(),latest=useRef({mode,status,client,location}),pending=useRef(false)
  latest.current={mode,status,client,location}
+ // Search identity is separate from the current camera center and observer.
+ useEffect(()=>{if(mode!=='earth'||status!=='ready'||!client?.capabilities.includes('locationContext'))return
+  const p=location.state?.r2Place,t=earthInitialTarget(location.search,null)
+  const point=p&&Number.isFinite(p.lat)&&Math.abs(p.lat)<=90&&Number.isFinite(p.lon)&&Math.abs(p.lon)<=180?{lat:p.lat,lon:p.lon}:t
+  void request('setSearchLocation',{location:point??null},4000,client)
+ },[mode,status,client,location.key,request])
  // Same-document Back/Forward must restore its own bounded bookmark. Initial
  // restoration still uses the qualified host; ordinary wheel/pan never writes URL.
  useEffect(()=>{if(mode!=='earth'||status!=='ready'||!client)return;let cancelled=false;const saved=earthHistoryView(location.state),target=earthInitialTarget(location.search,location.state)

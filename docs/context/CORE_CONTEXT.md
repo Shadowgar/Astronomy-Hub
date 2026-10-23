@@ -1,5 +1,23 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Earth and Sky cinematic completion — owner authorization 2026-10-23
+
+The owner reports Solar at PR88 `89491f72ef4f4ab9e75d1bc2e4599cd3e74ca3f2`
+looks better and camera/navigation is smooth on the owner's computer. This is
+owner-confirmed satisfactory Solar responsiveness and positive visual feedback,
+not final release acceptance, a hardware benchmark or merge authority. Preserve
+its cinematic sizing, True physical scale, camera behavior and scientific source.
+
+The active scope is E1 Earth visual/source/navigation completion, S1 supported
+native Stellarium visual/UX completion, and I1 combined qualification, in bounded
+draft PRs stacked from PR88. Use exact approved original references and current
+renderer evidence. Preserve accepted N1 mechanics, Pennsylvania panorama, satellite
+presentation, science, source pins, rights, cache rules, settings and rollback.
+After delivery, assess Earth/Moon/Mars R4 readiness only. No R4 implementation,
+merge, production deployment, paid provider/account or destructive operation.
+Stop for owner Earth/Sky visual acceptance. [Execution](../validation/earth-sky-completion/README.md).
+
+
 ## Owner-approved cinematic sizing correction — 2026-10-22
 
 The owner rejected155e7df9 visually and reported lag. The owner explicitly selected

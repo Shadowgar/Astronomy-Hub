@@ -21,6 +21,7 @@ tasks:
     - docs/validation/cinematic-acceptance/README.md
     - docs/validation/solar-scientific-controls/README.md
     - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
@@ -130,6 +131,7 @@ tasks:
     - docs/validation/cinematic-acceptance/README.md
     - docs/validation/solar-scientific-controls/README.md
     - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/ASTRONOMY_HUB_DIAGRAM.md
@@ -176,6 +178,7 @@ tasks:
     - docs/validation/cinematic-acceptance/README.md
     - docs/validation/solar-scientific-controls/README.md
     - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -261,6 +264,7 @@ tasks:
     - docs/validation/cinematic-acceptance/README.md
     - docs/validation/solar-scientific-controls/README.md
     - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -360,6 +364,7 @@ tasks:
     - docs/validation/cinematic-acceptance/README.md
     - docs/validation/solar-scientific-controls/README.md
     - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
     - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md

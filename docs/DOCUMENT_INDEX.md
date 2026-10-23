@@ -1,5 +1,7 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+Current owner-authorized [Earth/Sky completion](validation/earth-sky-completion/README.md) continues from PR88, preserving owner-confirmed satisfactory Solar responsiveness. Draft delivery and visual acceptance remain separate.
+
 Owner-approved cinematic sizing correction: [current implementation/evidence](validation/solar-cinematic-balance/README.md); prior physical-default qualification remains historical.
 
 Current owner-approved Solar scientific-size/control correction and source-matched

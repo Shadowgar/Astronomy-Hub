@@ -1,0 +1,63 @@
+{
+  "cases": [
+    {
+      "query": "Paris, France",
+      "count": 5,
+      "status": "Search Earth\nSearch Earth\nHide results\n−\nLocations\nClose\n\n5 possible locations. Choose the place you mean.\n\nParis\nÎle-de-France, France\n48.85350°, 2.34839° · Photon / OpenStreetMap\nParis\nÎle-de-France, France\n48.85889°, 2.32004° · Photon / OpenStreetMap\nLe Touquet-Paris-Plage\nPas-de-Calais, Hauts-de-France, 62520, France\n50.52001°, 1.58645° · Photon / OpenStreetMap\nParis-l'Hôpital\nSaône-et-Loire, Bourgogne – Franche-Comté, 71150, France\n46.91503°, 4.63302° · Photon / OpenStreetMap\nCollège de France - PSL\nRue Saint-Jacques, Paris, Île-de-France, 75005, France\n48.84876°, 2.34538° · Photon / OpenStreetMap\n\nPlace data: © OpenStreetMap contributors · Photon. Public search may be unavailable.",
+      "liveProvider": true,
+      "chosen": "Paris\nÎle-de-France, France\n48.85350°, 2.34839° · Photon / OpenStreetMap",
+      "navigation": {
+        "mode": "earth",
+        "observer": {
+          "lat": 48.85349509989198,
+          "lon": 2.3483914999137587,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.8526543406019162,
+          "longitudeRad": 0.04098716380084851,
+          "heightM": 39999.99999996935,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.570775554880845,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T16:00:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "query": "5 Avenue Anatole France, Paris",
+      "count": 5,
+      "status": "Search Earth\nSearch Earth\nHide results\n−\nLocations\nClose\n\n5 possible locations. Choose the place you mean.\n\nEiffel Tower\n5 Avenue Anatole France, Paris, Île-de-France, 75007, France\n48.85826°, 2.29450° · Photon / OpenStreetMap\nPilier Est Tickets Office\n5 Avenue Anatole France, Paris, Île-de-France, 75007, France\n48.85818°, 2.29533° · Photon / OpenStreetMap\nBuffets\n5 Avenue Anatole France, Paris, Île-de-France, 75007, France\n48.85811°, 2.29474° · Photon / OpenStreetMap\nSnacks et boissons\n5 Avenue Anatole France, Paris, Île-de-France, 75007, France\n48.85839°, 2.29470° · Photon / OpenStreetMap\nPolice nationale\n5 Avenue Anatole France, Paris, Île-de-France, 75007, France\n48.85772°, 2.29440° · Photon / OpenStreetMap\n\nPlace data: © OpenStreetMap contributors · Photon. Public search may be unavailable.",
+      "liveProvider": true,
+      "chosen": "Eiffel Tower\n5 Avenue Anatole France, Paris, Île-de-France, 75007, France\n48.85826°, 2.29450° · Photon / OpenStreetMap",
+      "navigation": {
+        "mode": "earth",
+        "observer": {
+          "lat": 48.858259900829765,
+          "lon": 2.2945005999652675,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.8527375020501152,
+          "longitudeRad": 0.04004659015898541,
+          "heightM": 39999.99999997047,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707755553458504,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T16:00:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "invalidCoordinates": "rejected"
+    },
+    {
+      "controlledRefocusFailure": "visible in closed-results location card"
+    }
+  ],
+  "status": "PASS"
+}

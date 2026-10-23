@@ -167,3 +167,8 @@ test('native camera settlement starts source selection immediately, without an e
 });
 
 test('regional raster labels use a native terrain-level limit rather than magnifying into street view',async()=>{const h=harness();await h.controller.retry({schema:1,qualified:false});await h.controller.setLabels(true);assert.equal(h.controller.labels.layer.options?.maximumTerrainLevel,12);assert.equal(h.controller.actual,'nasa');h.cleanups[0]()});
+
+test('native ready does not claim completion while managed imagery is still decoding',async()=>{
+ const h=harness();await h.controller.retry({schema:1,qualified:false});const provider=h.providers.get('nasa');await provider.requestImage();h.runtime.viewer.scene.globe.tilesLoaded=true;
+ let finish;provider.requestResult=()=>new Promise(resolve=>{finish=resolve});const pending=provider.requestImage();h.tick();assert.equal(h.controller.status,'partial');finish('image');await pending;h.tick();assert.equal(h.controller.status,'ready');h.cleanups[0]();
+});
