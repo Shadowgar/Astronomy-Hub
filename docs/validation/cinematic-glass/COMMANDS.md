@@ -51,3 +51,5 @@ deployment/build qualification or physical GPU benchmark is claimed.
 Backend/source contracts were not changed. Prior23 science and28 search/observability
 Docker passes are retained historical source-preserved evidence, not fresh reruns.
 No full N1 navigation suite or unrelated resource troubleshooting occurred.
+
+Versioned command-output text copies normalize trailing whitespace/terminal line endings only; raw local output remains under output/cinematic-glass and named /tmp build logs. No result or failure text is rewritten.

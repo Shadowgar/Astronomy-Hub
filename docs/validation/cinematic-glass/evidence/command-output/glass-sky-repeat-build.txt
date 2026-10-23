@@ -102,11 +102,11 @@ Module Error (from ./node_modules/thread-loader/dist/cjs.js):
  @ ./src/main.js
  @ multi ./src/main.js
 
- warning  
+ warning
 
 asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
 This can impact web performance.
-Assets: 
+Assets:
   fonts/materialdesignicons-webfont.ff13d121.woff (312 KiB)
   fonts/materialdesignicons-webfont.541e65fb.eot (648 KiB)
   fonts/materialdesignicons-webfont.fc03f7f1.ttf (647 KiB)
@@ -123,7 +123,7 @@ Assets:
   landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix8.png (565 KiB)
   landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix9.png (563 KiB)
 
- warning  
+ warning
 
 entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
 Entrypoints:
@@ -146,4 +146,3 @@ Entrypoints:
 
  DONE  Build complete. The dist directory is ready to be deployed.
  INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
-      

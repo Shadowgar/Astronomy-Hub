@@ -88,4 +88,3 @@ Native/software renderer costs and owner hardware acceptance remain limitations.
 The owner will judge actual luminance, translucency, depth and cinematic fidelity.
 No merge, deployment, paid source/account or R4. Next task: owner visual acceptance
 of this working three-mode candidate, then any specifically identified refinement.
-
