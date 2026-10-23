@@ -1,0 +1,296 @@
+[
+  {
+    "file": "assets/earth-reference.png",
+    "sha256": "83601f768035502c1b7fbc9265866135ba40c838b0c6b598127d506112f812b1",
+    "bytes": 2658442,
+    "source": "docs/design/cinematic-references-2026-10-21/earth-cinematic.png",
+    "caption": "Approved original PNG; unchanged bytes. Visual direction, not measured conditions."
+  },
+  {
+    "file": "assets/1440x900-earth-baseline.png",
+    "sha256": "62f11aa1271e76fde32cc08de04a3b2bad1a98a91c7b726020124fb69d776da1",
+    "bytes": 1396329,
+    "source": "output/earth-sky-completion/comparison/1440x900-earth-baseline.png",
+    "caption": "Earth 1440x900 baseline; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/1440x900-earth-candidate.png",
+    "sha256": "9680e593c68b3667476837ddf980685b15eecd5fc188d6fc98283d6b583b4399",
+    "bytes": 1434232,
+    "source": "output/earth-sky-completion/comparison/1440x900-earth-candidate.png",
+    "caption": "Earth 1440x900 candidate; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/390x900-earth-baseline.png",
+    "sha256": "b83328faa870558032e733b3cb70438a8bbc26ee2066f427084e2543ae62e6a1",
+    "bytes": 438388,
+    "source": "output/earth-sky-completion/comparison/390x900-earth-baseline.png",
+    "caption": "Earth 390x900 baseline; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/390x900-earth-candidate.png",
+    "sha256": "70455243f013267e9f642a2b37aee70857a84ae5d01e8ab539eaa5781d52c627",
+    "bytes": 473736,
+    "source": "output/earth-sky-completion/comparison/390x900-earth-candidate.png",
+    "caption": "Earth 390x900 candidate; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/667x390-earth-baseline.png",
+    "sha256": "348b89c075ae59fdfff4e5a8d01f88e7ac973bf179d9a1fa4901f06e8c146ba8",
+    "bytes": 267329,
+    "source": "output/earth-sky-completion/comparison/667x390-earth-baseline.png",
+    "caption": "Earth 667x390 baseline; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/667x390-earth-candidate.png",
+    "sha256": "59affe2fba2747b00d81e1c55d796454d834a59b57f16d9d7a596b56d4971b8b",
+    "bytes": 361074,
+    "source": "output/earth-sky-completion/comparison/667x390-earth-candidate.png",
+    "caption": "Earth 667x390 candidate; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/sky-reference.png",
+    "sha256": "e932e4a7cf59cf92d810e4dffbcbb5873d0fee8b51997d3f3ae162c84c7a7c91",
+    "bytes": 2092968,
+    "source": "docs/design/cinematic-references-2026-10-21/sky-cinematic.png",
+    "caption": "Approved original PNG; unchanged bytes. Visual direction, not measured conditions."
+  },
+  {
+    "file": "assets/1440x900-sky-baseline.png",
+    "sha256": "641b7e266f97b5e0c3377e023f1fb960fd6cd4d26396d7311b1c4268a3d2c0af",
+    "bytes": 363678,
+    "source": "output/earth-sky-completion/comparison/1440x900-sky-baseline.png",
+    "caption": "Sky 1440x900 baseline; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/1440x900-sky-candidate.png",
+    "sha256": "51acd2f9d56d3e032712d33781da584c42df447c9a305544d7f58f98b3eb9b36",
+    "bytes": 472541,
+    "source": "output/earth-sky-completion/comparison/1440x900-sky-candidate.png",
+    "caption": "Sky 1440x900 candidate; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/390x900-sky-baseline.png",
+    "sha256": "47b842885f3a309c8c4424c87ac66d903b0e279236602f42fe6ae9c47352e124",
+    "bytes": 154156,
+    "source": "output/earth-sky-completion/comparison/390x900-sky-baseline.png",
+    "caption": "Sky 390x900 baseline; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/390x900-sky-candidate.png",
+    "sha256": "21118ee0387c22420eee18b7c663e3364cba21b6c2b3413b0ed780bb7f817a2e",
+    "bytes": 178628,
+    "source": "output/earth-sky-completion/comparison/390x900-sky-candidate.png",
+    "caption": "Sky 390x900 candidate; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/667x390-sky-baseline.png",
+    "sha256": "e8fb7483754d8552f68f5c53a819189a190a3a835faee18523311c547a9feb9b",
+    "bytes": 102489,
+    "source": "output/earth-sky-completion/comparison/667x390-sky-baseline.png",
+    "caption": "Sky 667x390 baseline; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/667x390-sky-candidate.png",
+    "sha256": "d8468a12cf820f8eb97f64212b49ccf1e12c88687fc8e37151a5dc68db3f5c93",
+    "bytes": 119755,
+    "source": "output/earth-sky-completion/comparison/667x390-sky-candidate.png",
+    "caption": "Sky 667x390 candidate; same requested UTC and fresh browser settings. Native readiness/diagnostics in comparison/proof.json."
+  },
+  {
+    "file": "assets/browser-reviewed-1440x900-selected.png",
+    "sha256": "63a87ec9f853a0c4cee00a8c83205278495ac1ab8d883ba92ba9bb55089c63c2",
+    "bytes": 1647523,
+    "source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/browser-reviewed/1440x900-selected.png",
+    "caption": "Earth selected location (retained E1 source-matched evidence): 1440x900-selected.png"
+  },
+  {
+    "file": "assets/browser-reviewed-1440x900-expanded.png",
+    "sha256": "15cef2cb189bcd13840a24839fcc9eee545ab1e7bd8b5c868aadae272c1a3aa7",
+    "bytes": 1669958,
+    "source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/browser-reviewed/1440x900-expanded.png",
+    "caption": "Earth selected location (retained E1 source-matched evidence): 1440x900-expanded.png"
+  },
+  {
+    "file": "assets/browser-reviewed-390x900-selected.png",
+    "sha256": "383c9b317eb3c56366de4d56c775ece54549910cd7894f0df79c899e1cdb1abb",
+    "bytes": 341196,
+    "source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/browser-reviewed/390x900-selected.png",
+    "caption": "Earth selected location (retained E1 source-matched evidence): 390x900-selected.png"
+  },
+  {
+    "file": "assets/browser-reviewed-390x900-expanded.png",
+    "sha256": "00a68af021efa2650215c553ab05f7f4bc16ec5bd90273ea71b4f3d740e5199f",
+    "bytes": 306736,
+    "source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/browser-reviewed/390x900-expanded.png",
+    "caption": "Earth selected location (retained E1 source-matched evidence): 390x900-expanded.png"
+  },
+  {
+    "file": "assets/browser-reviewed-667x390-selected.png",
+    "sha256": "770c0d2245b2f341962da70fb77ba24cbc37f431e37f3d7c72db42e48a520e2b",
+    "bytes": 246901,
+    "source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/browser-reviewed/667x390-selected.png",
+    "caption": "Earth selected location (retained E1 source-matched evidence): 667x390-selected.png"
+  },
+  {
+    "file": "assets/browser-reviewed-667x390-expanded.png",
+    "sha256": "e220bf9c02a30c421b27e6c6296d27e36eafef756f9fa0634551bd71432f46b9",
+    "bytes": 242638,
+    "source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/browser-reviewed/667x390-expanded.png",
+    "caption": "Earth selected location (retained E1 source-matched evidence): 667x390-expanded.png"
+  },
+  {
+    "file": "assets/sky-final-1440x900-selected.png",
+    "sha256": "1f4c68003028be03a3c06dbcd24dff652808c09f6329078b9de5a9b87f056625",
+    "bytes": 540711,
+    "source": "output/earth-sky-completion/sky-final/1440x900-selected.png",
+    "caption": "Sky selected star and controls (fresh final S1): 1440x900-selected.png"
+  },
+  {
+    "file": "assets/sky-final-1440x900-expanded.png",
+    "sha256": "722e7f7b16984f21618ddb2bcdb0a8b4846aedc41015fbb6f38b5cf7f18968f1",
+    "bytes": 544872,
+    "source": "output/earth-sky-completion/sky-final/1440x900-expanded.png",
+    "caption": "Sky selected star and controls (fresh final S1): 1440x900-expanded.png"
+  },
+  {
+    "file": "assets/sky-final-1440x900-display.png",
+    "sha256": "908ec6b01bca66f2414137941f582bfae44702769405af089c19a396945f653c",
+    "bytes": 424923,
+    "source": "output/earth-sky-completion/sky-final/1440x900-display.png",
+    "caption": "Sky selected star and controls (fresh final S1): 1440x900-display.png"
+  },
+  {
+    "file": "assets/sky-final-390x900-selected.png",
+    "sha256": "bda031c6b8a797335bdc779be09b5089e196b89a42ee0d5aedc93e8e9534865a",
+    "bytes": 205847,
+    "source": "output/earth-sky-completion/sky-final/390x900-selected.png",
+    "caption": "Sky selected star and controls (fresh final S1): 390x900-selected.png"
+  },
+  {
+    "file": "assets/sky-final-390x900-expanded.png",
+    "sha256": "ac62057207467c82a490b32d23d944fb2aae80652611f72343a06f9927421c85",
+    "bytes": 192550,
+    "source": "output/earth-sky-completion/sky-final/390x900-expanded.png",
+    "caption": "Sky selected star and controls (fresh final S1): 390x900-expanded.png"
+  },
+  {
+    "file": "assets/sky-final-390x900-display.png",
+    "sha256": "4ddda382582ba7298263c77cd5b0d8dd77fdaeac953f141a78b8593385747f61",
+    "bytes": 134764,
+    "source": "output/earth-sky-completion/sky-final/390x900-display.png",
+    "caption": "Sky selected star and controls (fresh final S1): 390x900-display.png"
+  },
+  {
+    "file": "assets/sky-final-667x390-selected.png",
+    "sha256": "b15b095efa1463461c2a05f278e273fa5df165627285305d81c78a37ff2e2a73",
+    "bytes": 133216,
+    "source": "output/earth-sky-completion/sky-final/667x390-selected.png",
+    "caption": "Sky selected star and controls (fresh final S1): 667x390-selected.png"
+  },
+  {
+    "file": "assets/sky-final-667x390-expanded.png",
+    "sha256": "6849da8a19054b3c3d7096607fa2ecd625b74c0d6a362d3493b313e74a4c5e2d",
+    "bytes": 105354,
+    "source": "output/earth-sky-completion/sky-final/667x390-expanded.png",
+    "caption": "Sky selected star and controls (fresh final S1): 667x390-expanded.png"
+  },
+  {
+    "file": "assets/sky-final-667x390-display.png",
+    "sha256": "4718e16dd9f4dfae4b96527a775b2a257c3596e77db47ccbbb753a0eca3b7d92",
+    "bytes": 85797,
+    "source": "output/earth-sky-completion/sky-final/667x390-display.png",
+    "caption": "Sky selected star and controls (fresh final S1): 667x390-display.png"
+  },
+  {
+    "file": "assets/sky-scenes-historical-wide.png",
+    "sha256": "6e8140ee7051e40c741a3f3ef147e4b22d16806a1523adb2b8ee00e841cf737b",
+    "bytes": 781529,
+    "source": "output/earth-sky-completion/sky-scenes/historical-wide.png",
+    "caption": "Sky controlled native scenes (fresh S1): historical-wide.png"
+  },
+  {
+    "file": "assets/sky-scenes-Moon-close.png",
+    "sha256": "b3432f6c491dba1d4c81c96cb63b8be21e860ffd8f3ad765a4479a0b65eb8446",
+    "bytes": 287489,
+    "source": "output/earth-sky-completion/sky-scenes/Moon-close.png",
+    "caption": "Sky controlled native scenes (fresh S1): Moon-close.png"
+  },
+  {
+    "file": "assets/sky-scenes-Moon-expanded.png",
+    "sha256": "1c1f09ed84a61c4ad45f04be1444935013753857168b289e0b6be4fdc200d619",
+    "bytes": 294464,
+    "source": "output/earth-sky-completion/sky-scenes/Moon-expanded.png",
+    "caption": "Sky controlled native scenes (fresh S1): Moon-expanded.png"
+  },
+  {
+    "file": "assets/sky-scenes-Jupiter-close.png",
+    "sha256": "5f685f7a9bbfca89de26462a0977122a87d0e04fb104e4c23cbf8268564a1132",
+    "bytes": 269275,
+    "source": "output/earth-sky-completion/sky-scenes/Jupiter-close.png",
+    "caption": "Sky controlled native scenes (fresh S1): Jupiter-close.png"
+  },
+  {
+    "file": "assets/sky-scenes-Jupiter-expanded.png",
+    "sha256": "b84a1a5e0b627cd6428746ff6ec2b46ae083aab477e477122e6f81ab235fecfa",
+    "bytes": 310711,
+    "source": "output/earth-sky-completion/sky-scenes/Jupiter-expanded.png",
+    "caption": "Sky controlled native scenes (fresh S1): Jupiter-expanded.png"
+  },
+  {
+    "file": "assets/sky-scenes-M42-close.png",
+    "sha256": "da3233821c29a1a6fe44c42fbbd4be1409c60c2b3bc21d824205867c8b3f2220",
+    "bytes": 1418895,
+    "source": "output/earth-sky-completion/sky-scenes/M42-close.png",
+    "caption": "Sky controlled native scenes (fresh S1): M42-close.png"
+  },
+  {
+    "file": "assets/sky-scenes-M42-expanded.png",
+    "sha256": "d3162e4ff948d38149936551da9049b37788877c12f9e8b5a095e200fd84ddea",
+    "bytes": 1411335,
+    "source": "output/earth-sky-completion/sky-scenes/M42-expanded.png",
+    "caption": "Sky controlled native scenes (fresh S1): M42-expanded.png"
+  },
+  {
+    "file": "assets/sky-scenes-orion-context.png",
+    "sha256": "505304085d3dfbfb6b5e5795892314bae1dca4aef61a6752a2e3981123755d26",
+    "bytes": 845376,
+    "source": "output/earth-sky-completion/sky-scenes/orion-context.png",
+    "caption": "Sky controlled native scenes (fresh S1): orion-context.png"
+  },
+  {
+    "file": "assets/sky-scenes-historical-atmosphere-on.png",
+    "sha256": "1d0951df3e0d62eb65f922572ba50465419c1eede3800353ba4d0cd33bc3a551",
+    "bytes": 627447,
+    "source": "output/earth-sky-completion/sky-scenes/historical-atmosphere-on.png",
+    "caption": "Sky controlled native scenes (fresh S1): historical-atmosphere-on.png"
+  },
+  {
+    "file": "assets/integration-1440-solar-preserved.png",
+    "sha256": "cb49f2a2f113b2c9fb81c4182e1bc5d2677fdeca214f81a416b6d27042a75b5a",
+    "bytes": 207786,
+    "source": "output/earth-sky-completion/integration/1440-solar-preserved.png",
+    "caption": "Preserved Solar and integrated Sky return (fresh I1): 1440-solar-preserved.png"
+  },
+  {
+    "file": "assets/integration-390-solar-preserved.png",
+    "sha256": "2a9b2eab8f95c84fc9e44600edaa1185d9bde1b7814064fe113308e9654343ac",
+    "bytes": 136768,
+    "source": "output/earth-sky-completion/integration/390-solar-preserved.png",
+    "caption": "Preserved Solar and integrated Sky return (fresh I1): 390-solar-preserved.png"
+  },
+  {
+    "file": "assets/integration-1440-sky-return.png",
+    "sha256": "168d14d271720ef19cd9263d77ba3fcae25d15511c9fa3e84dc46dd0c1e0feae",
+    "bytes": 694964,
+    "source": "output/earth-sky-completion/integration/1440-sky-return.png",
+    "caption": "Preserved Solar and integrated Sky return (fresh I1): 1440-sky-return.png"
+  },
+  {
+    "file": "assets/integration-390-sky-return.png",
+    "sha256": "eacf68531e68687bbf07ed0d5e60c49bfda99c783c328100114637d7fc82b9d2",
+    "bytes": 198664,
+    "source": "output/earth-sky-completion/integration/390-sky-return.png",
+    "caption": "Preserved Solar and integrated Sky return (fresh I1): 390-sky-return.png"
+  }
+]

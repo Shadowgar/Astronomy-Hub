@@ -1,5 +1,13 @@
 # LIVE SESSION BRIEF
 
+Current completion checkpoint: E1 draft PR89 at `94f98598131f23d9179135ec492fb1ad5d739407`;
+S1/combined I1 on `cinematic-sky-completion-1`, stacked on E1. Native presentation,
+source-backed object context and focused combined qualification are implemented.
+Owner Earth/Sky visual acceptance and physical GPU qualification remain pending.
+The comparison gallery, test limits and R4 readiness-only recommendation are in
+`docs/validation/earth-sky-completion/README.md`. No merge, deployment or R4 activation.
+
+
 ## Earth and Sky cinematic completion — owner authorization 2026-10-23
 
 The owner reports Solar at PR88 `89491f72ef4f4ab9e75d1bc2e4599cd3e74ca3f2`
