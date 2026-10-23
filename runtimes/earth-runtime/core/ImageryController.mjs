@@ -205,7 +205,7 @@ export class ImageryController {
  }
  removeLabels(){if(!this.labels)return;this.labels.off();this.labels.guard.stop();this.viewer.imageryLayers.remove(this.labels.layer,true);this.labels=null;this.runtime.attribution.remove('map-labels');}
  loadingStatus(){
-  const unsettled=this.viewer.scene.globe.tilesLoaded===false;
+  const unsettled=this.viewer.scene.globe.tilesLoaded===false||(this.activeRecord?.guard.stats.active??0)>0;
   return this.activeRecord?.loaded?(unsettled||this.activeRecord.partial?'partial':'ready'):(unsettled&&performance.now()-(this.refinementStarted??performance.now())>=15000?'slow':'loading');
  }
  mountStatus(){if(typeof document!=='undefined'){this.statusNode=document.querySelector('#imagery-status');this.summaryNode=document.querySelector('#imagery-summary');}}

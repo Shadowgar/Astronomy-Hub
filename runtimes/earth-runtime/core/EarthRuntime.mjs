@@ -1,3 +1,4 @@
+import {SearchLocation} from './SearchLocation.mjs';
 import {observerElevationSource} from '../../../packages/runtime-protocol/observer-elevation.mjs';
 import {EVENT_LAYERS} from '../layers/EventLayers.mjs';
 import {VisualFoundation} from './VisualFoundation.mjs';
@@ -14,6 +15,7 @@ export class EarthRuntime {
   constructor(){this.ready=false;this.lifecycle=new RuntimeLifecycle();this.site={...ORAS_SITE};this.observer={...ORAS_SITE};this.observerElevationSource='oras-site';this.timings={moduleLoadedMs:performance.now()};this.layerRows=new Map();this.selectionMetadata=null;}
   async initialize(){
     this.controller=new ViewerController(document.querySelector('#viewer'),document.querySelector('#credits'));this.viewer=this.controller.viewer;this.lifecycle.add(()=>this.controller.destroy());
+    this.searchLocation=new SearchLocation(this.viewer);this.lifecycle.add(()=>this.searchLocation.destroy());
     this.camera=new CameraController(this.viewer);this.lifecycle.add(()=>this.camera.destroy());this.camera.home(this.site);
     this.attribution=new AttributionManager(document.querySelector('#attributions'));this.lifecycle.add(()=>this.attribution.destroy());
     this.attribution.set('code','God’s Eye MIT modules','/earth-runtime/LICENSE-gods-eye.txt');
