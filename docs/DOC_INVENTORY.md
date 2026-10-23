@@ -1,5 +1,7 @@
 # `DOC_INVENTORY.md`
 
+Current owner visual rejection activates [G1/G2/V1 glass correction](validation/cinematic-glass/README.md) stacked on PR90. Approved references remain; no visual acceptance, merge, deployment or R4.
+
 Current owner-authorized [Earth/Sky completion](validation/earth-sky-completion/README.md) continues from PR88, preserving owner-confirmed satisfactory Solar responsiveness. Draft delivery and visual acceptance remain separate.
 
 Owner-approved cinematic sizing correction: [current implementation/evidence](validation/solar-cinematic-balance/README.md); prior physical-default qualification remains historical.

@@ -10,6 +10,7 @@ test('Sky marker and public admission digest bind every qualified application fi
  if(lock.sky.native_horizon){assert.equal(marker.native_wasm_identical,lock.sky.reconstruction.native_wasm_identical);assert.equal(marker.native_vendor_chunks_identical,lock.sky.reconstruction.native_vendor_chunks_identical??false)}
  const payload=lock.sky.artifact_files.filter(row=>row.path!=='oras-runtime-build.json');
  assert.equal(digest(JSON.stringify(payload)),lock.sky.artifact_sha256);assert.equal(marker.artifact_sha256,lock.sky.artifact_sha256);assert.equal(versions.sky.artifact_sha256,marker.artifact_sha256);
+ for(const name of ['runtimes/shared/glass.css','runtimes/sky-adapter/native-material.css']){assert.equal(marker.material_input_sha256[name],digest(read(name)),name);assert.equal(lock.sky.material_input_sha256[name],marker.material_input_sha256[name])}
  assert.equal(marker.adapter_sha256,digest(read('runtimes/sky-adapter/plugin.js')));
  assert.equal(marker.wheel_input_sha256,digest(read('runtimes/sky-adapter/native-wheel.mjs')));
  assert.equal(lock.sky.wheel_input_sha256,marker.wheel_input_sha256);

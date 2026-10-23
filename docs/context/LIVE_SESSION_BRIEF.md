@@ -1,5 +1,17 @@
 # LIVE SESSION BRIEF
 
+## Owner visual rejection and glass correction — 2026-10-23
+
+The owner rejects current PR88–90 visual fidelity, including opaque dark panels.
+Prior functional qualification remains evidence, not visual acceptance. Approved
+cinematic/Adaptive Explorer references are unchanged. G1 shared translucent material,
+G2 all-mode chrome integration and V1 supported scene assessment are active on a
+new draft branch stacked on PR90 `4fa9ffd8`. Preserve source math, native ownership,
+accepted navigation, data/settings/pins/rollback and Solar responsiveness. No paid
+providers, merge, deployment or R4. Stop for owner visual acceptance of actual UI.
+[Current implementation/evidence](../validation/cinematic-glass/README.md).
+
+
 Current completion checkpoint: E1 draft PR89 at `94f98598131f23d9179135ec492fb1ad5d739407`;
 S1/combined I1 on `cinematic-sky-completion-1`, stacked on E1. Native presentation,
 source-backed object context and focused combined qualification are implemented.
