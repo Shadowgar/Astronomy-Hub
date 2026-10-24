@@ -51,7 +51,7 @@ Please avoid publishing exploitable vulnerability details in a public issue. Use
 
 ## Licensing and third-party material
 
-This is a **mixed-license repository**. The maintainer proposes [MIT for original Hub-owned software](LICENSE), while copied or modified **Stellarium Web / Stellarium Web Engine code retains GNU AGPL v3** and other materials carry their own licenses. The MIT license does **not** extend to third-party code, catalog data, imagery, fonts, provider services, or other externally licensed assets.
+This is a **mixed-license repository**. Original Hub-owned software is offered under the [MIT License](LICENSE), while copied or modified **Stellarium Web / Stellarium Web Engine code retains GNU AGPL v3** and other materials carry their own licenses. The MIT license does **not** extend to third-party code, catalog data, imagery, fonts, provider services, or other externally licensed assets.
 
 See the [license scope and third-party notices](THIRD_PARTY_NOTICES.md) for details and [open-source readiness review](docs/OPEN_SOURCE_READINESS.md) for outstanding rights and distribution checks. Rights to every bundled dataset or compiled runtime have **not** been fully verified; public access does not itself authorize unrestricted redistribution.
 
