@@ -1,38 +1,42 @@
-# Open-source readiness and licensing review
+# Open-source licensing readiness
 
-**Status: owner decision and verification pending (2026-10-24).** This is a documentation checklist, not a legal opinion, a license grant, or a claim that all included materials have been cleared for redistribution.
+**Status (2026-10-24): scoped licensing change proposed for maintainer review, not yet merged or legally audited.**
 
-## Confirmed repository-level findings
+This document tracks repository-level license transparency and outstanding upstream obligations. It does **not** certify redistribution compliance or OpenAI program acceptance.
 
-- The repository is public and actively maintained.
-- No `LICENSE` or `README.md` existed at the repository root on the reviewed main branch; the root README is being added in a separate documentation pull request.
-- GitHub reported **no recognized repository license**. The root `package.json` declares `"license": "ISC"`, which is insufficient evidence of a consistent, correctly scoped license for this mixed-origin repository.
-- GitHub has no configured short repository description. This is a repository setting, not a Markdown file.
+## What this pull request corrects
 
-## Sample of distinct rights and notices requiring review
+- Proposes a root [MIT license](../LICENSE) **for original Astronomy Hub code owned/controlled by the maintainer**, not an attempt to relicense third-party contents.
+- Copies the unmodified **GNU Affero General Public License v3** from the Stellarium Web Engine upstream into the two checked-in Stellarium source trees, preserving their existing copyright headers.
+- Adds [third-party scope and attribution notes](../THIRD_PARTY_NOTICES.md) that explain where MIT does not apply, including modified Stellarium modules, runtime binaries, God's Eye View components, datasets and imagery.
+- Aligns the root `package.json` and only the root package entry in `package-lock.json` from placeholder `ISC` to proposed `MIT`; the package manifest does not relicense other programs or data.
+- Updates the public [README](../README.md) to surface the actual mixed-license situation rather than claim all source is MIT.
+- The GitHub repository description and README were already added in the merged documentation PR #96.
 
-| Component / source | Observed evidence | Required follow-up |
+## Known source-license inventory (not exhaustive)
+
+| Material | License / boundary | Evidence or disposition |
 | --- | --- | --- |
-| Original Hub application code | Root `package.json` declares ISC; no root license text or verified authorship inventory | Confirm author/rights holders, choose an appropriate license, and define its exact scope |
-| Stellarium-derived integration | `integrations/sky-overlay/apps/web-frontend/src/main.js` explicitly mentions GNU AGPL v3 or a commercial license; the repository also contains Stellarium Web Engine-derived code under `vendor/` | Inspect all upstream license texts, pinned revisions, modifications, applicable copyleft obligations, and required notices; do not assume an alternative commercial license has been obtained |
-| God's Eye-derived Earth functionality | [ADR 0008](architecture/decisions/0008-provider-licensing-boundaries.md) records MIT source-code rights while excluding independent provider, data, and visual-asset rights | Verify exactly which code is copied or adapted, retain required attribution, and separately qualify associated materials |
-| Astronomical catalog data | OpenNGC ingestion code notes CC BY-SA 4.0; other data sources document distinct attribution/access terms | Preserve per-dataset provenance and notices; review redistribution and hosted-use permission for each dataset |
-| Maps, imagery, fonts, and icons | Source/provider obligations appear in architecture, design asset notices, and runtime documentation | Inventory actual bundled files and external runtime sources, then include applicable notices and exclusions |
+| Maintainer-owned original Hub code | **MIT proposed** | [Root MIT license](../LICENSE), contingent on maintainer's authority to grant rights |
+| `integrations/sky-overlay/` | **GNU AGPL v3** for Stellarium-derived files | [Upstream license copy](../integrations/sky-overlay/LICENSE-AGPL-3.0.txt) and original headers crediting Stellarium Labs SRL |
+| `vendor/stellarium-web-engine/` | **GNU AGPL v3** for Stellarium-derived files | [Upstream license copy](../vendor/stellarium-web-engine/LICENSE-AGPL-3.0.txt), source headers |
+| Built Stellarium runtime in `frontend/public/oras-sky-engine/` | Upstream/copyleft obligations can follow output | Exact bundle contents and corresponding-source/network offer **need verification** |
+| Reused God's Eye View material | MIT source-code license with non-code exclusions | Upstream license credits Bilawal Sidhu; [third-party notices](../THIRD_PARTY_NOTICES.md) preserve that distinction |
+| OpenNGC / other astronomy datasets | CC BY-SA 4.0 and various other source-specific terms | Confirm by data feed, version, bundled content and applicable reuse rights |
+| Maps, surveys, fonts, icons, planetary imagery, model assets | Individual data/provider/content licenses | Existing asset notices/metadata; no blanket MIT rights |
+| JS/Python dependencies | Independent licenses | Lockfiles and installed package notices; not transferred to the repository MIT license |
 
-This table is **not an exhaustive dependency or copyright audit**.
+## Additional checks needed before claiming complete licensing compliance
 
-## Before declaring the repository open-source licensed
+1. **Copyright and contribution authority:** confirm the copyright holder(s) of original code and that the maintainer can offer MIT rights. Files adapted from upstream keep their original obligations even when moved outside vendor directories.
+2. **Stellarium modified-source and deployment obligations:** trace bundled WASM/JS to matching source revisions and modifications. When distributing or offering modified AGPL-covered software over a network, verify full corresponding source, copyright notices, and the required source-access mechanism.
+3. **Third-party source audit:** reconcile actual imported or forked God's Eye code and any other upstream modules with original license texts, preserving their notices and author credits in distributed artifacts.
+4. **Assets and data:** inventory all committed catalogs, surveys, HiPS tiles, visual assets and generated outputs before stating they can be freely redistributed or hosted. Resolve unknown permissions rather than assuming public or MIT rights.
+5. **Release pipeline:** verify every produced or deployed binary/bundle retains notices and, where applicable, access to matching source; review provider service terms separately from the software license.
+6. **GitHub verification:** after merge, verify GitHub detects the root MIT license and displays the README and mixed-license notice. A GitHub license badge is not itself evidence of complete copyright compliance.
 
-1. Identify which source files were authored by the maintainer, contributed by others, adapted from upstream, or generated from third-party materials; establish redistribution rights.
-2. Audit vendored and integrated Stellarium material and any AGPL/commercial dual-license choices with the exact upstream versions and notices. Do not represent AGPL material as solely ISC, MIT, or Apache-licensed.
-3. Decide which OSI-approved license will cover the original Hub-owned code and how to distinguish third-party components. Resolve compatibility questions before applying the chosen license broadly.
-4. Add the correctly scoped license text and attribution/third-party notices, preserving licenses already attached to upstream code and independent datasets/assets.
-5. Align the root package metadata with the approved license **only after** the rights audit. A package manifest declaration must not overstate repository-wide rights.
-6. Confirm GitHub recognizes the intended repository license and review the rendered public README, contributor guidance, and credits.
-7. In GitHub repository **Settings → General**, add a concise public description, for example: “Source-aware astronomy exploration and observing tools spanning the sky, Earth, and the Solar System.”
+## Owner review gate
 
-The project can receive documentation improvements now, but the copyright/licensing decision should be explicitly approved by the owner. **Do not add a blanket root license before the rights and scope decisions are resolved.**
+Merging the proposed MIT LICENSE constitutes an offer to license the maintainer-owned code under MIT; it should **only** happen after the maintainer accepts that permissive grant and confirms they control the affected rights. This PR must remain unmerged until then. Nothing in this review modifies runtime sources, deployments, external provider contracts, or existing upstream license notices.
 
-## Scope and safety
-
-This checklist does not authorize modifying application code, runtime/provider configuration, dependencies, data, or production systems. It does not establish OpenAI program eligibility; third-party license review and program acceptance remain separate decisions.
+For legal uncertainty on derived/copyleft applications and hosting, obtain a qualified open-source licensing review rather than assuming compatibility or permissions.

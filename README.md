@@ -51,8 +51,8 @@ Please avoid publishing exploitable vulnerability details in a public issue. Use
 
 ## Licensing and third-party material
 
-**Repository-wide licensing is still under review.** GitHub does not currently recognize a root license. The root `package.json` contains an `ISC` license field, but it must not be assumed to relicense separately sourced code, astronomical datasets, imagery, or third-party assets. Certain included source files have explicit upstream copyleft notices, and provider/data rights are independent of application code rights.
+This is a **mixed-license repository**. The maintainer proposes [MIT for original Hub-owned software](LICENSE), while copied or modified **Stellarium Web / Stellarium Web Engine code retains GNU AGPL v3** and other materials carry their own licenses. The MIT license does **not** extend to third-party code, catalog data, imagery, fonts, provider services, or other externally licensed assets.
 
-See the [open-source readiness and license review](docs/OPEN_SOURCE_READINESS.md) for the outstanding decisions. Publication of the code does not, by itself, grant permission to reuse all repository contents.
+See the [license scope and third-party notices](THIRD_PARTY_NOTICES.md) for details and [open-source readiness review](docs/OPEN_SOURCE_READINESS.md) for outstanding rights and distribution checks. Rights to every bundled dataset or compiled runtime have **not** been fully verified; public access does not itself authorize unrestricted redistribution.
 
 Maintained by [Shadowgar](https://github.com/Shadowgar).
