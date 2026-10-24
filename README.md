@@ -1,31 +1,86 @@
 # Astronomy Hub
 
-**Astronomy Hub** is an actively developed, source-aware workspace for exploring the sky and planning astronomy observations. Its guiding question is: **“What is above me right now, and what should I pay attention to?”**
+**Explore the night sky. Find what matters tonight. Go farther.**
 
-The project brings observing context and multiple specialized visualization engines into one evolving application. Its long-term direction is **Adaptive Explorer**: a shared, accessible experience for the Sky, Solar System, Earth, and qualified planetary surfaces.
+Astronomy Hub is an open-source astronomy exploration project built around a simple question: **“What is above me right now, and what should I pay attention to?”** It brings observer-aware astronomy tools, native sky rendering, and an evolving Earth/Solar System experience into one workspace.
 
-> **Status:** Development project, not a generally available or production-qualified release. The repository includes implemented foundations alongside work that is still in progress. A roadmap item or an open pull request is **not** evidence that a feature is complete or deployed.
+> **Active development — not a production release.** The featured screenshots below are **real browser captures from open, unmerged development PRs**, not mockups or screenshots of the current `main` build. The cinematic UI and planetary views are candidates awaiting final owner review, merge, and deployment. [See what is actually on `main`](#current-status).
 
-## What is in the repository?
+## A look inside Astronomy Hub
 
-- **Sky exploration:** Integration with an ORAS-hosted Stellarium Web / Stellarium Web Engine runtime. The engine retains authority over sky rendering, object selection, and camera behavior.
-- **Observing context:** Dedicated Observe and Tonight experiences, with astronomy APIs and source-backed object information.
-- **Earth exploration:** A separately built, Cesium-based Earth viewer integrated with the Hub through bounded interfaces. Earth imagery, provider availability, and data coverage have distinct limitations.
-- **Application infrastructure:** A FastAPI/Python backend, JavaScript frontend, PostgreSQL/PostGIS, Redis, containerized development services, and data-ingestion/validation tooling.
+### Explore the sky
 
-The implemented capabilities are **not** equivalent to complete planetary travel, global high-resolution imagery, or production readiness. See the [feature tracker](docs/features/FEATURE_TRACKER.md) and [implementation evidence](docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md) for qualified boundaries.
+[![Astronomy Hub cinematic Sky preview, showing the Stellarium star field, search and observing controls](docs/images/astronomy-hub-sky-desktop.png)](docs/images/astronomy-hub-sky-desktop.png)
 
-## Where the project is heading
+*Sky desktop preview — native Stellarium scene, astronomy search, observing location, and contextual tools. [Candidate PR #91](https://github.com/Shadowgar/Astronomy-Hub/pull/91); not merged.*
 
-The owner-approved [Adaptive Explorer product vision](docs/product/PRODUCT_VISION.md) describes contextual Sky, Solar System, Earth, and planetary-surface exploration through a shared design system. The planned experience emphasizes the rendered scene, scientific/source accuracy, accessible navigation, and appropriately scoped controls.
+### Explore farther
 
-These are product goals, **not a claim that all modes and transitions are implemented or validated**. The [unified architecture](docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md) separates current integration from proposed capabilities.
+| Solar System preview | Moon surface preview |
+| :---: | :---: |
+| [![Astronomy Hub Solar System preview with the Sun, planets, and orbit context](docs/images/astronomy-hub-solar-desktop.png)](docs/images/astronomy-hub-solar-desktop.png) | [![Astronomy Hub native Moon globe preview with scientific source attribution and camera controls](docs/images/astronomy-hub-moon-desktop.png)](docs/images/astronomy-hub-moon-desktop.png) |
+| Cinematic Solar exploration · [PR #91](https://github.com/Shadowgar/Astronomy-Hub/pull/91) | Source-qualified Moon globe · [PR #95](https://github.com/Shadowgar/Astronomy-Hub/pull/95) |
 
-## Local development
+### On a smaller screen
 
-The supported day-to-day workflow is designed for the owner's Linux/WSL and Docker environment. It is **not a one-command setup from a fresh clone**: the Sky data and the exact qualified Earth runtime artifact must already be provisioned. Runtime artifacts, required credentials, and provider rights are not automatically supplied by this repository.
+<p align="center">
+  <a href="docs/images/astronomy-hub-sky-mobile.png"><img src="docs/images/astronomy-hub-sky-mobile.png" width="255" alt="Real mobile-viewport capture of Astronomy Hub Sky exploration with the star field, search, and compact controls" /></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="docs/images/astronomy-hub-earth-mobile.png"><img src="docs/images/astronomy-hub-earth-mobile.png" width="255" alt="Real mobile-viewport capture of Astronomy Hub Earth exploration with a globe, location search, and navigation controls" /></a>
+</p>
 
-With the required local artifacts and Docker services prepared:
+<p align="center"><em>Sky and Earth mobile-viewport previews from <a href="https://github.com/Shadowgar/Astronomy-Hub/pull/91">PR #91</a>. Browser-emulated viewports, not photographs of physical devices.</em></p>
+
+These are **actual application screenshots from tested development branches**. They do not mean those features are released or available on `main`. The [screenshot provenance record](docs/images/README.md) lists source commits and original evidence files; no conceptual artwork is presented as a functioning feature.
+
+## What it does
+
+- **Observe the sky:** Use a contained Stellarium Web / Stellarium Web Engine runtime for sky rendering, object selection, camera control, and astronomy source data.
+- **Understand observing conditions and targets:** Work with location, time, object information, and focused **Observe** and **Tonight** experiences.
+- **Explore Earth:** Move into an independently rendered Cesium Earth context, with source-aware imagery and explicit provider/coverage limitations.
+- **Connect specialized views:** The Hub owns navigation and shared context while the Sky and Earth engines retain their own rendering and scientific responsibilities.
+- **Develop toward a unified explorer:** Solar System navigation, detailed Moon exploration, and a cohesive cinematic interface are under active review, **not established features on `main`**.
+
+Astronomy Hub favors traceable scientific sources and honest unavailable states over invented celestial positions, unrealistic map-coverage claims, or a visual demo that pretends to be a finished release.
+
+## Current status
+
+| Area | Merged foundation on `main` | Work in separate review PRs |
+| --- | --- | --- |
+| **Sky** | Contained Stellarium runtime and bounded Hub Sky integration | Refined native observing controls and cinematic Sky interface |
+| **Earth** | Hub-owned Cesium Earth viewer with qualified regional imagery and Sky/Earth integration | Search, imagery/cache qualification, and revised contextual Earth presentation |
+| **Solar System / Moon** | Documented architecture and qualified source components | Cinematic Solar and native Moon/planetary-system candidates; **not merged** |
+| **Observe / Tonight** | Focused routes and astronomy workflows | Further integration into a shared contextual experience |
+
+The existing bounded local qualification is **not** proof of global imagery coverage, deployment readiness, finished planetary travel, or owner-approved final visual design. Review the [feature tracker](docs/features/FEATURE_TRACKER.md), [implementation evidence](docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md), and [product vision](docs/product/PRODUCT_VISION.md) for the authoritative distinctions.
+
+<details>
+<summary>View an earlier captured Sky runtime from the merged development foundation</summary>
+
+[![Historical ORAS Sky-Engine capture with Jupiter, Venus, the Moon, and native search](docs/images/astronomy-hub-sky-historical.png)](docs/images/astronomy-hub-sky-historical.png)
+
+*Historical local capture already tracked on `main`; not a claim of the current deployed appearance.*
+
+</details>
+
+## How it works
+
+```text
+Astronomy Hub — navigation, observer/time context, discovery and details
+        ├── Sky: Stellarium Web / Stellarium Web Engine
+        ├── Earth: independent Cesium runtime
+        └── Observe / Tonight: focused astronomy workflows
+
+FastAPI (Python) · React/Vite · PostgreSQL/PostGIS · Redis
+```
+
+The Hub coordinates the experience; the specialized renderers own their scenes, physics, and camera behavior. Source-backed science, licensing boundaries, renderer isolation, and reproducible validation are deliberate project constraints. See the [unified architecture](docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
+
+## Running locally
+
+The development workflow is built for Linux/WSL with Docker. **A fresh clone is not enough to run the complete system:** an exact qualified Earth runtime artifact, installed Sky data, and the documented local prerequisites must already be present. This repository does not automatically provide external data/provider rights or recreate those artifacts.
+
+With the prerequisites installed:
 
 ```bash
 npm run dev:local
@@ -33,26 +88,24 @@ npm run dev:local:status
 npm run dev:local:logs
 ```
 
-The frontend is served at `http://localhost:4173` when the local stack passes its checks. For first-time provisioning, artifact verification, and safe lifecycle details, read the [local development guide and evidence](docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md). Do not substitute an unqualified renderer build or install paid provider services.
+The verified local stack serves the Hub at `http://localhost:4173`. Follow the [local setup, artifact verification, and preservation instructions](docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md); do not substitute an unqualified build or enable paid services to make the demo appear complete.
 
-## Project documentation
+## Documentation and participation
 
-- [Repository documentation map](docs/README.md)
-- [Product vision and acceptance requirements](docs/product/PRODUCT_VISION.md)
-- [Architecture and renderer boundaries](docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
-- [Feature tracker and current qualification](docs/features/FEATURE_TRACKER.md)
-- [Project operating rules](AGENTS.md)
+- [Product vision](docs/product/PRODUCT_VISION.md) · [Feature status](docs/features/FEATURE_TRACKER.md)
+- [Architecture](docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md) · [Documentation index](docs/README.md)
+- [Development rules](AGENTS.md) · [Issue tracker](https://github.com/Shadowgar/Astronomy-Hub/issues)
 
-## Contributing and security
+Discussion, accessibility feedback, and carefully scoped contributions are welcome. Follow the repository's architecture and validation rules before changing an engine or scientific data path. Please report potential vulnerabilities privately rather than posting exploit details in a public issue.
 
-Issues and suggestions about astronomy usability, data quality, accessibility, and reliability are welcome for discussion. Proposed changes should preserve source attribution, science correctness, upstream component boundaries, and the validation requirements in the project documentation.
+## Open-source licenses and acknowledgments
 
-Please avoid publishing exploitable vulnerability details in a public issue. Use a private channel to the maintainer where available.
+Astronomy Hub is a **mixed-license repository**:
 
-## Licensing and third-party material
+- **Original Hub-owned code:** [MIT](LICENSE), where the maintainer controls the relevant rights.
+- **Stellarium-derived code:** GNU AGPL v3 and existing upstream notices; it is **not** relicensed by the root MIT file.
+- **Third-party data, imagery, fonts, models, and APIs:** governed by their respective license, attribution, and service terms.
 
-This is a **mixed-license repository**. Original Hub-owned software is offered under the [MIT License](LICENSE), while copied or modified **Stellarium Web / Stellarium Web Engine code retains GNU AGPL v3** and other materials carry their own licenses. The MIT license does **not** extend to third-party code, catalog data, imagery, fonts, provider services, or other externally licensed assets.
+See [third-party notices](THIRD_PARTY_NOTICES.md), [open-source readiness](docs/OPEN_SOURCE_READINESS.md), and the [Stellarium corresponding-source audit](docs/validation/STELLARIUM_AGPL_SOURCE_OFFER_AUDIT_2026-10-24.md). Public repository access and a GitHub MIT badge do **not** by themselves verify all third-party redistribution or AGPL source-offer obligations.
 
-See the [license scope and third-party notices](THIRD_PARTY_NOTICES.md), [open-source readiness review](docs/OPEN_SOURCE_READINESS.md), and [Stellarium source-access audit](docs/validation/STELLARIUM_AGPL_SOURCE_OFFER_AUDIT_2026-10-24.md). The checked-in Stellarium runtime has no verified build-matched corresponding-source offer yet; the live service has not been tested. Rights to every bundled dataset or compiled runtime have **not** been fully verified; public access does not itself authorize unrestricted redistribution.
-
-Maintained by [Shadowgar](https://github.com/Shadowgar).
+Maintained by [Shadowgar](https://github.com/Shadowgar) with astronomy and observatory-oriented applications in mind.
