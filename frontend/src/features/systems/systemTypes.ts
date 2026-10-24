@@ -1,0 +1,11 @@
+export type Vec3 = [number, number, number]
+export type SystemParent = { id:string; name:string; naif_id:string; radius_km:number; material:string; radius_source:string }
+export type SystemSatellite = { id:string; name:string; naif_id:string; radius_km:number|null; radius_source:string|null; status:'qualified'|'unavailable'; reason:string|null; surface:{available:boolean;destination:string|null} }
+export type SystemEntry = {id:string;name:string;parent:SystemParent;status:'qualified'|'unavailable';reason:string|null;satellites:SystemSatellite[]}
+export type SystemCatalog = {schema:'oras.planetary-systems.v1';systems:SystemEntry[]}
+export type SystemSample = {epoch:string;jd_tdb:number;position_km:Vec3;velocity_km_s:Vec3}
+export type SystemTrack = {id:string;samples:SystemSample[]}
+export type SystemSnapshot = {schema:'oras.planetary-system.v1';system_id:string;epoch:string;time:{input_scale:'UTC';evaluation_scale:'TDB';jd_tdb:number};parent:SystemParent;satellites:SystemSatellite[];origin:string;frame:'ICRF';units:'km';corrections:string;coverage:{start:string;end:string};sampled_coverage:{start:string;end:string};source:{id:string;release:string;sha256:string;url:string};tracks:SystemTrack[];sun_track:SystemTrack;state:Record<string,{position_km:Vec3;velocity_km_s:Vec3}>;sampling:{step_seconds:number;interpolation:'cubic-hermite';max_position_error_km:number;qualification:string}}
+export type SystemCamera = {position:Vec3;target:Vec3;up:Vec3;focus:string|null}
+export type SystemVisitState = {schema:'oras.system-return.v1';system:string;epoch:string;camera:SystemCamera;sizeMode:'cinematic'|'physical';orbits:boolean}
+export type EvaluatedSystem = {epoch:string;jd_tdb:number;positions:Record<string,Vec3>;sun:Vec3}

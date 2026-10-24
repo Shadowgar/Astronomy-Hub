@@ -1,5 +1,24 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## Hierarchical planetary systems — owner directive 2026-10-24
+
+The owner rejects the detached Moon selector from PR92 and authorizes planetary
+hierarchy: Solar → parent system → selected moon → individually qualified Planet
+View. Base PR92 `c510759ba78c011679c2479a2fa9f48bf260afce` remains unchanged.
+PS1 implements Earth399/Moon301 relative geometry and source-time motion first;
+PS2 separately qualifies major-moon subsets using actual parent centers; PS3
+qualifies integration. Current work is `ps1-earth-moon-system-1`: Earth–Moon implementation and
+Docker/browser/artifact qualification complete, delivered as draft PR93, with independent review correction qualified and final
+exact-head follow-up pending. Owner functional/visual and physical-device acceptance remain open. [Execution and evidence](../validation/planetary-systems/README.md).
+
+This directive supersedes historical single-globe/no-moons execution limits only.
+Preserve approved glass, source positions, cinematic/physical scale choices, native
+Earth/Sky, R4-A Moon globe, data/settings/pins/volumes and rollback. Strict warning-clean
+R4-A Docker qualification and owner/device acceptance remain open. The separate
+future lunar tiled-detail and elevation-datum/terrain package remains on the existing
+roadmap. No merge, deployment, paid source or unapproved bulk data download.
+
+
 ## Bounded R4 Planet View — owner authorization 2026-10-23
 
 PR91 glass foundation is delivered as a draft at `2080ed5130c501a7ac286fb862e99d5c9dc6cb30`.

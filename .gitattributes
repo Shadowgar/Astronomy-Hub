@@ -10,3 +10,10 @@ docs/validation/n1-pennsylvania/review/*.txt -whitespace
 
 # Preserve captured output bytes in the bounded N1 remediation evidence.
 docs/validation/n1-final-remediation/evidence/*.txt -whitespace
+
+# Preserve byte-exact official source captures and raw PS1 test/Windows receipts.
+docs/validation/planetary-systems/evidence/science/catalog-scope-red.txt -whitespace
+docs/validation/planetary-systems/evidence/science/destination-red.txt -whitespace
+docs/validation/planetary-systems/evidence/science/naif-satellite-spks.html -whitespace
+docs/validation/planetary-systems/evidence/science/satellite-physical-parameters.html -whitespace
+docs/validation/planetary-systems/evidence/windows-http.txt -whitespace

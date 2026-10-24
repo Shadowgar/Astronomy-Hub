@@ -1,0 +1,87 @@
+# PS1 exact file inventory
+
+Relative to preserved PR92 c510759ba78c011679c2479a2fa9f48bf260afce.
+
+- `backend/app/data/planetary_satellites.json`
+- `backend/app/main.py`
+- `backend/app/routes/planetary_systems.py`
+- `backend/app/schemas/planetary_systems.py`
+- `backend/app/services/planetary_systems.py`
+- `backend/tests/test_planetary_systems.py`
+- `docs/DOCUMENT_INDEX.md`
+- `docs/DOC_INVENTORY.md`
+- `docs/context/CONTEXT_MANIFEST.yaml`
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/execution/MASTER_PLAN.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/features/FEATURE_TRACKER.md`
+- `docs/validation/planetary-systems/COMMANDS.md`
+- `docs/validation/planetary-systems/FILES_CHANGED.md`
+- `docs/validation/planetary-systems/PLAN.md`
+- `docs/validation/planetary-systems/README.md`
+- `docs/validation/planetary-systems/SCIENCE.md`
+- `docs/validation/planetary-systems/evidence/build-repro.md`
+- `docs/validation/planetary-systems/evidence/container-comparison.json`
+- `docs/validation/planetary-systems/evidence/delivery.json`
+- `docs/validation/planetary-systems/evidence/desktop-proof.json`
+- `docs/validation/planetary-systems/evidence/landscape-proof.json`
+- `docs/validation/planetary-systems/evidence/performance-proof.json`
+- `docs/validation/planetary-systems/evidence/portrait-proof.json`
+- `docs/validation/planetary-systems/evidence/preload-order-comparison.json`
+- `docs/validation/planetary-systems/evidence/reload-history-guarded-armed.json`
+- `docs/validation/planetary-systems/evidence/reload-history-negative-armed.json`
+- `docs/validation/planetary-systems/evidence/resilience-proof.json`
+- `docs/validation/planetary-systems/evidence/review-proof.json`
+- `docs/validation/planetary-systems/evidence/science/catalog-scope-red.txt`
+- `docs/validation/planetary-systems/evidence/science/destination-red.txt`
+- `docs/validation/planetary-systems/evidence/science/green.txt`
+- `docs/validation/planetary-systems/evidence/science/horizons-moon-earth.json`
+- `docs/validation/planetary-systems/evidence/science/horizons-request-url.txt`
+- `docs/validation/planetary-systems/evidence/science/loaded-documents.txt`
+- `docs/validation/planetary-systems/evidence/science/naif-satellite-spks.html`
+- `docs/validation/planetary-systems/evidence/science/qualification.json`
+- `docs/validation/planetary-systems/evidence/science/red.txt`
+- `docs/validation/planetary-systems/evidence/science/regression.txt`
+- `docs/validation/planetary-systems/evidence/science/satellite-physical-parameters.html`
+- `docs/validation/planetary-systems/evidence/windows-http.txt`
+- `docs/validation/planetary-systems/loaded-documents.txt`
+- `docs/validation/planetary-systems/screenshots/1440x900-earth-moon-overview.png`
+- `docs/validation/planetary-systems/screenshots/1440x900-native-moon.png`
+- `docs/validation/planetary-systems/screenshots/1440x900-selected-moon.png`
+- `docs/validation/planetary-systems/screenshots/390x900-earth-moon-overview.png`
+- `docs/validation/planetary-systems/screenshots/390x900-native-moon.png`
+- `docs/validation/planetary-systems/screenshots/390x900-selected-moon.png`
+- `docs/validation/planetary-systems/screenshots/667x390-earth-moon-overview.png`
+- `docs/validation/planetary-systems/screenshots/667x390-native-moon.png`
+- `docs/validation/planetary-systems/screenshots/667x390-selected-moon.png`
+- `frontend/src/features/planet/PlanetWorkspace.tsx`
+- `frontend/src/features/planet/planetContracts.ts`
+- `frontend/src/features/solar/SolarWorkspace.tsx`
+- `frontend/src/features/systems/PlanetSelector.tsx`
+- `frontend/src/features/systems/SystemScene.ts`
+- `frontend/src/features/systems/SystemWorkspace.tsx`
+- `frontend/src/features/systems/systemContracts.ts`
+- `frontend/src/features/systems/systemMaterials.ts`
+- `frontend/src/features/systems/systemPlayback.ts`
+- `frontend/src/features/systems/systemSceneMath.ts`
+- `frontend/src/features/systems/systemTypes.ts`
+- `frontend/src/features/systems/systems.css`
+- `frontend/src/routes/AppRouter.tsx`
+- `frontend/tests/planetContracts.test.ts`
+- `frontend/tests/planetarySystems.test.ts`
+- `frontend/tests/systemPlayback.test.ts`
+- `frontend/tests/systemSceneMath.test.ts`
+- `scripts/skydata/build_planetary_satellite_metadata.py`
+- `scripts/validation/inspect_planetary_systems.mjs`
+- `scripts/validation/inspect_ps1_reload_history.mjs`
+- `scripts/validation/measure_planetary_systems.mjs`
+- `scripts/validation/verify_planetary_systems.mjs`
+- `scripts/validation/verify_ps1_delivery.py`
+- `scripts/validation/verify_ps1_resilience.mjs`
+- `scripts/validation/verify_ps1_review_fixes.mjs`
+- `tests/fixtures/planetary-systems/horizons.json`
+
+- `.gitattributes` — preserve byte-exact source and terminal evidence.
+
+Review follow-up also adds `scripts/validation/verify_ps1_epoch_history.mjs`, `REVIEW.md`, and four explicitly named `evidence/epoch-history-*` / `evidence/history-correction-*` receipts.
