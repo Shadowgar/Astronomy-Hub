@@ -10,6 +10,7 @@ import Progress from '../pages/Progress'
 import TonightPage from '../features/tonight/TonightPage'
 import ObservePage from '../features/observe/ObservePage'
 
+const PlanetWorkspace=lazy(()=>import('../features/planet/PlanetWorkspace'))
 const SolarWorkspace=lazy(()=>import('../features/solar/SolarWorkspace'))
 
 export default function AppRouter() {
@@ -19,6 +20,7 @@ export default function AppRouter() {
         <Route path="/" element={<WorkspaceShell mode="sky" />} />
         <Route path="/sky-engine" element={<WorkspaceShell mode="sky" />} />
         <Route path="/earth" element={<WorkspaceShell mode="earth" />} />
+        <Route path="/planet-view/:body" element={<Suspense fallback={<p role="status">Opening Planet View…</p>}><PlanetWorkspace/></Suspense>} />
         <Route path="/solar-system" element={<Suspense fallback={<p role="status">Opening Solar System…</p>}><SolarWorkspace/></Suspense>} />
         <Route element={<OrasAppShell />}>
           <Route path="/observe" element={<ObservePage />} />
