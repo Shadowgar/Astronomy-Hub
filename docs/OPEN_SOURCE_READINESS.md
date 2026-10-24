@@ -1,15 +1,15 @@
 # Open-source licensing readiness
 
-**Status (2026-10-24): scoped licensing change proposed for maintainer review, not yet merged or legally audited.**
+**Status (2026-10-24): scoped MIT/AGPL licensing merged in PR #97; full third-party redistribution compliance is not yet verified.**
 
 This document tracks repository-level license transparency and outstanding upstream obligations. It does **not** certify redistribution compliance or OpenAI program acceptance.
 
-## What this pull request corrects
+## What PR #97 and the metadata follow-up corrected
 
-- Proposes a root [MIT license](../LICENSE) **for original Astronomy Hub code owned/controlled by the maintainer**, not an attempt to relicense third-party contents.
+- Publishes a root [MIT license](../LICENSE) **for original Astronomy Hub code owned/controlled by the maintainer**, not an attempt to relicense third-party contents.
 - Copies the unmodified **GNU Affero General Public License v3** from the Stellarium Web Engine upstream into the two checked-in Stellarium source trees, preserving their existing copyright headers.
 - Adds [third-party scope and attribution notes](../THIRD_PARTY_NOTICES.md) that explain where MIT does not apply, including modified Stellarium modules, runtime binaries, God's Eye View components, datasets and imagery.
-- Aligns the root `package.json` and only the root package entry in `package-lock.json` from placeholder `ISC` to proposed `MIT`; the package manifest does not relicense other programs or data.
+- Aligns the root `package.json` and only the root package entry in `package-lock.json` from placeholder `ISC` to adopted `MIT`; the package manifest does not relicense other programs or data.
 - Updates the public [README](../README.md) to surface the actual mixed-license situation rather than claim all source is MIT.
 - The GitHub repository description and README were already added in the merged documentation PR #96.
 
@@ -35,8 +35,8 @@ This document tracks repository-level license transparency and outstanding upstr
 5. **Release pipeline:** verify every produced or deployed binary/bundle retains notices and, where applicable, access to matching source; review provider service terms separately from the software license.
 6. **GitHub verification:** after merge, verify GitHub detects the root MIT license and displays the README and mixed-license notice. A GitHub license badge is not itself evidence of complete copyright compliance.
 
-## Owner review gate
+## Rights and remaining compliance review
 
-Merging the proposed MIT LICENSE constitutes an offer to license the maintainer-owned code under MIT; it should **only** happen after the maintainer accepts that permissive grant and confirms they control the affected rights. This PR must remain unmerged until then. Nothing in this review modifies runtime sources, deployments, external provider contracts, or existing upstream license notices.
+PR #97 was merged on 2026-10-24. The root MIT license is now publicly offered for original Hub code controlled by the maintainer, subject to the maintainer having those rights. Third-party component, AGPL source-access, compiled runtime, data and provider obligations remain independent and require ongoing verification. The metadata follow-up changes package declarations and documents only; it does not change runtime sources, deployments, provider contracts or upstream copyright notices.
 
 For legal uncertainty on derived/copyleft applications and hosting, obtain a qualified open-source licensing review rather than assuming compatibility or permissions.
