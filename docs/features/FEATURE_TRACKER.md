@@ -1,5 +1,27 @@
 # FEATURE TRACKER
 
+## Current bounded planetary hierarchy — 2026-10-24
+
+Owner-authorized PS packages extend the existing AE-03/AE-04 roadmap. Existing
+rows below remain historical where superseded here; no second roadmap is created.
+
+| Package | Implementation / qualification state | Detailed destinations |
+| --- | --- | --- |
+| Preserved R4-A PR92 | Draft source-qualified Moon globe; Docker warning-clean and owner/device acceptance open | Moon globe only; no terrain |
+| PS1 Earth–Moon | Earth399/Moon301 source geometry and motion; desktop/portrait/landscape journeys qualified; draft/exact-head review in preparation | Existing R4-A Moon preserved |
+| PS2 Mars | Official finite source samples investigated; implementation/qualification pending | Unavailable |
+| PS2 Jupiter | Galilean source samples investigated; implementation/qualification pending | Unavailable |
+| PS2 Saturn | Titan/Enceladus source samples investigated; implementation/qualification pending | Unavailable |
+| PS2 Uranus | Major-moon source samples investigated; implementation/qualification pending | Unavailable |
+| PS2 Neptune | Triton source samples investigated; implementation/qualification pending | Unavailable |
+| PS3 integration | Pending qualified package implementations | Inherits individual destination gates |
+
+Source data and interpolation evidence do not establish complete system coverage,
+physical performance, detailed surface availability, or owner visual acceptance.
+Future lunar tiled imagery and terrain/elevation-datum assessment remain separate.
+[Current implementation evidence](../validation/planetary-systems/README.md).
+
+
 ## Cinematic Solar implementation — review candidate 2026-10-21
 
 Branch `r3-a-cinematic-solar-1`, stacked on qualified original-image import PR82

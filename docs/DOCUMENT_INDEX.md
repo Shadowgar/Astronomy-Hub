@@ -1,5 +1,7 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+Current owner-authorized [planetary systems](validation/planetary-systems/README.md) extend preserved PR92 in bounded PS1/PS2/PS3 draft packages. Earth–Moon first, then qualified major-moon subsets; no merge or deployment. Earlier single-globe restrictions below are historical within this explicit scope.
+
 Current owner-authorized [R4-A lunar Planet View](validation/r4-a-planet-view/README.md) resumes the canonical roadmap from draft PR91; no broad visual redesign, merge or deployment.
 
 Current owner visual rejection activates [G1/G2/V1 glass correction](validation/cinematic-glass/README.md) stacked on PR90. Approved references remain; no visual acceptance, merge, deployment or R4.

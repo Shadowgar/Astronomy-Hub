@@ -15,6 +15,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
@@ -89,6 +90,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -127,6 +129,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
@@ -176,6 +179,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
@@ -235,6 +239,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -265,6 +270,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
@@ -326,6 +332,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/DOCUMENT_INDEX.md
@@ -368,6 +375,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/validation/r3-a-solar-system/RECONCILIATION.md
     - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md

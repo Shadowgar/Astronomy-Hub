@@ -1,3 +1,4 @@
+import {safeHierarchyReturn} from '../systems/systemContracts'
 import {apiGet} from '../../lib/api/client'
 import {ApiError} from '../../lib/api/errors'
 export type PlanetCamera={latitudeDeg:number;longitudeDeg:number;heightM:number;headingRad?:number;pitchRad?:number;rollRad?:number}
@@ -15,20 +16,21 @@ export function validatePlanetContract(raw:unknown):PlanetContract{
  const det=m[0][0]*(m[1][1]*m[2][2]-m[1][2]*m[2][1])-m[0][1]*(m[1][0]*m[2][2]-m[1][2]*m[2][0])+m[0][2]*(m[1][0]*m[2][1]-m[1][1]*m[2][0]);if(Math.abs(det-1)>1e-6)fail()
  if(!vector(c.illumination?.direction_body_fixed)||Math.abs(Math.hypot(...c.illumination.direction_body_fixed)-1)>1e-6||!Array.isArray(c.sources)||!c.sources.length||c.sources.some(s=>!/^https:\/\//.test(s.url)||!/^[a-f0-9]{64}$/.test(s.sha256))||!c.coordinates?.height||!c.uncertainty)fail()
  const epoch=Date.parse(c.epoch),start=Date.parse(c.coverage?.start),end=Date.parse(c.coverage?.end);if(!Number.isFinite(start)||!Number.isFinite(end)||epoch<start||epoch>end)fail()
- return c
+ // API UTC serializes milliseconds with three extra zero digits; bookmarks use JS precision.
+ return {...c,epoch:c.epoch.replace(/(\.\d{3})000Z$/,'$1Z')}
 }
 export async function loadPlanetContract(body:string,epoch:string,signal:AbortSignal){
  try{return validatePlanetContract(await apiGet('/planet-view/'+encodeURIComponent(body),{query:{time:epoch},signal}))}
  catch(error){if(signal.aborted)throw error;if(error instanceof ApiError){if(error.status===404)throw Error('This body has no qualified Planet View.');if(error.status===422)throw Error('Use a valid UTC epoch within qualified lunar coverage (1900–2051).');throw Error('Qualified local lunar science sources are unavailable. Retry or return to Solar.')}throw error}
 }
-export function safeSolarReturn(path:unknown,epoch:string){const fallback='/solar-system?'+new URLSearchParams({date:epoch});if(typeof path!=='string')return fallback;const u=new URL(path,'http://local');if(u.origin!=='http://local'||u.pathname!=='/solar-system')return fallback;u.searchParams.set('date',epoch);return u.pathname+'?'+u.searchParams}
+export function safeSolarReturn(path:unknown,epoch:string){return safeHierarchyReturn(path,epoch)}
 
 export function planetModeReturn(returned:any,mode:'sky'|'earth',epoch:string){
- const target=mode==='earth'?'/earth':'/sky-engine',originReturn=returned?.state?.solarReturn
+ const target=mode==='earth'?'/earth':'/sky-engine',originReturn=returned?.state?.systemReturn?.state?.solarReturn||returned?.state?.solarReturn
  const original=new URL(typeof originReturn?.path==='string'?originReturn.path:'/', 'http://local')
  const sameOrigin=original.origin==='http://local'&&['/earth','/sky-engine','/'].includes(original.pathname)
  const p=new URLSearchParams(sameOrigin&&originReturn?.path?original.search:safeSolarReturn(returned?.path,epoch).split('?')[1]);p.set('date',epoch)
- for(const k of ['solarBody','solarSatellite','solarFrom'])p.delete(k)
+ for(const k of ['solarBody','solarSatellite','solarFrom','moon','camera'])p.delete(k)
  return {path:target+'?'+p,state:originReturn?.state}
 }
 

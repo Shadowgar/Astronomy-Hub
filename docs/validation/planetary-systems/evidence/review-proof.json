@@ -1,0 +1,76 @@
+{
+  "base": "http://172.26.23.204:4223",
+  "served_index_sha256": "018a412a811a0b31f0acbbdd37ef751606daf3dd9e3bb327254136bd0fc0cc86",
+  "served_assets": [
+    {
+      "path": "/assets/index-klXc9LSF.js",
+      "sha256": "6c04e07ac77537a47920fdf2ac3659b906046470f2a53e57e6fb865d800461b5"
+    }
+  ],
+  "source_sha256": {
+    "frontend/src/features/systems/PlanetSelector.tsx": "6fe9ad6a2644ac48f66f0445591c0c9799aa7aa6ded03c2bda346321073d8622",
+    "frontend/src/features/systems/SystemWorkspace.tsx": "a522db2237a12066869fa677bb6d872a562b4cbdb47aa29c83c2847aed3128a9",
+    "frontend/src/features/systems/SystemScene.ts": "526e5844d6bb16272691deac1e71be861b9bc8c8dd842878de6fa1582ed7dc67",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "e8ab2db980c8ac0ec3ec37f543a288b241089fedbfab5799a4000b43a9363b7d"
+  },
+  "checks": [
+    {
+      "name": "keyboard-flyout",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "renderer-retry",
+      "status": "PASS",
+      "errors": [],
+      "before": {
+        "position": [
+          375393.01305569505,
+          -76355.3282883765,
+          -2522.1331890682277
+        ],
+        "target": [
+          376809.52894280566,
+          -71068.8190279512,
+          -17170.214343663465
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "focus": "moon"
+      }
+    },
+    {
+      "name": "legacy-return",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "legacy-back",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "mode-earth",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "mode-sky",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "home-clears-selection",
+      "status": "PASS",
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering; injected WebGL context-loss event; no physical GPU claim."
+  ],
+  "source_unchanged": true,
+  "status": "PASS"
+}
