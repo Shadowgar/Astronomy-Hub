@@ -1,0 +1,393 @@
+[
+  {
+    "system": "mars",
+    "parent": "499",
+    "coverage": {
+      "start": "2026-09-30T23:58:50.818Z",
+      "end": "2026-10-31T23:58:50.817Z"
+    },
+    "source": {
+      "id": "jpl_horizons_local",
+      "release": "horizons-oct2026",
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "coverage_start_jd_tdb": 2461314.5,
+      "coverage_end_jd_tdb": 2461345.5,
+      "series": [
+        {
+          "target_id": "499",
+          "center_id": "10",
+          "target_header": "Target body name: Mars (499)                      {source: mar099}",
+          "center_header": "Center body name: Sun (10)                        {source: DE441}",
+          "source_sha256": "8610967e5925250641c44038847b1e743514d674919a1feb75a4daae400852a1",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27499%27&CENTER=%27500%4010%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "401",
+          "center_id": "499",
+          "target_header": "Target body name: Phobos (401)                    {source: mar099}",
+          "center_header": "Center body name: Mars (499)                      {source: mar099}",
+          "source_sha256": "5b92354f998e183b7756983fdfb3f2c4eb6b5ae07f62950c23f7a43abaa237a3",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27401%27&CENTER=%27500%40499%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2710+m%27"
+        },
+        {
+          "target_id": "402",
+          "center_id": "499",
+          "target_header": "Target body name: Deimos (402)                    {source: mar099}",
+          "center_header": "Center body name: Mars (499)                      {source: mar099}",
+          "source_sha256": "fef1c8eefcddbb4c5f61cb9a6ea2129036e2253f11ee81c9913879193edaa07a",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27402%27&CENTER=%27500%40499%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2730+m%27"
+        }
+      ],
+      "transition": "Separate Horizons physical-center domain; no DE442s barycenter offset applied."
+    },
+    "qualified_satellites": [
+      {
+        "id": "phobos",
+        "naif_id": "401",
+        "radius_km": 11.08
+      },
+      {
+        "id": "deimos",
+        "naif_id": "402",
+        "radius_km": 6.2
+      }
+    ],
+    "sample_counts": {
+      "phobos": 4465,
+      "deimos": 1489
+    },
+    "sampling": {
+      "step_seconds": 3600,
+      "interpolation": "cubic-hermite",
+      "max_position_error_km": 0.009644475256326487,
+      "qualification_points_per_segment": 1,
+      "time_fraction": "UTC fractions; TDB tangent durations; October 2026 has no known leap transitions",
+      "qualification": "Every original interval independently queried at its midpoint; two additional quarter points per series. Observed error <0.1 km, not a continuous or physical-accuracy guarantee. Per-track source steps are 600/1800/3600 seconds. Usable UTC coverage is rounded inward to milliseconds; raw TDB samples are unchanged. UTC conversion uses installed Skyfield tables; no extrapolation."
+    }
+  },
+  {
+    "system": "jupiter",
+    "parent": "599",
+    "coverage": {
+      "start": "2026-09-30T23:58:50.818Z",
+      "end": "2026-10-31T23:58:50.817Z"
+    },
+    "source": {
+      "id": "jpl_horizons_local",
+      "release": "horizons-oct2026",
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "coverage_start_jd_tdb": 2461314.5,
+      "coverage_end_jd_tdb": 2461345.5,
+      "series": [
+        {
+          "target_id": "599",
+          "center_id": "10",
+          "target_header": "Target body name: Jupiter (599)                   {source: jup365_merged}",
+          "center_header": "Center body name: Sun (10)                        {source: jup365_merged}",
+          "source_sha256": "60680a570a7d50cceca5fd7022cae195507cbd9895561f0325cc52b29a25b796",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27599%27&CENTER=%27500%4010%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "501",
+          "center_id": "599",
+          "target_header": "Target body name: Io (501)                        {source: jup365_merged}",
+          "center_header": "Center body name: Jupiter (599)                   {source: jup365_merged}",
+          "source_sha256": "abc6d27937578c3a4bce3a80eeb9e2b6bb7b3e341ac367a1c517b804a2c838ae",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27501%27&CENTER=%27500%40599%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2730+m%27"
+        },
+        {
+          "target_id": "502",
+          "center_id": "599",
+          "target_header": "Target body name: Europa (502)                    {source: jup365_merged}",
+          "center_header": "Center body name: Jupiter (599)                   {source: jup365_merged}",
+          "source_sha256": "92f7d52bf1ea559dfc6ef71835d787fecc2a289136f232c7a238d37c0f3410e7",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27502%27&CENTER=%27500%40599%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "503",
+          "center_id": "599",
+          "target_header": "Target body name: Ganymede (503)                  {source: jup365_merged}",
+          "center_header": "Center body name: Jupiter (599)                   {source: jup365_merged}",
+          "source_sha256": "900230c1326952b14c3aeb6d124225562ea4898629244a619235a44e72df17c4",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27503%27&CENTER=%27500%40599%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "504",
+          "center_id": "599",
+          "target_header": "Target body name: Callisto (504)                  {source: jup365_merged}",
+          "center_header": "Center body name: Jupiter (599)                   {source: jup365_merged}",
+          "source_sha256": "061a348559d6cb7c939c4fa5aba4e64aca260379f61160138c04ae689f70607b",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27504%27&CENTER=%27500%40599%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        }
+      ],
+      "transition": "Separate Horizons physical-center domain; no DE442s barycenter offset applied."
+    },
+    "qualified_satellites": [
+      {
+        "id": "io",
+        "naif_id": "501",
+        "radius_km": 1821.49
+      },
+      {
+        "id": "europa",
+        "naif_id": "502",
+        "radius_km": 1560.8
+      },
+      {
+        "id": "ganymede",
+        "naif_id": "503",
+        "radius_km": 2631.2
+      },
+      {
+        "id": "callisto",
+        "naif_id": "504",
+        "radius_km": 2410.3
+      }
+    ],
+    "sample_counts": {
+      "io": 1489,
+      "europa": 745,
+      "ganymede": 745,
+      "callisto": 745
+    },
+    "sampling": {
+      "step_seconds": 3600,
+      "interpolation": "cubic-hermite",
+      "max_position_error_km": 0.055549611936702166,
+      "qualification_points_per_segment": 1,
+      "time_fraction": "UTC fractions; TDB tangent durations; October 2026 has no known leap transitions",
+      "qualification": "Every original interval independently queried at its midpoint; two additional quarter points per series. Observed error <0.1 km, not a continuous or physical-accuracy guarantee. Per-track source steps are 600/1800/3600 seconds. Usable UTC coverage is rounded inward to milliseconds; raw TDB samples are unchanged. UTC conversion uses installed Skyfield tables; no extrapolation."
+    }
+  },
+  {
+    "system": "saturn",
+    "parent": "699",
+    "coverage": {
+      "start": "2026-09-30T23:58:50.818Z",
+      "end": "2026-10-31T23:58:50.817Z"
+    },
+    "source": {
+      "id": "jpl_horizons_local",
+      "release": "horizons-oct2026",
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "coverage_start_jd_tdb": 2461314.5,
+      "coverage_end_jd_tdb": 2461345.5,
+      "series": [
+        {
+          "target_id": "699",
+          "center_id": "10",
+          "target_header": "Target body name: Saturn (699)                    {source: sat441l}",
+          "center_header": "Center body name: Sun (10)                        {source: DE441}",
+          "source_sha256": "5e73a79b17e4ea748541339fd991aa8902e57546e9fd55c45c46773a56c5941a",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27699%27&CENTER=%27500%4010%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "602",
+          "center_id": "699",
+          "target_header": "Target body name: Enceladus (602)                 {source: sat441l}",
+          "center_header": "Center body name: Saturn (699)                    {source: sat441l}",
+          "source_sha256": "d07f1af33eb594c6dc6de8f3428a0f503032ccb39de45ba4d9bc8b72c0225eb6",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27602%27&CENTER=%27500%40699%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2730+m%27"
+        },
+        {
+          "target_id": "606",
+          "center_id": "699",
+          "target_header": "Target body name: Titan (606)                     {source: sat441l}",
+          "center_header": "Center body name: Saturn (699)                    {source: sat441l}",
+          "source_sha256": "8b256d831b568f983c8d9b27faced8bb7357264e8434fd866e1c3795c733239f",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27606%27&CENTER=%27500%40699%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        }
+      ],
+      "transition": "Separate Horizons physical-center domain; no DE442s barycenter offset applied."
+    },
+    "qualified_satellites": [
+      {
+        "id": "enceladus",
+        "naif_id": "602",
+        "radius_km": 252.1
+      },
+      {
+        "id": "titan",
+        "naif_id": "606",
+        "radius_km": 2574.76
+      }
+    ],
+    "sample_counts": {
+      "enceladus": 1489,
+      "titan": 745
+    },
+    "sampling": {
+      "step_seconds": 3600,
+      "interpolation": "cubic-hermite",
+      "max_position_error_km": 0.053593550379321904,
+      "qualification_points_per_segment": 1,
+      "time_fraction": "UTC fractions; TDB tangent durations; October 2026 has no known leap transitions",
+      "qualification": "Every original interval independently queried at its midpoint; two additional quarter points per series. Observed error <0.1 km, not a continuous or physical-accuracy guarantee. Per-track source steps are 600/1800/3600 seconds. Usable UTC coverage is rounded inward to milliseconds; raw TDB samples are unchanged. UTC conversion uses installed Skyfield tables; no extrapolation."
+    }
+  },
+  {
+    "system": "uranus",
+    "parent": "799",
+    "coverage": {
+      "start": "2026-09-30T23:58:50.818Z",
+      "end": "2026-10-31T23:58:50.817Z"
+    },
+    "source": {
+      "id": "jpl_horizons_local",
+      "release": "horizons-oct2026",
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "coverage_start_jd_tdb": 2461314.5,
+      "coverage_end_jd_tdb": 2461345.5,
+      "series": [
+        {
+          "target_id": "799",
+          "center_id": "10",
+          "target_header": "Target body name: Uranus (799)                    {source: ura184_merged}",
+          "center_header": "Center body name: Sun (10)                        {source: DE441}",
+          "source_sha256": "1413c93712307ffdc42b4e3f2d877a0f158dd93433295374b918966b5cbd4625",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27799%27&CENTER=%27500%4010%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "701",
+          "center_id": "799",
+          "target_header": "Target body name: Ariel (701)                     {source: ura184_merged}",
+          "center_header": "Center body name: Uranus (799)                    {source: ura184_merged}",
+          "source_sha256": "a8ba5af579254699d9b95fb056f9f10ca3be1b9050e9c1392625749f9ac76370",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27701%27&CENTER=%27500%40799%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "702",
+          "center_id": "799",
+          "target_header": "Target body name: Umbriel (702)                   {source: ura184_merged}",
+          "center_header": "Center body name: Uranus (799)                    {source: ura184_merged}",
+          "source_sha256": "14f8b348a0e8c5292bc34d62f68315bbd7255079a15d7685a938e38d7f85066b",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27702%27&CENTER=%27500%40799%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "703",
+          "center_id": "799",
+          "target_header": "Target body name: Titania (703)                   {source: ura184_merged}",
+          "center_header": "Center body name: Uranus (799)                    {source: ura184_merged}",
+          "source_sha256": "52c1216c57b0b4e09ec76a04d937df716760d6acd528edd8d99eccbe0204c54f",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27703%27&CENTER=%27500%40799%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "704",
+          "center_id": "799",
+          "target_header": "Target body name: Oberon (704)                    {source: ura184_merged}",
+          "center_header": "Center body name: Uranus (799)                    {source: ura184_merged}",
+          "source_sha256": "36159a8998cfef82ba16fade121c4d8be1bc449d2457ad051f47b5dcfd934e91",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27704%27&CENTER=%27500%40799%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "705",
+          "center_id": "799",
+          "target_header": "Target body name: Miranda (705)                   {source: ura184_merged}",
+          "center_header": "Center body name: Uranus (799)                    {source: ura184_merged}",
+          "source_sha256": "c876e4fe53ffe07f140ce3bf74be8c072daa53ecc589a0bfbad2f0cd9eed4759",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27705%27&CENTER=%27500%40799%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2730+m%27"
+        }
+      ],
+      "transition": "Separate Horizons physical-center domain; no DE442s barycenter offset applied."
+    },
+    "qualified_satellites": [
+      {
+        "id": "ariel",
+        "naif_id": "701",
+        "radius_km": 578.9
+      },
+      {
+        "id": "umbriel",
+        "naif_id": "702",
+        "radius_km": 584.7
+      },
+      {
+        "id": "titania",
+        "naif_id": "703",
+        "radius_km": 788.9
+      },
+      {
+        "id": "oberon",
+        "naif_id": "704",
+        "radius_km": 761.4
+      },
+      {
+        "id": "miranda",
+        "naif_id": "705",
+        "radius_km": 235.8
+      }
+    ],
+    "sample_counts": {
+      "ariel": 745,
+      "umbriel": 745,
+      "titania": 745,
+      "oberon": 745,
+      "miranda": 1489
+    },
+    "sampling": {
+      "step_seconds": 3600,
+      "interpolation": "cubic-hermite",
+      "max_position_error_km": 0.058157423176942925,
+      "qualification_points_per_segment": 1,
+      "time_fraction": "UTC fractions; TDB tangent durations; October 2026 has no known leap transitions",
+      "qualification": "Every original interval independently queried at its midpoint; two additional quarter points per series. Observed error <0.1 km, not a continuous or physical-accuracy guarantee. Per-track source steps are 600/1800/3600 seconds. Usable UTC coverage is rounded inward to milliseconds; raw TDB samples are unchanged. UTC conversion uses installed Skyfield tables; no extrapolation."
+    }
+  },
+  {
+    "system": "neptune",
+    "parent": "899",
+    "coverage": {
+      "start": "2026-09-30T23:58:50.818Z",
+      "end": "2026-10-31T23:58:50.817Z"
+    },
+    "source": {
+      "id": "jpl_horizons_local",
+      "release": "horizons-oct2026",
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "coverage_start_jd_tdb": 2461314.5,
+      "coverage_end_jd_tdb": 2461345.5,
+      "series": [
+        {
+          "target_id": "899",
+          "center_id": "10",
+          "target_header": "Target body name: Neptune (899)                   {source: nep098_merged}",
+          "center_header": "Center body name: Sun (10)                        {source: nep098_merged}",
+          "source_sha256": "e2ff01ff6e6f98caa68ef292eceed7064824094b36a4e14795e59a6eff8d36e8",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27899%27&CENTER=%27500%4010%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        },
+        {
+          "target_id": "801",
+          "center_id": "899",
+          "target_header": "Target body name: Triton (801)                    {source: nep098_merged}",
+          "center_header": "Center body name: Neptune (899)                   {source: nep098_merged}",
+          "source_sha256": "cd4f07f1962cd90688aea773ce17d2ace5139075765dcea1119c963855ade3ec",
+          "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27801%27&CENTER=%27500%40899%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+        }
+      ],
+      "transition": "Separate Horizons physical-center domain; no DE442s barycenter offset applied."
+    },
+    "qualified_satellites": [
+      {
+        "id": "triton",
+        "naif_id": "801",
+        "radius_km": 1352.6
+      }
+    ],
+    "sample_counts": {
+      "triton": 745
+    },
+    "sampling": {
+      "step_seconds": 3600,
+      "interpolation": "cubic-hermite",
+      "max_position_error_km": 0.003645966475074509,
+      "qualification_points_per_segment": 1,
+      "time_fraction": "UTC fractions; TDB tangent durations; October 2026 has no known leap transitions",
+      "qualification": "Every original interval independently queried at its midpoint; two additional quarter points per series. Observed error <0.1 km, not a continuous or physical-accuracy guarantee. Per-track source steps are 600/1800/3600 seconds. Usable UTC coverage is rounded inward to milliseconds; raw TDB samples are unchanged. UTC conversion uses installed Skyfield tables; no extrapolation."
+    }
+  }
+]

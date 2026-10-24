@@ -70,7 +70,8 @@ def test_coverage_and_leap_boundaries_are_clipped(epoch):
     assert snap['sampling']['max_position_error_km'] < 1
 
 
-def test_catalog_uses_sourced_metadata_and_honest_unavailability():
+def test_catalog_uses_sourced_metadata_and_honest_unavailability(monkeypatch, tmp_path):
+    monkeypatch.setenv('ORAS_PLANETARY_SYSTEMS_DIR', str(tmp_path))
     response = request('/api/v1/planetary-systems')
     assert response.status_code == 200
     catalog = response.json()
@@ -98,6 +99,7 @@ def test_route_valid_snapshot_unknown_and_missing_source(monkeypatch, tmp_path):
     response = request('/api/v1/planetary-systems/earth', {'epoch':NOW.isoformat()})
     assert response.status_code == 200
     assert response.json()['schema'] == 'oras.planetary-system.v1'
+    monkeypatch.setenv('ORAS_PLANETARY_SYSTEMS_DIR', str(tmp_path))
     assert request('/api/v1/planetary-systems/mars', {'epoch':NOW.isoformat()}).status_code == 503
     assert request('/api/v1/planetary-systems/fiction', {'epoch':NOW.isoformat()}).status_code == 404
     monkeypatch.setenv('ORAS_PLANETARY_EPHEMERIS_DIR', str(tmp_path))

@@ -1,5 +1,5 @@
 from typing import Literal
-from pydantic import BaseModel, Field, conlist, confloat
+from pydantic import BaseModel, Field, conlist, confloat, conint
 
 Vector = conlist(confloat(allow_inf_nan=False), min_items=3, max_items=3)
 
@@ -55,7 +55,8 @@ class Sample(State):
 
 class Track(BaseModel):
     id: str
-    samples: conlist(Sample, min_items=2, max_items=771)
+    samples: conlist(Sample, min_items=2, max_items=5000)
+    step_seconds: conint(ge=600, le=3600) | None = None
 
 
 class Coverage(BaseModel):
@@ -69,18 +70,31 @@ class Time(BaseModel):
     jd_tdb: float
 
 
+class SourceSeries(BaseModel):
+    target_id: str
+    center_id: str
+    target_header: str
+    center_header: str
+    source_sha256: str
+    source_url: str
+
+
 class Source(BaseModel):
     id: str
     release: str
     sha256: str
     url: str
+    coverage_start_jd_tdb: float | None = None
+    coverage_end_jd_tdb: float | None = None
+    series: list[SourceSeries] = Field(default_factory=list)
+    transition: str | None = None
 
 
 class Sampling(BaseModel):
-    step_seconds: Literal[3600]
+    step_seconds: conint(ge=600, le=3600)
     interpolation: Literal['cubic-hermite']
     max_position_error_km: confloat(ge=0, le=1)
-    qualification_points_per_segment: Literal[3]
+    qualification_points_per_segment: conint(ge=1, le=3)
     time_fraction: str
     qualification: str
 

@@ -11,6 +11,9 @@ planning/validation/review manifest packs. [PLAN](PLAN.md) is execution detail u
 MASTER_PLAN, not a second roadmap. [SCIENCE](SCIENCE.md) contains source contracts,
 independent comparisons, interpolation scope and data limitations.
 
+PS2 continuation is recorded separately in [Major-moon systems](ps2/README.md).
+The PS1 ledger below remains historical and does not describe PS2 availability.
+
 ## Implemented PS1 candidate
 
 Solar's parent selector replaces the detached Moon control. Earth enters a separate,

@@ -8,12 +8,12 @@ rows below remain historical where superseded here; no second roadmap is created
 | Package | Implementation / qualification state | Detailed destinations |
 | --- | --- | --- |
 | Preserved R4-A PR92 | Draft source-qualified Moon globe; Docker warning-clean and owner/device acceptance open | Moon globe only; no terrain |
-| PS1 Earth–Moon | Earth399/Moon301 source geometry and motion; desktop/portrait/landscape journeys qualified; draft/exact-head review in preparation | Existing R4-A Moon preserved |
-| PS2 Mars | Official finite source samples investigated; implementation/qualification pending | Unavailable |
-| PS2 Jupiter | Galilean source samples investigated; implementation/qualification pending | Unavailable |
-| PS2 Saturn | Titan/Enceladus source samples investigated; implementation/qualification pending | Unavailable |
-| PS2 Uranus | Major-moon source samples investigated; implementation/qualification pending | Unavailable |
-| PS2 Neptune | Triton source samples investigated; implementation/qualification pending | Unavailable |
+| PS1 Earth–Moon | Earth399/Moon301 source geometry and motion; desktop/portrait/landscape journeys qualified; draft PR93 at36426905; exact-head review complete | Existing R4-A Moon preserved |
+| PS2 Mars | Phobos/Deimos source geometry implemented; finite October2026 qualification in PS2 | Unavailable |
+| PS2 Jupiter | Four Galilean moon geometries implemented; finite October2026 qualification in PS2 | Unavailable |
+| PS2 Saturn | Titan/Enceladus geometry implemented; finite October2026 qualification in PS2 | Unavailable |
+| PS2 Uranus | Five major-moon geometries implemented; finite October2026 qualification in PS2 | Unavailable |
+| PS2 Neptune | Triton geometry implemented; finite October2026 qualification in PS2 | Unavailable |
 | PS3 integration | Pending qualified package implementations | Inherits individual destination gates |
 
 Source data and interpolation evidence do not establish complete system coverage,

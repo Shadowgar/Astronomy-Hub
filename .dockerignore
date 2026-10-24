@@ -40,3 +40,6 @@ frontend/dev
 # R4 scientific orientation/surface data are runtime mounts, never image layers.
 data/runtime-packs/lunar-orientation/
 data/runtime-packs/lunar-surface/
+
+# Finite source vectors are versioned separately and mounted read-only.
+data/runtime-packs/planetary-systems/

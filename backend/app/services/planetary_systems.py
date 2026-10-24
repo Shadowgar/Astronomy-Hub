@@ -1,7 +1,8 @@
-"""Source-centered planetary systems. PS1 admits Earth399/Moon301 only.
+"""Source-centered systems: DE442s Earth and separately qualified Horizons parents.
 
 Catalog metadata is normalized from JPL, never a fabricated orbit catalog. All
-positions/velocities and interpolation checks use the existing validated DE442s.
+Earth positions/velocities retain validated DE442s; outer systems stay in their
+coherent physical-center Horizons source domain.
 """
 from datetime import datetime, timedelta, timezone
 import json
@@ -10,6 +11,7 @@ from pathlib import Path
 import numpy as np
 
 from backend.app.services import planetary_ephemeris_service as ephemeris
+from backend.app.services import horizons_systems
 from backend.app.services.solar_exploration import BODIES
 
 COVERAGE_START = datetime(1900, 1, 1, tzinfo=timezone.utc)
@@ -24,7 +26,7 @@ def _iso(epoch):
     return epoch.isoformat().replace('+00:00', 'Z')
 
 
-def system_catalog():
+def base_catalog():
     systems = []
     for index, (identity, name, _model, _target, _reference, radius, _period) in enumerate(BODIES[1:], 1):
         if identity in ('mercury', 'venus'):
@@ -44,6 +46,10 @@ def system_catalog():
             reason=None if identity == 'earth' else ('No natural satellites.' if not satellites else UNAVAILABLE),
             satellites=satellites))
     return dict(schema='oras.planetary-systems.v1', systems=systems)
+
+
+def system_catalog():
+    return horizons_systems.qualify_catalog(base_catalog())
 
 
 def _window(runtime, epoch, start, end):
@@ -99,9 +105,11 @@ def _sample_track(runtime, target, stamps, times):
 
 
 def system_snapshot(system_id, epoch):
-    system = next((s for s in system_catalog()['systems'] if s['id'] == system_id), None)
+    system = next((s for s in base_catalog()['systems'] if s['id'] == system_id), None)
     if system is None:
         raise KeyError(system_id)
+    if system_id in horizons_systems.PARENTS:
+        return horizons_systems.horizons_snapshot(system_id, epoch, system)
     if system['status'] != 'qualified':
         raise ephemeris.EphemerisUnavailableError(UNAVAILABLE)
     if epoch.tzinfo is None:

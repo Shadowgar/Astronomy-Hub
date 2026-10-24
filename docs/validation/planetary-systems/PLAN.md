@@ -34,14 +34,14 @@ No paid providers, upstream patches, unapproved bulk downloads, merge or deploym
   returns to Earth System camera/epoch, then Solar. Retain old bookmarks/history.
 - [x] Qualify actual desktop/portrait/landscape paths, simulation, rapid navigation,
   keyboard/touch/reduced motion, failed sources/WebGL recovery and renderer cleanup.
-- [ ] Reproduce builds, verify served artifacts/protected originals, update canonical
+- [x] Reproduce builds, verify served artifacts/protected originals, update canonical
   authority and evidence, commit/push draft on PR92 and independently review exact HEAD.
 
 ## PS2
 
 - [x] Inspect official small SPK and Horizons options and source-derived identity/radius
   metadata. Record availability matrix; never use system barycenters as centers.
-- [ ] Admit bounded major-moon subsets only with parent-center/time/frame/coverage and
+- [x] Admit bounded major-moon subsets only with parent-center/time/frame/coverage and
   independent comparison evidence; unavailable states for gaps. Reuse PS1 renderer.
 - [ ] Qualify science, source failure, motion, camera and browser screenshots for each
   admitted system. Separate stacked draft, exact-head review and preservation receipts.
