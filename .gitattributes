@@ -20,3 +20,11 @@ docs/validation/planetary-systems/evidence/windows-http.txt -whitespace
 
 # Preserve the raw PS2 source-boundary failing-test receipt.
 docs/validation/planetary-systems/ps2/science/browser-boundary-red.txt -whitespace
+
+# Preserve exact PS3 build/browser terminal receipts.
+docs/validation/planetary-systems/ps3/evidence/build-container-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/build-repeat-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/build-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/cross-system-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/frontend-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/resilience-reviewed.log.txt -whitespace
