@@ -1,16 +1,19 @@
 import * as T from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import type {ScreenRect} from '../solar/solarPresentation'
 import type {EvaluatedSystem,SystemSnapshot,SystemCamera,Vec3} from './systemTypes'
 import {displayRadius,fitSystem,sceneVector,validCamera,systemDiskBudgets,systemViewport} from './systemSceneMath'
-import {systemMaterial} from './systemMaterials'
+import {systemMaterial,installMarsModel} from './systemMaterials'
 import {evaluateSystem} from './systemContracts'
 
 export type SystemScene={update:(value:EvaluatedSystem)=>void;focus:(id:string|null)=>void;overview:()=>void;zoom:(factor:number)=>void;orbit:(angle:number)=>void;setSizeMode:(mode:'cinematic'|'physical')=>void;setOrbits:(show:boolean)=>void;restoreCamera:(value:SystemCamera)=>boolean;diagnostics:()=>unknown;dispose:()=>void}
-type Body={id:string;radius:number;mesh:any;label:HTMLButtonElement;marker:HTMLSpanElement;extras:any[];width:number;height:number}
+type AssetStatus='not-requested'|'loading'|'ready'|'error'
+type Body={id:string;radius:number;mesh:any;label:HTMLButtonElement;marker:HTMLSpanElement;extras:any[];width:number;height:number;appearance:string;model:AssetStatus;texture:AssetStatus;assetError:string|null}
 type Pose={position:Vec3;target:Vec3}
 const earthUrl=new URL('../solar/assets/earth-blue-marble.png',import.meta.url).href
 const cloudsUrl=new URL('../solar/assets/earth-clouds-2002.jpg',import.meta.url).href
+const marsUrl=new URL('../solar/assets/mars-nasa.glb',import.meta.url).href
 const hudSelector='.system-header,.system-footer,.system-context,.system-toolbar,.system-breadcrumb,.system-title'
 
 /** Native local-system renderer; React owns only controls and serialized intent. */
@@ -21,6 +24,9 @@ export function mountSystemScene(host:HTMLElement,snapshot:SystemSnapshot,reduce
  const canvas=renderer.domElement;canvas.tabIndex=0;canvas.setAttribute('aria-label',`${snapshot.parent.name} system. Drag to orbit; pinch or scroll to zoom. Arrow keys orbit, plus and minus zoom, Home shows the system.`)
  host.append(canvas)
  const scene=new T.Scene(),camera=new T.PerspectiveCamera(42,1,.001,1e7),controls=new OrbitControls(camera,canvas)
+ // Only the original Mars model uses a standard material. Existing shader lighting is unchanged.
+ const sunLight=snapshot.parent.id==='mars'?new T.PointLight('#fff5ed',2.8,0,0):null
+ if(sunLight){scene.add(sunLight);scene.add(new T.AmbientLight('#bac6e0',.045))}
  camera.up.set(0,0,1);controls.enableDamping=false;controls.enablePan=false;controls.minDistance=1;controls.maxDistance=1e6
  const resources=new Set<{dispose:()=>void}>(),bodies:Body[]=[],paths:any[]=[],materials:any[]=[]
  const keep=<R extends {dispose:()=>void}>(r:R):R=>{resources.add(r);return r}
@@ -32,13 +38,13 @@ export function mountSystemScene(host:HTMLElement,snapshot:SystemSnapshot,reduce
  const km=(v:any):Vec3=>v.toArray().map((n:number)=>n*1000) as Vec3
  const state=():SystemCamera=>({position:km(camera.position),target:km(controls.target),up:camera.up.toArray(),focus:selected})
  const assetError=(name:string)=>{if(!disposed)host.dispatchEvent(new CustomEvent('system-asset-error',{detail:`${name} imagery unavailable; positions remain available.`}))}
- function texture(url:string,material:any,name:string,onReady?:()=>void){
-  const t=keep(new T.TextureLoader().load(url,(loaded:any)=>{if(disposed){loaded.dispose();return}loaded.colorSpace=name==='Clouds'?T.NoColorSpace:T.SRGBColorSpace;loaded.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());material.uniforms.map.value=loaded;if(material.uniforms.hasMap)material.uniforms.hasMap.value=true;texturesReady++;onReady?.();requestDraw()},undefined,()=>assetError(name)))
+ function texture(url:string,material:any,name:string,onReady?:()=>void,onFailure?:()=>void){
+  const t=keep(new T.TextureLoader().load(url,(loaded:any)=>{if(disposed){loaded.dispose();return}loaded.colorSpace=name==='Clouds'?T.NoColorSpace:T.SRGBColorSpace;loaded.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());material.uniforms.map.value=loaded;if(material.uniforms.hasMap)material.uniforms.hasMap.value=true;texturesReady++;onReady?.();requestDraw()},undefined,()=>{if(disposed)return;onFailure?.();assetError(name)}))
   return t
  }
  const descriptors=[{id:snapshot.parent.id,name:snapshot.parent.name,radius:snapshot.parent.radius_km},...snapshot.satellites.filter(s=>s.status==='qualified'&&s.radius_km!==null&&snapshot.state[s.id]).map(s=>({id:s.id,name:s.name,radius:s.radius_km!}))]
  for(const descriptor of descriptors){
-  const isEarth=descriptor.id==='earth',isMoon=descriptor.id==='moon'
+  const isEarth=descriptor.id==='earth',isMoon=descriptor.id==='moon',isMars=descriptor.id==='mars'
   const material=keep(systemMaterial(isEarth?'earth':isMoon?'moon':descriptor.id===snapshot.parent.id?'planet':'moon',descriptor.id));materials.push(material)
   const mesh=new T.Mesh(keep(new T.SphereGeometry(descriptor.radius/1000,64,40)),material)
   mesh.position.fromArray(sceneVector(snapshot.state[descriptor.id]?.position_km??[0,0,0]))
@@ -47,15 +53,25 @@ export function mountSystemScene(host:HTMLElement,snapshot:SystemSnapshot,reduce
   const label=document.createElement('button');label.className='system-body-label';label.textContent=descriptor.name
   label.setAttribute('aria-label',`Select ${descriptor.name} in system`);label.style.position='absolute';label.style.left='0';label.style.top='0';label.style.zIndex='2';label.onclick=()=>onPick(descriptor.id);host.append(label)
   const marker=document.createElement('span');marker.className='system-position-marker';marker.setAttribute('aria-hidden','true');Object.assign(marker.style,{position:'absolute',width:'5px',height:'5px',borderRadius:'50%',background:'#c4d8ed',pointerEvents:'none'});host.append(marker)
-  const body:Body={id:descriptor.id,radius:descriptor.radius,mesh,label,marker,extras:[],width:80,height:32};bodies.push(body)
+  const body:Body={id:descriptor.id,radius:descriptor.radius,mesh,label,marker,extras:[],width:80,height:32,appearance:descriptor.id===snapshot.parent.id&&!isMars?'illustrative-material':'neutral-reference-sphere',model:isMars?'loading':'not-requested',texture:isEarth||isMoon||isMars?'loading':'not-requested',assetError:null};bodies.push(body)
+  const textureReady=()=>{body.texture='ready';body.appearance=isEarth?'historical-earth-imagery':'historical-lroc-imagery'}
+  const textureFailed=()=>{body.texture='error';body.assetError=`${descriptor.name} imagery unavailable`}
   if(isEarth){
-   texture(earthUrl,material,'Earth')
+   texture(earthUrl,material,'Earth',textureReady,textureFailed)
    const cloudMaterial=keep(systemMaterial('clouds','earth')),atmosphere=keep(systemMaterial('atmosphere','earth'));materials.push(cloudMaterial,atmosphere)
    const clouds=new T.Mesh(keep(new T.SphereGeometry(descriptor.radius/1000*1.008,64,40)),cloudMaterial)
    clouds.visible=false;clouds.rotation.copy(mesh.rotation);clouds.position.copy(mesh.position);body.extras.push(clouds);scene.add(clouds)
    texture(cloudsUrl,cloudMaterial,'Clouds',()=>{clouds.visible=true})
    const rim=new T.Mesh(keep(new T.SphereGeometry(descriptor.radius/1000*1.018,48,32)),atmosphere);rim.position.copy(mesh.position);body.extras.push(rim);scene.add(rim)
-  }else if(isMoon)texture('/planet-data/moon-wac.png',material,'Moon')
+  }else if(isMoon)texture('/planet-data/moon-wac.png',material,'Moon',textureReady,textureFailed)
+  else if(isMars){
+   const failed=()=>{if(disposed)return;body.model='error';body.texture='error';body.assetError='Original NASA Mars model unavailable';assetError('Mars model');requestDraw()}
+   new GLTFLoader().load(marsUrl,(gltf:any)=>{
+    try{if(!installMarsModel(gltf,mesh,body.radius/1000,keep,disposed))return
+     mesh.material.map.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());body.model='ready';body.texture='ready';body.appearance='nasa-original-model';texturesReady++;requestDraw()
+    }catch{failed()}
+   },undefined,failed)
+  }
  }
  for(const track of snapshot.tracks){
   if(track.id===snapshot.parent.id||track.samples.length<2)continue
@@ -111,10 +127,11 @@ export function mountSystemScene(host:HTMLElement,snapshot:SystemSnapshot,reduce
   cancelFlight();if(reduced||immediate){camera.position.fromArray(pose.position);controls.target.fromArray(pose.target);updateControls();requestDraw()}
   else{flight={start:performance.now(),from:{position:camera.position.toArray(),target:controls.target.toArray()},to:pose};requestDraw()}
  }
+ function syncPaths(){for(const path of paths)path.visible=orbits&&(selected===null||selected===snapshot.parent.id)}
  function focus(id:string|null){
   if(disposed||lost)return
   const body=bodies.find(b=>b.id===id);if(id&&!body)return
-  selected=id;custom=false;controls.minDistance=body?body.radius/1000*1.15:1
+  selected=id;syncPaths();custom=false;controls.minDistance=body?body.radius/1000*1.15:1
   move(body?focusPose(body):overviewPose())
  }
  function zoom(factor:number){if(disposed||lost||!Number.isFinite(factor)||factor<=0)return;cancelFlight();custom=true;const delta=camera.position.clone().sub(controls.target);delta.setLength(Math.max(controls.minDistance,Math.min(controls.maxDistance,delta.length()*factor)));camera.position.copy(controls.target).add(delta);updateControls();requestDraw()}
@@ -155,15 +172,16 @@ export function mountSystemScene(host:HTMLElement,snapshot:SystemSnapshot,reduce
    if(flight){for(const pose of [flight.from,flight.to]){pose.position=pose.position.map((v,i)=>v+delta.getComponent(i)) as Vec3;pose.target=pose.target.map((v,i)=>v+delta.getComponent(i)) as Vec3}}
   }
   for(const material of materials)material.uniforms.sourceSun.value.fromArray(sceneVector(evaluated.sun))
+  if(sunLight)sunLight.position.fromArray(sceneVector(evaluated.sun))
   updateControls();requestDraw()
  }
  watchHud();update(evaluateSystem(snapshot,Date.parse(snapshot.epoch)))
  // The route handoff approaches a genuine source-centered overview; reduced motion is immediate.
  if(!reduced){const destination=overviewPose();camera.position.fromArray(destination.position.map((v,i)=>destination.target[i]+(v-destination.target[i])*1.45));updateControls();move(destination)}
  return{update,focus,overview:()=>focus(null),zoom,orbit,
-  setSizeMode(mode){sizeMode=mode;requestDraw()},setOrbits(show){orbits=show;for(const path of paths)path.visible=show;requestDraw()},
-  restoreCamera(value){if(disposed||lost||!validCamera(value,bodies.map(b=>b.id)))return false;selected=value.focus;custom=true;camera.up.fromArray(value.up).normalize();const body=bodies.find(b=>b.id===selected);controls.minDistance=body?body.radius/1000*1.15:1;move({position:sceneVector(value.position),target:sceneVector(value.target)},true);return true},
-  diagnostics(){const sorted=[...timings].sort((a,b)=>a-b);return{epoch,frame:snapshot.frame,origin:snapshot.origin,units:'km',sceneUnitKm:1000,selected,sizeMode,orbitsVisible:orbits,renderCount,disposed,contextLost:lost,animating:!!flight,texturesReady,camera:km(camera.position),target:km(controls.target),cameraState:state(),viewport,bodies:bodies.map(b=>{const p=b.mesh.position.clone().project(camera),distance=b.mesh.position.distanceTo(camera.position),r=b.radius/1000*b.mesh.scale.x*height/(2*distance*Math.tan(camera.fov*Math.PI/360));return{id:b.id,position:km(b.mesh.position),radiusKm:b.radius,displayRadiusKm:b.radius*b.mesh.scale.x,screenRadius:r,screen:[bounds.left+(p.x+1)*width/2,bounds.top+(1-p.y)*height/2],inView:p.z>-1&&p.z<1&&Math.abs(p.x)<1&&Math.abs(p.y)<1,labelVisible:!b.label.hidden,markerVisible:!b.marker.hidden}}),drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,renderCpuMs:{samples:sorted.length,median:sorted[Math.floor(sorted.length*.5)]??null,p95:sorted[Math.floor(sorted.length*.95)]??null}}},
+  setSizeMode(mode){sizeMode=mode;requestDraw()},setOrbits(show){orbits=show;syncPaths();requestDraw()},
+  restoreCamera(value){if(disposed||lost||!validCamera(value,bodies.map(b=>b.id)))return false;selected=value.focus;syncPaths();custom=true;camera.up.fromArray(value.up).normalize();const body=bodies.find(b=>b.id===selected);controls.minDistance=body?body.radius/1000*1.15:1;move({position:sceneVector(value.position),target:sceneVector(value.target)},true);return true},
+  diagnostics(){const sorted=[...timings].sort((a,b)=>a-b);return{epoch,frame:snapshot.frame,origin:snapshot.origin,units:'km',sceneUnitKm:1000,selected,sizeMode,orbitsRequested:orbits,orbitsVisible:paths.some(path=>path.visible),renderCount,disposed,contextLost:lost,animating:!!flight,texturesReady,camera:km(camera.position),target:km(controls.target),cameraState:state(),viewport,standardLightPositionKm:sunLight?km(sunLight.position):null,bodies:bodies.map(b=>{const p=b.mesh.position.clone().project(camera),distance=b.mesh.position.distanceTo(camera.position),r=b.radius/1000*b.mesh.scale.x*height/(2*distance*Math.tan(camera.fov*Math.PI/360));return{id:b.id,appearance:b.appearance,modelStatus:b.model,textureStatus:b.texture,modelReady:b.model==='ready',textureReady:b.texture==='ready',assetError:b.assetError,position:km(b.mesh.position),radiusKm:b.radius,displayRadiusKm:b.radius*b.mesh.scale.x,screenRadius:r,screen:[bounds.left+(p.x+1)*width/2,bounds.top+(1-p.y)*height/2],inView:p.z>-1&&p.z<1&&Math.abs(p.x)<1&&Math.abs(p.y)<1,labelVisible:!b.label.hidden,markerVisible:!b.marker.hidden}}),drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,renderCpuMs:{samples:sorted.length,median:sorted[Math.floor(sorted.length*.5)]??null,p95:sorted[Math.floor(sorted.length*.95)]??null}}},
   dispose(){if(disposed)return;disposed=true;cancelFlight();resize.disconnect();layout.disconnect();controls.removeEventListener('change',change);controls.removeEventListener('start',start);controls.dispose();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',cancel);canvas.removeEventListener('keydown',key);canvas.removeEventListener('webglcontextlost',contextLost);for(const body of bodies){body.label.onclick=null;body.label.remove();body.marker.remove()}for(const resource of resources)resource.dispose();resources.clear();scene.clear();renderer.dispose();renderer.forceContextLoss();canvas.remove()}
  }
 }

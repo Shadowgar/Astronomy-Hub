@@ -1,0 +1,403 @@
+{
+  "reviewedSha": "36426905f1c178d8c8f9b8bfe9edd0b639512b04",
+  "errors": [],
+  "initial": {
+    "diagnostics": {
+      "epoch": "2026-10-23T01:05:00.000Z",
+      "frame": "ICRF",
+      "origin": "Earth center (399)",
+      "units": "km",
+      "sceneUnitKm": 1000,
+      "selected": "moon",
+      "sizeMode": "cinematic",
+      "orbitsVisible": true,
+      "renderCount": 3,
+      "disposed": false,
+      "contextLost": false,
+      "animating": false,
+      "texturesReady": 3,
+      "camera": [
+        376809.52894280566,
+        -77758.3943870817,
+        733.9505397245069
+      ],
+      "target": [
+        376809.52894280566,
+        -71068.8190279512,
+        -17170.214343663465
+      ],
+      "cameraState": {
+        "position": [
+          376809.52894280566,
+          -77758.3943870817,
+          733.9505397245069
+        ],
+        "target": [
+          376809.52894280566,
+          -71068.8190279512,
+          -17170.214343663465
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "focus": "moon"
+      },
+      "viewport": {
+        "clearWidth": 960,
+        "clearHeight": 341,
+        "rectangleOffsetX": 140,
+        "rectangleOffsetY": -34.5
+      },
+      "bodies": [
+        {
+          "id": "earth",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "radiusKm": 6371,
+          "displayRadiusKm": 6371,
+          "screenRadius": 15.529390030132701,
+          "screen": [
+            -12164.748909072752,
+            -2045.0584977658364
+          ],
+          "inView": false,
+          "labelVisible": false,
+          "markerVisible": false
+        },
+        {
+          "id": "moon",
+          "position": [
+            376809.52894280566,
+            -71068.8190279512,
+            -17170.214343663465
+          ],
+          "radiusKm": 1737.4,
+          "displayRadiusKm": 1737.4000000000005,
+          "screenRadius": 85.24999999999999,
+          "screen": [
+            500,
+            394.50000000000006
+          ],
+          "inView": true,
+          "labelVisible": true,
+          "markerVisible": false
+        }
+      ],
+      "drawCalls": 2,
+      "geometries": 2,
+      "textures": 1,
+      "renderCpuMs": {
+        "samples": 3,
+        "median": 20.09999999962747,
+        "p95": 58.799999999813735
+      },
+      "playing": false,
+      "speed": 86400,
+      "system": "earth"
+    },
+    "url": "http://127.0.0.1:4223/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376809.52894280566%2C-77758.3943870817%2C733.9505397245069%5D%2C%22target%22%3A%5B376809.52894280566%2C-71068.8190279512%2C-17170.214343663465%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+    "state": {
+      "usr": {
+        "systemView": {
+          "schema": "oras.system-return.v1",
+          "system": "earth",
+          "epoch": "2026-10-23T01:05:00.000Z",
+          "camera": {
+            "position": [
+              376809.52894280566,
+              -77758.3943870817,
+              733.9505397245069
+            ],
+            "target": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "focus": "moon"
+          },
+          "sizeMode": "cinematic",
+          "orbits": true
+        }
+      },
+      "key": "ysw6wimj",
+      "idx": 0
+    }
+  },
+  "newer": {
+    "diagnostics": {
+      "epoch": "2026-10-24T01:05:00.000Z",
+      "frame": "ICRF",
+      "origin": "Earth center (399)",
+      "units": "km",
+      "sceneUnitKm": 1000,
+      "selected": "moon",
+      "sizeMode": "cinematic",
+      "orbitsVisible": true,
+      "renderCount": 5,
+      "disposed": false,
+      "contextLost": false,
+      "animating": false,
+      "texturesReady": 3,
+      "camera": [
+        375820.11138840386,
+        1341.2210619273326,
+        42219.57278024887
+      ],
+      "target": [
+        377551.50089499535,
+        7802.85466821845,
+        24315.407896860906
+      ],
+      "cameraState": {
+        "position": [
+          375820.11138840386,
+          1341.2210619273326,
+          42219.57278024887
+        ],
+        "target": [
+          377551.50089499535,
+          7802.85466821845,
+          24315.407896860906
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "focus": "moon"
+      },
+      "viewport": {
+        "clearWidth": 960,
+        "clearHeight": 341,
+        "rectangleOffsetX": 140,
+        "rectangleOffsetY": -34.5
+      },
+      "bodies": [
+        {
+          "id": "earth",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "radiusKm": 6371,
+          "displayRadiusKm": 6371,
+          "screenRadius": 15.798892049111721,
+          "screen": [
+            -66831.35911932432,
+            20279.656398707506
+          ],
+          "inView": false,
+          "labelVisible": false,
+          "markerVisible": false
+        },
+        {
+          "id": "moon",
+          "position": [
+            377551.50089499535,
+            7802.854668218448,
+            24315.407896860903
+          ],
+          "radiusKm": 1737.4,
+          "displayRadiusKm": 1737.4,
+          "screenRadius": 85.25000000000001,
+          "screen": [
+            500,
+            394.50000000000006
+          ],
+          "inView": true,
+          "labelVisible": true,
+          "markerVisible": false
+        }
+      ],
+      "drawCalls": 2,
+      "geometries": 2,
+      "textures": 1,
+      "renderCpuMs": {
+        "samples": 5,
+        "median": 0.8999999994412065,
+        "p95": 58.799999999813735
+      },
+      "playing": false,
+      "speed": 86400,
+      "system": "earth"
+    },
+    "url": "http://127.0.0.1:4223/planetary-system/earth?date=2026-10-24T01%3A05%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B375820.11138840386%2C1341.2210619273326%2C42219.57278024887%5D%2C%22target%22%3A%5B377551.50089499535%2C7802.85466821845%2C24315.407896860906%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+    "state": {
+      "usr": {
+        "systemView": {
+          "schema": "oras.system-return.v1",
+          "system": "earth",
+          "epoch": "2026-10-24T01:05:00.000Z",
+          "camera": {
+            "position": [
+              375820.11138840386,
+              1341.2210619273326,
+              42219.57278024887
+            ],
+            "target": [
+              377551.50089499535,
+              7802.85466821845,
+              24315.407896860906
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "focus": "moon"
+          },
+          "sizeMode": "cinematic",
+          "orbits": true
+        }
+      },
+      "key": "jap2m6t5",
+      "idx": 1
+    }
+  },
+  "back": {
+    "diagnostics": {
+      "epoch": "2026-10-23T01:05:00.000Z",
+      "frame": "ICRF",
+      "origin": "Earth center (399)",
+      "units": "km",
+      "sceneUnitKm": 1000,
+      "selected": "moon",
+      "sizeMode": "cinematic",
+      "orbitsVisible": true,
+      "renderCount": 6,
+      "disposed": false,
+      "contextLost": false,
+      "animating": false,
+      "texturesReady": 3,
+      "camera": [
+        376809.52894280566,
+        -77758.3943870817,
+        733.9505397245069
+      ],
+      "target": [
+        376809.52894280566,
+        -71068.8190279512,
+        -17170.214343663465
+      ],
+      "cameraState": {
+        "position": [
+          376809.52894280566,
+          -77758.3943870817,
+          733.9505397245069
+        ],
+        "target": [
+          376809.52894280566,
+          -71068.8190279512,
+          -17170.214343663465
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "focus": "moon"
+      },
+      "viewport": {
+        "clearWidth": 960,
+        "clearHeight": 341,
+        "rectangleOffsetX": 140,
+        "rectangleOffsetY": -34.5
+      },
+      "bodies": [
+        {
+          "id": "earth",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "radiusKm": 6371,
+          "displayRadiusKm": 6371,
+          "screenRadius": 15.529390030132701,
+          "screen": [
+            -12164.748909072752,
+            -2045.0584977658364
+          ],
+          "inView": false,
+          "labelVisible": false,
+          "markerVisible": false
+        },
+        {
+          "id": "moon",
+          "position": [
+            376809.52894280566,
+            -71068.8190279512,
+            -17170.214343663465
+          ],
+          "radiusKm": 1737.4,
+          "displayRadiusKm": 1737.4000000000005,
+          "screenRadius": 85.24999999999999,
+          "screen": [
+            500,
+            394.50000000000006
+          ],
+          "inView": true,
+          "labelVisible": true,
+          "markerVisible": false
+        }
+      ],
+      "drawCalls": 2,
+      "geometries": 2,
+      "textures": 1,
+      "renderCpuMs": {
+        "samples": 6,
+        "median": 0.8999999994412065,
+        "p95": 58.799999999813735
+      },
+      "playing": false,
+      "speed": 86400,
+      "system": "earth"
+    },
+    "url": "http://127.0.0.1:4223/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376809.52894280566%2C-77758.3943870817%2C733.9505397245069%5D%2C%22target%22%3A%5B376809.52894280566%2C-71068.8190279512%2C-17170.214343663465%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+    "state": {
+      "usr": {
+        "systemView": {
+          "schema": "oras.system-return.v1",
+          "system": "earth",
+          "epoch": "2026-10-23T01:05:00.000Z",
+          "camera": {
+            "position": [
+              376809.52894280566,
+              -77758.3943870817,
+              733.9505397245069
+            ],
+            "target": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "focus": "moon"
+          },
+          "sizeMode": "cinematic",
+          "orbits": true
+        }
+      },
+      "key": "xifurjg0",
+      "idx": 0
+    }
+  },
+  "maxCameraErrorKm": 0,
+  "status": "PASS",
+  "sourceAndServedCorrectionReceiptVerified": true
+}

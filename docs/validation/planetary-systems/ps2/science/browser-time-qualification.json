@@ -1,0 +1,81 @@
+{
+  "max_km": 0.05815838311099238,
+  "records": [
+    {
+      "target": "499",
+      "max_midpoint_error_km_with_browser_UTC_ms": 3.495426209491462e-07
+    },
+    {
+      "target": "599",
+      "max_midpoint_error_km_with_browser_UTC_ms": 3.2308370425853304e-05
+    },
+    {
+      "target": "699",
+      "max_midpoint_error_km_with_browser_UTC_ms": 1.6695286537295244e-06
+    },
+    {
+      "target": "799",
+      "max_midpoint_error_km_with_browser_UTC_ms": 2.3896631266261723e-05
+    },
+    {
+      "target": "899",
+      "max_midpoint_error_km_with_browser_UTC_ms": 1.1126690833423864e-05
+    },
+    {
+      "target": "401",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.009644398640748994
+    },
+    {
+      "target": "402",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.007079419979084299
+    },
+    {
+      "target": "501",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.03404640514576961
+    },
+    {
+      "target": "502",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.0555513413202944
+    },
+    {
+      "target": "503",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.0051505761461290945
+    },
+    {
+      "target": "504",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.00034212673661366584
+    },
+    {
+      "target": "602",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.05359757353245622
+    },
+    {
+      "target": "606",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.00029103072456886217
+    },
+    {
+      "target": "701",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.05815838311099238
+    },
+    {
+      "target": "702",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.011385005129397217
+    },
+    {
+      "target": "703",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.0009637486687164411
+    },
+    {
+      "target": "704",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.00022259662182538682
+    },
+    {
+      "target": "705",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.025166400237580135
+    },
+    {
+      "target": "801",
+      "max_midpoint_error_km_with_browser_UTC_ms": 0.0036453106270374212
+    }
+  ]
+}

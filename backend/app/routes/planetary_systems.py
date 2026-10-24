@@ -21,6 +21,6 @@ def get_planetary_system(system_id: str, epoch: str = Query(..., min_length=20, 
     except KeyError as exc:
         raise HTTPException(status_code=404, detail='Unknown planetary system.') from exc
     except ValueError as exc:
-        raise HTTPException(status_code=422, detail='Use a timezone-aware epoch within qualified coverage (1900–2051).') from exc
+        raise HTTPException(status_code=422, detail='Use a timezone-aware epoch within this system’s qualified source coverage.') from exc
     except EphemerisUnavailableError as exc:
         raise HTTPException(status_code=503, detail='Qualified planet-center and satellite sources are unavailable.') from exc

@@ -17,3 +17,6 @@ docs/validation/planetary-systems/evidence/science/destination-red.txt -whitespa
 docs/validation/planetary-systems/evidence/science/naif-satellite-spks.html -whitespace
 docs/validation/planetary-systems/evidence/science/satellite-physical-parameters.html -whitespace
 docs/validation/planetary-systems/evidence/windows-http.txt -whitespace
+
+# Preserve the raw PS2 source-boundary failing-test receipt.
+docs/validation/planetary-systems/ps2/science/browser-boundary-red.txt -whitespace

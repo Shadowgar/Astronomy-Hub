@@ -18,6 +18,12 @@ export function validateSystemCatalog(raw:unknown):SystemCatalog{
 export function validateSystemSnapshot(raw:unknown,id:string,epoch:string):SystemSnapshot{
  const s=raw as SystemSnapshot;if(!s||s.schema!=='oras.planetary-system.v1'||s.system_id!==id||!parentCenters[id]||timestamp(s.epoch)!==timestamp(epoch)||!Number.isFinite(timestamp(epoch))||s.frame!=='ICRF'||s.units!=='km'||s.origin!==`${s.parent?.name} center (${parentCenters[id]})`||s.time?.input_scale!=='UTC'||s.time.evaluation_scale!=='TDB'||!finite(s.time.jd_tdb)||!s.source||!/^[a-f0-9]{64}$/.test(s.source.sha256)||!s.source.url?.startsWith('https://')||s.sampling?.interpolation!=='cubic-hermite'||!finite(s.sampling.step_seconds)||s.sampling.step_seconds<=0||!finite(s.sampling.max_position_error_km)||s.sampling.max_position_error_km<0||!s.sampling.qualification)fail()
  parent(s.parent,id);satellites(s.satellites,id)
+ if(id!=='earth'){
+  const rows=s.source.series||[],qualified=s.satellites.filter(m=>m.status==='qualified')
+  if(s.source.id!=='jpl_horizons_local'||!s.source.transition||s.corrections!=='geometric; no light-time or aberration'||!Array.isArray(rows)||rows.length!==qualified.length+1)fail()
+  const targets=new Set<string>();for(const row of rows){if(!row||targets.has(row.target_id)||!(/^[a-f0-9]{64}$/.test(row.source_sha256))||!row.source_url?.startsWith('https://'))fail();targets.add(row.target_id)}
+  if(!rows.some(r=>r.target_id===parentCenters[id]&&r.center_id==='10')||qualified.some(m=>!rows.some(r=>r.target_id===m.naif_id&&r.center_id===parentCenters[id])))fail()
+ }
  const start=timestamp(s.sampled_coverage?.start),end=timestamp(s.sampled_coverage?.end),fullStart=timestamp(s.coverage?.start),fullEnd=timestamp(s.coverage?.end),now=timestamp(s.epoch)
  if(![start,end,fullStart,fullEnd].every(Number.isFinite)||start>=end||start<fullStart||end>fullEnd||now<start||now>end)fail()
  if(!Array.isArray(s.tracks)||s.tracks.length!==s.satellites.filter(m=>m.status==='qualified').length||!s.sun_track||s.sun_track.id!=='sun')fail()
