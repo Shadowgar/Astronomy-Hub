@@ -13,7 +13,7 @@ Astronomy Hub is a **mixed-license repository**. The root [MIT license](LICENSE)
   - [`integrations/sky-overlay/LICENSE-AGPL-3.0.txt`](integrations/sky-overlay/LICENSE-AGPL-3.0.txt)
   - [`vendor/stellarium-web-engine/LICENSE-AGPL-3.0.txt`](vendor/stellarium-web-engine/LICENSE-AGPL-3.0.txt)
 - Original upstream copyright notices inside those source files remain in force. Modifications and derivative material may also carry AGPL obligations. The MIT license at the repository root does **not** override them.
-- The included `frontend/public/oras-sky-engine/` runtime may contain generated Stellarium components. Treat these outputs as subject to their upstream source/notice obligations; bundling or serving a compiled runtime can require corresponding source and user-facing network-source access. This documentation change does **not** verify that every deployed artifact meets those requirements.
+- The included `frontend/public/oras-sky-engine/` runtime contains a compiled Stellarium frontend and native WASM. A [repository-level AGPL source-offer audit](docs/validation/STELLARIUM_AGPL_SOURCE_OFFER_AUDIT_2026-10-24.md) identifies **unverified corresponding-source delivery** and a missing prominent source link in the checked-in runtime. This is a release gate; the live ORAS deployment was **not** tested. Source access must match the actual build, not only a generic repository or mismatched fork.
 
 ## God's Eye View / Earth adapter sources
 
