@@ -7,11 +7,11 @@ hierarchy: Solar → parent system → selected moon → individually qualified 
 View. Base PR92 `c510759ba78c011679c2479a2fa9f48bf260afce` remains unchanged.
 PS1 implements Earth399/Moon301 relative geometry and source-time motion first;
 PS2 separately qualifies major-moon subsets using actual parent centers; PS3
-qualifies integration. PS1 is delivered as draft PR93 at36426905 with its independent exact-head
-review complete. Current work is `ps2-major-moon-systems-1`: five actual-parent
-systems and fourteen major moons implemented from a finite Horizons release;
-Docker/browser/artifact qualification and draft delivery are recorded in the
-[PS2 evidence](../validation/planetary-systems/ps2/README.md). PS3 integration follows separately. Owner functional/visual and physical-device acceptance remain open. [Execution and evidence](../validation/planetary-systems/README.md).
+qualifies integration. PS1 draft PR93 at36426905 andPS2 draft PR94 at26aa6111 are delivered, with independent
+exact-head review complete. Current package `ps3-planetary-integration-1` qualifies
+cross-system navigation, motion, selection, source failures, lifecycle and preserved
+native handoffs. The [PS3 review handoff](../validation/planetary-systems/ps3/README.md)
+records actual source-matched evidence and remaining limits. Owner functional/visual and physical-device acceptance remain open. [Execution and evidence](../validation/planetary-systems/README.md).
 
 This directive supersedes historical single-globe/no-moons execution limits only.
 Preserve approved glass, source positions, cinematic/physical scale choices, native

@@ -1,7 +1,9 @@
 # Hierarchical planetary systems
 
 Owner-authorized continuation of PR92 `c510759ba78c011679c2479a2fa9f48bf260afce`.
-Current PS1 branch: `ps1-earth-moon-system-1`. Final source qualification is recorded below;
+Latest integrated working preview and evidence: [PS3](ps3/README.md), with PS1/PS2 historical ledgers retained below.
+
+Original PS1 branch: `ps1-earth-moon-system-1`. Final source qualification is recorded below;
 no owner acceptance, merge or deployment is claimed. The separate future lunar
 terrain/detail work remains on the canonical roadmap.
 

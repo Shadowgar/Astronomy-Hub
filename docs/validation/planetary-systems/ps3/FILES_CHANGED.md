@@ -1,0 +1,53 @@
+# PS3 exact changed files
+
+BasePS2 `26aa6111`. Application changes are limited to `SystemWorkspace.tsx`: coverage-end notice lifecycle and live speed diagnostics. Backend/ephemerides/render geometry/materials/native runtimes/dependencies are unchanged.
+
+- `docs/DOCUMENT_INDEX.md`
+- `docs/DOC_INVENTORY.md`
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/execution/MASTER_PLAN.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/features/FEATURE_TRACKER.md`
+- `docs/validation/planetary-systems/PLAN.md`
+- `docs/validation/planetary-systems/README.md`
+- `docs/validation/planetary-systems/ps3/COMMANDS.md`
+- `docs/validation/planetary-systems/ps3/README.md`
+- `docs/validation/planetary-systems/ps3/REVIEW.md`
+- `docs/validation/planetary-systems/ps3/evidence/build-container-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/evidence/build-repeat-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/evidence/build-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/evidence/cross-system-final.json`
+- `docs/validation/planetary-systems/ps3/evidence/cross-system-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/evidence/delivery-candidate.json`
+- `docs/validation/planetary-systems/ps3/evidence/earth-native-final.json`
+- `docs/validation/planetary-systems/ps3/evidence/earth-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/evidence/frontend-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/evidence/integration-initial-red.json`
+- `docs/validation/planetary-systems/ps3/evidence/notice-history-green.json`
+- `docs/validation/planetary-systems/ps3/evidence/notice-history-red.json`
+- `docs/validation/planetary-systems/ps3/evidence/ps2-review-boundary.json`
+- `docs/validation/planetary-systems/ps3/evidence/ps2-review-paths.json`
+- `docs/validation/planetary-systems/ps3/evidence/resilience-final.json`
+- `docs/validation/planetary-systems/ps3/evidence/resilience-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/evidence/typecheck-reviewed.log.txt`
+- `docs/validation/planetary-systems/ps3/screenshots/1440x900-earth-flyout.png`
+- `docs/validation/planetary-systems/ps3/screenshots/1440x900-earth-moon-overview.png`
+- `docs/validation/planetary-systems/ps3/screenshots/1440x900-native-moon.png`
+- `docs/validation/planetary-systems/ps3/screenshots/1440x900-selected-moon.png`
+- `docs/validation/planetary-systems/ps3/screenshots/390x900-earth-moon-overview.png`
+- `docs/validation/planetary-systems/ps3/screenshots/390x900-native-moon.png`
+- `docs/validation/planetary-systems/ps3/screenshots/390x900-selected-moon.png`
+- `docs/validation/planetary-systems/ps3/screenshots/667x390-earth-moon-overview.png`
+- `docs/validation/planetary-systems/ps3/screenshots/667x390-native-moon.png`
+- `docs/validation/planetary-systems/ps3/screenshots/667x390-selected-moon.png`
+- `docs/validation/planetary-systems/ps3/screenshots/earth-native-ready.png`
+- `docs/validation/planetary-systems/ps3/screenshots/sky-native-ready.png`
+- `docs/validation/planetary-systems/ps3/screenshots/touch-reduced-motion.png`
+- `frontend/src/features/systems/SystemWorkspace.tsx`
+- `scripts/validation/verify_ps3_cross_systems.mjs`
+- `scripts/validation/verify_ps3_delivery.py`
+- `scripts/validation/verify_ps3_earth_native.mjs`
+- `scripts/validation/verify_ps3_notice_history.mjs`
+- `docs/validation/planetary-systems/ps3/FILES_CHANGED.md`
+- `.gitattributes` — exact raw terminal receipts only.

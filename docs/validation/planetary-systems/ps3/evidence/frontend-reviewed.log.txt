@@ -1,0 +1,13 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/ps3-planetary-integration-1/frontend
+
+
+ Test Files  58 passed (58)
+      Tests  370 passed (370)
+   Start at  01:41:06
+   Duration  2.96s (transform 9.78s, setup 0ms, import 17.03s, tests 5.54s, environment 13ms)
+
