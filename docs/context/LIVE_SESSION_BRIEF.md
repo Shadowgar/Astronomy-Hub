@@ -1,5 +1,19 @@
 # LIVE SESSION BRIEF
 
+## Bounded R4 Planet View — owner authorization 2026-10-23
+
+PR91 glass foundation is delivered as a draft at `2080ed5130c501a7ac286fb862e99d5c9dc6cb30`.
+The owner now prioritizes R4 and stops broad cinematic redesign. This supersedes
+older no-R4 execution text for one scientifically qualified non-Earth slice only;
+it does not grant prior visual/release acceptance, merge or production authority.
+Work is isolated on `r4-a-planet-view-1`, stacked on PR91. Moon is the selected
+first qualified destination: exact center301, NAIF lunar ME frame,1,737.4km sphere,
+original LROC morphology and explicit terrain/source limits. Earth alone cannot
+satisfy AE-04. Preserve nine-body Solar, belt, cinematic sizing/responsiveness,
+Earth/SWE/navigation, glass, data/settings/pins/rollback. No paid sources or X work.
+[Current R4 scope and evidence](../validation/r4-a-planet-view/README.md).
+
+
 ## Owner visual rejection and glass correction — 2026-10-23
 
 The owner rejects current PR88–90 visual fidelity, including opaque dark panels.

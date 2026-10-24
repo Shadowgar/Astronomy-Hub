@@ -33,6 +33,7 @@ from .routes import (
     sky,
     sky_mirror,
     solar_exploration,
+    planet_view,
     targets,
 )
 
@@ -125,3 +126,4 @@ app.include_router(sky_mirror.router, prefix="/api")
 
 app.include_router(earth.router, prefix="/api")
 app.include_router(solar_exploration.router, prefix="/api/v1")
+app.include_router(planet_view.router, prefix="/api/v1")
