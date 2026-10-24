@@ -1,0 +1,40 @@
+# Third-party notices and license scope
+
+Astronomy Hub is a **mixed-license repository**. The root [MIT license](LICENSE) is the license offered by Shadowgar for **original code and documentation authored or controlled by the project maintainer**, where the maintainer has authority to grant that license and no more-specific notice applies.
+
+**This is not a blanket MIT relicensing of every file in the repository.** Vendored, copied, adapted, generated, third-party, and data-provider materials retain their own copyright and licensing terms. A path not listed below is **not** automatically cleared for MIT reuse; verify its provenance if uncertain.
+
+## Stellarium Web / Stellarium Web Engine
+
+- Identified source trees: `integrations/sky-overlay/` and `vendor/stellarium-web-engine/`.
+- Upstream: [Stellarium Web Engine](https://github.com/Stellarium/stellarium-web-engine), and its Stellarium Web frontend.
+- Upstream notices credit **Stellarium Labs SRL** and offer **GNU Affero General Public License v3** or a separately negotiated commercial license. **No commercial license is presumed for Astronomy Hub.** The AGPL option is the documented basis for redistribution.
+- Copies of the upstream AGPL v3 terms are retained verbatim at:
+  - [`integrations/sky-overlay/LICENSE-AGPL-3.0.txt`](integrations/sky-overlay/LICENSE-AGPL-3.0.txt)
+  - [`vendor/stellarium-web-engine/LICENSE-AGPL-3.0.txt`](vendor/stellarium-web-engine/LICENSE-AGPL-3.0.txt)
+- Original upstream copyright notices inside those source files remain in force. Modifications and derivative material may also carry AGPL obligations. The MIT license at the repository root does **not** override them.
+- The included `frontend/public/oras-sky-engine/` runtime may contain generated Stellarium components. Treat these outputs as subject to their upstream source/notice obligations; bundling or serving a compiled runtime can require corresponding source and user-facing network-source access. This documentation change does **not** verify that every deployed artifact meets those requirements.
+
+## God's Eye View / Earth adapter sources
+
+- Original project: [God's Eye View](https://github.com/bilawalsidhu/gods-eye-view).
+- Its upstream source-code [LICENSE](https://github.com/bilawalsidhu/gods-eye-view/blob/main/LICENSE) credits **Bilawal Sidhu** under MIT, with express exceptions for provider content, datasets, imagery, and third-party models.
+- Astronomy Hub's `runtimes/earth-runtime/` and integration layers selectively reuse/wrap God’s Eye functionality. Preserve applicable upstream MIT copyright notices for copied/adapted code. Do not treat provider data, external maps, visual assets, or models as included in that MIT grant.
+- Exact per-file provenance and release-artifact notice placement require continued verification.
+
+## Astronomy catalogs and other material
+
+- **OpenNGC**: code under `scripts/skydata/` and `backend/` records OpenNGC catalog attribution and **CC BY-SA 4.0** data terms; these do not become MIT merely because ingestion software is MIT-eligible.
+- **HiPS surveys, planetary imagery, other maps and external APIs**: use source-specific permissions, credits, service conditions, and any applicable database/data licenses. See source `properties`, manifest records, and [provider licensing decision](docs/architecture/decisions/0008-provider-licensing-boundaries.md). Some rights are not established; public GitHub visibility is not a grant of redistribution rights.
+- **Fonts and icons**: [asset notices](frontend/src/features/workspace/assets/LICENSES.txt) preserve separate licensing (including SIL Open Font License for IBM Plex Sans and Lucide licensing).
+- **Installed JavaScript/Python libraries**: dependency license terms apply independently; their inclusion is not a maintainer-origin MIT grant.
+
+## Contribution and distribution rules
+
+1. Keep upstream copyright and licensing headers intact when importing, modifying, or redistributing third-party material.
+2. Review the exact source and license obligations for every redistributed data file, image, font, compiled asset, and generated artifact. Do not infer rights from mere accessibility.
+3. For modified or hosted AGPL-covered code, verify required full corresponding source, license notices, and applicable network user offer before deploying or distributing; an unrelated Hub repository link alone may not establish compliance.
+4. Retain original third-party attributions when repackaging, minifying, vendoring, or publishing generated application bundles.
+5. A new contribution to **original** Hub code is not automatically relicensed if the contributor lacks authority, or if it modifies/adapts copyleft code; settle rights before distribution.
+
+This file documents known boundaries but is **not a comprehensive intellectual-property or redistribution clearance audit**. The [readiness tracker](docs/OPEN_SOURCE_READINESS.md) records remaining owner decisions and verification steps.
