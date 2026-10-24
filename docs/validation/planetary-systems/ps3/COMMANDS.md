@@ -28,22 +28,22 @@ preview are checked at delivery. Raw output is retained under
 `output/planetary-systems/ps3`; selected durable receipts/screenshots are versioned.
 
 Scientific API/data source and renderer geometry/materials are byte-identical to
-PS2; its65Docker science tests (7inheritedwarnings),18strict new tests and2full-source
+PS2; its65 Docker science tests (7 inherited warnings),18 strict new tests and2 full-source
 comparison tests remain valid historical evidence. PS3 does not relabel those
-runs as fresh. PS2's15system/viewport journeys, material failure/disposal and
-48.34–60HzSwiftShader measurements also retain their source and artifact identities.
+runs as fresh. PS2's15 system/viewport journeys, material failure/disposal and
+48.34–60 Hz SwiftShader measurements also retain their source and artifact identities.
 PS3 changes only the narrow notice/diagnostic host behavior, qualified by fresh
 integration/browser tests and new builds. Native data/assets/settings/pins/volumes
 are unchanged; noDB-byte snapshot or physical GPU acceptance is claimed.
 
 ## Final corrected-source results
 
--8/8cross-systemgroups passed with actual served/source hashes stable.
+-8/8 cross-system groups passed with actual served/source hashes stable.
 -1/1focused notice-history regression passed after independently reproduced red.
 -22/22Earth/nativeMoon/Solarjourneygroups passed:desktop8,portrait7,shortlandscape7.
--9/9resiliencegroups passed, including nativeEarth andPennsylvaniaSky readiness, sourcefailure/invaliddates, delayedactualresponses and both motionpreferences.
--370frontendtests passed in58files; TypeScriptpassed.
--3identicalHubbuilds andservedbytes:142files; unchangednativeMoon4,Earth514,Sky111files; immutableephemerispack andprotectedPR92resources passed.
+-9/9 resilience groups passed, including nativeEarth andPennsylvaniaSky readiness, sourcefailure/invaliddates, delayedactualresponses and both motionpreferences.
+-370 frontend tests passed in58files; TypeScriptpassed.
+-3identicalHubbuilds andservedbytes:142 files; unchangednativeMoon4,Earth514,Sky111files; immutableephemerispack andprotectedPR92resources passed.
 -Windowspreview4225 returnedHTTP200.
 
 The final runtime-sensitive assertions use the final notice-history correction.

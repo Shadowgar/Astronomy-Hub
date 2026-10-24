@@ -51,3 +51,4 @@ BasePS2 `26aa6111`. Application changes are limited to `SystemWorkspace.tsx`: co
 - `scripts/validation/verify_ps3_notice_history.mjs`
 - `docs/validation/planetary-systems/ps3/FILES_CHANGED.md`
 - `.gitattributes` — exact raw terminal receipts only.
+- `docs/validation/planetary-systems/ps3/evidence/exact-source-independent-review.json` — independent final application regression receipt.

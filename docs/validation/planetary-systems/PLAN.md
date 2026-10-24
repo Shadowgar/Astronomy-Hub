@@ -50,7 +50,7 @@ No paid providers, upstream patches, unapproved bulk downloads, merge or deploym
 
 - [x] Qualify cross-system rapid switching/history/time/selection/lifecycle, accessibility,
   responsive glass composition and actual measured browser performance.
-- [ ] Final draft package, exact SHAs, preview/screenshot/source evidence and remaining
+- [x] Final draft package, exact SHAs, preview/screenshot/source evidence and remaining
   limits. Stop for owner functional/visual review; retain future lunar terrain work.
 
 ## Review focus

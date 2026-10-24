@@ -3,7 +3,7 @@
 Owner directive: hierarchical planetary systems and source-derived moon orbits.
 Stack: PR92 → PS1 draft[PR93](https://github.com/Shadowgar/Astronomy-Hub/pull/93)
 `36426905f1c178d8c8f9b8bfe9edd0b639512b04` → PS2 draft[PR94](https://github.com/Shadowgar/Astronomy-Hub/pull/94)
-`26aa6111aa3ac5227215c1a19318eda10a8d8cd8` → this integration package.
+`26aa6111aa3ac5227215c1a19318eda10a8d8cd8` → draft [PR95](https://github.com/Shadowgar/Astronomy-Hub/pull/95).
 Neither parent was merged or rewritten. Independent exact-head reviews of PS1 and
 PS2 completed with no remaining actionable findings; review receipts are retained.
 
@@ -40,7 +40,7 @@ picking; this was a test correction, not a change to accepted Solar framing.
 
 [PS2 availability/source matrix](../ps2/README.md) remains authoritative: Earth–Moon
 uses DE442s; five other physical-center systems have fourteen qualified moons in
-the finite October2026 TDB release. Their browser-usable UTC coverage is
+the finite October 2026 TDB release. Their browser-usable UTC coverage is
 `2026-09-30T23:58:50.818Z`–`2026-10-31T23:58:50.817Z`. No extrapolation, automatic
 reset, fabricated positions, new detailed surfaces, terrain or paid provider.
 The2.4MB normalized source pack is versioned, excluded from images and mounted;
@@ -73,8 +73,8 @@ identities; historical runs are never relabeled as new passes.
 Stop for owner functional and visual review. No merge, production deployment or
 new roadmap phase is authorized by technical qualification.
 
-Final corrected-source qualification:8cross-systemgroups,22nativeMoonreturngroups,
-9resiliencegroups, focusednotice-historyregression,370frontendtests andTypeScript
+Final corrected-source qualification:8 cross-system groups,22 native Moon return groups,
+9 resilience groups, focused notice-history regression,370 frontend tests and TypeScript
 passed. Three new builds match exactly and served/native/source preservation passes.
 Science/API source remains byte-identical to qualified PS2; no scientific rerun is
 misrepresented as fresh.
@@ -87,3 +87,14 @@ misrepresented as fresh.
 
 Preserved native modes: [Earth](screenshots/earth-native-ready.png),
 [Sky/Pennsylvania](screenshots/sky-native-ready.png).
+
+## Delivered review state
+
+PS3 application commit `9b86a4651471c7d4007879877e09c49dd5c938cf` passed independent
+exact-head review with no remaining actionable findings. The reviewer independently
+confirmed the notice-history regression and matching source/served artifact hashes.
+This documentation-only completion records that review; application bytes remain
+unchanged. The final documentation head is verified and reviewed in PR95.
+
+All three packages remain drafts. The next task is owner functional and visual
+review of the working preview. No merge, deployment or new phase was performed.

@@ -14,7 +14,7 @@ rows below remain historical where superseded here; no second roadmap is created
 | PS2 Saturn | Titan/Enceladus geometry implemented; finite October2026 qualified in draft PR94 | Unavailable |
 | PS2 Uranus | Five major-moon geometries implemented; finite October2026 qualified in draft PR94 | Unavailable |
 | PS2 Neptune | Triton geometry implemented; finite October2026 qualified in draft PR94 | Unavailable |
-| PS3 integration | Cross-system integration and native handoff qualification in PS3; owner acceptance open | Inherits individual destination gates |
+| PS3 integration | Qualified cross-system integration and native handoffs in draft PR95; owner acceptance open | Inherits individual destination gates |
 
 Source data and interpolation evidence do not establish complete system coverage,
 physical performance, detailed surface availability, or owner visual acceptance.
