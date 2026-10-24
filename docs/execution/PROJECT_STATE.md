@@ -8,8 +8,8 @@ View. Base PR92 `c510759ba78c011679c2479a2fa9f48bf260afce` remains unchanged.
 PS1 implements Earth399/Moon301 relative geometry and source-time motion first;
 PS2 separately qualifies major-moon subsets using actual parent centers; PS3
 qualifies integration. Current work is `ps1-earth-moon-system-1`: Earth–Moon implementation and
-Docker/browser/artifact qualification complete, preparing its draft and exact-head
-review. Owner functional/visual and physical-device acceptance remain open. [Execution and evidence](../validation/planetary-systems/README.md).
+Docker/browser/artifact qualification complete, delivered as draft PR93, with independent review correction qualified and final
+exact-head follow-up pending. Owner functional/visual and physical-device acceptance remain open. [Execution and evidence](../validation/planetary-systems/README.md).
 
 This directive supersedes historical single-globe/no-moons execution limits only.
 Preserve approved glass, source positions, cinematic/physical scale choices, native

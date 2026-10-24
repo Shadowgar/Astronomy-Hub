@@ -108,3 +108,14 @@ unchanged. The primary checkout's existing `.vscode/settings.json` edit is untou
 
 Owner functional/visual acceptance and physical hardware qualification remain open.
 PS1 does not admit Mars/outer-system geometry, new detailed moon surfaces or terrain.
+
+## PS1 draft delivery and exact-head review correction
+
+Draft [PR93](https://github.com/Shadowgar/Astronomy-Hub/pull/93) is stacked on PR92.
+Independent review of a7de8908 reproduced same-selection epoch Back/Forward losing
+the saved camera (1,731.3895km discrepancy). Adding the epoch to camera restoration
+corrected the reproduced case to zero discrepancy. Focused red/green captures and
+the source-matched rerun of all22 navigation groups are retained. All365 frontend
+tests pass; three rebuilt Hub artifacts and served/native preservation checks pass.
+Earlier science, resilience and asset checks retain their original source identities;
+they are not relabeled as fresh reruns. Final exact-head follow-up review is required.

@@ -86,3 +86,5 @@ Both use the same source, bytes and loopback origin. Earlier intercepted LAN HTM
 caused Chromium PNA asset blocking; those blank-app results are fixture limitations.
 
 Raw official HTML and captured terminal receipts retain their original bytes. Exact-file `.gitattributes` entries exclude only their captured whitespace from Git whitespace checks; application source remains checked.
+
+Review correction: `node scripts/validation/verify_ps1_epoch_history.mjs` (zero camera discrepancy), `npm --prefix frontend test -- --run` (365 passed), `PS_OUT=output/planetary-systems/history-journeys node scripts/validation/verify_planetary_systems.mjs` (8+7+7 groups passed). Repeated and pinned-container build commands above were rerun; `python3 scripts/validation/verify_ps1_delivery.py --candidate` passed.

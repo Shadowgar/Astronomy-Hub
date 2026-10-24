@@ -83,3 +83,5 @@ Relative to preserved PR92 c510759ba78c011679c2479a2fa9f48bf260afce.
 - `tests/fixtures/planetary-systems/horizons.json`
 
 - `.gitattributes` — preserve byte-exact source and terminal evidence.
+
+Review follow-up also adds `scripts/validation/verify_ps1_epoch_history.mjs`, `REVIEW.md`, and four explicitly named `evidence/epoch-history-*` / `evidence/history-correction-*` receipts.
