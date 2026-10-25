@@ -51,7 +51,7 @@ not ok 8 - satellite selection changes release embedded tracking without changin
   error: |-
     Expected values to be strictly equal:
     + actual - expected
-    
+
     + 0
     - {
     -   jsonData: {
@@ -59,7 +59,7 @@ not ok 8 - satellite selection changes release embedded tracking without changin
     -   },
     -   v: 101
     - }
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected:

@@ -46,8 +46,8 @@ Two bounded CelesTrak acquisition attempts, October24 and25 (twenty hours apart,
 with an environment restart between), each timed out after120s without status or
 bytes. Both had an8MiB cap, redirects disabled, no internal retries and no promotion.
 No further acquisition attempt is planned in this repair. See the
-[catalog audit](evidence/catalog/REPORT.md) and
-[resumed receipt](evidence/catalog/refresh-attempt-resume-20261025.json).
+[catalog audit](evidence/source-audit/REPORT.md) and
+[resumed receipt](evidence/source-audit/refresh-attempt-resume-20261025.json).
 
 **An advancing Live clock or a moving stale-element prediction does not establish
 an actual satellite's position today.** Owner real-time orbital acceptance requires
@@ -128,7 +128,7 @@ without horizontal overflow. [Status proof](evidence/status-qualified.json) ·
 
 ## Preservation and review
 
-[Preservation receipt](evidence/catalog/preservation.json):107protected tracked files
+[Preservation receipt](evidence/source-audit/preservation.json):107protected tracked files
 match PR95, seven scientific-data hashes match admission, Earth513files/52inputs
 verify unchanged. PS1–PS3/natural-moon data, R4 Moon, Solar positions/materials,
 Earth, source pins, native JS/WASM, panorama, shared glass and observer configuration

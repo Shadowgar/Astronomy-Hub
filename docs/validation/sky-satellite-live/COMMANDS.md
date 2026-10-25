@@ -18,7 +18,7 @@ docker run --rm --network none --read-only --tmpfs /tmp -e PYTHONDONTWRITEBYTECO
 Results:114runtime/384frontend/6promotion-source/39Docker tests passed;
 TypeScript exit0. Docker has3existing deprecation warnings; strict `-W error`
 failed on inherited TestClient/httpx warning and remains failed, not waived.
-[Backend audit commands/RED evidence](evidence/catalog/COMMANDS.md).
+[Backend audit commands/RED evidence](evidence/source-audit/COMMANDS.md).
 
 ```sh
 python3 scripts/runtime/integrate_sky_bridge.py output/sky-satellite-live/native-default/upstream/apps/web-frontend
@@ -76,3 +76,5 @@ Only task containers were restarted after the external environment interruption.
 The Windows address is environment-local; current access and final committed-source,
 local/remoteHEAD checks are reported in the PR delivery record. Final identity uses
 `python3 scripts/validation/verify_satellite_live_delivery.py` without `--candidate`.
+
+Documentation log copies normalize trailing whitespace/CRLF only; [raw/document hash pairs](evidence/log-normalization.json) preserve provenance. Raw outputs remain in ignored local output. The initial packaging diff check flagged raw log whitespace; it was corrected before push. PyYAML was unavailable; exact context list registration and local documentation links were checked using the standard library without adding dependencies.

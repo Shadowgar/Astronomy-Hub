@@ -68,9 +68,9 @@ not ok 11 - native disable immediately before disposal survives without waiting 
   failureType: 'testCodeFailure'
   error: |-
     Expected values to be strictly equal:
-    
+
     true !== false
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: false
@@ -94,9 +94,9 @@ not ok 12 - an external native offset immediately before widening or disposal re
   failureType: 'testCodeFailure'
   error: |-
     Expected values to be strictly equal:
-    
+
     2 !== 9
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 9

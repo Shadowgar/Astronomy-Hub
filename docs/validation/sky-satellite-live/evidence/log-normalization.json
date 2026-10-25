@@ -1,0 +1,55 @@
+{
+  "purpose": "Whitespace-only normalization of documentation copies for git diff checks. Raw command outputs remain unchanged under output/sky-satellite-live. Test outcomes, diagnostics and warning text are preserved.",
+  "files": [
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/frontend-qualified.txt",
+      "raw_sha256": "6106f69ed9f8dd23d3578f8971d3525c3bbb7c2d1820f1aa730b89a3f1cb3319",
+      "documentation_sha256": "1734246f23bd8e5c1852b0b2a27a15fa30b87980a54ca182957a3b35d432b8b5"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/tracking-policy-red.txt",
+      "raw_sha256": "a389f79b7182f9d7aea5caa31e7fbeabbf6f41c2945a368bedd9d0f9f59fd7c5",
+      "documentation_sha256": "e3777a3d817099a6a555751ba961f2570df67f195177a0128c9e14e741641999"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/typecheck-qualified.txt",
+      "raw_sha256": "31dc18a7b9139f9132714216dded945b884e0f2531cd896af71271d279e6924c",
+      "documentation_sha256": "2abe4d7f7a3965fd72f6a3ba4364bc3ae8dcd2cf68c366b50beebdae5e367d85"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/windows-preview-qualified.txt",
+      "raw_sha256": "02ad32fa0ccba598d447c7fb6b0330a9c4f19172e58709b486e96fc210f91882",
+      "documentation_sha256": "ed8cbb3b06a4e8cc768a7ccd18598cb02110af5ac989cae93eb8d7a57dbbcd9b"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/preference-release-red.txt",
+      "raw_sha256": "23a38d2409ab640da678487865153fef63795ce0cf47cfd3cbfa7b88f0e5e860",
+      "documentation_sha256": "99ebb746a9b0f2710278db40b6fcdc67ffcb311c2edf7148743d0bb7db850c69"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/standalone-tracking-red.txt",
+      "raw_sha256": "a117fb0281a350120e90b01d52d5469133c44233367d80ab84392ee3ee36fda7",
+      "documentation_sha256": "57ff1cb0b62e7fe547f679061a38dc18663554f6ff39a6b40673c29b1625223e"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/windows-preview.txt",
+      "raw_sha256": "02ad32fa0ccba598d447c7fb6b0330a9c4f19172e58709b486e96fc210f91882",
+      "documentation_sha256": "ed8cbb3b06a4e8cc768a7ccd18598cb02110af5ac989cae93eb8d7a57dbbcd9b"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/source-audit/feed-selected-tests-red.txt",
+      "raw_sha256": "eedb60d7abd01e09892cacbec23186886aafd8c68431e2475d118b01ff4bfb2e",
+      "documentation_sha256": "c2922641c1f02e8f2fa5985ed1bcaa7072695ab23151546140ecdf01be6ebff0"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/source-audit/feed-tests-red.txt",
+      "raw_sha256": "904a96d63ce977ed5c9cf66704d53bd60b4da5f05a1023b89511637db0204e8f",
+      "documentation_sha256": "6f5895d24bfb26dbc484de400d680c622330981818b257259c2befde45798ef2"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/source-audit/configured-path-binding-red.txt",
+      "raw_sha256": "c2a6e1f546c9556938314514928e7fd31ccb1e8fc0aed6a7fb0a5794969f07cf",
+      "documentation_sha256": "c51ad4ef7cafc1db5f24f554f398de1ffe2718ee20f4b242efbce8b8a23254eb"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "status": "ALL_QUALIFIED_SOURCE_HASHES_MATCH",
+  "rows": [
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release/moon_de440_250416.tf",
+      "bytes": 19478,
+      "sha256": "a47c71e9c9f33796bdafb2c9d69a7ee447b6016ecad80f71cd6f3e479f9cf768",
+      "expected_sha256": "a47c71e9c9f33796bdafb2c9d69a7ee447b6016ecad80f71cd6f3e479f9cf768",
+      "qualified_source_hash_matches": true
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release/moon_pa_de440_200625.bpc",
+      "bytes": 12863488,
+      "sha256": "60cd55aa401ea2ea97360636f567554bfe4e37bb829f901b4460a455dfaf783f",
+      "expected_sha256": "60cd55aa401ea2ea97360636f567554bfe4e37bb829f901b4460a455dfaf783f",
+      "qualified_source_hash_matches": true
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release/pck00011.tpc",
+      "bytes": 131226,
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "expected_sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "qualified_source_hash_matches": true
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release/WAC_GLOBAL_E000N0000_008P.TIF",
+      "bytes": 4153799,
+      "sha256": "8a9077d46618ae617234d38794bcaef3a79be9df63e7dbcf1362ec2fb5fe6164",
+      "expected_sha256": "8a9077d46618ae617234d38794bcaef3a79be9df63e7dbcf1362ec2fb5fe6164",
+      "qualified_source_hash_matches": true
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release/moon-wac.png",
+      "bytes": 4256691,
+      "sha256": "218ddb0ed75af907dd0d8c6a1e5a41a6628a9654803a0b88fa352b17ca90c3d8",
+      "expected_sha256": "218ddb0ed75af907dd0d8c6a1e5a41a6628a9654803a0b88fa352b17ca90c3d8",
+      "qualified_source_hash_matches": true
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/data/runtime-packs/planetary-systems/release/pack.json",
+      "bytes": 2376055,
+      "sha256": "27cd2de7e54db3316c84b8f8366dce1f00c2d6f3955f80594c7a65b9a718f40f",
+      "expected_sha256": "27cd2de7e54db3316c84b8f8366dce1f00c2d6f3955f80594c7a65b9a718f40f",
+      "qualified_source_hash_matches": true
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release/de442s.bsp",
+      "bytes": 32701440,
+      "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+      "expected_sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+      "qualified_source_hash_matches": true
+    }
+  ]
+}

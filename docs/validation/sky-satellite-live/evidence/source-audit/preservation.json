@@ -1,0 +1,1740 @@
+{
+  "at_utc": "2026-10-24T08:20:05.632362+00:00",
+  "base_pr95": "9ee6d85982edb3db276490706a82af83538e5e8d",
+  "protected_tracked_count": 107,
+  "protected_tracked_mismatches": [],
+  "protected_tracked_rows": [
+    {
+      "path": "backend/app/services/planet_view.py",
+      "pr95_sha256": "94ef2148f3c155cf890e8cf881bbfb9e52d1afd2c99aeeb06ff2846cc1c70c84",
+      "current_sha256": "94ef2148f3c155cf890e8cf881bbfb9e52d1afd2c99aeeb06ff2846cc1c70c84",
+      "matches_pr95": true
+    },
+    {
+      "path": "backend/app/services/planetary_ephemeris_service.py",
+      "pr95_sha256": "1f3406894d83cfe03246c081df6b8a96a7f1d77dde3a35eaddebd706e98c8055",
+      "current_sha256": "1f3406894d83cfe03246c081df6b8a96a7f1d77dde3a35eaddebd706e98c8055",
+      "matches_pr95": true
+    },
+    {
+      "path": "backend/app/services/planetary_systems.py",
+      "pr95_sha256": "f9f3b289a57f81aa973d5579a64806aeb1e0233e442863be3d4719d9e4e886ec",
+      "current_sha256": "f9f3b289a57f81aa973d5579a64806aeb1e0233e442863be3d4719d9e4e886ec",
+      "matches_pr95": true
+    },
+    {
+      "path": "backend/app/services/satellite_propagation_service.py",
+      "pr95_sha256": "52a6b074d616fd95936b1e67dc0a37261148fee23b7caf41a46a2ec62b093c0c",
+      "current_sha256": "52a6b074d616fd95936b1e67dc0a37261148fee23b7caf41a46a2ec62b093c0c",
+      "matches_pr95": true
+    },
+    {
+      "path": "backend/app/services/satellite_tle_catalog_service.py",
+      "pr95_sha256": "4d291d82cc211edd9ffc385a9c7e63173d0466c72df09b6e18cf943f0f532e3e",
+      "current_sha256": "4d291d82cc211edd9ffc385a9c7e63173d0466c72df09b6e18cf943f0f532e3e",
+      "matches_pr95": true
+    },
+    {
+      "path": "backend/app/services/solar_exploration.py",
+      "pr95_sha256": "38e7c4def28e80384c2e4c1b0f4ca67a9ba682a45c0135f2e74a7820465ab5f4",
+      "current_sha256": "38e7c4def28e80384c2e4c1b0f4ca67a9ba682a45c0135f2e74a7820465ab5f4",
+      "matches_pr95": true
+    },
+    {
+      "path": "backend/app/services/solar_system_catalog_service.py",
+      "pr95_sha256": "1a8714d33fe7e07f8e40e338754817965f29370d35aad93023d6e79495b00bd6",
+      "current_sha256": "1a8714d33fe7e07f8e40e338754817965f29370d35aad93023d6e79495b00bd6",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/js/stellarium-web-engine.a41e078b.wasm",
+      "pr95_sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942",
+      "current_sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/config/orasSite.json",
+      "pr95_sha256": "3779ff6baf6417e79c424fffbcc35de39b09bd551f09bf40e9e45fcc7a746115",
+      "current_sha256": "3779ff6baf6417e79c424fffbcc35de39b09bd551f09bf40e9e45fcc7a746115",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/config/orasSite.ts",
+      "pr95_sha256": "c342326e538ded5c1ba053264ae39606d827566e76c17cae46afce2a6c2f5af4",
+      "current_sha256": "c342326e538ded5c1ba053264ae39606d827566e76c17cae46afce2a6c2f5af4",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/planet/MoonContext.tsx",
+      "pr95_sha256": "f94d805f2d7f2ae379b9418976dba9bc2a91ae3ce35f1ea50be4e2c96b36ba7b",
+      "current_sha256": "f94d805f2d7f2ae379b9418976dba9bc2a91ae3ce35f1ea50be4e2c96b36ba7b",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/planet/PlanetFrame.tsx",
+      "pr95_sha256": "8b1491658c73424040c49dcd9950b466c566d1a446fdc8b663dfd0dc567f1108",
+      "current_sha256": "8b1491658c73424040c49dcd9950b466c566d1a446fdc8b663dfd0dc567f1108",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/planet/PlanetWorkspace.tsx",
+      "pr95_sha256": "2e9efa2d5377886648e8369e6e02752e68aca9c4757df6ec7f201f3798296236",
+      "current_sha256": "2e9efa2d5377886648e8369e6e02752e68aca9c4757df6ec7f201f3798296236",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/planet/planet.css",
+      "pr95_sha256": "185256050c7e7ad5c9b1b67aebeefeaafaab8479a68c62fd791214e638c614ca",
+      "current_sha256": "185256050c7e7ad5c9b1b67aebeefeaafaab8479a68c62fd791214e638c614ca",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/planet/planetContracts.ts",
+      "pr95_sha256": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf",
+      "current_sha256": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/planet/solarVisitState.ts",
+      "pr95_sha256": "7a3480b2e9753737d6fff109dde6ac403ba6d351832266cea9306ca65df5a068",
+      "current_sha256": "7a3480b2e9753737d6fff109dde6ac403ba6d351832266cea9306ca65df5a068",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/SolarScene.ts",
+      "pr95_sha256": "e1635da3560cf4089b403b166321376dc2eba5abdea22954379961eb0ff20982",
+      "current_sha256": "e1635da3560cf4089b403b166321376dc2eba5abdea22954379961eb0ff20982",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/SolarWorkspace.tsx",
+      "pr95_sha256": "e8ab2db980c8ac0ec3ec37f543a288b241089fedbfab5799a4000b43a9363b7d",
+      "current_sha256": "e8ab2db980c8ac0ec3ec37f543a288b241089fedbfab5799a4000b43a9363b7d",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/assets/earth-blue-marble.png",
+      "pr95_sha256": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+      "current_sha256": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/assets/earth-clouds-2002.jpg",
+      "pr95_sha256": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+      "current_sha256": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/assets/mars-nasa.glb",
+      "pr95_sha256": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+      "current_sha256": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/assets/provenance.json",
+      "pr95_sha256": "566ba89818af6aa2c65b24a673303930b67f273619ae0ee26006a637bfbb30c1",
+      "current_sha256": "566ba89818af6aa2c65b24a673303930b67f273619ae0ee26006a637bfbb30c1",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/solar.css",
+      "pr95_sha256": "60fa1ee4c519636daac386c19f22c111c55a8586f1df00ca9b93099c586fb890",
+      "current_sha256": "60fa1ee4c519636daac386c19f22c111c55a8586f1df00ca9b93099c586fb890",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/solarBelt.ts",
+      "pr95_sha256": "536b847379774913c3a9012a86374439a412b1e04b2aa28b995c7c5f9919fd30",
+      "current_sha256": "536b847379774913c3a9012a86374439a412b1e04b2aa28b995c7c5f9919fd30",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/solarContracts.ts",
+      "pr95_sha256": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+      "current_sha256": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/solarGpuTiming.ts",
+      "pr95_sha256": "6f7f4b2952c544968f30f3fb1f57c0d3377aee9caafbedcceee3815bd9ee6dce",
+      "current_sha256": "6f7f4b2952c544968f30f3fb1f57c0d3377aee9caafbedcceee3815bd9ee6dce",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/solarMaterials.ts",
+      "pr95_sha256": "01b070a87851830d0c3058c4ab087b617d53249ccc7346bfcc54f9d86e13a6f2",
+      "current_sha256": "01b070a87851830d0c3058c4ab087b617d53249ccc7346bfcc54f9d86e13a6f2",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/solarPresentation.ts",
+      "pr95_sha256": "bfc9de2dae8e4cddee03f73cfdb9fd5599977956b4debe0377eae8adbff89673",
+      "current_sha256": "bfc9de2dae8e4cddee03f73cfdb9fd5599977956b4debe0377eae8adbff89673",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/solar/threeBoundary.d.ts",
+      "pr95_sha256": "9791da33cb74455a017c4c4597391d1c1e624506e1c6ed0725d9b90b6acd06a5",
+      "current_sha256": "9791da33cb74455a017c4c4597391d1c1e624506e1c6ed0725d9b90b6acd06a5",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/PlanetSelector.tsx",
+      "pr95_sha256": "6fe9ad6a2644ac48f66f0445591c0c9799aa7aa6ded03c2bda346321073d8622",
+      "current_sha256": "6fe9ad6a2644ac48f66f0445591c0c9799aa7aa6ded03c2bda346321073d8622",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/SystemScene.ts",
+      "pr95_sha256": "6f2ac031be2ddafb52d9005c616e48952ed3b9963f7c2f1216e89d6072aab852",
+      "current_sha256": "6f2ac031be2ddafb52d9005c616e48952ed3b9963f7c2f1216e89d6072aab852",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/SystemWorkspace.tsx",
+      "pr95_sha256": "bf719996482a68acc72bbef780a083fa5d776d51f50bb65fd3747abf52d535cd",
+      "current_sha256": "bf719996482a68acc72bbef780a083fa5d776d51f50bb65fd3747abf52d535cd",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/systemContracts.ts",
+      "pr95_sha256": "a286896dec6fa046fcb5b839629e8dd7df05310d7822fb58cbd2458ec38ca606",
+      "current_sha256": "a286896dec6fa046fcb5b839629e8dd7df05310d7822fb58cbd2458ec38ca606",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/systemMaterials.ts",
+      "pr95_sha256": "7a25139498ff211e4b6ea12d785508197636676e4e1023b1341694c0348ecd30",
+      "current_sha256": "7a25139498ff211e4b6ea12d785508197636676e4e1023b1341694c0348ecd30",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/systemPlayback.ts",
+      "pr95_sha256": "ae448937731167a30659afc3a9ee652618862a6e1ec1e4e0396115254cee6e10",
+      "current_sha256": "ae448937731167a30659afc3a9ee652618862a6e1ec1e4e0396115254cee6e10",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/systemSceneMath.ts",
+      "pr95_sha256": "973ea97c4e4a7ff2f635520635a54a6626594d2ad0ba9e702ad255b184aab53a",
+      "current_sha256": "973ea97c4e4a7ff2f635520635a54a6626594d2ad0ba9e702ad255b184aab53a",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/systemTypes.ts",
+      "pr95_sha256": "c02c253a6dd38a1bcd7725ddb4c5b4d960ddf4d2df13ceb353255d5fd9589d19",
+      "current_sha256": "c02c253a6dd38a1bcd7725ddb4c5b4d960ddf4d2df13ceb353255d5fd9589d19",
+      "matches_pr95": true
+    },
+    {
+      "path": "frontend/src/features/systems/systems.css",
+      "pr95_sha256": "f8811648a0d53889147c0088362d625d8bcc12dde45c76b21d213a7d8968c047",
+      "current_sha256": "f8811648a0d53889147c0088362d625d8bcc12dde45c76b21d213a7d8968c047",
+      "matches_pr95": true
+    },
+    {
+      "path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+      "pr95_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+      "current_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/Dockerfile",
+      "pr95_sha256": "9361221e447dab0c8b15a992fc6d41a4cbbdc2a93cdd8353a4c8188bb89041e2",
+      "current_sha256": "9361221e447dab0c8b15a992fc6d41a4cbbdc2a93cdd8353a4c8188bb89041e2",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/AdmittedMapSources.mjs",
+      "pr95_sha256": "b0db3e973a326f715c2f293801e12e99806765baa44e323a632d3c804b8ce301",
+      "current_sha256": "b0db3e973a326f715c2f293801e12e99806765baa44e323a632d3c804b8ce301",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/AttributionManager.mjs",
+      "pr95_sha256": "06010f22b9be19e2c2c530303e5d6d06041387679132b5020fc489beef4d33af",
+      "current_sha256": "06010f22b9be19e2c2c530303e5d6d06041387679132b5020fc489beef4d33af",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/CameraController.mjs",
+      "pr95_sha256": "3b13a443cf361aabd9a5c4de5e655ef5c1bc9383c845563e9089da51c27686c9",
+      "current_sha256": "3b13a443cf361aabd9a5c4de5e655ef5c1bc9383c845563e9089da51c27686c9",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/EarthRuntime.mjs",
+      "pr95_sha256": "899bf5f0d45bf8a744617f9efb9edcff9c60f623810c3cf7575cf756ac6b6cc7",
+      "current_sha256": "899bf5f0d45bf8a744617f9efb9edcff9c60f623810c3cf7575cf756ac6b6cc7",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ImageryController.mjs",
+      "pr95_sha256": "15d071313aacb45f205a5027d135bc7aec3853bbe43991bc0777d5542d74ba79",
+      "current_sha256": "15d071313aacb45f205a5027d135bc7aec3853bbe43991bc0777d5542d74ba79",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs",
+      "pr95_sha256": "0affdc0326cf2498f7024d1190ffa6cffd1615184916526344f7ceccf641367c",
+      "current_sha256": "0affdc0326cf2498f7024d1190ffa6cffd1615184916526344f7ceccf641367c",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ImageryTrace.mjs",
+      "pr95_sha256": "9b30e8d6cf540414b8a1e02c56c11bd816e22edd1ced69dc019983ce58080ff7",
+      "current_sha256": "9b30e8d6cf540414b8a1e02c56c11bd816e22edd1ced69dc019983ce58080ff7",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/LayerRegistry.mjs",
+      "pr95_sha256": "92e8b92638667c6b1c334474e12caebd431aaa578e6933181e1aeb4a57edfb2c",
+      "current_sha256": "92e8b92638667c6b1c334474e12caebd431aaa578e6933181e1aeb4a57edfb2c",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/LocalVisualProof.mjs",
+      "pr95_sha256": "65655f6ca3df0e2817a2791c0795674fe1dce25b8db9f4f9c6943a69b19524bf",
+      "current_sha256": "65655f6ca3df0e2817a2791c0795674fe1dce25b8db9f4f9c6943a69b19524bf",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ProviderStatusRegistry.mjs",
+      "pr95_sha256": "c87684eb51ea4a182e6418bdfa45639b44b021393244e8c732a2c59ca8347f3e",
+      "current_sha256": "c87684eb51ea4a182e6418bdfa45639b44b021393244e8c732a2c59ca8347f3e",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/RuntimeBridge.mjs",
+      "pr95_sha256": "8eff4dc15aca5808b6bc0622244741b653831969d3e947b384d77821373e81ba",
+      "current_sha256": "8eff4dc15aca5808b6bc0622244741b653831969d3e947b384d77821373e81ba",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/RuntimeLifecycle.mjs",
+      "pr95_sha256": "8a6da5f7b09ae883c93cec68ae8d304722366219791d9278498846e51c960298",
+      "current_sha256": "8a6da5f7b09ae883c93cec68ae8d304722366219791d9278498846e51c960298",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/SearchLocation.mjs",
+      "pr95_sha256": "56c331f7c1e83d744251107e3b645e270d48fa6d771ec9290284d7358f7dcf45",
+      "current_sha256": "56c331f7c1e83d744251107e3b645e270d48fa6d771ec9290284d7358f7dcf45",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/SelectionStore.mjs",
+      "pr95_sha256": "d2e96958cf29b37669c14d38418b61e2ae455a97ad79d75a52ee7f1d3cad88a5",
+      "current_sha256": "d2e96958cf29b37669c14d38418b61e2ae455a97ad79d75a52ee7f1d3cad88a5",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/ViewerController.mjs",
+      "pr95_sha256": "d8ad0756e441386540efc1e5ace7fccbaae2adfcf282ef0290a95ab4578025f0",
+      "current_sha256": "d8ad0756e441386540efc1e5ace7fccbaae2adfcf282ef0290a95ab4578025f0",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/VisualFoundation.mjs",
+      "pr95_sha256": "a4ffc48dcc2b904a0ee3e32577803fe802b0de309aa6f93069afec7d31a4f9fd",
+      "current_sha256": "a4ffc48dcc2b904a0ee3e32577803fe802b0de309aa6f93069afec7d31a4f9fd",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/displayConfig.mjs",
+      "pr95_sha256": "b9fb9e67aa461a68a8accf5ddad78e190c2bb29b32cdf8800cb97cfae9bf5359",
+      "current_sha256": "b9fb9e67aa461a68a8accf5ddad78e190c2bb29b32cdf8800cb97cfae9bf5359",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryCachePolicy.mjs",
+      "pr95_sha256": "8d608883c4214a844ba6a662858cb83c9994fecbfc3b0894a5826b7592fe0f14",
+      "current_sha256": "8d608883c4214a844ba6a662858cb83c9994fecbfc3b0894a5826b7592fe0f14",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryCacheStore.mjs",
+      "pr95_sha256": "cb51263f2dd5a383b48bdaaf04829324c5e9aea7bb85f9773ff39e5e0350262d",
+      "current_sha256": "cb51263f2dd5a383b48bdaaf04829324c5e9aea7bb85f9773ff39e5e0350262d",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryCacheWorker.mjs",
+      "pr95_sha256": "e8558f8a6b10f91d1de0ec9770e399b402186b044446e404f3c55ab4b9571328",
+      "current_sha256": "e8558f8a6b10f91d1de0ec9770e399b402186b044446e404f3c55ab4b9571328",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imageryRequests.mjs",
+      "pr95_sha256": "e5a8eb8e95fbc62b32a6363378122c923717d6421821b9a96894772111d530f2",
+      "current_sha256": "e5a8eb8e95fbc62b32a6363378122c923717d6421821b9a96894772111d530f2",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/imagerySession.mjs",
+      "pr95_sha256": "0d7252c9d5689f59a8044f23a1089757c51f22e5ca431e23cb8f408f433629b7",
+      "current_sha256": "0d7252c9d5689f59a8044f23a1089757c51f22e5ca431e23cb8f408f433629b7",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/core/navigationObserver.mjs",
+      "pr95_sha256": "361e1e3d50e67cb89b7561d628b4325c95bffd7858aa478f5aec56d6cafb25f1",
+      "current_sha256": "361e1e3d50e67cb89b7561d628b4325c95bffd7858aa478f5aec56d6cafb25f1",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/display-config.json",
+      "pr95_sha256": "02534490af42212689055616f8374493e03ab3863029b362ac731b35b9d650e2",
+      "current_sha256": "02534490af42212689055616f8374493e03ab3863029b362ac731b35b9d650e2",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/entry.mjs",
+      "pr95_sha256": "02a69e717ebae1513a619f349a4e1a29f69091de0e429dde01c4786dabe5944b",
+      "current_sha256": "02a69e717ebae1513a619f349a4e1a29f69091de0e429dde01c4786dabe5944b",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/index.html",
+      "pr95_sha256": "85b1991d376ba024757823c8e8db141e72b3e9342786cb73cb24e45c0d2f7f39",
+      "current_sha256": "85b1991d376ba024757823c8e8db141e72b3e9342786cb73cb24e45c0d2f7f39",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/EventLayers.mjs",
+      "pr95_sha256": "d40f64915fdb70fa6dcf198000f2b1a231d49fa351704cc3f87affd15e270180",
+      "current_sha256": "d40f64915fdb70fa6dcf198000f2b1a231d49fa351704cc3f87affd15e270180",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/GodsEyeFlightsAdapter.mjs",
+      "pr95_sha256": "08b8c6f97293db0292f2ae80b739f31283e0a5d4306b5acd0d4e726fa67fba23",
+      "current_sha256": "08b8c6f97293db0292f2ae80b739f31283e0a5d4306b5acd0d4e726fa67fba23",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/GodsEyeSatellitesAdapter.mjs",
+      "pr95_sha256": "71f2b92e8377dcb5a1b05bfffb8015b8a4ee936fcb36065c69b22c7c8e93048a",
+      "current_sha256": "71f2b92e8377dcb5a1b05bfffb8015b8a4ee936fcb36065c69b22c7c8e93048a",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/GodsEyeWeatherAdapter.mjs",
+      "pr95_sha256": "db0e74ddd6b9b36c1cdb705e98f84caf9da3106f56bae7c6ff0cefa099915d96",
+      "current_sha256": "db0e74ddd6b9b36c1cdb705e98f84caf9da3106f56bae7c6ff0cefa099915d96",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/PollingLayer.mjs",
+      "pr95_sha256": "d6342736540df5fb1a24700fc64fa2a49c33572d89b0d2009b32fed34f2cd57e",
+      "current_sha256": "d6342736540df5fb1a24700fc64fa2a49c33572d89b0d2009b32fed34f2cd57e",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/data.mjs",
+      "pr95_sha256": "e993fff352d11cf9cd216c292eb207fb35de3d46d1cb228ee1f242ef562f2075",
+      "current_sha256": "e993fff352d11cf9cd216c292eb207fb35de3d46d1cb228ee1f242ef562f2075",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/entities.mjs",
+      "pr95_sha256": "3b31dcd39c7136bcc5e41f7204f79b50c69e93a49de2378a10c3db63e7b87abc",
+      "current_sha256": "3b31dcd39c7136bcc5e41f7204f79b50c69e93a49de2378a10c3db63e7b87abc",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/eventData.d.mts",
+      "pr95_sha256": "4bad0e2a821de63ba45343afe69052a4f4748494840364dc9c3997fba24c4e54",
+      "current_sha256": "4bad0e2a821de63ba45343afe69052a4f4748494840364dc9c3997fba24c4e54",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/layers/eventData.mjs",
+      "pr95_sha256": "1cf9da343c70c8c259e109cb842c86ed8a6619b2a6c6120ff77868cce656c266",
+      "current_sha256": "1cf9da343c70c8c259e109cb842c86ed8a6619b2a6c6120ff77868cce656c266",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/nginx.conf",
+      "pr95_sha256": "07d44dd23980e01e0c1e1eb79f502ebe4176c02a3122520657182d3597c820a2",
+      "current_sha256": "07d44dd23980e01e0c1e1eb79f502ebe4176c02a3122520657182d3597c820a2",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/style.css",
+      "pr95_sha256": "2c4041b774afd45d900ea31191a2aaf253e945a76b7545ee646a77defcf84b0d",
+      "current_sha256": "2c4041b774afd45d900ea31191a2aaf253e945a76b7545ee646a77defcf84b0d",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/earth-runtime/vite.config.mjs",
+      "pr95_sha256": "f6a37b0f174aa1e25cea2a98d72eb9056f59a49262b075d71e823960815021df",
+      "current_sha256": "f6a37b0f174aa1e25cea2a98d72eb9056f59a49262b075d71e823960815021df",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/PlanetRuntime.mjs",
+      "pr95_sha256": "4c81671d7ecf424dade347126d55fa70e41f0b127f10b697262aac305e38d40c",
+      "current_sha256": "4c81671d7ecf424dade347126d55fa70e41f0b127f10b697262aac305e38d40c",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/contracts.mjs",
+      "pr95_sha256": "90016be440c2a1ed0041256278f3a31e23f12832385fee3ff0135a41d0aa6eba",
+      "current_sha256": "90016be440c2a1ed0041256278f3a31e23f12832385fee3ff0135a41d0aa6eba",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/contracts.test.mjs",
+      "pr95_sha256": "645462ae05efff4cab7b02264bf2befe527063f1dee21ab18bef099804e35372",
+      "current_sha256": "645462ae05efff4cab7b02264bf2befe527063f1dee21ab18bef099804e35372",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/entry.mjs",
+      "pr95_sha256": "45723a5edaecef789fcb209de797b035c65255b4178f3a05a9b1a69f90a3020d",
+      "current_sha256": "45723a5edaecef789fcb209de797b035c65255b4178f3a05a9b1a69f90a3020d",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/index.html",
+      "pr95_sha256": "2e270083ff3cff5954feb7cd2db131bca1bb4ea93f9e5fdbc3edd249d5095f70",
+      "current_sha256": "2e270083ff3cff5954feb7cd2db131bca1bb4ea93f9e5fdbc3edd249d5095f70",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/moon-source-manifest.json",
+      "pr95_sha256": "c6386e1668831fd9aa072b280507aceadd490b147a0d66f73ead8b909a00eccf",
+      "current_sha256": "c6386e1668831fd9aa072b280507aceadd490b147a0d66f73ead8b909a00eccf",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/style.css",
+      "pr95_sha256": "c9147f624080927dfac2d761837a2815740444aab6ecf65439756351376bc870",
+      "current_sha256": "c9147f624080927dfac2d761837a2815740444aab6ecf65439756351376bc870",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/planet-runtime/vite.config.mjs",
+      "pr95_sha256": "2c037e364dfa200c635d2fbc3145c7557516e353793df601deab32f82149d21c",
+      "current_sha256": "2c037e364dfa200c635d2fbc3145c7557516e353793df601deab32f82149d21c",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/shared/glass.css",
+      "pr95_sha256": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+      "current_sha256": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/README.md",
+      "pr95_sha256": "bd42864b88e302ca0c289ddb10bdf00bcb37e0dee3a7b063fc64e5302ad72682",
+      "current_sha256": "bd42864b88e302ca0c289ddb10bdf00bcb37e0dee3a7b063fc64e5302ad72682",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Allsky.png",
+      "pr95_sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481",
+      "current_sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix0.png",
+      "pr95_sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245",
+      "current_sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix1.png",
+      "pr95_sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56",
+      "current_sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix10.png",
+      "pr95_sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836",
+      "current_sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix11.png",
+      "pr95_sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff",
+      "current_sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix2.png",
+      "pr95_sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3",
+      "current_sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix3.png",
+      "pr95_sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef",
+      "current_sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix4.png",
+      "pr95_sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862",
+      "current_sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix5.png",
+      "pr95_sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf",
+      "current_sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix6.png",
+      "pr95_sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af",
+      "current_sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix7.png",
+      "pr95_sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33",
+      "current_sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix8.png",
+      "pr95_sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35",
+      "current_sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix9.png",
+      "pr95_sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4",
+      "current_sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/description.en.utf8",
+      "pr95_sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff",
+      "current_sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/properties",
+      "pr95_sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c",
+      "current_sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/manifest.json",
+      "pr95_sha256": "88c9cd7ba095d28e7e74b83a46e9346f0c49824802afa771c4b0fe57c081f410",
+      "current_sha256": "88c9cd7ba095d28e7e74b83a46e9346f0c49824802afa771c4b0fe57c081f410",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/panorama.png",
+      "pr95_sha256": "3c9582921ad8e774b321cc41b7d65ed7efdaaaa377e2214269fa6205c5f7c6d4",
+      "current_sha256": "3c9582921ad8e774b321cc41b7d65ed7efdaaaa377e2214269fa6205c5f7c6d4",
+      "matches_pr95": true
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/provenance.json",
+      "pr95_sha256": "8e1ebaa27ac87d499a40336085a862ca801a6bdf02262323505f733c7119337d",
+      "current_sha256": "8e1ebaa27ac87d499a40336085a862ca801a6bdf02262323505f733c7119337d",
+      "matches_pr95": true
+    },
+    {
+      "path": "scripts/skydata/build_planetary_satellite_metadata.py",
+      "pr95_sha256": "49b9c1bcca0d57aaa62297b92a85bfc84bef9e8406da8451713bedb2d4308854",
+      "current_sha256": "49b9c1bcca0d57aaa62297b92a85bfc84bef9e8406da8451713bedb2d4308854",
+      "matches_pr95": true
+    }
+  ],
+  "protected_pin_fields": {
+    "pr95": {
+      "sky_upstream": "https://github.com/Stellarium/stellarium-web-engine",
+      "sky_comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+      "sky_native_horizon": {
+        "purpose": "embedded-zero-horizon-colors",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+        "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+        "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+        "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+        "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+        "native_output_sha256": {
+          "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+          "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+        }
+      },
+      "earth": {
+        "upstream": "https://github.com/bilawalsidhu/gods-eye-view",
+        "sha": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+        "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
+        "runtime_version": "oras-earth.v1",
+        "cesium": "1.138.0",
+        "artifact_sha256": "bba92a4790578f33fe2cb128c9aa6d13a9578574eddd5c147cff4162d7b36e97",
+        "public_exports": [
+          "maps/controller",
+          "maps/defaults",
+          "maps/catalog",
+          "maps/imagery",
+          "sources/adsb-lol",
+          "sources/live",
+          "layers/satellites/source",
+          "sources/space",
+          "sources/regional",
+          "layers/earthquakes",
+          "layers/perimeters"
+        ],
+        "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
+        "source_input_sha256": "b452c4a3dfe69b4a892ce82434382cd8ca05d68cbfc11ec8a853bb52cf1e2684"
+      },
+      "bridge": {
+        "major": 1,
+        "minor": 2
+      }
+    },
+    "current": {
+      "sky_upstream": "https://github.com/Stellarium/stellarium-web-engine",
+      "sky_comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+      "sky_native_horizon": {
+        "purpose": "embedded-zero-horizon-colors",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+        "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+        "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+        "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+        "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+        "native_output_sha256": {
+          "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+          "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+        }
+      },
+      "earth": {
+        "upstream": "https://github.com/bilawalsidhu/gods-eye-view",
+        "sha": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+        "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
+        "runtime_version": "oras-earth.v1",
+        "cesium": "1.138.0",
+        "artifact_sha256": "bba92a4790578f33fe2cb128c9aa6d13a9578574eddd5c147cff4162d7b36e97",
+        "public_exports": [
+          "maps/controller",
+          "maps/defaults",
+          "maps/catalog",
+          "maps/imagery",
+          "sources/adsb-lol",
+          "sources/live",
+          "layers/satellites/source",
+          "sources/space",
+          "sources/regional",
+          "layers/earthquakes",
+          "layers/perimeters"
+        ],
+        "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
+        "source_input_sha256": "b452c4a3dfe69b4a892ce82434382cd8ca05d68cbfc11ec8a853bb52cf1e2684"
+      },
+      "bridge": {
+        "major": 1,
+        "minor": 2
+      }
+    },
+    "protected_fields_match": true,
+    "scope": "Adapter application admission in the complete lock changes for this task; native/upstream/earth fields compared here."
+  },
+  "bounded_data_hashes": [
+    {
+      "path": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz",
+      "exists": true,
+      "bytes": 1360442,
+      "sha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/data/runtime-packs/planetary-systems/release/pack.json",
+      "exists": true,
+      "bytes": 2376055,
+      "sha256": "27cd2de7e54db3316c84b8f8366dce1f00c2d6f3955f80594c7a65b9a718f40f"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/data/runtime-packs/planetary-systems/release/manifest.json",
+      "exists": true,
+      "bytes": 321,
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/data/runtime-packs/planetary-systems/release/pack.json",
+      "exists": true,
+      "bytes": 2376055,
+      "sha256": "27cd2de7e54db3316c84b8f8366dce1f00c2d6f3955f80594c7a65b9a718f40f"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/data/runtime-packs/planetary-systems/release/manifest.json",
+      "exists": true,
+      "bytes": 321,
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release/de442s.bsp",
+      "exists": true,
+      "bytes": 32701440,
+      "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release/manifest.json",
+      "exists": true,
+      "bytes": 521,
+      "sha256": "1a731a92e297aa919d9aa131c1de6fe6b4faa771ef07e263bab90d1e202d4585"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release/WAC_GLOBAL_E000N0000_008P.TIF",
+      "exists": true,
+      "bytes": 4153799,
+      "sha256": "8a9077d46618ae617234d38794bcaef3a79be9df63e7dbcf1362ec2fb5fe6164"
+    },
+    {
+      "path": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release/moon-wac.png",
+      "exists": true,
+      "bytes": 4256691,
+      "sha256": "218ddb0ed75af907dd0d8c6a1e5a41a6628a9654803a0b88fa352b17ca90c3d8"
+    }
+  ],
+  "task_planet_pack_matches_protected_ps2": true,
+  "task_planet_manifest_matches_protected_ps2": true,
+  "containers": [
+    {
+      "name": "oras-ps3-preview",
+      "id": "f0eb8555163fd87a6ea5afbdbacacc14b009d2c9fc2109ae7ff453fa8e43d16b",
+      "image": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e",
+      "started_at": "2026-10-24T05:38:23.144141826Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release",
+          "Destination": "/planet-data",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/planet",
+          "Destination": "/planet",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps3-planetary-integration-1/output/planetary-systems/hub",
+          "Destination": "/frontend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps3-planetary-integration-1/output/planetary-systems/nginx.conf",
+          "Destination": "/etc/nginx/conf.d/default.conf",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+          "Destination": "/skydata/dense-star-tiles",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/skydata/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps3-planetary-integration-1/output",
+          "Destination": "/evidence",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/earth",
+          "Destination": "/earth",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "oras-ps2-preview",
+      "id": "1b2121c2e23a2876429dcb210ef42e5d6660db7f8f2ae550cc33327beba56a46",
+      "image": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e",
+      "started_at": "2026-10-24T05:24:58.730792704Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/planet",
+          "Destination": "/planet",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+          "Destination": "/skydata/dense-star-tiles",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/output/planetary-systems/hub",
+          "Destination": "/frontend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/skydata/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/output",
+          "Destination": "/evidence",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/earth",
+          "Destination": "/earth",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/output/planetary-systems/nginx.conf",
+          "Destination": "/etc/nginx/conf.d/default.conf",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release",
+          "Destination": "/planet-data",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "oras-ps2-backend",
+      "id": "6594d36b8fce82e51be5ba20aceeb9c4606639588a26b7b7681cdd54d70fc047",
+      "image": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a",
+      "started_at": "2026-10-24T05:32:54.760919423Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/data/runtime-packs/planetary-systems/release",
+          "Destination": "/runtime/oras-planetary-systems",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1",
+          "Destination": "/work",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/app/frontend/public/oras-sky-engine/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/frontend/src/config",
+          "Destination": "/app/frontend/src/config",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/scripts",
+          "Destination": "/app/scripts",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/runtime/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release",
+          "Destination": "/runtime/oras-lunar-orientation",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release",
+          "Destination": "/runtime/planetary-ephemeris",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/backend",
+          "Destination": "/app/backend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "oras-ps1-preview",
+      "id": "2ecf67f40830b81053b9238d02dc19f04051d282fa04a06ea45b3e35c03ce63a",
+      "image": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e",
+      "started_at": "2026-10-24T04:38:45.83016179Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/output",
+          "Destination": "/evidence",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release",
+          "Destination": "/planet-data",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/planet",
+          "Destination": "/planet",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+          "Destination": "/skydata/dense-star-tiles",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/earth",
+          "Destination": "/earth",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/output/planetary-systems/nginx.conf",
+          "Destination": "/etc/nginx/conf.d/default.conf",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/output/planetary-systems/hub",
+          "Destination": "/frontend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/skydata/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "oras-ps1-backend",
+      "id": "7e3cd6a61d4d1633fc4c98f9d644e12c802b967eb7308c7fb006db4499bca605",
+      "image": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a",
+      "started_at": "2026-10-24T04:39:17.264695392Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1",
+          "Destination": "/work",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/backend",
+          "Destination": "/app/backend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/app/frontend/public/oras-sky-engine/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/frontend/src/config",
+          "Destination": "/app/frontend/src/config",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/scripts",
+          "Destination": "/app/scripts",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/runtime/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release",
+          "Destination": "/runtime/oras-lunar-orientation",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release",
+          "Destination": "/runtime/planetary-ephemeris",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "oras-r4-preview",
+      "id": "2aefc69f40bd8adeb56c26b665156fbf57c0928815342a443c3f59a9be84ad12",
+      "image": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e",
+      "started_at": "2026-10-24T03:49:59.048342799Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/earth",
+          "Destination": "/earth",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/nginx.conf",
+          "Destination": "/etc/nginx/conf.d/default.conf",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/hub",
+          "Destination": "/frontend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/skydata/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output",
+          "Destination": "/evidence",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/planet",
+          "Destination": "/planet",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release",
+          "Destination": "/planet-data",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+          "Destination": "/skydata/dense-star-tiles",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "oras-r4-backend",
+      "id": "2a876f5c9b4242732681b2bc33d65f84b4108f72ed5c4dfdf2608e94c040447f",
+      "image": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a",
+      "started_at": "2026-10-24T03:49:57.013482263Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release",
+          "Destination": "/runtime/oras-lunar-orientation",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release",
+          "Destination": "/runtime/planetary-ephemeris",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1",
+          "Destination": "/work",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/backend",
+          "Destination": "/app/backend",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/app/frontend/public/oras-sky-engine/skydata",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/frontend/src/config",
+          "Destination": "/app/frontend/src/config",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/scripts",
+          "Destination": "/app/scripts",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/runtime/catalog-packs",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "astronomy-hub-frontend-1",
+      "id": "9ec950f934a611391512867241c26e9e4c9d5516c0e4260dbe7c1bc0c086a6d3",
+      "image": "sha256:bf150866d6f45b4265c9a12500ed0fbc16d90d52aab3f1131706e7098801a14a",
+      "started_at": "2026-10-24T03:44:21.776721891Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/runtime-versions.json",
+          "Destination": "/app/public/runtime-versions.json",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/app/public/oras-sky-engine/skydata",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/src",
+          "Destination": "/app/src",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/vite.config.mjs",
+          "Destination": "/app/vite.config.mjs",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/packages/runtime-protocol",
+          "Destination": "/packages/runtime-protocol",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/runtimes/sky-adapter",
+          "Destination": "/runtimes/sky-adapter",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/c5-7-a-aircraft-regional-recovery-1/frontend/dist",
+          "Destination": "/app/dist",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/index.html",
+          "Destination": "/app/index.html",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/app/public/oras-sky-engine/skydata/catalog-packs",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+          "Destination": "/app/public/oras-sky-engine/skydata/dense-star-tiles",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz",
+          "Destination": "/app/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz",
+          "Mode": "ro",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "existing_protected"
+    },
+    {
+      "name": "oras-satellite-live-preview",
+      "id": "7fdfbc84a69e0eb2b7e8f82f93dd7d4e38055c8857fb6dabb5f5b0cdb61f7c1f",
+      "image": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e",
+      "started_at": "2026-10-24T08:04:32.276455529Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/planet",
+          "Destination": "/planet",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/skydata/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+          "Destination": "/skydata/dense-star-tiles",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/output/sky-satellite-live/hub",
+          "Destination": "/frontend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/output",
+          "Destination": "/evidence",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/earth",
+          "Destination": "/earth",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/output/sky-satellite-live/nginx.conf",
+          "Destination": "/etc/nginx/conf.d/default.conf",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release",
+          "Destination": "/planet-data",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "task_only"
+    },
+    {
+      "name": "oras-satellite-live-backend",
+      "id": "cae212dccbf3d9bdc63ce9f23336b478d33b6bb637e91f18f07912bf01a8370e",
+      "image": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a",
+      "started_at": "2026-10-24T08:15:15.798268936Z",
+      "running": true,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/scripts",
+          "Destination": "/app/scripts",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend",
+          "Destination": "/app/backend",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/data/runtime-packs/planetary-systems/release",
+          "Destination": "/runtime/oras-planetary-systems",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1",
+          "Destination": "/work",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "Destination": "/app/frontend/public/oras-sky-engine/skydata",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/frontend/src/config",
+          "Destination": "/app/frontend/src/config",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "Destination": "/runtime/catalog-packs",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release",
+          "Destination": "/runtime/oras-lunar-orientation",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release",
+          "Destination": "/runtime/planetary-ephemeris",
+          "Mode": "",
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "class": "task_only"
+    }
+  ],
+  "existing_mounts_match_initial_readonly_receipt": {
+    "oras-ps3-preview": true,
+    "oras-ps2-backend": true
+  },
+  "current_project_volumes": [
+    {
+      "Name": "astronomy-hub_earth_provider_cache",
+      "Driver": "local",
+      "CreatedAt": "2026-10-02T05:40:10-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/astronomy-hub_earth_provider_cache/_data"
+    },
+    {
+      "Name": "astronomy-hub_stellarium_reference_node_modules",
+      "Driver": "local",
+      "CreatedAt": "2026-05-09T01:31:05-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/astronomy-hub_stellarium_reference_node_modules/_data"
+    },
+    {
+      "Name": "oras-cesium-prod-review_postgres_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-02T10:09:32-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-cesium-prod-review_postgres_data/_data"
+    },
+    {
+      "Name": "oras-cesium-prod-review_redis_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-02T10:09:32-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-cesium-prod-review_redis_data/_data"
+    },
+    {
+      "Name": "oras-pr59-integration_postgres_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T21:49:09-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr59-integration_postgres_data/_data"
+    },
+    {
+      "Name": "oras-pr59-integration_redis_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T21:49:09-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr59-integration_redis_data/_data"
+    },
+    {
+      "Name": "oras-pr60-interaction-reset_postgres_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T18:56:54-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr60-interaction-reset_postgres_data/_data"
+    },
+    {
+      "Name": "oras-pr60-interaction-reset_redis_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T18:56:54-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr60-interaction-reset_redis_data/_data"
+    },
+    {
+      "Name": "oras-pr60-qualification_postgres_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T17:46:52-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr60-qualification_postgres_data/_data"
+    },
+    {
+      "Name": "oras-pr60-qualification_redis_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T17:46:52-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr60-qualification_redis_data/_data"
+    },
+    {
+      "Name": "oras-pr61-qualification_postgres_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T18:11:15-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr61-qualification_postgres_data/_data"
+    },
+    {
+      "Name": "oras-pr61-qualification_redis_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T18:11:15-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-pr61-qualification_redis_data/_data"
+    },
+    {
+      "Name": "oras-workspace-qualification_postgres_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T10:18:07-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-workspace-qualification_postgres_data/_data"
+    },
+    {
+      "Name": "oras-workspace-qualification_redis_data",
+      "Driver": "local",
+      "CreatedAt": "2026-10-03T10:18:07-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/oras-workspace-qualification_redis_data/_data"
+    },
+    {
+      "Name": "sky-engine-dense-star-canonical-chain-1_stellarium_reference_node_modules",
+      "Driver": "local",
+      "CreatedAt": "2026-07-28T12:29:55-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/sky-engine-dense-star-canonical-chain-1_stellarium_reference_node_modules/_data"
+    },
+    {
+      "Name": "sky-engine-major-catalog-update-1_stellarium_reference_node_modules",
+      "Driver": "local",
+      "CreatedAt": "2026-06-23T03:59:48-04:00",
+      "Mountpoint": "/var/lib/docker/volumes/sky-engine-major-catalog-update-1_stellarium_reference_node_modules/_data"
+    }
+  ],
+  "owner_checkout": {
+    "root_head": "1cb71b848a1ed46390945fe0fa636676b8b8f744",
+    "root_status": [
+      " M .vscode/settings.json"
+    ],
+    "settings_path": "/home/rocco/Astronomy-Hub/.vscode/settings.json",
+    "settings_sha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+    "settings_bytes": 480,
+    "settings_mtime_utc": "2026-10-01T07:15:08.528204+00:00",
+    "attestation": "Current pre-existing owner state only. No initial session settings hash exists, so this is not a before/after byte-preservation attestation."
+  },
+  "limits": [
+    "No full source-data tree byte snapshot was taken before this task; bulk star/catalog directories are protected by unchanged read-only bind mounts, with no audit write/promotion operations.",
+    "Volume inventory is current metadata, not a before/after content attestation; no database or volume data was read or changed.",
+    "Docker existing stack start times show they have not restarted during this audit. Task-only backend/preview are intentionally separate."
+  ]
+}
