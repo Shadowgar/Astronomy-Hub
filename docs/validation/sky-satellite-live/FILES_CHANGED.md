@@ -18,7 +18,10 @@ Compared with PR95 `9ee6d85982edb3db276490706a82af83538e5e8d`. Generated Sky app
 - `docs/validation/sky-satellite-live/README.md`
 - `docs/validation/sky-satellite-live/ROOT_CAUSES.md`
 - `docs/validation/sky-satellite-live/evidence/backend-qualified.txt`
+- `docs/validation/sky-satellite-live/evidence/backend-review-green.txt`
 - `docs/validation/sky-satellite-live/evidence/current-feed-resume.json`
+- `docs/validation/sky-satellite-live/evidence/datetime-boundary-red.txt`
+- `docs/validation/sky-satellite-live/evidence/datetime-boundary-runtime.json`
 - `docs/validation/sky-satellite-live/evidence/delivery-candidate.json`
 - `docs/validation/sky-satellite-live/evidence/frontend-qualified.txt`
 - `docs/validation/sky-satellite-live/evidence/hub-repro.json`
@@ -30,6 +33,7 @@ Compared with PR95 `9ee6d85982edb3db276490706a82af83538e5e8d`. Generated Sky app
 - `docs/validation/sky-satellite-live/evidence/preference-standalone-green.txt`
 - `docs/validation/sky-satellite-live/evidence/promotion-final.txt`
 - `docs/validation/sky-satellite-live/evidence/promotion-qualified.txt`
+- `docs/validation/sky-satellite-live/evidence/review-1ab2278e.md`
 - `docs/validation/sky-satellite-live/evidence/runtime-qualified.txt`
 - `docs/validation/sky-satellite-live/evidence/screenshots-sha256.json`
 - `docs/validation/sky-satellite-live/evidence/sky-repro.json`

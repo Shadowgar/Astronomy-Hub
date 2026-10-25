@@ -61,7 +61,7 @@ coverage also excludes unsupported six-digit identities; no completeness claim.
 |---|---|
 | Runtime unit/contract tests |114passed; includes native tracking, preference restoration, standalone behavior, FOV, time/observer and lifecycle |
 | Frontend tests / TypeScript |384tests across58files passed; type-check exit0 |
-| Docker satellite source/propagation/release tests |39passed,3existing anyio/httpx deprecation warnings; warning-clean gate remains open |
+| Docker satellite source/propagation/release tests |41passed,3existing anyio/httpx deprecation warnings; warning-clean gate remains open |
 | Source/promotion tests |6passed |
 | Actual point/symbol/motion controls |Desktop1440×900, portrait390×900, landscape667×390; native historical control, real wheel/pinch and pointer/touch; final details below |
 | Navigation/recovery |22/22 checkpoints passed on final Sky build; actual Sky/Earth/Solar/system/Moon, Back/Forward/reload, hints-off, one active heavy surface |
@@ -146,7 +146,14 @@ this task preserves the already-qualified PR95 native binaries byte for byte.
 
 Independent candidate review findings were reproduced and corrected with retained
 RED/GREEN: configured-file provenance binding, selection/lock ownership, standalone
-lock isolation, and immediate external preference restoration. Independent review
+lock isolation, and immediate external preference restoration. The first exact-head review
+found one P3 UTC-boundary overflow in freshness metadata. Two RED cases reproduced
+HTTP500 at years0001/9999; clamped comparison bounds now return controlled stale
+status. The41-test Docker suite and three actual preview API cases pass. Native/UI
+source and built bytes did not change, so the source-matched browser evidence is
+retained without rerunning it. [Review](evidence/review-1ab2278e.md) ·
+[RED](evidence/datetime-boundary-red.txt) · [GREEN](evidence/backend-review-green.txt) ·
+[actual API](evidence/datetime-boundary-runtime.json). Independent review
 of the final exact HEAD is recorded in the PR conversation after commit/push.
 
 ## Owner preview and procedure

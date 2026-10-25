@@ -42,7 +42,12 @@ def build_satellite_feed_status(*, time: str | None = None, norad: str | None = 
     count = snapshot["record_count"]
     freshness = _satellite_feed_freshness_from_epochs(as_of, epochs)
     window = timedelta(days=MAX_TLE_AGE_DAYS)
-    fresh_count = bisect_right(epochs, as_of + window) - bisect_left(epochs, as_of - window)
+    # Valid UTC dates can sit at datetime's limits; clamp search bounds only.
+    earliest = datetime.min.replace(tzinfo=timezone.utc)
+    latest = datetime.max.replace(tzinfo=timezone.utc)
+    lower = as_of - window if as_of >= earliest + window else earliest
+    upper = as_of + window if as_of <= latest - window else latest
+    fresh_count = bisect_right(epochs, upper) - bisect_left(epochs, lower)
     stale_count = len(epochs) - fresh_count
     unknown_count = count - len(epochs)
     if fresh_count:

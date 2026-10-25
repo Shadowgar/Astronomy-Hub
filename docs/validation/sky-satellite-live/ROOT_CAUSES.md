@@ -19,6 +19,7 @@ docs scan. The current owner directive narrowly supersedes PS3's stop checkpoint
 | Renderer resource/load failure | One Sky startup failure observed; root cause not established at initial evidence | Navigation failure retained; bounded diagnostic documented in browser report | No timeout inflation or resource-management project |
 | Native user preference restoration | Proven zoom and immediate-exit gaps | Unit RED for user hints-off followed by zoom/disposal; independent review | Observe external visibility/offset before restoring owned overrides; keep satellite visible preference untouched |
 | Source-status truth | Proven missing manifest misreported feed as absent; nearest epoch falsely qualified mixed catalog | API RED fixtures + actual native file served200 while oldAPI said mounted:false/count0 | Distinguish mounted/parsed/manifest validated/freshness/provenance; per-record counts and current-UTC selected age |
+| Date-boundary freshness metadata | Exact-head review reproduced a P3 overflow | Accepted UTC years0001/9999 producedHTTP500 when adding/subtracting14days | Clamp comparison bounds to representable UTC limits; no per-record rescan or orbital calculation change |
 | Configured source-path binding | Independent review reproduced alternate configured feed borrowing canonical release provenance | Two RED fixtures: alternate native or manifest path | Validate only exact configured canonical release filenames; fallback stays truthful and unvalidated |
 
 Native orbit/point rendering may extrapolate old elements, but this is never a claim

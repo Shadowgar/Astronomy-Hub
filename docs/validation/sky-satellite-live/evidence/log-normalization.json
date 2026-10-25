@@ -50,6 +50,16 @@
       "path": "docs/validation/sky-satellite-live/evidence/source-audit/configured-path-binding-red.txt",
       "raw_sha256": "c2a6e1f546c9556938314514928e7fd31ccb1e8fc0aed6a7fb0a5794969f07cf",
       "documentation_sha256": "c51ad4ef7cafc1db5f24f554f398de1ffe2718ee20f4b242efbce8b8a23254eb"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/datetime-boundary-red.txt",
+      "raw_sha256": "2387b0ce10a10c71dee996707452de14ad64fa40ddf90176edb110fcff0cc2f3",
+      "documentation_sha256": "5a4c0ad103d63363de02627001cf6191e49b29e792f47e7e84da636233a2049d"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/evidence/backend-review-green.txt",
+      "raw_sha256": "0bcccbb14fb8570ea22419a24f6106bc6252930a32446de5e381959b3a65c283",
+      "documentation_sha256": "0bcccbb14fb8570ea22419a24f6106bc6252930a32446de5e381959b3a65c283"
     }
   ]
 }

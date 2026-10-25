@@ -15,7 +15,7 @@ npm --prefix frontend run type-check
 docker run --rm --network none --read-only --tmpfs /tmp -e PYTHONDONTWRITEBYTECODE=1 -v "$PWD:/work:ro" -w /work --entrypoint python sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a -m pytest backend/tests/test_satellite_feed_api.py backend/tests/test_satellite_propagation_service.py backend/tests/test_satellite_tle_catalog.py backend/tests/test_satellite_tle_release_pipeline.py backend/tests/test_satellite_tle_deployment.py -q -p no:cacheprovider
 ```
 
-Results:114runtime/384frontend/6promotion-source/39Docker tests passed;
+Results:114runtime/384frontend/6promotion-source/41Docker tests passed;
 TypeScript exit0. Docker has3existing deprecation warnings; strict `-W error`
 failed on inherited TestClient/httpx warning and remains failed, not waived.
 [Backend audit commands/RED evidence](evidence/source-audit/COMMANDS.md).
@@ -78,3 +78,5 @@ local/remoteHEAD checks are reported in the PR delivery record. Final identity u
 `python3 scripts/validation/verify_satellite_live_delivery.py` without `--candidate`.
 
 Documentation log copies normalize trailing whitespace/CRLF only; [raw/document hash pairs](evidence/log-normalization.json) preserve provenance. Raw outputs remain in ignored local output. The initial packaging diff check flagged raw log whitespace; it was corrected before push. PyYAML was unavailable; exact context list registration and local documentation links were checked using the standard library without adding dependencies.
+
+Exact-head review follow-up: `python -m pytest backend/tests/test_satellite_feed_api.py -q -k datetime_bounds` retained2RED failures (OverflowError). The same pinned Docker five-file test command above then passed41tests/3inherited warnings. Only `oras-satellite-live-backend` was restarted to load the correction. Actual preview GETs for `time=0001-01-01T00:00:00Z`, `time=9999-12-31T23:59:59Z`, and no-time current status returnedHTTP200,0fresh/14,281stale; see the runtime receipt. Browser and UI/native build evidence are reused at unchanged source/artifact identities, not relabeled as new runs.

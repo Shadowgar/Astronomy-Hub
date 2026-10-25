@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 
+import pytest
+
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
@@ -350,3 +352,21 @@ def test_release_validation_does_not_ignore_configured_manifest_filename(tmp_pat
     assert data["release_validated"] is False
     assert data["record_count"] == 2
     assert "release_version" not in data
+
+
+@pytest.mark.parametrize("time", ["0001-01-01T00:00:00Z", "9999-12-31T23:59:59Z"])
+def test_satellite_feed_status_handles_datetime_bounds(time: str, tmp_path: Path, monkeypatch) -> None:
+    release = tmp_path / "current"
+    _build_fixture_release(release)
+    monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+    monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
+
+    response = client.get("/api/sky/satellite-feed", params={"time": time})
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["status"] == "degraded"
+    assert data["freshness_status"] == "stale"
+    assert data["fresh_record_count"] == 0
+    assert data["stale_record_count"] == 2

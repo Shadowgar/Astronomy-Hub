@@ -1,0 +1,370 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_satellite_feed_status_handles_datetime_bounds[0001-01-01T00:00:00Z] ___
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/tests/test_satellite_feed_api.py", line 365, in test_satellite_feed_status_handles_datetime_bounds
+  |     response = client.get("/api/sky/satellite-feed", params={"time": time})
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 499, in get
+  |     return super().get(
+  |            ^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 1066, in get
+  |     return self.request(
+  |            ^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 465, in request
+  |     return super().request(
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 837, in request
+  |     return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 926, in send
+  |     response = self._send_handling_auth(
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 954, in _send_handling_auth
+  |     response = self._send_handling_redirects(
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 991, in _send_handling_redirects
+  |     response = self._send_single_request(request)
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 1027, in _send_single_request
+  |     response = transport.handle_request(request)
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 342, in handle_request
+  |     raise exc
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 339, in handle_request
+  |     portal.call(self.app, scope, receive, send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/from_thread.py", line 334, in call
+  |     return cast(T_Retval, self.start_task_soon(func, *args).result())
+  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+  |     return self.__get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+  |     raise self._exception
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/from_thread.py", line 259, in _call_func
+  |     retval = await retval_or_awaitable
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/applications.py", line 290, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+  |     raise exc
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 106, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 78, in call_next
+    |     message = await recv_stream.receive()
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 117, in receive
+    |     return self.receive_nowait()
+    |            ^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 110, in receive_nowait
+    |     raise EndOfStream
+    | anyio.EndOfStream
+    |
+    | During handling of the above exception, another exception occurred:
+    |
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 108, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/main.py", line 65, in request_logging_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 84, in call_next
+    |     raise app_exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 70, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    |     raise exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    |     await self.app(scope, receive, sender)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    |     raise e
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    |     await route.handle(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 241, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 167, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/routes/satellite_feed.py", line 16, in satellite_feed
+    |     return build_satellite_feed_status(time=time, norad=norad)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/services/satellite_feed_status_service.py", line 45, in build_satellite_feed_status
+    |     fresh_count = bisect_right(epochs, as_of + window) - bisect_left(epochs, as_of - window)
+    |                                                                              ~~~~~~^~~~~~~~
+    | OverflowError: date value out of range
+    +------------------------------------
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-25T04:44:55.322908+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "c5f4f9cc-e2c3-4460-ad03-8f58f6a87546", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-25T04:44:55.324723+00:00", "level": "error", "event": "request.exception", "logger": "backend.app", "request_id": null, "route": "/api/sky/satellite-feed", "method": "GET"}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+ERROR    backend.app:logging.py:56 request.exception
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 106, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 78, in call_next
+    |     message = await recv_stream.receive()
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 117, in receive
+    |     return self.receive_nowait()
+    |            ^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 110, in receive_nowait
+    |     raise EndOfStream
+    | anyio.EndOfStream
+    |
+    | During handling of the above exception, another exception occurred:
+    |
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 108, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/main.py", line 65, in request_logging_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 84, in call_next
+    |     raise app_exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 70, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    |     raise exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    |     await self.app(scope, receive, sender)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    |     raise e
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    |     await route.handle(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 241, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 167, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/routes/satellite_feed.py", line 16, in satellite_feed
+    |     return build_satellite_feed_status(time=time, norad=norad)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/services/satellite_feed_status_service.py", line 45, in build_satellite_feed_status
+    |     fresh_count = bisect_right(epochs, as_of + window) - bisect_left(epochs, as_of - window)
+    |                                                                              ~~~~~~^~~~~~~~
+    | OverflowError: date value out of range
+    +------------------------------------
+___ test_satellite_feed_status_handles_datetime_bounds[9999-12-31T23:59:59Z] ___
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/tests/test_satellite_feed_api.py", line 365, in test_satellite_feed_status_handles_datetime_bounds
+  |     response = client.get("/api/sky/satellite-feed", params={"time": time})
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 499, in get
+  |     return super().get(
+  |            ^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 1066, in get
+  |     return self.request(
+  |            ^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 465, in request
+  |     return super().request(
+  |            ^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 837, in request
+  |     return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 926, in send
+  |     response = self._send_handling_auth(
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 954, in _send_handling_auth
+  |     response = self._send_handling_redirects(
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 991, in _send_handling_redirects
+  |     response = self._send_single_request(request)
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py", line 1027, in _send_single_request
+  |     response = transport.handle_request(request)
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 342, in handle_request
+  |     raise exc
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/testclient.py", line 339, in handle_request
+  |     portal.call(self.app, scope, receive, send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/from_thread.py", line 334, in call
+  |     return cast(T_Retval, self.start_task_soon(func, *args).result())
+  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+  |     return self.__get_result()
+  |            ^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+  |     raise self._exception
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/from_thread.py", line 259, in _call_func
+  |     retval = await retval_or_awaitable
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/applications.py", line 290, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+  |     raise exc
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 106, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 78, in call_next
+    |     message = await recv_stream.receive()
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 117, in receive
+    |     return self.receive_nowait()
+    |            ^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 110, in receive_nowait
+    |     raise EndOfStream
+    | anyio.EndOfStream
+    |
+    | During handling of the above exception, another exception occurred:
+    |
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 108, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/main.py", line 65, in request_logging_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 84, in call_next
+    |     raise app_exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 70, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    |     raise exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    |     await self.app(scope, receive, sender)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    |     raise e
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    |     await route.handle(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 241, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 167, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/routes/satellite_feed.py", line 16, in satellite_feed
+    |     return build_satellite_feed_status(time=time, norad=norad)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/services/satellite_feed_status_service.py", line 45, in build_satellite_feed_status
+    |     fresh_count = bisect_right(epochs, as_of + window) - bisect_left(epochs, as_of - window)
+    |                                        ~~~~~~^~~~~~~~
+    | OverflowError: date value out of range
+    +------------------------------------
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-25T04:44:55.343860+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "8f0ee2cf-4a27-4b86-a49e-2bf9007532e6", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-25T04:44:55.346439+00:00", "level": "error", "event": "request.exception", "logger": "backend.app", "request_id": null, "route": "/api/sky/satellite-feed", "method": "GET"}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+ERROR    backend.app:logging.py:56 request.exception
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 106, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 78, in call_next
+    |     message = await recv_stream.receive()
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 117, in receive
+    |     return self.receive_nowait()
+    |            ^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 110, in receive_nowait
+    |     raise EndOfStream
+    | anyio.EndOfStream
+    |
+    | During handling of the above exception, another exception occurred:
+    |
+    | Traceback (most recent call last):
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 108, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/main.py", line 65, in request_logging_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 84, in call_next
+    |     raise app_exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/base.py", line 70, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    |     raise exc
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    |     await self.app(scope, receive, sender)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    |     raise e
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    |     await route.handle(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    |     response = await func(request)
+    |                ^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 241, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 167, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/routes/satellite_feed.py", line 16, in satellite_feed
+    |     return build_satellite_feed_status(time=time, norad=norad)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/backend/app/services/satellite_feed_status_service.py", line 45, in build_satellite_feed_status
+    |     fresh_count = bisect_right(epochs, as_of + window) - bisect_left(epochs, as_of - window)
+    |                                        ~~~~~~^~~~~~~~
+    | OverflowError: date value out of range
+    +------------------------------------
+=============================== warnings summary ===============================
+../../.venv/lib/python3.12/site-packages/httpx/_client.py:690
+  /home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_feed_api.py::test_satellite_feed_status_handles_datetime_bounds[0001-01-01T00:00:00Z]
+FAILED backend/tests/test_satellite_feed_api.py::test_satellite_feed_status_handles_datetime_bounds[9999-12-31T23:59:59Z]
+2 failed, 16 deselected, 1 warning in 1.06s
