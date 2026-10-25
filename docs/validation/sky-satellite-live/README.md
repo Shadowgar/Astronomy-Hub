@@ -3,7 +3,8 @@
 **Draft for owner functional review. Historical rendering and controls qualified;
 current Live orbital accuracy blocked by stale source data. No merge/deployment.**
 
-Branch `sky-satellite-live-repair-1`, stacked on draft PR95 at
+[Draft PR101](https://github.com/Shadowgar/Astronomy-Hub/pull/101), branch
+`sky-satellite-live-repair-1`, stacked on draft PR95 at
 `9ee6d85982edb3db276490706a82af83538e5e8d`. PR93–95 remain preserved.
 The owner directive is October24,2026; final resumed qualification is October25.
 

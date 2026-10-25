@@ -22,8 +22,10 @@ source status/propagation remains authoritative. No new engine, provider or depe
   independent time/tracking and navigation/recovery at1440×900,390×900,667×390.
 - [x] Run targeted backend/runtime/frontend/type/source tests; repeat UI/Hub builds,
   compare committed/served artifacts and preserve native JS/WASM/pins/data/rollback.
-- [ ] Reconcile governance/evidence, push a draft stacked onPR95, independently
-  review final exactHEAD and stop for owner functional acceptance. No merge/deploy.
+- [x] Reconcile governance/evidence and push draftPR101 stacked onPR95.
+- Final exactHEAD review is recorded in the PR101 conversation after commit/push,
+  avoiding a self-referential review hash in this plan. Stop for owner functional
+  acceptance; no merge/deploy.
 
 Review focus: stale TLE cannot become live-accuracy evidence; advancing UI clock
 cannot substitute native motion/pixels; focus lock and time are independent;
