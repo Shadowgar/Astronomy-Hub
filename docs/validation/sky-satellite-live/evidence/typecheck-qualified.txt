@@ -1,0 +1,4 @@
+
+> astronomy-hub-frontend@0.0.1 type-check
+> tsc --noEmit
+

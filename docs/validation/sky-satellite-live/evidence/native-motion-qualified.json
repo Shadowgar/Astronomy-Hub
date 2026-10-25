@@ -1,0 +1,3593 @@
+{
+  "status": "PASS",
+  "base": "http://127.0.0.1:4226",
+  "source_sha256": {
+    "scripts/validation/verify_satellite_native_motion.mjs": "22a2535a9da1f64aeacd5a5119a7c65512521a0219f852d66a5e1c598f704ead",
+    "runtimes/sky-adapter/plugin.js": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+    "runtimes/sky-adapter/entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13",
+    "frontend/src/features/workspace/TimeSurface.tsx": "4a60a044a3659d4fe837ecea5ffd06a6b2c8a5b117802a1989764038bdcba532",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "9a4da32e8b07d76483ad4b00208691f4572b304f5a3a0010e77be757b1dbee83",
+    "frontend/src/features/workspace/satelliteTimeStatus.ts": "705048676cf486555ce109dae962ff46cc8bb5c8ccd179b9d13c94925a9e13bb"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "id": "43689",
+      "status": "PASS",
+      "method": "wheel",
+      "errors": [],
+      "checks": [
+        "Unselected normal-FOV native point pixels and angular/pixel displacement at fixed camera during native1x historical diagnostic",
+        "Actual wheel/pinch input automatically reveals separate native symbol and label pixels without selection",
+        "Widening past7° hides identification and retains native point contribution",
+        "Real pointer/touch satellite selection and nativeTrack preserve pausedUTC,FOV,observer,atmosphere,landscape,NightMode",
+        "ResumeLive keeps native tracking and advances camera/time; Stoptracking leaves timeLive; currentaccuracy remains explicitlyunqualified"
+      ],
+      "servedSkyBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "initial": {
+        "wallUtc": "2026-10-25T04:29:31.271Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.439655776566,
+        "radec": [
+          -0.000009191004,
+          4.39637e-7,
+          -6.27609e-7,
+          1
+        ],
+        "viewVector": [
+          3.8252551947266225e-13,
+          -8.285579135362516e-14,
+          -0.000009222891535557914,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointBefore": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/1440x900-wide-before-on.png",
+          "sha256": "a1f90a11e569c10902eb669b32fa80916ecd7f09053361316a9492f0f7525087"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/1440x900-wide-before-off.png",
+          "sha256": "3eaf73323049da9e50b7e4de244acb4a950caf57db9ef735272bb890636ca170"
+        },
+        "pixels": {
+          "sum": 1464,
+          "pixels": 12,
+          "target": {
+            "x": 64.00001616353909,
+            "y": 64.00000350105485
+          },
+          "centroid": [
+            63.5,
+            63.5
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:29:34.753Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "motionBefore": {
+        "wallUtc": "2026-10-25T04:29:35.580Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.059Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.439566893146,
+        "radec": [
+          -0.000009189894,
+          4.41005e-7,
+          -6.2524e-7,
+          1
+        ],
+        "viewVector": [
+          2.5021492256178558e-9,
+          1.0608366594580299e-9,
+          -0.000009221689368696813,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "motionAfter": {
+        "wallUtc": "2026-10-25T04:29:43.715Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:08.092Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.429668368529,
+        "radec": [
+          -0.000009037584,
+          6.28006e-7,
+          -3.03679e-7,
+          1
+        ],
+        "viewVector": [
+          3.431079899905646e-7,
+          1.4422202827058055e-7,
+          -0.000009056821403886638,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointAfter": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/1440x900-wide-after-on.png",
+          "sha256": "4454c2cf4341fc7d5f96526410b07a12b5b153c79c2f5479998505a06cd5d3a2"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/1440x900-wide-after-off.png",
+          "sha256": "2e1225d5463c3e5f4a949e0a6d5e0e078c01bcb2d9e5c2deba5c824b03bc9751"
+        },
+        "pixels": {
+          "sum": 2427,
+          "pixels": 36,
+          "target": {
+            "x": 78.75757277179797,
+            "y": 57.79680118333028
+          },
+          "centroid": [
+            75.3931484502447,
+            57.97389885807504
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:29:46.193Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:08.092Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.429668368529,
+          "radec": [
+            -0.000009037584,
+            6.28006e-7,
+            -3.03679e-7,
+            1
+          ],
+          "viewVector": [
+            3.431079899905646e-7,
+            1.4422202827058055e-7,
+            -0.000009056821403886638,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "angularDisplacementDeg": 2.3184509742297164,
+      "pointPixelDisplacement": 13.114296545767985,
+      "close": {
+        "file": "output/sky-satellite-live/native-motion-qualified/1440x900-automatic-close.png",
+        "sha256": "10b619e9ffc7b5fcf5577ac458bf4d43a4bc523c467c081c93effac5008f46c4",
+        "pixels": {
+          "symbol": 14,
+          "label": 142
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:30:32.066Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "indicator": "FOV 4.8°",
+      "widened": {
+        "file": "output/sky-satellite-live/native-motion-qualified/1440x900-widened.png",
+        "sha256": "bc9315e9dd31973136198616a7abaa2f0d70a1066cf24e3dade9a9a048fc48e0",
+        "pixels": {
+          "symbol": 0,
+          "label": 0
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:30:35.379Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.136288077615,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "widePoint": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/1440x900-widened-point-on.png",
+          "sha256": "bc9315e9dd31973136198616a7abaa2f0d70a1066cf24e3dade9a9a048fc48e0"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/1440x900-widened-point-off.png",
+          "sha256": "6ac6602bcc051535dcb1aeed5fb7b9c7c542949a2c91e08b25bbf836ac6eab29"
+        },
+        "pixels": {
+          "sum": 125229,
+          "pixels": 196,
+          "target": {
+            "x": 64.00027378512746,
+            "y": 64.0000593024053
+          },
+          "centroid": [
+            64.0541487993995,
+            64.05733496234897
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:30:38.075Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.136288077615,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "returned": {
+        "file": "output/sky-satellite-live/native-motion-qualified/1440x900-close-return.png",
+        "sha256": "9e9e92d00481c07c51498385538f4295b008c5c3f986311742b65c0ea6e4bc6c",
+        "pixels": {
+          "symbol": 14,
+          "label": 142
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:30:40.632Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "trackingPaused": {
+        "wallUtc": "2026-10-25T04:30:43.428Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 5.439655776566,
+        "radec": [
+          -0.000009191004,
+          4.39637e-7,
+          -6.27609e-7,
+          1
+        ],
+        "viewVector": [
+          3.8252551947266225e-13,
+          -8.285579135362516e-14,
+          -0.000009222891535557914,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveBefore": {
+        "wallUtc": "2026-10-25T04:30:45.178Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T04:30:45.082Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 2.303199834157,
+          "pitchRad": -1.303232575531,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          -0.000056175694,
+          -0.000003341249,
+          -0.000067457998,
+          1
+        ],
+        "viewVector": [
+          -7.439730170761888e-13,
+          1.874140457354314e-13,
+          -0.00008784904117535741,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-10-25T04%3A30%3A45.082Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveAfter": {
+        "wallUtc": "2026-10-25T04:30:47.250Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T04:30:47.179Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 2.307132611736,
+          "pitchRad": -1.302654278861,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          -0.00005608697,
+          -0.000003344655,
+          -0.000067515346,
+          1
+        ],
+        "viewVector": [
+          -2.3057029647100685e-14,
+          -4.046157533370634e-13,
+          -0.00008783653491770745,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-10-25T04%3A30%3A47.179Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "currentFeed": {
+        "status": "ok",
+        "data": {
+          "freshness_status": "stale",
+          "nearest_tle_epoch": "2026-06-05T23:36:57Z",
+          "nearest_tle_age_days": 141.204,
+          "newest_tle_epoch": "2026-06-05T23:36:57Z",
+          "newest_tle_age_days": 141.204,
+          "mounted": true,
+          "status": "degraded",
+          "reason": "Native satellite feed is mounted; release manifest is missing and source provenance is unavailable.",
+          "release_manifest_available": false,
+          "release_validated": false,
+          "provenance_status": "unavailable",
+          "record_count": 14281,
+          "malformed_count": 0,
+          "fresh_record_count": 0,
+          "stale_record_count": 14281,
+          "unknown_epoch_count": 0,
+          "as_of_utc": "2026-10-25T04:31:14Z",
+          "max_tle_age_days": 14,
+          "epoch_min": "2026-05-16T02:33:04Z",
+          "epoch_max": "2026-06-05T23:36:57Z",
+          "epoch_median": "2026-06-03T07:13:19Z",
+          "tle_age_days_min": 141.204,
+          "tle_age_days_max": 162.082,
+          "selected": {
+            "norad_id": "43689",
+            "tle_epoch": "2026-06-03T21:44:02Z",
+            "tle_age_days": 143.283,
+            "freshness_status": "stale",
+            "freshness_reference": "current_utc",
+            "as_of_utc": "2026-10-25T04:31:14Z"
+          }
+        },
+        "meta": {},
+        "error": null
+      }
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "id": "43689",
+      "status": "PASS",
+      "method": "pinch",
+      "errors": [],
+      "checks": [
+        "Unselected normal-FOV native point pixels and angular/pixel displacement at fixed camera during native1x historical diagnostic",
+        "Actual wheel/pinch input automatically reveals separate native symbol and label pixels without selection",
+        "Widening past7° hides identification and retains native point contribution",
+        "Real pointer/touch satellite selection and nativeTrack preserve pausedUTC,FOV,observer,atmosphere,landscape,NightMode",
+        "ResumeLive keeps native tracking and advances camera/time; Stoptracking leaves timeLive; currentaccuracy remains explicitlyunqualified"
+      ],
+      "servedSkyBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "initial": {
+        "wallUtc": "2026-10-25T04:31:27.976Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.439655776566,
+        "radec": [
+          -0.000009191004,
+          4.39637e-7,
+          -6.27609e-7,
+          1
+        ],
+        "viewVector": [
+          3.8252551947266225e-13,
+          -8.285579135362516e-14,
+          -0.000009222891535557914,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointBefore": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/390x900-wide-before-on.png",
+          "sha256": "58b8e6dc45c51f5bf81a362e3571fcf0dfa38eab4213c892aae525656dc0a32b"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/390x900-wide-before-off.png",
+          "sha256": "e65f267b653e0f2893a5df4d7e32ec34446697b800cb5d4cf5cf6a1e8d02c6cb"
+        },
+        "pixels": {
+          "sum": 234,
+          "pixels": 7,
+          "target": {
+            "x": 64.00000700420027,
+            "y": 64.00000151712376
+          },
+          "centroid": [
+            65.81132075471699,
+            65.0377358490566
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:31:29.090Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "motionBefore": {
+        "wallUtc": "2026-10-25T04:31:29.380Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.021Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.439624115246,
+        "radec": [
+          -0.000009190609,
+          4.40124e-7,
+          -6.26766e-7,
+          1
+        ],
+        "viewVector": [
+          8.907973975886191e-10,
+          3.7732426748743423e-10,
+          -0.000009222463749406627,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "motionAfter": {
+        "wallUtc": "2026-10-25T04:31:37.429Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:08.044Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.429714115149,
+        "radec": [
+          -0.000009038501,
+          6.26885e-7,
+          -3.05594e-7,
+          1
+        ],
+        "viewVector": [
+          3.410738628335332e-7,
+          1.4337423786692447e-7,
+          -0.000009057813492839751,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointAfter": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/390x900-wide-after-on.png",
+          "sha256": "536b9ef72e77369c73450d09b9e2497d32275cef1d9d9ce5f0899f2202a74c2f"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/390x900-wide-after-off.png",
+          "sha256": "245b1fe780bc5baf2ab37e391a94a656c90902032c3e024751ab9069c2e3c54d"
+        },
+        "pixels": {
+          "sum": 339,
+          "pixels": 7,
+          "target": {
+            "x": 70.35637148629101,
+            "y": 61.32802768914949
+          },
+          "centroid": [
+            68.38028169014085,
+            61.140845070422536
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:31:38.404Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:08.044Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.429714115149,
+          "radec": [
+            -0.000009038501,
+            6.26885e-7,
+            -3.05594e-7,
+            1
+          ],
+          "viewVector": [
+            3.410738628335332e-7,
+            1.4337423786692447e-7,
+            -0.000009057813492839751,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "angularDisplacementDeg": 2.315175817509945,
+      "pointPixelDisplacement": 4.667474480737635,
+      "close": {
+        "file": "output/sky-satellite-live/native-motion-qualified/390x900-automatic-close.png",
+        "sha256": "501e081e3afcd877e856baf1627baabc8e4652cbd3c30e7aeeb652069b4ad183",
+        "pixels": {
+          "symbol": 57,
+          "label": 137
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:31:54.331Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.047123889804,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "indicator": "FOV 2.7°",
+      "widened": {
+        "file": "output/sky-satellite-live/native-motion-qualified/390x900-widened.png",
+        "sha256": "348bb055ec09b768627281c43c9ec3eee3355f520d01fb78aa971baa1357b301",
+        "pixels": {
+          "symbol": 0,
+          "label": 0
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:31:57.055Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.314159265359,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "widePoint": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/390x900-widened-point-on.png",
+          "sha256": "348bb055ec09b768627281c43c9ec3eee3355f520d01fb78aa971baa1357b301"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/390x900-widened-point-off.png",
+          "sha256": "700e10a4ff97869b179ef05cf4315f07959535974491ea25bfb88e13f01830a0"
+        },
+        "pixels": {
+          "sum": 13956,
+          "pixels": 180,
+          "target": {
+            "x": 64.00005138232798,
+            "y": 64.00001112951485
+          },
+          "centroid": [
+            63.68521739130435,
+            63.68521739130435
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:31:58.231Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.314159265359,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "returned": {
+        "file": "output/sky-satellite-live/native-motion-qualified/390x900-close-return.png",
+        "sha256": "ff6608b1d1a6f2ed6284bb2c450ac28be4ae1162bd507f80a0adb0af9bee8b1e",
+        "pixels": {
+          "symbol": 57,
+          "label": 139
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:32:00.177Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.047123889804,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "trackingPaused": {
+        "wallUtc": "2026-10-25T04:32:01.708Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.047123889804,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 5.439655776566,
+        "radec": [
+          -0.000009191004,
+          4.39637e-7,
+          -6.27609e-7,
+          1
+        ],
+        "viewVector": [
+          3.8252551947266225e-13,
+          -8.285579135362516e-14,
+          -0.000009222891535557914,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveBefore": {
+        "wallUtc": "2026-10-25T04:32:02.280Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T04:32:02.276Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.047123889804,
+          "yawRad": 2.438327918769,
+          "pitchRad": -1.279976205352,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          -0.000052831851,
+          -0.00000349209,
+          -0.000069444928,
+          1
+        ],
+        "viewVector": [
+          7.634875635084259e-14,
+          3.055074639449207e-13,
+          -0.00008732695573292067,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-10-25T04%3A32%3A02.276Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveAfter": {
+        "wallUtc": "2026-10-25T04:32:04.295Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T04:32:04.274Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.047123889804,
+          "yawRad": 2.441569903764,
+          "pitchRad": -1.279324923684,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          -0.000052743272,
+          -0.00000349669,
+          -0.000069492912,
+          1
+        ],
+        "viewVector": [
+          -1.4175325410009654e-13,
+          4.900920232251034e-13,
+          -0.00008731176553284116,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-10-25T04%3A32%3A04.274Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "currentFeed": {
+        "status": "ok",
+        "data": {
+          "freshness_status": "stale",
+          "nearest_tle_epoch": "2026-06-05T23:36:57Z",
+          "nearest_tle_age_days": 141.205,
+          "newest_tle_epoch": "2026-06-05T23:36:57Z",
+          "newest_tle_age_days": 141.205,
+          "mounted": true,
+          "status": "degraded",
+          "reason": "Native satellite feed is mounted; release manifest is missing and source provenance is unavailable.",
+          "release_manifest_available": false,
+          "release_validated": false,
+          "provenance_status": "unavailable",
+          "record_count": 14281,
+          "malformed_count": 0,
+          "fresh_record_count": 0,
+          "stale_record_count": 14281,
+          "unknown_epoch_count": 0,
+          "as_of_utc": "2026-10-25T04:32:04Z",
+          "max_tle_age_days": 14,
+          "epoch_min": "2026-05-16T02:33:04Z",
+          "epoch_max": "2026-06-05T23:36:57Z",
+          "epoch_median": "2026-06-03T07:13:19Z",
+          "tle_age_days_min": 141.205,
+          "tle_age_days_max": 162.083,
+          "selected": {
+            "norad_id": "43689",
+            "tle_epoch": "2026-06-03T21:44:02Z",
+            "tle_age_days": 143.283,
+            "freshness_status": "stale",
+            "freshness_reference": "current_utc",
+            "as_of_utc": "2026-10-25T04:32:04Z"
+          }
+        },
+        "meta": {},
+        "error": null
+      }
+    },
+    {
+      "width": 667,
+      "height": 390,
+      "id": "43689",
+      "status": "PASS",
+      "method": "pinch",
+      "errors": [],
+      "checks": [
+        "Unselected normal-FOV native point pixels and angular/pixel displacement at fixed camera during native1x historical diagnostic",
+        "Actual wheel/pinch input automatically reveals separate native symbol and label pixels without selection",
+        "Widening past7° hides identification and retains native point contribution",
+        "Real pointer/touch satellite selection and nativeTrack preserve pausedUTC,FOV,observer,atmosphere,landscape,NightMode",
+        "ResumeLive keeps native tracking and advances camera/time; Stoptracking leaves timeLive; currentaccuracy remains explicitlyunqualified"
+      ],
+      "servedSkyBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "initial": {
+        "wallUtc": "2026-10-25T04:32:16.667Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.439655776566,
+        "radec": [
+          -0.000009191004,
+          4.39637e-7,
+          -6.27609e-7,
+          1
+        ],
+        "viewVector": [
+          3.8252551947266225e-13,
+          -8.285579135362516e-14,
+          -0.000009222891535557914,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointBefore": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/667x390-wide-before-on.png",
+          "sha256": "94e21c749f3499e929627f42b6d518d1fc163161f0f4007f7230733d7fa19c0f"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/667x390-wide-before-off.png",
+          "sha256": "5a8b903a6d7e6c2463ff30dbc64c7d9d08dfcc808c33df95fa2b5cf8e500bcd2"
+        },
+        "pixels": {
+          "sum": 189,
+          "pixels": 4,
+          "target": {
+            "x": 64.00000700420027,
+            "y": 64.00000151712376
+          },
+          "centroid": [
+            66.28125,
+            65.46875
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:32:17.602Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "motionBefore": {
+        "wallUtc": "2026-10-25T04:32:17.857Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.021Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.439624115246,
+        "radec": [
+          -0.000009190609,
+          4.40124e-7,
+          -6.26766e-7,
+          1
+        ],
+        "viewVector": [
+          8.907973975886191e-10,
+          3.7732426748743423e-10,
+          -0.000009222463749406627,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "motionAfter": {
+        "wallUtc": "2026-10-25T04:32:25.897Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:08.041Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.429716985854,
+        "radec": [
+          -0.000009038558,
+          6.26814e-7,
+          -3.05714e-7,
+          1
+        ],
+        "viewVector": [
+          3.4094577653627183e-7,
+          1.4332149932265192e-7,
+          -0.000009057875163913996,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointAfter": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/667x390-wide-after-on.png",
+          "sha256": "2fcc20371501782f29715869e403883226f13e3a7373215e7cd4e41be742f49f"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/667x390-wide-after-off.png",
+          "sha256": "5b4542fd8b117d94e5aee15e92f096229f0d55bed7eb546d55efbe80d84dae95"
+        },
+        "pixels": {
+          "sum": 345,
+          "pixels": 8,
+          "target": {
+            "x": 70.3539431815406,
+            "y": 61.32902788050093
+          },
+          "centroid": [
+            67.83783783783784,
+            61.067567567567565
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:32:26.776Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:08.041Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.429716985854,
+          "radec": [
+            -0.000009038558,
+            6.26814e-7,
+            -3.05714e-7,
+            1
+          ],
+          "viewVector": [
+            3.4094577653627183e-7,
+            1.4332149932265192e-7,
+            -0.000009057875163913996,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "angularDisplacementDeg": 2.314291960757077,
+      "pointPixelDisplacement": 4.668337230798195,
+      "close": {
+        "file": "output/sky-satellite-live/native-motion-qualified/667x390-automatic-close.png",
+        "sha256": "6dd669d8f7b8d41a6003337080f971d677a6daee3a2f196947f7da068e0b74fb",
+        "pixels": {
+          "symbol": 50,
+          "label": 135
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:32:41.811Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.047123889804,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "indicator": "FOV 2.7°",
+      "widened": {
+        "file": "output/sky-satellite-live/native-motion-qualified/667x390-widened.png",
+        "sha256": "7728c81f8908806f52a02bc54ffa7a04b07b5d41b77f3d5264178c942032442a",
+        "pixels": {
+          "symbol": 0,
+          "label": 0
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:32:43.928Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.314159265359,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "widePoint": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/sky-satellite-live/native-motion-qualified/667x390-widened-point-on.png",
+          "sha256": "7728c81f8908806f52a02bc54ffa7a04b07b5d41b77f3d5264178c942032442a"
+        },
+        "off": {
+          "path": "output/sky-satellite-live/native-motion-qualified/667x390-widened-point-off.png",
+          "sha256": "f3db3dee6b4bb0b454018304d27e1cc3e6673641e48eab741e5ef7af32612dc2"
+        },
+        "pixels": {
+          "sum": 13293,
+          "pixels": 176,
+          "target": {
+            "x": 64.00005138232798,
+            "y": 64.00001112951485
+          },
+          "centroid": [
+            63.273828571428574,
+            63.685942857142855
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:32:44.688Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.314159265359,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "returned": {
+        "file": "output/sky-satellite-live/native-motion-qualified/667x390-close-return.png",
+        "sha256": "7800bdc8e6c37ab5157969f31a40afd94b2666497591681f46e7a9115af06ecb",
+        "pixels": {
+          "symbol": 50,
+          "label": 136
+        },
+        "state": {
+          "wallUtc": "2026-10-25T04:32:46.476Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.047123889804,
+            "yawRad": -2.288465771638,
+            "pitchRad": 0.556463399199,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.439655776566,
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "viewVector": [
+            3.8252551947266225e-13,
+            -8.285579135362516e-14,
+            -0.000009222891535557914,
+            1
+          ],
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "trackingPaused": {
+        "wallUtc": "2026-10-25T04:32:47.929Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.047123889804,
+          "yawRad": -2.288465771638,
+          "pitchRad": 0.556463399199,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 5.439655776566,
+        "radec": [
+          -0.000009191004,
+          4.39637e-7,
+          -6.27609e-7,
+          1
+        ],
+        "viewVector": [
+          3.8252551947266225e-13,
+          -8.285579135362516e-14,
+          -0.000009222891535557914,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveBefore": {
+        "wallUtc": "2026-10-25T04:32:48.488Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T04:32:48.481Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.047123889804,
+          "yawRad": 2.510209811991,
+          "pitchRad": -1.264361969129,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          -0.000050759115,
+          -0.000003607455,
+          -0.000070509054,
+          1
+        ],
+        "viewVector": [
+          -2.011757341252975e-13,
+          -2.1860894781140956e-13,
+          -0.00008695417289086916,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-10-25T04%3A32%3A48.481Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveAfter": {
+        "wallUtc": "2026-10-25T04:32:50.522Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T04:32:50.502Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.047123889804,
+          "yawRad": 2.513210732774,
+          "pitchRad": -1.263653996898,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 43689,
+        "lock": 43689,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          -0.00005066733,
+          -0.000003612929,
+          -0.000070553408,
+          1
+        ],
+        "viewVector": [
+          -3.3141412587888754e-14,
+          1.9982627342098394e-13,
+          -0.00008693684469603441,
+          1
+        ],
+        "source": {
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ],
+          "model": "tle_satellite",
+          "model_data": {
+            "norad_number": 43689,
+            "tle": [
+              "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+              "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+            ],
+            "mag": 5,
+            "status": "Operational",
+            "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+            "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+            "group": [
+              "Science"
+            ],
+            "designation": "18087A"
+          },
+          "names": [
+            "NAME Metop C",
+            "NAME METOP-C",
+            "NORAD 43689",
+            "COSPAR 2018-087A"
+          ],
+          "short_name": "Metop C"
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):43689:tle_satellite",
+            "name": "Metop C",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "43689",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "43689"
+              },
+              {
+                "label": "NORAD",
+                "value": "43689"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Metop%20C?catalog=Satellite+TLE+%28local%29&source_id=43689&model=tle_satellite&date=2026-10-25T04%3A32%3A50.502Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "currentFeed": {
+        "status": "ok",
+        "data": {
+          "freshness_status": "stale",
+          "nearest_tle_epoch": "2026-06-05T23:36:57Z",
+          "nearest_tle_age_days": 141.205,
+          "newest_tle_epoch": "2026-06-05T23:36:57Z",
+          "newest_tle_age_days": 141.205,
+          "mounted": true,
+          "status": "degraded",
+          "reason": "Native satellite feed is mounted; release manifest is missing and source provenance is unavailable.",
+          "release_manifest_available": false,
+          "release_validated": false,
+          "provenance_status": "unavailable",
+          "record_count": 14281,
+          "malformed_count": 0,
+          "fresh_record_count": 0,
+          "stale_record_count": 14281,
+          "unknown_epoch_count": 0,
+          "as_of_utc": "2026-10-25T04:32:50Z",
+          "max_tle_age_days": 14,
+          "epoch_min": "2026-05-16T02:33:04Z",
+          "epoch_max": "2026-06-05T23:36:57Z",
+          "epoch_median": "2026-06-03T07:13:19Z",
+          "tle_age_days_min": 141.205,
+          "tle_age_days_max": 162.083,
+          "selected": {
+            "norad_id": "43689",
+            "tle_epoch": "2026-06-03T21:44:02Z",
+            "tle_age_days": 143.284,
+            "freshness_status": "stale",
+            "freshness_reference": "current_utc",
+            "as_of_utc": "2026-10-25T04:32:50Z"
+          }
+        },
+        "meta": {},
+        "error": null
+      }
+    }
+  ],
+  "limits": [
+    "Historical June4 native-SGP4 rendering control; current catalog is stale and this does not qualify current-orbit accuracy.",
+    "Historical motion phase uses native clock1x as explicit diagnostic, not a product Live accuracy claim. UI Live/Paused actions are tested separately.",
+    "Point-isolation temporarily hides native satellites at a frozen instant. Native light-point and glyph pixels are measured separately.",
+    "Actual Chromium software rendering; mobile input/viewport emulated."
+  ],
+  "source_unchanged": true
+}

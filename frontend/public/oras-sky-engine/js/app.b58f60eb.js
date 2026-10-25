@@ -14347,12 +14347,18 @@ var oras_site = __webpack_require__("a3a6");
 function satellitePresentation(core) {
   var sats = core.satellites;
   var originalVisible = null,
+      appliedVisible = null,
       originalOffset = null,
       appliedOffset = null,
       close = false;
 
   var set = function set(key, value) {
     if (sats[key] !== value) sats[key] = value;
+  };
+
+  var visible = function visible(value) {
+    appliedVisible = value;
+    set('hints_visible', value);
   };
 
   function applyOffset(value) {
@@ -14364,6 +14370,7 @@ function satellitePresentation(core) {
 
   function restoreOffset() {
     if (originalOffset !== null) {
+      if (sats.hints_mag_offset !== appliedOffset) originalOffset = sats.hints_mag_offset;
       var value = originalOffset;
       originalOffset = null;
       appliedOffset = null;
@@ -14373,9 +14380,11 @@ function satellitePresentation(core) {
 
   function release() {
     if (!sats || originalVisible === null) return;
+    if (sats.hints_visible !== appliedVisible) originalVisible = sats.hints_visible;
     restoreOffset();
-    set('hints_visible', originalVisible);
+    visible(originalVisible);
     originalVisible = null;
+    appliedVisible = null;
     close = false;
   }
 
@@ -14387,7 +14396,7 @@ function satellitePresentation(core) {
       return;
     }
 
-    if (originalVisible === null) originalVisible = sats.hints_visible; // Native property JSON rounds radians; tolerate its sub-nanodegree error.
+    if (originalVisible === null || sats.hints_visible !== appliedVisible) originalVisible = sats.hints_visible; // Native property JSON rounds radians; tolerate its sub-nanodegree error.
 
     var degrees = fovRad * 180 / Math.PI;
     close = Number.isFinite(degrees) && (close ? degrees < 7 - 1e-8 : degrees <= 5 + 1e-8);
@@ -14396,21 +14405,74 @@ function satellitePresentation(core) {
       // The native point and hint magnitude gates differ. Offset 4 reveals the
       // measured close-view point-only cases without changing their photometry.
       applyOffset(4, true);
-      set('hints_visible', originalVisible);
+      visible(originalVisible);
     } else if (!close && selectedSatellite) {
       // Native rendering exempts the selected object from the magnitude hint gate.
       // Suppress other hints without changing any satellite's computed brightness.
       applyOffset(-30);
-      set('hints_visible', originalVisible);
+      visible(originalVisible);
     } else {
       restoreOffset();
-      set('hints_visible', originalVisible && close);
+      visible(originalVisible && close);
     }
   }
 
   return {
     update: update,
     release: release
+  };
+}
+// CONCATENATED MODULE: ./src/plugins/orasRuntime/satellite-tracking.mjs
+// Native camera tracking only. UTC, propagation and photometry stay in Stellarium.
+function satelliteTracking(stel) {
+  var satellite = function satellite(obj) {
+    var _obj$jsonData;
+
+    return !!obj && ((_obj$jsonData = obj.jsonData) === null || _obj$jsonData === void 0 ? void 0 : _obj$jsonData.model) === 'tle_satellite';
+  };
+
+  var trackable = function trackable() {
+    return satellite(stel.core.selection);
+  };
+
+  var active = function active() {
+    return satellite(stel.core.lock);
+  };
+
+  function selectionChanged() {
+    var _stel$core$selection;
+
+    // Native wrappers are recreated; v is the native object identity.
+    if (active() && ((_stel$core$selection = stel.core.selection) === null || _stel$core$selection === void 0 ? void 0 : _stel$core$selection.v) !== stel.core.lock.v) stel.core.lock = 0;
+  }
+
+  function set(enabled) {
+    var reduced = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+    if (!enabled) {
+      if (active()) stel.core.lock = 0;
+      return {
+        ok: true
+      };
+    }
+
+    var target = stel.core.selection;
+    if (!satellite(target)) return {
+      ok: false,
+      error: 'Select an available satellite to track.'
+    }; // core_lookat(0) clears the lock; retain the already qualified sub-frame path.
+
+    stel.pointAndLock(target, reduced ? 1e-6 : 1);
+    return {
+      ok: true
+    };
+  }
+
+  return {
+    trackable: trackable,
+    active: active,
+    set: set,
+    selectionChanged: selectionChanged
   };
 }
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/index.js
@@ -14439,6 +14501,7 @@ function satellitePresentation(core) {
 
 
 // Qualified SWE extension hook. All scientific/scene work remains inside this frame.
+
 
 
 
@@ -15089,11 +15152,13 @@ function installAtmospherePreference(app) {
 
     var landscapeId = 'pennsylvania-woodland-v1';
     var satellitePolicy = satellitePresentation(app.$stel.core);
+    var nativeSatelliteTracking = satelliteTracking(app.$stel);
 
     var updateSatellites = function updateSatellites() {
       var _app$$stel$core$selec, _app$$stel$core$selec2;
 
-      return satellitePolicy.update(!!app.$store.state.orasEmbeddedPresentation, app.$stel.core.fov, ((_app$$stel$core$selec = app.$stel.core.selection) === null || _app$$stel$core$selec === void 0 ? void 0 : (_app$$stel$core$selec2 = _app$$stel$core$selec.jsonData) === null || _app$$stel$core$selec2 === void 0 ? void 0 : _app$$stel$core$selec2.model) === 'tle_satellite');
+      if (app.$store.state.orasEmbeddedPresentation) nativeSatelliteTracking.selectionChanged();
+      satellitePolicy.update(!!app.$store.state.orasEmbeddedPresentation, app.$stel.core.fov, ((_app$$stel$core$selec = app.$stel.core.selection) === null || _app$$stel$core$selec === void 0 ? void 0 : (_app$$stel$core$selec2 = _app$$stel$core$selec.jsonData) === null || _app$$stel$core$selec2 === void 0 ? void 0 : _app$$stel$core$selec2.model) === 'tle_satellite');
     };
 
     var neutral = function neutral() {
@@ -15179,9 +15244,9 @@ function installAtmospherePreference(app) {
       return window.dispatchEvent(new Event('oras-sky-fov'));
     });
     var stopSatelliteWatch = app.$watch(function () {
-      var _app$$store$state$ste;
+      var _app$$store$state$ste, _app$$store$state$ste2;
 
-      return [!!app.$store.state.orasEmbeddedPresentation, app.$store.state.stel.fov, JSON.stringify(app.$store.state.stel.selection), (_app$$store$state$ste = app.$store.state.stel.satellites) === null || _app$$store$state$ste === void 0 ? void 0 : _app$$store$state$ste.hints_mag_offset].join('|');
+      return [!!app.$store.state.orasEmbeddedPresentation, app.$store.state.stel.fov, JSON.stringify(app.$store.state.stel.selection), (_app$$store$state$ste = app.$store.state.stel.satellites) === null || _app$$store$state$ste === void 0 ? void 0 : _app$$store$state$ste.hints_mag_offset, (_app$$store$state$ste2 = app.$store.state.stel.satellites) === null || _app$$store$state$ste2 === void 0 ? void 0 : _app$$store$state$ste2.hints_visible].join('|');
     }, updateSatellites, {
       immediate: true
     });
@@ -15420,6 +15485,7 @@ function installAtmospherePreference(app) {
                   obj.__orasSkySourceData = source;
                   sw_helpers["a" /* default */].exactSkySourceSelection = source;
                   app.$stel.core.selection = obj;
+                  nativeSatelliteTracking.selectionChanged();
                   app.$store.commit('setSelectedObject', source);
 
                   if (obj.__orasOwnedLookup) {
@@ -15431,7 +15497,7 @@ function installAtmospherePreference(app) {
                     ok: true
                   });
 
-                case 29:
+                case 30:
                 case "end":
                   return _context3.stop();
               }
@@ -15441,12 +15507,16 @@ function installAtmospherePreference(app) {
       },
       clear: function clear() {
         ++selectionGeneration;
+        nativeSatelliteTracking.set(false);
         app.$stel.core.selection = 0;
         sw_helpers["a" /* default */].exactSkySourceSelection = undefined;
         app.$store.commit('setSelectedObject', 0);
         return {
           ok: true
         };
+      },
+      setTracking: function setTracking(enabled) {
+        return nativeSatelliteTracking.set(enabled, matchMedia('(prefers-reduced-motion: reduce)').matches);
       },
       focus: function focus() {
         var obj = app.$stel.core.selection;
@@ -15525,7 +15595,7 @@ function installAtmospherePreference(app) {
             facts: facts,
             available: true,
             focusable: true,
-            trackable: false,
+            trackable: ss.model === 'tle_satellite',
             link: '/oras-sky-engine/skysource/' + encodeURIComponent(ss.display_name || ss.source_id) + '?' + query
           });
         }
@@ -15533,7 +15603,7 @@ function installAtmospherePreference(app) {
         return {
           selection: selection,
           layers: [],
-          tracking: false
+          tracking: nativeSatelliteTracking.active()
         };
       }
     };

@@ -1,3 +1,4 @@
+import {satelliteTracking} from '../../runtimes/sky-adapter/satellite-tracking.mjs';
 import {satellitePresentation} from '../../runtimes/sky-adapter/satellite-presentation.mjs';
 import {observerElevationSource,sameObserverLocation} from '../../packages/runtime-protocol/observer-elevation.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {runInNewContext} from 'node:vm';
@@ -5,7 +6,7 @@ const source=readFileSync(process.env.N1_PLUGIN_SOURCE||new URL('../../runtimes/
 function page(embedded,initial='guereins',search='',reduced=false){
  const window=new EventTarget(),watchers=[],added=[],zero={horizon_color:[.1,.15,.1,1],horizon_border_color:[.2,.4,.1,1]},core={atmosphere:{visible:true},landscapes:{zero,current_id:initial,visible:true,get current(){return this.current_id==='zero'?zero:{}},addDataSource:v=>added.push(v)},observer:{}},state={stel:core,nightmode:false};
  const document={documentElement:{dataset:{},classList:{toggle(){}}},createElement:()=>({textContent:''}),head:{appendChild(){}},querySelector:()=>null};
- const scope={matchMedia:()=>({matches:reduced}),satellitePresentation,observerElevationSource,sameObserverLocation,site:{latitude:41.321903,longitude:-79.585394,elevationMeters:432.816},Event,window,document,location:{search:(embedded?'?orasEmbedded=1&':'?')+search},URLSearchParams,BottomBar:{},swh:{},CustomEvent:class extends Event{constructor(name,options){super(name);this.detail=options.detail}},installNativeWheel:()=>Object.assign(()=>{},{reset(){}})};
+ const scope={matchMedia:()=>({matches:reduced}),satellitePresentation,satelliteTracking,observerElevationSource,sameObserverLocation,site:{latitude:41.321903,longitude:-79.585394,elevationMeters:432.816},Event,window,document,location:{search:(embedded?'?orasEmbedded=1&':'?')+search},URLSearchParams,BottomBar:{},swh:{},CustomEvent:class extends Event{constructor(name,options){super(name);this.detail=options.detail}},installNativeWheel:()=>Object.assign(()=>{},{reset(){}})};
  const app={$stel:{core},$store:{state,commit:(_name,v)=>{state[v.varName]=v.newValue}},$watch:(read,fn,options)=>{watchers.push({read,fn});if(options?.immediate)fn(read());return ()=>{}}};
  runInNewContext(source,scope);scope.plugin.onEngineReady(app);
  const select=id=>{core.landscapes.current_id=id;for(const w of watchers)w.fn(w.read())};
@@ -58,3 +59,5 @@ test('embedded reduced-motion satellite Focus retains native locking without a v
   else assert.equal(duration,reduced?0:1);
  }
 });
+
+test('satellite selection changes release embedded tracking without changing standalone native lock semantics',()=>{for(const embedded of [false,true]){const p=page(embedded),a={v:101,jsonData:{model:'tle_satellite'}},b={v:102,jsonData:{model:'tle_satellite'}};p.core.lock=a;p.core.selection=b;p.select(p.core.landscapes.current_id);assert.equal(p.core.lock,embedded?0:a)}});

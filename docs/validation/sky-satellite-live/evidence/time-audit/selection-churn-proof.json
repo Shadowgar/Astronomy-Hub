@@ -1,0 +1,173 @@
+{
+  "started": "2026-10-24T07:58:04.321Z",
+  "runs": [
+    {
+      "search": "",
+      "before": {
+        "wallUtc": "2026-10-24T07:58:06.319Z",
+        "url": "http://127.0.0.1:4225/sky-engine",
+        "hub": "LIVE\nOct 24, 3:58 AM EDT\nChange time",
+        "commands": [
+          {
+            "at": "2026-10-24T07:58:05.448Z",
+            "runtime": "sky",
+            "nonce": "639f02c4e4fc77fbb17c014ab326f727",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:58:04.410Z",
+              "live": true
+            }
+          },
+          {
+            "at": "2026-10-24T07:58:05.960Z",
+            "runtime": "sky",
+            "nonce": "639f02c4e4fc77fbb17c014ab326f727",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:58:05.960Z",
+              "live": true
+            }
+          }
+        ],
+        "native": {
+          "utc": "2026-10-24T07:58:06.430Z",
+          "speed": 1,
+          "selected": null,
+          "locked": null
+        }
+      },
+      "after": {
+        "wallUtc": "2026-10-24T07:58:08.893Z",
+        "url": "http://127.0.0.1:4225/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+        "hub": "LIVE\nOct 24, 3:58 AM EDT\nChange time",
+        "commands": [
+          {
+            "at": "2026-10-24T07:58:05.448Z",
+            "runtime": "sky",
+            "nonce": "639f02c4e4fc77fbb17c014ab326f727",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:58:04.410Z",
+              "live": true
+            }
+          },
+          {
+            "at": "2026-10-24T07:58:05.960Z",
+            "runtime": "sky",
+            "nonce": "639f02c4e4fc77fbb17c014ab326f727",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:58:05.960Z",
+              "live": true
+            }
+          }
+        ],
+        "native": {
+          "utc": "2026-10-24T07:58:08.973Z",
+          "speed": 1,
+          "selected": 28096,
+          "locked": null
+        }
+      }
+    },
+    {
+      "search": "?date=2026-06-04T02%3A58%3A00.000Z",
+      "before": {
+        "wallUtc": "2026-10-24T07:58:10.833Z",
+        "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+        "hub": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+        "commands": [
+          {
+            "at": "2026-10-24T07:58:09.993Z",
+            "runtime": "sky",
+            "nonce": "50758c5e62d71651a9c63f521936a6ad",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          },
+          {
+            "at": "2026-10-24T07:58:10.339Z",
+            "runtime": "sky",
+            "nonce": "50758c5e62d71651a9c63f521936a6ad",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        ],
+        "native": {
+          "utc": "2026-06-04T02:58:00.000Z",
+          "speed": 0,
+          "selected": 28096,
+          "locked": null
+        }
+      },
+      "after": {
+        "wallUtc": "2026-10-24T07:58:13.255Z",
+        "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00.000Z&catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+        "hub": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+        "commands": [
+          {
+            "at": "2026-10-24T07:58:09.993Z",
+            "runtime": "sky",
+            "nonce": "50758c5e62d71651a9c63f521936a6ad",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          },
+          {
+            "at": "2026-10-24T07:58:10.339Z",
+            "runtime": "sky",
+            "nonce": "50758c5e62d71651a9c63f521936a6ad",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        ],
+        "native": {
+          "utc": "2026-06-04T02:58:00.000Z",
+          "speed": 0,
+          "selected": 28096,
+          "locked": null
+        }
+      }
+    }
+  ],
+  "pageErrors": [],
+  "limitations": [
+    "Native selection is applied through the existing native object API solely to trigger Hub URL synchronization. This is not visual selection, photometry or current TLE accuracy proof."
+  ],
+  "status": "PASS",
+  "finished": "2026-10-24T07:58:13.551Z"
+}

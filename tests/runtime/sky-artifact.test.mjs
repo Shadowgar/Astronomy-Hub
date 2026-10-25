@@ -14,6 +14,6 @@ test('Sky marker and public admission digest bind every qualified application fi
  assert.equal(marker.adapter_sha256,digest(read('runtimes/sky-adapter/plugin.js')));
  assert.equal(marker.wheel_input_sha256,digest(read('runtimes/sky-adapter/native-wheel.mjs')));
  assert.equal(lock.sky.wheel_input_sha256,marker.wheel_input_sha256);
- for(const name of ['entry.mjs','native-panels.mjs']){assert.equal(marker.bridge_input_sha256[name],digest(read('runtimes/sky-adapter/'+name)));assert.equal(lock.sky.bridge_input_sha256[name],marker.bridge_input_sha256[name])}
+ for(const name of ['entry.mjs','native-panels.mjs','satellite-presentation.mjs','satellite-tracking.mjs']){assert.equal(marker.bridge_input_sha256[name],digest(read('runtimes/sky-adapter/'+name)));assert.equal(lock.sky.bridge_input_sha256[name],marker.bridge_input_sha256[name])}
  for(const name of ['continued-input.mjs','navigation.mjs']){assert.equal(marker.navigation_input_sha256[name],digest(read('packages/runtime-protocol/'+name)));assert.equal(lock.sky.navigation_input_sha256[name],marker.navigation_input_sha256[name])}
 });

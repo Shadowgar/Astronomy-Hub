@@ -1,0 +1,13 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/frontend
+
+
+ Test Files  58 passed (58)
+      Tests  384 passed (384)
+   Start at  00:26:31
+   Duration  3.89s (transform 13.65s, setup 0ms, import 23.17s, tests 6.73s, environment 9ms)
+

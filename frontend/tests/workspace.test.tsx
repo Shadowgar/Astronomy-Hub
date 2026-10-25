@@ -1,9 +1,10 @@
+import {QueryClient,QueryClientProvider} from '@tanstack/react-query';
 import React,{type ReactNode} from 'react';import {renderToStaticMarkup} from 'react-dom/server';import {MemoryRouter} from 'react-router-dom';import {describe,it,expect,vi} from 'vitest';
 vi.mock('react-router-dom',async original=>({...await original<typeof import('react-router-dom')>(),BrowserRouter:({children}:{children:ReactNode})=>children}));
 vi.mock('../src/features/tonight/queries',()=>({useTonightQuery:()=>({isPending:true,isError:false})}));
 vi.mock('../src/features/observe/queries',()=>({useObserveSkyQuery:()=>({isPending:true,isError:false})}));
 import AppRouter from '../src/routes/AppRouter';
-const render=(path:string)=>renderToStaticMarkup(<MemoryRouter initialEntries={[path]}><AppRouter/></MemoryRouter>);
+const render=(path:string)=>renderToStaticMarkup(<QueryClientProvider client={new QueryClient({defaultOptions:{queries:{retry:false}}})}><MemoryRouter initialEntries={[path]}><AppRouter/></MemoryRouter></QueryClientProvider>);
 describe('locked workspace route composition',()=>{
  for(const [path,mode] of [['/','sky'],['/sky-engine','sky'],['/earth','earth']])it(`${path} opens ${mode} viewport and a single product header`,()=>{
   const html=render(path);expect(html).toContain(`data-workspace-mode="${mode}"`);expect(html).toContain('aria-label="Explore"');expect(html.match(/<header/g)).toHaveLength(1);expect(html.match(/<main/g)).toHaveLength(1);expect(html).not.toContain('The sky over the');expect(html).not.toContain('>Home</a>');

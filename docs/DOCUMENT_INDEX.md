@@ -1,5 +1,7 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+Current owner-authorized [Sky satellite repair](validation/sky-satellite-live/README.md) is a bounded draft stacked on preserved PR95. Historical native motion is qualified separately from current Live orbital accuracy, blocked by stale source data. No merge or deployment.
+
 Current integrated planetary-system review preview and package ledger: [PS3](validation/planetary-systems/ps3/README.md).
 
 PS2 major-moon implementation, source limits and qualification: [PS2](validation/planetary-systems/ps2/README.md).

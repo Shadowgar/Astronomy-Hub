@@ -1,6 +1,6 @@
 import {createRuntimeEndpoint} from '../../packages/runtime-protocol/endpoint.mjs';
 import {installSkyPanelReports,installSkyNightReports,installSkyFovReports} from './native-panels.mjs';
-const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparison-023e3b2/oras-sky-baseline.v1+navigation.1',capabilities:['nativeTools','destroy','timeIntent','observerIntent','presentation','interactionEvents','selection','workspaceState','viewNavigation'],execute:async(command,payload)=>{
+const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparison-023e3b2/oras-sky-baseline.v1+navigation.1',capabilities:['nativeTools','destroy','timeIntent','observerIntent','presentation','interactionEvents','selection','workspaceState','viewNavigation','navigation'],execute:async(command,payload)=>{
  const adapter=window.orasSkyAdapter;if(!adapter)throw new Error('Engine unavailable');
  if(command==='destroy'){stopPanelReports();stopNightReports();stopFovReports();cleanup();adapter.stop();return {ok:true};}
  if(command==='getNavigationState')return {ok:true,navigation:adapter.navigation()};
@@ -12,6 +12,7 @@ const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparis
  if(command==='selectEntity')return adapter.select(payload);
  if(command==='clearSelection')return adapter.clear();
  if(command==='focusSelection')return adapter.focus();
+ if(command==='setTracking')return adapter.setTracking(payload.enabled);
  if(command==='setTimeIntent'){
   adapter.observer.utc=Date.parse(payload.utc)/86400000+40587;adapter.setLive?.(payload.live===true);
   return {ok:true,temporalMode:'CONTROLLED',effectiveTime:new Date(Math.round((adapter.observer.utc-40587)*86400000)).toISOString()};

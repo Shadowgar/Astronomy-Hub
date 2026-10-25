@@ -8,6 +8,7 @@ import { installNativeWheel } from './native-wheel.mjs'
 import { observerElevationSource, sameObserverLocation } from './observer-elevation.mjs'
 import site from './oras-site.json'
 import { satellitePresentation } from './satellite-presentation.mjs'
+import { satelliteTracking } from './satellite-tracking.mjs'
 // The Hub and native frame share only a presentation preference, never scene state.
 function installGlassPreference () {
   const key = 'oras.glass.opaque.v1'
@@ -173,7 +174,8 @@ export default {
     const set = (key, value) => app.$store.commit('setValue', { varName: key, newValue: value })
     const landscapeId = 'pennsylvania-woodland-v1'
     const satellitePolicy = satellitePresentation(app.$stel.core)
-    const updateSatellites = () => satellitePolicy.update(!!app.$store.state.orasEmbeddedPresentation, app.$stel.core.fov, app.$stel.core.selection?.jsonData?.model === 'tle_satellite')
+    const nativeSatelliteTracking = satelliteTracking(app.$stel)
+    const updateSatellites = () => { if (app.$store.state.orasEmbeddedPresentation)nativeSatelliteTracking.selectionChanged(); satellitePolicy.update(!!app.$store.state.orasEmbeddedPresentation, app.$stel.core.fov, app.$stel.core.selection?.jsonData?.model === 'tle_satellite') }
     const neutral = () => {
       if (!app.$store.state.orasEmbeddedPresentation)return
       if (!hasLandscape) { app.$stel.core.landscapes.addDataSource({ url: '/oras-sky-engine/landscapes/' + landscapeId, key: landscapeId }); hasLandscape = true }
@@ -206,7 +208,7 @@ export default {
       if (app.$store.state.orasEmbeddedPresentation && id && id !== landscapeId) { if (!nativeLandscape)nativeLandscape = id; neutral() }
     })
     const stopFovWatch = app.$watch(() => app.$store.state.stel.fov, () => window.dispatchEvent(new Event('oras-sky-fov')))
-    const stopSatelliteWatch = app.$watch(() => [!!app.$store.state.orasEmbeddedPresentation, app.$store.state.stel.fov, JSON.stringify(app.$store.state.stel.selection), app.$store.state.stel.satellites?.hints_mag_offset].join('|'), updateSatellites, { immediate: true })
+    const stopSatelliteWatch = app.$watch(() => [!!app.$store.state.orasEmbeddedPresentation, app.$store.state.stel.fov, JSON.stringify(app.$store.state.stel.selection), app.$store.state.stel.satellites?.hints_mag_offset, app.$store.state.stel.satellites?.hints_visible].join('|'), updateSatellites, { immediate: true })
     const removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel, {
       enabled: () => !disposed && app.$store.state.orasEmbeddedPresentation,
       onBoundary: value => window.dispatchEvent(new CustomEvent('oras-navigation-intent', { detail: { target: 'earth', ...value } }))
@@ -251,11 +253,12 @@ export default {
         if (disposed || generation !== selectionGeneration) { if (obj && obj.__orasOwnedLookup)obj.destroy(); return { ok: false, error: 'Selection superseded' } }
         if (!obj) { obj = app.$stel.createObj(source.model, source); if (obj)app.$selectionLayer.add(obj) }
         if (!obj) return { ok: false, error: 'Object could not be materialized' }
-        obj.__orasSkySourceData = source; swh.exactSkySourceSelection = source; app.$stel.core.selection = obj; app.$store.commit('setSelectedObject', source)
+        obj.__orasSkySourceData = source; swh.exactSkySourceSelection = source; app.$stel.core.selection = obj; nativeSatelliteTracking.selectionChanged(); app.$store.commit('setSelectedObject', source)
         if (obj.__orasOwnedLookup) { obj.__orasOwnedLookup = false; obj.destroy() }
         return { ok: true }
       },
-      clear () { ++selectionGeneration; app.$stel.core.selection = 0; swh.exactSkySourceSelection = undefined; app.$store.commit('setSelectedObject', 0); return { ok: true } },
+      clear () { ++selectionGeneration; nativeSatelliteTracking.set(false); app.$stel.core.selection = 0; swh.exactSkySourceSelection = undefined; app.$store.commit('setSelectedObject', 0); return { ok: true } },
+      setTracking (enabled) { return nativeSatelliteTracking.set(enabled, matchMedia('(prefers-reduced-motion: reduce)').matches) },
       focus () {
         const obj = app.$stel.core.selection; if (!obj) return { ok: false, error: 'No available selection' }
         let duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1
@@ -275,9 +278,9 @@ export default {
           const facts = []; for (const [label, value] of [['Catalog', ss.catalog], ['Source ID', ss.source_id], ['Context epoch', ss.context_time], ['NORAD', ss.model === 'tle_satellite' && ss.model_data ? ss.model_data.norad_number : null], ['Type', ss.object_type], ['Magnitude', ss.magnitude], ['Spectral type', ss.model_data && ss.model_data.spect_t]]) if (value != null)facts.push({ label, value: String(value).slice(0, 256) })
           const query = new URLSearchParams({ catalog: ss.catalog, source_id: String(ss.source_id), model: ss.model, date: new Date(Math.round((app.$stel.core.observer.utc - 40587) * 86400000)).toISOString(), lat: String(app.$stel.core.observer.latitude * 180 / Math.PI), lng: String(app.$stel.core.observer.longitude * 180 / Math.PI), elev: String(app.$stel.core.observer.elevation) })
           const coords = {}; for (const key of ['ra', 'dec']) if (Number.isFinite(ss[key])) { coords[key] = ss[key]; query.set(key, String(ss[key])) }
-          selection = { id: [ss.catalog, ss.source_id, ss.model].join(':').slice(0, 256), name: String(ss.display_name || (ss.names && ss.names[0]) || ss.source_id).slice(0, 256), ...(typeof ss.description === 'string' ? { detail: ss.description.slice(0, 1500) } : {}), kind: ss.model === 'tle_satellite' ? 'satellite' : ['dso', 'star', 'planet', 'moon'].includes(ss.model) ? ss.model : 'object', catalog: ss.catalog, source_id: String(ss.source_id), model: ss.model, ...coords, facts, available: true, focusable: true, trackable: false, link: '/oras-sky-engine/skysource/' + encodeURIComponent(ss.display_name || ss.source_id) + '?' + query }
+          selection = { id: [ss.catalog, ss.source_id, ss.model].join(':').slice(0, 256), name: String(ss.display_name || (ss.names && ss.names[0]) || ss.source_id).slice(0, 256), ...(typeof ss.description === 'string' ? { detail: ss.description.slice(0, 1500) } : {}), kind: ss.model === 'tle_satellite' ? 'satellite' : ['dso', 'star', 'planet', 'moon'].includes(ss.model) ? ss.model : 'object', catalog: ss.catalog, source_id: String(ss.source_id), model: ss.model, ...coords, facts, available: true, focusable: true, trackable: ss.model === 'tle_satellite', link: '/oras-sky-engine/skysource/' + encodeURIComponent(ss.display_name || ss.source_id) + '?' + query }
         }
-        return { selection, layers: [], tracking: false }
+        return { selection, layers: [], tracking: nativeSatelliteTracking.active() }
       }
     }
     window.dispatchEvent(new Event('oras-sky-ready'))

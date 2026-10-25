@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "sha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "matches_oct24_observation": true,
+  "root_status": " M .vscode/settings.json\n",
+  "limit": "Does not substitute for the unavailable initial-task byte snapshot."
+}

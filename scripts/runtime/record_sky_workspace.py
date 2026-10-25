@@ -37,7 +37,7 @@ if native:
  marker['native_vendor_chunks_identical']=False
  marker['native_horizon']={key:native[key] for key in ['purpose','comparison_anchor','native_builder','patch_path','patch_sha256','landscape_source_sha256','source_input_sha256','native_output_sha256']}
 marker['material_input_sha256']={name:hashlib.sha256((repo/name).read_bytes()).hexdigest() for name in ['runtimes/shared/glass.css','runtimes/sky-adapter/native-material.css']}
-marker['bridge_input_sha256']={name:hashlib.sha256((repo/'runtimes/sky-adapter'/name).read_bytes()).hexdigest() for name in ['entry.mjs','native-panels.mjs','satellite-presentation.mjs']}
+marker['bridge_input_sha256']={name:hashlib.sha256((repo/'runtimes/sky-adapter'/name).read_bytes()).hexdigest() for name in ['entry.mjs','native-panels.mjs','satellite-presentation.mjs','satellite-tracking.mjs']}
 marker['wheel_input_sha256']=hashlib.sha256((repo/'runtimes/sky-adapter/native-wheel.mjs').read_bytes()).hexdigest()
 marker['navigation_input_sha256']={name:hashlib.sha256((repo/'packages/runtime-protocol'/name).read_bytes()).hexdigest() for name in ['continued-input.mjs','navigation.mjs','observer-elevation.mjs']}
 files=[]

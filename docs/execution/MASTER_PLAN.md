@@ -1,5 +1,26 @@
 # `MASTER_PLAN.md`
 
+## Focused Sky satellite repair — owner directive 2026-10-24
+
+The owner authorizes a bounded repair stacked on preserved draft PR95
+`9ee6d85982edb3db276490706a82af83538e5e8d`, branch
+`sky-satellite-live-repair-1`. This supersedes the prior stop checkpoint only for
+satellite diagnosis, native tracking, time/source status and focused qualification.
+PS1–PS3, Moon/Solar/Earth, source math, accepted navigation, native binaries,
+Pennsylvania scenery, data/settings and rollback remain protected. No merge,
+production deployment, new paid source or broader X satellite milestone.
+
+The mounted native catalog contains14,281 checksum-valid historical TLE records;
+all are stale at current UTC. Bounded approved-source attempts on October24 and25 timed out
+without bytes or promotion. Historical point/motion and UI qualification must
+remain distinct from current Live orbital accuracy, which is blocked. Native
+photometry/SGP4 and5°/7° identification thresholds with minimum offset4 remain.
+The repair and source-matched evidence are recorded in
+[Sky satellite repair](../validation/sky-satellite-live/README.md).
+Stop for owner functional acceptance; physical-device and source-freshness gates
+are not replaced by automated tests.
+
+
 ## Hierarchical planetary systems — owner directive 2026-10-24
 
 The owner rejects the detached Moon selector from PR92 and authorizes planetary

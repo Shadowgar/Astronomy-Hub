@@ -1,0 +1,59 @@
+TAP version 13
+# Subtest: tracking state comes from the native lock and stable identity rather than a separate flag
+ok 1 - tracking state comes from the native lock and stable identity rather than a separate flag
+  ---
+  duration_ms: 0.654887
+  type: 'test'
+  ...
+# Subtest: starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+ok 2 - starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+  ---
+  duration_ms: 1.316609
+  type: 'test'
+  ...
+# Subtest: reduced motion keeps the native satellite lock using the established sub-frame duration
+ok 3 - reduced motion keeps the native satellite lock using the established sub-frame duration
+  ---
+  duration_ms: 0.1196
+  type: 'test'
+  ...
+# Subtest: ending tracking releases only the native satellite lock and preserves selection and time mode
+ok 4 - ending tracking releases only the native satellite lock and preserves selection and time mode
+  ---
+  duration_ms: 0.784093
+  type: 'test'
+  ...
+# Subtest: missing or non-satellite selection cannot start satellite tracking
+ok 5 - missing or non-satellite selection cannot start satellite tracking
+  ---
+  duration_ms: 0.236087
+  type: 'test'
+  ...
+# Subtest: a new native selection cannot inherit the prior satellite tracking lock
+not ok 6 - a new native selection cannot inherit the prior satellite tracking lock
+  ---
+  duration_ms: 0.166668
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/tests/runtime/satellite-tracking.test.mjs:10:1'
+  failureType: 'testCodeFailure'
+  error: 's.tracking.selectionChanged is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/tests/runtime/satellite-tracking.test.mjs:10:223)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 47.897287

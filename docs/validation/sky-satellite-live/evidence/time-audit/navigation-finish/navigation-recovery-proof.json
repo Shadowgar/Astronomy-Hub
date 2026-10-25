@@ -1,0 +1,5585 @@
+{
+  "started": "2026-10-25T04:26:59.268Z",
+  "base": "http://127.0.0.1:4226",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "steps": [
+    {
+      "name": "initial-sky",
+      "at": "2026-10-25T04:27:02.244Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 1,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": false,
+        "offset": 2,
+        "satellites": true,
+        "fovDeg": 119.99999999998879,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "close-auto-hints",
+      "at": "2026-10-25T04:27:16.314Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 1,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226861866191,
+            "pitchRad": 0.622560732698,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "native-hints-disabled",
+      "at": "2026-10-25T04:27:17.931Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 1,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226861866191,
+            "pitchRad": 0.622560732698,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": false,
+        "offset": 2,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "hints-disabled-wide",
+      "at": "2026-10-25T04:27:21.512Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 1,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.150257605571,
+            "yawRad": 0.220250258475,
+            "pitchRad": 0.619264572581,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": false,
+        "offset": 2,
+        "satellites": true,
+        "fovDeg": 8.609126638959708,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "hints-disabled-close",
+      "at": "2026-10-25T04:27:25.104Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 1,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": false,
+        "offset": 2,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "sky-earth",
+      "at": "2026-10-25T04:27:32.114Z",
+      "url": "http://127.0.0.1:4226/earth?date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site",
+      "mode": "earth",
+      "heavyFrames": [
+        {
+          "id": 2,
+          "url": "http://127.0.0.1:4226/earth-runtime/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site&orasEmbedded=1"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 1,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "earth": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 5204.199999999953,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "loading"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 130.79999999998836,
+          "shellInteractiveMs": 188.89999999996508,
+          "viewerReadyMs": 192.89999999996508,
+          "firstImageryTileMs": 1543.0999999999767
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 15621863.000000002,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.32190153934777,
+            "lon": -79.58539410405697,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605399997,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 15621863.000000002,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.568429161529859,
+            "rollRad": 0
+          },
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "partial",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "NASA · Blue Marble",
+            "product": "Static Blue Marble composite",
+            "date": null,
+            "gsd": 500,
+            "coverage": "Global overview; not current photography",
+            "credit": "NASA GIBS · Blue Marble",
+            "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+            "host": "gibs.earthdata.nasa.gov",
+            "cap": 8,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "partial",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 19,
+            "requested": 39
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 15621863.000000002,
+            "rect": [
+              -180,
+              -90,
+              180,
+              90
+            ],
+            "point": [
+              -79.58539410412061,
+              41.321901538451954
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 7,
+              "loaded": 2,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 5,
+              "peak": 7,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "earth-sky",
+      "at": "2026-10-25T04:27:44.542Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 3,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 2,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "back-earth",
+      "at": "2026-10-25T04:27:48.938Z",
+      "url": "http://127.0.0.1:4226/earth?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "earth",
+      "heavyFrames": [
+        {
+          "id": 4,
+          "url": "http://127.0.0.1:4226/earth-runtime/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 3,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "earth": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 5192.799999999988,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "loading"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 118.90000000002328,
+          "shellInteractiveMs": 155.40000000002328,
+          "viewerReadyMs": 157.10000000003492,
+          "firstImageryTileMs": 1417.2000000000116
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 15621863.000000002,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.32190153934774,
+            "lon": -79.58539410405697,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605399997,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 15621863.000000002,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5684291615299055,
+            "rollRad": 0
+          },
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "partial",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "NASA · Blue Marble",
+            "product": "Static Blue Marble composite",
+            "date": null,
+            "gsd": 500,
+            "coverage": "Global overview; not current photography",
+            "credit": "NASA GIBS · Blue Marble",
+            "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+            "host": "gibs.earthdata.nasa.gov",
+            "cap": 8,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "partial",
+            "reason": "",
+            "loadingNote": ""
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 1,
+          "budget": {
+            "active": 15,
+            "requested": 39
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 15621863.000000002,
+            "rect": [
+              -180,
+              -90,
+              180,
+              90
+            ],
+            "point": [
+              -79.58539410412061,
+              41.32190153845193
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 7,
+              "loaded": 2,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 5,
+              "peak": 6,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "forward-sky",
+      "at": "2026-10-25T04:27:57.350Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 5,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 4,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "reload-sky",
+      "at": "2026-10-25T04:28:00.230Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 6,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 5,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "sky-solar",
+      "at": "2026-10-25T04:28:04.216Z",
+      "url": "http://127.0.0.1:4226/solar-system?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&solarFrom=sky",
+      "mode": "solar",
+      "heavyFrames": [],
+      "previousFrames": [
+        {
+          "id": 6,
+          "detached": true
+        }
+      ],
+      "canvasCount": 1
+    },
+    {
+      "name": "solar-sky",
+      "at": "2026-10-25T04:28:06.222Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 7,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "sky-solar-for-hierarchy",
+      "at": "2026-10-25T04:28:10.137Z",
+      "url": "http://127.0.0.1:4226/solar-system?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&solarFrom=sky",
+      "mode": "solar",
+      "heavyFrames": [],
+      "previousFrames": [
+        {
+          "id": 7,
+          "detached": true
+        }
+      ],
+      "canvasCount": 1
+    },
+    {
+      "name": "solar-earth-system",
+      "at": "2026-10-25T04:28:11.354Z",
+      "url": "http://127.0.0.1:4226/planetary-system/earth?date=2026-06-04T02%3A58%3A00.000Z&camera=%7B%22position%22%3A%5B-5727.491301606904%2C-869911.9718006004%2C2263325.696277471%5D%2C%22target%22%3A%5B-5727.491301606904%2C-20198.220146389183%2C-10871.73727630348%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+      "mode": "system",
+      "heavyFrames": [],
+      "previousFrames": [],
+      "canvasCount": 1
+    },
+    {
+      "name": "earth-system-moon-selected",
+      "at": "2026-10-25T04:28:11.856Z",
+      "url": "http://127.0.0.1:4226/planetary-system/earth?date=2026-06-04T02%3A58%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B165286.01830110417%2C-333518.48355350527%2C-151533.63991811028%5D%2C%22target%22%3A%5B165286.01830110417%2C-328045.4864386696%2C-166181.72107270552%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+      "mode": "system",
+      "heavyFrames": [],
+      "previousFrames": [],
+      "canvasCount": 1
+    },
+    {
+      "name": "earth-moon-system-sky",
+      "at": "2026-10-25T04:28:13.845Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 8,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "back-earth-moon-system",
+      "at": "2026-10-25T04:28:16.308Z",
+      "url": "http://127.0.0.1:4226/planetary-system/earth?date=2026-06-04T02%3A58%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B165286.01830110417%2C-333518.48355350527%2C-151533.63991811028%5D%2C%22target%22%3A%5B165286.01830110417%2C-328045.4864386696%2C-166181.72107270552%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+      "mode": "system",
+      "heavyFrames": [],
+      "previousFrames": [
+        {
+          "id": 8,
+          "detached": true
+        }
+      ],
+      "canvasCount": 1
+    },
+    {
+      "name": "native-moon",
+      "at": "2026-10-25T04:28:18.368Z",
+      "url": "http://127.0.0.1:4226/planet-view/moon?date=2026-06-04T02%3A58%3A00Z&lat=1.5583443342857255&lon=-45.151632318405916&height=4343500&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "mode": "planet",
+      "heavyFrames": [
+        {
+          "id": 9,
+          "url": "http://127.0.0.1:4226/planet-runtime/?channel=18a43e5c013f973fc661c641ee15725c"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "moonTitle": "Native Moon globe"
+    },
+    {
+      "name": "native-moon-sky",
+      "at": "2026-10-25T04:28:20.546Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 10,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 9,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "back-native-moon",
+      "at": "2026-10-25T04:28:24.031Z",
+      "url": "http://127.0.0.1:4226/planet-view/moon?date=2026-06-04T02%3A58%3A00Z&lat=1.5583443342857248&lon=-45.151632318405916&height=4343500&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "mode": "planet",
+      "heavyFrames": [
+        {
+          "id": 11,
+          "url": "http://127.0.0.1:4226/planet-runtime/?channel=c92feeef0829601f177632b479e1c9df"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 10,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "moonTitle": "Native Moon globe"
+    },
+    {
+      "name": "forward-sky-from-moon",
+      "at": "2026-10-25T04:28:26.957Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 12,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 11,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    },
+    {
+      "name": "final-reload-sky",
+      "at": "2026-10-25T04:28:30.159Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 13,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [
+        {
+          "id": 12,
+          "detached": true
+        }
+      ],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": true,
+        "offset": 4,
+        "satellites": true,
+        "fovDeg": 4.793883850419292,
+        "selected": null,
+        "locked": null
+      }
+    }
+  ],
+  "frameEvents": [
+    {
+      "event": "attached",
+      "id": 1,
+      "at": "2026-10-25T04:26:59.833Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 1,
+      "at": "2026-10-25T04:27:28.457Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 2,
+      "at": "2026-10-25T04:27:28.467Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 2,
+      "at": "2026-10-25T04:27:42.414Z",
+      "url": "http://127.0.0.1:4226/earth-runtime/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site&orasEmbedded=1"
+    },
+    {
+      "event": "attached",
+      "id": 3,
+      "at": "2026-10-25T04:27:42.432Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 3,
+      "at": "2026-10-25T04:27:45.275Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 4,
+      "at": "2026-10-25T04:27:45.280Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 4,
+      "at": "2026-10-25T04:27:54.931Z",
+      "url": "http://127.0.0.1:4226/earth-runtime/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1"
+    },
+    {
+      "event": "attached",
+      "id": 5,
+      "at": "2026-10-25T04:27:54.940Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 5,
+      "at": "2026-10-25T04:27:58.205Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 6,
+      "at": "2026-10-25T04:27:58.260Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 6,
+      "at": "2026-10-25T04:28:01.697Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 7,
+      "at": "2026-10-25T04:28:04.346Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 7,
+      "at": "2026-10-25T04:28:07.770Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 8,
+      "at": "2026-10-25T04:28:12.027Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 8,
+      "at": "2026-10-25T04:28:14.543Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 9,
+      "at": "2026-10-25T04:28:16.492Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 9,
+      "at": "2026-10-25T04:28:18.621Z",
+      "url": "http://127.0.0.1:4226/planet-runtime/?channel=18a43e5c013f973fc661c641ee15725c"
+    },
+    {
+      "event": "attached",
+      "id": 10,
+      "at": "2026-10-25T04:28:18.632Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 10,
+      "at": "2026-10-25T04:28:21.373Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 11,
+      "at": "2026-10-25T04:28:21.388Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 11,
+      "at": "2026-10-25T04:28:24.294Z",
+      "url": "http://127.0.0.1:4226/planet-runtime/?channel=c92feeef0829601f177632b479e1c9df"
+    },
+    {
+      "event": "attached",
+      "id": 12,
+      "at": "2026-10-25T04:28:24.304Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 12,
+      "at": "2026-10-25T04:28:27.848Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&lat=41.32190153934777&lng=-79.58539410405697&elev=432.816&elevationSource=oras-site&orasEmbedded=1&orasNightMode=0"
+    },
+    {
+      "event": "attached",
+      "id": 13,
+      "at": "2026-10-25T04:28:27.923Z",
+      "url": ""
+    }
+  ],
+  "pageErrors": [],
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "b2254eff03ace7dda6e52ce352500c873b100eb4e04db3c9179a2c8f64568679",
+    "frontend/src/features/workspace/TimeSurface.tsx": "4a60a044a3659d4fe837ecea5ffd06a6b2c8a5b117802a1989764038bdcba532",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "frontend/src/features/solar/solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+    "frontend/src/features/planet/planetContracts.ts": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf"
+  },
+  "protocol": [
+    {
+      "at": "2026-10-25T04:27:00.482Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:00.995Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.179Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.299Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.450Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.321903,
+        "lon": -79.585394,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.555Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.663Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 5,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.664Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 6,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.790Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 5,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:01.790Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 6,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:05.024Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:05.284Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 2,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:05.663Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 3,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:05.986Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 4,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:06.340Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 5,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:06.735Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 6,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:07.123Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 7,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:07.467Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 8,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:07.857Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 9,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:08.238Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 10,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:08.550Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 11,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:08.999Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 12,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:09.395Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 13,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:09.681Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 14,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:10.012Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 15,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:10.406Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 16,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:10.850Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 17,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:11.120Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 18,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:11.640Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 19,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:11.641Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 20,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:12.019Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 21,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:12.351Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 22,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:12.697Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 23,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:13.037Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 24,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:13.403Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 25,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:13.730Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 26,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:14.009Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 27,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:14.292Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 28,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:14.684Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 29,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:14.948Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 30,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:15.270Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 31,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:15.538Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 32,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:15.841Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 33,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:16.119Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 34,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:16.585Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 35,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:19.905Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 36,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:20.299Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 37,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:20.576Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 38,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:20.873Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 39,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:21.097Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 40,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:21.329Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 41,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:21.759Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 42,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:23.345Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 43,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:23.656Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 44,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:23.972Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 45,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:24.295Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 46,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:24.551Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 47,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:24.901Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 48,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:25.317Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 49,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:27.850Z",
+      "type": "command",
+      "command": "getNavigationState",
+      "id": 33,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:27:27.927Z",
+      "type": "result",
+      "command": "getNavigationState",
+      "id": 33,
+      "payload": {
+        "ok": true,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:28.273Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 34,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:27:28.356Z",
+      "type": "result",
+      "command": "destroy",
+      "id": 34,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:28.440Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 50,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:29.366Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:29.590Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:29.666Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:29.745Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:29.811Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:29.876Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:29.939Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "earth",
+        "camera": {
+          "latitudeRad": 0.72120326054,
+          "longitudeRad": -1.3890271617970003,
+          "heightM": 15621863,
+          "headingRad": 0,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        },
+        "center": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:30.008Z",
+      "type": "event",
+      "command": "navigationIntent",
+      "id": 1,
+      "payload": {
+        "target": "sky",
+        "phase": "idle",
+        "progress": 0
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:30.008Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:30.676Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:30.676Z",
+      "type": "command",
+      "command": "setSearchLocation",
+      "id": 7,
+      "payload": {
+        "location": null
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:30.676Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 8,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:30.678Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 9,
+      "payload": {
+        "id": "oras-site",
+        "enabled": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:31.352Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:31.353Z",
+      "type": "result",
+      "command": "setSearchLocation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:31.353Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 8,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:31.353Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 9,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · loading · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:32.104Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 11,
+      "payload": {
+        "id": "satellites",
+        "enabled": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:33.229Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 11,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:33.666Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 13,
+      "payload": {
+        "id": "aircraft",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:34.783Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 13,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:35.262Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 15,
+      "payload": {
+        "id": "weather",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:36.252Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 15,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:36.830Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 17,
+      "payload": {
+        "id": "earthquakes",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:37.478Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 17,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:37.923Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 18,
+      "payload": {
+        "id": "fire-perimeters",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:38.442Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 18,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:39.062Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 20,
+      "payload": {
+        "id": "weather-radar",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:39.597Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 20,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:42.343Z",
+      "type": "command",
+      "command": "getNavigationState",
+      "id": 23,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:27:42.358Z",
+      "type": "result",
+      "command": "getNavigationState",
+      "id": 23,
+      "payload": {
+        "ok": true,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.32190153934777,
+            "lon": -79.58539410405697,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605399997,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 15621863.000000002,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.568429161529859,
+            "rollRad": 0
+          },
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:42.369Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 24,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:27:42.377Z",
+      "type": "result",
+      "command": "destroy",
+      "id": 24,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:42.861Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.366Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.435Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.563Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.622Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.738Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.779Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.824Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.883Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.883Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.885Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:43.886Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:45.182Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 9,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:27:45.227Z",
+      "type": "result",
+      "command": "destroy",
+      "id": 9,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:45.264Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.080Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.289Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.361Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.430Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.494Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.560Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.624Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "earth",
+        "camera": {
+          "latitudeRad": 0.7212032605399997,
+          "longitudeRad": -1.3890271617970003,
+          "heightM": 15621863.000000002,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.568429161529859,
+          "rollRad": 0
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.696Z",
+      "type": "event",
+      "command": "navigationIntent",
+      "id": 1,
+      "payload": {
+        "target": "sky",
+        "phase": "idle",
+        "progress": 0
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:46.696Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:47.459Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:47.459Z",
+      "type": "command",
+      "command": "setSearchLocation",
+      "id": 7,
+      "payload": {
+        "location": null
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:47.460Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 8,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:47.460Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 9,
+      "payload": {
+        "id": "oras-site",
+        "enabled": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:48.147Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:48.147Z",
+      "type": "result",
+      "command": "setSearchLocation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:48.147Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 8,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:48.147Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 9,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · loading · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:48.931Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 11,
+      "payload": {
+        "id": "satellites",
+        "enabled": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:49.977Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 11,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:50.466Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 12,
+      "payload": {
+        "id": "aircraft",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:50.956Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 12,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:51.431Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 14,
+      "payload": {
+        "id": "weather",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:51.983Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 14,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:52.373Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 16,
+      "payload": {
+        "id": "earthquakes",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:53.341Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 16,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:53.995Z",
+      "type": "command",
+      "command": "setLayerEnabled",
+      "id": 17,
+      "payload": {
+        "id": "fire-perimeters",
+        "enabled": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:54.475Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 18,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:27:54.479Z",
+      "type": "result",
+      "command": "setLayerEnabled",
+      "id": 17,
+      "payload": {
+        "ok": true,
+        "state": {
+          "selection": null,
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "enabled": true,
+              "status": "ready",
+              "source": "ORAS canonical site",
+              "sourceTime": null
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "enabled": false,
+              "status": "off",
+              "source": "adsb.lol · ODbL 1.0",
+              "sourceTime": null
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "temporalMode": "LIVE_ONLY",
+              "enabled": true,
+              "status": "loading",
+              "source": "CelesTrak · satellite.js",
+              "sourceTime": null
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "Open-Meteo · CC BY 4.0",
+              "sourceTime": null
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "enabled": false,
+              "status": "off",
+              "source": "U.S. Geological Survey",
+              "sourceTime": null
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NIFC/WFIGS",
+              "sourceTime": null
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "enabled": false,
+              "status": "off",
+              "source": "NOAA/NWS nowCOAST",
+              "sourceTime": null
+            }
+          ],
+          "tracking": false,
+          "quality": {
+            "imagery": "NASA · Blue Marble · partial · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:54.910Z",
+      "type": "result",
+      "command": "destroy",
+      "id": 18,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:55.392Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:55.870Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.015Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.075Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.206Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.253Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.297Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.349Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.412Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.412Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.442Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:56.442Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:58.193Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:58.626Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.167Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.234Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.357Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.413Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.519Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.562Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.617Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.705Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.706Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.709Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:27:59.710Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:01.559Z",
+      "type": "command",
+      "command": "getNavigationState",
+      "id": 9,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:28:01.600Z",
+      "type": "result",
+      "command": "getNavigationState",
+      "id": 9,
+      "payload": {
+        "ok": true,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:01.682Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:01.702Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 10,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:28:04.697Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.183Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.257Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.375Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.430Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.540Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.584Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.589Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.655Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.655Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.679Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:05.679Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:07.635Z",
+      "type": "command",
+      "command": "getNavigationState",
+      "id": 9,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:28:07.677Z",
+      "type": "result",
+      "command": "getNavigationState",
+      "id": 9,
+      "payload": {
+        "ok": true,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 0.226859131036,
+            "pitchRad": 0.622560776941,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:07.759Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:07.776Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 11,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:28:12.366Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:12.847Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:12.917Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.058Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.118Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.241Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.294Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.349Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.417Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.417Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.449Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:13.450Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:14.529Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:14.541Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 9,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:28:19.547Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:19.753Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:19.816Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:19.930Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:19.974Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:20.017Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:20.017Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:20.022Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:20.087Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:20.088Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:20.089Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:20.090Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:21.360Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:21.372Z",
+      "type": "command",
+      "command": "destroy",
+      "id": 9,
+      "payload": {}
+    },
+    {
+      "at": "2026-10-25T04:28:25.312Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.526Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.593Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.735Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.794Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.852Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.853Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.860Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.939Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.939Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.971Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:25.972Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:27.837Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:28.411Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.088Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.184Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.325Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.396Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.32190153934777,
+        "lon": -79.58539410405697,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.524Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.32190153934777,
+          "lon": -79.58539410405697,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.582Z",
+      "type": "command",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "mode": "sky",
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 0.226859131036,
+          "pitchRad": 0.622560776941,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.639Z",
+      "type": "result",
+      "command": "setNavigationView",
+      "id": 4,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.709Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.710Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.739Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 6,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-25T04:28:29.740Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 7,
+      "payload": {
+        "ok": true
+      }
+    }
+  ],
+  "networkFailures": [
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/Norder5/Dir0/Npix4056.webp",
+      "status": 404
+    },
+    {
+      "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix253.eph",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix255.eph",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix252.eph",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix252.eph",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix253.eph",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix255.eph",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    }
+  ],
+  "console": [
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x29e40011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x29e40011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x29e40011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x29e40011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ],
+  "limitations": [
+    "DOM iframe detachment and one active heavy surface are renderer lifecycle evidence; this is not physical GPU allocation/driver proof.",
+    "Native hints-off is exercised through the existing native public property because the embedded compact tools do not expose a satellite-hint checkbox. Real wheel input exercises subsequent zoom. Cross-remount persistence is recorded rather than assumed."
+  ],
+  "previewBytes": {
+    "hubAsset": "/assets/index-BGMWxqs2.js",
+    "servedHubSha": "04fb9c5c7a8aa4ee3c12780d68f55ccf5e1d5d15453ea45868de47abab3aad9f",
+    "localHubSha": "04fb9c5c7a8aa4ee3c12780d68f55ccf5e1d5d15453ea45868de47abab3aad9f",
+    "skyBuild": {
+      "runtime": "oras-sky-engine",
+      "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+      "overlay_version": "oras-sky-workspace.1",
+      "native_wasm_identical": false,
+      "native_vendor_chunks_identical": false,
+      "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+      "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+      "native_horizon": {
+        "purpose": "embedded-zero-horizon-colors",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+        "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+        "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+        "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+        "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+        "native_output_sha256": {
+          "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+          "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+        }
+      },
+      "material_input_sha256": {
+        "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+        "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+      },
+      "bridge_input_sha256": {
+        "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+        "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+        "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+        "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+      },
+      "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+      "navigation_input_sha256": {
+        "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+        "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+        "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+      },
+      "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+    },
+    "versions": {
+      "hub": {
+        "version": "phase-c-cesium.v1",
+        "base_commit": "51a66347dd5997673a6b7c523d66e980f3a8701d",
+        "qualification": "working-tree implementation; PR records final commit"
+      },
+      "bridge": {
+        "major": 1,
+        "minor": 2
+      },
+      "sky": {
+        "upstream": "https://github.com/Stellarium/stellarium-web-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "historical_import_sha": null,
+        "reconstruction": {
+          "status": "qualified",
+          "native_wasm_identical": false,
+          "emscripten": "1.39.17",
+          "emsdk_image": "emscripten/emsdk@sha256:1e264934c11ffde8511441eaed6bdc44eaa30ec027e46d38be7ae67106aefdab",
+          "build_image_id": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "node_image": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "bridge_overlay": "workspace.1",
+          "baseline_native_wasm_identical": true,
+          "baseline_regression": "34 API/search/browser checks and 86 native conformance tests"
+        },
+        "overlay_version": "oras-sky-workspace.1",
+        "build_recipe": "scripts/runtime/build_sky_horizon.sh",
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf",
+        "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
+        "workspace_adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "artifact_hash_scope": "Application files excluding identity marker",
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        }
+      },
+      "earth": {
+        "upstream": "https://github.com/bilawalsidhu/gods-eye-view",
+        "sha": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+        "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
+        "runtime_version": "oras-earth.v1",
+        "cesium": "1.138.0",
+        "artifact_sha256": "bba92a4790578f33fe2cb128c9aa6d13a9578574eddd5c147cff4162d7b36e97",
+        "public_exports": [
+          "maps/controller",
+          "maps/defaults",
+          "maps/catalog",
+          "maps/imagery",
+          "sources/adsb-lol",
+          "sources/live",
+          "layers/satellites/source",
+          "sources/space",
+          "sources/regional",
+          "layers/earthquakes",
+          "layers/perimeters"
+        ],
+        "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
+        "source_input_sha256": "b452c4a3dfe69b4a892ce82434382cd8ca05d68cbfc11ec8a853bb52cf1e2684"
+      }
+    }
+  },
+  "nativeFrameSample": {
+    "samples": 30,
+    "elapsedMs": 1216.6000000000004,
+    "intervalsMs": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      33.40000000000009,
+      49.90000000000009,
+      33.29999999999973,
+      33.40000000000009,
+      33.40000000000009,
+      33.19999999999982,
+      50.09999999999991,
+      33.20000000000027,
+      33.5,
+      50,
+      33.29999999999973,
+      33.30000000000018,
+      33.30000000000018,
+      33.399999999999636,
+      50,
+      33.30000000000018,
+      33.30000000000018,
+      33.30000000000018,
+      50.099999999999454,
+      33.30000000000018,
+      33.30000000000018,
+      33.399999999999636,
+      49.900000000000546,
+      50,
+      50
+    ],
+    "medianMs": 33.40000000000009,
+    "p95Ms": 50.099999999999454,
+    "maxMs": 50.09999999999991,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "performanceNow": 4536.700000000012,
+    "resources": 133,
+    "scope": "Bounded requestAnimationFrame cadence under headless software rendering, no FPS gate or physical GPU qualification."
+  },
+  "hintZoomPacketsIn": 33,
+  "immediateHintRelease": {
+    "disabled": false,
+    "standalone": false,
+    "reembedded": false
+  },
+  "hintZoomPacketsOut": 6,
+  "hintZoomPacketsBack": 6,
+  "hintRemount": {
+    "before": false,
+    "after": true,
+    "fov": 4.793883850419292,
+    "contract": "No persistent satellite-hint preference is implemented in current native store/policy; new runtime defaults are observed."
+  },
+  "status": "PASS",
+  "finished": "2026-10-25T04:28:30.857Z"
+}
