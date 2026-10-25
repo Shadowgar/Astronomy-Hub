@@ -1,0 +1,1678 @@
+{
+  "status": "FAIL",
+  "base": "http://127.0.0.1:4227",
+  "source_sha256": {
+    "scripts/validation/verify_satellite_visual_pilot.mjs": "37a196f5f7c15ec2eb564790891766abb22a29c7bf6cae30899c4c6ef14f5281",
+    "runtimes/sky-adapter/plugin.js": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+    "runtimes/sky-adapter/entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13",
+    "frontend/src/features/workspace/TimeSurface.tsx": "4a60a044a3659d4fe837ecea5ffd06a6b2c8a5b117802a1989764038bdcba532",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "9a4da32e8b07d76483ad4b00208691f4572b304f5a3a0010e77be757b1dbee83",
+    "frontend/src/features/workspace/satelliteTimeStatus.ts": "d6878ea25c8538f1268967fa89a9e181551232d6512415ec81039f7da3eb233b"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "id": "61045",
+      "status": "FAIL",
+      "method": "wheel",
+      "errors": [],
+      "checks": [
+        "Unselected normal-FOV native point pixels and angular/pixel displacement at fixed camera during native1x fresh-source upcoming-pass simulation",
+        "Actual wheel/pinch input automatically reveals separate native symbol and label pixels without selection",
+        "Widening past7° hides identification and retains native point contribution",
+        "Real pointer/touch satellite selection and nativeTrack preserve pausedUTC,FOV,observer,atmosphere,landscape,NightMode"
+      ],
+      "servedSkyBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "initial": {
+        "wallUtc": "2026-10-25T06:52:01.913Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:22:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 3.040281755654,
+          "pitchRad": 1.295189237569,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.39370897005,
+        "radec": [
+          -0.000001140601,
+          0.000002959589,
+          0.000001523048,
+          1
+        ],
+        "viewVector": [
+          -2.7204175814926093e-13,
+          2.7361660677695167e-13,
+          -0.000003518495829246619,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "24163A",
+            "norad_number": 61045,
+            "source_id": "61045",
+            "tle": [
+              "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+              "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+            ]
+          },
+          "names": [
+            "NAME SPACEMOBILE-003",
+            "NORAD 61045",
+            "COSPAR 2024-163A"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SPACEMOBILE-003",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "feed": {
+        "status": "ok",
+        "data": {
+          "acquired_at": "2026-10-25T06:33:11.804049Z",
+          "acquisition_method": "GitHub immutable-revision retrieval; locally verified source bytes",
+          "authentication": {
+            "official_cross_check": "ISS 25544 only: extracted CelesTrak lines matched; other records not independently authenticated",
+            "trust_basis": "Pinned third-party mirror revision and published digest; every TLE checksum, identity and epoch revalidated",
+            "whole_file_first_party_authenticated": false
+          },
+          "byte_size": 15153,
+          "catalog_number_format": "tle_5_digit",
+          "citation": "USSPACECOM 18 SDS GP orbital elements via CelesTrak, redistributed by caelo-works/tle-mirror",
+          "compression_layers": 2,
+          "coverage": {
+            "description": "Limited visual-satellite pilot; 155 objects, not the full catalog.",
+            "full_catalog": false,
+            "kind": "visual_subset",
+            "record_count": 155
+          },
+          "duplicate_count": 0,
+          "epoch_max": "2026-10-24T07:55:39Z",
+          "epoch_min": "2026-10-20T18:54:34Z",
+          "feed_filename": "tle_satellite.jsonl.gz",
+          "freshness_at_acquisition": {
+            "fresh_record_count": 155,
+            "max_tle_age_days": 14,
+            "status": "fresh"
+          },
+          "identity_normalization": "Canonical decimal NORAD metadata and aliases; original zero-padded TLE fields unchanged",
+          "input_record_count": 155,
+          "malformed_count": 0,
+          "photometry": {
+            "baseline_filename": "baseline-native-feed.jsonl.gz",
+            "baseline_sha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436",
+            "join": "canonical NORAD string + original TLE international designator",
+            "live_brightness_claim": false,
+            "matched_record_count": 133,
+            "missing_magnitude_behavior": "Magnitude omitted; unchanged native SATELLITE_DEFAULT_MAG 7.0 applies",
+            "native_default_record_count": 22,
+            "source": "Preserved native catalog standard magnitudes; orbital epochs are not taken from this baseline"
+          },
+          "record_count": 155,
+          "release_version": "visual-pilot-20261025-38a1426",
+          "required_norad": {
+            "20580": true,
+            "25544": true,
+            "48274": true
+          },
+          "rollback": {
+            "action": "Remove task preview overrides to restore preserved original native feed",
+            "base_commit": "7f5ea4d0c069463852698c836b3cd80a13bd75cf",
+            "native_record_count": 14281,
+            "sha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436"
+          },
+          "schema_version": 1,
+          "sha256": "9f063125517b9a6cc990159009ec7e46b764dc6dd14afc7a4b44a651e5920185",
+          "six_digit_catalog_support": false,
+          "source_key": "celestrak_visual_gp_mirror_pilot",
+          "source_profile": "visual_satellite_pilot.v1",
+          "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+          "transport": {
+            "blob_sha1": "9cd799b4c016d0b89e38c32bce15f577271b2c89",
+            "mirror_fetch_at": "2026-10-25T04:50:13.0828324Z",
+            "mirror_job_id": "121079195976",
+            "mirror_run_id": "40163310433",
+            "mirror_updated_at": "2026-10-25T04:50:23Z",
+            "published_manifest_filename": "SHA256SUMS",
+            "published_manifest_sha256": "675f8ee1a02dfa915ca996263177cc6962f927ef0ecb3416e0d214a032f20646",
+            "published_manifest_url": "https://raw.githubusercontent.com/caelo-works/tle-mirror/38a142645e7814b538daaf5868b814550e1f0dda/tle/SHA256SUMS",
+            "repository": "caelo-works/tle-mirror",
+            "retrieval_method": "GitHub connector fetch_file, base64 committed blob",
+            "retrieval_url": "https://api.github.com/repos/caelo-works/tle-mirror/contents/tle/visual.tle?ref=38a142645e7814b538daaf5868b814550e1f0dda",
+            "revision": "38a142645e7814b538daaf5868b814550e1f0dda",
+            "sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_byte_processing": "Mirror normalizes CRLF to LF; retained source TLE values unchanged",
+            "source_filename": "visual.tle",
+            "url": "https://raw.githubusercontent.com/caelo-works/tle-mirror/38a142645e7814b538daaf5868b814550e1f0dda/tle/visual.tle"
+          },
+          "freshness_status": "fresh",
+          "nearest_tle_epoch": "2026-10-24T07:55:39Z",
+          "nearest_tle_age_days": 0.956,
+          "newest_tle_epoch": "2026-10-24T07:55:39Z",
+          "newest_tle_age_days": 0.956,
+          "mounted": true,
+          "status": "ready",
+          "reason": "Mounted CelesTrak satellite release is valid and fresh for the requested time.",
+          "release_manifest_available": true,
+          "release_validated": true,
+          "provenance_status": "validated_release",
+          "fresh_record_count": 155,
+          "stale_record_count": 0,
+          "unknown_epoch_count": 0,
+          "as_of_utc": "2026-10-25T06:52:01Z",
+          "max_tle_age_days": 14,
+          "epoch_median": "2026-10-24T04:04:10Z",
+          "tle_age_days_min": 0.956,
+          "tle_age_days_max": 4.498,
+          "selected": {
+            "norad_id": "61045",
+            "tle_epoch": "2026-10-22T11:07:58Z",
+            "tle_age_days": 2.822,
+            "freshness_status": "fresh",
+            "freshness_reference": "current_utc",
+            "as_of_utc": "2026-10-25T06:52:02Z"
+          }
+        },
+        "meta": {},
+        "error": null
+      },
+      "nativeSourceAudit": {
+        "count": 155,
+        "errors": []
+      },
+      "pointBefore": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-before-on.png",
+          "sha256": "df018b6d7e245f563ba9a11cac384f6daa75bdc3cb8fa69ecba1ca2499fa7e72"
+        },
+        "off": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-before-off.png",
+          "sha256": "3258606b4a327933a2acbe77b54f6a8b7aa89ab89017b67e0c7139bfa20717ee"
+        },
+        "pixels": {
+          "sum": 1560,
+          "pixels": 12,
+          "target": {
+            "x": 63.99996986843578,
+            "y": 63.99996969400427
+          },
+          "centroid": [
+            63.5,
+            63.5
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:52:05.654Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.39370897005,
+          "radec": [
+            -0.000001140601,
+            0.000002959589,
+            0.000001523048,
+            1
+          ],
+          "viewVector": [
+            -2.7204175814926093e-13,
+            2.7361660677695167e-13,
+            -0.000003518495829246619,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "motionBefore": {
+        "wallUtc": "2026-10-25T06:52:06.377Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:22:00.048Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 3.040281755654,
+          "pitchRad": 1.295189237569,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.393905970216,
+        "radec": [
+          -0.000001141975,
+          0.000002958067,
+          0.000001524207,
+          1
+        ],
+        "viewVector": [
+          -1.9373694980294868e-9,
+          1.2823519239677063e-9,
+          -0.000003518162710582894,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "24163A",
+            "norad_number": 61045,
+            "source_id": "61045",
+            "tle": [
+              "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+              "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+            ]
+          },
+          "names": [
+            "NAME SPACEMOBILE-003",
+            "NORAD 61045",
+            "COSPAR 2024-163A"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SPACEMOBILE-003",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "motionSamples": [
+        {
+          "wallUtc": "2026-10-25T06:52:06.377Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:00.048Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.393905970216,
+          "radec": [
+            -0.000001141975,
+            0.000002958067,
+            0.000001524207,
+            1
+          ],
+          "viewVector": [
+            -1.9373694980294868e-9,
+            1.2823519239677063e-9,
+            -0.000003518162710582894,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:52:08.427Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:02.088Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.403364801716,
+          "radec": [
+            -0.000001200363,
+            0.000002893277,
+            0.000001573419,
+            1
+          ],
+          "viewVector": [
+            -8.430087106043451e-8,
+            5.5764841529315656e-8,
+            -0.000003503905553185854,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:52:11.998Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:05.669Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.425144280946,
+          "radec": [
+            -0.000001302712,
+            0.000002779141,
+            0.000001659439,
+            1
+          ],
+          "viewVector": [
+            -2.289050209604205e-7,
+            1.5123169110250518e-7,
+            -0.000003478383606580992,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:52:15.307Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:08.062Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.44339473911,
+          "radec": [
+            -0.000001371004,
+            0.000002702582,
+            0.000001716662,
+            1
+          ],
+          "viewVector": [
+            -3.2555428146296943e-7,
+            2.1490622481355415e-7,
+            -0.0000034609766802654877,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:52:18.744Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:08.062Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.44339473911,
+          "radec": [
+            -0.000001371004,
+            0.000002702582,
+            0.000001716662,
+            1
+          ],
+          "viewVector": [
+            -3.2555428146296943e-7,
+            2.1490622481355415e-7,
+            -0.0000034609766802654877,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      ],
+      "motionAfter": {
+        "wallUtc": "2026-10-25T06:52:20.293Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:22:08.062Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 3.040281755654,
+          "pitchRad": 1.295189237569,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 5.44339473911,
+        "radec": [
+          -0.000001371004,
+          0.000002702582,
+          0.000001716662,
+          1
+        ],
+        "viewVector": [
+          -3.2555428146296943e-7,
+          2.1490622481355415e-7,
+          -0.0000034609766802654877,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "24163A",
+            "norad_number": 61045,
+            "source_id": "61045",
+            "tle": [
+              "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+              "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+            ]
+          },
+          "names": [
+            "NAME SPACEMOBILE-003",
+            "NORAD 61045",
+            "COSPAR 2024-163A"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SPACEMOBILE-003",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointAfter": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-after-on.png",
+          "sha256": "7cc45c094569626e99aae408cef668e8c8c9082f8f4677929187c14e006be15f"
+        },
+        "off": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-after-off.png",
+          "sha256": "2bf10ec4e91336145b72832f87dacd92d86dfdf35df502a5c44e6793579c5765"
+        },
+        "pixels": {
+          "sum": 1232,
+          "pixels": 9,
+          "target": {
+            "x": 27.45776428842511,
+            "y": 39.87758979015342
+          },
+          "centroid": [
+            26.834862385321102,
+            39.39449541284404
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:52:22.499Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:08.062Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.44339473911,
+          "radec": [
+            -0.000001371004,
+            0.000002702582,
+            0.000001716662,
+            1
+          ],
+          "viewVector": [
+            -3.2555428146296943e-7,
+            2.1490622481355415e-7,
+            -0.0000034609766802654877,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "angularDisplacementDeg": 6.416622266048459,
+      "pointPixelDisplacement": 43.87946749568342,
+      "close": {
+        "file": "output/satellite-visual-pilot/browser-qualified/1440x900-automatic-close.png",
+        "sha256": "bc387c142720b8e1863a316c3c5e84cc1e73c742b0af7a297c4b3fd6b2a93880",
+        "pixels": {
+          "symbol": 13,
+          "label": 343
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:52:38.980Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.39370897005,
+          "radec": [
+            -0.000001140601,
+            0.000002959589,
+            0.000001523048,
+            1
+          ],
+          "viewVector": [
+            -2.7204175814926093e-13,
+            2.7361660677695167e-13,
+            -0.000003518495829246619,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "indicator": "FOV 4.8°",
+      "widened": {
+        "file": "output/satellite-visual-pilot/browser-qualified/1440x900-widened.png",
+        "sha256": "09b1c4e9586ecd92703a4a6efc7b535bd490423abf0459579f1a902a5cf3f3ec",
+        "pixels": {
+          "symbol": 0,
+          "label": 0
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:52:42.407Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.136288077615,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.39370897005,
+          "radec": [
+            -0.000001140601,
+            0.000002959589,
+            0.000001523048,
+            1
+          ],
+          "viewVector": [
+            -2.7204175814926093e-13,
+            2.7361660677695167e-13,
+            -0.000003518495829246619,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "widePoint": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-widened-point-on.png",
+          "sha256": "09b1c4e9586ecd92703a4a6efc7b535bd490423abf0459579f1a902a5cf3f3ec"
+        },
+        "off": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-widened-point-off.png",
+          "sha256": "54c96fd2765147a794781678cd3ae640e8e17c1ced2e64136cdbe55b2a342d06"
+        },
+        "pixels": {
+          "sum": 124422,
+          "pixels": 196,
+          "target": {
+            "x": 63.999489618325185,
+            "y": 63.99948666372775
+          },
+          "centroid": [
+            63.62067801514202,
+            63.4872289466493
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:52:45.329Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.136288077615,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 5.39370897005,
+          "radec": [
+            -0.000001140601,
+            0.000002959589,
+            0.000001523048,
+            1
+          ],
+          "viewVector": [
+            -2.7204175814926093e-13,
+            2.7361660677695167e-13,
+            -0.000003518495829246619,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "returned": {
+        "file": "output/satellite-visual-pilot/browser-qualified/1440x900-close-return.png",
+        "sha256": "79881025d28c97dbb8c051fe08990db2188479aa1542c12c03e662f8d93842b5",
+        "pixels": {
+          "symbol": 13,
+          "label": 344
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:52:48.001Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:22:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": 3.040281755654,
+            "pitchRad": 1.295189237569,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 5.39370897005,
+          "radec": [
+            -0.000001140601,
+            0.000002959589,
+            0.000001523048,
+            1
+          ],
+          "viewVector": [
+            -2.7204175814926093e-13,
+            2.7361660677695167e-13,
+            -0.000003518495829246619,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "24163A",
+              "norad_number": 61045,
+              "source_id": "61045",
+              "tle": [
+                "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+                "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+              ]
+            },
+            "names": [
+              "NAME SPACEMOBILE-003",
+              "NORAD 61045",
+              "COSPAR 2024-163A"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SPACEMOBILE-003",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "trackingPaused": {
+        "wallUtc": "2026-10-25T06:52:50.834Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:22:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 3.040281755654,
+          "pitchRad": 1.295189237569,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": 61045,
+        "lock": 61045,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 5.39370897005,
+        "radec": [
+          -0.000001140601,
+          0.000002959589,
+          0.000001523048,
+          1
+        ],
+        "viewVector": [
+          -2.7204175814926093e-13,
+          2.7361660677695167e-13,
+          -0.000003518495829246619,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "24163A",
+            "norad_number": 61045,
+            "source_id": "61045",
+            "tle": [
+              "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+              "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+            ]
+          },
+          "names": [
+            "NAME SPACEMOBILE-003",
+            "NORAD 61045",
+            "COSPAR 2024-163A"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SPACEMOBILE-003",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):61045:tle_satellite",
+            "name": "SPACEMOBILE-003",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "61045",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "61045"
+              },
+              {
+                "label": "NORAD",
+                "value": "61045"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/SPACEMOBILE-003?catalog=Satellite+TLE+%28local%29&source_id=61045&model=tle_satellite&date=2026-10-25T10%3A22%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveBefore": {
+        "wallUtc": "2026-10-25T06:52:52.645Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T06:52:52.619Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 3.130847142622,
+          "pitchRad": -0.441567192042,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 61045,
+        "lock": 61045,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          0.000006046905,
+          0.000010238618,
+          -0.000041600831,
+          1
+        ],
+        "viewVector": [
+          1.899827484809728e-13,
+          4.819448944201783e-13,
+          -0.00004326688685957784,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "24163A",
+            "norad_number": 61045,
+            "source_id": "61045",
+            "tle": [
+              "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+              "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+            ]
+          },
+          "names": [
+            "NAME SPACEMOBILE-003",
+            "NORAD 61045",
+            "COSPAR 2024-163A"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SPACEMOBILE-003",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):61045:tle_satellite",
+            "name": "SPACEMOBILE-003",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "61045",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "61045"
+              },
+              {
+                "label": "NORAD",
+                "value": "61045"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/SPACEMOBILE-003?catalog=Satellite+TLE+%28local%29&source_id=61045&model=tle_satellite&date=2026-10-25T06%3A52%3A52.619Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "liveAfter": {
+        "wallUtc": "2026-10-25T06:52:54.694Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T06:52:54.670Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": 3.129317160598,
+          "pitchRad": -0.440551274627,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": 61045,
+        "lock": 61045,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 99,
+        "radec": [
+          0.000006008432,
+          0.000010291257,
+          -0.000041523304,
+          1
+        ],
+        "viewVector": [
+          -4.500124471933453e-13,
+          1.3716180697741914e-14,
+          -0.000043199490747173046,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "24163A",
+            "norad_number": 61045,
+            "source_id": "61045",
+            "tle": [
+              "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+              "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+            ]
+          },
+          "names": [
+            "NAME SPACEMOBILE-003",
+            "NORAD 61045",
+            "COSPAR 2024-163A"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SPACEMOBILE-003",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):61045:tle_satellite",
+            "name": "SPACEMOBILE-003",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "61045",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "61045"
+              },
+              {
+                "label": "NORAD",
+                "value": "61045"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/SPACEMOBILE-003?catalog=Satellite+TLE+%28local%29&source_id=61045&model=tle_satellite&date=2026-10-25T06%3A52%3A54.670Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "error": "apiRequestContext.get: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:4227/api/sky/satellite-feed?norad=61045\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/scripts/validation/verify_satellite_visual_pilot.mjs:24:881",
+      "url": "http://127.0.0.1:4227/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=61045&model=tle_satellite"
+    }
+  ],
+  "limits": [
+    "Fresh 155-record limited visual subset; native optical eligibility is conditional. No geometrically eligible sunlit dark-observer pass existed at the independently checked current instant.",
+    "Upcoming-pass replay at the declared October25 epoch uses native1x as a simulation, not current LiveUTC. The fixed-time Hub intent remains Paused; the native simulation clock is controlled explicitly by this evidence harness. UI Live/Paused actions are tested separately.",
+    "Point-isolation temporarily hides native satellites at a frozen instant. Native light-point and glyph pixels are measured separately.",
+    "Actual Chromium software rendering; mobile input/viewport emulated."
+  ],
+  "error": "locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('body')\u001b[22m\n\n    at /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/scripts/validation/verify_satellite_visual_pilot.mjs:25:241",
+  "source_unchanged": true
+}

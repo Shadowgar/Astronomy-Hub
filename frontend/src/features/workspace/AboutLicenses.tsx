@@ -20,7 +20,7 @@ export default function AboutLicenses({open,onClose}:{open:boolean;onClose:()=>v
   <p>Earth coordinate search reuses pinned God’s Eye code, © 2026 Bilawal Sidhu. <a href="/licenses/gods-eye-search-MIT.txt" target="_blank" rel="noreferrer">MIT license and notices</a>. Place results use Photon and <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a>.</p>
   <h3>Data and imagery credits</h3>
   <p><a href="/licenses/sky-data-credits.html" target="_blank" rel="noreferrer">Sky catalog, survey and image acknowledgments</a>. The native Sky credits control also retains the original acknowledgments. Earth imagery and provider credits remain visible on the map.</p>
-  <p>Additional Astronomy Hub sources include OpenNGC, NASA/JPL and the mounted CelesTrak Active GP/TLE catalog. Satellite positions are modeled; stale elements do not establish current visibility or catalog completeness.</p>
+  <p>Additional Astronomy Hub sources include OpenNGC, NASA/JPL and CelesTrak GP/TLE data. Sky's Change time details identify the mounted release's source and limited coverage when applicable. Satellite positions are modeled; stale elements do not establish current visibility or catalog completeness.</p>
   <p>The Pennsylvania woodland panorama is original illustrative artwork, not surveyed ORAS terrain. Its ridge heights are never scientific horizon measurements.</p>
  </dialog>
 }

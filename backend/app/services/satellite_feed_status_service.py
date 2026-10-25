@@ -23,10 +23,18 @@ from scripts.skydata.build_oras_satellite_tle_release import (
     read_validated_release,
 )
 
+from scripts.skydata.build_visual_satellite_pilot import (
+    SOURCE_PROFILE as VISUAL_PILOT_PROFILE,
+    BASELINE_FILENAME,
+    SOURCE_FILENAME,
+    SOURCE_MANIFEST_FILENAME,
+    read_validated_visual_release,
+)
 
 MANIFEST_PATH_ENV = "ORAS_SATELLITE_TLE_MANIFEST_PATH"
 FEED_PATH_ENV = "SATELLITE_TLE_FEED_PATH"
 MINIMUM_COUNT_ENV = "ORAS_SATELLITE_MINIMUM_COUNT"
+RELEASE_PROFILE_ENV = "ORAS_SATELLITE_RELEASE_PROFILE"
 
 
 def build_satellite_feed_status(*, time: str | None = None, norad: str | None = None) -> dict[str, Any]:
@@ -37,7 +45,13 @@ def build_satellite_feed_status(*, time: str | None = None, norad: str | None = 
     manifest_path = Path(os.getenv(MANIFEST_PATH_ENV, str(feed_path.with_name("manifest.json")))).resolve()
     minimum_count = os.getenv(MINIMUM_COUNT_ENV, str(DEFAULT_MINIMUM_COUNT))
 
-    snapshot = _feed_snapshot(str(feed_path), _file_identity(feed_path), str(manifest_path), _file_identity(manifest_path), minimum_count)
+    release_profile = os.getenv(RELEASE_PROFILE_ENV, "")
+    source_identity = (
+        _file_identity(feed_path.with_name(SOURCE_FILENAME)),
+        _file_identity(feed_path.with_name(SOURCE_MANIFEST_FILENAME)),
+        _file_identity(feed_path.with_name(BASELINE_FILENAME)),
+    ) if release_profile == VISUAL_PILOT_PROFILE else ()
+    snapshot = _feed_snapshot(str(feed_path), _file_identity(feed_path), str(manifest_path), _file_identity(manifest_path), minimum_count, release_profile, source_identity)
     epochs = snapshot["epochs"]
     count = snapshot["record_count"]
     freshness = _satellite_feed_freshness_from_epochs(as_of, epochs)
@@ -113,7 +127,7 @@ def _file_identity(path: Path) -> tuple[int, ...] | None:
 
 
 @lru_cache(maxsize=4)
-def _feed_snapshot(feed: str, feed_identity: tuple[int, ...] | None, manifest: str, manifest_identity: tuple[int, ...] | None, minimum_count: str) -> dict[str, Any]:
+def _feed_snapshot(feed: str, feed_identity: tuple[int, ...] | None, manifest: str, manifest_identity: tuple[int, ...] | None, minimum_count: str, release_profile: str = "", source_identity: tuple = ()) -> dict[str, Any]:
     """Parse once per mounted file generation, never once per status poll.
 
     Reuse the catalog parser without its path-only cache: this snapshot cache also
@@ -142,9 +156,16 @@ def _feed_snapshot(feed: str, feed_identity: tuple[int, ...] | None, manifest: s
             minimum = int(minimum_count)
             if minimum < 1:
                 raise ValueError("satellite minimum count must be positive")
-            release, _ = read_validated_release(Path(manifest).parent, minimum_count=minimum)
+            if release_profile == VISUAL_PILOT_PROFILE:
+                release, _ = read_validated_visual_release(Path(manifest).parent)
+            elif release_profile:
+                raise ValueError("unsupported satellite release profile")
+            else:
+                release, _ = read_validated_release(Path(manifest).parent, minimum_count=minimum)
+                if release.get("source_profile") is not None:
+                    raise ValueError("satellite source profile requires explicit task configuration")
             result.update(manifest=release, release_validated=True)
-        except (OSError, TypeError, ValueError) as exc:
+        except (OSError, EOFError, TypeError, ValueError, zlib.error) as exc:
             reason = "manifest.json is invalid" if isinstance(exc, json.JSONDecodeError) else str(exc).strip() or "release data is invalid"
             result["reason"] = f"Satellite release validation failed: {reason}"
     else:

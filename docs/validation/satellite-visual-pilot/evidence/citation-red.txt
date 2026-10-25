@@ -1,0 +1,41 @@
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/frontend
+
+ ❯ tests/workspaceTime.test.tsx (23 tests | 1 failed) 75ms
+   × discloses the admitted limited pilot in the compact status and source details 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspaceTime.test.tsx > discloses the admitted limited pilot in the compact status and source details
+AssertionError: expected '<section aria-label="Time details"><d…' to contain 'USSPACECOM / 18 SDS'
+
+- Expected
++ Received
+
+- USSPACECOM / 18 SDS
++ <section aria-label="Time details"><div class="ws-panel-heading"><h2>Change time</h2><button type="button" class="ws-icon-button" aria-label="Close panel" title="Close panel"><span class="ws-icon" aria-hidden="true"><svg
++   xmlns="http://www.w3.org/2000/svg"
++   width="24"
++   height="24"
++   viewBox="0 0 24 24"
++   fill="none"
++   stroke="currentColor"
++   stroke-width="2"
++   stroke-linecap="round"
++   stroke-linejoin="round"
++ >
++   <path d="M18 6 6 18" />
++   <path d="m6 6 12 12" />
++ </svg>
++ </span></button></div><form><label for="ws-date">Date and time · America/New_York</label><input id="ws-date" type="datetime-local" required="" value="2026-10-25T03:04"/><div class="ws-actions"><button type="button">−1h</button><button type="button">+1h</button><button type="button">Now</button><button class="ws-primary" type="submit">Apply</button></div></form><p class="ws-meta">Live advances at current astronomical time.</p><div class="ws-meta ws-satellite-time-details"><p>Limited visual-satellite pilot: 155 objects, not the full catalog. Current satellite elements: 155 fresh · 0 stale. Fresh elements do not establish visibility or brightness.</p></div></section>
+
+ ❯ tests/workspaceTime.test.tsx:34:519
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 22 passed (23)
+   Start at  03:04:55
+   Duration  470ms (transform 152ms, setup 0ms, import 277ms, tests 75ms, environment 0ms)

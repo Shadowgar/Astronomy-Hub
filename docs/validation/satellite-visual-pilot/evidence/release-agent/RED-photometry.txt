@@ -1,0 +1,1183 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                      [100%]
+=================================== FAILURES ===================================
+__ test_build_preserves_real_elements_and_declares_limited_mirror_provenance ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0')
+
+    def test_build_preserves_real_elements_and_declares_limited_mirror_provenance(sources, tmp_path):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:222:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_build_preserves_real_elem0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_____ test_builder_rejects_bytes_that_do_not_match_published_pins[source] ______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0')
+target = 'source'
+
+    @pytest.mark.parametrize("target", ["source", "manifest"])
+    def test_builder_rejects_bytes_that_do_not_match_published_pins(sources, tmp_path, target):
+        path = sources[0 if target == "source" else 1]
+        path.write_bytes(path.read_bytes() + b"tampered")
+        with pytest.raises(ValueError, match="checksum"):
+>           build(sources, tmp_path / "release")
+
+backend/tests/test_satellite_visual_pilot.py:268:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+____ test_builder_rejects_bytes_that_do_not_match_published_pins[manifest] _____
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1')
+target = 'manifest'
+
+    @pytest.mark.parametrize("target", ["source", "manifest"])
+    def test_builder_rejects_bytes_that_do_not_match_published_pins(sources, tmp_path, target):
+        path = sources[0 if target == "source" else 1]
+        path.write_bytes(path.read_bytes() + b"tampered")
+        with pytest.raises(ValueError, match="checksum"):
+>           build(sources, tmp_path / "release")
+
+backend/tests/test_satellite_visual_pilot.py:268:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_bytes_tha1/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+________________ test_builder_rejects_moving_or_wrong_revision _________________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0')
+
+    def test_builder_rejects_moving_or_wrong_revision(sources, tmp_path):
+        with pytest.raises(ValueError, match="revision"):
+>           build(sources, tmp_path / "release", source_revision="main")
+
+backend/tests/test_satellite_visual_pilot.py:274:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0/release')
+kwargs = {'source_revision': 'main'}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_moving_or0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_______ test_builder_rejects_original_epochs_aged_beyond_existing_window _______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0')
+
+    def test_builder_rejects_original_epochs_aged_beyond_existing_window(sources, tmp_path):
+        with pytest.raises(ValueError, match="fresh"):
+>           build(sources, tmp_path / "release", acquired_at=datetime(2026, 11, 10, tzinfo=timezone.utc))
+
+backend/tests/test_satellite_visual_pilot.py:279:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_original_0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+__ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[checksum] __
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0')
+change = 'checksum'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[count] ____
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1')
+change = 'count'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere1/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[required_id] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2')
+change = 'required_id'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere2/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+__ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[identity] __
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3')
+change = 'identity'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere3/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[epoch] ____
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4')
+change = 'epoch'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere4/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[photometry] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5')
+change = 'photometry'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere5/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[provenance] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6')
+change = 'provenance'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:285:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_tampere6/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+__ test_validator_rejects_false_manifest_claims[source_profile-full_catalog] ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0')
+field = 'source_profile', value = 'full_catalog'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_______ test_validator_rejects_false_manifest_claims[record_count-1000] ________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1')
+field = 'record_count', value = 1000
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m1/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_validator_rejects_false_manifest_claims[source_key-celestrak_active_gp] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2')
+field = 'source_key', value = 'celestrak_active_gp'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m2/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_validator_rejects_false_manifest_claims[six_digit_catalog_support-True] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3')
+field = 'six_digit_catalog_support', value = True
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m3/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_validator_rejects_false_manifest_claims[acquired_at-2026-11-10T00:00:00Z] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4')
+field = 'acquired_at', value = '2026-11-10T00:00:00Z'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m4/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_validator_rejects_false_manifest_claims[acquired_at-2026-10-25T08:00:00] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5')
+field = 'acquired_at', value = '2026-10-25T08:00:00'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m5/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+________ test_validator_rejects_false_manifest_claims[coverage-value6] _________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6')
+field = 'coverage', value = {'full_catalog': True, 'kind': 'full'}
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m6/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_____ test_validator_rejects_false_manifest_claims[required_norad-value7] ______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7')
+field = 'required_norad', value = {}
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:323:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_validator_rejects_false_m7/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_____________ test_full_catalog_minimum_still_rejects_155_records ______________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0')
+
+    def test_full_catalog_minimum_still_rejects_155_records(sources, tmp_path):
+        with pytest.raises(ValueError, match="below minimum 1000"):
+            build_release(input_path=sources[0], output_dir=tmp_path / "full",
+                          release_version="full", acquired_at=AS_OF,
+                          minimum_count=DEFAULT_MINIMUM_COUNT, required_norad=("25544", "20580"))
+        release = tmp_path / "pilot"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:336:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0/pilot')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_full_catalog_minimum_stil0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_ test_backend_requires_explicit_profile_and_binds_snapshot_cache_to_configuration _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275dfa5c70>
+
+    def test_backend_requires_explicit_profile_and_binds_snapshot_cache_to_configuration(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:343:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_requires_explicit0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+______ test_backend_ages_valid_profile_without_relabeling_original_epochs ______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275dfa7920>
+
+    def test_backend_ages_valid_profile_without_relabeling_original_epochs(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:361:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_ages_valid_profil0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_______________ test_backend_revalidates_source_artifact_changes _______________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275dfa4380>
+
+    def test_backend_revalidates_source_artifact_changes(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:373:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_sourc0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___ test_backend_degrades_for_malformed_pilot_manifest_shapes[bad_manifest0] ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275df43f80>
+bad_manifest = []
+
+    @pytest.mark.parametrize("bad_manifest", [[], None, {"transport": None}, {"transport": []}])
+    def test_backend_degrades_for_malformed_pilot_manifest_shapes(sources, tmp_path, monkeypatch, bad_manifest):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:383:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_______ test_backend_degrades_for_malformed_pilot_manifest_shapes[None] ________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275df42840>
+bad_manifest = None
+
+    @pytest.mark.parametrize("bad_manifest", [[], None, {"transport": None}, {"transport": []}])
+    def test_backend_degrades_for_malformed_pilot_manifest_shapes(sources, tmp_path, monkeypatch, bad_manifest):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:383:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf1/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___ test_backend_degrades_for_malformed_pilot_manifest_shapes[bad_manifest2] ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275e0cef00>
+bad_manifest = {'transport': None}
+
+    @pytest.mark.parametrize("bad_manifest", [[], None, {"transport": None}, {"transport": []}])
+    def test_backend_degrades_for_malformed_pilot_manifest_shapes(sources, tmp_path, monkeypatch, bad_manifest):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:383:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf2/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___ test_backend_degrades_for_malformed_pilot_manifest_shapes[bad_manifest3] ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275df8dc70>
+bad_manifest = {'transport': []}
+
+    @pytest.mark.parametrize("bad_manifest", [[], None, {"transport": None}, {"transport": []}])
+    def test_backend_degrades_for_malformed_pilot_manifest_shapes(sources, tmp_path, monkeypatch, bad_manifest):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:383:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_degrades_for_malf3/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___ test_backend_revalidates_missing_or_changed_source_artifacts[visual.tle] ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275df8f1a0>
+filename = 'visual.tle'
+
+    @pytest.mark.parametrize("filename", ["visual.tle", "SHA256SUMS"])
+    def test_backend_revalidates_missing_or_changed_source_artifacts(sources, tmp_path, monkeypatch, filename):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:395:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___ test_backend_revalidates_missing_or_changed_source_artifacts[SHA256SUMS] ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275df8ffe0>
+filename = 'SHA256SUMS'
+
+    @pytest.mark.parametrize("filename", ["visual.tle", "SHA256SUMS"])
+    def test_backend_revalidates_missing_or_changed_source_artifacts(sources, tmp_path, monkeypatch, filename):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:395:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_missi1/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+________ test_backend_pilot_cannot_use_alternate_feed_or_split_manifest ________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275df8cbf0>
+
+    def test_backend_pilot_cannot_use_alternate_feed_or_split_manifest(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:406:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_pilot_cannot_use_0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+______________ test_backend_rejects_unknown_profile_configuration ______________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275df42cc0>
+
+    def test_backend_rejects_unknown_profile_configuration(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:420:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_rejects_unknown_p0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+___________ test_builder_rejects_modified_native_photometry_baseline ___________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0')
+
+    def test_builder_rejects_modified_native_photometry_baseline(sources, tmp_path):
+        changed = tmp_path / "native.jsonl.gz"
+        changed.write_bytes(NATIVE_BASELINE.read_bytes() + b"tampered")
+        with pytest.raises(ValueError, match="baseline.*checksum"):
+>           build(sources, tmp_path / "release", native_baseline_path=changed)
+
+backend/tests/test_satellite_visual_pilot.py:433:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_builder_rejects_modified_0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+_______ test_photometry_requires_both_canonical_identity_and_designator ________
+
+    def test_photometry_requires_both_canonical_identity_and_designator():
+        records = [
+            {"model_data": {"source_id": "00694", "tle": ["1 00694U 63047A   "]}},
+            {"model_data": {"source_id": "25544", "tle": ["1 25544U 98067A   "]}},
+            {"model_data": {"source_id": "69591", "tle": ["1 69591U 26139C   "]}},
+        ]
+        baseline = [
+            {"model_data": {"norad_number": 694, "tle": ["1 00694U 63047A   "], "mag": 2.7}},
+            {"model_data": {"norad_number": 25544, "tle": ["1 25544U 00000A   "], "mag": -1.3}},
+        ]
+        before_tles = [r["model_data"]["tle"][:] for r in records]
+>       counts = pilot()._retain_native_photometry(records, baseline)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'scripts.skydata.build_visual_satellite_pilot' has no attribute '_retain_native_photometry'
+
+backend/tests/test_satellite_visual_pilot.py:447: AttributeError
+_________ test_backend_revalidates_changed_native_photometry_baseline __________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f275dfa5c70>
+
+    def test_backend_revalidates_changed_native_photometry_baseline(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:457:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0/SHA256SUMS'))
+output = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0/release')
+kwargs = {}
+raw = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0/visual.tle')
+sums = PosixPath('/tmp/pytest-of-rocco/pytest-4/test_backend_revalidates_chang0/SHA256SUMS')
+
+    def build(sources, output, **kwargs):
+        raw, sums = sources
+>       return pilot().build_visual_release(
+            input_path=raw, source_manifest_path=sums, output_dir=output,
+            native_baseline_path=kwargs.pop("native_baseline_path", NATIVE_BASELINE),
+            release_version="2026.10.25.visual.1", acquired_at=kwargs.pop("acquired_at", AS_OF),
+            **kwargs,
+        )
+E       TypeError: build_visual_release() got an unexpected keyword argument 'native_baseline_path'
+
+backend/tests/test_satellite_visual_pilot.py:198: TypeError
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_visual_pilot.py::test_build_preserves_real_elements_and_declares_limited_mirror_provenance
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_bytes_that_do_not_match_published_pins[source]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_bytes_that_do_not_match_published_pins[manifest]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_moving_or_wrong_revision
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_original_epochs_aged_beyond_existing_window
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[checksum]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[count]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[required_id]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[identity]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[epoch]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[photometry]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[provenance]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[source_profile-full_catalog]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[record_count-1000]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[source_key-celestrak_active_gp]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[six_digit_catalog_support-True]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[acquired_at-2026-11-10T00:00:00Z]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[acquired_at-2026-10-25T08:00:00]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[coverage-value6]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[required_norad-value7]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_full_catalog_minimum_still_rejects_155_records
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_requires_explicit_profile_and_binds_snapshot_cache_to_configuration
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_ages_valid_profile_without_relabeling_original_epochs
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_revalidates_source_artifact_changes
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_degrades_for_malformed_pilot_manifest_shapes[bad_manifest0]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_degrades_for_malformed_pilot_manifest_shapes[None]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_degrades_for_malformed_pilot_manifest_shapes[bad_manifest2]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_degrades_for_malformed_pilot_manifest_shapes[bad_manifest3]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_revalidates_missing_or_changed_source_artifacts[visual.tle]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_revalidates_missing_or_changed_source_artifacts[SHA256SUMS]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_pilot_cannot_use_alternate_feed_or_split_manifest
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_rejects_unknown_profile_configuration
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_modified_native_photometry_baseline
+FAILED backend/tests/test_satellite_visual_pilot.py::test_photometry_requires_both_canonical_identity_and_designator
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_revalidates_changed_native_photometry_baseline
+35 failed in 1.37s

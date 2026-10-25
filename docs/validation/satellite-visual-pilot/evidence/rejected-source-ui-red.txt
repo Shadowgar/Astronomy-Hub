@@ -1,0 +1,54 @@
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/frontend
+
+ ❯ tests/workspaceTime.test.tsx (24 tests | 1 failed) 52ms
+   × does not present fresh epochs from a rejected release as qualified source data 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspaceTime.test.tsx > does not present fresh epochs from a rejected release as qualified source data
+AssertionError: expected '<div class="ws-time ws-panel ws-chrom…' to contain 'Unavailable'
+
+- Expected
++ Received
+
+- Unavailable
++ <div class="ws-time ws-panel ws-chrome" role="group" aria-label="Scene time"><span class="ws-icon" aria-hidden="true"><svg
++   xmlns="http://www.w3.org/2000/svg"
++   width="24"
++   height="24"
++   viewBox="0 0 24 24"
++   fill="none"
++   stroke="currentColor"
++   stroke-width="2"
++   stroke-linecap="round"
++   stroke-linejoin="round"
++ >
++   <circle cx="12" cy="12" r="10" />
++   <path d="M12 6v6l4 2" />
++ </svg>
++ </span><div class="ws-time-main"><div class="ws-time-status"><span class="ws-badge ws-badge--live">Live</span></div><span class="ws-time-label">Oct 25, 3:08 AM EDT</span></div><button data-ws-trigger="time" class="ws-link">Change time<span class="ws-icon" aria-hidden="true"><svg
++   xmlns="http://www.w3.org/2000/svg"
++   width="24"
++   height="24"
++   viewBox="0 0 24 24"
++   fill="none"
++   stroke="currentColor"
++   stroke-width="2"
++   stroke-linecap="round"
++   stroke-linejoin="round"
++ >
++   <path d="m18 15-6-6-6 6" />
++ </svg>
++ </span></button></div>
+
+ ❯ tests/workspaceTime.test.tsx:37:369
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 23 passed (24)
+   Start at  03:08:56
+   Duration  410ms (transform 146ms, setup 0ms, import 251ms, tests 52ms, environment 0ms)

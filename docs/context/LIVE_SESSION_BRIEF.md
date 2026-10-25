@@ -1,5 +1,25 @@
 # LIVE SESSION BRIEF
 
+## Limited visual-satellite pilot — owner directive 2026-10-25
+
+The owner authorizes a bounded fresh-data pilot from preserved draft PR101
+`7f5ea4d0c069463852698c836b3cd80a13bd75cf`, isolated on
+`sky-satellite-visual-pilot-1`. Investigate pinned caelo-works/tle-mirror revision
+`38a142645e7814b538daaf5868b814550e1f0dda` visual.tle,155records, with
+independent source rights/provenance/hash/epoch qualification. A separate explicit
+limited release profile must preserve the full-catalog minimum1000 and original
+14281-record feed. Native and backend must read the same admitted read-only pilot;
+actual current/upcoming-pass optical motion requires new browser proof. Historical
+June tests cannot qualify today's satellites. Preserve PR101, PS1–PS3, accepted
+navigation/scenery, scientific math/data, pins, settings, mounts and rollback.
+No production data promotion, merge, deployment, unrelated redesign or X2 expansion.
+The limited source is admitted with citation; actual fresh-source three-viewport
+native motion/control and16 focused navigation checkpoints pass. The morning
+pass video is explicitly simulation; current source freshness is distinct from
+optical eligibility and absolute-position precision. Owner/device acceptance,
+whole-file first-party authentication and ongoing refresh remain open.
+Stop for owner functional review. [Plan and evidence](../validation/satellite-visual-pilot/README.md).
+
 ## Focused Sky satellite repair — owner directive 2026-10-24
 
 The owner authorizes a bounded repair stacked on preserved draft PR95

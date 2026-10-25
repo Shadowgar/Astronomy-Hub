@@ -315,6 +315,24 @@ def lookup_gaia_dr2_source(source_id: int, database_url: str | None = None) -> d
 
 
 def build_sky_search_payload(query: str, database_url: str | None = None) -> dict:
+    # Native satellite selection supplies an exact NORAD identity. Resolve it
+    # from the configured orbital feed before loading unrelated star/DSO packs.
+    norad = re.fullmatch(r"\s*NORAD\s+([0-9]{1,9})\s*", query, re.IGNORECASE)
+    if norad:
+        source_status = "available"
+        try:
+            results = [lookup_satellite_tle(str(int(norad.group(1))))]
+        except OSError:
+            results = []
+            source_status = "unavailable"
+        except ValueError:
+            results = []
+        return {
+            "status": "ok",
+            "data": {"query": query, "recognized_query": True, "results": results},
+            "meta": {"match_type": "satellite_norad_id", "source_status": source_status},
+        }
+
     gaia_source_id = parse_gaia_dr2_query(query)
     if gaia_source_id is not None:
         result = lookup_gaia_dr2_source(gaia_source_id, database_url)

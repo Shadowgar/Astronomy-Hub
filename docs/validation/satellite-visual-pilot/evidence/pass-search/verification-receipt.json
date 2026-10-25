@@ -1,0 +1,36 @@
+{
+  "checks": "PASS",
+  "records": 155,
+  "windows": 104,
+  "shortlist_count": 10,
+  "all_window_peak_samples_pass": true,
+  "tle_lines_match_independent_candidate_audit": true,
+  "kernel_hash_matches_admitted_manifest": true,
+  "stderr_bytes": 0,
+  "command": "/home/rocco/Astronomy-Hub/.venv/bin/python output/satellite-visual-pilot/pass-search/search_passes.py > output/satellite-visual-pilot/pass-search/run.stdout.json 2> output/satellite-visual-pilot/pass-search/run.stderr.txt",
+  "runtime_changes": "none",
+  "browser_qualification": "not performed by this scientific helper",
+  "read_only_kernel_discovery": "docker inspect oras-satellite-live-backend --format {{json .Mounts}}; initial sandbox attempt permission denied; approved read-only escalation succeeded",
+  "files": {
+    "REPORT.md": {
+      "bytes": 1762,
+      "sha256": "26e7a29da5f4e4e2b8d69275fd7a89d66f60e1129697165e9d460786e36dd54f"
+    },
+    "pass-search.json": {
+      "bytes": 295351,
+      "sha256": "efba60c00221ac321319b4849cfec34a661ac02c9a9dbd4c8a658d3aacb8c506"
+    },
+    "run.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "run.stdout.json": {
+      "bytes": 3466,
+      "sha256": "25414d2da30581d9e971a0bb16d3494707a36f3b9a80a7d1c27a496f238194dc"
+    },
+    "search_passes.py": {
+      "bytes": 9510,
+      "sha256": "6d35eaad991508b14b4423dc514c5128ed46637d17296c231781b8bf57867e29"
+    }
+  }
+}

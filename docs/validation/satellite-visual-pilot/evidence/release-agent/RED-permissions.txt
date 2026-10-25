@@ -1,0 +1,23 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_public_release_artifacts_are_readable_by_backend_and_nginx_workers ____
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-6/test_public_release_artifacts_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-6/test_public_release_artifacts_0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-6/test_public_release_artifacts_0')
+
+    def test_public_release_artifacts_are_readable_by_backend_and_nginx_workers(sources, tmp_path):
+        release = tmp_path / "release"
+        manifest = build(sources, release)
+        for filename in ("visual.tle", "SHA256SUMS", "baseline-native-feed.jsonl.gz", "tle_satellite.jsonl.gz", "manifest.json"):
+            path = release / filename
+>           assert path.stat().st_mode & 0o777 == 0o644, f"{filename} must be readable by preview service users"
+E           AssertionError: visual.tle must be readable by preview service users
+E           assert (33152 & 511) == 420
+E            +  where 33152 = os.stat_result(st_mode=33152, st_ino=6616476, st_dev=2080, st_nlink=1, st_uid=1001, st_gid=1001, st_size=25575, st_atime=1792910574, st_mtime=1792910574, st_ctime=1792910574).st_mode
+E            +    where os.stat_result(st_mode=33152, st_ino=6616476, st_dev=2080, st_nlink=1, st_uid=1001, st_gid=1001, st_size=25575, st_atime=1792910574, st_mtime=1792910574, st_ctime=1792910574) = stat()
+E            +      where stat = PosixPath('/tmp/pytest-of-rocco/pytest-6/test_public_release_artifacts_0/release/visual.tle').stat
+
+backend/tests/test_satellite_visual_pilot.py:471: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_visual_pilot.py::test_public_release_artifacts_are_readable_by_backend_and_nginx_workers
+1 failed, 35 deselected in 1.21s

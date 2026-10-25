@@ -1,0 +1,103 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_exact_norad_selection_uses_mounted_elements_without_loading_star_catalogs[NORAD 61045] _
+
+mounted_satellite = {'model': 'tle_satellite', 'model_data': {'norad_number': 61045, 'source_id': '61045', 'tle': ['1 61045U 24163A   2629... 227.6559 15.20290746117132']}, 'names': ['NAME SPACEMOBILE-003', 'NORAD 61045'], 'short_name': 'SPACEMOBILE-003', ...}
+query = 'NORAD 61045'
+
+    @pytest.mark.parametrize("query", ["NORAD 61045", "  norad 061045  "])
+    def test_exact_norad_selection_uses_mounted_elements_without_loading_star_catalogs(mounted_satellite, query):
+>       result = service.build_sky_search_payload(query)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_norad_search.py:35:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/app/services/sky_catalog_service.py:331: in build_sky_search_payload
+    pack_results = search_catalog_packs(query)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_args = ('NORAD 61045',)
+
+>   monkeypatch.setattr(service, name, lambda *_args: pytest.fail("Exact NORAD lookup loaded unrelated catalogs"))
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Exact NORAD lookup loaded unrelated catalogs
+
+backend/tests/test_satellite_norad_search.py:28: Failed
+_ test_exact_norad_selection_uses_mounted_elements_without_loading_star_catalogs[  norad 061045  ] _
+
+mounted_satellite = {'model': 'tle_satellite', 'model_data': {'norad_number': 61045, 'source_id': '61045', 'tle': ['1 61045U 24163A   2629... 227.6559 15.20290746117132']}, 'names': ['NAME SPACEMOBILE-003', 'NORAD 61045'], 'short_name': 'SPACEMOBILE-003', ...}
+query = '  norad 061045  '
+
+    @pytest.mark.parametrize("query", ["NORAD 61045", "  norad 061045  "])
+    def test_exact_norad_selection_uses_mounted_elements_without_loading_star_catalogs(mounted_satellite, query):
+>       result = service.build_sky_search_payload(query)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_norad_search.py:35:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/app/services/sky_catalog_service.py:331: in build_sky_search_payload
+    pack_results = search_catalog_packs(query)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_args = ('  norad 061045  ',)
+
+>   monkeypatch.setattr(service, name, lambda *_args: pytest.fail("Exact NORAD lookup loaded unrelated catalogs"))
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Exact NORAD lookup loaded unrelated catalogs
+
+backend/tests/test_satellite_norad_search.py:28: Failed
+_ test_missing_norad_returns_empty_exact_result_without_scanning_other_catalogs _
+
+mounted_satellite = {'model': 'tle_satellite', 'model_data': {'norad_number': 61045, 'source_id': '61045', 'tle': ['1 61045U 24163A   2629... 227.6559 15.20290746117132']}, 'names': ['NAME SPACEMOBILE-003', 'NORAD 61045'], 'short_name': 'SPACEMOBILE-003', ...}
+
+    def test_missing_norad_returns_empty_exact_result_without_scanning_other_catalogs(mounted_satellite):
+>       result = service.build_sky_search_payload("NORAD 99999")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_norad_search.py:46:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/app/services/sky_catalog_service.py:331: in build_sky_search_payload
+    pack_results = search_catalog_packs(query)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_args = ('NORAD 99999',)
+
+>   monkeypatch.setattr(service, name, lambda *_args: pytest.fail("Exact NORAD lookup loaded unrelated catalogs"))
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Exact NORAD lookup loaded unrelated catalogs
+
+backend/tests/test_satellite_norad_search.py:28: Failed
+_ test_unavailable_satellite_feed_is_reported_without_scanning_other_catalogs __
+
+mounted_satellite = {'model': 'tle_satellite', 'model_data': {'norad_number': 61045, 'source_id': '61045', 'tle': ['1 61045U 24163A   2629... 227.6559 15.20290746117132']}, 'names': ['NAME SPACEMOBILE-003', 'NORAD 61045'], 'short_name': 'SPACEMOBILE-003', ...}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fd66949e990>
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-11/test_unavailable_satellite_fee0')
+
+    def test_unavailable_satellite_feed_is_reported_without_scanning_other_catalogs(mounted_satellite, monkeypatch, tmp_path):
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(tmp_path / "missing"))
+>       result = service.build_sky_search_payload("NORAD 61045")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_norad_search.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/app/services/sky_catalog_service.py:331: in build_sky_search_payload
+    pack_results = search_catalog_packs(query)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_args = ('NORAD 61045',)
+
+>   monkeypatch.setattr(service, name, lambda *_args: pytest.fail("Exact NORAD lookup loaded unrelated catalogs"))
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: Exact NORAD lookup loaded unrelated catalogs
+
+backend/tests/test_satellite_norad_search.py:28: Failed
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_norad_search.py::test_exact_norad_selection_uses_mounted_elements_without_loading_star_catalogs[NORAD 61045]
+FAILED backend/tests/test_satellite_norad_search.py::test_exact_norad_selection_uses_mounted_elements_without_loading_star_catalogs[  norad 061045  ]
+FAILED backend/tests/test_satellite_norad_search.py::test_missing_norad_returns_empty_exact_result_without_scanning_other_catalogs
+FAILED backend/tests/test_satellite_norad_search.py::test_unavailable_satellite_feed_is_reported_without_scanning_other_catalogs
+4 failed in 0.64s

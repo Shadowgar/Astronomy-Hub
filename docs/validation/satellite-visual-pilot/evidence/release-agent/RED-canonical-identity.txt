@@ -1,0 +1,23 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_pilot_canonical_norad_alias_resolves_zero_padded_source_without_changing_tle _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-8/test_pilot_canonical_norad_ali0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-8/test_pilot_canonical_norad_ali0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-8/test_pilot_canonical_norad_ali0')
+
+    def test_pilot_canonical_norad_alias_resolves_zero_padded_source_without_changing_tle(sources, tmp_path):
+        release = tmp_path / "release"
+        build(sources, release)
+        records = _read_nested_records(release / "tle_satellite.jsonl.gz")
+        atlas = next(record for record in records if record["model_data"]["norad_number"] == 694)
+>       assert atlas["model_data"]["source_id"] == "694"
+E       AssertionError: assert '00694' == '694'
+E
+E         - 694
+E         + 00694
+E         ? ++
+
+backend/tests/test_satellite_visual_pilot.py:482: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_visual_pilot.py::test_pilot_canonical_norad_alias_resolves_zero_padded_source_without_changing_tle
+1 failed, 36 deselected in 1.19s

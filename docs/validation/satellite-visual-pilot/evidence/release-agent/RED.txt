@@ -1,0 +1,937 @@
+FFFFFFFFFFFFFFFFFFFFFFFF                                                 [100%]
+=================================== FAILURES ===================================
+__ test_build_preserves_real_elements_and_declares_limited_mirror_provenance ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_build_preserves_real_elem0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_build_preserves_real_elem0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_build_preserves_real_elem0')
+
+    def test_build_preserves_real_elements_and_declares_limited_mirror_provenance(sources, tmp_path):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:220:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_____ test_builder_rejects_bytes_that_do_not_match_published_pins[source] ______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_bytes_tha0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_bytes_tha0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_bytes_tha0')
+target = 'source'
+
+    @pytest.mark.parametrize("target", ["source", "manifest"])
+    def test_builder_rejects_bytes_that_do_not_match_published_pins(sources, tmp_path, target):
+        path = sources[0 if target == "source" else 1]
+        path.write_bytes(path.read_bytes() + b"tampered")
+        with pytest.raises(ValueError, match="checksum"):
+>           build(sources, tmp_path / "release")
+
+backend/tests/test_satellite_visual_pilot.py:258:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+____ test_builder_rejects_bytes_that_do_not_match_published_pins[manifest] _____
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_bytes_tha1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_bytes_tha1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_bytes_tha1')
+target = 'manifest'
+
+    @pytest.mark.parametrize("target", ["source", "manifest"])
+    def test_builder_rejects_bytes_that_do_not_match_published_pins(sources, tmp_path, target):
+        path = sources[0 if target == "source" else 1]
+        path.write_bytes(path.read_bytes() + b"tampered")
+        with pytest.raises(ValueError, match="checksum"):
+>           build(sources, tmp_path / "release")
+
+backend/tests/test_satellite_visual_pilot.py:258:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+________________ test_builder_rejects_moving_or_wrong_revision _________________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_moving_or0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_moving_or0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_moving_or0')
+
+    def test_builder_rejects_moving_or_wrong_revision(sources, tmp_path):
+        with pytest.raises(ValueError, match="revision"):
+>           build(sources, tmp_path / "release", source_revision="main")
+
+backend/tests/test_satellite_visual_pilot.py:264:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_______ test_builder_rejects_original_epochs_aged_beyond_existing_window _______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_original_0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_original_0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_builder_rejects_original_0')
+
+    def test_builder_rejects_original_epochs_aged_beyond_existing_window(sources, tmp_path):
+        with pytest.raises(ValueError, match="fresh"):
+>           build(sources, tmp_path / "release", acquired_at=datetime(2026, 11, 10, tzinfo=timezone.utc))
+
+backend/tests/test_satellite_visual_pilot.py:269:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+__ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[checksum] __
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere0')
+change = 'checksum'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:275:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+___ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[count] ____
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere1')
+change = 'count'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:275:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[required_id] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere2/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere2')
+change = 'required_id'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:275:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+__ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[identity] __
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere3/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere3')
+change = 'identity'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:275:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+___ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[epoch] ____
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere4/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere4/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere4')
+change = 'epoch'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:275:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[photometry] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere5/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere5/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere5')
+change = 'photometry'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:275:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_validator_rejects_tampered_feed_even_with_updated_feed_hash[provenance] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere6/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere6/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_tampere6')
+change = 'provenance'
+
+    @pytest.mark.parametrize("change", ["checksum", "count", "required_id", "identity", "epoch", "photometry", "provenance"])
+    def test_validator_rejects_tampered_feed_even_with_updated_feed_hash(sources, tmp_path, change):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:275:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+__ test_validator_rejects_false_manifest_claims[source_profile-full_catalog] ___
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m0')
+field = 'source_profile', value = 'full_catalog'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_______ test_validator_rejects_false_manifest_claims[record_count-1000] ________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m1/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m1/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m1')
+field = 'record_count', value = 1000
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_validator_rejects_false_manifest_claims[source_key-celestrak_active_gp] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m2/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m2/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m2')
+field = 'source_key', value = 'celestrak_active_gp'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_validator_rejects_false_manifest_claims[six_digit_catalog_support-True] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m3/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m3/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m3')
+field = 'six_digit_catalog_support', value = True
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_validator_rejects_false_manifest_claims[acquired_at-2026-11-10T00:00:00Z] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m4/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m4/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m4')
+field = 'acquired_at', value = '2026-11-10T00:00:00Z'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_validator_rejects_false_manifest_claims[acquired_at-2026-10-25T08:00:00] _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m5/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m5/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m5')
+field = 'acquired_at', value = '2026-10-25T08:00:00'
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+________ test_validator_rejects_false_manifest_claims[coverage-value6] _________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m6/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m6/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m6')
+field = 'coverage', value = {'full_catalog': True, 'kind': 'full'}
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_____ test_validator_rejects_false_manifest_claims[required_norad-value7] ______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m7/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m7/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_validator_rejects_false_m7')
+field = 'required_norad', value = {}
+
+    @pytest.mark.parametrize("field,value", [
+        ("source_profile", "full_catalog"), ("record_count", 1000),
+        ("source_key", "celestrak_active_gp"), ("six_digit_catalog_support", True),
+        ("acquired_at", "2026-11-10T00:00:00Z"),
+        ("acquired_at", "2026-10-25T08:00:00"),
+        ("coverage", {"kind": "full", "full_catalog": True}),
+        ("required_norad", {}),
+    ])
+    def test_validator_rejects_false_manifest_claims(sources, tmp_path, field, value):
+        release = tmp_path / "release"
+>       manifest = build(sources, release)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_satellite_visual_pilot.py:313:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_____________ test_full_catalog_minimum_still_rejects_155_records ______________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_full_catalog_minimum_stil0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_full_catalog_minimum_stil0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_full_catalog_minimum_stil0')
+
+    def test_full_catalog_minimum_still_rejects_155_records(sources, tmp_path):
+        with pytest.raises(ValueError, match="below minimum 1000"):
+            build_release(input_path=sources[0], output_dir=tmp_path / "full",
+                          release_version="full", acquired_at=AS_OF,
+                          minimum_count=DEFAULT_MINIMUM_COUNT, required_norad=("25544", "20580"))
+        release = tmp_path / "pilot"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:326:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_ test_backend_requires_explicit_profile_and_binds_snapshot_cache_to_configuration _
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_requires_explicit0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_requires_explicit0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_requires_explicit0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1942e85550>
+
+    def test_backend_requires_explicit_profile_and_binds_snapshot_cache_to_configuration(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:333:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+______ test_backend_ages_valid_profile_without_relabeling_original_epochs ______
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_ages_valid_profil0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_ages_valid_profil0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_ages_valid_profil0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1942e85e80>
+
+    def test_backend_ages_valid_profile_without_relabeling_original_epochs(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:351:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_______________ test_backend_revalidates_source_artifact_changes _______________
+
+sources = (PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_revalidates_sourc0/visual.tle'), PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_revalidates_sourc0/SHA256SUMS'))
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-0/test_backend_revalidates_sourc0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1942e87140>
+
+    def test_backend_revalidates_source_artifact_changes(sources, tmp_path, monkeypatch):
+        release = tmp_path / "release"
+>       build(sources, release)
+
+backend/tests/test_satellite_visual_pilot.py:363:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend/tests/test_satellite_visual_pilot.py:197: in build
+    return pilot().build_visual_release(
+           ^^^^^^^
+backend/tests/test_satellite_visual_pilot.py:183: in pilot
+    return importlib.import_module("scripts.skydata.build_visual_satellite_pilot")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'scripts.skydata.build_visual_satellite_pilot'
+import_ = <function _gcd_import at 0x7f196fd640e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts.skydata.build_visual_satellite_pilot'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_visual_pilot.py::test_build_preserves_real_elements_and_declares_limited_mirror_provenance
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_bytes_that_do_not_match_published_pins[source]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_bytes_that_do_not_match_published_pins[manifest]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_moving_or_wrong_revision
+FAILED backend/tests/test_satellite_visual_pilot.py::test_builder_rejects_original_epochs_aged_beyond_existing_window
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[checksum]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[count]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[required_id]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[identity]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[epoch]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[photometry]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_tampered_feed_even_with_updated_feed_hash[provenance]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[source_profile-full_catalog]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[record_count-1000]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[source_key-celestrak_active_gp]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[six_digit_catalog_support-True]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[acquired_at-2026-11-10T00:00:00Z]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[acquired_at-2026-10-25T08:00:00]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[coverage-value6]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_validator_rejects_false_manifest_claims[required_norad-value7]
+FAILED backend/tests/test_satellite_visual_pilot.py::test_full_catalog_minimum_still_rejects_155_records
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_requires_explicit_profile_and_binds_snapshot_cache_to_configuration
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_ages_valid_profile_without_relabeling_original_epochs
+FAILED backend/tests/test_satellite_visual_pilot.py::test_backend_revalidates_source_artifact_changes
+24 failed in 1.22s

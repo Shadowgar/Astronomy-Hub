@@ -1,0 +1,56 @@
+{
+  "cold_search_elapsed_seconds": 0.005899275000047055,
+  "result": {
+    "status": "ok",
+    "data": {
+      "query": "NORAD 61045",
+      "recognized_query": true,
+      "results": [
+        {
+          "catalog": "Satellite TLE (local)",
+          "source_id": "61045",
+          "norad_id": "61045",
+          "display_name": "SPACEMOBILE-003",
+          "name": "SPACEMOBILE-003",
+          "model": "tle_satellite",
+          "names": [
+            "NAME SPACEMOBILE-003",
+            "NORAD 61045",
+            "COSPAR 2024-163A"
+          ],
+          "types": [
+            "Asa"
+          ],
+          "category": "satellite",
+          "groups": [],
+          "short_name": "SPACEMOBILE-003",
+          "model_data": {
+            "designation": "24163A",
+            "norad_number": 61045,
+            "source_id": "61045",
+            "tle": [
+              "1 61045U 24163A   26295.46387416 -.00001090  00000+0 -34705-4 0  9999",
+              "2 61045  52.9704  84.3074 0006496 132.4984 227.6559 15.20290746117132"
+            ]
+          },
+          "indexed": true,
+          "status": "indexed",
+          "link_status": "exact_link_ready",
+          "visibility_status": "propagation_pending",
+          "message": "Resolved from the mounted TLE feed. Observer-specific propagation requires time and location.",
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle"
+          },
+          "sky_engine_url": "/oras-sky-engine/skysource/SPACEMOBILE003?catalog=Satellite+TLE+%28local%29&source_id=61045&model=tle_satellite&fov=1"
+        }
+      ]
+    },
+    "meta": {
+      "match_type": "satellite_norad_id",
+      "source_status": "available"
+    },
+    "error": null
+  },
+  "scope": "Fresh backend process; admission status read before first exact NORAD lookup; generic catalog search not prewarmed"
+}

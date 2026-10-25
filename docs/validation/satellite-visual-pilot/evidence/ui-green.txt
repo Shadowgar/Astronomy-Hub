@@ -1,0 +1,8 @@
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  23 passed (23)
+   Start at  02:37:07
+   Duration  391ms (transform 154ms, setup 0ms, import 251ms, tests 41ms, environment 0ms)

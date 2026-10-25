@@ -1,0 +1,1195 @@
+{
+  "status": "FAIL",
+  "base": "http://127.0.0.1:4227",
+  "source_sha256": {
+    "scripts/validation/verify_satellite_visual_pilot.mjs": "3b3b39bb3f71d61c45690d5d01aedda7614cdbe2b43d7a1bce8699b2cec2637d",
+    "runtimes/sky-adapter/plugin.js": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+    "runtimes/sky-adapter/entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13",
+    "frontend/src/features/workspace/TimeSurface.tsx": "4a60a044a3659d4fe837ecea5ffd06a6b2c8a5b117802a1989764038bdcba532",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "9a4da32e8b07d76483ad4b00208691f4572b304f5a3a0010e77be757b1dbee83",
+    "frontend/src/features/workspace/satelliteTimeStatus.ts": "d6878ea25c8538f1268967fa89a9e181551232d6512415ec81039f7da3eb233b"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "id": "19120",
+      "status": "FAIL",
+      "method": "wheel",
+      "errors": [],
+      "checks": [
+        "Unselected normal-FOV native point pixels and angular/pixel displacement at fixed camera during native1x fresh-source upcoming-pass simulation"
+      ],
+      "servedSkyBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "initial": {
+        "wallUtc": "2026-10-25T06:45:41.775Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:21:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -1.553343554986,
+          "pitchRad": 1.122798541346,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 1.985576611132,
+        "radec": [
+          0.000001178932,
+          0.000004810662,
+          0.000003717525,
+          1
+        ],
+        "viewVector": [
+          -2.6256496390587876e-13,
+          -4.263200484975094e-13,
+          -0.00000619292674464124,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "88039B",
+            "mag": 2.7,
+            "norad_number": 19120,
+            "source_id": "19120",
+            "tle": [
+              "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+              "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+            ]
+          },
+          "names": [
+            "NAME SL-16 R/B",
+            "NORAD 19120",
+            "COSPAR 1988-039B"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "standard_magnitude_source": "preserved_native_baseline",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SL-16 R/B",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "feed": {
+        "status": "ok",
+        "data": {
+          "acquired_at": "2026-10-25T06:33:11.804049Z",
+          "acquisition_method": "GitHub immutable-revision retrieval; locally verified source bytes",
+          "authentication": {
+            "official_cross_check": "ISS 25544 only: extracted CelesTrak lines matched; other records not independently authenticated",
+            "trust_basis": "Pinned third-party mirror revision and published digest; every TLE checksum, identity and epoch revalidated",
+            "whole_file_first_party_authenticated": false
+          },
+          "byte_size": 15153,
+          "catalog_number_format": "tle_5_digit",
+          "citation": "USSPACECOM 18 SDS GP orbital elements via CelesTrak, redistributed by caelo-works/tle-mirror",
+          "compression_layers": 2,
+          "coverage": {
+            "description": "Limited visual-satellite pilot; 155 objects, not the full catalog.",
+            "full_catalog": false,
+            "kind": "visual_subset",
+            "record_count": 155
+          },
+          "duplicate_count": 0,
+          "epoch_max": "2026-10-24T07:55:39Z",
+          "epoch_min": "2026-10-20T18:54:34Z",
+          "feed_filename": "tle_satellite.jsonl.gz",
+          "freshness_at_acquisition": {
+            "fresh_record_count": 155,
+            "max_tle_age_days": 14,
+            "status": "fresh"
+          },
+          "identity_normalization": "Canonical decimal NORAD metadata and aliases; original zero-padded TLE fields unchanged",
+          "input_record_count": 155,
+          "malformed_count": 0,
+          "photometry": {
+            "baseline_filename": "baseline-native-feed.jsonl.gz",
+            "baseline_sha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436",
+            "join": "canonical NORAD string + original TLE international designator",
+            "live_brightness_claim": false,
+            "matched_record_count": 133,
+            "missing_magnitude_behavior": "Magnitude omitted; unchanged native SATELLITE_DEFAULT_MAG 7.0 applies",
+            "native_default_record_count": 22,
+            "source": "Preserved native catalog standard magnitudes; orbital epochs are not taken from this baseline"
+          },
+          "record_count": 155,
+          "release_version": "visual-pilot-20261025-38a1426",
+          "required_norad": {
+            "20580": true,
+            "25544": true,
+            "48274": true
+          },
+          "rollback": {
+            "action": "Remove task preview overrides to restore preserved original native feed",
+            "base_commit": "7f5ea4d0c069463852698c836b3cd80a13bd75cf",
+            "native_record_count": 14281,
+            "sha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436"
+          },
+          "schema_version": 1,
+          "sha256": "9f063125517b9a6cc990159009ec7e46b764dc6dd14afc7a4b44a651e5920185",
+          "six_digit_catalog_support": false,
+          "source_key": "celestrak_visual_gp_mirror_pilot",
+          "source_profile": "visual_satellite_pilot.v1",
+          "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+          "transport": {
+            "blob_sha1": "9cd799b4c016d0b89e38c32bce15f577271b2c89",
+            "mirror_fetch_at": "2026-10-25T04:50:13.0828324Z",
+            "mirror_job_id": "121079195976",
+            "mirror_run_id": "40163310433",
+            "mirror_updated_at": "2026-10-25T04:50:23Z",
+            "published_manifest_filename": "SHA256SUMS",
+            "published_manifest_sha256": "675f8ee1a02dfa915ca996263177cc6962f927ef0ecb3416e0d214a032f20646",
+            "published_manifest_url": "https://raw.githubusercontent.com/caelo-works/tle-mirror/38a142645e7814b538daaf5868b814550e1f0dda/tle/SHA256SUMS",
+            "repository": "caelo-works/tle-mirror",
+            "revision": "38a142645e7814b538daaf5868b814550e1f0dda",
+            "sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_byte_processing": "Mirror normalizes CRLF to LF; retained source TLE values unchanged",
+            "source_filename": "visual.tle",
+            "url": "https://raw.githubusercontent.com/caelo-works/tle-mirror/38a142645e7814b538daaf5868b814550e1f0dda/tle/visual.tle"
+          },
+          "freshness_status": "fresh",
+          "nearest_tle_epoch": "2026-10-24T07:55:39Z",
+          "nearest_tle_age_days": 0.951,
+          "newest_tle_epoch": "2026-10-24T07:55:39Z",
+          "newest_tle_age_days": 0.951,
+          "mounted": true,
+          "status": "ready",
+          "reason": "Mounted CelesTrak satellite release is valid and fresh for the requested time.",
+          "release_manifest_available": true,
+          "release_validated": true,
+          "provenance_status": "validated_release",
+          "fresh_record_count": 155,
+          "stale_record_count": 0,
+          "unknown_epoch_count": 0,
+          "as_of_utc": "2026-10-25T06:45:41Z",
+          "max_tle_age_days": 14,
+          "epoch_median": "2026-10-24T04:04:10Z",
+          "tle_age_days_min": 0.951,
+          "tle_age_days_max": 4.494,
+          "selected": {
+            "norad_id": "19120",
+            "tle_epoch": "2026-10-24T06:39:19Z",
+            "tle_age_days": 1.004,
+            "freshness_status": "fresh",
+            "freshness_reference": "current_utc",
+            "as_of_utc": "2026-10-25T06:45:42Z"
+          }
+        },
+        "meta": {},
+        "error": null
+      },
+      "nativeSourceAudit": {
+        "count": 155,
+        "errors": []
+      },
+      "pointBefore": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-before-on.png",
+          "sha256": "748befb1176e5a0dcf949528e95cb4c57aa7c3ad43ba3d6673f3f7a5af93413f"
+        },
+        "off": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-before-off.png",
+          "sha256": "454e460e4071b4c750d0d2583c16a33f651d14ae562e20ffd01d4d70a439a630"
+        },
+        "pixels": {
+          "sum": 36368,
+          "pixels": 196,
+          "target": {
+            "x": 63.999983477187406,
+            "y": 64.00002682767023
+          },
+          "centroid": [
+            63.49535305763308,
+            63.74667289925209
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:45:45.554Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 1.985576611132,
+          "radec": [
+            0.000001178932,
+            0.000004810662,
+            0.000003717525,
+            1
+          ],
+          "viewVector": [
+            -2.6256496390587876e-13,
+            -4.263200484975094e-13,
+            -0.00000619292674464124,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "motionBefore": {
+        "wallUtc": "2026-10-25T06:45:46.329Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:21:00.064Z",
+        "live": true,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -1.553343554986,
+          "pitchRad": 1.122798541346,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 1.985517925269,
+        "radec": [
+          0.000001177255,
+          0.000004812184,
+          0.000003715376,
+          1
+        ],
+        "viewVector": [
+          -2.9015740451356775e-9,
+          1.0271850738586352e-9,
+          -0.0000061924997805422545,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "88039B",
+            "mag": 2.7,
+            "norad_number": 19120,
+            "source_id": "19120",
+            "tle": [
+              "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+              "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+            ]
+          },
+          "names": [
+            "NAME SL-16 R/B",
+            "NORAD 19120",
+            "COSPAR 1988-039B"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "standard_magnitude_source": "preserved_native_baseline",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SL-16 R/B",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "motionSamples": [
+        {
+          "wallUtc": "2026-10-25T06:45:46.329Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:00.064Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 1.985517925269,
+          "radec": [
+            0.000001177255,
+            0.000004812184,
+            0.000003715376,
+            1
+          ],
+          "viewVector": [
+            -2.9015740451356775e-9,
+            1.0271850738586352e-9,
+            -0.0000061924997805422545,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:45:48.375Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:02.082Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 1.983968691605,
+          "radec": [
+            0.000001124413,
+            0.000004860094,
+            0.000003647525,
+            1
+          ],
+          "viewVector": [
+            -9.439693209778118e-8,
+            3.336100735386207e-8,
+            -0.000006178934630778096,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:45:52.076Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:05.808Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 1.982657362994,
+          "radec": [
+            0.000001026953,
+            0.000004948157,
+            0.000003521887,
+            1
+          ],
+          "viewVector": [
+            -2.6334838572452763e-7,
+            9.281676626254615e-8,
+            -0.000006153422696131304,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:45:55.497Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:09.231Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 1.983246363439,
+          "radec": [
+            9.37539e-7,
+            0.000005028604,
+            0.000003406056,
+            1
+          ],
+          "viewVector": [
+            -4.1857838754669794e-7,
+            1.4715930817039913e-7,
+            -0.000006129452774267096,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        },
+        {
+          "wallUtc": "2026-10-25T06:45:58.930Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:12.643Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 1,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 1.985561253998,
+          "radec": [
+            8.4853e-7,
+            0.000005108358,
+            0.000003290208,
+            1
+          ],
+          "viewVector": [
+            -5.733240789974684e-7,
+            2.0106001817388283e-7,
+            -0.0000061050526344874075,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      ],
+      "motionAfter": {
+        "wallUtc": "2026-10-25T06:46:00.491Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:21:14.162Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": -1.553343554986,
+          "pitchRad": 1.122798541346,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": false,
+        "offset": 2,
+        "magnitude": 1.987149856829,
+        "radec": [
+          8.08942e-7,
+          0.000005143724,
+          0.000003238508,
+          1
+        ],
+        "viewVector": [
+          -6.422203281123998e-7,
+          2.2497003448246774e-7,
+          -0.000006094026529918306,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "88039B",
+            "mag": 2.7,
+            "norad_number": 19120,
+            "source_id": "19120",
+            "tle": [
+              "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+              "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+            ]
+          },
+          "names": [
+            "NAME SL-16 R/B",
+            "NORAD 19120",
+            "COSPAR 1988-039B"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "standard_magnitude_source": "preserved_native_baseline",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SL-16 R/B",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      },
+      "pointAfter": {
+        "projection": "Pinned native stereographic2 ICRF→VIEW, normalized vector, 6px target-local mask",
+        "on": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-after-on.png",
+          "sha256": "d0d295689be3d29a4dede218c233fb96fb9f0a64bcef3882a0145061bd18d13b"
+        },
+        "off": {
+          "path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-after-off.png",
+          "sha256": "8cf38afb22c1751294b013d0f5daeda46c82a41bbedd3ec235d7515bbf53bc61"
+        },
+        "pixels": {
+          "sum": 36233,
+          "pixels": 196,
+          "target": {
+            "x": 23.057406536799142,
+            "y": 49.657793345952925
+          },
+          "centroid": [
+            22.799768167140453,
+            49.26553142163221
+          ]
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:46:02.945Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:14.162Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": false,
+          "offset": 2,
+          "magnitude": 1.987149856829,
+          "radec": [
+            8.08942e-7,
+            0.000005143724,
+            0.000003238508,
+            1
+          ],
+          "viewVector": [
+            -6.422203281123998e-7,
+            2.2497003448246774e-7,
+            -0.000006094026529918306,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "angularDisplacementDeg": 6.372987876518395,
+      "pointPixelDisplacement": 43.195301689815,
+      "close": {
+        "file": "output/satellite-visual-pilot/browser-qualified/1440x900-automatic-close.png",
+        "sha256": "0cd5d5612e7d122ab0d05de3681366b4bde7399afc5e2284c1f51d46760e54dc",
+        "pixels": {
+          "symbol": 0,
+          "label": 154
+        },
+        "state": {
+          "wallUtc": "2026-10-25T06:46:18.290Z",
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-25T10:21:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 0.083669057148,
+            "yawRad": -1.553343554986,
+            "pitchRad": 1.122798541346,
+            "rollRad": 0,
+            "landscapeVisible": true
+          },
+          "speed": 0,
+          "selection": null,
+          "lock": null,
+          "satellites": true,
+          "hints": true,
+          "offset": 4,
+          "magnitude": 1.985576611132,
+          "radec": [
+            0.000001178932,
+            0.000004810662,
+            0.000003717525,
+            1
+          ],
+          "viewVector": [
+            -2.6256496390587876e-13,
+            -4.263200484975094e-13,
+            -0.00000619292674464124,
+            1
+          ],
+          "source": {
+            "model": "tle_satellite",
+            "model_data": {
+              "designation": "88039B",
+              "mag": 2.7,
+              "norad_number": 19120,
+              "source_id": "19120",
+              "tle": [
+                "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+                "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+              ]
+            },
+            "names": [
+              "NAME SL-16 R/B",
+              "NORAD 19120",
+              "COSPAR 1988-039B"
+            ],
+            "provenance": {
+              "source_key": "celestrak_visual_gp_mirror_pilot",
+              "source_profile": "visual_satellite_pilot.v1",
+              "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+              "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+              "standard_magnitude_source": "preserved_native_baseline",
+              "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+            },
+            "short_name": "SL-16 R/B",
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ]
+          },
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          },
+          "atmosphere": false,
+          "landscape": "pennsylvania-woodland-v1",
+          "night": false
+        }
+      },
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(run.close.pixels.symbol>0)\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/scripts/validation/verify_satellite_visual_pilot.mjs:21:456",
+      "url": "http://127.0.0.1:4227/sky-engine?date=2026-10-25T10:21:00Z",
+      "body": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 4.8°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nPAUSED\nLIMITED PILOT\nOct 25, 6:21 AM EDT\nResume Live\nChange time",
+      "native": {
+        "wallUtc": "2026-10-25T06:46:18.425Z",
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-25T10:21:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 0.083669057148,
+          "yawRad": -1.553343554986,
+          "pitchRad": 1.122798541346,
+          "rollRad": 0,
+          "landscapeVisible": true
+        },
+        "speed": 0,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": true,
+        "offset": 4,
+        "magnitude": 1.985576611132,
+        "radec": [
+          0.000001178932,
+          0.000004810662,
+          0.000003717525,
+          1
+        ],
+        "viewVector": [
+          -2.6256496390587876e-13,
+          -4.263200484975094e-13,
+          -0.00000619292674464124,
+          1
+        ],
+        "source": {
+          "model": "tle_satellite",
+          "model_data": {
+            "designation": "88039B",
+            "mag": 2.7,
+            "norad_number": 19120,
+            "source_id": "19120",
+            "tle": [
+              "1 19120U 88039B   26297.27730779  .00000172  00000+0  10404-3 0  9990",
+              "2 19120  71.0137 305.1926 0022461 343.1965  16.8413 14.19641581990827"
+            ]
+          },
+          "names": [
+            "NAME SL-16 R/B",
+            "NORAD 19120",
+            "COSPAR 1988-039B"
+          ],
+          "provenance": {
+            "source_key": "celestrak_visual_gp_mirror_pilot",
+            "source_profile": "visual_satellite_pilot.v1",
+            "source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+            "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle",
+            "standard_magnitude_source": "preserved_native_baseline",
+            "transport_revision": "38a142645e7814b538daaf5868b814550e1f0dda"
+          },
+          "short_name": "SL-16 R/B",
+          "types": [
+            "Asa",
+            "SSO",
+            "?"
+          ]
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "night": false
+      }
+    }
+  ],
+  "limits": [
+    "Fresh 155-record limited visual subset; native optical eligibility is conditional. No geometrically eligible sunlit dark-observer pass existed at the independently checked current instant.",
+    "Upcoming-pass replay at the declared October25 epoch uses native1x as a simulation, not current LiveUTC. The fixed-time Hub intent remains Paused; the native simulation clock is controlled explicitly by this evidence harness. UI Live/Paused actions are tested separately.",
+    "Point-isolation temporarily hides native satellites at a frozen instant. Native light-point and glyph pixels are measured separately.",
+    "Actual Chromium software rendering; mobile input/viewport emulated."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(run.close.pixels.symbol>0)\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/scripts/validation/verify_satellite_visual_pilot.mjs:21:456",
+  "source_unchanged": true
+}

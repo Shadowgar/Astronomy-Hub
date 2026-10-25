@@ -1,0 +1,9 @@
+{"timestamp": "2026-10-25T06:52:48.469665+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "ede95076-b6e3-4339-aa8d-90cb45ce6d1a", "route": "/api/sky/search", "method": "GET"}
+{"timestamp": "2026-10-25T06:53:24.748554+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "ede95076-b6e3-4339-aa8d-90cb45ce6d1a", "route": "/api/sky/search", "method": "GET", "status_code": 200, "duration_ms": 36246}
+INFO:     192.168.208.3:47960 - "GET /api/sky/search?q=NORAD+61045 HTTP/1.0" 200 OK
+{"timestamp": "2026-10-25T06:53:25.363491+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "7dd3315b-75d0-4745-a6d7-39f4e01da9f9", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-25T06:53:25.500776+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "5e33adbf-a955-4bda-9f7d-41f428134301", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-25T06:53:26.283632+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "7dd3315b-75d0-4745-a6d7-39f4e01da9f9", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 956}
+{"timestamp": "2026-10-25T06:53:26.402452+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "5e33adbf-a955-4bda-9f7d-41f428134301", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 916}
+INFO:     192.168.208.3:47968 - "GET /api/sky/satellite-feed?norad=61045 HTTP/1.0" 200 OK
+INFO:     192.168.208.3:36964 - "GET /api/sky/satellite-feed?norad=61045 HTTP/1.0" 200 OK

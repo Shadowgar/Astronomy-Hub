@@ -1,0 +1,799 @@
+[
+  {
+    "original_output_path": "output/satellite-visual-pilot/candidate-audit.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/candidate-audit.json",
+    "bytes": 59226,
+    "original_sha256": "071068cf93e5f5e3ad945c2c40841a083f928a0bdff20142183149e4f27eb23b",
+    "versioned_sha256": "071068cf93e5f5e3ad945c2c40841a083f928a0bdff20142183149e4f27eb23b",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release/manifest.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-manifest.json",
+    "bytes": 3902,
+    "original_sha256": "47e31ec3a75939ae432e7e5bf8b13cafa9498163d16b56e94769b8476750bc0d",
+    "versioned_sha256": "47e31ec3a75939ae432e7e5bf8b13cafa9498163d16b56e94769b8476750bc0d",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/proof.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/native-proof.json",
+    "bytes": 330771,
+    "original_sha256": "8ff7e45439ce5b00d908a48f117b3a38cc6c8f14731d5d78883d5e614eacdce2",
+    "versioned_sha256": "8ff7e45439ce5b00d908a48f117b3a38cc6c8f14731d5d78883d5e614eacdce2",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation/proof.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/navigation-proof.json",
+    "bytes": 151069,
+    "original_sha256": "c41e67a0210b9b6f6df253a90b44165641afade58d3202de31e795ac5ecfbbe9",
+    "versioned_sha256": "c41e67a0210b9b6f6df253a90b44165641afade58d3202de31e795ac5ecfbbe9",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/video-metadata.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/video-metadata.json",
+    "bytes": 103,
+    "original_sha256": "9ee620db33d8f711bcb10b6c2ad8e6b8de1ec030f10d3cb60a2e64439b19c1be",
+    "versioned_sha256": "9ee620db33d8f711bcb10b6c2ad8e6b8de1ec030f10d3cb60a2e64439b19c1be",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/delivery-candidate.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/delivery-candidate.json",
+    "bytes": 64899,
+    "original_sha256": "752587079f7839973933fdb88860a1dbff27a546c64fdb34934bffd76684c2a4",
+    "versioned_sha256": "752587079f7839973933fdb88860a1dbff27a546c64fdb34934bffd76684c2a4",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/frontend-tests-final.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/frontend-tests.txt",
+    "bytes": 316,
+    "original_sha256": "a597f246c7a4deec312bd95cc0f36602dfc1c44da2fe1a7304b4659f87c76c4b",
+    "versioned_sha256": "11cea3dfbcbcab23d097e6f9a95701316dcff03ae952978104b6b44847f865a7",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/typecheck-final.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/typecheck.txt",
+    "bytes": 59,
+    "original_sha256": "31dc18a7b9139f9132714216dded945b884e0f2531cd896af71271d279e6924c",
+    "versioned_sha256": "2abe4d7f7a3965fd72f6a3ba4364bc3ae8dcd2cf68c366b50beebdae5e367d85",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/native-tests.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/native-tests.txt",
+    "bytes": 4726,
+    "original_sha256": "24fa9f0d3f87ece414880a67390b286acdf72b9692fbc247bbc88a5c0340ea94",
+    "versioned_sha256": "24fa9f0d3f87ece414880a67390b286acdf72b9692fbc247bbc88a5c0340ea94",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/docker-tests-final.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/docker-tests.txt",
+    "bytes": 1084,
+    "original_sha256": "320095cdf9d4944c4e936908549975e3f0516775e30fca8de9c4303a0801dd23",
+    "versioned_sha256": "320095cdf9d4944c4e936908549975e3f0516775e30fca8de9c4303a0801dd23",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/windows-preview.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/windows-preview.txt",
+    "bytes": 44,
+    "original_sha256": "02ad32fa0ccba598d447c7fb6b0330a9c4f19172e58709b486e96fc210f91882",
+    "versioned_sha256": "ed8cbb3b06a4e8cc768a7ccd18598cb02110af5ac989cae93eb8d7a57dbbcd9b",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/norad-search-red.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/norad-search-red.txt",
+    "bytes": 6637,
+    "original_sha256": "fc0a7c8ec91f7cdf0daa0b176b0be64f9b2ebd8f8da2b20044b92102366b1c7b",
+    "versioned_sha256": "a6c841455c9eeba48c1c5c72a4b1a2e64c99bf049863cbecb05ad73db2a64b45",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/norad-search-green.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/norad-search-green.txt",
+    "bytes": 98,
+    "original_sha256": "9088ab3778ca9f444a1802d43efefb74d45fb5756d7cd8ee4418bf76df25004e",
+    "versioned_sha256": "9088ab3778ca9f444a1802d43efefb74d45fb5756d7cd8ee4418bf76df25004e",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/norad-cold-runtime-green.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/norad-cold-runtime-green.json",
+    "bytes": 1954,
+    "original_sha256": "df13e6b7df137550bcfa4cbf4370b5b13000c20e56e8b76d46d78204a0e486fc",
+    "versioned_sha256": "df13e6b7df137550bcfa4cbf4370b5b13000c20e56e8b76d46d78204a0e486fc",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/backend-norad-block-red.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/backend-norad-block-red.txt",
+    "bytes": 1714,
+    "original_sha256": "e68255474896c819944d2c5713d2175642283b36cc64280262192e1431b053cf",
+    "versioned_sha256": "e68255474896c819944d2c5713d2175642283b36cc64280262192e1431b053cf",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/ui-red.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/ui-red.txt",
+    "bytes": 4899,
+    "original_sha256": "bd486cd8d1eceb75f62833059d83c1663c42bb707ab82c1d2506ac4333e3a4da",
+    "versioned_sha256": "de3f24d314dda32ec30de402462ae4c92bd065b7cb04aa771671103e57b39610",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/ui-green.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/ui-green.txt",
+    "bytes": 259,
+    "original_sha256": "e8d22705493b6879f5f8eea6a95bc4ee55bc2b46ff413b02c31e33d0ab445c82",
+    "versioned_sha256": "79b47966297ff9f30ce6a4b14a0965704f4df33fd4ea13b27657ddd435994416",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/citation-red.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/citation-red.txt",
+    "bytes": 2053,
+    "original_sha256": "98ff7ab3c72b3008bfff6b1a9a3626195fac1c4ac03a7cf2402a6a2604913a29",
+    "versioned_sha256": "f8e08a5df420388eaee194477d1ea1fe117e90ecd6f039a2f3873e4d91193abf",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/citation-green.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/citation-green.txt",
+    "bytes": 259,
+    "original_sha256": "b5ffd6efad8f0e1050e3d2a13d393ba94f961187f6d3fc4233711c260a22127d",
+    "versioned_sha256": "4ab73c78ca1f57a77bc4a33d2df17caca3a665ca78fdfc9f7557523a5c146648",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/rejected-source-ui-red.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/rejected-source-ui-red.txt",
+    "bytes": 1836,
+    "original_sha256": "395d9ae34e084819fb19d205bdbc6ff72152232cf95fe125ac711f5b86f8f8ed",
+    "versioned_sha256": "cabb75d3a97527c68c7188d41e4f336c19bdc31224280851b5c2887ea20a60a9",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/REPORT.md",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/REPORT.md",
+    "bytes": 8424,
+    "original_sha256": "e33d15f97b7af4c1bb5c46c3c9bf797db177823b20947872bfb33939f9dc0bd5",
+    "versioned_sha256": "e33d15f97b7af4c1bb5c46c3c9bf797db177823b20947872bfb33939f9dc0bd5",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/RED.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/RED.txt",
+    "bytes": 49399,
+    "original_sha256": "6109cb7d3025f198539cd130fe1f8dcdfa45e52ae54560cca0bd22802b8d727d",
+    "versioned_sha256": "d32e121dae45bb097fd27f68d96831e449a3b47f1234d46a939ff220caaa48f1",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/GREEN.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/GREEN.txt",
+    "bytes": 100,
+    "original_sha256": "3c22f53d86caa4515f267c5cec635086accb814b5b3d9b6a30f5eee904c93d48",
+    "versioned_sha256": "3c22f53d86caa4515f267c5cec635086accb814b5b3d9b6a30f5eee904c93d48",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/RED-photometry.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/RED-photometry.txt",
+    "bytes": 71404,
+    "original_sha256": "46a0d2dec1f27108d2687d2cbec017a5b089f10209b66215023b6b312d86f0f0",
+    "versioned_sha256": "921e5c38f47cd5cf8e35707d4cc0ae5d8a5739f58565cd6e81cdf7cb6f75ba0c",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/GREEN-photometry.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/GREEN-photometry.txt",
+    "bytes": 100,
+    "original_sha256": "3c22f53d86caa4515f267c5cec635086accb814b5b3d9b6a30f5eee904c93d48",
+    "versioned_sha256": "3c22f53d86caa4515f267c5cec635086accb814b5b3d9b6a30f5eee904c93d48",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/RED-permissions.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/RED-permissions.txt",
+    "bytes": 1957,
+    "original_sha256": "dc3ea9edc118e0c59d49a697510fea64eb0b21cda301977ab7c78efd62aef13d",
+    "versioned_sha256": "dc3ea9edc118e0c59d49a697510fea64eb0b21cda301977ab7c78efd62aef13d",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/GREEN-permissions.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/GREEN-permissions.txt",
+    "bytes": 113,
+    "original_sha256": "8ee77382b2265d9c9fb335dea11ade38db23bf58ce15d447640e3bf14b3591eb",
+    "versioned_sha256": "8ee77382b2265d9c9fb335dea11ade38db23bf58ce15d447640e3bf14b3591eb",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/RED-canonical-identity.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/RED-canonical-identity.txt",
+    "bytes": 1354,
+    "original_sha256": "ee98ffc02bff9d77843b79f71effde956ceb566d288bb3c8f275234072c4d253",
+    "versioned_sha256": "9246b202bb50ebc42ff9870c0f440c548204f7806f0337a6dea35d80700d7d43",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/GREEN-canonical-identity.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/GREEN-canonical-identity.txt",
+    "bytes": 113,
+    "original_sha256": "d9bd05b8500cfdd5ec080f14293aaa4844157e98a64288cc864414795ba4f9b5",
+    "versioned_sha256": "d9bd05b8500cfdd5ec080f14293aaa4844157e98a64288cc864414795ba4f9b5",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/release-agent/INTERRUPTED-broader-local.txt",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/release-agent/INTERRUPTED-broader-local.txt",
+    "bytes": 37,
+    "original_sha256": "bdc237769f2950435dc8f95f3adfd17319300a99254dbfc65b881a8951f7afc1",
+    "versioned_sha256": "3240438889a9294a5acb6b8eedfa47fcc7ef51749a912f9ce2fd666f4b233a33",
+    "byte_copy_unchanged": false,
+    "normalization": "CRLF/trailing whitespace/blank EOF lines in documentation text only; original output retained"
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/pass-search/REPORT.md",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/pass-search/REPORT.md",
+    "bytes": 1762,
+    "original_sha256": "26e7a29da5f4e4e2b8d69275fd7a89d66f60e1129697165e9d460786e36dd54f",
+    "versioned_sha256": "26e7a29da5f4e4e2b8d69275fd7a89d66f60e1129697165e9d460786e36dd54f",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/pass-search/pass-search.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/pass-search/pass-search.json",
+    "bytes": 295351,
+    "original_sha256": "efba60c00221ac321319b4849cfec34a661ac02c9a9dbd4c8a658d3aacb8c506",
+    "versioned_sha256": "efba60c00221ac321319b4849cfec34a661ac02c9a9dbd4c8a658d3aacb8c506",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/pass-search/verification-receipt.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/pass-search/verification-receipt.json",
+    "bytes": 1465,
+    "original_sha256": "f864ba77d2faf8031285845a442be28db672047125fcee18a37dc9bc465a2f0e",
+    "versioned_sha256": "f864ba77d2faf8031285845a442be28db672047125fcee18a37dc9bc465a2f0e",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/independent-motion/browser-qualified/REPORT.md",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/independent-motion/REPORT.md",
+    "bytes": 1942,
+    "original_sha256": "1f7c83f6a4d83f7247792299bc013540dd25e2c60ff82d29172aae0d341130aa",
+    "versioned_sha256": "1f7c83f6a4d83f7247792299bc013540dd25e2c60ff82d29172aae0d341130aa",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/independent-motion/browser-qualified/comparison.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/independent-motion/comparison.json",
+    "bytes": 119100,
+    "original_sha256": "ed2d0372ac795c392a16c8635feac46ae21aa69e0bdc7922557e7d53c2e7d11e",
+    "versioned_sha256": "ed2d0372ac795c392a16c8635feac46ae21aa69e0bdc7922557e7d53c2e7d11e",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-identity-red/proof.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/failed/native-identity-red.json",
+    "bytes": 19071,
+    "original_sha256": "a20d3035145086e108ebeb2bdd39915c3b007c060400d417a06d4b10fe420d2c",
+    "versioned_sha256": "a20d3035145086e108ebeb2bdd39915c3b007c060400d417a06d4b10fe420d2c",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-bright-point-symbol-limit/proof.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/failed/bright-point-symbol-limit.json",
+    "bytes": 43600,
+    "original_sha256": "18412f52c66d01a59c5896faae026f7e821ed241dcda0a3c64db8bfd3f33375b",
+    "versioned_sha256": "18412f52c66d01a59c5896faae026f7e821ed241dcda0a3c64db8bfd3f33375b",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-stale-validator-process/proof.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/failed/stale-validator-process.json",
+    "bytes": 11704,
+    "original_sha256": "eb4f078a568a0785d3932798027b473833279ef30f5eaf5a068466c9e45826ec",
+    "versioned_sha256": "eb4f078a568a0785d3932798027b473833279ef30f5eaf5a068466c9e45826ec",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-api-block-red/proof.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/failed/selection-api-block.json",
+    "bytes": 60056,
+    "original_sha256": "3646e5f73571f3208a8838394e68ef77d03820d428185801b86c62d5902421b8",
+    "versioned_sha256": "3646e5f73571f3208a8838394e68ef77d03820d428185801b86c62d5902421b8",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation-interrupted-143/proof.json",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/failed/navigation-interrupted-143.json",
+    "bytes": 68311,
+    "original_sha256": "b00188c294f815068d094f490b80a51e94c0f5c3828f1f2ad6c099f47f36811b",
+    "versioned_sha256": "b00188c294f815068d094f490b80a51e94c0f5c3828f1f2ad6c099f47f36811b",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-automatic-close-full.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-automatic-close-full.png",
+    "bytes": 1262694,
+    "original_sha256": "ef8ac5617e24607d1f6ae3fd0b6266f045786b6ce5ee883f64979ebcbb2f57b9",
+    "versioned_sha256": "ef8ac5617e24607d1f6ae3fd0b6266f045786b6ce5ee883f64979ebcbb2f57b9",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-automatic-close.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-automatic-close.png",
+    "bytes": 14341,
+    "original_sha256": "bc387c142720b8e1863a316c3c5e84cc1e73c742b0af7a297c4b3fd6b2a93880",
+    "versioned_sha256": "bc387c142720b8e1863a316c3c5e84cc1e73c742b0af7a297c4b3fd6b2a93880",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-close-return.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-close-return.png",
+    "bytes": 16162,
+    "original_sha256": "79881025d28c97dbb8c051fe08990db2188479aa1542c12c03e662f8d93842b5",
+    "versioned_sha256": "79881025d28c97dbb8c051fe08990db2188479aa1542c12c03e662f8d93842b5",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-live-limited-pilot.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-live-limited-pilot.png",
+    "bytes": 815385,
+    "original_sha256": "772dabf9dac62addea569ece6b3ce992f1a55d19582e0f7fad75d2d82976bc40",
+    "versioned_sha256": "772dabf9dac62addea569ece6b3ce992f1a55d19582e0f7fad75d2d82976bc40",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-paused-tracking.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-paused-tracking.png",
+    "bytes": 1596264,
+    "original_sha256": "12c2ecf50b6f7197c90777a4998508f32969fff585b168955d25531aa6eb67cb",
+    "versioned_sha256": "12c2ecf50b6f7197c90777a4998508f32969fff585b168955d25531aa6eb67cb",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-simulation-motion-1.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-simulation-motion-1.png",
+    "bytes": 757912,
+    "original_sha256": "b71d760a821737a685701fa06aa889571891f068378f03108e67c10962ad451d",
+    "versioned_sha256": "b71d760a821737a685701fa06aa889571891f068378f03108e67c10962ad451d",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-simulation-motion-2.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-simulation-motion-2.png",
+    "bytes": 757505,
+    "original_sha256": "7ce4442c87561461a9312130268c72c016a0bfd441b1b84fddd6857db2a1368e",
+    "versioned_sha256": "7ce4442c87561461a9312130268c72c016a0bfd441b1b84fddd6857db2a1368e",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-simulation-motion-3.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-simulation-motion-3.png",
+    "bytes": 757346,
+    "original_sha256": "a6731f1d7852d802d7fb3728f814705366db90447319fbc0c6a2a7cdce445320",
+    "versioned_sha256": "a6731f1d7852d802d7fb3728f814705366db90447319fbc0c6a2a7cdce445320",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-simulation-motion-4.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-simulation-motion-4.png",
+    "bytes": 757346,
+    "original_sha256": "a6731f1d7852d802d7fb3728f814705366db90447319fbc0c6a2a7cdce445320",
+    "versioned_sha256": "a6731f1d7852d802d7fb3728f814705366db90447319fbc0c6a2a7cdce445320",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-after-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-wide-after-off.png",
+    "bytes": 17087,
+    "original_sha256": "2bf10ec4e91336145b72832f87dacd92d86dfdf35df502a5c44e6793579c5765",
+    "versioned_sha256": "2bf10ec4e91336145b72832f87dacd92d86dfdf35df502a5c44e6793579c5765",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-after-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-wide-after-on.png",
+    "bytes": 17119,
+    "original_sha256": "7cc45c094569626e99aae408cef668e8c8c9082f8f4677929187c14e006be15f",
+    "versioned_sha256": "7cc45c094569626e99aae408cef668e8c8c9082f8f4677929187c14e006be15f",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-before-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-wide-before-off.png",
+    "bytes": 17030,
+    "original_sha256": "3258606b4a327933a2acbe77b54f6a8b7aa89ab89017b67e0c7139bfa20717ee",
+    "versioned_sha256": "3258606b4a327933a2acbe77b54f6a8b7aa89ab89017b67e0c7139bfa20717ee",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide-before-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-wide-before-on.png",
+    "bytes": 17082,
+    "original_sha256": "df018b6d7e245f563ba9a11cac384f6daa75bdc3cb8fa69ecba1ca2499fa7e72",
+    "versioned_sha256": "df018b6d7e245f563ba9a11cac384f6daa75bdc3cb8fa69ecba1ca2499fa7e72",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-wide.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-wide.png",
+    "bytes": 757715,
+    "original_sha256": "351f061d98cc830b1aaec4c877de968be692a8577100c3b44652faf4b399d6cc",
+    "versioned_sha256": "351f061d98cc830b1aaec4c877de968be692a8577100c3b44652faf4b399d6cc",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-widened-point-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-widened-point-off.png",
+    "bytes": 15628,
+    "original_sha256": "54c96fd2765147a794781678cd3ae640e8e17c1ced2e64136cdbe55b2a342d06",
+    "versioned_sha256": "54c96fd2765147a794781678cd3ae640e8e17c1ced2e64136cdbe55b2a342d06",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-widened-point-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-widened-point-on.png",
+    "bytes": 16263,
+    "original_sha256": "09b1c4e9586ecd92703a4a6efc7b535bd490423abf0459579f1a902a5cf3f3ec",
+    "versioned_sha256": "09b1c4e9586ecd92703a4a6efc7b535bd490423abf0459579f1a902a5cf3f3ec",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/1440x900-widened.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-widened.png",
+    "bytes": 16263,
+    "original_sha256": "09b1c4e9586ecd92703a4a6efc7b535bd490423abf0459579f1a902a5cf3f3ec",
+    "versioned_sha256": "09b1c4e9586ecd92703a4a6efc7b535bd490423abf0459579f1a902a5cf3f3ec",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-automatic-close-full.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-automatic-close-full.png",
+    "bytes": 410164,
+    "original_sha256": "6a490e78ada6202cc4ab39c2801476c839fe5cc36880ee9a11c09423fc2c7aad",
+    "versioned_sha256": "6a490e78ada6202cc4ab39c2801476c839fe5cc36880ee9a11c09423fc2c7aad",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-automatic-close.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-automatic-close.png",
+    "bytes": 17291,
+    "original_sha256": "44f243bf2fce432dcdc7cbe975a83f94830a8d8e60a8c02d02d4ac10509f2610",
+    "versioned_sha256": "44f243bf2fce432dcdc7cbe975a83f94830a8d8e60a8c02d02d4ac10509f2610",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-close-return.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-close-return.png",
+    "bytes": 19183,
+    "original_sha256": "c5aab444544b478bf9274e1f3d7cc4f7679120f59585fe983c91870223fc7065",
+    "versioned_sha256": "c5aab444544b478bf9274e1f3d7cc4f7679120f59585fe983c91870223fc7065",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-live-limited-pilot.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-live-limited-pilot.png",
+    "bytes": 268145,
+    "original_sha256": "2a3ececb39910877bb96d808255daa6fe5c4ed2440281c75bb063aed89533086",
+    "versioned_sha256": "2a3ececb39910877bb96d808255daa6fe5c4ed2440281c75bb063aed89533086",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-paused-tracking.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-paused-tracking.png",
+    "bytes": 369042,
+    "original_sha256": "9c028dc14960c2648a66cf21a7647e2dccd0d88ddb8bb843b287f2d1c0342691",
+    "versioned_sha256": "9c028dc14960c2648a66cf21a7647e2dccd0d88ddb8bb843b287f2d1c0342691",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-simulation-motion-1.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-simulation-motion-1.png",
+    "bytes": 305385,
+    "original_sha256": "f06c7cd8313693b2059107d7c8f1e572dbe2d20268f6c8f6b43c077ab6495ab9",
+    "versioned_sha256": "f06c7cd8313693b2059107d7c8f1e572dbe2d20268f6c8f6b43c077ab6495ab9",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-simulation-motion-2.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-simulation-motion-2.png",
+    "bytes": 305533,
+    "original_sha256": "97267b178a94685ef090aba56233efd8d4d55af77ec4c396664b01d9f180227a",
+    "versioned_sha256": "97267b178a94685ef090aba56233efd8d4d55af77ec4c396664b01d9f180227a",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-simulation-motion-3.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-simulation-motion-3.png",
+    "bytes": 305881,
+    "original_sha256": "4a4e57543d76803dc252c27e1684ce57bd95d9024b4f53aee716ba7b86f040f5",
+    "versioned_sha256": "4a4e57543d76803dc252c27e1684ce57bd95d9024b4f53aee716ba7b86f040f5",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-simulation-motion-4.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-simulation-motion-4.png",
+    "bytes": 305713,
+    "original_sha256": "f0bf4e77f28a10ee684c5cee4996a0217db2b7e8f60f9da407ac67dd6349ce8b",
+    "versioned_sha256": "f0bf4e77f28a10ee684c5cee4996a0217db2b7e8f60f9da407ac67dd6349ce8b",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-wide-after-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-wide-after-off.png",
+    "bytes": 18089,
+    "original_sha256": "6fde9446b2a0cebda31c761acf6d9ddbe3f7fc1fcbe166edb8517803829fb159",
+    "versioned_sha256": "6fde9446b2a0cebda31c761acf6d9ddbe3f7fc1fcbe166edb8517803829fb159",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-wide-after-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-wide-after-on.png",
+    "bytes": 18175,
+    "original_sha256": "ac506d19f87112d834dbfb0b0308f033cbf4d3f0a738d9d6c5d7fb0b5e1f6e15",
+    "versioned_sha256": "ac506d19f87112d834dbfb0b0308f033cbf4d3f0a738d9d6c5d7fb0b5e1f6e15",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-wide-before-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-wide-before-off.png",
+    "bytes": 18017,
+    "original_sha256": "4d36b7ab0445a6ae473fb236704809917e4f8a4b677eae974ff5fe5513e2bf75",
+    "versioned_sha256": "4d36b7ab0445a6ae473fb236704809917e4f8a4b677eae974ff5fe5513e2bf75",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-wide-before-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-wide-before-on.png",
+    "bytes": 18046,
+    "original_sha256": "ed0edd0c3d95c9b9dbb9a17412960d87149044951f7beeb9d6d5e40cf7840e07",
+    "versioned_sha256": "ed0edd0c3d95c9b9dbb9a17412960d87149044951f7beeb9d6d5e40cf7840e07",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-wide.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-wide.png",
+    "bytes": 305567,
+    "original_sha256": "e2707631cb80baf6fcd134b5ee8fe37f1f077c11a6fa8b81047754bcf21dfde6",
+    "versioned_sha256": "e2707631cb80baf6fcd134b5ee8fe37f1f077c11a6fa8b81047754bcf21dfde6",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-widened-point-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-widened-point-off.png",
+    "bytes": 17048,
+    "original_sha256": "2a9e451940a2822ff870b518892ca58dbad25918c10d1d13ebbdf19d64e762a4",
+    "versioned_sha256": "2a9e451940a2822ff870b518892ca58dbad25918c10d1d13ebbdf19d64e762a4",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-widened-point-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-widened-point-on.png",
+    "bytes": 17140,
+    "original_sha256": "8b613bfd5fcd899ee9d398da925680378925012820664cba67504846569c0a4f",
+    "versioned_sha256": "8b613bfd5fcd899ee9d398da925680378925012820664cba67504846569c0a4f",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/390x900-widened.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-widened.png",
+    "bytes": 17140,
+    "original_sha256": "8b613bfd5fcd899ee9d398da925680378925012820664cba67504846569c0a4f",
+    "versioned_sha256": "8b613bfd5fcd899ee9d398da925680378925012820664cba67504846569c0a4f",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-automatic-close-full.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-automatic-close-full.png",
+    "bytes": 270624,
+    "original_sha256": "755d28a208f494e2a2a0efaab21ad99477f9666927ede71d632327fcac303f78",
+    "versioned_sha256": "755d28a208f494e2a2a0efaab21ad99477f9666927ede71d632327fcac303f78",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-automatic-close.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-automatic-close.png",
+    "bytes": 16613,
+    "original_sha256": "a53696afde81ea89850293ddfef5c38c0da53a579290843070c92344d8db1c2d",
+    "versioned_sha256": "a53696afde81ea89850293ddfef5c38c0da53a579290843070c92344d8db1c2d",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-close-return.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-close-return.png",
+    "bytes": 18278,
+    "original_sha256": "0512464f8bb076022b11b984a37bb6539628ac355290da0c27c3a62c6504172f",
+    "versioned_sha256": "0512464f8bb076022b11b984a37bb6539628ac355290da0c27c3a62c6504172f",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-live-limited-pilot.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-live-limited-pilot.png",
+    "bytes": 194672,
+    "original_sha256": "2e8c7d9b7ff1f94b32991af75425f83e36b7fbf430e8b94b382cc9c0e6fbaf1a",
+    "versioned_sha256": "2e8c7d9b7ff1f94b32991af75425f83e36b7fbf430e8b94b382cc9c0e6fbaf1a",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-paused-tracking.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-paused-tracking.png",
+    "bytes": 232640,
+    "original_sha256": "b8b0a1e330208254cb12305375e54bb8d14b82f69543327d02f75f8da578f8dd",
+    "versioned_sha256": "b8b0a1e330208254cb12305375e54bb8d14b82f69543327d02f75f8da578f8dd",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-simulation-motion-1.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-simulation-motion-1.png",
+    "bytes": 223598,
+    "original_sha256": "4be90d4b2cf93662bf365e50c3f1a1fcfdc32c2d286a68409243a15004dfa30d",
+    "versioned_sha256": "4be90d4b2cf93662bf365e50c3f1a1fcfdc32c2d286a68409243a15004dfa30d",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-simulation-motion-2.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-simulation-motion-2.png",
+    "bytes": 223926,
+    "original_sha256": "c2e405f22592b2d7b3bcc976921573dea2c42357673e802ca113a1ee58b4177a",
+    "versioned_sha256": "c2e405f22592b2d7b3bcc976921573dea2c42357673e802ca113a1ee58b4177a",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-simulation-motion-3.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-simulation-motion-3.png",
+    "bytes": 223910,
+    "original_sha256": "6250447346e4f9010f3cad65287967a94fd0ace22917ec5c945be26e10139924",
+    "versioned_sha256": "6250447346e4f9010f3cad65287967a94fd0ace22917ec5c945be26e10139924",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-simulation-motion-4.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-simulation-motion-4.png",
+    "bytes": 223843,
+    "original_sha256": "e9e108e01e714197b1b7a799119ddd62a1cb805bbb35ba22b93f509da6e26321",
+    "versioned_sha256": "e9e108e01e714197b1b7a799119ddd62a1cb805bbb35ba22b93f509da6e26321",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-wide-after-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-wide-after-off.png",
+    "bytes": 17197,
+    "original_sha256": "b65ff08f8e652181ab55e1de41af43b20ffce77c54dbc03a3fcf489480324cf4",
+    "versioned_sha256": "b65ff08f8e652181ab55e1de41af43b20ffce77c54dbc03a3fcf489480324cf4",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-wide-after-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-wide-after-on.png",
+    "bytes": 17227,
+    "original_sha256": "916108b5ad510ec52bf1738220749c3dadfc4480cf8bc13086b0065f4da9c875",
+    "versioned_sha256": "916108b5ad510ec52bf1738220749c3dadfc4480cf8bc13086b0065f4da9c875",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-wide-before-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-wide-before-off.png",
+    "bytes": 17236,
+    "original_sha256": "9965e2a2b5f408620bba24cf18e47b1e2cc803764a1328ae3f5e57d8f3f60698",
+    "versioned_sha256": "9965e2a2b5f408620bba24cf18e47b1e2cc803764a1328ae3f5e57d8f3f60698",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-wide-before-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-wide-before-on.png",
+    "bytes": 17109,
+    "original_sha256": "f84ea4c876051113fbcab22468ce3f8decd131ab46adaf4a8f8e671ede8dce2f",
+    "versioned_sha256": "f84ea4c876051113fbcab22468ce3f8decd131ab46adaf4a8f8e671ede8dce2f",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-wide.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-wide.png",
+    "bytes": 223647,
+    "original_sha256": "f441d6d66a34f3efe1b5d8a5252e61c0541b2a45b373e1488a8cf093eb5770db",
+    "versioned_sha256": "f441d6d66a34f3efe1b5d8a5252e61c0541b2a45b373e1488a8cf093eb5770db",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-widened-point-off.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-widened-point-off.png",
+    "bytes": 16147,
+    "original_sha256": "24aaf85e005b42be28f413c62969bd063f4a119c7d8f1c7b3f10e3beb57ebbb0",
+    "versioned_sha256": "24aaf85e005b42be28f413c62969bd063f4a119c7d8f1c7b3f10e3beb57ebbb0",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-widened-point-on.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-widened-point-on.png",
+    "bytes": 16288,
+    "original_sha256": "0794852b7ecc3330cec84a211070b39a59c4f307b3d144889ac3b1c447895979",
+    "versioned_sha256": "0794852b7ecc3330cec84a211070b39a59c4f307b3d144889ac3b1c447895979",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/667x390-widened.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-widened.png",
+    "bytes": 16288,
+    "original_sha256": "0794852b7ecc3330cec84a211070b39a59c4f307b3d144889ac3b1c447895979",
+    "versioned_sha256": "0794852b7ecc3330cec84a211070b39a59c4f307b3d144889ac3b1c447895979",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation/1440x900-returned-sky.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-returned-sky.png",
+    "bytes": 506677,
+    "original_sha256": "cd654a346a3b661bc1b5395d18d5e10299c194721b2d3e19b1b54d096f40d8f8",
+    "versioned_sha256": "cd654a346a3b661bc1b5395d18d5e10299c194721b2d3e19b1b54d096f40d8f8",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation/1440x900-source-details.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/1440x900-source-details.png",
+    "bytes": 552123,
+    "original_sha256": "1402a188799fa68d1347be17623e4121a54c31a898f86f994b4c3c7c71abadd3",
+    "versioned_sha256": "1402a188799fa68d1347be17623e4121a54c31a898f86f994b4c3c7c71abadd3",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation/390x900-returned-sky.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-returned-sky.png",
+    "bytes": 262697,
+    "original_sha256": "76e8fae6f9b85c8833aaab7bc8225fa7bead918fe5ac1db6e066f09f26be210d",
+    "versioned_sha256": "76e8fae6f9b85c8833aaab7bc8225fa7bead918fe5ac1db6e066f09f26be210d",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation/390x900-source-details.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/390x900-source-details.png",
+    "bytes": 251388,
+    "original_sha256": "d6d38c5dd032dac653bf3d9146996ddeb84cf35ef7ce48fa806ad7b0dd7f1d2c",
+    "versioned_sha256": "d6d38c5dd032dac653bf3d9146996ddeb84cf35ef7ce48fa806ad7b0dd7f1d2c",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation/667x390-returned-sky.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-returned-sky.png",
+    "bytes": 177139,
+    "original_sha256": "2edb5d710f0ff8e8345e1cab8a60b0d3c13b86cf7bb28be8490e72bcbd0a1f15",
+    "versioned_sha256": "2edb5d710f0ff8e8345e1cab8a60b0d3c13b86cf7bb28be8490e72bcbd0a1f15",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/navigation/667x390-source-details.png",
+    "versioned_path": "docs/validation/satellite-visual-pilot/screenshots/667x390-source-details.png",
+    "bytes": 156976,
+    "original_sha256": "c47416a2e7864d1e678487a84f80806a61395e8844e2b4c564ea039b01639c23",
+    "versioned_sha256": "c47416a2e7864d1e678487a84f80806a61395e8844e2b4c564ea039b01639c23",
+    "byte_copy_unchanged": true
+  },
+  {
+    "original_output_path": "output/satellite-visual-pilot/browser-qualified/fresh-pass-native-1x.webm",
+    "versioned_path": "docs/validation/satellite-visual-pilot/evidence/fresh-pass-native-1x.webm",
+    "bytes": 443150,
+    "original_sha256": "a35f34eb84269771099cb72d273ceb2a9e3dd04f2d64682369cdea1cc16874af",
+    "versioned_sha256": "a35f34eb84269771099cb72d273ceb2a9e3dd04f2d64682369cdea1cc16874af",
+    "byte_copy_unchanged": true
+  }
+]

@@ -1,5 +1,7 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+- [Limited visual-satellite pilot](validation/satellite-visual-pilot/README.md) — owner-authorized immutable155-record fresh-source pilot; separate source/optical/device gates.
+
 Current owner-authorized [Sky satellite repair](validation/sky-satellite-live/README.md) is a bounded draft stacked on preserved PR95. Historical native motion is qualified separately from current Live orbital accuracy, blocked by stale source data. No merge or deployment.
 
 Current integrated planetary-system review preview and package ledger: [PS3](validation/planetary-systems/ps3/README.md).

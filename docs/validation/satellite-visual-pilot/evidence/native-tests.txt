@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: ordinary FOV keeps photometric satellites enabled without artificial hints
+ok 1 - ordinary FOV keeps photometric satellites enabled without artificial hints
+  ---
+  duration_ms: 1.418535
+  type: 'test'
+  ...
+# Subtest: identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+ok 2 - identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+  ---
+  duration_ms: 1.254286
+  type: 'test'
+  ...
+# Subtest: wide selected satellite stays isolated; close identification and widening preserve native defaults
+ok 3 - wide selected satellite stays isolated; close identification and widening preserve native defaults
+  ---
+  duration_ms: 0.1382
+  type: 'test'
+  ...
+# Subtest: upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+ok 4 - upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+  ---
+  duration_ms: 0.666662
+  type: 'test'
+  ...
+# Subtest: native user-disabled hints are retained after release and no scene API is replaced
+ok 5 - native user-disabled hints are retained after release and no scene API is replaced
+  ---
+  duration_ms: 0.108844
+  type: 'test'
+  ...
+# Subtest: native JSON FOV precision does not miss threshold boundaries
+ok 6 - native JSON FOV precision does not miss threshold boundaries
+  ---
+  duration_ms: 0.143221
+  type: 'test'
+  ...
+# Subtest: unselected close views admit native point-only satellites through a bounded hint offset
+ok 7 - unselected close views admit native point-only satellites through a bounded hint offset
+  ---
+  duration_ms: 0.099637
+  type: 'test'
+  ...
+# Subtest: own close overrides do not replace original offset across selection, widening and release
+ok 8 - own close overrides do not replace original offset across selection, widening and release
+  ---
+  duration_ms: 0.08863
+  type: 'test'
+  ...
+# Subtest: native custom offsets and asynchronous initialization survive close presentation
+ok 9 - native custom offsets and asynchronous initialization survive close presentation
+  ---
+  duration_ms: 0.263934
+  type: 'test'
+  ...
+# Subtest: an explicit native disable after automatic close identification survives later zoom and release
+ok 10 - an explicit native disable after automatic close identification survives later zoom and release
+  ---
+  duration_ms: 0.271496
+  type: 'test'
+  ...
+# Subtest: native disable immediately before disposal survives without waiting for the reactive watcher
+ok 11 - native disable immediately before disposal survives without waiting for the reactive watcher
+  ---
+  duration_ms: 0.147165
+  type: 'test'
+  ...
+# Subtest: an external native offset immediately before widening or disposal remains the native preference
+ok 12 - an external native offset immediately before widening or disposal remains the native preference
+  ---
+  duration_ms: 0.089918
+  type: 'test'
+  ...
+# Subtest: tracking state comes from the native lock and stable identity rather than a separate flag
+ok 13 - tracking state comes from the native lock and stable identity rather than a separate flag
+  ---
+  duration_ms: 1.020646
+  type: 'test'
+  ...
+# Subtest: starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+ok 14 - starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+  ---
+  duration_ms: 1.265955
+  type: 'test'
+  ...
+# Subtest: reduced motion keeps the native satellite lock using the established sub-frame duration
+ok 15 - reduced motion keeps the native satellite lock using the established sub-frame duration
+  ---
+  duration_ms: 0.247138
+  type: 'test'
+  ...
+# Subtest: ending tracking releases only the native satellite lock and preserves selection and time mode
+ok 16 - ending tracking releases only the native satellite lock and preserves selection and time mode
+  ---
+  duration_ms: 0.96744
+  type: 'test'
+  ...
+# Subtest: missing or non-satellite selection cannot start satellite tracking
+ok 17 - missing or non-satellite selection cannot start satellite tracking
+  ---
+  duration_ms: 0.263906
+  type: 'test'
+  ...
+# Subtest: a new native selection cannot inherit the prior satellite tracking lock
+ok 18 - a new native selection cannot inherit the prior satellite tracking lock
+  ---
+  duration_ms: 0.134317
+  type: 'test'
+  ...
+# Subtest: same native object wrappers retain tracking and other native locks remain untouched
+ok 19 - same native object wrappers retain tracking and other native locks remain untouched
+  ---
+  duration_ms: 0.151155
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 63.012769
