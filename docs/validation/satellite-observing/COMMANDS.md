@@ -78,3 +78,5 @@ are retained alongside GREEN evidence. Final full frontend run:415 tests /60 fil
 0 failures. [Exact repair results](evidence/review/intent-RESULTS.md).
 
 Final browser command exits0:39/36/36 assertions,3viewports PASS, source_unchanged=true. [Full proof and recordings](BROWSER.md). All three final builds exit0;143served files match.
+
+Versioned text logs have trailing whitespace and extra blank EOF lines removed for repository whitespace checks. Original command output remains unchanged under `output/satellite-observing/`. No assertions, counts, warnings or errors were removed.

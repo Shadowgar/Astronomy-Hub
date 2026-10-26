@@ -23,6 +23,7 @@ Branch `sky-satellite-observing-1`, relative to `d2909a52d3f747c555ca87eff112bab
 - `docs/validation/satellite-observing/evidence/accuracy/run-output.json`
 - `docs/validation/satellite-observing/evidence/backend/RESULTS.md`
 - `docs/validation/satellite-observing/evidence/backend/docker-verified-state.json`
+- `docs/validation/satellite-observing/evidence/backend/docker-verified.log`
 - `docs/validation/satellite-observing/evidence/backend/real-passes.json`
 - `docs/validation/satellite-observing/evidence/browser/1440x900-identified.png`
 - `docs/validation/satellite-observing/evidence/browser/1440x900-passes.png`
@@ -35,9 +36,17 @@ Branch `sky-satellite-observing-1`, relative to `d2909a52d3f747c555ca87eff112bab
 - `docs/validation/satellite-observing/evidence/browser/667x390-tracked.png`
 - `docs/validation/satellite-observing/evidence/browser/media-sha256.json`
 - `docs/validation/satellite-observing/evidence/browser/proof.json`
+- `docs/validation/satellite-observing/evidence/qualification/build-docker-final.log`
+- `docs/validation/satellite-observing/evidence/qualification/build-final.log`
+- `docs/validation/satellite-observing/evidence/qualification/build-repeat-final.log`
 - `docs/validation/satellite-observing/evidence/qualification/delivery-candidate.json`
 - `docs/validation/satellite-observing/evidence/qualification/docs-validation.txt`
+- `docs/validation/satellite-observing/evidence/qualification/frontend-final.log`
 - `docs/validation/satellite-observing/evidence/review/intent-RESULTS.md`
+- `docs/validation/satellite-observing/evidence/review/intent-green-first.log`
+- `docs/validation/satellite-observing/evidence/review/intent-green.log`
+- `docs/validation/satellite-observing/evidence/review/intent-red.log`
+- `docs/validation/satellite-observing/evidence/review/intent-typecheck.log`
 - `docs/validation/satellite-observing/evidence/review/pre-review.md`
 - `docs/validation/satellite-observing/evidence/review/proposal-review.md`
 - `docs/validation/satellite-observing/loaded-documents.json`

@@ -1,0 +1,8 @@
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-observing-1/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  00:58:23
+   Duration  661ms (transform 357ms, setup 0ms, import 518ms, tests 32ms, environment 0ms)

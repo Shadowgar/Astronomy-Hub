@@ -1,0 +1,19 @@
+........................................................................ [ 84%]
+.............                                                            [100%]
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/testclient.py:29
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:29: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    [], typing.ContextManager[anyio.abc.BlockingPortal]
+
+../usr/local/lib/python3.12/site-packages/httpx/_client.py:690
+../usr/local/lib/python3.12/site-packages/httpx/_client.py:690
+  /usr/local/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+backend/tests/test_satellite_passes.py: 313 warnings
+  /usr/local/lib/python3.12/site-packages/skyfield/searchlib.py:224: DeprecationWarning: Setting the dtype on a NumPy array has been deprecated in NumPy 2.5.
+  Instead of changing the dtype on an array x, create a new array with x.view(new_dtype)
+    y.dtype = int8
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+85 passed, 316 warnings in 33.30s

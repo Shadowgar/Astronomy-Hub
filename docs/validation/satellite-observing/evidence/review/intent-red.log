@@ -1,0 +1,136 @@
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-observing-1/frontend
+
+ ❯ tests/workspaceIntentRaces.test.tsx (12 tests | 12 failed) 44ms
+   × late selection preserves newer play time intent 15ms
+   × late selection preserves newer live time intent 3ms
+   × late selection cannot overwrite a newer route generation 3ms
+   × late selection cannot overwrite a newer client generation 2ms
+   × late selection cannot overwrite a newer selection generation 1ms
+   × Watch stops after a newer history intent while its first acknowledgement is pending 3ms
+   × Watch stops after a newer observer intent while its first acknowledgement is pending 3ms
+   × Watch stops after a newer time intent while its first acknowledgement is pending 2ms
+   × Watch stops after a newer query intent while its first acknowledgement is pending 3ms
+   × Watch stops after a newer client intent while its first acknowledgement is pending 4ms
+   × Watch rejects native observer mismatch before clearing selection or changing time 1ms
+   × Watch preserves camera changes made during earlier acknowledgements 2ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspaceIntentRaces.test.tsx > late selection preserves newer play time intent
+AssertionError: expected '2026-10-26T10:22:00.000Z' to be '2026-10-26T10:22:02.000Z' // Object.is equality
+
+Expected: "2026-10-26T10:22:02.000Z"
+Received: "2026-10-26T10:22:00.000Z"
+
+ ❯ tests/workspaceIntentRaces.test.tsx:43:124
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  tests/workspaceIntentRaces.test.tsx > late selection preserves newer live time intent
+AssertionError: expected '2026-10-26T10:22:00.000Z' to be null // Object.is equality
+
+- Expected:
+null
+
++ Received:
+"2026-10-26T10:22:00.000Z"
+
+ ❯ tests/workspaceIntentRaces.test.tsx:43:124
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  tests/workspaceIntentRaces.test.tsx > late selection cannot overwrite a newer route generation
+ FAIL  tests/workspaceIntentRaces.test.tsx > late selection cannot overwrite a newer client generation
+AssertionError: expected "vi.fn()" to be called +0 times, but got 1 times
+ ❯ tests/workspaceIntentRaces.test.tsx:49:102
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  tests/workspaceIntentRaces.test.tsx > late selection cannot overwrite a newer selection generation
+AssertionError: expected "vi.fn()" to be called 1 times, but got 2 times
+ ❯ tests/workspaceIntentRaces.test.tsx:49:102
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  tests/workspaceIntentRaces.test.tsx > Watch stops after a newer history intent while its first acknowledgement is pending
+ FAIL  tests/workspaceIntentRaces.test.tsx > Watch stops after a newer observer intent while its first acknowledgement is pending
+ FAIL  tests/workspaceIntentRaces.test.tsx > Watch stops after a newer time intent while its first acknowledgement is pending
+ FAIL  tests/workspaceIntentRaces.test.tsx > Watch stops after a newer query intent while its first acknowledgement is pending
+ FAIL  tests/workspaceIntentRaces.test.tsx > Watch stops after a newer client intent while its first acknowledgement is pending
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 2 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array [
+      "clearSelection",
+      Object {},
+      4000,
+      Object {
+        "capabilities": Array [],
+        "version": "fixture",
+      },
+    ]
+
+  2nd vi.fn() call:
+
+    Array [
+      "setNavigationView",
+      Object {
+        "camera": Object {
+          "fovRad": 1,
+          "landscapeVisible": true,
+          "pitchRad": 0.3490658503988659,
+          "projection": 0,
+          "rollRad": 0,
+          "yawRad": 1.3962634015954636,
+        },
+        "mode": "sky",
+      },
+      4000,
+      Object {
+        "capabilities": Array [],
+        "version": "fixture",
+      },
+    ]
+
+
+Number of calls: 2
+
+ ❯ tests/workspaceIntentRaces.test.tsx:54:209
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  tests/workspaceIntentRaces.test.tsx > Watch rejects native observer mismatch before clearing selection or changing time
+AssertionError: expected [ 'setPresentation', …(3) ] to not include 'clearSelection'
+ ❯ tests/workspaceIntentRaces.test.tsx:57:279
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  tests/workspaceIntentRaces.test.tsx > Watch preserves camera changes made during earlier acknowledgements
+AssertionError: expected 1 to be 0.5 // Object.is equality
+
+- Expected
++ Received
+
+- 0.5
++ 1
+
+ ❯ tests/workspaceIntentRaces.test.tsx:60:499
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  12 failed (12)
+   Start at  00:57:08
+   Duration  687ms (transform 358ms, setup 0ms, import 518ms, tests 44ms, environment 0ms)
