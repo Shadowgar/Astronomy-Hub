@@ -11,10 +11,10 @@ docs/validation/repository-recovery-20261026/p0-native-satellites/desktop-live-c
 docs/validation/repository-recovery-20261026/p0-native-satellites/mobile-live-contact.png
 docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/analytical-display-bound.json
 docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/backend-tests.log.gz
-docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/committed-live-proof.json
+docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/committed-live-proof.json.gz
 docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/controls-final.log.gz
 docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/desktop-contact-source.json
-docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/earlier-live-proof.json
+docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/earlier-live-proof.json.gz
 docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/final-fast-click-red.log.gz
 docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/frontend-committed.log.gz
 docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/hub-build.log.gz
@@ -41,3 +41,4 @@ frontend/src/features/workspace/skyCinematic.css
 scripts/validation/compare_native_satellite_reference.mjs
 scripts/validation/verify_native_satellite_live_pixels.mjs
 scripts/validation/verify_satellite_tracking_controls.mjs
+docs/validation/repository-recovery-20261026/p0-native-satellites/receipts/capture-compression.json

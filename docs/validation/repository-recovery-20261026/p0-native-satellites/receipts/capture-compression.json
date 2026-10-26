@@ -1,0 +1,14 @@
+[
+  {
+    "file": "committed-live-proof.json.gz",
+    "original_sha256": "7abb24a14c2ca4d323aec64d2e2bf30854222d498c3ac1f2b36053f9ceef8f05",
+    "uncompressed_bytes": 2671128,
+    "compressed_bytes": 456350
+  },
+  {
+    "file": "earlier-live-proof.json.gz",
+    "original_sha256": "d4f6b883f6dc3ae0d2f9eb60b5dc8f1aef48e4e917e5e56d5ee43de08daf6ddb",
+    "uncompressed_bytes": 2589593,
+    "compressed_bytes": 440937
+  }
+]
