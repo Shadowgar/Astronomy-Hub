@@ -2,7 +2,19 @@
 
 **BLOCKED for mainline integration and product acceptance.** One isolated candidate replaces the review of the accumulated stack. Closing an old review vehicle is not a merge and does not certify its functionality. All original branches, worktrees, data and evidence remain preserved.
 
-## P0 native satellite continuation
+## Current P0 satellite usability finalization
+
+[Current report, real mobile touch evidence and exact commands](p0-satellite-usability/README.md):
+application correction `5ef2b8a5` clarifies loaded/mixed orbital data and ordinary
+viewing limits, and closes CodeQL79's service-level exception disclosure with
+red/green API tests. Current Live native motion and real touch/Track/Stop/return
+pass in portrait and landscape at ordinary 37.5° pinch zoom. Current desktop
+motion capture remains guarded/unproven; earlier native desktop proof is retained.
+No native scheduler/physics/brightness change or discovery speedup. Protected state
+and the existing catalog remain unchanged. Stop satellite renderer rework; next
+priority is independent integration review, then Earth/Solar/shared UX.
+
+## Earlier P0 native satellite continuation
 
 [Current P0 result and visual evidence](p0-native-satellites/README.md): native unselected Live point motion observed on desktop and mobile at recorded eligible epochs; one later mobile interval remains unproven. The drawer covering Stop tracking is fixed at `ab861073`. P0 changes only selected-drawer CSS; native payload/photometry remain unchanged. Owner acceptance and release gates remain blocked.
 

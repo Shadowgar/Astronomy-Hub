@@ -1,5 +1,9 @@
 # P0 native satellite recovery — 2026-10-26
 
+Historical checkpoint. [The later usability finalization](../p0-satellite-usability/README.md)
+adds current mobile real-touch evidence, status/guidance and the service-level
+security correction. Results below remain attached to their original revisions.
+
 **Native unselected Live satellite light-point motion is observed. PR107 remains BLOCKED for owner acceptance and the existing release gates.** The confirmed new product defect was the Hub drawer covering its Stop tracking action; it is repaired. No native rendering/propagation/photometry patch or brightness change was justified or made.
 
 Branch: `recovery/reconcile-20261026`. Tested correction: `ab861073c62bbbf82b9e4f214389931b6ebe2f9f`. The later report commit changes evidence/context only. Starting application was `6282d71deca9e2a339479f67be1f7794cd673180`; the only application change is the scoped selected-drawer CSS rule. No new branch/PR, merge, deployment, provider acquisition, protected data replacement or volume operation.

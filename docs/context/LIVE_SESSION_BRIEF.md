@@ -1,5 +1,22 @@
 # LIVE SESSION BRIEF
 
+## P0 satellite usability finalization — 2026-10-26
+
+The narrowed owner continuation is implemented at `5ef2b8a5` on existing
+`recovery/reconcile-20261026` / draft PR107. Current Live native point motion and
+real touch → Track → Stop → Deselect pass in portrait and landscape after normal
+pinch zoom to 37.5°. Current desktop motion captures fail qualification guards;
+earlier desktop proof is retained only for unchanged native payloads. Existing
+status/details now explain satellite data and scientific visibility limits.
+CodeQL79's service-level exception disclosure is corrected with red/green API
+evidence. Native scheduler/physics/brightness are unchanged; no discovery speedup
+is claimed. The catalog was not reacquired and protected state is preserved.
+
+Stop satellite renderer rework here. Next: separately bounded independent
+integration review, then owner-rejected Earth/Solar/shared UX. Owner/device,
+advisory and source-offer/build-completeness gates remain. No merge/deploy/delete.
+[Current results, exact commands, changed files and failed captures](../validation/repository-recovery-20261026/p0-satellite-usability/README.md).
+
 ## P0 native satellite continuation — 2026-10-26
 
 The owner narrows recovery to native satellite diagnosis/correction on the existing
