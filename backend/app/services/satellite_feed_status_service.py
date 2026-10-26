@@ -3,7 +3,6 @@ from __future__ import annotations
 from bisect import bisect_left, bisect_right
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
-import json
 import os
 import zlib
 from pathlib import Path
@@ -144,9 +143,8 @@ def _feed_snapshot(feed: str, feed_identity: tuple[int, ...] | None, manifest: s
                 raise ValueError("satellite minimum count must be positive")
             release, _ = read_validated_release(Path(manifest).parent, minimum_count=minimum)
             result.update(manifest=release, release_validated=True)
-        except (OSError, TypeError, ValueError) as exc:
-            reason = "manifest.json is invalid" if isinstance(exc, json.JSONDecodeError) else str(exc).strip() or "release data is invalid"
-            result["reason"] = f"Satellite release validation failed: {reason}"
+        except (OSError, TypeError, ValueError):
+            result["reason"] = "Satellite release validation failed. Check release integrity and configuration."
     else:
         result["reason"] = "Native satellite feed is mounted; release manifest is missing and source provenance is unavailable."
     try:
@@ -158,9 +156,9 @@ def _feed_snapshot(feed: str, feed_identity: tuple[int, ...] | None, manifest: s
             except (KeyError, IndexError, TypeError, ValueError, OverflowError):
                 continue
         result.update(record_count=catalog.count, malformed_count=catalog.malformed_count, epochs=tuple(sorted(epochs_by_norad.values())), epochs_by_norad=epochs_by_norad)
-    except (OSError, EOFError, TypeError, ValueError, zlib.error) as exc:
+    except (OSError, EOFError, TypeError, ValueError, zlib.error):
         result.update(release_validated=False, manifest={})
-        result["reason"] += f" Native satellite feed could not be parsed: {type(exc).__name__}"
+        result["reason"] = "Native satellite feed could not be parsed."
     return result
 
 

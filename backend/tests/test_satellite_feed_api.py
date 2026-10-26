@@ -55,6 +55,32 @@ def _build_fixture_release(path: Path) -> None:
     )
 
 
+@pytest.mark.parametrize("failure_type", [OSError, TypeError, ValueError])
+def test_degraded_release_does_not_disclose_validation_diagnostics(tmp_path, monkeypatch, failure_type):
+    from backend.app.services import satellite_feed_status_service as service
+
+    release = tmp_path / "current"
+    _build_fixture_release(release)
+    monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+    monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
+
+    def private_failure(*args, **kwargs):
+        raise failure_type("private diagnostic: /srv/private/catalog\nTraceback: secret_configuration")
+
+    monkeypatch.setattr(service, "read_validated_release", private_failure)
+    response = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z")
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["status"] == "degraded"
+    assert data["release_validated"] is False
+    assert data["record_count"] == 2
+    assert data["reason"] == "Satellite release validation failed. Check release integrity and configuration."
+    assert "private" not in response.text
+    assert "Traceback" not in response.text
+    assert "secret_configuration" not in response.text
+
+
 def test_satellite_feed_status_reports_mounted_release_without_bulk_records(tmp_path: Path, monkeypatch) -> None:
     release = tmp_path / "current"
     _build_fixture_release(release)
@@ -107,7 +133,7 @@ def test_satellite_feed_status_reports_corrupt_manifest_or_feed(tmp_path: Path, 
 
     assert bad_manifest.status_code == 200
     assert bad_manifest.json()["data"]["status"] == "degraded"
-    assert "manifest" in bad_manifest.json()["data"]["reason"].lower()
+    assert bad_manifest.json()["data"]["reason"] == "Satellite release validation failed. Check release integrity and configuration."
 
     _build_fixture_release(release)
     feed_path = release / "tle_satellite.jsonl.gz"
@@ -117,7 +143,7 @@ def test_satellite_feed_status_reports_corrupt_manifest_or_feed(tmp_path: Path, 
 
     assert bad_feed.status_code == 200
     assert bad_feed.json()["data"]["status"] == "degraded"
-    assert "checksum" in bad_feed.json()["data"]["reason"].lower()
+    assert bad_feed.json()["data"]["reason"] == "Native satellite feed could not be parsed."
 
 
 def test_satellite_feed_status_rejects_naive_time(tmp_path: Path, monkeypatch) -> None:
@@ -145,7 +171,7 @@ def test_satellite_feed_status_rejects_fixture_sized_release_by_default(tmp_path
     assert response.status_code == 200
     data = response.json()["data"]
     assert data["status"] == "degraded"
-    assert "minimum" in data["reason"].lower()
+    assert data["reason"] == "Satellite release validation failed. Check release integrity and configuration."
 
 
 def test_satellite_feed_status_rejects_split_release_paths(tmp_path: Path, monkeypatch) -> None:
@@ -163,7 +189,7 @@ def test_satellite_feed_status_rejects_split_release_paths(tmp_path: Path, monke
     assert response.status_code == 200
     data = response.json()["data"]
     assert data["status"] == "degraded"
-    assert "same release directory" in data["reason"].lower()
+    assert data["reason"] == "Satellite release validation failed. Check release integrity and configuration."
 
 
 def test_satellite_feed_status_manifest_cannot_override_contract_fields(tmp_path: Path, monkeypatch) -> None:
@@ -311,18 +337,20 @@ def test_status_poll_reuses_catalog_but_reloads_changed_file(tmp_path: Path, mon
     assert changed["freshness_status"] == "unavailable"
 
 
-def test_invalid_release_minimum_is_degraded_configuration_not_invalid_request(tmp_path: Path, monkeypatch) -> None:
+@pytest.mark.parametrize("minimum", ["0", "private_config_/srv/private"])
+def test_invalid_release_minimum_is_degraded_configuration_not_invalid_request(tmp_path: Path, monkeypatch, minimum) -> None:
     release = tmp_path / "current"
     _build_fixture_release(release)
     monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
     monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
-    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "0")
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", minimum)
     response = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z")
     assert response.status_code == 200
     data = response.json()["data"]
     assert data["status"] == "degraded"
     assert data["release_validated"] is False
-    assert "minimum count" in data["reason"]
+    assert data["reason"] == "Satellite release validation failed. Check release integrity and configuration."
+    assert "private_config" not in response.text
 
 
 def test_release_validation_is_bound_to_configured_feed_bytes(tmp_path: Path, monkeypatch) -> None:

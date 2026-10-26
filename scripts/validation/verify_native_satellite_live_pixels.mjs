@@ -20,42 +20,7 @@ const browser=await chromium.launch({args:['--use-angle=swiftshader','--enable-u
 
 // Stereographic projection follows the pinned native projection, using native
 // ICRF -> VIEW conversion. This math measures pixels; it never drives the scene.
-async function sample(f,ids=null,capture=false){return f.evaluate(({ids,capture})=>new Promise(resolve=>requestAnimationFrame(()=>{
-  const s=window.__ORAS_STEL,c=s.core,canvas=document.querySelector('#stel-canvas'),r=canvas.getBoundingClientRect();
-  const aspect=r.width/r.height,fovy=aspect<1?4*Math.atan(Math.tan(c.fov/4)/aspect):c.fov;
-  const scale=r.height/(2*Math.tan(fovy/4));
-  const position=o=>{const ra=o.getInfo('radec',c.observer),view=s.convertFrame(c.observer,'ICRF','VIEW',ra),obs=s.convertFrame(c.observer,'ICRF','OBSERVED',ra),n=Math.hypot(...view.slice(0,3)),v=view.map(x=>x/n);
-    const x=r.x+r.width/2+scale*v[0]/(1-v[2]),y=r.y+r.height/2-scale*v[1]/(1-v[2]);
-    return {radec:ra,view,observed:obs,pixel:{x,y},onScreen:v[2]<0&&x>r.x+30&&x<r.right-30&&y>r.y+100&&y<r.bottom-150,altitudeDeg:Math.asin(obs[2]/Math.hypot(...obs.slice(0,3)))*180/Math.PI};};
-  let objects=[],count;
-  if(ids){objects=ids.map(id=>s.getObj('NORAD '+String(id).padStart(5,'0'))).filter(Boolean);}
-  else{const pointers=[],cb=s.addFunction((user,ptr)=>{pointers.push(ptr);return 0},'iii');
-    try{s._module_list_objs2(c.satellites.v,c.observer.v,NaN,0,cb);}finally{s.removeFunction(cb);}
-    count=pointers.length;
-    // Upstream listObjs uses a shared scratch array overwritten by SweObj's
-    // constructor. Keep our own pointer array and balance every retained handle.
-    objects=pointers.map(ptr=>{const o=new s.SweObj(ptr);o.retain();return o;});}
-  const rows=[];
-  for(const o of objects){try{const mag=o.getInfo('vmag',c.observer);if(mag<18){const data=o.jsonData;rows.push({id:String(data.model_data.norad_number),mag,standardMagnitude:data.model_data.mag??null,tle:data.model_data.tle,names:data.names,...position(o)});}}finally{o.destroy();}}
-  const stars=[];for(const id of ['HIP 24608','HIP 91262','HIP 32349','HIP 11767','HIP 69673','HIP 37826']){const o=s.getObj(id);if(!o)continue;try{stars.push({id,...position(o)});}finally{o.destroy();}}
-  let image; if(capture){const copy=document.createElement('canvas');copy.width=canvas.width;copy.height=canvas.height;copy.getContext('2d').drawImage(canvas,0,0);image=copy.toDataURL('image/png').split(',')[1];}
-  resolve({image,wallUtc:new Date().toISOString(),navigation:window.orasSkyAdapter.navigation(),speed:c.time_speed,selection:!!c.selection,lock:!!c.lock,
-    count,visible:c.satellites.visible,hints:c.satellites.hints_visible,offset:c.satellites.hints_mag_offset,
-    appearance:{atmosphere:c.atmosphere.visible,exposure:c.exposure_scale,starScale:c.star_linear_scale,bortle:c.bortle_index},
-    canvas:{x:r.x,y:r.y,width:r.width,height:r.height},rows:rows.sort((a,b)=>a.mag-b.mag),stars});
-})),{ids,capture});}
-
-async function pixelStats(p,on,off,targets){return p.evaluate(async({on,off,targets})=>{
-  async function decode(b){const bytes=Uint8Array.from(atob(b),c=>c.charCodeAt(0)),im=await createImageBitmap(new Blob([bytes]));const c=new OffscreenCanvas(im.width,im.height),x=c.getContext('2d');x.drawImage(im,0,0);return {width:im.width,height:im.height,data:x.getImageData(0,0,im.width,im.height).data};}
-  const a=await decode(on),b=off?await decode(off):null;
-  return targets.map(t=>{let white=0,green=0,mass=0,xsum=0,ysum=0;
-    for(let y=Math.max(0,Math.floor(t.pixel.y)-4);y<=Math.min(a.height-1,Math.ceil(t.pixel.y)+4);y++)for(let x=Math.max(0,Math.floor(t.pixel.x)-4);x<=Math.min(a.width-1,Math.ceil(t.pixel.x)+4);x++){
-      const i=(y*a.width+x)*4,r=a.data[i],g=a.data[i+1],bl=a.data[i+2],delta=b?Math.abs(r-b.data[i])+Math.abs(g-b.data[i+1])+Math.abs(bl-b.data[i+2]):r+g+bl;
-      if(delta<6)continue;
-      if(g>60&&g-r>20&&g-bl>15)green++;
-      if(Math.min(r,g,bl)>3&&Math.max(r,g,bl)-Math.min(r,g,bl)<55){white++;mass+=delta;xsum+=x*delta;ysum+=y*delta;}
-    }return {id:t.id,expected:t.pixel,white,green,centroid:mass?{x:xsum/mass,y:ysum/mass}:null};});
-},{on:on.toString('base64'),off:off?.toString('base64'),targets});}
+import {sample,pixelStats} from './native_satellite_measurements.mjs';
 
 try{for(const viewport of (process.env.P0_VIEWPORT?[{width:Number(process.env.P0_VIEWPORT.split("x")[0]),height:Number(process.env.P0_VIEWPORT.split("x")[1])}]:[{width:1440,height:900},{width:390,height:900}])){
   const ctx=await browser.newContext({viewport,hasTouch:viewport.width<768}),p=await ctx.newPage(),run={viewport,errors:[],frames:[]};proof.runs.push(run);p.on('pageerror',e=>run.errors.push(e.message));
