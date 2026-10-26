@@ -1,0 +1,47 @@
+name: Repository integrity
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [recovery/reconcile-20261026]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-checks:
+    name: Repository source checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Runtime and science contracts
+        run: node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs tests/planet/*.test.mjs tests/runtime-protocol/*.test.mjs
+      - name: Satellite source admission fixtures
+        run: python3 -m unittest discover -s tests/runtime -p test_native_satellite_source_stage.py -v
+      - name: Install Hub dependencies
+        working-directory: frontend
+        run: npm ci --no-audit --no-fund
+      - name: Hub tests, types and build
+        working-directory: frontend
+        run: |
+          npm test -- --run
+          npm run typecheck
+          npm run build -- --outDir ../output/ci/hub
+      # These source checks do not certify Docker, external datasets, native
+      # reconstruction, deployed source offers, browser pixels or owner UX.
+      # Those remain explicit release gates in the recovery manifest.

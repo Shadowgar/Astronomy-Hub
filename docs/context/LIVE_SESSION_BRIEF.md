@@ -1,5 +1,26 @@
 # LIVE SESSION BRIEF
 
+## Active repository recovery — 2026-10-26
+
+The owner explicitly authorizes complete inventory, isolated consolidation, safe
+repairs, testing and closure of superseded review vehicles. This supersedes older
+task-specific stop points below only within that recovery scope. Main merges,
+remote branch deletion, deployment and consequential protection changes still
+require one consolidated owner approval. No product acceptance is inferred.
+
+Candidate `recovery/reconcile-20261026` preserves the complete 73→105 existing source
+lineage plus current main, excludes rejected 102/104 and superseded 103, and remains
+**BLOCKED** for release/owner acceptance. Source/artifact drift and a reproduced
+landscape-mobile native-control overlap were repaired. Fresh 15,901-record native
+and backend loading is proven; ordinary unselected satellite pixel motion, later
+product UX/device acceptance, security triage, source offer and independent review
+remain gates. N1's historical owner acceptance is preserved.
+
+[Recovery manifest, all PR/branch dispositions and technical receipts](../validation/repository-recovery-20261026/README.md)
+are the active reconciliation record. Do not restore old task activation from the
+historical entries below or treat superseded PR closure as mainline integration.
+
+
 ## Focused Sky satellite repair — owner directive 2026-10-24
 
 The owner authorizes a bounded repair stacked on preserved draft PR95
