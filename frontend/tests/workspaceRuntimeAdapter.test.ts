@@ -1,9 +1,9 @@
 import {afterEach,it,expect,vi} from 'vitest'
-const hooks=vi.hoisted(()=>({effects:[] as (()=>void)[],refs:[] as any[],index:0,states:0,client:null as any,updates:[] as any[]}))
-vi.mock('react',async original=>({...await original<typeof import('react')>(),useState:(value:any)=>[hooks.states++===0?{mode:'earth',client:hooks.client}:typeof value==='function'?value():value,(next:any)=>hooks.updates.push(next)],useRef:(value:any)=>{const index=hooks.index++;return hooks.refs[index]??=({current:index===0?hooks.client:value})},useEffect:(effect:()=>void)=>hooks.effects.push(effect),useCallback:(fn:any)=>fn}))
+const hooks=vi.hoisted(()=>({mode:'earth',effects:[] as (()=>void)[],refs:[] as any[],index:0,states:0,client:null as any,updates:[] as any[]}))
+vi.mock('react',async original=>({...await original<typeof import('react')>(),useState:(value:any)=>[hooks.states++===0?{mode:hooks.mode,client:hooks.client}:typeof value==='function'?value():value,(next:any)=>hooks.updates.push(next)],useRef:(value:any)=>{const index=hooks.index++;return hooks.refs[index]??=({current:index===0?hooks.client:value})},useEffect:(effect:()=>void)=>hooks.effects.push(effect),useCallback:(fn:any)=>fn}))
 import {useWorkspaceRuntime} from '../src/features/workspace/workspaceRuntimeAdapter'
 import {useRuntimeProductState} from '../src/features/runtime/productState'
-afterEach(()=>{hooks.effects=[];hooks.refs=[];hooks.index=0;hooks.states=0;hooks.updates=[]})
+afterEach(()=>{hooks.mode='earth';hooks.effects=[];hooks.refs=[];hooks.index=0;hooks.states=0;hooks.updates=[]})
 it('in-place observer intent remains pending until the runtime refresh acknowledgement',async()=>{let finish:(value:any)=>void=()=>{};const commands:string[]=[];hooks.client={capabilities:[],request:vi.fn(async(command:string)=>{commands.push(command);if(command==='setObserverIntent')return new Promise(resolve=>finish=resolve);return {ok:true,effectiveTime:'2026-10-03T02:00:00Z'}})};useRuntimeProductState.setState({observer:{lat:42,lon:-80,elevationM:0}});useWorkspaceRuntime('earth','?lat=35&lng=-120&elev=0',()=>{},()=>{});hooks.effects.at(-1)!();await Promise.resolve();await Promise.resolve();await Promise.resolve();expect(commands).toEqual(['setTimeIntent','setObserverIntent']);const acknowledged=hooks.refs.find(r=>r.current?.observer!==undefined&&r.current?.selection!==undefined);expect(acknowledged.current.observer).toBe('');finish({ok:true,effectiveObserver:{lat:35,lon:-120,elevationM:0}});await Promise.resolve();await Promise.resolve();await Promise.resolve();expect(acknowledged.current.observer).toBe('[35,-120,0,"provided"]')})
 it('queued layer work cannot dispatch to a replacement client',async()=>{
  const old={capabilities:[],request:vi.fn(async()=>({ok:true}))},replacement={...old,request:vi.fn(async()=>({ok:true}))};hooks.client=old
@@ -53,4 +53,21 @@ it('selection arriving during a time acknowledgement reuses the pending intent a
 })
 it('an explicit time command remains available even when its URL intent is unchanged',async()=>{
  hooks.client=timeClient();const runtime=rerender('');runtime.acceptClient(hooks.client);rerender('');hooks.effects.at(-1)!();await flush();const utc=new Date().toISOString();await runtime.request('setTimeIntent',{utc,live:true});expect(hooks.client.request.mock.calls.filter(([c]:any)=>c==='setTimeIntent')).toHaveLength(2)
+})
+
+function skyRender(search:string){hooks.mode='sky';hooks.index=0;hooks.states=0;hooks.effects=[];return useWorkspaceRuntime('sky',search,()=>{},()=>{})}
+it('reload of an explicit simulation starts paused, never auto-plays',async()=>{
+ const utc='2026-10-26T10:22:00.000Z';hooks.client={capabilities:[],request:vi.fn(async(command:string,payload:any)=>({ok:true,effectiveTime:utc,simulation:{utc,playing:payload.playing,speed:1}}))};
+ skyRender('?date='+utc+'&simulation=1');hooks.effects.at(-1)!();await flush();
+ expect(hooks.client.request.mock.calls[0].slice(0,2)).toEqual(['setSimulation',{utc,playing:false}]);
+})
+it('selection URL synchronization cannot reset a running native simulation',async()=>{
+ const utc='2026-10-26T10:22:00.000Z';hooks.client={capabilities:[],request:vi.fn(async(command:string,payload:any)=>({ok:true,effectiveTime:utc,simulation:{utc,playing:payload.playing,speed:1}}))};
+ const runtime=skyRender('?date='+utc+'&simulation=1');await runtime.simulate(true,utc);
+ skyRender('?date='+utc+'&simulation=1&catalog=Satellite+TLE+%28local%29&source_id=61047&model=tle_satellite');hooks.effects.at(-1)!();await flush();
+ expect(hooks.client.request.mock.calls.filter(([command]:any)=>command==='setSimulation'||command==='setTimeIntent')).toHaveLength(1);
+})
+it('departed-client simulation acknowledgements cannot resume the replacement sky',async()=>{
+ let finish:(value:any)=>void=()=>{};hooks.client={capabilities:[],request:vi.fn(()=>new Promise(resolve=>finish=resolve))};
+ const runtime=skyRender(''),pending=runtime.simulate(true,'2026-10-26T10:22:00.000Z');runtime.acceptClient(null);finish({ok:true,simulation:{utc:'2026-10-26T10:22:00.000Z',playing:true,speed:1}});expect(await pending).toBeNull();
 })

@@ -1,0 +1,64 @@
+# Exact files changed
+
+Branch `sky-satellite-observing-1`, relative to `d2909a52d3f747c555ca87eff112bab83c064779`.
+
+- `backend/app/main.py`
+- `backend/app/routes/satellite_passes.py`
+- `backend/app/services/satellite_pass_service.py`
+- `backend/tests/test_satellite_passes.py`
+- `docs/context/CONTEXT_MANIFEST.yaml`
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/execution/MASTER_PLAN.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/validation/satellite-observing/BROWSER.md`
+- `docs/validation/satellite-observing/COMMANDS.md`
+- `docs/validation/satellite-observing/CONTEXT.md`
+- `docs/validation/satellite-observing/FILES_CHANGED.md`
+- `docs/validation/satellite-observing/PLAN.md`
+- `docs/validation/satellite-observing/README.md`
+- `docs/validation/satellite-observing/evidence/accuracy/REPORT.md`
+- `docs/validation/satellite-observing/evidence/accuracy/investigate.py`
+- `docs/validation/satellite-observing/evidence/accuracy/investigation.json`
+- `docs/validation/satellite-observing/evidence/accuracy/run-output.json`
+- `docs/validation/satellite-observing/evidence/backend/RESULTS.md`
+- `docs/validation/satellite-observing/evidence/backend/docker-verified-state.json`
+- `docs/validation/satellite-observing/evidence/backend/real-passes.json`
+- `docs/validation/satellite-observing/evidence/browser/1440x900-identified.png`
+- `docs/validation/satellite-observing/evidence/browser/1440x900-passes.png`
+- `docs/validation/satellite-observing/evidence/browser/1440x900-tracked.png`
+- `docs/validation/satellite-observing/evidence/browser/390x900-identified.png`
+- `docs/validation/satellite-observing/evidence/browser/390x900-passes.png`
+- `docs/validation/satellite-observing/evidence/browser/390x900-tracked.png`
+- `docs/validation/satellite-observing/evidence/browser/667x390-identified.png`
+- `docs/validation/satellite-observing/evidence/browser/667x390-passes.png`
+- `docs/validation/satellite-observing/evidence/browser/667x390-tracked.png`
+- `docs/validation/satellite-observing/evidence/browser/media-sha256.json`
+- `docs/validation/satellite-observing/evidence/browser/proof.json`
+- `docs/validation/satellite-observing/evidence/qualification/delivery-candidate.json`
+- `docs/validation/satellite-observing/evidence/qualification/docs-validation.txt`
+- `docs/validation/satellite-observing/evidence/review/intent-RESULTS.md`
+- `docs/validation/satellite-observing/evidence/review/pre-review.md`
+- `docs/validation/satellite-observing/evidence/review/proposal-review.md`
+- `docs/validation/satellite-observing/loaded-documents.json`
+- `frontend/src/features/workspace/SatellitePasses.tsx`
+- `frontend/src/features/workspace/TimeSurface.tsx`
+- `frontend/src/features/workspace/WorkspaceShell.tsx`
+- `frontend/src/features/workspace/satellitePasses.css`
+- `frontend/src/features/workspace/workspaceRuntimeAdapter.ts`
+- `frontend/tests/satellitePasses.test.tsx`
+- `frontend/tests/workspaceIntentRaces.test.tsx`
+- `frontend/tests/workspaceRuntimeAdapter.test.ts`
+- `frontend/tests/workspaceTime.test.tsx`
+- `frontend/vite.config.mjs`
+- `packages/runtime-protocol/endpoint.mjs`
+- `packages/runtime-protocol/index.d.mts`
+- `packages/runtime-protocol/index.mjs`
+- `runtimes/sky-adapter/entry.mjs`
+- `runtimes/sky-adapter/simulation.mjs`
+- `scripts/validation/start_satellite_observing_preview.py`
+- `scripts/validation/verify_satellite_observing.mjs`
+- `scripts/validation/verify_satellite_observing_delivery.py`
+- `tests/runtime/satellite-simulation.test.mjs`
+
+Separate draft PR103 changes only `docs/validation/satellite-observing/REFRESH_PROPOSAL.md` on `sky-satellite-refresh-proposal-1`.

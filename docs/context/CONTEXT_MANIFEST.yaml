@@ -93,6 +93,7 @@ tasks:
     - docs/validation/planetary-systems/README.md
     - docs/validation/sky-satellite-live/README.md
     - docs/validation/satellite-visual-pilot/README.md
+    - docs/validation/satellite-observing/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -134,6 +135,7 @@ tasks:
     - docs/validation/planetary-systems/README.md
     - docs/validation/sky-satellite-live/README.md
     - docs/validation/satellite-visual-pilot/README.md
+    - docs/validation/satellite-observing/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
@@ -186,6 +188,7 @@ tasks:
     - docs/validation/planetary-systems/README.md
     - docs/validation/sky-satellite-live/README.md
     - docs/validation/satellite-visual-pilot/README.md
+    - docs/validation/satellite-observing/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
@@ -248,6 +251,7 @@ tasks:
     - docs/validation/planetary-systems/README.md
     - docs/validation/sky-satellite-live/README.md
     - docs/validation/satellite-visual-pilot/README.md
+    - docs/validation/satellite-observing/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -281,6 +285,7 @@ tasks:
     - docs/validation/planetary-systems/README.md
     - docs/validation/sky-satellite-live/README.md
     - docs/validation/satellite-visual-pilot/README.md
+    - docs/validation/satellite-observing/README.md
     - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md

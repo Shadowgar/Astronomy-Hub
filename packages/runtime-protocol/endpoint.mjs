@@ -18,7 +18,7 @@ export function createRuntimeEndpoint({runtime,version,capabilities,execute,wind
     if(message.command==='getVersion') payload={ok:true,version};
     else if(message.command==='getCapabilities') payload={ok:true,capabilities};
     else {
-     const cap={destroy:'destroy',setTimeIntent:'timeIntent',setObserverIntent:'observerIntent'}[message.command] || COMMAND_CAPABILITY[message.command];
+     const cap={destroy:'destroy',setTimeIntent:'timeIntent',setSimulation:'timeIntent',setObserverIntent:'observerIntent'}[message.command] || COMMAND_CAPABILITY[message.command];
      payload=capabilities.includes(cap)?await execute(message.command,message.payload):{ok:false,error:'Unsupported capability'};
     }
    } catch {payload={ok:false,error:'Runtime command failed'};}

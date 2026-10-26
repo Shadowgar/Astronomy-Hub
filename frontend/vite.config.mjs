@@ -162,7 +162,7 @@ export function serveOrasRuntimeRequest(req, res, next) {
 }
 
 function serveBridge(req,res,next){
- const routes={'/runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','/runtime-bridge/sky/native-panels.mjs':'../runtimes/sky-adapter/native-panels.mjs','/packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','/packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','/packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'}
+ const routes={'/runtime-bridge/sky/simulation.mjs':'../runtimes/sky-adapter/simulation.mjs','/runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','/runtime-bridge/sky/native-panels.mjs':'../runtimes/sky-adapter/native-panels.mjs','/packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','/packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','/packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'}
  for(const name of ['navigation.mjs','continued-input.mjs'])routes['/packages/runtime-protocol/'+name]='../packages/runtime-protocol/'+name
  const relative=routes[(req.url||'').split('?')[0]]
  if(!relative)return next()
@@ -177,7 +177,7 @@ const orasRuntimeSpaPlugin = {
     this.emitFile({type:'asset',fileName:'runtime-versions.json',source:fs.readFileSync(path.resolve(__dirname,'public/runtime-versions.json'))})
     // Explicit legal assets only; never enable bulk public/skydata copying.
     for(const name of ['stellarium-web-engine-AGPL-3.0.txt','cesium-license.txt','sky-data-credits.html','README.txt','gods-eye-search-MIT.txt','three-MIT.txt'])this.emitFile({type:'asset',fileName:'licenses/'+name,source:fs.readFileSync(path.resolve(__dirname,'public/licenses',name))})
-    for(const [fileName,source] of Object.entries({'runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','runtime-bridge/sky/native-panels.mjs':'../runtimes/sky-adapter/native-panels.mjs','packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'})) this.emitFile({type:'asset',fileName,source:fs.readFileSync(path.resolve(__dirname,source))})
+    for(const [fileName,source] of Object.entries({'runtime-bridge/sky/simulation.mjs':'../runtimes/sky-adapter/simulation.mjs','runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','runtime-bridge/sky/native-panels.mjs':'../runtimes/sky-adapter/native-panels.mjs','packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'})) this.emitFile({type:'asset',fileName,source:fs.readFileSync(path.resolve(__dirname,source))})
     for(const name of ['navigation.mjs','continued-input.mjs'])this.emitFile({type:'asset',fileName:'packages/runtime-protocol/'+name,source:fs.readFileSync(path.resolve(__dirname,'../packages/runtime-protocol/'+name))})
   },
   configureServer(server) {

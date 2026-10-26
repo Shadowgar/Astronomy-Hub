@@ -1,0 +1,26 @@
+# Next Passes backend evidence
+
+Branch: sky-satellite-observing-1; implementation deliberately uncommitted by backend agent.
+Owned sources: backend/app/services/satellite_pass_service.py; backend/app/routes/satellite_passes.py; backend/app/main.py; backend/tests/test_satellite_passes.py.
+
+Context: CORE_CONTEXT.md, LIVE_SESSION_BRIEF.md, CONTEXT_MANIFEST.yaml backend_change pack and backend/AGENTS.md inspected; root context agent consolidates full authoritative document inventory. Explicit owner extension authorizes Next Passes; historical backend /api/v1-only instruction conflicts with current /api/sky source routes and explicit owner contract, so new route follows /api/sky/satellite-passes.
+
+Implementation uses existing native visual-pilot validation and mounted read-only DE442s. Source fingerprints include feed/manifest/mirror artifacts/native photometry baseline and kernel/manifest; exact-input cache cannot reuse older file generations. Native feed SHA256 is checked before parsing; torn source reads fail closed. No source acquisition, new kernel download, updater, source modification, database, renderer or package changes.
+
+Geometry: Skyfield SGP4, geometric0° rise/set; all culminations considered; requested-window clipping explicitly flagged. Optical qualification samples15s plus actual culmination and15s before culmination: sunlit, altitude>=10°, solar altitude<=-6°. It means potentially observable, never naked-eye certainty. Magnitude is preserved native standard magnitude only; weather/apparent brightness/local obstruction are unknown. Freshness is maximum absolute TLE age across each reported pass, including future epochs.
+
+Bounds:24h horizon;155 records;40 returned, potential passes first then rise; explicit scanned/skipped/failed/found/returned counts and truncation. One active synchronous worker per process,12 uncached requests/minute,8 exact-input cache entries, cooperative45s calculation budget checked between records. FastAPI sync route offloads CPU from event loop.429 reports contention/rate limit.
+
+Commands and results:
+- `/home/rocco/Astronomy-Hub/.venv/bin/python -m pytest backend/tests/test_satellite_passes.py -q -x`: red1failed, expected missing endpoint404, saved red.log. Restricted TestClient stalled; bounded escalated execution obtained result.
+- `ORAS_PLANETARY_EPHEMERIS_DIR=/home/rocco/Astronomy-Hub/data/runtime-packs/planetary-ephemeris/release OPENBLAS_NUM_THREADS=1 /home/rocco/Astronomy-Hub/.venv/bin/python -m pytest backend/tests/test_satellite_passes.py -q`: initial16passed/12.67s, expanded21passed/16.75s, one existing httpx deprecation; green-first.log and green-numeric.log.
+- `ORAS_PLANETARY_EPHEMERIS_DIR=/home/rocco/Astronomy-Hub/data/runtime-packs/planetary-ephemeris/release /home/rocco/Astronomy-Hub/.venv/bin/python -m pytest backend/tests/test_satellite_passes.py -q -k truncated_between`: red1failed,21deselected, EOFError between feed hash/parse; red-torn-source.log. Fixed by returning unavailable for truncated/corrupt gzip reads.
+- Real155-record source, Pittsburgh40.44/-79.99/elevation300m,2026-10-25UTC/24h:5.742s,920geometric passes,129potentially observable,40returned,0propagation failures; real-passes.json. This is an explicit fixed-time numerical fixture, not current-time observing evidence.
+- Docker image `sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a`, networknone,read-only filesystem/source/kernel,2CPUs/1GiB/tmpfs256MiB; command `python -m pytest backend/tests/test_satellite_passes.py backend/tests/test_satellite_feed_api.py backend/tests/test_satellite_visual_pilot.py backend/tests/test_satellite_propagation_service.py -q -p no:cacheprovider`. Initial84passed/316warnings/48.68s, docker-focused.log. Subsequent85passed/316warnings/65.22s summary but terminal exit143, docker-final.log; independently inspected detached rerun is required below.
+- `git diff --check`: passed with no output.
+
+Numeric reference: independently extracted ISS peak2026-10-25T05:59:42.649UTC, altitude22.6894676°, azimuth132.9695357°. This eclipsed dark-sky pass is geometric-only;10:51:45.830791UTC peak is sunlit with Sun-10.1808819°, qualified watch10:51:30.830791UTC;12:29UTC daytime sunlit pass is geometric-only. These test source/algorithm behavior, not measured absolute orbital accuracy.
+
+Remaining limits: dependency deprecations mean Docker is not warning-clean (Starlette/httpx and Skyfield dtype reassignment under NumPy2.5). No full backend suite, public deployment, current browser/native playback proof, physical-device proof or owner acceptance is claimed by this backend package. Root agent owns browser integration and final qualification. No commit,push,PR,merge or deployment performed here.
+
+Final independently verified Docker result:85passed,316dependency warnings in33.30s; inspected container ExitCode0,OOMKilledfalse; docker-verified.log and docker-verified-state.json. The stopped task validation container was removed after preserving evidence. This verifies22new pass tests plus63existing satellite tests on current owned sources. Recommended next task: root browser/native integration and functional review, preserving the warning-clean and owner/device acceptance gaps.

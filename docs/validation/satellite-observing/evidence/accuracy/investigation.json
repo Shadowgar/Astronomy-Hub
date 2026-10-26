@@ -1,0 +1,2704 @@
+{
+  "classification": "CAUSE_LOCALIZED_NO_ACCEPTANCE_GATE_OR_RUNTIME_FIX",
+  "scope": "Retained single NORAD 61045 pass, three viewports; source-matched numerical reconstruction only",
+  "proof": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1/output/satellite-visual-pilot/browser-qualified/proof.json",
+  "proof_sha256": "8ff7e45439ce5b00d908a48f117b3a38cc6c8f14731d5d78883d5e614eacdce2",
+  "comparison_sha256": "ed2d0372ac795c392a16c8635feac46ae21aa69e0bdc7922557e7d53c2e7d11e",
+  "comparison_source_sha256": "63c4c833d967c26c2b3d403de42c234ff6b920969639642a3bedce15225406e2",
+  "source_pin": "023e3b26babf7ffddf45f39293230b14cfe96993",
+  "source_receipt": {
+    "src/modules/satellites.c": {
+      "sha256": "419dd72bca65f1740b033156ad4dfff5dd97e6125d4cd408f0954e1f18d2a8b1",
+      "matches_pinned_git_object": true
+    },
+    "src/observer.c": {
+      "sha256": "75836694bd8a43be24500fde51ad2ff6b28c1d5dea33f1c640e99075a04e8740",
+      "matches_pinned_git_object": true
+    },
+    "src/frames.c": {
+      "sha256": "1f9a3221e31cef1e12a5f0d4d6700f50380eb59364a655751ece396aec7e0f56",
+      "matches_pinned_git_object": true
+    },
+    "src/obj.c": {
+      "sha256": "325867c59c495620804b6869bd2dde6f3157c0f99c9dc3d05cb6f499ad0c7e76",
+      "matches_pinned_git_object": true
+    },
+    "src/utils/vec.h": {
+      "sha256": "f6c0cd4ebc810ba71003696b47adffca0310856e19a26bb10df16d0d747c6d9c",
+      "matches_pinned_git_object": true
+    },
+    "src/sgp4.cpp": {
+      "sha256": "79003eb7da60039d2e2f8e59074f03ba69f46472ca7411c935618492d81d9eab",
+      "matches_pinned_git_object": true
+    },
+    "src/sgp4.h": {
+      "sha256": "5c5ca788fe7b199beff863a26e77d3ddb0e3461fa6edd239dd064a4b375be26f",
+      "matches_pinned_git_object": true
+    },
+    "ext_src/sgp4/SGP4.cpp": {
+      "sha256": "13b6a4e231a54329fa16761faf822e9c6ee9938970b7b58c35442970e4ec51f7",
+      "matches_pinned_git_object": true
+    },
+    "ext_src/sgp4/SGP4.h": {
+      "sha256": "933a7ec9e1606262fe8b4e6513c15dc5ae86f05bd12a13b7d8f1928edca28ca9",
+      "matches_pinned_git_object": true
+    },
+    "ext_src/erfa/erfa.c": {
+      "sha256": "ba1347a743359a3697c3371c6f195a28424765b13ef6ee4090dc32e12d7d4299",
+      "matches_pinned_git_object": true
+    },
+    "src/algos/utctt.c": {
+      "sha256": "028bbdf9b121c6aca77fdbaef9bec1d3289495b5f3a5a33d5fadf07457289f6e",
+      "matches_pinned_git_object": true
+    },
+    "src/algos/deltat.c": {
+      "sha256": "365edcb09a8ca9e02432a0c31105e42562c1ef279ab6c39353fc02b6e0dee68e",
+      "matches_pinned_git_object": true
+    }
+  },
+  "libraries": {
+    "skyfield": "1.54",
+    "sgp4": "2.25",
+    "erfa": "2.0.1.5",
+    "numpy": "2.4.6"
+  },
+  "build_command": [
+    "g++",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "/home/rocco/Astronomy-Hub/vendor/stellarium-web-engine/src/sgp4.cpp",
+    "-o",
+    "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-observing-1/output/satellite-observing/accuracy/libnative_sgp4.so"
+  ],
+  "erfa_build_command": [
+    "gcc",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "/home/rocco/Astronomy-Hub/vendor/stellarium-web-engine/ext_src/erfa/erfa.c",
+    "-lm",
+    "-o",
+    "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-observing-1/output/satellite-observing/accuracy/libnative_erfa.so"
+  ],
+  "pinned_erfa_leap_status_probe": [
+    {
+      "year": 2025,
+      "eraDat_status": 0,
+      "tai_minus_utc_seconds": 37.0
+    },
+    {
+      "year": 2026,
+      "eraDat_status": 1,
+      "tai_minus_utc_seconds": 37.0
+    }
+  ],
+  "summary": {
+    "captures": 24,
+    "frozen_captures": 13,
+    "exact_matches_after_pinned_native_12dp_serialization": 19,
+    "variants_residual_arcsec": {
+      "reference_geometric": {
+        "min": 61.90387072122884,
+        "max": 62.09644693625576
+      },
+      "reference_geometric_plus_native_relative_light": {
+        "min": 57.88851388737985,
+        "max": 58.07535280932325
+      },
+      "native_rotation_only": {
+        "min": 8.888623766002544,
+        "max": 8.973418364682512
+      },
+      "native_rotation_plus_native_light_correct_observer": {
+        "min": 12.204125417241352,
+        "max": 12.31177935379048
+      },
+      "native_observer_only": {
+        "min": 74.09806447705806,
+        "max": 74.34390983706393
+      },
+      "native_reconstructed_geometric": {
+        "min": 4.978448143548644,
+        "max": 5.063319351364978
+      },
+      "native_reconstructed_apparent": {
+        "min": 0.006969709823556776,
+        "max": 0.05044863320241029
+      },
+      "native_reconstructed_with_rotated_velocity": {
+        "min": 0.0100630792562021,
+        "max": 0.05337761950414167
+      },
+      "native_reconstructed_with_correct_TEME": {
+        "min": 70.12563767801426,
+        "max": 70.34109541321254
+      }
+    },
+    "effects_arcsec": {
+      "native_rotation_only": {
+        "min": 70.1546834811525,
+        "max": 70.32577648593309
+      },
+      "native_observer_only": {
+        "min": 12.208952604827212,
+        "max": 12.267393113411522
+      },
+      "relative_light_correction": {
+        "min": 4.998758195398989,
+        "max": 5.048293036390384
+      },
+      "unrotated_velocity": {
+        "min": 0.005702868610332214,
+        "max": 0.0063279985320975705
+      },
+      "TEME_replacement_with_native_observer": {
+        "min": 70.14929196965517,
+        "max": 70.32079137168269
+      }
+    },
+    "native_sgp4_position_difference_m": {
+      "min": 0.00012884670975399812,
+      "max": 0.0037620237530901174
+    },
+    "native_sgp4_velocity_difference_m_s": {
+      "min": 1.4253154458714445e-07,
+      "max": 4.161571174132955e-06
+    },
+    "timing_only_residual_arcsec": {
+      "min": 36.009879181515245,
+      "max": 36.17916340273138
+    }
+  },
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "motionSamples[0]",
+      "utc": "2026-10-25T10:22:00.061Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.142348e-06,
+        2.957654e-06,
+        1.524521e-06
+      ],
+      "range_km": 526.29803514878,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.142348e-06,
+        2.957654e-06,
+        1.524521e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349723184334,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082006960976845,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0008032358886455325,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 8.885452433970591e-07,
+      "native_rotation_geocentric_error_m": 179.07349760522038,
+      "native_observer_position_error_m": 31.167879821000074,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.90387072122884,
+        "reference_geometric_plus_native_relative_light": 57.915362469899684,
+        "native_rotation_only": 8.933526925159821,
+        "native_rotation_plus_native_light_correct_observer": 12.239099261112806,
+        "native_observer_only": 74.09806447705806,
+        "native_reconstructed_geometric": 4.991394650876659,
+        "native_reconstructed_apparent": 0.03651643606732956,
+        "native_reconstructed_with_rotated_velocity": 0.04258696792053285,
+        "native_reconstructed_with_correct_TEME": 70.12563767801426
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.903870721264326,
+        "retarded_astrometric": 53.11344973712066,
+        "retarded_apparent": 57.915974763463716
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.16025160740072,
+        "native_observer_only": 12.210228602108147,
+        "relative_light_correction": 4.999328150374709,
+        "unrotated_velocity": 0.006319825336365939,
+        "TEME_replacement_with_native_observer": 70.1542072947004
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017639380828526237,
+        "residual_after_shift_arcsec": 36.13067049972401
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -171.0394640692141,
+          442.40044816793943,
+          228.07228457922884
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -171.0319438500909,
+          442.40877854728535,
+          228.06593958288076
+        ],
+        "native_rotation_only": [
+          -170.87084652465046,
+          442.46073638413327,
+          228.07140583121964
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.86336109108288,
+          442.4691154017557,
+          228.06508239520107
+        ],
+        "native_observer_only": [
+          -171.0688631221899,
+          442.3900979763439,
+          228.0723617193471
+        ],
+        "native_reconstructed_geometric": [
+          -170.90024557762627,
+          442.45038619253774,
+          228.0714829713379
+        ],
+        "native_reconstructed_apparent": [
+          -170.89276013291084,
+          442.45876522789445,
+          228.06515952477625
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.89272511940027,
+          442.45871624196894,
+          228.06513801848615
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -171.0613433783664,
+          442.39842786072967,
+          228.066017093623
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "motionSamples[1]",
+      "utc": "2026-10-25T10:22:02.074Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.199963e-06,
+        2.893723e-06,
+        1.573082e-06
+      ],
+      "range_km": 524.411659889265,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.199963e-06,
+        2.893723e-06,
+        1.573082e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909348379563653,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082005164008976,
+      "native_vs_skyfield_TEME_position_difference_m": 0.002103450797039809,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 2.326852987974227e-06,
+      "native_rotation_geocentric_error_m": 178.86427189066873,
+      "native_observer_position_error_m": 31.167815227599107,
+      "native_residual_arcsec": {
+        "reference_geometric": 62.03608812675944,
+        "reference_geometric_plus_native_relative_light": 58.03181383325747,
+        "native_rotation_only": 8.925511693647422,
+        "native_rotation_plus_native_light_correct_observer": 12.245104691048457,
+        "native_observer_only": 74.26316219492378,
+        "native_reconstructed_geometric": 5.020064223593643,
+        "native_reconstructed_apparent": 0.006969709823556776,
+        "native_reconstructed_with_rotated_velocity": 0.011554796759426183,
+        "native_reconstructed_with_correct_TEME": 70.27593749218046
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 62.03608812680208,
+        "retarded_astrometric": 53.680929101906614,
+        "retarded_apparent": 58.03240025995329
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.28223146446085,
+        "native_observer_only": 12.243722916140765,
+        "relative_light_correction": 5.016515788170083,
+        "unrotated_velocity": 0.006075457306867641,
+        "TEME_replacement_with_native_observer": 70.2769207121978
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01756644295050865,
+        "residual_after_shift_arcsec": 36.16480454960446
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -179.65821910255977,
+          432.8361226014231,
+          235.3367891088783
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -179.65073338016688,
+          432.8444444166506,
+          235.3304859711798
+        ],
+        "native_rotation_only": [
+          -179.48993738300896,
+          432.8967272148102,
+          235.33591078080644
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -179.48248654983172,
+          432.9050973906424,
+          235.32962914913728
+        ],
+        "native_observer_only": [
+          -179.68761657498862,
+          432.8257681158793,
+          235.3368662449957
+        ],
+        "native_reconstructed_geometric": [
+          -179.51933485543782,
+          432.88637272926644,
+          235.33598791692384
+        ],
+        "native_reconstructed_apparent": [
+          -179.5118840015719,
+          432.89474293358256,
+          235.32970626669257
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -179.5118489349006,
+          432.8946941704387,
+          235.32968485685132
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -179.68013210487317,
+          432.83408861341024,
+          235.33056408411898
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "motionSamples[2]",
+      "utc": "2026-10-25T10:22:05.555Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.299457e-06,
+        2.782783e-06,
+        1.656708e-06
+      ],
+      "range_km": 522.0437574489741,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.299457e-06,
+        2.782783e-06,
+        1.656708e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909346056070433,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082002056645489,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0004061231362026616,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 4.492562824326664e-07,
+      "native_rotation_geocentric_error_m": 178.50572798515742,
+      "native_observer_position_error_m": 31.167885083522695,
+      "native_residual_arcsec": {
+        "reference_geometric": 62.07829561942833,
+        "reference_geometric_plus_native_relative_light": 58.0528146524012,
+        "native_rotation_only": 8.930094518852307,
+        "native_rotation_plus_native_light_correct_observer": 12.252369648961302,
+        "native_observer_only": 74.32741324761872,
+        "native_reconstructed_geometric": 5.062003114500099,
+        "native_reconstructed_apparent": 0.0237344148153207,
+        "native_reconstructed_with_rotated_velocity": 0.023921769838185468,
+        "native_reconstructed_with_correct_TEME": 70.3198846891422
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 62.07829561957356,
+        "retarded_astrometric": 54.49683119647378,
+        "retarded_apparent": 58.05337063458796
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.30930807441966,
+        "native_observer_only": 12.267393113411522,
+        "relative_light_correction": 5.038591877835292,
+        "unrotated_velocity": 0.0057873385398157515,
+        "TEME_replacement_with_native_observer": 70.3040394908496
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017445372164170296,
+        "residual_after_shift_arcsec": 36.112548701288446
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -194.54172260645328,
+          416.23917827477635,
+          247.84702807557733
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -194.53428376262855,
+          416.2474990712068,
+          247.84078638080618
+        ],
+        "native_rotation_only": [
+          -194.3740211952795,
+          416.3003318369556,
+          247.84614861743285
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -194.36661747658795,
+          416.3087005953205,
+          247.83992837114414
+        ],
+        "native_observer_only": [
+          -194.57111751545358,
+          416.2288163040921,
+          247.84710520522458
+        ],
+        "native_reconstructed_geometric": [
+          -194.4034161042798,
+          416.28996986627135,
+          247.8462257470801
+        ],
+        "native_reconstructed_apparent": [
+          -194.39601234835007,
+          416.298338671957,
+          247.84000546839388
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -194.39597713288393,
+          416.2982902108283,
+          247.83998418881308
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -194.56367887948275,
+          416.2371368867208,
+          247.840863669027
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "motionSamples[3]",
+      "utc": "2026-10-25T10:22:08.063Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.371032e-06,
+        2.70255e-06,
+        1.716686e-06
+      ],
+      "range_km": 521.0471965244196,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.371032e-06,
+        2.70255e-06,
+        1.716686e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909344382028905,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.081999817892029,
+      "native_vs_skyfield_TEME_position_difference_m": 0.00328149227669705,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.630003070106115e-06,
+      "native_rotation_geocentric_error_m": 178.24429151593188,
+      "native_observer_position_error_m": 31.16774712740873,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.96688448734018,
+        "reference_geometric_plus_native_relative_light": 57.93432426483675,
+        "native_rotation_only": 8.91287144101927,
+        "native_rotation_plus_native_light_correct_observer": 12.241122574175867,
+        "native_observer_only": 74.20441661749922,
+        "native_reconstructed_geometric": 5.057004785262266,
+        "native_reconstructed_apparent": 0.017867798089057568,
+        "native_reconstructed_with_rotated_velocity": 0.012782203803693038,
+        "native_reconstructed_with_correct_TEME": 70.19158528011526
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.966884487410724,
+        "retarded_astrometric": 54.95658638775786,
+        "retarded_apparent": 57.934857971913665
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.17899124560317,
+        "native_observer_only": 12.256811345820102,
+        "relative_light_correction": 5.048293036390384,
+        "unrotated_velocity": 0.005702868610332214,
+        "TEME_replacement_with_native_observer": 70.1750500462717
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01735138556414518,
+        "residual_after_shift_arcsec": 36.04330382256789
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -205.24876510301647,
+          404.2361388225481,
+          256.81952709924826
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -205.24134993754504,
+          404.24446994527887,
+          256.8133210947053
+        ],
+        "native_rotation_only": [
+          -205.08148581077035,
+          404.29768469461123,
+          256.81864876238524
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -205.07410598608215,
+          404.3060635567735,
+          256.81246419339146
+        ],
+        "native_observer_only": [
+          -205.27815798636652,
+          404.2257715219748,
+          256.81960422376324
+        ],
+        "native_reconstructed_geometric": [
+          -205.1108786941204,
+          404.2873173940379,
+          256.8187258869002
+        ],
+        "native_reconstructed_apparent": [
+          -205.10349882028274,
+          404.29569631722916,
+          256.81254127560993
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -205.10346345150677,
+          404.2956480079022,
+          256.81252006099953
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -205.27074475202537,
+          404.2341005898281,
+          256.8133997157346
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "motionSamples[4]",
+      "utc": "2026-10-25T10:22:08.063Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.371032e-06,
+        2.70255e-06,
+        1.716686e-06
+      ],
+      "range_km": 521.0471965244196,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.371032e-06,
+        2.70255e-06,
+        1.716686e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909344382028905,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.081999817892029,
+      "native_vs_skyfield_TEME_position_difference_m": 0.00328149227669705,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.630003070106115e-06,
+      "native_rotation_geocentric_error_m": 178.24429151593188,
+      "native_observer_position_error_m": 31.16774712740873,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.96688448734018,
+        "reference_geometric_plus_native_relative_light": 57.93432426483675,
+        "native_rotation_only": 8.91287144101927,
+        "native_rotation_plus_native_light_correct_observer": 12.241122574175867,
+        "native_observer_only": 74.20441661749922,
+        "native_reconstructed_geometric": 5.057004785262266,
+        "native_reconstructed_apparent": 0.017867798089057568,
+        "native_reconstructed_with_rotated_velocity": 0.012782203803693038,
+        "native_reconstructed_with_correct_TEME": 70.19158528011526
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.966884487410724,
+        "retarded_astrometric": 54.95658638775786,
+        "retarded_apparent": 57.934857971913665
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.17899124560317,
+        "native_observer_only": 12.256811345820102,
+        "relative_light_correction": 5.048293036390384,
+        "unrotated_velocity": 0.005702868610332214,
+        "TEME_replacement_with_native_observer": 70.1750500462717
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01735138556414518,
+        "residual_after_shift_arcsec": 36.04330382256789
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -205.24876510301647,
+          404.2361388225481,
+          256.81952709924826
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -205.24134993754504,
+          404.24446994527887,
+          256.8133210947053
+        ],
+        "native_rotation_only": [
+          -205.08148581077035,
+          404.29768469461123,
+          256.81864876238524
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -205.07410598608215,
+          404.3060635567735,
+          256.81246419339146
+        ],
+        "native_observer_only": [
+          -205.27815798636652,
+          404.2257715219748,
+          256.81960422376324
+        ],
+        "native_reconstructed_geometric": [
+          -205.1108786941204,
+          404.2873173940379,
+          256.8187258869002
+        ],
+        "native_reconstructed_apparent": [
+          -205.10349882028274,
+          404.29569631722916,
+          256.81254127560993
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -205.10346345150677,
+          404.2956480079022,
+          256.81252006099953
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -205.27074475202537,
+          404.2341005898281,
+          256.8133997157346
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "initial",
+      "utc": "2026-10-25T10:22:00.000Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "range_km": 526.3610593213107,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349763895591,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082007015430529,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0029403664093487266,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.2526558260623525e-06,
+      "native_rotation_geocentric_error_m": 179.0781241097876,
+      "native_observer_position_error_m": 31.16778160247484,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.91254602488001,
+        "reference_geometric_plus_native_relative_light": 57.92660528816453,
+        "native_rotation_only": 8.904140724556859,
+        "native_rotation_plus_native_light_correct_observer": 12.22205476701098,
+        "native_observer_only": 74.10585477157035,
+        "native_reconstructed_geometric": 4.978448143548644,
+        "native_reconstructed_apparent": 0.02081826984026104,
+        "native_reconstructed_with_rotated_velocity": 0.023529422308507162,
+        "native_reconstructed_with_correct_TEME": 70.13630500613742
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.91254602470748,
+        "retarded_astrometric": 53.109665760346594,
+        "retarded_apparent": 57.92720728712194
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1546834811525,
+        "native_observer_only": 12.208952604827212,
+        "relative_light_correction": 4.998758195398989,
+        "unrotated_velocity": 0.0063279985320975705,
+        "TEME_replacement_with_native_observer": 70.14929196965517
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017637174029258497,
+        "residual_after_shift_arcsec": 36.170320930120845
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.77815430389956,
+          442.6898935499685,
+          227.85180475722245
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.77063295544644,
+          442.69822427854746,
+          227.84545842010613
+        ],
+        "native_rotation_only": [
+          -170.6095279146448,
+          442.7501707842803,
+          227.85092702987276
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.6020413489787,
+          442.7585501600823,
+          227.8446022549779
+        ],
+        "native_observer_only": [
+          -170.8075533102699,
+          442.67954352176184,
+          227.8518818972134
+        ],
+        "native_reconstructed_geometric": [
+          -170.63892692101513,
+          442.73982075607364,
+          227.8510041698637
+        ],
+        "native_reconstructed_apparent": [
+          -170.6314403444897,
+          442.7482001492861,
+          227.84467938466872
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.63140533222304,
+          442.74815115606265,
+          227.84465787521594
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.80003373228163,
+          442.6878723908678,
+          227.84553694567512
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "pointBefore.state",
+      "utc": "2026-10-25T10:22:00.000Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "range_km": 526.3610593213107,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349763895591,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082007015430529,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0029403664093487266,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.2526558260623525e-06,
+      "native_rotation_geocentric_error_m": 179.0781241097876,
+      "native_observer_position_error_m": 31.16778160247484,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.91254602488001,
+        "reference_geometric_plus_native_relative_light": 57.92660528816453,
+        "native_rotation_only": 8.904140724556859,
+        "native_rotation_plus_native_light_correct_observer": 12.22205476701098,
+        "native_observer_only": 74.10585477157035,
+        "native_reconstructed_geometric": 4.978448143548644,
+        "native_reconstructed_apparent": 0.02081826984026104,
+        "native_reconstructed_with_rotated_velocity": 0.023529422308507162,
+        "native_reconstructed_with_correct_TEME": 70.13630500613742
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.91254602470748,
+        "retarded_astrometric": 53.109665760346594,
+        "retarded_apparent": 57.92720728712194
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1546834811525,
+        "native_observer_only": 12.208952604827212,
+        "relative_light_correction": 4.998758195398989,
+        "unrotated_velocity": 0.0063279985320975705,
+        "TEME_replacement_with_native_observer": 70.14929196965517
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017637174029258497,
+        "residual_after_shift_arcsec": 36.170320930120845
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.77815430389956,
+          442.6898935499685,
+          227.85180475722245
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.77063295544644,
+          442.69822427854746,
+          227.84545842010613
+        ],
+        "native_rotation_only": [
+          -170.6095279146448,
+          442.7501707842803,
+          227.85092702987276
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.6020413489787,
+          442.7585501600823,
+          227.8446022549779
+        ],
+        "native_observer_only": [
+          -170.8075533102699,
+          442.67954352176184,
+          227.8518818972134
+        ],
+        "native_reconstructed_geometric": [
+          -170.63892692101513,
+          442.73982075607364,
+          227.8510041698637
+        ],
+        "native_reconstructed_apparent": [
+          -170.6314403444897,
+          442.7482001492861,
+          227.84467938466872
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.63140533222304,
+          442.74815115606265,
+          227.84465787521594
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.80003373228163,
+          442.6878723908678,
+          227.84553694567512
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "capture": "pointAfter.state",
+      "utc": "2026-10-25T10:22:08.063Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.371032e-06,
+        2.70255e-06,
+        1.716686e-06
+      ],
+      "range_km": 521.0471965244196,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.371032e-06,
+        2.70255e-06,
+        1.716686e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909344382028905,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.081999817892029,
+      "native_vs_skyfield_TEME_position_difference_m": 0.00328149227669705,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.630003070106115e-06,
+      "native_rotation_geocentric_error_m": 178.24429151593188,
+      "native_observer_position_error_m": 31.16774712740873,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.96688448734018,
+        "reference_geometric_plus_native_relative_light": 57.93432426483675,
+        "native_rotation_only": 8.91287144101927,
+        "native_rotation_plus_native_light_correct_observer": 12.241122574175867,
+        "native_observer_only": 74.20441661749922,
+        "native_reconstructed_geometric": 5.057004785262266,
+        "native_reconstructed_apparent": 0.017867798089057568,
+        "native_reconstructed_with_rotated_velocity": 0.012782203803693038,
+        "native_reconstructed_with_correct_TEME": 70.19158528011526
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.966884487410724,
+        "retarded_astrometric": 54.95658638775786,
+        "retarded_apparent": 57.934857971913665
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.17899124560317,
+        "native_observer_only": 12.256811345820102,
+        "relative_light_correction": 5.048293036390384,
+        "unrotated_velocity": 0.005702868610332214,
+        "TEME_replacement_with_native_observer": 70.1750500462717
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01735138556414518,
+        "residual_after_shift_arcsec": 36.04330382256789
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -205.24876510301647,
+          404.2361388225481,
+          256.81952709924826
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -205.24134993754504,
+          404.24446994527887,
+          256.8133210947053
+        ],
+        "native_rotation_only": [
+          -205.08148581077035,
+          404.29768469461123,
+          256.81864876238524
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -205.07410598608215,
+          404.3060635567735,
+          256.81246419339146
+        ],
+        "native_observer_only": [
+          -205.27815798636652,
+          404.2257715219748,
+          256.81960422376324
+        ],
+        "native_reconstructed_geometric": [
+          -205.1108786941204,
+          404.2873173940379,
+          256.8187258869002
+        ],
+        "native_reconstructed_apparent": [
+          -205.10349882028274,
+          404.29569631722916,
+          256.81254127560993
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -205.10346345150677,
+          404.2956480079022,
+          256.81252006099953
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -205.27074475202537,
+          404.2341005898281,
+          256.8133997157346
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "motionSamples[0]",
+      "utc": "2026-10-25T10:22:00.032Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.141517e-06,
+        2.958574e-06,
+        1.523821e-06
+      ],
+      "range_km": 526.3279546315651,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.141517e-06,
+        2.958574e-06,
+        1.523821e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349742546624,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082006986864989,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0014271015610525276,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 1.5786703743669011e-06,
+      "native_rotation_geocentric_error_m": 179.07600597452424,
+      "native_observer_position_error_m": 31.16785114162143,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.9340343299742,
+        "reference_geometric_plus_native_relative_light": 57.94760982694522,
+        "native_rotation_only": 8.888623766002544,
+        "native_rotation_plus_native_light_correct_observer": 12.204125417241352,
+        "native_observer_only": 74.12797835475976,
+        "native_reconstructed_geometric": 4.995758860148934,
+        "native_reconstructed_apparent": 0.01354884535598,
+        "native_reconstructed_with_rotated_velocity": 0.0100630792562021,
+        "native_reconstructed_with_correct_TEME": 70.15751393313083
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.934034329931805,
+        "retarded_astrometric": 53.13792457785894,
+        "retarded_apparent": 57.94820250317912
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1577347155313,
+        "native_observer_only": 12.209630646038319,
+        "relative_light_correction": 4.999057543560809,
+        "unrotated_velocity": 0.006323705679862163,
+        "TEME_replacement_with_native_observer": 70.15187918187138
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01764210397347021,
+        "residual_after_shift_arcsec": 36.17916340273138
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.9152358278509,
+          442.53805615815236,
+          227.96746882027037
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.90771507244736,
+          442.5463867028734,
+          227.96112318703797
+        ],
+        "native_rotation_only": [
+          -170.74661384073352,
+          442.59833940378303,
+          227.9665903712921
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.73912786956575,
+          442.60671859103024,
+          227.9602662992858
+        ],
+        "native_observer_only": [
+          -170.94463487566213,
+          442.52770603825047,
+          227.96754596037226
+        ],
+        "native_reconstructed_geometric": [
+          -170.77601288854476,
+          442.58798928388114,
+          227.966667511394
+        ],
+        "native_reconstructed_apparent": [
+          -170.7685269063663,
+          442.5963684887087,
+          227.9603434289601
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.76849189344978,
+          442.5963194993177,
+          227.9603219211682
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.93711497368906,
+          442.5360356896165,
+          227.96120099408122
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "motionSamples[1]",
+      "utc": "2026-10-25T10:22:02.064Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.199677e-06,
+        2.894041e-06,
+        1.572841e-06
+      ],
+      "range_km": 524.4200994463877,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.199677e-06,
+        2.894041e-06,
+        1.572841e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.0890934838622428,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082005172935548,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0034741601672592364,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.843140468981544e-06,
+      "native_rotation_geocentric_error_m": 178.86422473818237,
+      "native_observer_position_error_m": 31.167752333501117,
+      "native_residual_arcsec": {
+        "reference_geometric": 62.032101968729094,
+        "reference_geometric_plus_native_relative_light": 58.02751805850562,
+        "native_rotation_only": 8.93158620317706,
+        "native_rotation_plus_native_light_correct_observer": 12.248611273227132,
+        "native_observer_only": 74.25895197615742,
+        "native_reconstructed_geometric": 5.02207589510096,
+        "native_reconstructed_apparent": 0.015430340375168482,
+        "native_reconstructed_with_rotated_velocity": 0.020116647595756057,
+        "native_reconstructed_with_correct_TEME": 70.2719059623491
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 62.032101968694,
+        "retarded_astrometric": 53.674694972625154,
+        "retarded_apparent": 58.02810394860491
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.28138650105232,
+        "native_observer_only": 12.243567158110457,
+        "relative_light_correction": 5.016438276119958,
+        "unrotated_velocity": 0.006076542232270156,
+        "TEME_replacement_with_native_observer": 70.27650233783572
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017567358786245484,
+        "residual_after_shift_arcsec": 36.1564734532246
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -179.6154250985121,
+          432.88369593995867,
+          235.3007555436261
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -179.60793921808028,
+          432.89201778343306,
+          235.2944522094435
+        ],
+        "native_rotation_only": [
+          -179.4471425424897,
+          432.94429810089787,
+          235.29987786529273
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -179.43969155070275,
+          432.95266830627094,
+          235.29359603737467
+        ],
+        "native_observer_only": [
+          -179.64482251917048,
+          432.87334149674825,
+          235.30083267960708
+        ],
+        "native_reconstructed_geometric": [
+          -179.47653996314807,
+          432.93394365768745,
+          235.2999550012737
+        ],
+        "native_reconstructed_apparent": [
+          -179.46908895071996,
+          432.9423138914907,
+          235.29367315483339
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -179.46905388437142,
+          432.942265127327,
+          235.2936517445511
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -179.63733872076565,
+          432.88166114524626,
+          235.29453097107236
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "motionSamples[2]",
+      "utc": "2026-10-25T10:22:04.617Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.272664e-06,
+        2.812725e-06,
+        1.634217e-06
+      ],
+      "range_km": 522.5695680777736,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.272664e-06,
+        2.812725e-06,
+        1.634217e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.0890934668215948,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082002893956932,
+      "native_vs_skyfield_TEME_position_difference_m": 0.00257537215740725,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 2.8488939337104517e-06,
+      "native_rotation_geocentric_error_m": 178.600969720723,
+      "native_observer_position_error_m": 31.167787514770712,
+      "native_residual_arcsec": {
+        "reference_geometric": 62.09644693625576,
+        "reference_geometric_plus_native_relative_light": 58.07535280932325,
+        "native_rotation_only": 8.925322218218668,
+        "native_rotation_plus_native_light_correct_observer": 12.245159249379942,
+        "native_observer_only": 74.34390983706393,
+        "native_reconstructed_geometric": 5.063319351364978,
+        "native_reconstructed_apparent": 0.029922906052884803,
+        "native_reconstructed_with_rotated_velocity": 0.029423072626316972,
+        "native_reconstructed_with_correct_TEME": 70.34109541321254
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 62.096446936188414,
+        "retarded_astrometric": 54.304058624158294,
+        "retarded_apparent": 58.075911992656735
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.32490606417893,
+        "native_observer_only": 12.26533116068043,
+        "relative_light_correction": 5.033616848534942,
+        "unrotated_velocity": 0.005846452938316129,
+        "TEME_replacement_with_native_observer": 70.32016478864173
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017481212851899797,
+        "residual_after_shift_arcsec": 36.135300193013826
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -190.5337470764141,
+          420.7186282553457,
+          244.48247492397513
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -190.5262972008017,
+          420.72694758433147,
+          244.4762180369185
+        ],
+        "native_rotation_only": [
+          -190.36589008361534,
+          420.7796328851491,
+          244.48159657535962
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -190.35847526238933,
+          420.78800027325974,
+          244.4753611477605
+        ],
+        "native_observer_only": [
+          -190.56314260208342,
+          420.7082683277413,
+          244.48255205517034
+        ],
+        "native_reconstructed_geometric": [
+          -190.39528560928466,
+          420.7692729575447,
+          244.48167370655483
+        ],
+        "native_reconstructed_apparent": [
+          -190.3878707552817,
+          420.7776403878744,
+          244.4754382502785
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -190.38783558713826,
+          420.7775918557908,
+          244.47541694017366
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -190.55569425039187,
+          420.7165860454511,
+          244.4762963534681
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "motionSamples[3]",
+      "utc": "2026-10-25T10:22:07.254Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.347955e-06,
+        2.728458e-06,
+        1.697364e-06
+      ],
+      "range_km": 521.3034102659766,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.347954e-06,
+        2.728458e-06,
+        1.697364e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": false,
+      "skyfield_dut1_seconds": 0.0890934492202291,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082000540037425,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0006967137107478084,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 7.707094451132758e-07,
+      "native_rotation_geocentric_error_m": 178.32992180782657,
+      "native_observer_position_error_m": 31.167867749665167,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.96761031223961,
+        "reference_geometric_plus_native_relative_light": 57.93626701576423,
+        "native_rotation_only": 8.967571657354368,
+        "native_rotation_plus_native_light_correct_observer": 12.29532203264477,
+        "native_observer_only": 74.21136382424797,
+        "native_reconstructed_geometric": 5.026403247408874,
+        "native_reconstructed_apparent": 0.0327395705223727,
+        "native_reconstructed_with_rotated_velocity": 0.037920022187594486,
+        "native_reconstructed_with_correct_TEME": 70.19872945593688
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.967610312111766,
+        "retarded_astrometric": 54.772084967489754,
+        "retarded_apparent": 57.93679812119836
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.23524498215728,
+        "native_observer_only": 12.262796364997369,
+        "relative_light_correction": 5.045740514844658,
+        "unrotated_velocity": 0.005718077759508071,
+        "TEME_replacement_with_native_observer": 70.23035089041223
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017370231692983722,
+        "residual_after_shift_arcsec": 36.03456335543565
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -201.79651302690922,
+          408.11206441548984,
+          253.92903686590216
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -201.78909114970173,
+          408.1203911832586,
+          253.9228201315987
+        ],
+        "native_rotation_only": [
+          -201.62909643165767,
+          408.17348486133324,
+          253.92815738948866
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -201.621709821429,
+          408.1818594343477,
+          253.9219620923005
+        ],
+        "native_observer_only": [
+          -201.82590663556243,
+          408.10169880880585,
+          253.9291139922625
+        ],
+        "native_reconstructed_geometric": [
+          -201.65849004031088,
+          408.16311925464925,
+          253.928234515849
+        ],
+        "native_reconstructed_apparent": [
+          -201.65110338477058,
+          408.171493884262,
+          253.9220391795484
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -201.65106806974524,
+          408.17144553200455,
+          253.9220179466304
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -201.8184851333625,
+          408.1100251842766,
+          253.92289754576316
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "motionSamples[4]",
+      "utc": "2026-10-25T10:22:08.054Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.370776e-06,
+        2.702838e-06,
+        1.716471e-06
+      ],
+      "range_km": 521.0497045047531,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.370776e-06,
+        2.702838e-06,
+        1.716471e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.0890934438804436,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.081999825925677,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0011639328537770086,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 1.2875478677328847e-06,
+      "native_rotation_geocentric_error_m": 178.24689719216565,
+      "native_observer_position_error_m": 31.167844402776655,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.92143386906095,
+        "reference_geometric_plus_native_relative_light": 57.88851388737985,
+        "native_rotation_only": 8.95887252773996,
+        "native_rotation_plus_native_light_correct_observer": 12.288347101141213,
+        "native_observer_only": 74.159002838972,
+        "native_reconstructed_geometric": 5.023802882713466,
+        "native_reconstructed_apparent": 0.03054327905951733,
+        "native_reconstructed_with_rotated_velocity": 0.03470844584709352,
+        "native_reconstructed_with_correct_TEME": 70.14521177929208
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.92143386909838,
+        "retarded_astrometric": 54.90915422878626,
+        "retarded_apparent": 57.889046364233025
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.18034958014319,
+        "native_observer_only": 12.25692898288347,
+        "relative_light_correction": 5.048267677099064,
+        "unrotated_velocity": 0.0057029735652061155,
+        "TEME_replacement_with_native_observer": 70.17573708585037
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01734053897920689,
+        "residual_after_shift_arcsec": 36.009879181515245
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -205.21036717956622,
+          404.2792795214373,
+          256.7873904928856
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -205.20295194428138,
+          404.287610590329,
+          256.7811843730676
+        ],
+        "native_rotation_only": [
+          -205.0430850982725,
+          404.34082534515255,
+          256.78651116365927
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -205.03570520292547,
+          404.3492041541749,
+          256.78032647939085
+        ],
+        "native_observer_only": [
+          -205.2397601614557,
+          404.26891220779635,
+          256.7874676176589
+        ],
+        "native_reconstructed_geometric": [
+          -205.072478080162,
+          404.3304580315116,
+          256.78658828843254
+        ],
+        "native_reconstructed_apparent": [
+          -205.065098135708,
+          404.3388369015138,
+          256.78040356190286
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -205.06506276755272,
+          404.33878859174087,
+          256.78038234710266
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -205.23234557921373,
+          404.27724258706877,
+          256.7812620012216
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "initial",
+      "utc": "2026-10-25T10:22:00.000Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "range_km": 526.3610593213107,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349763895591,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082007015430529,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0029403664093487266,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.2526558260623525e-06,
+      "native_rotation_geocentric_error_m": 179.0781241097876,
+      "native_observer_position_error_m": 31.16778160247484,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.91254602488001,
+        "reference_geometric_plus_native_relative_light": 57.92660528816453,
+        "native_rotation_only": 8.904140724556859,
+        "native_rotation_plus_native_light_correct_observer": 12.22205476701098,
+        "native_observer_only": 74.10585477157035,
+        "native_reconstructed_geometric": 4.978448143548644,
+        "native_reconstructed_apparent": 0.02081826984026104,
+        "native_reconstructed_with_rotated_velocity": 0.023529422308507162,
+        "native_reconstructed_with_correct_TEME": 70.13630500613742
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.91254602470748,
+        "retarded_astrometric": 53.109665760346594,
+        "retarded_apparent": 57.92720728712194
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1546834811525,
+        "native_observer_only": 12.208952604827212,
+        "relative_light_correction": 4.998758195398989,
+        "unrotated_velocity": 0.0063279985320975705,
+        "TEME_replacement_with_native_observer": 70.14929196965517
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017637174029258497,
+        "residual_after_shift_arcsec": 36.170320930120845
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.77815430389956,
+          442.6898935499685,
+          227.85180475722245
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.77063295544644,
+          442.69822427854746,
+          227.84545842010613
+        ],
+        "native_rotation_only": [
+          -170.6095279146448,
+          442.7501707842803,
+          227.85092702987276
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.6020413489787,
+          442.7585501600823,
+          227.8446022549779
+        ],
+        "native_observer_only": [
+          -170.8075533102699,
+          442.67954352176184,
+          227.8518818972134
+        ],
+        "native_reconstructed_geometric": [
+          -170.63892692101513,
+          442.73982075607364,
+          227.8510041698637
+        ],
+        "native_reconstructed_apparent": [
+          -170.6314403444897,
+          442.7482001492861,
+          227.84467938466872
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.63140533222304,
+          442.74815115606265,
+          227.84465787521594
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.80003373228163,
+          442.6878723908678,
+          227.84553694567512
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "pointBefore.state",
+      "utc": "2026-10-25T10:22:00.000Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "range_km": 526.3610593213107,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349763895591,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082007015430529,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0029403664093487266,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.2526558260623525e-06,
+      "native_rotation_geocentric_error_m": 179.0781241097876,
+      "native_observer_position_error_m": 31.16778160247484,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.91254602488001,
+        "reference_geometric_plus_native_relative_light": 57.92660528816453,
+        "native_rotation_only": 8.904140724556859,
+        "native_rotation_plus_native_light_correct_observer": 12.22205476701098,
+        "native_observer_only": 74.10585477157035,
+        "native_reconstructed_geometric": 4.978448143548644,
+        "native_reconstructed_apparent": 0.02081826984026104,
+        "native_reconstructed_with_rotated_velocity": 0.023529422308507162,
+        "native_reconstructed_with_correct_TEME": 70.13630500613742
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.91254602470748,
+        "retarded_astrometric": 53.109665760346594,
+        "retarded_apparent": 57.92720728712194
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1546834811525,
+        "native_observer_only": 12.208952604827212,
+        "relative_light_correction": 4.998758195398989,
+        "unrotated_velocity": 0.0063279985320975705,
+        "TEME_replacement_with_native_observer": 70.14929196965517
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017637174029258497,
+        "residual_after_shift_arcsec": 36.170320930120845
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.77815430389956,
+          442.6898935499685,
+          227.85180475722245
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.77063295544644,
+          442.69822427854746,
+          227.84545842010613
+        ],
+        "native_rotation_only": [
+          -170.6095279146448,
+          442.7501707842803,
+          227.85092702987276
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.6020413489787,
+          442.7585501600823,
+          227.8446022549779
+        ],
+        "native_observer_only": [
+          -170.8075533102699,
+          442.67954352176184,
+          227.8518818972134
+        ],
+        "native_reconstructed_geometric": [
+          -170.63892692101513,
+          442.73982075607364,
+          227.8510041698637
+        ],
+        "native_reconstructed_apparent": [
+          -170.6314403444897,
+          442.7482001492861,
+          227.84467938466872
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.63140533222304,
+          442.74815115606265,
+          227.84465787521594
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.80003373228163,
+          442.6878723908678,
+          227.84553694567512
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "capture": "pointAfter.state",
+      "utc": "2026-10-25T10:22:08.054Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.370776e-06,
+        2.702838e-06,
+        1.716471e-06
+      ],
+      "range_km": 521.0497045047531,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.370776e-06,
+        2.702838e-06,
+        1.716471e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.0890934438804436,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.081999825925677,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0011639328537770086,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 1.2875478677328847e-06,
+      "native_rotation_geocentric_error_m": 178.24689719216565,
+      "native_observer_position_error_m": 31.167844402776655,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.92143386906095,
+        "reference_geometric_plus_native_relative_light": 57.88851388737985,
+        "native_rotation_only": 8.95887252773996,
+        "native_rotation_plus_native_light_correct_observer": 12.288347101141213,
+        "native_observer_only": 74.159002838972,
+        "native_reconstructed_geometric": 5.023802882713466,
+        "native_reconstructed_apparent": 0.03054327905951733,
+        "native_reconstructed_with_rotated_velocity": 0.03470844584709352,
+        "native_reconstructed_with_correct_TEME": 70.14521177929208
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.92143386909838,
+        "retarded_astrometric": 54.90915422878626,
+        "retarded_apparent": 57.889046364233025
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.18034958014319,
+        "native_observer_only": 12.25692898288347,
+        "relative_light_correction": 5.048267677099064,
+        "unrotated_velocity": 0.0057029735652061155,
+        "TEME_replacement_with_native_observer": 70.17573708585037
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01734053897920689,
+        "residual_after_shift_arcsec": 36.009879181515245
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -205.21036717956622,
+          404.2792795214373,
+          256.7873904928856
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -205.20295194428138,
+          404.287610590329,
+          256.7811843730676
+        ],
+        "native_rotation_only": [
+          -205.0430850982725,
+          404.34082534515255,
+          256.78651116365927
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -205.03570520292547,
+          404.3492041541749,
+          256.78032647939085
+        ],
+        "native_observer_only": [
+          -205.2397601614557,
+          404.26891220779635,
+          256.7874676176589
+        ],
+        "native_reconstructed_geometric": [
+          -205.072478080162,
+          404.3304580315116,
+          256.78658828843254
+        ],
+        "native_reconstructed_apparent": [
+          -205.065098135708,
+          404.3388369015138,
+          256.78040356190286
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -205.06506276755272,
+          404.33878859174087,
+          256.78038234710266
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -205.23234557921373,
+          404.27724258706877,
+          256.7812620012216
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "motionSamples[0]",
+      "utc": "2026-10-25T10:22:00.022Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.141231e-06,
+        2.958891e-06,
+        1.523579e-06
+      ],
+      "range_km": 526.3382896945168,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.141231e-06,
+        2.958891e-06,
+        1.523579e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349749207252,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082006995791385,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0027974205984116025,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.094526904234532e-06,
+      "native_rotation_geocentric_error_m": 179.0759610511773,
+      "native_observer_position_error_m": 31.167788137315863,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.91064934316421,
+        "reference_geometric_plus_native_relative_light": 57.92329643429517,
+        "native_rotation_only": 8.917358986889653,
+        "native_rotation_plus_native_light_correct_observer": 12.227305213555947,
+        "native_observer_only": 74.10417988879702,
+        "native_reconstructed_geometric": 4.989945955718138,
+        "native_reconstructed_apparent": 0.019254721482195192,
+        "native_reconstructed_with_rotated_velocity": 0.02557593776673932,
+        "native_reconstructed_with_correct_TEME": 70.13338051401924
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.91064934319658,
+        "retarded_astrometric": 53.11210879430243,
+        "retarded_apparent": 57.92388990631485
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.15650500983416,
+        "native_observer_only": 12.209402971291524,
+        "relative_light_correction": 4.998964082705869,
+        "unrotated_velocity": 0.006325045939148158,
+        "TEME_replacement_with_native_observer": 70.15107278752413
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017640287710745117,
+        "residual_after_shift_arcsec": 36.14894699962831
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.87239808686195,
+          442.5855060088188,
+          227.93132439731016
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.86487714627603,
+          442.5938366108405,
+          227.9249785442397
+        ],
+        "native_rotation_only": [
+          -170.70377526770335,
+          442.64578680308296,
+          227.93044659990028
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.696289110902,
+          442.654166049097,
+          227.9241223083691
+        ],
+        "native_observer_only": [
+          -170.9017970827922,
+          442.57515593127846,
+          227.93140153727654
+        ],
+        "native_reconstructed_geometric": [
+          -170.7331742636336,
+          442.6354367255426,
+          227.93052373986666
+        ],
+        "native_reconstructed_apparent": [
+          -170.7256880958689,
+          442.64381598908386,
+          227.92419943794775
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.72565308315606,
+          442.6437669984962,
+          227.92417792963727
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.8942778259403,
+          442.5834847651421,
+          227.92505700178384
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "motionSamples[1]",
+      "utc": "2026-10-25T10:22:02.043Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.199076e-06,
+        2.894708e-06,
+        1.572335e-06
+      ],
+      "range_km": 524.4378528903314,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.199076e-06,
+        2.894708e-06,
+        1.572335e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909348400241868,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.08200519168184,
+      "native_vs_skyfield_TEME_position_difference_m": 0.00012884670975399812,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 1.4253154458714445e-07,
+      "native_rotation_geocentric_error_m": 178.86903468050164,
+      "native_observer_position_error_m": 31.167906106176044,
+      "native_residual_arcsec": {
+        "reference_geometric": 62.0264791917212,
+        "reference_geometric_plus_native_relative_light": 58.02271272883551,
+        "native_rotation_only": 8.93123521852509,
+        "native_rotation_plus_native_light_correct_observer": 12.25347346492607,
+        "native_observer_only": 74.25324404288132,
+        "native_reconstructed_geometric": 5.009107590840642,
+        "native_reconstructed_apparent": 0.009788508948381612,
+        "native_reconstructed_with_rotated_velocity": 0.015588231786053654,
+        "native_reconstructed_with_correct_TEME": 70.26585542911282
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 62.026479191595975,
+        "retarded_astrometric": 53.66459730756684,
+        "retarded_apparent": 58.023306237706656
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.28155034625458,
+        "native_observer_only": 12.243351192316695,
+        "relative_light_correction": 5.0162752359413965,
+        "unrotated_velocity": 0.006078825055746195,
+        "TEME_replacement_with_native_observer": 70.27561762118852
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017564135081378184,
+        "residual_after_shift_arcsec": 36.16428353249813
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -179.5255569919525,
+          432.98359798365345,
+          235.22508328849653
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -179.51807077920452,
+          432.9919198869137,
+          235.2187795413248
+        ],
+        "native_rotation_only": [
+          -179.35726891155514,
+          433.04419897759,
+          235.22420402880198
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -179.3498175862426,
+          433.0525692454714,
+          235.21792178837404
+        ],
+        "native_observer_only": [
+          -179.55495457350503,
+          432.973243534374,
+          235.2251604248986
+        ],
+        "native_reconstructed_geometric": [
+          -179.38666649310767,
+          433.0338445283105,
+          235.22428116520405
+        ],
+        "native_reconstructed_apparent": [
+          -179.3792151472536,
+          433.0422148245095,
+          235.2179989063374
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -179.37918008158093,
+          433.04216605820113,
+          235.21797749512774
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -179.5474684179533,
+          432.98156538351844,
+          235.21885672008435
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "motionSamples[2]",
+      "utc": "2026-10-25T10:22:04.528Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.270122e-06,
+        2.815564e-06,
+        1.632082e-06
+      ],
+      "range_km": 522.623772783296,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.270121e-06,
+        2.815564e-06,
+        1.632082e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": false,
+      "skyfield_dut1_seconds": 0.08909346741562274,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082002973403196,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0018473273554632278,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 2.0435255513708548e-06,
+      "native_rotation_geocentric_error_m": 178.61074505697837,
+      "native_observer_position_error_m": 31.167821136158558,
+      "native_residual_arcsec": {
+        "reference_geometric": 62.04747536705386,
+        "reference_geometric_plus_native_relative_light": 58.02830338084924,
+        "native_rotation_only": 8.959111104115081,
+        "native_rotation_plus_native_light_correct_observer": 12.292783712177714,
+        "native_observer_only": 74.29490125784065,
+        "native_reconstructed_geometric": 5.006308613298892,
+        "native_reconstructed_apparent": 0.028663786533619107,
+        "native_reconstructed_with_rotated_velocity": 0.03262946663696871,
+        "native_reconstructed_with_correct_TEME": 70.29351855519957
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 62.04747536725166,
+        "retarded_astrometric": 54.23518704473937,
+        "retarded_apparent": 58.02887158130048
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.32577648593309,
+        "native_observer_only": 12.264984744787574,
+        "relative_light_correction": 5.0331071333823925,
+        "unrotated_velocity": 0.005852804216160798,
+        "TEME_replacement_with_native_observer": 70.32079137168269
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01746498503279009,
+        "residual_after_shift_arcsec": 36.13068531978702
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -190.15336053916303,
+          421.14337537143183,
+          244.16298805237966
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -190.1459095553938,
+          421.1516946283535,
+          244.15672967159333
+        ],
+        "native_rotation_only": [
+          -189.98548822905718,
+          421.2043664663952,
+          244.16210936887273
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -189.97807229323743,
+          421.2127337920568,
+          244.15587244875698
+        ],
+        "native_observer_only": [
+          -190.1827561637774,
+          421.13301562343077,
+          244.16306518382862
+        ],
+        "native_reconstructed_geometric": [
+          -190.01488385367156,
+          421.1940067183941,
+          244.1621865003217
+        ],
+        "native_reconstructed_apparent": [
+          -190.00746788549816,
+          421.2023740857917,
+          244.15594955188203
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -190.00743272156518,
+          421.20232554657537,
+          244.1559282387053
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -190.17530626424306,
+          421.14133373614715,
+          244.15680764560364
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "motionSamples[3]",
+      "utc": "2026-10-25T10:22:07.050Z",
+      "native_speed": 1,
+      "native_live": true,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.342134e-06,
+        2.734986e-06,
+        1.692488e-06
+      ],
+      "range_km": 521.3778380809645,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.342133e-06,
+        2.734987e-06,
+        1.692488e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": false,
+      "skyfield_dut1_seconds": 0.0890934505817711,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082000722136521,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0037620237530901174,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 4.161571174132955e-06,
+      "native_rotation_geocentric_error_m": 178.3485760847108,
+      "native_observer_position_error_m": 31.16772733343918,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.95982477299889,
+        "reference_geometric_plus_native_relative_light": 57.93043933725158,
+        "native_rotation_only": 8.973418364682512,
+        "native_rotation_plus_native_light_correct_observer": 12.31177935379048,
+        "native_observer_only": 74.20500272367775,
+        "native_reconstructed_geometric": 4.997084304598177,
+        "native_reconstructed_apparent": 0.05044863320241029,
+        "native_reconstructed_with_rotated_velocity": 0.05337761950414167,
+        "native_reconstructed_with_correct_TEME": 70.19499152741331
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.95982477295863,
+        "retarded_astrometric": 54.71753783363335,
+        "retarded_apparent": 57.9309825861151
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.24619482692701,
+        "native_observer_only": 12.26385585818082,
+        "relative_light_correction": 5.045009845682155,
+        "unrotated_velocity": 0.0057237457949246475,
+        "TEME_replacement_with_native_observer": 70.24223519928424
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.01736715811436773,
+        "residual_after_shift_arcsec": 36.052970049118706
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -200.92575717618956,
+          409.0888091841007,
+          253.19959783832564
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -200.9183334672387,
+          409.0971350081354,
+          253.19337828082317
+        ],
+        "native_rotation_only": [
+          -200.7583082239846,
+          409.15019560019755,
+          253.1987198202787
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -200.75091976404605,
+          409.1585692469732,
+          253.19252170068387
+        ],
+        "native_observer_only": [
+          -200.9551508066138,
+          409.0784440613743,
+          253.199674964726
+        ],
+        "native_reconstructed_geometric": [
+          -200.78770185440885,
+          409.13983047747115,
+          253.19879694667907
+        ],
+        "native_reconstructed_apparent": [
+          -200.78031335012744,
+          409.1482041797287,
+          253.19259878877634
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -200.78027804800664,
+          409.14815581573794,
+          253.19257755084334
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -200.94772932476403,
+          409.0867675182094,
+          253.1934571358515
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "motionSamples[4]",
+      "utc": "2026-10-25T10:22:08.028Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.370034e-06,
+        2.703671e-06,
+        1.715851e-06
+      ],
+      "range_km": 521.056993070716,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.370034e-06,
+        2.703671e-06,
+        1.71585e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": false,
+      "skyfield_dut1_seconds": 0.08909344405392972,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.081999849134298,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0008972324297395644,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 9.92521970832634e-07,
+      "native_rotation_geocentric_error_m": 178.24979456544602,
+      "native_observer_position_error_m": 31.167856850847194,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.94622468556816,
+        "reference_geometric_plus_native_relative_light": 57.915293280909225,
+        "native_rotation_only": 8.9221564285343,
+        "native_rotation_plus_native_light_correct_observer": 12.263294162072919,
+        "native_observer_only": 74.18442914472944,
+        "native_reconstructed_geometric": 5.019926488124556,
+        "native_reconstructed_apparent": 0.03888104133128264,
+        "native_reconstructed_with_rotated_velocity": 0.035790280275658976,
+        "native_reconstructed_with_correct_TEME": 70.17220951905482
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.94622468553095,
+        "retarded_astrometric": 54.92759680178394,
+        "retarded_apparent": 57.91582621612144
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1824140014962,
+        "native_observer_only": 12.257161523612325,
+        "relative_light_correction": 5.048194034654364,
+        "unrotated_velocity": 0.005703284891637402,
+        "TEME_replacement_with_native_observer": 70.17771279314518
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017340170114258903,
+        "residual_after_shift_arcsec": 36.05587933992626
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -205.0994388526692,
+          404.40390547451534,
+          256.694548923766
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -205.09202341508768,
+          404.41223638855456,
+          256.6883424704143
+        ],
+        "native_rotation_only": [
+          -204.93215224560345,
+          404.46544738643934,
+          256.69366947178423
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -204.92477214552582,
+          404.47382604263777,
+          256.68748445399456
+        ],
+        "native_observer_only": [
+          -205.12883186595377,
+          404.39353821246186,
+          256.6946260486193
+        ],
+        "native_reconstructed_geometric": [
+          -204.961545258888,
+          404.45508012438586,
+          256.69374659663754
+        ],
+        "native_reconstructed_apparent": [
+          -204.9541651098267,
+          404.46345884142164,
+          256.68756153668875
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -204.95412974346155,
+          404.4634105303564,
+          256.68754032133853
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -205.12141692056656,
+          404.40186860871256,
+          256.6884199736812
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "initial",
+      "utc": "2026-10-25T10:22:00.000Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "range_km": 526.3610593213107,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349763895591,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082007015430529,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0029403664093487266,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.2526558260623525e-06,
+      "native_rotation_geocentric_error_m": 179.0781241097876,
+      "native_observer_position_error_m": 31.16778160247484,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.91254602488001,
+        "reference_geometric_plus_native_relative_light": 57.92660528816453,
+        "native_rotation_only": 8.904140724556859,
+        "native_rotation_plus_native_light_correct_observer": 12.22205476701098,
+        "native_observer_only": 74.10585477157035,
+        "native_reconstructed_geometric": 4.978448143548644,
+        "native_reconstructed_apparent": 0.02081826984026104,
+        "native_reconstructed_with_rotated_velocity": 0.023529422308507162,
+        "native_reconstructed_with_correct_TEME": 70.13630500613742
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.91254602470748,
+        "retarded_astrometric": 53.109665760346594,
+        "retarded_apparent": 57.92720728712194
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1546834811525,
+        "native_observer_only": 12.208952604827212,
+        "relative_light_correction": 4.998758195398989,
+        "unrotated_velocity": 0.0063279985320975705,
+        "TEME_replacement_with_native_observer": 70.14929196965517
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017637174029258497,
+        "residual_after_shift_arcsec": 36.170320930120845
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.77815430389956,
+          442.6898935499685,
+          227.85180475722245
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.77063295544644,
+          442.69822427854746,
+          227.84545842010613
+        ],
+        "native_rotation_only": [
+          -170.6095279146448,
+          442.7501707842803,
+          227.85092702987276
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.6020413489787,
+          442.7585501600823,
+          227.8446022549779
+        ],
+        "native_observer_only": [
+          -170.8075533102699,
+          442.67954352176184,
+          227.8518818972134
+        ],
+        "native_reconstructed_geometric": [
+          -170.63892692101513,
+          442.73982075607364,
+          227.8510041698637
+        ],
+        "native_reconstructed_apparent": [
+          -170.6314403444897,
+          442.7482001492861,
+          227.84467938466872
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.63140533222304,
+          442.74815115606265,
+          227.84465787521594
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.80003373228163,
+          442.6878723908678,
+          227.84553694567512
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "pointBefore.state",
+      "utc": "2026-10-25T10:22:00.000Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "range_km": 526.3610593213107,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.140601e-06,
+        2.959589e-06,
+        1.523048e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": true,
+      "skyfield_dut1_seconds": 0.08909349763895591,
+      "native_delta_t_seconds": 74.17420351412147,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.082007015430529,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0029403664093487266,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 3.2526558260623525e-06,
+      "native_rotation_geocentric_error_m": 179.0781241097876,
+      "native_observer_position_error_m": 31.16778160247484,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.91254602488001,
+        "reference_geometric_plus_native_relative_light": 57.92660528816453,
+        "native_rotation_only": 8.904140724556859,
+        "native_rotation_plus_native_light_correct_observer": 12.22205476701098,
+        "native_observer_only": 74.10585477157035,
+        "native_reconstructed_geometric": 4.978448143548644,
+        "native_reconstructed_apparent": 0.02081826984026104,
+        "native_reconstructed_with_rotated_velocity": 0.023529422308507162,
+        "native_reconstructed_with_correct_TEME": 70.13630500613742
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.91254602470748,
+        "retarded_astrometric": 53.109665760346594,
+        "retarded_apparent": 57.92720728712194
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1546834811525,
+        "native_observer_only": 12.208952604827212,
+        "relative_light_correction": 4.998758195398989,
+        "unrotated_velocity": 0.0063279985320975705,
+        "TEME_replacement_with_native_observer": 70.14929196965517
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017637174029258497,
+        "residual_after_shift_arcsec": 36.170320930120845
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -170.77815430389956,
+          442.6898935499685,
+          227.85180475722245
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -170.77063295544644,
+          442.69822427854746,
+          227.84545842010613
+        ],
+        "native_rotation_only": [
+          -170.6095279146448,
+          442.7501707842803,
+          227.85092702987276
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -170.6020413489787,
+          442.7585501600823,
+          227.8446022549779
+        ],
+        "native_observer_only": [
+          -170.8075533102699,
+          442.67954352176184,
+          227.8518818972134
+        ],
+        "native_reconstructed_geometric": [
+          -170.63892692101513,
+          442.73982075607364,
+          227.8510041698637
+        ],
+        "native_reconstructed_apparent": [
+          -170.6314403444897,
+          442.7482001492861,
+          227.84467938466872
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -170.63140533222304,
+          442.74815115606265,
+          227.84465787521594
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -170.80003373228163,
+          442.6878723908678,
+          227.84553694567512
+        ]
+      }
+    },
+    {
+      "viewport": [
+        667,
+        390
+      ],
+      "capture": "pointAfter.state",
+      "utc": "2026-10-25T10:22:08.028Z",
+      "native_speed": 0,
+      "native_live": false,
+      "norad_id": "61045",
+      "native_vector_au": [
+        -1.370034e-06,
+        2.703671e-06,
+        1.715851e-06
+      ],
+      "range_km": 521.056993070716,
+      "reconstructed_vector_au_serialized_12dp": [
+        -1.370034e-06,
+        2.703671e-06,
+        1.71585e-06
+      ],
+      "reconstructed_serialized_vector_exactly_matches_capture": false,
+      "skyfield_dut1_seconds": 0.08909344405392972,
+      "native_delta_t_seconds": 74.17420414276421,
+      "skyfield_tt_minus_utc_seconds": 69.184,
+      "equation_of_equinoxes_arcsec": 7.081999849134298,
+      "native_vs_skyfield_TEME_position_difference_m": 0.0008972324297395644,
+      "native_vs_skyfield_TEME_velocity_difference_m_s": 9.92521970832634e-07,
+      "native_rotation_geocentric_error_m": 178.24979456544602,
+      "native_observer_position_error_m": 31.167856850847194,
+      "native_residual_arcsec": {
+        "reference_geometric": 61.94622468556816,
+        "reference_geometric_plus_native_relative_light": 57.915293280909225,
+        "native_rotation_only": 8.9221564285343,
+        "native_rotation_plus_native_light_correct_observer": 12.263294162072919,
+        "native_observer_only": 74.18442914472944,
+        "native_reconstructed_geometric": 5.019926488124556,
+        "native_reconstructed_apparent": 0.03888104133128264,
+        "native_reconstructed_with_rotated_velocity": 0.035790280275658976,
+        "native_reconstructed_with_correct_TEME": 70.17220951905482
+      },
+      "prior_residual_arcsec": {
+        "instantaneous_geometric": 61.94622468553095,
+        "retarded_astrometric": 54.92759680178394,
+        "retarded_apparent": 57.91582621612144
+      },
+      "hypothesis_effect_arcsec": {
+        "native_rotation_only": 70.1824140014962,
+        "native_observer_only": 12.257161523612325,
+        "relative_light_correction": 5.048194034654364,
+        "unrotated_velocity": 0.005703284891637402,
+        "TEME_replacement_with_native_observer": 70.17771279314518
+      },
+      "timing_only_diagnostic": {
+        "best_linear_shift_seconds": -0.017340170114258903,
+        "residual_after_shift_arcsec": 36.05587933992626
+      },
+      "predicted_vectors_km": {
+        "reference_geometric": [
+          -205.0994388526692,
+          404.40390547451534,
+          256.694548923766
+        ],
+        "reference_geometric_plus_native_relative_light": [
+          -205.09202341508768,
+          404.41223638855456,
+          256.6883424704143
+        ],
+        "native_rotation_only": [
+          -204.93215224560345,
+          404.46544738643934,
+          256.69366947178423
+        ],
+        "native_rotation_plus_native_light_correct_observer": [
+          -204.92477214552582,
+          404.47382604263777,
+          256.68748445399456
+        ],
+        "native_observer_only": [
+          -205.12883186595377,
+          404.39353821246186,
+          256.6946260486193
+        ],
+        "native_reconstructed_geometric": [
+          -204.961545258888,
+          404.45508012438586,
+          256.69374659663754
+        ],
+        "native_reconstructed_apparent": [
+          -204.9541651098267,
+          404.46345884142164,
+          256.68756153668875
+        ],
+        "native_reconstructed_with_rotated_velocity": [
+          -204.95412974346155,
+          404.4634105303564,
+          256.68754032133853
+        ],
+        "native_reconstructed_with_correct_TEME": [
+          -205.12141692056656,
+          404.40186860871256,
+          256.6884199736812
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "No posthoc tolerance and no assertion of absolute physical satellite accuracy.",
+    "Retained native vectors are serialized with limited significant digits and UTC with milliseconds.",
+    "Native TT/DUT1 internals were not captured; native time policy is reconstructed from pinned source.",
+    "Python ERFA evaluates equivalent matrix/observer formulas; this is not a new native WASM execution.",
+    "One NORAD and an eight-second pass do not qualify other orbits, epochs, or observers.",
+    "Skyfield built-in Earth orientation is the comparison reference, not independent ground-truth tracking.",
+    "No production source/math/binary changes, Docker restart, new source fetch, or repeated historical browser campaign."
+  ]
+}

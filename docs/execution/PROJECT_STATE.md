@@ -1,5 +1,20 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## Satellite observing experience — owner directive 2026-10-26
+
+The owner authorizes bounded Next Passes, in-app native-clock pass simulation,
+absolute-position diagnosis and a separately reviewable first-party refresh
+proposal, stacked on preserved draft PR102 `d2909a52`. Branch
+`sky-satellite-observing-1`. This supersedes the pilot stop checkpoint only for
+this scope. Native 155-record pilot, original14281catalog, photometry/SGP4,
+automatic identification/tracking, PS1–PS3/Moon/Earth/Sky, data/settings/pins and
+rollback remain protected. No source promotion, unattended updater, merge,
+production deployment, paid provider or broader milestone is authorized.
+Current implementation and qualification: [satellite observing](../validation/satellite-observing/README.md).
+Stop for owner functional review after bounded draft delivery; technical evidence
+is not owner acceptance or absolute-position precision acceptance.
+
+
 ## Limited visual-satellite pilot — owner directive 2026-10-25
 
 The owner authorizes a bounded fresh-data pilot from preserved draft PR101

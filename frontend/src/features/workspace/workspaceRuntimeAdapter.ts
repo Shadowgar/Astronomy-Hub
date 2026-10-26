@@ -30,6 +30,7 @@ export function useWorkspaceRuntime(mode:RuntimeMode,search:string,onInteraction
    const canClear=previous!==null&&work.pending===0&&selectionKey(useRuntimeProductState.getState().selection)===previous
    try{const result=await client.request('getWorkspaceState');if(!closed&&current.current===client&&result.ok&&result.state){
      setSnapshot(result.state)
+     if(result.simulation)setTime(t=>({...t,live:false,effective:result.simulation!.utc,simulation:result.simulation}))
      const selected=result.state.selection
      if(mode==='sky'&&work===selectionWork.current&&revision===work.revision&&work.pending===0&&selected?.catalog&&selected.source_id&&selected.model){
       const entity:CanonicalEntity={catalog:selected.catalog,source_id:selected.source_id,model:selected.model,...(selected.ra!==undefined?{ra:selected.ra}:{}),...(selected.dec!==undefined?{dec:selected.dec}:{})}
@@ -48,17 +49,17 @@ export function useWorkspaceRuntime(mode:RuntimeMode,search:string,onInteraction
   useRuntimeProductState.getState().ingestSearch(search);const product=useRuntimeProductState.getState()
   const entity=product.selection,queryEntity=entity&&entity.catalog===p.get('catalog')&&entity.source_id===p.get('source_id')&&entity.model===p.get('model')?entity:null,key=selectionKey(queryEntity)
   const previous=lastQuery.current,changed=previous.client===client&&previous.selection!==key;lastQuery.current={client,selection:key}
-  const date=parseSceneDate(p.get('date')),live=date===null,keyTime=date||'live'
+  const date=parseSceneDate(p.get('date')),isSimulation=mode==='sky'&&!!date&&p.get('simulation')==='1',live=date===null,keyTime=isSimulation?date+'|simulation':date||'live'
   // Selection and observer URL synchronization are not new temporal intent.
   // Share an in-flight acknowledgement across those rerenders so pending time
   // settles even if the initiating query effect has already been cancelled.
   let temporal=timeWork.current
   if(!temporal||temporal.client!==client||temporal.key!==keyTime){
    const utc=date||new Date().toISOString(),work={client,key:keyTime,completion:Promise.resolve(null) as Promise<RuntimeResult|null>}
-   timeWork.current=work;temporal=work;setTime(t=>({...t,requested:utc,live,pending:true}))
-   work.completion=request('setTimeIntent',{utc,live},12000).then(result=>{
+   timeWork.current=work;temporal=work;setTime(t=>({...t,requested:utc,live,pending:true,simulation:null}))
+   work.completion=request(isSimulation?'setSimulation':'setTimeIntent',isSimulation?{utc,playing:false}:{utc,live},12000).then(result=>{
     if(timeWork.current!==work||current.current!==client)return null
-    setTime(t=>({...t,pending:false,error:!result?.ok,effective:result?.ok?result.effectiveTime||null:t.effective}))
+    setTime(t=>({...t,pending:false,error:!result?.ok,effective:result?.ok?result.effectiveTime||null:t.effective,simulation:result?.simulation||null}))
     if(result?.ok)product.report(mode,result)
     return result
    })
@@ -76,5 +77,14 @@ export function useWorkspaceRuntime(mode:RuntimeMode,search:string,onInteraction
    }
   })();return ()=>{cancelled=true}
  },[client,mode,search,request])
- return {client,acceptClient,snapshot,setSnapshot,request,time,setTime,notice,setNotice}
+ const simulate=useCallback(async(playing:boolean,utc?:string)=>{
+  const active=current.current;if(!active||mode!=='sky')return null;
+  const result=await request('setSimulation',{playing,...(utc?{utc}:{})},12000,active);
+  if(!result?.ok||!result.simulation||current.current!==active)return null;
+  const actual=result.simulation.utc;
+  timeWork.current={client:active,key:actual+'|simulation',completion:Promise.resolve(result)};
+  setTime({requested:actual,effective:actual,live:false,pending:false,error:false,simulation:result.simulation});
+  return actual;
+ },[mode,request]);
+ return {simulate,client,acceptClient,snapshot,setSnapshot,request,time,setTime,notice,setNotice}
 }

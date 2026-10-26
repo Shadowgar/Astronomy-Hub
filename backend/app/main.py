@@ -30,6 +30,7 @@ from .routes import (
     scene,
     scopes,
     satellite_feed,
+    satellite_passes,
     sky,
     sky_mirror,
     solar_exploration,
@@ -123,6 +124,7 @@ app.include_router(above_me.router, prefix="/api")
 app.include_router(tonight.router, prefix="/api")
 app.include_router(sky.router, prefix="/api")
 app.include_router(satellite_feed.router, prefix="/api")
+app.include_router(satellite_passes.router, prefix="/api")
 app.include_router(sky_mirror.router, prefix="/api")
 
 app.include_router(earth.router, prefix="/api")

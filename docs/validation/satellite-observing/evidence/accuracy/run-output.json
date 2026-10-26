@@ -1,0 +1,77 @@
+{
+  "captures": 24,
+  "frozen_captures": 13,
+  "exact_matches_after_pinned_native_12dp_serialization": 19,
+  "variants_residual_arcsec": {
+    "reference_geometric": {
+      "min": 61.90387072122884,
+      "max": 62.09644693625576
+    },
+    "reference_geometric_plus_native_relative_light": {
+      "min": 57.88851388737985,
+      "max": 58.07535280932325
+    },
+    "native_rotation_only": {
+      "min": 8.888623766002544,
+      "max": 8.973418364682512
+    },
+    "native_rotation_plus_native_light_correct_observer": {
+      "min": 12.204125417241352,
+      "max": 12.31177935379048
+    },
+    "native_observer_only": {
+      "min": 74.09806447705806,
+      "max": 74.34390983706393
+    },
+    "native_reconstructed_geometric": {
+      "min": 4.978448143548644,
+      "max": 5.063319351364978
+    },
+    "native_reconstructed_apparent": {
+      "min": 0.006969709823556776,
+      "max": 0.05044863320241029
+    },
+    "native_reconstructed_with_rotated_velocity": {
+      "min": 0.0100630792562021,
+      "max": 0.05337761950414167
+    },
+    "native_reconstructed_with_correct_TEME": {
+      "min": 70.12563767801426,
+      "max": 70.34109541321254
+    }
+  },
+  "effects_arcsec": {
+    "native_rotation_only": {
+      "min": 70.1546834811525,
+      "max": 70.32577648593309
+    },
+    "native_observer_only": {
+      "min": 12.208952604827212,
+      "max": 12.267393113411522
+    },
+    "relative_light_correction": {
+      "min": 4.998758195398989,
+      "max": 5.048293036390384
+    },
+    "unrotated_velocity": {
+      "min": 0.005702868610332214,
+      "max": 0.0063279985320975705
+    },
+    "TEME_replacement_with_native_observer": {
+      "min": 70.14929196965517,
+      "max": 70.32079137168269
+    }
+  },
+  "native_sgp4_position_difference_m": {
+    "min": 0.00012884670975399812,
+    "max": 0.0037620237530901174
+  },
+  "native_sgp4_velocity_difference_m_s": {
+    "min": 1.4253154458714445e-07,
+    "max": 4.161571174132955e-06
+  },
+  "timing_only_residual_arcsec": {
+    "min": 36.009879181515245,
+    "max": 36.17916340273138
+  }
+}

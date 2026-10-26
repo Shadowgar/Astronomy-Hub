@@ -1,0 +1,2285 @@
+{
+  "base": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-visual-pilot-1",
+  "packs": [
+    "frontend_change",
+    "backend_change",
+    "validation",
+    "review",
+    "debug"
+  ],
+  "inventory": [
+    {
+      "path": "docs/context/CORE_CONTEXT.md",
+      "sha256": "f1b0583bce40dd7fa4e6e339646ce235fb3d608d12c6e1e5beea91efd78750ef",
+      "bytes": 25377,
+      "lines": 512,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/context/LIVE_SESSION_BRIEF.md",
+      "sha256": "58a6e6d7a50bfc96639090f3b2199f2c5ac6525424b51c39a5f48b8b31a8148f",
+      "bytes": 74094,
+      "lines": 1095,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/validation/r3-a-solar-system/RECONCILIATION.md",
+      "sha256": "028cbf733b185dd9f1af31a544e0c88b6962bfe273a475a1dc573ad64968c56b",
+      "bytes": 3062,
+      "lines": 36,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# R3 activation reconciliation and supersession ledger",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "## Change/supersession ledger",
+          "complete_line": true
+        },
+        {
+          "line": 23,
+          "text": "## Stage sequence and implementation plan",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "required migration map refreshed. Explicit additional documents are owner-requested",
+          "complete_line": true
+        },
+        {
+          "line": 21,
+          "text": "| Immutable historical validation/audits/source/artifacts | Unchanged; source-matched earlier qualification is historical, never fresh R3 proof. |",
+          "complete_line": true
+        },
+        {
+          "line": 34,
+          "text": "6. Push new draft stacked on PR80; no merge/deploy. Stop owner review, propose R3-B.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/r4-a-planet-view/README.md",
+      "sha256": "156b126caf34bccf644f606c3be4a25d1f317100d2d26a13781a49933f937fd5",
+      "bytes": 7781,
+      "lines": 121,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# R4-A \u2014 source-qualified Moon globe",
+          "complete_line": true
+        },
+        {
+          "line": 18,
+          "text": "## Scientific choice and working experience",
+          "complete_line": true
+        },
+        {
+          "line": 40,
+          "text": "## Actual preview and screenshots",
+          "complete_line": true
+        },
+        {
+          "line": 12,
+          "text": "Default Mode loaded CORE/LIVE, then manifest backend/frontend/planning/validation/",
+          "complete_line": true
+        },
+        {
+          "line": 14,
+          "text": "records linked validation evidence and authorized task documents. No full-doc scan",
+          "complete_line": true
+        },
+        {
+          "line": 21,
+          "text": "The actual native globe supports drag/touch, keyboard, zoom/orbit and validated",
+          "complete_line": true
+        },
+        {
+          "line": 70,
+          "text": "| Native Earth search\u2192Solar\u2192Moon\u2192Earth | Desktop/mobile passed; native observer/camera/UTC retained |",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/planetary-systems/README.md",
+      "sha256": "a2c466b614859db5eb4b73c025a51c775da71ab7f236a5c95fd3aaea32a2ec00",
+      "bytes": 7998,
+      "lines": 126,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Hierarchical planetary systems",
+          "complete_line": true
+        },
+        {
+          "line": 19,
+          "text": "## Implemented PS1 candidate",
+          "complete_line": true
+        },
+        {
+          "line": 46,
+          "text": "## Qualification ledger",
+          "complete_line": true
+        },
+        {
+          "line": 12,
+          "text": "planning/validation/review manifest packs. [PLAN](PLAN.md) is execution detail under",
+          "complete_line": true
+        },
+        {
+          "line": 29,
+          "text": "satellite-bearing parents, source-derived moon metadata and explicit unavailable",
+          "complete_line": true
+        },
+        {
+          "line": 86,
+          "text": "integration; those packages must not be marked complete based on the reusable shell.",
+          "complete_line": true
+        },
+        {
+          "line": 91,
+          "text": "source: actual source positions/motion, native Moon handoff, exact parent and Solar",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/README.md",
+      "sha256": "0a6b1b97d3bbb95d3629cff5322fc1964c288498ded1e015f2daf30e58b3445e",
+      "bytes": 11709,
+      "lines": 176,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/validation/satellite-visual-pilot/README.md",
+      "sha256": "3d96c369d1b9ceeaca4f5b3abd33a24667616af638d35f8db0b32b1923221f5d",
+      "bytes": 10430,
+      "lines": 165,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/architecture/decisions/0010-r3-a-solar-runtime.md",
+      "sha256": "af2fb12c547886cd737ecfa7cade29d5ea9a38097978bda431ec421b8350b534",
+      "bytes": 7752,
+      "lines": 116,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# ADR0010 \u2014 bounded geometric Solar exploration",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Owner-approved cinematic sizing correction \u2014 2026-10-22",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "## Owner-approved scientific Solar controls \u2014 2026-10-22",
+          "complete_line": true
+        },
+        {
+          "line": 8,
+          "text": "historical. Restore readable cinematic globes at immutable source positions/time;",
+          "complete_line": true
+        },
+        {
+          "line": 12,
+          "text": "native runtimes, accepted navigation, settings, data/pins/rollback remain protected.",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "acceptance remains pending. [Current correction](../../validation/solar-cinematic-balance/README.md).",
+          "complete_line": true
+        },
+        {
+          "line": 29,
+          "text": "provenance, original imagery/UVs, illustrative orientation disclosures and all native",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/product/PRODUCT_VISION.md",
+      "sha256": "9f145498e1c10ef0dd699feb84e287fa1c232081f710375e8fb8c052811c04cb",
+      "bytes": 16094,
+      "lines": 187,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Astronomy Hub Product Vision",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Active owner authorization \u2014 complete cinematic Hub and R3-B (2026-10-22)",
+          "complete_line": true
+        },
+        {
+          "line": 35,
+          "text": "## Owner-approved cinematic presentation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "Earth search must be directly visible. Sky retains real Stellarium observing controls,",
+          "complete_line": true
+        },
+        {
+          "line": 20,
+          "text": "All planets must have qualified identities, explicit centers/barycenters, frames and",
+          "complete_line": true
+        },
+        {
+          "line": 29,
+          "text": "and independent technical review are required. Green tests do not grant visual",
+          "complete_line": true
+        },
+        {
+          "line": 32,
+          "text": "[Execution and evidence](../validation/cinematic-hub/README.md).",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/SYSTEM_VALIDATION_SPEC.md",
+      "sha256": "93b80a01cf86005b1a35913bb5e135cc8a0ebe69c09c09456b284ad3fe5b6d82",
+      "bytes": 9309,
+      "lines": 262,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md",
+      "sha256": "adbf687f0aef0923e13c7d5533deec51fb6b6556652ffe72ad1b8a7aaee5aa2a",
+      "bytes": 13787,
+      "lines": 181,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md",
+      "sha256": "d901bff35768636b2f5d2df61f4c91d9a7310068fcdadaec1b1e7f8cdc241e22",
+      "bytes": 72143,
+      "lines": 882,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# God's Eye / SWE compatibility and upgradeability study",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "## 1. Executive conclusion",
+          "complete_line": true
+        },
+        {
+          "line": 49,
+          "text": "## 2. Exact God's Eye revisions studied",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "and its eight ADRs. [Evidence record](../validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md).",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "OPEN = qualification still required. No new renderer/browser/Docker integration",
+          "complete_line": true
+        },
+        {
+          "line": 25,
+          "text": "application under the existing shell. It must not rebuild God's Eye controls",
+          "complete_line": true
+        },
+        {
+          "line": 26,
+          "text": "from selected flight/satellite modules. Preserve upstream layer catalogs,",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md",
+      "sha256": "2918ec4dcfd2297e3db2a8dbf537b73afb066ed5b8d0d2959bd343bda4c706b8",
+      "bytes": 20993,
+      "lines": 376,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Phase B compatibility study evidence",
+          "complete_line": true
+        },
+        {
+          "line": 8,
+          "text": "## Context and boundaries",
+          "complete_line": true
+        },
+        {
+          "line": 27,
+          "text": "## Baseline and upstream commands",
+          "complete_line": true
+        },
+        {
+          "line": 12,
+          "text": "validation spec, unified architecture, architecture overview, engine spec/catalog,",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "The normal review additionally required the manifest-listed `docs/README.md`,",
+          "complete_line": true
+        },
+        {
+          "line": 106,
+          "text": "native hash `8e9288cf7dd5d7d8e4387576c7fd36a4928cc67cfe71cdb1d5d066dccf3d9599`,",
+          "complete_line": true
+        },
+        {
+          "line": 128,
+          "text": "and reverse stop order, idempotent destroy and terminal no-restart. It constructs",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md",
+      "sha256": "d02ffd0bd6070483ce750833e9f0701f4795a9bcd400c077f9e4afd11899f6a8",
+      "bytes": 34008,
+      "lines": 532,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Hub-owned Cesium Earth \u2014 Phase C qualification",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "## Authority/context and salvage",
+          "complete_line": true
+        },
+        {
+          "line": 42,
+          "text": "## C0 source/artifact/science",
+          "complete_line": true
+        },
+        {
+          "line": 33,
+          "text": "| `6fa4e3c2` source recovery | KEEP Sky inputs/recipe/native proof; SALVAGE rather than cherry-pick because renderer lock included full-app Earth metadata. Recovered the missing tracked yarn lock too. |",
+          "complete_line": true
+        },
+        {
+          "line": 45,
+          "text": "inputs, npm/yarn locks and native ORAS star science. Secrets/bulk data excluded.",
+          "complete_line": true
+        },
+        {
+          "line": 58,
+          "text": "`/var/tmp/oras-phase-c`: c0-build.log, c0-deep-links.log, c0-native-tests.log.",
+          "complete_line": true
+        },
+        {
+          "line": 59,
+          "text": "Fresh pivot qualification in `/var/tmp/oras-cesium`: native-conformance.log",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "sha256": "1d5b205e45bf53d2517b1ea223a9d971d4c4934e5a56a8a48780e5424935e810",
+      "bytes": 60057,
+      "lines": 952,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# ORA-8 / C5 Earth capability expansion",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "## Context and implementation plan",
+          "complete_line": true
+        },
+        {
+          "line": 32,
+          "text": "## Provider admission, 2026-10-03",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "God's Eye immutable external pin: `e7707d9a0f34d9fbffc300023c319f95caa5be30`.",
+          "complete_line": true
+        },
+        {
+          "line": 14,
+          "text": "frontend_change/backend_change packs: locked workspace design; system validation;",
+          "complete_line": true
+        },
+        {
+          "line": 30,
+          "text": "6. Update execution controls and ORA-8 to In Review; stop without merging.",
+          "complete_line": true
+        },
+        {
+          "line": 80,
+          "text": "- `docs/validation/SYSTEM_VALIDATION_SPEC.md`",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/EARTH_HD_MAPPING_EVIDENCE.md",
+      "sha256": "f78edcd73f54b1f073ab364325a39a334e7a05c0a389fd343fc6d974249c6980",
+      "bytes": 30183,
+      "lines": 409,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# HD Earth mapping \u2014 first bounded package",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## Context and architecture findings",
+          "complete_line": true
+        },
+        {
+          "line": 37,
+          "text": "## Provider investigation, 2026-10-04",
+          "complete_line": true
+        },
+        {
+          "line": 12,
+          "text": "backend_change, review and validation. No broad docs scan or override mode.",
+          "complete_line": true
+        },
+        {
+          "line": 39,
+          "text": "Primary-source references were checked live; terms and prices must be rechecked",
+          "complete_line": true
+        },
+        {
+          "line": 47,
+          "text": "| Cesium ion imagery and World Terrain | Imagery asset/provider dependent, no blanket resolution. World Terrain global quantized mesh; US about 1\u201330m, finer regional coverage; coarse global gaps. Native IonImageryProvider / CesiumTerrainProvider. | Project token with asset/origin scope and account/a",
+          "complete_line": false
+        },
+        {
+          "line": 48,
+          "text": "| Bing through supported Cesium APIs | Global aerial with region-dependent resolution/max zoom; no verified project entitlement or precise resolution claim. IonImageryProvider/BingMapsImageryProvider supported. | Ion Bing terms prohibit asset tracking and combining non-Bing maps/imagery. Existing ai",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE_OVERVIEW.md",
+      "sha256": "a162aad95657d84b5cebc06be55432d5d60eaaad05dc0709674a2b0f723b139d",
+      "bytes": 7110,
+      "lines": 270,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "#`ARCHITECTURE_OVERVIEW.md`",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "# ASTRONOMY HUB \u2014 ARCHITECTURE OVERVIEW",
+          "complete_line": true
+        },
+        {
+          "line": 129,
+          "text": "* the host must not absorb engine-internal rendering behavior",
+          "complete_line": true
+        },
+        {
+          "line": 133,
+          "text": "pinned upstream code stays immutable by default; external adapters own additions.",
+          "complete_line": true
+        },
+        {
+          "line": 146,
+          "text": "* satellite",
+          "complete_line": true
+        },
+        {
+          "line": 162,
+          "text": "  independent Observe/Tonight requests need not stop when that scene changes",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/architecture/ENGINE_SPEC.md",
+      "sha256": "6d34ba6105f2bb36a856d4fe94be29638e34b3ec613ef335e4e612200f443c1f",
+      "bytes": 8241,
+      "lines": 329,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "#`ENGINE_SPEC.md`",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "# ENGINE SPECIFICATION",
+          "complete_line": true
+        },
+        {
+          "line": 31,
+          "text": "SWE owns its scene/math/native selection/camera. Hub-owned Earth owns its Viewer,",
+          "complete_line": true
+        },
+        {
+          "line": 37,
+          "text": "Pinned upstream source remains immutable by default and independently qualified.",
+          "complete_line": true
+        },
+        {
+          "line": 95,
+          "text": "* Satellite Sub-Engine (inside Earth Engine)",
+          "complete_line": true
+        },
+        {
+          "line": 121,
+          "text": "Every engine MUST:",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/architecture/ENGINE_CATALOG.md",
+      "sha256": "41c9233df298530db7101c836b70b17b215488777267f7dfab264c62f112d0b9",
+      "bytes": 9673,
+      "lines": 388,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# `ENGINE_CATALOG.md`",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "# ENGINE CATALOG",
+          "complete_line": true
+        },
+        {
+          "line": 74,
+          "text": "* Sky Engine must remain self-contained and mounted through thin Hub interfaces",
+          "complete_line": true
+        },
+        {
+          "line": 123,
+          "text": "* unknown brightness must remain unavailable, never invented",
+          "complete_line": true
+        },
+        {
+          "line": 127,
+          "text": "* Sky satellite authority and Earth stations-source paths are distinct current paths; do not claim a unified population",
+          "complete_line": true
+        },
+        {
+          "line": 253,
+          "text": "* compatibility study must assess SWE capability versus a justified dedicated scene",
+          "complete_line": true
+        }
+      ],
+      "additional_model_read_ranges": [
+        [
+          106,
+          136
+        ]
+      ]
+    },
+    {
+      "path": "docs/architecture/OBJECT_MODEL.md",
+      "sha256": "4f3554df30166abb154750fe7ce061de8769fb3454d9e002a7a07ea9a08c5082",
+      "bytes": 4125,
+      "lines": 242,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 2,
+          "text": "#`ARCHITECTURE_OVERVIEW.md`",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "# ASTRONOMY HUB \u2014 ARCHITECTURE OVERVIEW",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "## Scope Clarification",
+          "complete_line": true
+        },
+        {
+          "line": 124,
+          "text": "* satellite",
+          "complete_line": true
+        },
+        {
+          "line": 204,
+          "text": "Engines operate independently but must:",
+          "complete_line": true
+        },
+        {
+          "line": 231,
+          "text": "Execution decisions must come from execution and feature documents.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/architecture/DATA_CONTRACTS.md",
+      "sha256": "5449411a2f9d1ea92b4b50e58fef9f933f7db6a9a35997f90e17baa5fd0dff63",
+      "bytes": 4415,
+      "lines": 263,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/architecture/TONIGHT_CONTRACT.md",
+      "sha256": "63b10129bcd52d5e0571b1381bb52587278d303a294c4b22ba48377fff6fe9b0",
+      "bytes": 6530,
+      "lines": 114,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/architecture/INGESTION_STRATEGY.md",
+      "sha256": "b6724bba3b117ee4afe3710053a6b878811799ef1b10c6ac86d32837d9aa85d6",
+      "bytes": 3080,
+      "lines": 204,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "#`INGESTION_STRATEGY.md`",
+          "complete_line": true
+        },
+        {
+          "line": 6,
+          "text": "# INGESTION STRATEGY",
+          "complete_line": true
+        },
+        {
+          "line": 10,
+          "text": "## PURPOSE",
+          "complete_line": true
+        },
+        {
+          "line": 27,
+          "text": "All data must be normalized before entering the system.",
+          "complete_line": true
+        },
+        {
+          "line": 51,
+          "text": "* unofficial aggregations without validation",
+          "complete_line": true
+        },
+        {
+          "line": 66,
+          "text": "* must include timestamp and source metadata",
+          "complete_line": true
+        },
+        {
+          "line": 112,
+          "text": "* all units must be standardized",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/architecture/STACK_OVERVIEW.md",
+      "sha256": "602a82eafbd1af36bf0f40d58951a797783adf018d6067206870d7d1bb108b9b",
+      "bytes": 10024,
+      "lines": 450,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "#`STACK_OVERVIEW.md`",
+          "complete_line": true
+        },
+        {
+          "line": 13,
+          "text": "# STACK OVERVIEW",
+          "complete_line": true
+        },
+        {
+          "line": 25,
+          "text": "* All implementation must conform to this stack",
+          "complete_line": true
+        },
+        {
+          "line": 71,
+          "text": "independently versioned with Earth. It may be Node-based only where required to",
+          "complete_line": true
+        },
+        {
+          "line": 79,
+          "text": "adapter into FastAPI; it must not define competing Hub science/data contracts.",
+          "complete_line": true
+        },
+        {
+          "line": 102,
+          "text": "* All request/response models must use Pydantic",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/PROJECT_STATE.md",
+      "sha256": "dfeb07a1979381ea9ac1036e918d4a1d874b908e5f25d69e8529938c04dd664f",
+      "bytes": 70049,
+      "lines": 1014,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# PROJECT STATE \u2014 EXECUTION AUTHORITY",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Limited visual-satellite pilot \u2014 owner directive 2026-10-25",
+          "complete_line": true
+        },
+        {
+          "line": 23,
+          "text": "## Focused Sky satellite repair \u2014 owner directive 2026-10-24",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "`sky-satellite-visual-pilot-1`. Investigate pinned caelo-works/tle-mirror revision",
+          "complete_line": true
+        },
+        {
+          "line": 10,
+          "text": "limited release profile must preserve the full-catalog minimum1000 and original",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "14281-record feed. Native and backend must read the same admitted read-only pilot;",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "native motion/control and16 focused navigation checkpoints pass. The morning",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/MASTER_PLAN.md",
+      "sha256": "51f999da22029144355fbaa521c8655b321e73b52ab40233141f2db415a1f2a0",
+      "bytes": 36422,
+      "lines": 579,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# `MASTER_PLAN.md`",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Limited visual-satellite pilot \u2014 owner directive 2026-10-25",
+          "complete_line": true
+        },
+        {
+          "line": 23,
+          "text": "## Focused Sky satellite repair \u2014 owner directive 2026-10-24",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "`sky-satellite-visual-pilot-1`. Investigate pinned caelo-works/tle-mirror revision",
+          "complete_line": true
+        },
+        {
+          "line": 10,
+          "text": "limited release profile must preserve the full-catalog minimum1000 and original",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "14281-record feed. Native and backend must read the same admitted read-only pilot;",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "native motion/control and16 focused navigation checkpoints pass. The morning",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/features/FEATURE_EXECUTION_MODEL.md",
+      "sha256": "cb194d45af7fb046482da40a7bd7bf2aa886118d28a10bb1c273de2a3bd328d5",
+      "bytes": 3225,
+      "lines": 206,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/features/FEATURE_CATALOG.md",
+      "sha256": "0886c70a0ba5165c8df75f128246ec99166a44b3b9d8581be4e1876b1e268edb",
+      "bytes": 5911,
+      "lines": 318,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# `FEATURE_CATALOG.md`",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "# FEATURE CATALOG",
+          "complete_line": true
+        },
+        {
+          "line": 120,
+          "text": "* satellite tracking",
+          "complete_line": true
+        },
+        {
+          "line": 204,
+          "text": "A feature must represent:",
+          "complete_line": true
+        },
+        {
+          "line": 225,
+          "text": "A feature must:",
+          "complete_line": true
+        },
+        {
+          "line": 235,
+          "text": "A feature must be describable in:",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/features/FEATURE_ACCEPTANCE.md",
+      "sha256": "58cad75048a313d9e9d8981f68ecd9bf4f75992346fa121803c5c44ad73d38f0",
+      "bytes": 7144,
+      "lines": 255,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# `FEATURE_ACCEPTANCE.md`",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current visual proof requirement \u2014 owner decision 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 5,
+          "text": "For AE-03/AE-11 and future Sky/Earth/Planet visual packages, the owner-approved cinematic reference family is recorded with original PNG SHA-256 in [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). Implementation cannot claim visual acceptance without exact ref",
+          "complete_line": false
+        },
+        {
+          "line": 17,
+          "text": "Sun/Earth/Mars must render from a named source/epoch/frame/units, with two independent",
+          "complete_line": true
+        },
+        {
+          "line": 19,
+          "text": "must agree with actual camera target. State display exaggeration and orbit model",
+          "complete_line": true
+        },
+        {
+          "line": 21,
+          "text": "abort/error/retry and serial cleanup. R4 contract tests must preserve identity,",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/features/FEATURE_TRACKER.md",
+      "sha256": "89852f0b367707cbb727bd174237d14aee4cc298381d52deee11f32c3992167d",
+      "bytes": 28753,
+      "lines": 399,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# FEATURE TRACKER",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current bounded planetary hierarchy \u2014 2026-10-24",
+          "complete_line": true
+        },
+        {
+          "line": 25,
+          "text": "## Cinematic Solar implementation \u2014 review candidate 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "| PS3 integration | Qualified cross-system integration and native handoffs in draft PR95; owner acceptance open | Inherits individual destination gates |",
+          "complete_line": true
+        },
+        {
+          "line": 22,
+          "text": "[Current implementation evidence](../validation/planetary-systems/README.md).",
+          "complete_line": true
+        },
+        {
+          "line": 32,
+          "text": "Desktop/mobile cinematic9/9 each and native navigation14/14 each, lifecycle7/7,",
+          "complete_line": true
+        },
+        {
+          "line": 35,
+          "text": "layouts cover compact landscape, short portrait and expanded cards, with40 browser groups and fresh desktop/mobile scene/native",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/EARTH_CAPABILITY_PLAN.md",
+      "sha256": "1931d9c4e9c16f580349ffa39bc75310eab35e35bcb431a23094871a01c8e7aa",
+      "bytes": 141790,
+      "lines": 981,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Earth capability plan \u2014 planning reference",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## R0 supersession of execution order \u2014 2026-10-13",
+          "complete_line": true
+        },
+        {
+          "line": 29,
+          "text": "[traces](../audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md) remain immutable",
+          "complete_line": true
+        },
+        {
+          "line": 70,
+          "text": "UNKNOWN; Hub aircraft503/zero. Both satellite populations unavailable, owner~5not",
+          "complete_line": true
+        },
+        {
+          "line": 95,
+          "text": "Actual completion must separately prove code/UI/fixtures/live provider/useful",
+          "complete_line": true
+        },
+        {
+          "line": 108,
+          "text": "must record explicit owner choice; proposed defaults are not approval.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md",
+      "sha256": "c96c04d6f0b054483ba6c181457ca1e15f7a42f30338c6a0c493a8f8312bcaff",
+      "bytes": 19921,
+      "lines": 249,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# C5.7 Earth core recovery \u2014 bounded execution specification",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## R0 activation boundary \u2014 2026-10-13",
+          "complete_line": true
+        },
+        {
+          "line": 44,
+          "text": "[validation authority](../validation/SYSTEM_VALIDATION_SPEC.md) via context packs.",
+          "complete_line": true
+        },
+        {
+          "line": 71,
+          "text": "Wrappers must dispose timers/listeners/requests/controllers/entities/primitives/",
+          "complete_line": true
+        },
+        {
+          "line": 85,
+          "text": "validation. Preserve frozen native science and wheel behavior; no giant skydata",
+          "complete_line": true
+        },
+        {
+          "line": 108,
+          "text": "no camera ownership conflict. Motion/render reuse must not fabricate future samples.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/C6_GLOBAL_MAPPING_SPEC.md",
+      "sha256": "f755498c6500555a7842efbb6fd8dd039edf6de0b6a26a2d99f1d58fe59629f2",
+      "bytes": 49631,
+      "lines": 513,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# C6 \u2014 Google-Earth-Class Global Mapping",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## R0 supersession of execution order \u2014 2026-10-13",
+          "complete_line": true
+        },
+        {
+          "line": 25,
+          "text": "resumed C5.7-A/PR #67 review and separately approved satellite/Weather packages.",
+          "complete_line": true
+        },
+        {
+          "line": 63,
+          "text": "| Recent satellite imagery | Separate freshness option; not a replacement for high-resolution aerial imagery. |",
+          "complete_line": true
+        },
+        {
+          "line": 93,
+          "text": "remote imagery stack, not every provider. Recent satellite imagery is a separate",
+          "complete_line": true
+        },
+        {
+          "line": 101,
+          "text": "| `usgs-naip` \u2014 **ELIGIBLE \u2014 VERIFIED $0** | CONUS NAIP acquisition footprints, not worldwide or every ocean/urban pixel. Prior ORAS point and matching imagery prove 0.6 m, raster `m_4107944_nw_17_060_20220623`, acquisition **2022-06-23**; source dates/resolution vary elsewhere | `https://imagery.na",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/architecture/decisions/0009-owned-earth-feature-reuse.md",
+      "sha256": "24e9e0b6402cda573cf83e412cb177b99f00626d008c1e152d5a4ecd0dd25c41",
+      "bytes": 4270,
+      "lines": 63,
+      "model_read": "full"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md",
+      "sha256": "de2167240a4b4301f64cd19246fe72188c0ddb32ccf9eb53910468b88b7a6962",
+      "bytes": 193439,
+      "lines": 378,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# God's Eye capability and implementation reconciliation",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Authority and loaded context",
+          "complete_line": true
+        },
+        {
+          "line": 13,
+          "text": "## Immutable identities and inventory limits",
+          "complete_line": true
+        },
+        {
+          "line": 5,
+          "text": "The Hub-owned Viewer architecture is valid. It does not require replacing bounded upstream feature behavior. The strongest repair candidates are aircraft source/display/motion, core satellite populations/propagation, Weather scope/status, and standard Cesium stars. Current upstream offers useful mod",
+          "complete_line": false
+        },
+        {
+          "line": 11,
+          "text": "Older session documents still described PR63/64/65 as open and an earlier full-app study direction. The owner's exact-head PR65 merge instruction superseded that stale merge gate only. Current CORE/architecture and this task require Hub-owned Viewer, lifecycle, bridge and universal state. Historical",
+          "complete_line": false
+        },
+        {
+          "line": 19,
+          "text": "Pinned catalog: **29** (28 serialized entries plus local ADS-B); current: **30**, adding street-level. Audit: **67 areas = 29 catalog layers + 33 facets/current-only/explicit-absence areas + 5 helper relationships**. This is not 67 separate upstream layer factories. Historical ledger lists 38 facets",
+          "complete_line": false
+        },
+        {
+          "line": 23,
+          "text": "**45 provider/data-gated areas, 11 hook/adapter-gated areas**, overlapping and not absolute legal prohibitions. These flags include required service/account/data/asset decisions, including permissive data not yet given an approved ingestion boundary. The provider appendix has **73 records**, not 73 ",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md",
+      "sha256": "dcd166902aa4e961401bfb4209057fde374020f320ec9997b7ec0ac0ec4dea98",
+      "bytes": 70803,
+      "lines": 403,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Implemented Earth divergence \u2014 ranked audit",
+          "complete_line": true
+        },
+        {
+          "line": 33,
+          "text": "## 1. flights \u2014 CRITICAL",
+          "complete_line": true
+        },
+        {
+          "line": 49,
+          "text": "## 2. satellites \u2014 CRITICAL",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "| 9 | helper-satellite-source | HIGH | No reported live defect reproduced; scope/behavior difference from source. | LOW/MEDIUM: retain current justified contract or existing unchanged helper; see source boundary. | Provider ledger applies; availability is separate from rights. |",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md",
+      "sha256": "5d048654fd4807c1f47733520cffa6a13eee82197e4e10b8ae09288abeaeab6b",
+      "bytes": 55918,
+      "lines": 685,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Unified workspace design contract",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current owner-approved visual direction \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 5,
+          "text": "**OWNER APPROVED:** the exact cinematic Solar System, Earth and Sky design-family illustrations delivered in the current owner session, identified by immutable SHA-256 in [Cinematic Design Reference](ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). **Primary Solar reference:** `solar-primary-cinema",
+          "complete_line": false
+        },
+        {
+          "line": 7,
+          "text": "The current R3-A scene's large static panels, flat glyphs and overly diagrammatic appearance are **OWNER VISUALLY REJECTED**; retain its verified scientific/selection/return foundation. Future visual packages must import original PNG reference bytes from the owner asset pack, verify hashes, compare ",
+          "complete_line": false
+        },
+        {
+          "line": 28,
+          "text": "creation after R0's merge, not application implementation. Required design-task",
+          "complete_line": true
+        },
+        {
+          "line": 48,
+          "text": "and Display groups must expose all nine native controls: Constellations,",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md",
+      "sha256": "8bf8b3bc4a81db22c700bb4ad612129a4b714cdefbc5e7f59883b5ebbd019a4d",
+      "bytes": 16375,
+      "lines": 152,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Astronomy Hub \u2014 owner-approved cinematic visual direction",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Owner-approved cinematic sizing correction \u2014 2026-10-22",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "## Owner-approved scientific Solar controls \u2014 2026-10-22",
+          "complete_line": true
+        },
+        {
+          "line": 8,
+          "text": "historical. Restore readable cinematic globes at immutable source positions/time;",
+          "complete_line": true
+        },
+        {
+          "line": 12,
+          "text": "native runtimes, accepted navigation, settings, data/pins/rollback remain protected.",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "acceptance remains pending. [Current correction](../validation/solar-cinematic-balance/README.md).",
+          "complete_line": true
+        },
+        {
+          "line": 29,
+          "text": "provenance, original imagery/UVs, illustrative orientation disclosures and all native",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/solar-cinematic/README.md",
+      "sha256": "82ed4c92d94284dee0497068c36d06184c1e95497f1432ac8eff664e87e0706a",
+      "bytes": 9560,
+      "lines": 121,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Cinematic Solar \u2014 review candidate, 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 16,
+          "text": "## Context and design",
+          "complete_line": true
+        },
+        {
+          "line": 32,
+          "text": "## Implemented behavior",
+          "complete_line": true
+        },
+        {
+          "line": 13,
+          "text": "uses only task-owned Docker backend/preview containers, existing read-only native",
+          "complete_line": true
+        },
+        {
+          "line": 19,
+          "text": "`docs_change`, `frontend_change`, `planning`, `reconciliation`, `validation`, `review`.",
+          "complete_line": true
+        },
+        {
+          "line": 22,
+          "text": "R1-A/ORA-6 original sketches, PR81 validation and the owner's attachment/archive were",
+          "complete_line": true
+        },
+        {
+          "line": 24,
+          "text": "New documents in this package are supporting validation records, not new authority.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/cinematic-acceptance/README.md",
+      "sha256": "f18e9d2e808500164f039b780b5a97541df678701d80ec503af9f2a9c3ce39f8",
+      "bytes": 11618,
+      "lines": 77,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Final cinematic acceptance corrections \u2014 draft PR88",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## Demonstrated causes and bounded corrections",
+          "complete_line": true
+        },
+        {
+          "line": 19,
+          "text": "## Source-backed Sky comparison conditions",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "Earth's actual390\u00d7900CSS/DPR3 browser canvas was195\u00d7450. Cesium's default recommended-resolution mode already uses CSS pixels; the existing `min(DPR,1.5)/DPR` cap divided it again. The owned Viewer now explicitly uses physical browser resolution before applying the existing cap. Actual DPR1/2/3 dime",
+          "complete_line": false
+        },
+        {
+          "line": 13,
+          "text": "Real provider probes distinguish NASA overview, regional EOX and qualified local aerial coverage from actual browser resolution. NASA Blue Marble remains a static500m overview, EOX the2016 Sentinel-2 cloudless10m mosaic capped at14, NAIP footprint-dependent, and PEMA restricted to the verified local",
+          "complete_line": false
+        },
+        {
+          "line": 17,
+          "text": "Sky's fresh native Atmosphere ON conflicted with the approved OFF default. The owned adapter applies OFF once per embedded instance and preserves explicit native choices across recreation using a strict boolean setting. Standalone behavior remains unchanged. Real pointer evidence also exposed a Hub ",
+          "complete_line": false
+        },
+        {
+          "line": 21,
+          "text": "At ORAS41.321903\u00b0N,79.585394\u00b0W,432.816m, historical2026-02-28T00Z has Sun\u221210.751397\u00b0 and Moon+52.685545\u00b0: nautical twilight, not astronomical night. The additional2026-08-13T04Z comparison has Sun\u221230.788493\u00b0 and Moon\u221231.170198\u00b0. Docker observability and independent Skyfield evaluation of the unchang",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/solar-scientific-controls/README.md",
+      "sha256": "d178c60bd5e38ca9be7ffd5b4b441b011763abb8198dc4788ab5c3904868dc3e",
+      "bytes": 9894,
+      "lines": 62,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Solar scientific scale and camera controls \u2014 draft PR88",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## Behavior and scientific limits",
+          "complete_line": true
+        },
+        {
+          "line": 18,
+          "text": "## Fresh qualification",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "- Physical globe radii are `shape.mean_radius_km / km_per_au` from the qualified API, using the same AU units as the immutable ephemeris vectors. NASA Mars UV geometry and all original imagery bytes remain intact.",
+          "complete_line": true
+        },
+        {
+          "line": 51,
+          "text": "Protected paths compared against6180cc96: backend science, packages, all native runtimes, integration/source pins, public native artifacts, Solar assets and original approved references are unchanged. Earth artifact remains `43e822e52ffe01bc7591579e329ce0fb5aed5a521ffb9cd47808173f8beb03d3`; Sky rema",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/solar-cinematic-balance/README.md",
+      "sha256": "04563631b80498ed563d8e1497db7a8171eb825f40524d22d843958167b099c1",
+      "bytes": 8106,
+      "lines": 47,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Cinematic Solar sizing and responsiveness \u2014 draft PR88",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## What changed",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "## Responsiveness evidence and its limits",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "System views enlarge globe meshes independently at their immutable astronomical anchors. API mean-radius geometry is preserved. A bounded screen allocation prevents false disk overlaps, clips enlargement against viewport/HUD clearance, and attenuates distant bodies so outer planets do not dominate I",
+          "complete_line": false
+        },
+        {
+          "line": 45,
+          "text": "Backend/API contracts, native runtimes, packages, public native artifacts, source pins, original references/assets, accepted Sky/Earth controller, owner settings, ephemeris kernel, rollback,117original container states/mounts and90volumes are preserved. Native Earth stays43e822e52ffe01bc7591579e329c",
+          "complete_line": false
+        },
+        {
+          "line": 47,
+          "text": "Independent scoped review found a stale Help default disclosure; corrected to effects/background ON and belt OFF. Final immutable-head review, local/remote/served identities and delivery SHA are recorded in PR88 after commit. Keep the #88\u2192#87\u2026#74\u2192#73 chain and independent #71 unchanged. No provider/",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/earth-sky-completion/README.md",
+      "sha256": "fe59c62fee639d3a6234908f0b1e65c04a374030d70a63a42022db40bbbd3a12",
+      "bytes": 9672,
+      "lines": 154,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Earth and Sky cinematic completion",
+          "complete_line": true
+        },
+        {
+          "line": 14,
+          "text": "## Execution plan",
+          "complete_line": true
+        },
+        {
+          "line": 35,
+          "text": "## Status",
+          "complete_line": true
+        },
+        {
+          "line": 10,
+          "text": "from frontend/backend/validation/review/docs packs. The manifest itself was inspected.",
+          "complete_line": true
+        },
+        {
+          "line": 24,
+          "text": "4. S1: audit native stellar depth/Milky Way/DSO/constellation/display capabilities",
+          "complete_line": true
+        },
+        {
+          "line": 25,
+          "text": "   and controlled real epochs. Implement supported native presentation and compact",
+          "complete_line": true
+        },
+        {
+          "line": 32,
+          "text": "   Record preservation; assess R4 Earth/Moon/Mars without implementation. Stop for",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/cinematic-glass/README.md",
+      "sha256": "befb0e9286ec3fadf46a1d0122e61ef45305a9c30b2c26ce76b8302efa462500",
+      "bytes": 5864,
+      "lines": 90,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Cinematic glass correction \u2014 owner visual acceptance pending",
+          "complete_line": true
+        },
+        {
+          "line": 31,
+          "text": "## Working candidate and qualification",
+          "complete_line": true
+        },
+        {
+          "line": 77,
+          "text": "## Performance scope and stop gate",
+          "complete_line": true
+        },
+        {
+          "line": 8,
+          "text": "Default Mode: CORE/LIVE, manifest frontend/validation/review/docs pack union listed",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "Current directive supersedes prior delivery/stop text for G1/G2/V1 only.",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "fallback and forced colors. Hub mappings resolve legacy fills. Native Sky imports",
+          "complete_line": true
+        },
+        {
+          "line": 16,
+          "text": "the exact same source inside its document; scene/math stay native. Explicit reduced",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/design/adaptive-explorer-r1a/README.md",
+      "sha256": "4d70f126bc1ed046e71099a391238a0c27e0a4f600a362f81c4fdf53146cb8d6",
+      "bytes": 17385,
+      "lines": 279,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Adaptive Explorer \u2014 R1-A/01 visual reference",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Sky controls and review corrections \u2014 BLOCKED_ENVIRONMENT",
+          "complete_line": true
+        },
+        {
+          "line": 74,
+          "text": "## Open the actual designs",
+          "complete_line": true
+        },
+        {
+          "line": 24,
+          "text": "requesting browser fullscreen. No renderer is connected. Native Stellarium controls",
+          "complete_line": true
+        },
+        {
+          "line": 27,
+          "text": "requires preserving native functionality in separately authorized R1-B.",
+          "complete_line": true
+        },
+        {
+          "line": 37,
+          "text": "remains a native keyboard-accessible `<summary>`; its Sky-scoped rule provides a",
+          "complete_line": true
+        },
+        {
+          "line": 46,
+          "text": "focus ownership. Existing native dialog Escape handling remains unchanged.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/ASTRONOMY_HUB_DIAGRAM.md",
+      "sha256": "e3f49b30fd95f2144f987f2593ce4ed1e2c1296e337074e0988a18bdf53b25bf",
+      "bytes": 3890,
+      "lines": 64,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Astronomy Hub architecture diagram \u2014 current and planned",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "## Current scope reconciliation \u2014 2026-10-21",
+          "complete_line": true
+        },
+        {
+          "line": 16,
+          "text": "## Implemented boundaries",
+          "complete_line": true
+        },
+        {
+          "line": 23,
+          "text": "    Sky --> SkyOwn[\"SWE owns native scene/math/camera/selection\"]",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md",
+      "sha256": "d5ae9bc77ddcbfd7cb7555c151c89dd091173feba4706d99a27648d0e9b5f9ce",
+      "bytes": 145918,
+      "lines": 2214,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "## PR #75 \u2014 smooth camera repair, 2026-10-15",
+          "complete_line": true
+        },
+        {
+          "line": 22,
+          "text": "## Historical PR #75 near-surface correction \u2014 superseded, 2026-10-15",
+          "complete_line": true
+        },
+        {
+          "line": 33,
+          "text": "## PR #75 repair \u2014 N1 NOT ACCEPTED, 2026-10-14",
+          "complete_line": true
+        },
+        {
+          "line": 12,
+          "text": "Preserve native Sky controls, deliberate boundary safeguards, observer/time,",
+          "complete_line": true
+        },
+        {
+          "line": 16,
+          "text": "not owner acceptance. Stop for the owner's visual/interactive evaluation at",
+          "complete_line": true
+        },
+        {
+          "line": 31,
+          "text": "Stop for owner testing, with no merge, deployment or N2.",
+          "complete_line": true
+        },
+        {
+          "line": 36,
+          "text": "actual ChatGPT-browser scrolling failed to leave Sky and Earth approach required",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md",
+      "sha256": "a4d9eeb0875bdc754182e777ceb3583fbad577fcd3cdddd172c79da28ebb55a1",
+      "bytes": 12657,
+      "lines": 212,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# C5.7-D Earth appearance \u2014 local qualification and owner-review handoff",
+          "complete_line": true
+        },
+        {
+          "line": 8,
+          "text": "## Context and authority",
+          "complete_line": true
+        },
+        {
+          "line": 22,
+          "text": "## Source inspection and bounded implementation",
+          "complete_line": true
+        },
+        {
+          "line": 11,
+          "text": "`frontend_change`, `validation`, `review`: 57 unique documents plus manifest.",
+          "complete_line": true
+        },
+        {
+          "line": 73,
+          "text": "python3 scripts/validation/earth-appearance/prepare.py /tmp/c57d-proof-review",
+          "complete_line": true
+        },
+        {
+          "line": 74,
+          "text": "node scripts/validation/earth-appearance/capture.mjs baseline",
+          "complete_line": true
+        },
+        {
+          "line": 75,
+          "text": "node scripts/validation/earth-appearance/capture.mjs star-only",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md",
+      "sha256": "51c5f7cca44ce1d415d2e5487d92653a413aefea15d8785453588da303a998b0",
+      "bytes": 27270,
+      "lines": 476,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Local laptop development repair \u2014 2026-10-04",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## Everyday workflow",
+          "complete_line": true
+        },
+        {
+          "line": 81,
+          "text": "## Root causes and measured proof",
+          "complete_line": true
+        },
+        {
+          "line": 27,
+          "text": "or different install is preserved and fails closed; stop Earth and explicitly",
+          "complete_line": true
+        },
+        {
+          "line": 54,
+          "text": "Native frontend events are default. If native watching fails with ENOSPC on a",
+          "complete_line": true
+        },
+        {
+          "line": 63,
+          "text": "only for a parity task: `npm run docker:stellarium:up`; stop without removing its",
+          "complete_line": true
+        },
+        {
+          "line": 64,
+          "text": "volume: `docker compose -p astronomy-hub stop stellarium-reference`.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/EARTH_CAPABILITY_RECONCILIATION_INPUT_2026-10-05.md",
+      "sha256": "41a443d02b23c3f4452277f2a5defb51c40422e56c5e898db79444d027b3e8d6",
+      "bytes": 207151,
+      "lines": 689,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Earth capability reconciliation input \u2014 DRAFT",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Provisional phase contract",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "## Per-capability implementation input",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "C5.7: aircraft availability/far-view display/bounded motion/follow; six-core satellite source/propagation/count/status; observer-point Weather discoverability and accurate facts plus existing radar scope; standard Cesium skybox; whole Sky/Earth regression. Add common source-age/count/coverage/partia",
+          "complete_line": false
+        },
+        {
+          "line": 33,
+          "text": "- **Provider/license state:** Community tile-host terms and ODbL/database obligations must be resolved; public mapping is not permission for surveillance data. Provider/data gate: True; hook/adapter gate: False.",
+          "complete_line": true
+        },
+        {
+          "line": 173,
+          "text": "- **Provider/license state:** Inherits dependent rights; source observations must not become fabricated threat assessment. Provider/data gate: True; hook/adapter gate: False.",
+          "complete_line": true
+        },
+        {
+          "line": 193,
+          "text": "- **Provider/license state:** PDDL covers directory only. Audio remains broadcaster-owned; one direct stream discloses listener IP and must not be mirrored. Provider/data gate: True; hook/adapter gate: False.",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md",
+      "sha256": "459311f7d3ab0f8e84ef6ff264889b0866ab3ba78bd70234a5ef305aadc7c53a",
+      "bytes": 1908679,
+      "lines": 3295,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Implementation traces \u2014 completed 2026-10-08",
+          "complete_line": true
+        },
+        {
+          "line": 5,
+          "text": "## ais-live-vessels \u2014 AIS / live vessels",
+          "complete_line": true
+        },
+        {
+          "line": 64,
+          "text": "## alpr-cameras \u2014 Mapped ALPR cameras",
+          "complete_line": true
+        },
+        {
+          "line": 3,
+          "text": "Owner-requested filename date retained. Companion to the [canonical audit](GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md). Every audited area has all 30 required stages. These are source-navigation candidates and curated core comparisons, not 2,010 live tests. Regex excerpts can co",
+          "complete_line": false
+        },
+        {
+          "line": 39,
+          "text": "| 7. validation | Source path for validation. Matching implementation excerpt below is static evidence; no new provider/physical qualification is implied.<br>[`src/layers/vessels/cards.js`](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/layers/vessels",
+          "complete_line": false
+        },
+        {
+          "line": 92,
+          "text": "| 7. validation | Source path for validation. Matching implementation excerpt below is static evidence; no new provider/physical qualification is implied.<br>[`src/layers/alpr/index.js`](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/layers/alpr/index",
+          "complete_line": false
+        },
+        {
+          "line": 136,
+          "text": "| 7. validation | Source path for validation. Matching implementation excerpt below is static evidence; no new provider/physical qualification is implied.<br>[`src/data/bhoteKoshiEvent.js`](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/data/bhoteKosh",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PUBLIC_EXPORT_AUDIT_2026-10-05.md",
+      "sha256": "ff2a15587c46fd7c717d6e01e959e1f373b5dde9ea6714f41c5e762dff3a8f99",
+      "bytes": 66098,
+      "lines": 170,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Public package export audit \u2014 completed 2026-10-08",
+          "complete_line": true
+        },
+        {
+          "line": 158,
+          "text": "## Nine new current-main entrypoints",
+          "complete_line": true
+        },
+        {
+          "line": 90,
+          "text": "| `./voice/controller` | [`src/voice/realtimeController.js`](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/voice/realtimeController.js) \u00b7 GevRealtimeController, PUSH_TO_TALK_HOLD_DELAY_MS, computeDownscale, estimateDataUrlBytes, gateVoiceVisualizerLe",
+          "complete_line": false
+        },
+        {
+          "line": 91,
+          "text": "| `./voice/control` | [`src/voice/control.js`](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/voice/control.js) \u00b7 createVoiceControl | REJECT | changed | Separate paid AI/product approval required, or reference-fixture source must never become product",
+          "complete_line": false
+        },
+        {
+          "line": 92,
+          "text": "| `./voice/realtime-backend` | [`src/voice/realtimeBackend.js`](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/voice/realtimeBackend.js) \u00b7 createRealtimeBackend | REJECT | changed | Separate paid AI/product approval required, or reference-fixture sour",
+          "complete_line": false
+        },
+        {
+          "line": 93,
+          "text": "| `./voice/commands` | [`src/voice/commands.js`](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/voice/commands.js) \u00b7 createVoiceCommands | REJECT | identical | Separate paid AI/product approval required, or reference-fixture source must never become p",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md",
+      "sha256": "928d105a5a17b07b63a6d9a62a8d23cd5c567d924f04d150e06761155fba20bc",
+      "bytes": 196778,
+      "lines": 1976,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Provider, dataset and asset forensics \u2014 2026-10-08",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## P01 \u2014 **NOAA GFS (wind)** (`noaa-gfs-bdp-pds.s3.amazonaws.com`)",
+          "complete_line": true
+        },
+        {
+          "line": 34,
+          "text": "## P02 \u2014 **ECMWF IFS (wind)** (`data.ecmwf.int/forecasts`, ECMWF Open Data)",
+          "complete_line": true
+        },
+        {
+          "line": 24,
+          "text": "| Caching permission | UNKNOWN separate redistribution/cache permission; data license obligations and service terms must be verified. |",
+          "complete_line": true
+        },
+        {
+          "line": 29,
+          "text": "| Fallback | No alternate external provider established for this record; stale/missing states must remain explicit. |",
+          "complete_line": true
+        },
+        {
+          "line": 32,
+          "text": "**Primary/provenance links:** No independently verified primary grant; provider research required.",
+          "complete_line": true
+        },
+        {
+          "line": 51,
+          "text": "| Caching permission | Attribution/modification/disclaimer required; confirm downstream distribution plan. |",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md",
+      "sha256": "e450148005e82990d9827355dbee00a5404494ccf41b276761710c68fd2c60a7",
+      "bytes": 17931,
+      "lines": 103,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Audit validation and final handoff",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Exact files changed",
+          "complete_line": true
+        },
+        {
+          "line": 18,
+          "text": "## Commands and outputs",
+          "complete_line": true
+        },
+        {
+          "line": 27,
+          "text": "| `env PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyUxRegressions.spec.ts --grep 'real canvas wheel\\|embedded native ORAS search' --workers=1 --reporter=list --output=/var/tmp/oras-gods-eye-audit-20261007/postmerge-smoke` in sky-engine-ux-integration-20261005/frontend | Oct7 Docker-s",
+          "complete_line": false
+        },
+        {
+          "line": 28,
+          "text": "| Same bounded Playwright command with `--output=/tmp/oras-gods-eye-audit-20261008/postmerge-smoke` | Oct8 fresh3PASS(1.3m); actual native FOV changed inward/outward on both routes, canonical M31 focus/selection, Earth readiness/Sky\u2192Earth\u2192Sky and one active renderer. Node NO_COLOR/FORCE_COLOR enviro",
+          "complete_line": false
+        },
+        {
+          "line": 29,
+          "text": "| `python3 /var/tmp/oras-gods-eye-audit-20261007/verify-artifacts.py`; final `python3 /tmp/oras-gods-eye-audit-20261008/verify-artifacts.py` | Both exit0: PASS29source overlays/input/installed/served/lock/versions hashes;95payload/96installationfiles;4frozen native/vendor artifacts; wheel unchanged.",
+          "complete_line": false
+        },
+        {
+          "line": 34,
+          "text": "| `python3 /tmp/oras-gods-eye-audit-20261008/build_audit.py` | Oct8 exit0: GENERATED67areas/29catalog/148pin/157current exports,23adapted relationships;7direct imports/19linked modules. All target hashes anchored to immutable snapshots. |",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md",
+      "sha256": "32d32448f86f64c34de181496ac9f962997bc088ce5592257fe16c21d59913b0",
+      "bytes": 20407,
+      "lines": 317,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# C5.6.75 documentation, architecture and roadmap reconciliation evidence",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## Initial protection and preserved audit commit",
+          "complete_line": true
+        },
+        {
+          "line": 28,
+          "text": "## Loaded documents",
+          "complete_line": true
+        },
+        {
+          "line": 6,
+          "text": "planning context packs plus explicitly named architecture/audit/validation inputs",
+          "complete_line": true
+        },
+        {
+          "line": 30,
+          "text": "Mandatory CORE, LIVE, then manifest were loaded first. Required context declaration",
+          "complete_line": true
+        },
+        {
+          "line": 39,
+          "text": "- `docs/validation/SYSTEM_VALIDATION_SPEC.md`",
+          "complete_line": true
+        },
+        {
+          "line": 55,
+          "text": "- `docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md`",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md",
+      "sha256": "adb795e9f39727d6058e42ceefe17e167dcb66a9588abd09d1b7428560268d1f",
+      "bytes": 159520,
+      "lines": 628,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# God\u2019s Eye Master Adoption Blueprint \u2014 2026-10-10",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Mandatory zero-cost operational gate",
+          "complete_line": true
+        },
+        {
+          "line": 13,
+          "text": "## Authority and fresh state",
+          "complete_line": true
+        },
+        {
+          "line": 15,
+          "text": "Default Mode. Loaded CORE_CONTEXT and LIVE_SESSION_BRIEF, then the union of `docs_change`, `planning`, `review`, `validation`: 52 project documents plus the context manifest. Their exact paths/hashes are in the [handoff](MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md). No full-docs scan or extra gov",
+          "complete_line": false
+        },
+        {
+          "line": 19,
+          "text": "The merged main\u2019s live brief still describes the older C5.6.75 review checkpoint and `bb28\u2026` main. That session-state drift is explicit: fresh Git/PR evidence determines current committed state; the new owner request authorizes this audit only. Execution controls, C5.7 A\u2013E ordering, six unresolved o",
+          "complete_line": false
+        },
+        {
+          "line": 44,
+          "text": "- [Google token source](https://github.com/bilawalsidhu/gods-eye-view/blob/591f299d11f38a612629a274463196d57ae3862e/src/maps/googleTokens.js) adds short-lived token acquisition/renewal and retry; the required token backend and rights are separate gates. It is not at the pin and must not be assumed a",
+          "complete_line": false
+        },
+        {
+          "line": 69,
+          "text": "| Capability | God\u2019s Eye module | Current Hub state | Adoption decision | Exact reusable code | Required changes | External gap | Provider/rights gate | Priority | Target phase | Proof required |",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md",
+      "sha256": "57bfae11ec71c6520abb19d5463267be4fb5b30066e302b5b29f68f3c3d8d169",
+      "bytes": 30007,
+      "lines": 136,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# External Components and Data Gaps \u2014 2026-10-10",
+          "complete_line": true
+        },
+        {
+          "line": 9,
+          "text": "## Mandatory owner provider budget",
+          "complete_line": true
+        },
+        {
+          "line": 17,
+          "text": "## Canonical external dependency matrix",
+          "complete_line": true
+        },
+        {
+          "line": 5,
+          "text": "God\u2019s Eye already supplies most map orchestration and many Earth layers. The preferred outside additions supply licensed imagery, terrain, buildings, precise measurement and science data; they do not replace the Hub-owned Viewer. Read the [adoption matrix](GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-",
+          "complete_line": false
+        },
+        {
+          "line": 19,
+          "text": "| Required capability | God\u2019s Eye coverage | Remaining gap | Established external solution | Code/data license | Cost/credentials | Integration approach | Alternative | Decision needed |",
+          "complete_line": true
+        },
+        {
+          "line": 21,
+          "text": "| G01 Decorative Earth stars | Standard Cesium Viewer skybox | Hub explicitly hides it | Native [SkyBox](https://cesium.com/learn/cesiumjs/ref-doc/SkyBox.html) | Cesium Apache-2.0; bundled texture notices retained | Existing SDK/assets; no service key | Enable owned scene skyBox; reuse default six f",
+          "complete_line": false
+        },
+        {
+          "line": 26,
+          "text": "| G06 Global label/vector data | OSM imagery and place search; no general MVT globe renderer | Licensed readable roads/labels at selected zooms | [Protomaps PMTiles](https://docs.protomaps.com/basemaps/downloads), [OpenFreeMap](https://openfreemap.org/) | Component-specific open code; OSM ODbL/OpenM",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md",
+      "sha256": "7fd57268a5158e7fe71d7b2148cdd654e8eed582c206a7d0353d4107836dc8e8",
+      "bytes": 27323,
+      "lines": 152,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Earth Visual Foundation Decision Packet \u2014 2026-10-10",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Mandatory $0 provider policy",
+          "complete_line": true
+        },
+        {
+          "line": 13,
+          "text": "## What exists and what remains unproved",
+          "complete_line": true
+        },
+        {
+          "line": 18,
+          "text": "| Stars | Current source explicitly sets `viewer.scene.skyBox.show=false`; Cesium 1.138.0 default skybox exists | Enable the existing skyBox; if absent, use native SkyBox.createEarthSkyBox with bundled six Tycho faces; no new star renderer/data download |",
+          "complete_line": true
+        },
+        {
+          "line": 46,
+          "text": "1. In the future approved small package, retain the existing Viewer and enable its standard skybox. Installed Cesium `SkyBox.createEarthSkyBox()` uses six `Assets/Textures/SkyBox/tycho2t3_80_{px,mx,py,my,pz,mz}.jpg` faces. Retain SDK notices and existing artifact admission; compare frame/input/artif",
+          "complete_line": false
+        },
+        {
+          "line": 48,
+          "text": "3. `src/app/atmosphereCompat.js:applyModelAtmosphereWorkaround` probes the out-param varying link failure and Apple mobile platform, conditionally setting **fog.renderable=false**. It does not require disabling all SkyAtmosphere/ground atmosphere. No public package export exists: investigate a gener",
+          "complete_line": false
+        },
+        {
+          "line": 49,
+          "text": "4. Optional `installTrackpadPinchZoom` is publicly exported with the Viewer factory but can be called on the current Viewer alone. It bounds Ctrl-wheel deltas and restores listeners/zoom configuration on cleanup. It is not required for stars; qualify trackpad, keyboard/touch and lifecycle independen",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md",
+      "sha256": "9fefd707b0e797b6958ec148b384d6e2e5414da8f7472813ab0eb011a900ca1d",
+      "bytes": 8228,
+      "lines": 45,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Proposed Visual-First Roadmap Reprioritization \u2014 2026-10-10",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "## Zero-cost constraint for every proposed stage",
+          "complete_line": true
+        },
+        {
+          "line": 13,
+          "text": "## Existing authority and conflict",
+          "complete_line": true
+        },
+        {
+          "line": 5,
+          "text": "The owner asks for realistic Earth completion before further aircraft polish, satellite investment or expanded weather. Recommend the order below, using the existing package/stage names and the exact reuse paths in the [adoption blueprint](GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md). No packag",
+          "complete_line": false
+        },
+        {
+          "line": 9,
+          "text": "**Maximum authorized new provider spending: $0.** No paid subscriptions, usage charges, automatic upgrades or billing-enabled trials. Prefer existing open-source code and authorized public/free data, with an independently functioning free fallback and respected quotas. Free accounts require confirme",
+          "complete_line": false
+        },
+        {
+          "line": 27,
+          "text": "| 4 | C6-3 Photorealistic/3D | Existing loader/controller with eligible zero-cost route only; direct/paid routes research only; native OSM buildings subject to rights; before-mount device budgets | Product/data entitlement, measured coverage, actual city/neighborhood captures, token/failure/disposal",
+          "complete_line": false
+        },
+        {
+          "line": 29,
+          "text": "| 6 | Earth Objects and Intelligence: review preserved C5.7-A / PR #67, then B and C | Retain aircraft record/source/angle/count recovery; decide PR integration separately; then satellite populations/tracking and weather using existing upstream paths | Exact PR head/reviews/checks and runtime/provid",
+          "complete_line": false
+        }
+      ]
+    },
+    {
+      "path": "docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md",
+      "sha256": "08aa5732cbe257ed16097c42622678ebe161ddaf52c04e2cba05b7339e0a0aa9",
+      "bytes": 21247,
+      "lines": 194,
+      "model_read": "selected_excerpts",
+      "excerpts": [
+        {
+          "line": 1,
+          "text": "# Master Adoption Audit Validation Handoff \u2014 2026-10-10",
+          "complete_line": true
+        },
+        {
+          "line": 5,
+          "text": "## Loaded context and authority",
+          "complete_line": true
+        },
+        {
+          "line": 66,
+          "text": "## PR #68 final review and zero-cost policy follow-up",
+          "complete_line": true
+        },
+        {
+          "line": 7,
+          "text": "Default Mode; no Stellarium Runtime or High-Definition Data override. CORE_CONTEXT and LIVE_SESSION_BRIEF were loaded first, then CONTEXT_MANIFEST. Correct task-pack union: `docs_change`, `planning`, `review`, `validation`. All 52 unique project documents below were loaded from verified merged main;",
+          "complete_line": false
+        },
+        {
+          "line": 18,
+          "text": "| `docs/validation/SYSTEM_VALIDATION_SPEC.md` | `7bd56a765c26a5a096b3010470335f0e300d2d56bbb92410aee9f0b613bfe9b6` |",
+          "complete_line": true
+        },
+        {
+          "line": 21,
+          "text": "| `docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md` | `2918ec4dcfd2297e3db2a8dbf537b73afb066ed5b8d0d2959bd343bda4c706b8` |",
+          "complete_line": true
+        },
+        {
+          "line": 22,
+          "text": "| `docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md` | `d02ffd0bd6070483ce750833e9f0701f4795a9bcd400c077f9e4afd11899f6a8` |",
+          "complete_line": true
+        }
+      ]
+    },
+    {
+      "path": "docs/runtime/FAILURE_PATTERNS.md",
+      "sha256": "b7886f5f9ab0c8f4b5a513ceb8505c5cededc87d2537fdd80fbda5a70ec09093",
+      "bytes": 1289,
+      "lines": 50,
+      "model_read": "full"
+    }
+  ],
+  "fully_read": false,
+  "full_read_by_this_agent": [
+    "docs/context/CORE_CONTEXT.md",
+    "docs/context/LIVE_SESSION_BRIEF.md",
+    "docs/validation/sky-satellite-live/README.md",
+    "docs/validation/satellite-visual-pilot/README.md",
+    "docs/validation/SYSTEM_VALIDATION_SPEC.md",
+    "docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md",
+    "docs/architecture/DATA_CONTRACTS.md",
+    "docs/architecture/TONIGHT_CONTRACT.md",
+    "docs/features/FEATURE_EXECUTION_MODEL.md",
+    "docs/architecture/decisions/0009-owned-earth-feature-reuse.md",
+    "docs/runtime/FAILURE_PATTERNS.md"
+  ],
+  "loading_limitation": "All 61 pack files byte-read and SHA256 inventoried. Only marked full files and exact selected excerpts were read in model context; 4 MB historical union not claimed fully loaded. Parent authorized bounded semantic extraction.",
+  "head": "d2909a52d3f747c555ca87eff112bab83c064779",
+  "branch": "sky-satellite-visual-pilot-1",
+  "git_status_short": "",
+  "additional_evidence": [
+    {
+      "path": "docs/context/CONTEXT_MANIFEST.yaml",
+      "sha256": "48942816d8f49c3aa7442f906adc007806479fc223a7da6a9cfe67ddd75e24fc",
+      "bytes": 22101,
+      "model_read": "manifest parsed for exact pack paths; partially displayed",
+      "reason": "Context loading authority"
+    },
+    {
+      "path": "docs/validation/satellite-visual-pilot/COMMANDS.md",
+      "sha256": "3637fc7b4a3d1f495b6bf68d27f7e886562098e42cfe3748cde434016fefbab6",
+      "bytes": 7402,
+      "model_read": "full",
+      "reason": "Direct linked command or precision evidence required by current satellite README"
+    },
+    {
+      "path": "docs/validation/sky-satellite-live/COMMANDS.md",
+      "sha256": "901bee73dcbbc4c531dc5c790614cde63d228ea6d5823c81ae7ae2b6b0466893",
+      "bytes": 6838,
+      "model_read": "full",
+      "reason": "Direct linked command or precision evidence required by current satellite README"
+    },
+    {
+      "path": "docs/validation/satellite-visual-pilot/evidence/independent-motion/REPORT.md",
+      "sha256": "1f7c83f6a4d83f7247792299bc013540dd25e2c60ff82d29172aae0d341130aa",
+      "bytes": 1942,
+      "model_read": "full",
+      "reason": "Direct linked command or precision evidence required by current satellite README"
+    }
+  ],
+  "tests_run": [],
+  "repo_files_changed": []
+}

@@ -8,7 +8,8 @@ export type NavigationView={mode:'sky';camera:SkyCamera}|{mode:'earth';camera:Ea
 export type NavigationState=NavigationView&{observer:ObserverIntent;utc:string;live:boolean;elevationSource:ElevationSource}
 export type NavigationIntent={target:RuntimeMode;phase:'idle'|'boundary'|'progress'|'request';progress:number}
 export type RuntimeEvent={active:boolean;focused:boolean;key?:'Escape'|'Tab'}|NavigationIntent
-export type RuntimeResult = {ok:boolean;state?:WorkspaceSnapshot;navigation?:NavigationState;error?:string;version?:string;capabilities?:string[];temporalMode?:'LIVE_ONLY'|'CONTROLLED'|'UNAVAILABLE';effectiveTime?:string|null;effectiveObserver?:ObserverIntent|null}
+export type SimulationState={utc:string;playing:boolean;speed:1}
+export type RuntimeResult = {simulation?:SimulationState|null;ok:boolean;state?:WorkspaceSnapshot;navigation?:NavigationState;error?:string;version?:string;capabilities?:string[];temporalMode?:'LIVE_ONLY'|'CONTROLLED'|'UNAVAILABLE';effectiveTime?:string|null;effectiveObserver?:ObserverIntent|null}
 export const PROTOCOL: {major:number;minor:number}
 export const CAPABILITIES: readonly string[]
 export function validateBootstrap(event:{data:unknown;origin:string;source:unknown},expected:Session & {origin:string;source:unknown}):boolean
