@@ -5,7 +5,6 @@ on:
     branches: [main]
   push:
     branches: [recovery/reconcile-20261026]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -26,8 +25,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -56,6 +53,8 @@ jobs:
         run: node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs tests/planet/*.test.mjs tests/runtime-protocol/*.test.mjs
       - name: Satellite source admission fixtures
         run: python3 -m unittest discover -s tests/runtime -p test_native_satellite_source_stage.py -v
+      - name: Install root validation dependencies
+        run: npm ci --no-audit --no-fund
       - name: Install Hub dependencies
         working-directory: frontend
         run: npm ci --no-audit --no-fund

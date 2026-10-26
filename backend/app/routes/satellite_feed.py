@@ -14,5 +14,12 @@ router = APIRouter()
 async def satellite_feed(time: str | None = None, norad: str | None = None):
     try:
         return build_satellite_feed_status(time=time, norad=norad)
-    except ValueError as exc:
-        return error_response(status_code=400, code="invalid_request", message=str(exc))
+    except ValueError:
+        return error_response(
+            status_code=400,
+            code="invalid_request",
+            message=(
+                "Invalid satellite feed request. Use an ISO-8601 time with timezone "
+                "and a positive canonical NORAD number."
+            ),
+        )

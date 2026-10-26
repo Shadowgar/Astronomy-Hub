@@ -13,6 +13,26 @@ from scripts.skydata.build_oras_satellite_tle_release import build_release
 
 
 client = TestClient(app)
+
+
+def test_satellite_feed_error_does_not_expose_service_exception(monkeypatch) -> None:
+    from backend.app.routes import satellite_feed as route
+
+    def invalid_service_state(**kwargs):
+        raise ValueError("private catalog diagnostic: /srv/private/catalog.json")
+
+    monkeypatch.setattr(route, "build_satellite_feed_status", invalid_service_state)
+    response = client.get("/api/sky/satellite-feed")
+
+    assert response.status_code == 400
+    assert response.json()["error"]["code"] == "invalid_request"
+    assert response.json()["error"]["message"] == (
+        "Invalid satellite feed request. Use an ISO-8601 time with timezone "
+        "and a positive canonical NORAD number."
+    )
+    assert "private" not in response.text
+
+
 ISS_LINE_1 = "1 25544U 98067A   26154.70949191  .00008646  00000-0  16154-3 0  9992"
 ISS_LINE_2 = "2 25544  51.6330   6.8180 0007089 128.9940 231.1681 15.49585865569660"
 HST_LINE_1 = "1 20580U 90037B   26153.34296606  .00005773  00000-0  18209-3 0  9992"
