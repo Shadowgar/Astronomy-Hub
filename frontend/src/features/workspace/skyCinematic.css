@@ -18,3 +18,5 @@
 /* Keep native observing launchers reachable beside Hub context/selection. The
    native panel temporarily owns this footprint while its controls are open. */
 @media(min-width:768px){.as-sky .ws-context,.ws-shell.as-sky .ws-drawer{right:100px}.as-sky.ws-shell--native-panel .ws-context,.as-sky.ws-shell--native-panel .ws-drawer{visibility:hidden;pointer-events:none}}
+/* In landscape mobile, keep the selected-object launcher off the native rail. */
+@media(max-width:767px) and (max-height:600px){.as-sky .ws-mobile-launchers{left:50%;right:auto;transform:translateX(-50%)}}
