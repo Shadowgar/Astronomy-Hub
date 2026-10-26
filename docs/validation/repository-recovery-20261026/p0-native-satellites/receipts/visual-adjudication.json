@@ -1,0 +1,285 @@
+{
+  "tested_code_sha": "ab861073c62bbbf82b9e4f214389931b6ebe2f9f",
+  "freshness_at_capture": {
+    "acquired_at": "2026-10-26T05:43:24.597764Z",
+    "byte_size": 1253585,
+    "catalog_number_format": "tle_5_digit",
+    "compression_layers": 2,
+    "duplicate_count": 0,
+    "epoch_max": "2026-10-26T02:35:24Z",
+    "epoch_min": "2026-10-12T10:19:20Z",
+    "feed_filename": "tle_satellite.jsonl.gz",
+    "input_record_count": 15901,
+    "malformed_count": 0,
+    "record_count": 15901,
+    "release_version": "2026.10.26.0543",
+    "required_norad": {
+      "20580": true,
+      "25544": true
+    },
+    "schema_version": 1,
+    "sha256": "902387afd7a0b268c16bbe0303c9706873a2031dccd2eaaeb6668cca90575a21",
+    "six_digit_catalog_support": false,
+    "source_key": "celestrak_active_gp",
+    "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=TLE",
+    "freshness_status": "mixed",
+    "nearest_tle_epoch": "2026-10-26T02:35:24Z",
+    "nearest_tle_age_days": 0.492,
+    "newest_tle_epoch": "2026-10-26T02:35:24Z",
+    "newest_tle_age_days": 0.492,
+    "mounted": true,
+    "status": "degraded",
+    "reason": "Mounted satellite release has stale, mixed or unavailable TLE epochs for the requested time.",
+    "release_manifest_available": true,
+    "release_validated": true,
+    "provenance_status": "validated_release",
+    "fresh_record_count": 15900,
+    "stale_record_count": 1,
+    "unknown_epoch_count": 0,
+    "as_of_utc": "2026-10-26T14:23:12Z",
+    "max_tle_age_days": 14,
+    "epoch_median": "2026-10-25T18:27:49Z",
+    "tle_age_days_min": 0.492,
+    "tle_age_days_max": 14.169
+  },
+  "observations": [
+    {
+      "label": "committed_desktop",
+      "source_sha": "ab861073c62bbbf82b9e4f214389931b6ebe2f9f",
+      "native_build_matches_committed_run": true,
+      "start_utc": "2026-10-26T14:23:51.293Z",
+      "end_utc": "2026-10-26T14:24:04.468Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "fov_rad": 2.094395102393,
+      "appearance": {
+        "atmosphere": false,
+        "exposure": 2.5,
+        "starScale": 1,
+        "bortle": 3
+      },
+      "eligible_point_measurements": [
+        {
+          "id": "55487",
+          "pixel_displacement": 49.52912872854464,
+          "projection_error_pixels": [
+            1.4610382414790748,
+            0.1695479326603168
+          ],
+          "tle_epoch": "2026-10-25T21:38:00.852864+00:00",
+          "tle_age_days": 0.698500464537037,
+          "native_magnitudes": [
+            5.884689514451,
+            5.623342423198
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "62567",
+          "pixel_displacement": 78.7261040699242,
+          "projection_error_pixels": [
+            0.010235688764375249,
+            0.12980853429486525
+          ],
+          "tle_epoch": "2026-10-25T17:34:17.181984+00:00",
+          "tle_age_days": 0.8677559145370369,
+          "native_magnitudes": [
+            5.63235096754,
+            5.663817123703
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "66484",
+          "pixel_displacement": 57.691758349990195,
+          "projection_error_pixels": [
+            0.7363553286260541,
+            0.4038051338058965
+          ],
+          "tle_epoch": "2026-10-25T16:01:23.581920+00:00",
+          "tle_age_days": 0.932265174537037,
+          "native_magnitudes": [
+            5.836461326697,
+            5.72162887885
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "67171",
+          "pixel_displacement": 57.05541873126919,
+          "projection_error_pixels": [
+            0.6463171132943868,
+            0.11902814278709443
+          ],
+          "tle_epoch": "2026-10-25T17:38:27.655584+00:00",
+          "tle_age_days": 0.8648569145370371,
+          "native_magnitudes": [
+            5.924822655327,
+            5.792941180845
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "57106",
+          "pixel_displacement": 74.93112311168245,
+          "projection_error_pixels": [
+            0.8037316140028379,
+            0.38977802803910777
+          ],
+          "tle_epoch": "2026-10-25T08:07:34.314240+00:00",
+          "tle_age_days": 1.261307624537037,
+          "native_magnitudes": [
+            5.849048605285,
+            5.795451272821
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "62989",
+          "pixel_displacement": 73.43085274334028,
+          "projection_error_pixels": [
+            0.35093718042888045,
+            0.7982038211303063
+          ],
+          "tle_epoch": "2026-10-25T16:34:32.102976+00:00",
+          "tle_age_days": 0.909249884537037,
+          "native_magnitudes": [
+            5.972706418501,
+            5.84509037401
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "59533",
+          "pixel_displacement": 87.20547458174896,
+          "projection_error_pixels": [
+            0.3976176820522146,
+            0.12337772571423006
+          ],
+          "tle_epoch": "2026-10-25T11:22:24.015648+00:00",
+          "tle_age_days": 1.1260101545370371,
+          "native_magnitudes": [
+            5.692677118747,
+            5.808095507182
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "52882",
+          "pixel_displacement": 46.48485089347221,
+          "projection_error_pixels": [
+            0.4371270247993517,
+            0.21010418068075748
+          ],
+          "tle_epoch": "2026-10-25T22:00:03.000096+00:00",
+          "tle_age_days": 0.6831978345370371,
+          "native_magnitudes": [
+            5.921221818063,
+            5.842373728697
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "64677",
+          "pixel_displacement": 60.38672601983065,
+          "projection_error_pixels": [
+            0.45831374588226764,
+            1.012657659343814
+          ],
+          "tle_epoch": "2026-10-25T22:30:49.422528+00:00",
+          "tle_age_days": 0.661827204537037,
+          "native_magnitudes": [
+            5.982402478197,
+            5.868739597316
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "64146",
+          "pixel_displacement": 62.37111830744166,
+          "projection_error_pixels": [
+            0.5501565903880018,
+            1.9159512045912244
+          ],
+          "tle_epoch": "2026-10-25T20:34:54.439392+00:00",
+          "tle_age_days": 0.742324694537037,
+          "native_magnitudes": [
+            6.000877200468,
+            5.947045593181
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "68218",
+          "pixel_displacement": 57.266384352236216,
+          "projection_error_pixels": [
+            0.49396199063244056,
+            0.5683174039679274
+          ],
+          "tle_epoch": "2026-10-25T14:43:00.781536+00:00",
+          "tle_age_days": 0.986695734537037,
+          "native_magnitudes": [
+            5.864835212754,
+            5.953515625314
+          ],
+          "polaris_displacement_pixels": 0.0
+        },
+        {
+          "id": "67095",
+          "pixel_displacement": 47.7139232752058,
+          "projection_error_pixels": [
+            1.9620873307859743,
+            1.9721970794363732
+          ],
+          "tle_epoch": "2026-10-25T22:00:03.000096+00:00",
+          "tle_age_days": 0.6831978345370371,
+          "native_magnitudes": [
+            5.968996158615,
+            6.11517716259
+          ],
+          "polaris_displacement_pixels": 0.0
+        }
+      ]
+    },
+    {
+      "label": "earlier_mobile_same_native_payload",
+      "source_sha": "6282d71deca9e2a339479f67be1f7794cd673180",
+      "native_build_matches_committed_run": true,
+      "start_utc": "2026-10-26T14:02:44.394Z",
+      "end_utc": "2026-10-26T14:02:54.748Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "fov_rad": 2.094395102393,
+      "appearance": {
+        "atmosphere": false,
+        "exposure": 2.5,
+        "starScale": 1,
+        "bortle": 3
+      },
+      "eligible_point_measurements": [
+        {
+          "id": "63053",
+          "pixel_displacement": 38.07066849159121,
+          "projection_error_pixels": [
+            0.5420256419056249,
+            1.6276009563658673
+          ],
+          "tle_epoch": "2026-10-25T17:47:33.148896+00:00",
+          "tle_age_days": 0.8438801516666666,
+          "native_magnitudes": [
+            4.937583318591,
+            5.01915105977
+          ],
+          "polaris_displacement_pixels": 0.0
+        }
+      ]
+    }
+  ],
+  "latest_mobile_status": "NO_NATIVE_POINT_MOTION_PROOF"
+}

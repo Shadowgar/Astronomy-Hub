@@ -2,6 +2,10 @@
 
 **BLOCKED for mainline integration and product acceptance.** One isolated candidate replaces the review of the accumulated stack. Closing an old review vehicle is not a merge and does not certify its functionality. All original branches, worktrees, data and evidence remain preserved.
 
+## P0 native satellite continuation
+
+[Current P0 result and visual evidence](p0-native-satellites/README.md): native unselected Live point motion observed on desktop and mobile at recorded eligible epochs; one later mobile interval remains unproven. The drawer covering Stop tracking is fixed at `ab861073`. P0 changes only selected-drawer CSS; native payload/photometry remain unchanged. Owner acceptance and release gates remain blocked.
+
 ## Executed reconciliation
 
 Fresh GitHub verification: **25 → 3 open PRs**, **84 → 85 remote branches** (one recovery branch added; no deletions). Closed 23 superseded review vehicles without merge: #71, #73, #74, #78–95, #101, #105. Open: dependency PRs #76/#77 and [blocked recovery draft #107](https://github.com/Shadowgar/Astronomy-Hub/pull/107). All 84 original remote tips are unchanged. All 141 original containers retain image/lifecycle/mount identity, all 90 volumes remain, and the 49 original worktrees plus owner dirty settings are unchanged. Only two task preview containers were added. See `receipts/final-snapshot.json`.
@@ -11,7 +15,7 @@ Fresh GitHub verification: **25 → 3 open PRs**, **84 → 85 remote branches** 
 - Baseline: 105 PRs total, **25 open**, **84 remote branches**. Rejected #102/#104 and superseded #103 were already closed without merge.
 - Protected baseline `main`: `9a03d8260a529f5858c5c3298cbb9d32b721daeb`. Main is currently unprotected; no ruleset was returned. No main changes are authorized or performed.
 - Candidate branch: `recovery/reconcile-20261026`; worktree `.worktrees/repository-recovery-20261026`.
-- Final tested code SHA: `e1bd2e57a2658552815f661609c5177315eb2731`. The final evidence-only commit preserves this application tree. Earlier build/browser receipts explicitly retain their earlier SHA; final full suites and five-mode browser smoke were rerun after the API/CI repairs.
+- Full reconciliation qualification SHA: `e1bd2e57a2658552815f661609c5177315eb2731`. The later bounded P0 correction is `ab861073c62bbbf82b9e4f214389931b6ebe2f9f` with its own focused/full-frontend and browser evidence. Historical full-backend counts remain attached to e1bd2e57. P0 changes only Sky selected-drawer CSS, with native payloads unchanged.
 - Verified chain: **73 → 74 → 78 → 79 → 80 → 81 → 82 → 83 → 84 → 85 → 86 → 87 → 88 → 89 → 90 → 91 → 92 → 93 → 94 → 95 → 101 → 105**. PR75 was merged into PR74, not main. Every one of these heads is reachable from the candidate. No rejected 102/103/104 head is admitted.
 - Candidate combines PR105 with current main through local merge `ee116769`, retaining the native Sky, qualified Earth/Cesium, Solar, Moon and major-moon source work. It does not cherry-pick the accumulated feature diffs repeatedly.
 - PR71's automatic imagery/cache work was carried into PR79 and subsequently evolved. Several source files match PR79 exactly; others have evolved. Its seven distinct historical commits and original artifacts remain preserved; whole-tree equivalence is **not** asserted.
@@ -45,7 +49,7 @@ CodeQL identified three workflow cache-boundary alerts and one public exception 
 
 ## Gates still missing
 
-- **Satellite pixels:** full native fresh-data loading and native propagation are demonstrated; ordinary unselected pixel motion relative to fixed stars is **not** demonstrated. At the captured ordinary ORAS 120° live view, brightest sampled native magnitudes were around 9.2. No photometry, camera or time manipulation was used to manufacture visible points. No owner acceptance of satellite UX.
+- **Satellite UX:** [P0 native pixel evidence](p0-native-satellites/README.md) now demonstrates ordinary unselected Live motion during eligible passages on desktop and the unchanged native mobile path. The final later mobile interval remains unproven. Missing measured brightness metadata, initial native discovery delay, one aged-out record and owner acceptance remain gaps. No photometry, camera or time manipulation manufactured the natural-motion frames.
 - **Device/UX:** no Windows hardware GPU or physical mobile qualification; Chromium software rendering/touch emulation only. N1's explicitly accepted historical scope is preserved and is not reopened. Later full-product UX still needs owner review.
 - **Source/offer:** prepared a 10.6 MB reconstructed source candidate with SHA `7b25bd4f6a975cddaf6004dc796489df703d1fda424f63434760a1fff2a3f18b`; no public immutable archive or prominent build-matched interactive source offer. Combined-work source completeness and fresh build-image/dependency reproduction remain unqualified. Do not call AGPL release compliance established.
 - **Security/review:** registry advisories and inherited PR73 review threads require disposition; exact consolidated-head independent review is absent. Do not represent prior PR reviews as approval of this candidate.

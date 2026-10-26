@@ -1,5 +1,8 @@
 # Native satellite restoration — work in progress; owner acceptance BLOCKED
 
+Historical initial recovery checkpoint. The current owner-authorized continuation
+and actual Docker/browser evidence are in the [P0 report](../repository-recovery-20261026/p0-native-satellites/README.md). The earlier private-preview access/freshness limitations below describe that older checkpoint.
+
 The owner rejects the satellite observing Passes/simulation-centric approach.
 The original requirement is simple: in ordinary Sky View, unselected satellites
 appear and move using the normal contained Stellarium renderer, without opening

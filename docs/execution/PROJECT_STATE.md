@@ -1,5 +1,18 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## P0 native satellite continuation — 2026-10-26
+
+The owner narrows recovery to native satellite diagnosis/correction on the existing
+`recovery/reconcile-20261026` / draft PR107. At `ab861073`, ordinary unselected
+Live light-point motion is observed at source-qualified desktop/mobile epochs.
+A later mobile interval has no sustained motion proof. Native geometry/photometry
+match the original pinned binary; no brightness or native patch was added. The
+Hub drawer covering Stop tracking was repaired and three viewport regressions pass.
+Unknown standard magnitudes, initial native scan delay, one aged-out source record,
+owner/device acceptance and prior release gates remain. No merge/deploy/delete.
+
+[Current P0 report, visual captures and limits](../validation/repository-recovery-20261026/p0-native-satellites/README.md).
+
 ## Active repository recovery — 2026-10-26
 
 The owner explicitly authorizes complete inventory, isolated consolidation, safe

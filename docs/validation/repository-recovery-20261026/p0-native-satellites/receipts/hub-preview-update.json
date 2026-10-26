@@ -1,0 +1,34 @@
+{
+  "task_preview_only": true,
+  "unchanged_native_payload": true,
+  "changed": [
+    {
+      "path": "index.html",
+      "sha256": "33619d7364f31f652632a6720f6829e938c9a09e437de0aff383246a3409ef18"
+    },
+    {
+      "path": "assets/PlanetWorkspace-DCRV0C4w.js",
+      "sha256": "28c4e71f64d2706a69224f9956c13b52aa69b88e5743773bc67c559fd1164c40"
+    },
+    {
+      "path": "assets/index-DQFW70HH.css",
+      "sha256": "61171cd3df4d42e67ef8e8147ca627361bbe3365ebc69e38b1fd96f996b0c29c"
+    },
+    {
+      "path": "assets/index-D_GIy11E.js",
+      "sha256": "0589925440b2c831ab6ef0f6e4a225700a1213aa570d71a080a2a9ecb91090ee"
+    },
+    {
+      "path": "assets/solar-BApIOGmZ.js",
+      "sha256": "4fba9292ae57181928dbad3437ac0e73285ecb5196000b4c35bb4c95d1593cf1"
+    },
+    {
+      "path": "assets/SystemWorkspace-CJtvNWc1.js",
+      "sha256": "fc5feec799123d6f1dce5689ad0d6c1bac2028ba75c5564417005a464abaab42"
+    },
+    {
+      "path": "assets/SolarWorkspace-CDIqcqV4.js",
+      "sha256": "14476a000814a71354d4b4db760afd548e15e2ece7efb49cb2d9ebc353fa258a"
+    }
+  ]
+}
