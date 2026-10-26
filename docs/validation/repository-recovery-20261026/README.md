@@ -39,6 +39,8 @@ Fresh GitHub verification: **25 → 3 open PRs**, **84 → 85 remote branches** 
 
 Initial red evidence is retained: backend 619 passed/57 failed/14 skipped against read-only runtime paths and mismatched fixture environment; source/artifact mismatch; stale direct-Moon-button harness; initial hidden-result Sky selector timeout; genuine landscape pointer interception. Corrected test harnesses do not turn those historical runs green.
 
+The subsequent hosted checkout exposed an inherited missing `.gitmodules` entry for the existing Spector.js gitlink. Its unchanged SHA `563813ea5269b53b1b27621580a50dc5f8b9fe58` was verified against the upstream repository; only the metadata entry was restored. `git submodule foreach --recursive true` changed from exit128 to exit0. No submodule was initialized or source pin changed.
+
 ## Gates still missing
 
 - **Satellite pixels:** full native fresh-data loading and native propagation are demonstrated; ordinary unselected pixel motion relative to fixed stars is **not** demonstrated. At the captured ordinary ORAS 120° live view, brightest sampled native magnitudes were around 9.2. No photometry, camera or time manipulation was used to manufacture visible points. No owner acceptance of satellite UX.

@@ -88,3 +88,11 @@ python3 /tmp/astronomy-recovery-20261026/final_snapshot.py
 Initial hosted CI:218 passed/40 failed because two pinned upstream Earth modules were absent from the runner. The repair retrieves the exact God’s Eye SHA from the renderer lock and passes GODS_EYE_SOURCE to unchanged tests. Existing checkout cleanup also reported an inherited unconfigured `third_party/spectorjs` gitlink; no submodule source was silently replaced. Docker preservation compares mounts by destination and stable lifecycle/health status, excluding rolling health-log entries; the initial order-sensitive diagnostic was corrected, not treated as actual container mutation.
 
 Exact raw test/build logs are preserved as `receipts/*.log.gz` to retain original bytes (including whitespace and terminal sequences) without treating them as source diffs. Read with `gzip -cd <receipt.log.gz>`.
+
+```sh
+gh api repos/BabylonJS/Spector.js/commits/563813ea5269b53b1b27621580a50dc5f8b9fe58 --jq '{sha:.sha,url:.html_url,message:.commit.message}'
+git submodule foreach --recursive true
+git ls-tree HEAD third_party/spectorjs
+```
+
+Restoring the missing `.gitmodules` metadata for the already-recorded, upstream-verified Spector.js pin fixed the checkout failure without changing or initializing that dependency. Local red exit128 and green exit0 logs are retained.
