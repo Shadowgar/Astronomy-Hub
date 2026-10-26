@@ -76024,10 +76024,10 @@
     "remote_branches_after": 85,
     "open_prs_after": 3
   },
-  "runtime_qualified_sha": "0075b2011a0c8ccf51a271972e054998555ee708",
+  "runtime_qualified_sha": "e1bd2e57a2658552815f661609c5177315eb2731",
   "consolidated_review_url": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
   "inventory_scope": "Every PR 1-105 and all baseline remote/local branch names; new recovery PR is recorded separately. No mainline integration inferred from candidate reachability.",
-  "generated_at": "2026-10-26T07:55:15.191666+00:00",
+  "generated_at": "2026-10-26T08:21:29.577438+00:00",
   "new_recovery_pr": {
     "number": 107,
     "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
@@ -76224,5 +76224,7 @@
     "candidate_head": "e1bd2e57a2658552815f661609c5177315eb2731",
     "tested_code_sha": "e1bd2e57a2658552815f661609c5177315eb2731",
     "application_diff_after_tested_sha": ""
-  }
+  },
+  "initial_runtime_qualified_sha": "0075b2011a0c8ccf51a271972e054998555ee708",
+  "revision_semantics": "captured_at/recovery_head_sha describe the initial reconciliation snapshot; runtime_qualified_sha and after_snapshot describe final tested application and later remote state. Evidence-only commits preserve the tested application tree."
 }
