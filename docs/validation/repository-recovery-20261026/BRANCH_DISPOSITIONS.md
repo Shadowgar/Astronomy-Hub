@@ -57,7 +57,7 @@ All baseline branches retained. Recovery branch is now published for draft #107;
 | r3-a-solar-system-1 | a646960edda6 | a646960edda6 | RETAINED_IN_CANDIDATE | #81 | 1 / 2 |
 | r3-b-major-planets-1 | 9e7f23360b40 | 9e7f23360b40 | RETAINED_IN_CANDIDATE | #85 | 1 / 2 |
 | r4-a-planet-view-1 | c510759ba78c | c510759ba78c | RETAINED_IN_CANDIDATE | #92 | 1 / 13 |
-| recovery/reconcile-20261026 | 095f924427c4 | 095f924427c4 | CONSOLIDATED_DRAFT_BLOCKED | #107 | 1 / 2 (task preview) |
+| recovery/reconcile-20261026 | e1bd2e57a265 | e1bd2e57a265 | CONSOLIDATED_DRAFT_BLOCKED | #107 | 1 / 2 (task preview) |
 | repo-hygiene-gitignore-package-critical-2026-06 | 09ea1a1ffa0d | 09ea1a1ffa0d | INTEGRATED_IN_MAIN | #27 | 0 / 0 |
 | review-context-validation-20261003 | ababf46162eb | ababf46162eb | INTEGRATED_IN_MAIN | #62 | 1 / 0 |
 | review-remediation-pr1-26 | e21643f8cfea | — | INTEGRATED_IN_MAIN | #29 | 0 / 0 |

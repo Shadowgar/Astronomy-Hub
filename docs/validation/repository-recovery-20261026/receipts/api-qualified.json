@@ -1,0 +1,62 @@
+{
+  "invalid": {
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_request",
+        "message": "Invalid satellite feed request. Use an ISO-8601 time with timezone and a positive canonical NORAD number.",
+        "request_id": "51d3c87f-e93b-49f9-a6e4-919444b801b1"
+      }
+    }
+  },
+  "feed": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "data": {
+        "acquired_at": "2026-10-26T05:43:24.597764Z",
+        "byte_size": 1253585,
+        "catalog_number_format": "tle_5_digit",
+        "compression_layers": 2,
+        "duplicate_count": 0,
+        "epoch_max": "2026-10-26T02:35:24Z",
+        "epoch_min": "2026-10-12T10:19:20Z",
+        "feed_filename": "tle_satellite.jsonl.gz",
+        "input_record_count": 15901,
+        "malformed_count": 0,
+        "record_count": 15901,
+        "release_version": "2026.10.26.0543",
+        "required_norad": {
+          "20580": true,
+          "25544": true
+        },
+        "schema_version": 1,
+        "sha256": "902387afd7a0b268c16bbe0303c9706873a2031dccd2eaaeb6668cca90575a21",
+        "six_digit_catalog_support": false,
+        "source_key": "celestrak_active_gp",
+        "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=TLE",
+        "freshness_status": "fresh",
+        "nearest_tle_epoch": "2026-10-26T02:35:24Z",
+        "nearest_tle_age_days": 0.237,
+        "newest_tle_epoch": "2026-10-26T02:35:24Z",
+        "newest_tle_age_days": 0.237,
+        "mounted": true,
+        "status": "ready",
+        "reason": "Mounted CelesTrak satellite release is valid and fresh for the requested time.",
+        "release_manifest_available": true,
+        "release_validated": true,
+        "provenance_status": "validated_release",
+        "fresh_record_count": 15901,
+        "stale_record_count": 0,
+        "unknown_epoch_count": 0,
+        "as_of_utc": "2026-10-26T08:17:04Z",
+        "max_tle_age_days": 14.0,
+        "epoch_median": "2026-10-25T18:27:49Z",
+        "tle_age_days_min": 0.237,
+        "tle_age_days_max": 13.915
+      },
+      "meta": {},
+      "error": null
+    }
+  }
+}

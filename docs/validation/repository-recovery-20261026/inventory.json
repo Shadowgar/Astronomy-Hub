@@ -76037,14 +76037,14 @@
     "reason": "Satellite pixel proof, owner/device acceptance, source-offer, security and independent review gates missing"
   },
   "after_snapshot": {
-    "captured_at": "2026-10-26T07:54:21.449486+00:00",
+    "captured_at": "2026-10-26T08:18:38.265190+00:00",
     "main_sha": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
     "open_prs": [
       {
         "number": 107,
         "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
         "draft": true,
-        "head_sha": "095f924427c466c06ee6b5b771fe9aee0bf9ce3e"
+        "head_sha": "e1bd2e57a2658552815f661609c5177315eb2731"
       },
       {
         "number": 77,
@@ -76221,8 +76221,8 @@
     "owner_status_unchanged": true,
     "owner_status": " M .vscode/settings.json\n",
     "existing_worktree_changes": [],
-    "candidate_head": "095f924427c466c06ee6b5b771fe9aee0bf9ce3e",
-    "tested_code_sha": "0075b2011a0c8ccf51a271972e054998555ee708",
+    "candidate_head": "e1bd2e57a2658552815f661609c5177315eb2731",
+    "tested_code_sha": "e1bd2e57a2658552815f661609c5177315eb2731",
     "application_diff_after_tested_sha": ""
   }
 }

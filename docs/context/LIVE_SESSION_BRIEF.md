@@ -11,7 +11,8 @@ require one consolidated owner approval. No product acceptance is inferred.
 Candidate `recovery/reconcile-20261026` preserves the complete 73→105 existing source
 lineage plus current main, excludes rejected 102/104 and superseded 103, and remains
 **BLOCKED** for release/owner acceptance. Source/artifact drift and a reproduced
-landscape-mobile native-control overlap were repaired. Fresh 15,901-record native
+landscape-mobile native-control overlap were repaired. Hosted CI setup, workflow
+cache boundaries and public API exception disclosure were also repaired and tested. Fresh 15,901-record native
 and backend loading is proven; ordinary unselected satellite pixel motion, later
 product UX/device acceptance, security triage, source offer and independent review
 remain gates. N1's historical owner acceptance is preserved.

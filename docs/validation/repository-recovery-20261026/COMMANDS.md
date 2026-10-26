@@ -96,3 +96,20 @@ git ls-tree HEAD third_party/spectorjs
 ```
 
 Restoring the missing `.gitmodules` metadata for the already-recorded, upstream-verified Spector.js pin fixed the checkout failure without changing or initializing that dependency. Local red exit128 and green exit0 logs are retained.
+
+## Final application revision e1bd2e57
+
+```sh
+python3 /tmp/astronomy-recovery-20261026/backend_tests_qualified.py
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs tests/planet/*.test.mjs tests/runtime-protocol/*.test.mjs
+(cd frontend && npm test -- --run && npm run typecheck)
+node output/playwright/recovery/smoke.mjs
+node output/playwright/recovery/native-count.mjs
+python3 /tmp/astronomy-recovery-20261026/final_snapshot.py
+```
+
+The disposable backend archive is e1bd2e57:679 passed,12 skipped,38 warnings. Node:258 passed. Frontend concurrent run:382 passed,2 timeouts at the existing5000ms threshold; sequential rerun:384 passed across58 files, typecheck exit0. No timeout settings were changed. The earlier Hub/Sky build remains applicable because final API/CI repairs did not change those runtime sources/artifacts. API HTTP check:invalid request400 with fixed public message, feed200 with15,901 fresh records and the recorded release hash at08:17UTC. CodeQL and both hosted source jobs passed at e1bd2e57; original failing logs and annotations remain retained.
+
+The exact regression invocation and Docker test environment are in `receipts/backend-test-command-qualified.json`; controlled-error red/green logs are `api-exception-red.log.gz` and `api-exception-green.log.gz`. Full changed-path manifest: [CHANGED_FILES.txt](CHANGED_FILES.txt).
+
+Final owner-status comparison explicitly sets cwd to the owner checkout. An earlier invocation from the candidate compared the wrong working directory and returned a false status mismatch; direct owner status and all original worktree comparisons confirmed unchanged settings and HEAD.

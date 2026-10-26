@@ -11,7 +11,7 @@ Fresh GitHub verification: **25 → 3 open PRs**, **84 → 85 remote branches** 
 - Baseline: 105 PRs total, **25 open**, **84 remote branches**. Rejected #102/#104 and superseded #103 were already closed without merge.
 - Protected baseline `main`: `9a03d8260a529f5858c5c3298cbb9d32b721daeb`. Main is currently unprotected; no ruleset was returned. No main changes are authorized or performed.
 - Candidate branch: `recovery/reconcile-20261026`; worktree `.worktrees/repository-recovery-20261026`.
-- Tested code SHA: `0075b2011a0c8ccf51a271972e054998555ee708`. Subsequent evidence/governance commits must preserve this application tree; receipts distinguish earlier `f7e69519` runs from final runs.
+- Final tested code SHA: `e1bd2e57a2658552815f661609c5177315eb2731`. The final evidence-only commit preserves this application tree. Earlier build/browser receipts explicitly retain their earlier SHA; final full suites and five-mode browser smoke were rerun after the API/CI repairs.
 - Verified chain: **73 → 74 → 78 → 79 → 80 → 81 → 82 → 83 → 84 → 85 → 86 → 87 → 88 → 89 → 90 → 91 → 92 → 93 → 94 → 95 → 101 → 105**. PR75 was merged into PR74, not main. Every one of these heads is reachable from the candidate. No rejected 102/103/104 head is admitted.
 - Candidate combines PR105 with current main through local merge `ee116769`, retaining the native Sky, qualified Earth/Cesium, Solar, Moon and major-moon source work. It does not cherry-pick the accumulated feature diffs repeatedly.
 - PR71's automatic imagery/cache work was carried into PR79 and subsequently evolved. Several source files match PR79 exactly; others have evolved. Its seven distinct historical commits and original artifacts remain preserved; whole-tree equivalence is **not** asserted.
@@ -23,13 +23,13 @@ Fresh GitHub verification: **25 → 3 open PRs**, **84 → 85 remote branches** 
 
 1. PR105 changed the source satellite presentation policy without rebuilding its generated Sky app. The source/artifact test failed. The contained runtime was rebuilt at `f7e69519`; native WASM and vendor chunks were preserved. A separate clean native reconstruction matched all **110 application files** byte-for-byte.
 2. A real 667×390 pointer test found the selected-object Hub launcher intercepting native Observing tools. The Hub-only media rule now centers that launcher in landscape mobile; the same desktop/portrait/landscape pointer journey passed. Native rendering/source was not changed. The existing browser verifier now uses the current visible result and native observing-control selectors.
-3. Added a proposed CI workflow that actually checks Hub/runtime sources. Existing `Playwright Tests / test` only visits **playwright.dev**, so its green status is not application validation. No branch-protection setting has been changed. The first hosted source run exposed 40 missing-upstream-source failures; the workflow now fetches and verifies the lock-pinned Earth source instead of assuming a workstation path. Hosted rerun is tracked separately.
+3. Added a proposed CI workflow that actually checks Hub/runtime sources. Existing `Playwright Tests / test` only visits **playwright.dev**, so its green status is not application validation. No branch-protection setting has been changed. The first hosted source run exposed 40 missing-upstream-source failures; the workflow now fetches and verifies the lock-pinned Earth source instead of assuming a workstation path. The next run exposed missing root Playwright dependencies; installing both root and frontend lockfiles fixed it. Hosted source checks now pass at `e1bd2e57` (PR and push runs).
 
 | Evidence | Result / limit |
 |---|---|
-| Backend, disposable Docker test filesystem | 678 passed, 12 skipped at committed code 0075b201 (208.68 s, 38 deprecation warnings). Historical TLE test fixtures remain distinct from the fresh runtime feed. |
-| Frontend | 384 tests / 58 files passed; typecheck and Hub production build passed. Build retains >500 kB chunk warning. |
-| Runtime/Earth/planet/protocol Node contracts | 258 passed, 0 failed, 0 skipped at committed code 0075b201. |
+| Backend, disposable Docker test filesystem | 679 passed, 12 skipped at committed code e1bd2e57 (203.54 s, 38 deprecation warnings). Historical TLE test fixtures remain distinct from the fresh runtime feed. |
+| Frontend | 384 tests / 58 files and typecheck passed at e1bd2e57; Hub production build passed with unchanged frontend application sources since 0075b201. Build retains >500 kB chunk warning. |
+| Runtime/Earth/planet/protocol Node contracts | 258 passed, 0 failed, 0 skipped at committed code e1bd2e57. |
 | Source admission | 5 parser tests passed; release validator accepted 15,901 source-backed records. |
 | Clean Sky build | Pinned native + Node builders, no network; all 110 application payload files reproduced. Existing dependency cache/image used, so this is not proof of fresh dependency/image acquisition. |
 | Docker/browser | Task-only preview at `http://127.0.0.1:4230`; all mounted scientific inputs read-only. Desktop/mobile five-mode smoke, eight planetary groups, genuine Paris/address/coordinate navigation, native Sky settings/state return and current Earth-system → native Moon journey passed. |
@@ -40,6 +40,8 @@ Fresh GitHub verification: **25 → 3 open PRs**, **84 → 85 remote branches** 
 Initial red evidence is retained: backend 619 passed/57 failed/14 skipped against read-only runtime paths and mismatched fixture environment; source/artifact mismatch; stale direct-Moon-button harness; initial hidden-result Sky selector timeout; genuine landscape pointer interception. Corrected test harnesses do not turn those historical runs green.
 
 The subsequent hosted checkout exposed an inherited missing `.gitmodules` entry for the existing Spector.js gitlink. Its unchanged SHA `563813ea5269b53b1b27621580a50dc5f8b9fe58` was verified against the upstream repository; only the metadata entry was restored. `git submodule foreach --recursive true` changed from exit128 to exit0. No submodule was initialized or source pin changed.
+
+CodeQL identified three workflow cache-boundary alerts and one public exception disclosure. The recovery workflow now has no shared npm cache or manual trigger; the satellite status API returns a fixed public validation error. Its HTTP regression changed from 1 failed/18 passed to 19 passed. All hosted CodeQL languages and the aggregate gate passed at e1bd2e57. Registry advisories below remain unresolved. A local concurrent frontend run timed out in two tests (382 passed/2 failed); a sequential rerun passed all 384 with the original timeout unchanged. Both logs are retained.
 
 ## Gates still missing
 
