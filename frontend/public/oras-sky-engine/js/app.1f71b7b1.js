@@ -14343,14 +14343,17 @@ var oras_site = __webpack_require__("a3a6");
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/satellite-presentation.mjs
 
 
-// Public native presentation controls only. Photometry, SGP4 and models stay native.
+// Restore Stellarium-native satellite presentation in ordinary Sky viewing.
+// Native satellites.c owns positions, SGP4, photometry, rendering and visibility.
+// Hub controls may enhance identification at close FOV, never hide normal native
+// indicators at wide FOV or alter the underlying satellite point renderer.
 function satellitePresentation(core) {
   var sats = core.satellites;
-  var originalVisible = null,
-      appliedVisible = null,
-      originalOffset = null,
-      appliedOffset = null,
-      close = false;
+  var originalVisible = null;
+  var appliedVisible = null;
+  var originalOffset = null;
+  var appliedOffset = null;
+  var close = false;
 
   var set = function set(key, value) {
     if (sats[key] !== value) sats[key] = value;
@@ -14361,26 +14364,30 @@ function satellitePresentation(core) {
     set('hints_visible', value);
   };
 
-  function applyOffset(value) {
-    var minimum = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  function observeNativePreferences() {
+    if (originalVisible === null || appliedVisible !== null && sats.hints_visible !== appliedVisible) {
+      originalVisible = !!sats.hints_visible;
+    }
+  }
+
+  function applyCloseOffset() {
     if (originalOffset === null || sats.hints_mag_offset !== appliedOffset) originalOffset = sats.hints_mag_offset;
-    appliedOffset = minimum ? Math.max(originalOffset, value) : value;
+    appliedOffset = Math.max(originalOffset, 4);
     set('hints_mag_offset', appliedOffset);
   }
 
   function restoreOffset() {
-    if (originalOffset !== null) {
-      if (sats.hints_mag_offset !== appliedOffset) originalOffset = sats.hints_mag_offset;
-      var value = originalOffset;
-      originalOffset = null;
-      appliedOffset = null;
-      set('hints_mag_offset', value);
-    }
+    if (originalOffset === null) return;
+    if (sats.hints_mag_offset !== appliedOffset) originalOffset = sats.hints_mag_offset;
+    var value = originalOffset;
+    originalOffset = null;
+    appliedOffset = null;
+    set('hints_mag_offset', value);
   }
 
   function release() {
     if (!sats || originalVisible === null) return;
-    if (sats.hints_visible !== appliedVisible) originalVisible = sats.hints_visible;
+    observeNativePreferences();
     restoreOffset();
     visible(originalVisible);
     originalVisible = null;
@@ -14396,25 +14403,17 @@ function satellitePresentation(core) {
       return;
     }
 
-    if (originalVisible === null || sats.hints_visible !== appliedVisible) originalVisible = sats.hints_visible; // Native property JSON rounds radians; tolerate its sub-nanodegree error.
+    observeNativePreferences(); // Native JSON radians can differ by ~1e-12. Preserve accepted hysteresis,
+    // but it governs only close-view label enhancement, never wide visibility.
 
     var degrees = fovRad * 180 / Math.PI;
     close = Number.isFinite(degrees) && (close ? degrees < 7 - 1e-8 : degrees <= 5 + 1e-8);
+    if (close && originalVisible) applyCloseOffset();else restoreOffset(); // In normal/wide Sky keep the native visibility setting. The previous
+    // 'originalVisible && close' branch concealed native hints at normal FOV.
+    // Selection/tracking must not lower hint magnitude to -30 either.
 
-    if (close && originalVisible) {
-      // The native point and hint magnitude gates differ. Offset 4 reveals the
-      // measured close-view point-only cases without changing their photometry.
-      applyOffset(4, true);
-      visible(originalVisible);
-    } else if (!close && selectedSatellite) {
-      // Native rendering exempts the selected object from the magnitude hint gate.
-      // Suppress other hints without changing any satellite's computed brightness.
-      applyOffset(-30);
-      visible(originalVisible);
-    } else {
-      restoreOffset();
-      visible(originalVisible && close);
-    }
+    visible(originalVisible);
+    void selectedSatellite;
   }
 
   return {

@@ -25,7 +25,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_sky_horizon.sh",
-    "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf",
+    "artifact_sha256": "64af86ab95641cc013de510dc5ed0e8fce0959d648c3a2010ac07b5df96a9635",
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
     "workspace_adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
     "artifact_hash_scope": "Application files excluding identity marker",
@@ -33,7 +33,7 @@
     "bridge_input_sha256": {
       "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
       "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
-      "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+      "satellite-presentation.mjs": "793d02f54b186b3298930d7c75a53f8c3aafe7b40ec9aad1c2a7287fc20ffc83",
       "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
     },
     "navigation_input_sha256": {
