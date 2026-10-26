@@ -1,19 +1,72 @@
-import test from 'node:test';import assert from 'node:assert/strict';
+import test from 'node:test';
+import assert from 'node:assert/strict';
 import {satellitePresentation} from '../../runtimes/sky-adapter/satellite-presentation.mjs';
-const degrees=n=>n*Math.PI/180;
-function scene(){const satellites={visible:true,hints_visible:true,hints_mag_offset:2},core={satellites};return {satellites,policy:satellitePresentation(core)}}
-test('ordinary FOV keeps photometric satellites enabled without artificial hints',()=>{const s=scene();s.policy.update(true,degrees(120),false);assert.equal(s.satellites.visible,true);assert.equal(s.satellites.hints_visible,false);assert.equal(s.satellites.hints_mag_offset,2)});
-test('identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis',()=>{const s=scene();for(const [fov,expected] of [[120,false],[20,false],[6,false],[5,true],[6,true],[7,false],[6,false],[4,true],[120,false]]){s.policy.update(true,degrees(fov),false);assert.equal(s.satellites.hints_visible,expected,String(fov))}});
-test('wide selected satellite stays isolated; close identification and widening preserve native defaults',()=>{const s=scene();s.policy.update(true,degrees(120),true);assert.equal(s.satellites.hints_visible,true);assert.equal(s.satellites.hints_mag_offset,-30);s.policy.update(true,degrees(4),true);assert.equal(s.satellites.hints_mag_offset,4);s.policy.update(true,degrees(120),true);s.policy.update(true,degrees(120),false);assert.equal(s.satellites.hints_visible,false);assert.equal(s.satellites.hints_mag_offset,2)});
-test('upstream initialization during selected-only mode and standalone/repeated release preserve native settings',()=>{const s=scene();s.satellites.hints_mag_offset=0;s.policy.update(true,degrees(120),true);s.satellites.hints_mag_offset=2;s.policy.update(true,degrees(120),true);s.policy.release();assert.deepEqual(s.satellites,{visible:true,hints_visible:true,hints_mag_offset:2});s.policy.update(false,degrees(120),false);s.policy.release();assert.equal(s.satellites.hints_visible,true)});
-test('native user-disabled hints are retained after release and no scene API is replaced',()=>{const s=scene();s.satellites.hints_visible=false;s.policy.update(true,degrees(1),false);s.policy.release();assert.equal(s.satellites.hints_visible,false);assert.equal(s.satellites.visible,true)});
-
-test('native JSON FOV precision does not miss threshold boundaries',()=>{const s=scene();s.policy.update(true,degrees(5.000000000016245),false);assert.equal(s.satellites.hints_visible,true);s.policy.update(true,degrees(6.99999999998),false);assert.equal(s.satellites.hints_visible,false)});
-
-test('unselected close views admit native point-only satellites through a bounded hint offset',()=>{const s=scene();s.policy.update(true,degrees(120),false);s.policy.update(true,degrees(4.793883850419292),false);assert.equal(s.satellites.hints_visible,true);assert.equal(s.satellites.hints_mag_offset,4);assert.equal(s.satellites.visible,true);s.policy.update(true,degrees(6),false);assert.equal(s.satellites.hints_mag_offset,4);s.policy.update(true,degrees(7),false);assert.equal(s.satellites.hints_mag_offset,2);assert.equal(s.satellites.hints_visible,false)});
-test('own close overrides do not replace original offset across selection, widening and release',()=>{const s=scene();s.policy.update(true,degrees(4),false);s.policy.update(true,degrees(4),false);s.policy.update(true,degrees(120),true);assert.equal(s.satellites.hints_mag_offset,-30);s.policy.update(true,degrees(4),true);assert.equal(s.satellites.hints_mag_offset,4);s.policy.release();assert.equal(s.satellites.hints_mag_offset,2);assert.equal(s.satellites.hints_visible,true)});
-test('native custom offsets and asynchronous initialization survive close presentation',()=>{const s=scene();s.satellites.hints_mag_offset=0;s.policy.update(true,degrees(4),false);s.satellites.hints_mag_offset=2;s.policy.update(true,degrees(4),false);assert.equal(s.satellites.hints_mag_offset,4);s.policy.release();assert.equal(s.satellites.hints_mag_offset,2);s.satellites.hints_mag_offset=7;s.policy.update(true,degrees(4),false);assert.equal(s.satellites.hints_mag_offset,7);s.policy.update(false,degrees(4),false);assert.equal(s.satellites.hints_mag_offset,7)});
-
-test('an explicit native disable after automatic close identification survives later zoom and release',()=>{const s=scene();s.policy.update(true,degrees(4),false);assert.equal(s.satellites.hints_visible,true);s.satellites.hints_visible=false;s.policy.update(true,degrees(3),false);assert.equal(s.satellites.hints_visible,false);s.policy.update(true,degrees(120),false);s.policy.update(true,degrees(4),false);assert.equal(s.satellites.hints_visible,false);s.policy.release();assert.equal(s.satellites.hints_visible,false)});
-test('native disable immediately before disposal survives without waiting for the reactive watcher',()=>{for(const leave of ['release','standalone']){const s=scene();s.policy.update(true,degrees(4),false);s.satellites.hints_visible=false;if(leave==='release')s.policy.release();else s.policy.update(false,degrees(4),false);assert.equal(s.satellites.hints_visible,false)}});
-test('an external native offset immediately before widening or disposal remains the native preference',()=>{for(const leave of ['release','widen']){const s=scene();s.policy.update(true,degrees(4),false);s.satellites.hints_mag_offset=9;if(leave==='release')s.policy.release();else s.policy.update(true,degrees(120),false);assert.equal(s.satellites.hints_mag_offset,9)}});
+const radians = degrees => degrees * Math.PI / 180;
+const create = (visible = true, offset = 2) => {
+  const satellites = {visible:true, hints_visible:visible, hints_mag_offset:offset};
+  return {satellites, control:satellitePresentation({satellites})};
+};
+test('normal 120° Sky restores native indicators without touching native photometric point rendering', () => {
+  const {satellites,control} = create();
+  control.update(true,radians(120),false);
+  assert.deepEqual(satellites,{visible:true,hints_visible:true,hints_mag_offset:2});
+});
+test('medium and wide view do not force hidden hints or selected-only suppression', () => {
+  const {satellites,control} = create();
+  for (const d of [120,50,20,10,8]) {
+    control.update(true,radians(d),false);
+    assert.equal(satellites.hints_visible,true);
+    assert.equal(satellites.hints_mag_offset,2);
+  }
+  control.update(true,radians(120),true);
+  assert.equal(satellites.hints_visible,true);
+  assert.equal(satellites.hints_mag_offset,2);
+});
+test('close-view enhancement retains the 5° entry/7° exit offset hysteresis', () => {
+  const {satellites,control} = create();
+  for(const [degrees,expectedOffset] of [[120,2],[6,2],[5,4],[6,4],[6.9999999999,2],[4,4],[7,2]]) {
+    control.update(true,radians(degrees),false);
+    assert.equal(satellites.hints_visible,true,`visibility at ${degrees} degrees`);
+    assert.equal(satellites.hints_mag_offset,expectedOffset,`offset at ${degrees} degrees`);
+  }
+});
+test('native user disabled indicators remain disabled at all fields and after release', () => {
+  const {satellites,control} = create(false);
+  for (const d of [120,4,50]) {
+    control.update(true,radians(d),false);
+    assert.equal(satellites.hints_visible,false);
+    assert.equal(satellites.hints_mag_offset,2);
+  }
+  control.release();
+  assert.deepEqual(satellites,{visible:true,hints_visible:false,hints_mag_offset:2});
+});
+test('external native hint preference change is respected, including during close view', () => {
+  const {satellites,control} = create();
+  control.update(true,radians(120),false);
+  satellites.hints_visible=false;
+  control.update(true,radians(120),false);
+  control.update(true,radians(4),false);
+  assert.equal(satellites.hints_visible,false);
+  assert.equal(satellites.hints_mag_offset,2);
+  control.release();
+  assert.equal(satellites.hints_visible,false);
+});
+test('external magnitude preference changes are retained after close view and exit', () => {
+  const {satellites,control} = create(true,1);
+  control.update(true,radians(4),false);
+  assert.equal(satellites.hints_mag_offset,4);
+  satellites.hints_mag_offset=7;
+  control.update(true,radians(4),false);
+  assert.equal(satellites.hints_mag_offset,7);
+  control.update(true,radians(120),false);
+  assert.equal(satellites.hints_mag_offset,7);
+  control.release();
+  assert.equal(satellites.hints_mag_offset,7);
+});
+test('returning to standalone restores original offset, native hints and unmodified visible flag', () => {
+  const {satellites,control} = create(true,2);
+  control.update(true,radians(4),true);
+  assert.equal(satellites.hints_mag_offset,4);
+  control.update(false,radians(4),false);
+  assert.deepEqual(satellites,{visible:true,hints_visible:true,hints_mag_offset:2});
+});
