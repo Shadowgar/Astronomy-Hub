@@ -21,6 +21,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -29,7 +31,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Read qualified Earth source pin
+        id: earth-pin
+        run: |
+          python3 - <<'PY'
+          import json, os
+          lock = json.load(open('integrations/renderers.lock.json'))['earth']
+          assert lock['upstream'] == 'https://github.com/bilawalsidhu/gods-eye-view'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              print('sha=' + lock['sha'], file=output)
+          PY
+      - name: Fetch immutable Earth source for contract tests
+        uses: actions/checkout@v4
+        with:
+          repository: bilawalsidhu/gods-eye-view
+          ref: ${{ steps.earth-pin.outputs.sha }}
+          path: .ci/gods-eye
+          persist-credentials: false
+      - name: Verify Earth source pin
+        run: test "$(git -C .ci/gods-eye rev-parse HEAD)" = '${{ steps.earth-pin.outputs.sha }}'
       - name: Runtime and science contracts
+        env:
+          GODS_EYE_SOURCE: ${{ github.workspace }}/.ci/gods-eye
         run: node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs tests/planet/*.test.mjs tests/runtime-protocol/*.test.mjs
       - name: Satellite source admission fixtures
         run: python3 -m unittest discover -s tests/runtime -p test_native_satellite_source_stage.py -v

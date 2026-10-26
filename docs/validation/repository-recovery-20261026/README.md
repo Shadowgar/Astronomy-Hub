@@ -2,6 +2,10 @@
 
 **BLOCKED for mainline integration and product acceptance.** One isolated candidate replaces the review of the accumulated stack. Closing an old review vehicle is not a merge and does not certify its functionality. All original branches, worktrees, data and evidence remain preserved.
 
+## Executed reconciliation
+
+Fresh GitHub verification: **25 → 3 open PRs**, **84 → 85 remote branches** (one recovery branch added; no deletions). Closed 23 superseded review vehicles without merge: #71, #73, #74, #78–95, #101, #105. Open: dependency PRs #76/#77 and [blocked recovery draft #107](https://github.com/Shadowgar/Astronomy-Hub/pull/107). All 84 original remote tips are unchanged. All 141 original containers retain image/lifecycle/mount identity, all 90 volumes remain, and the 49 original worktrees plus owner dirty settings are unchanged. Only two task preview containers were added. See `receipts/final-snapshot.json`.
+
 ## Identity and dependency decision
 
 - Baseline: 105 PRs total, **25 open**, **84 remote branches**. Rejected #102/#104 and superseded #103 were already closed without merge.
@@ -19,7 +23,7 @@
 
 1. PR105 changed the source satellite presentation policy without rebuilding its generated Sky app. The source/artifact test failed. The contained runtime was rebuilt at `f7e69519`; native WASM and vendor chunks were preserved. A separate clean native reconstruction matched all **110 application files** byte-for-byte.
 2. A real 667×390 pointer test found the selected-object Hub launcher intercepting native Observing tools. The Hub-only media rule now centers that launcher in landscape mobile; the same desktop/portrait/landscape pointer journey passed. Native rendering/source was not changed. The existing browser verifier now uses the current visible result and native observing-control selectors.
-3. Added a proposed CI workflow that actually checks Hub/runtime sources. Existing `Playwright Tests / test` only visits **playwright.dev**, so its green status is not application validation. No branch-protection setting has been changed.
+3. Added a proposed CI workflow that actually checks Hub/runtime sources. Existing `Playwright Tests / test` only visits **playwright.dev**, so its green status is not application validation. No branch-protection setting has been changed. The first hosted source run exposed 40 missing-upstream-source failures; the workflow now fetches and verifies the lock-pinned Earth source instead of assuming a workstation path. Hosted rerun is tracked separately.
 
 | Evidence | Result / limit |
 |---|---|

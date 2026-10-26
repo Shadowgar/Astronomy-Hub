@@ -75,3 +75,16 @@ Legacy `R4_URL=http://127.0.0.1:4230 node scripts/validation/verify_r4_earth_ret
 ```
 
 PR76: ERESOLVE. PR77: install and build passed; additionally built inside the same pinned Node20 image with network disabled and the build environment above. Neither lockfile was promoted. Audit reports are not clean and remain explicit release blockers.
+
+## Remote reconciliation and final verification
+
+Published only `recovery/reconcile-20261026` with `git push -u origin recovery/reconcile-20261026`; opened draft107 through the connected GitHub create-pull-request tool. For each of the23 preserved, unchanged heads, added its factual C disposition and called update-pull-request with state closed. No merge/delete API was called. `receipts/closures.json` and the fresh paginated snapshot confirm actual results.
+
+```sh
+python3 /home/rocco/.codex/skills/gh-fix-ci/scripts/inspect_pr_checks.py --repo . --pr 107 --max-lines 100 --context 20
+python3 /tmp/astronomy-recovery-20261026/final_snapshot.py
+```
+
+Initial hosted CI:218 passed/40 failed because two pinned upstream Earth modules were absent from the runner. The repair retrieves the exact God’s Eye SHA from the renderer lock and passes GODS_EYE_SOURCE to unchanged tests. Existing checkout cleanup also reported an inherited unconfigured `third_party/spectorjs` gitlink; no submodule source was silently replaced. Docker preservation compares mounts by destination and stable lifecycle/health status, excluding rolling health-log entries; the initial order-sensitive diagnostic was corrected, not treated as actual container mutation.
+
+Exact raw test/build logs are preserved as `receipts/*.log.gz` to retain original bytes (including whitespace and terminal sequences) without treating them as source diffs. Read with `gzip -cd <receipt.log.gz>`.

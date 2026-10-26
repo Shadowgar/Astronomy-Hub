@@ -35391,7 +35391,7 @@
       "number": 71,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/71",
       "title": "C6-1A: automatic best-available Earth imagery",
-      "state": "open",
+      "state": "closed",
       "draft": false,
       "merged": false,
       "merge_commit_sha": null,
@@ -36237,7 +36237,8 @@
       ],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 52,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=71].changes_from_main"
@@ -36478,7 +36479,7 @@
       "number": 73,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/73",
       "title": "design: Adaptive Explorer R1-A visual references for owner review",
-      "state": "open",
+      "state": "closed",
       "draft": false,
       "merged": false,
       "merge_commit_sha": "f0f76d7231bd6429328580e440fdb7b855268598",
@@ -37195,8 +37196,9 @@
       ],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 47,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=73].changes_from_main"
@@ -37205,7 +37207,7 @@
       "number": 74,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/74",
       "title": "R1-B: implement Adaptive Explorer Sky with native Stellarium controls",
-      "state": "open",
+      "state": "closed",
       "draft": false,
       "merged": false,
       "merge_commit_sha": "280c70acc97109d7d1b262d540cce4d1ee283578",
@@ -44234,8 +44236,9 @@
           "excerpt": "## Owner acceptance \u2014 N1 (2026-10-17)\n\nThe owner explicitly states: **\"owner accepted move the fuck on please.\"** Record N1 Sky/Earth navigation and final UX as **OWNER ACCEPTED**. The owner does not want further N1 retests, visual approval questions, or repeated resource/debugging loops. This supersedes earlier *pending owner acceptance* wording for the delivered N1 experience.\n\nThis is **product acceptance**, not a claim that incomplete tests passed: full desktop navigation remains **5/22**, mobile **7/22**, both capped at four minutes with underlying cause unknown. Preserve that limitation and historical evidence, do not retroactively mark tests green.\n\nPR #75 is already merged into this PR #74 branch at `d1e3a75c4fa3b48a41fc5167786b3147bf763e71`. PR #74 and #73 remain open; **this message does not authorize either merge, main deployment or production changes**.\n\nProceed to the **next roadmap work (R2 Earth exploration)** on a separate bounded development branch/package, observing dependencies and PR #71 disposition; do not re-open accepted N1 behavior except for genuine new regressions. No R3 authorization inferred."
         }
       ],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1006,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=74].changes_from_main"
@@ -51138,7 +51141,7 @@
       "number": 78,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/78",
       "title": "R2-A: Earth address, place and coordinate exploration",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "3c8a83aecac7c9624f1f6d4bf4e0ce3f8edf6343",
@@ -51751,8 +51754,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1073,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=78].changes_from_main"
@@ -51761,7 +51765,7 @@
       "number": 79,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/79",
       "title": "R2-B: native Earth imagery and persistent cache (partial qualification)",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "5df1d4ac86a0e07cb43129570fd5ea566d415112",
@@ -52798,8 +52802,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1199,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=79].changes_from_main"
@@ -52808,7 +52813,7 @@
       "number": 80,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/80",
       "title": "R2 Earth: direct search, restrained map controls and measured imagery latency",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "bede6753a8c1d188737521448fdac01737b9ba29",
@@ -53513,8 +53518,9 @@
           "excerpt": "Independent exact-head Codex review: **PASS \u20140 open P1/P2 findings**.\n\nReviewed `23f5c41f830fad7eb66b67fec297962c2599428e` against PR79 base `158a77053ea18e4d0aed8725f715ca373930fd13`. The complete initial review plus final delta closes the reproduced mobile Sources stacking and Tonight touch interception. Reviewer independently matched final browser source hashes to committed HEAD with0 mismatches, checked the aggregate diff, inspected the artifact/preservation receipt and72-case/216-capture metadata, and ran four focused runtime test files (all passed). This is code review, not merge approval or physical-hardware qualification.\n\nFinal local HEAD, origin HEAD and draft PR80 HEAD match `23f5c41f830fad7eb66b67fec297962c2599428e`; branch `r2-earth-ux-performance-1`, base `r2-b-earth-imagery-cache-1`. Exact-head delivery verifier PASS:155 committed Hub source files,51 native source inputs,513 Earth and130 Hub bytes per preview; final desktop19/19 and mobile19/19 with six native destination acknowledgments each.231 host runtime/Earth,143 Docker Earth,293 frontend,52 backend tests and TypeScript passed. The Node-only Docker image's Python export-check limitation and existing13 backend deprecation warnings are retained in the report.\n\nEarth artifact `cb1f579d3f7625ad776d6182740da581c152c3a79684b4f2520477672eb12c3e`; Hub artifact `2db5ec097d9b97fd97cf8456cbabbeb31eb010910378023f8cbe37acccb77bcb`.107 original container identities/mounts/states,90volumes, owner settings, pinned scientific source/Sky bytes and original R2-B/N1 rollback artifacts verified intact; no original state drift.\n\n**Owner preview:** http://127.0.0.1:4206/earth\n\n[Desktop screenshot](https://github.com/Shadowgar/Astronomy-Hub/blob/23f5c41f830fad7eb66b67fec297962c2599428e/docs/validation/r2-earth-ux-performan"
         }
       ],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1275,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=80].changes_from_main"
@@ -53523,7 +53529,7 @@
       "number": 81,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/81",
       "title": "R3-A: source-backed Solar exploration and roadmap activation",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "bbf4213d5d754597759b058c67454e149c2b9119",
@@ -54338,8 +54344,9 @@
           "excerpt": "## Owner visual decision \u2014 2026-10-21\n\nThe owner **accepts the new premium cinematic design family for Solar System, Earth and Sky** and **rejects the current R3-A visual presentation** (flat spheres/orbit-diagram appearance and large dashboard panels). This is a visual-direction decision, **not** a rejection of R3-A's source-backed ephemeris, time, selection, navigation and return contracts.\n\nDocumentation reconciliation and immutable SHA-256 identifiers for the **four exact original concept images** are in [draft PR #82](https://github.com/Shadowgar/Astronomy-Hub/pull/82), stacked on this PR. The images themselves are delivered as a separate owner-downloadable ZIP and **must be imported from original bytes** before claiming image-based fidelity proof.\n\nNext scope: implement a bounded, genuine WebGL/React Solar visual-fidelity package using the approved primary cinematic reference, preserving existing technical/scientific data and accepted N1/R2 behavior. Later separately scope Earth and Sky styling. Test real desktop/mobile visuals against original references and get owner acceptance of the running app.\n\n**No merge, deployment, paid provider, R3-B expansion or R4 authorization implied.**"
         }
       ],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1360,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=81].changes_from_main"
@@ -54348,7 +54355,7 @@
       "number": 82,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/82",
       "title": "design: anchor owner-approved cinematic Sky/Earth/Solar reference",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "15859c0db88b6453d244f72e6f32599cf2691653",
@@ -54547,8 +54554,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1369,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=82].changes_from_main"
@@ -54557,7 +54565,7 @@
       "number": 83,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/83",
       "title": "feat: implement owner-approved cinematic Solar experience",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "2834dd4e2c04fae796f282b3c3c0b4f8b5db94c3",
@@ -56659,8 +56667,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1649,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=83].changes_from_main"
@@ -56669,7 +56678,7 @@
       "number": 84,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/84",
       "title": "feat: shared cinematic Hub foundation and scope reconciliation",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "29d354c97be21d2eedb8fcc32cdc0fd452de8479",
@@ -56849,8 +56858,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1661,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=84].changes_from_main"
@@ -56859,7 +56869,7 @@
       "number": 85,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/85",
       "title": "R3-B: source-backed eight-planet exploration and illustrative main belt",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "759eb74c0c7c78287fdc5680b2cb3903e2ab5ebf",
@@ -57479,8 +57489,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1733,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=85].changes_from_main"
@@ -57489,7 +57500,7 @@
       "number": 86,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/86",
       "title": "Integrate cinematic Earth search and contextual location UX",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "d49da9c090d797ee2e6b69602fe109a7d4741b66",
@@ -57832,8 +57843,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1772,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=86].changes_from_main"
@@ -57842,7 +57854,7 @@
       "number": 87,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/87",
       "title": "Integrate cinematic native Sky observing UX",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "ec5918c180a7bfbae5652ddcaf381f201fb10bc0",
@@ -58108,8 +58120,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 1801,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=87].changes_from_main"
@@ -58118,7 +58131,7 @@
       "number": 88,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/88",
       "title": "feat: qualify the complete cinematic Hub and Solar expansion",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "c6e36f0edafa92d40582c72d6ae8469cff14e716",
@@ -61454,8 +61467,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2237,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=88].changes_from_main"
@@ -61464,7 +61478,7 @@
       "number": 89,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/89",
       "title": "E1: refine cinematic Earth search and native location context",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "dc2e5b7e51a5a0cbd325144e5521416204a3451f",
@@ -61783,8 +61797,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2256,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=89].changes_from_main"
@@ -61793,7 +61808,7 @@
       "number": 90,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/90",
       "title": "Complete cinematic native Sky and qualify integrated Earth/Sky experience",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "ddb7b1ec0d8440254f0667d00be6e28b894628ff",
@@ -62442,8 +62457,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2330,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=90].changes_from_main"
@@ -62452,7 +62468,7 @@
       "number": 91,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/91",
       "title": "Replace opaque chrome with shared cinematic glass across all modes",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "16a929be91a9e00dad5be3adbff95056c63b8cf8",
@@ -63381,8 +63397,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2430,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=91].changes_from_main"
@@ -63391,7 +63408,7 @@
       "number": 92,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/92",
       "title": "R4-A: source-qualified Moon globe and reversible Solar handoff",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "14803b4da658243057974b5ae8e79e1dd3727960",
@@ -64025,8 +64042,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2503,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=92].changes_from_main"
@@ -64035,7 +64053,7 @@
       "number": 93,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/93",
       "title": "PS1: Hierarchical Earth\u2013Moon exploration and native Moon handoff",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "d4fddc53f1d448b4fa4cf78f5f259f878680af0e",
@@ -64684,8 +64702,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2574,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=93].changes_from_main"
@@ -64694,7 +64713,7 @@
       "number": 94,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/94",
       "title": "PS2: Qualified major-moon systems with physical parent centers",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "32b0a5a74046067028d06bc07c6dc63234073de9",
@@ -65398,8 +65417,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2647,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=94].changes_from_main"
@@ -65408,7 +65428,7 @@
       "number": 95,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/95",
       "title": "PS3: Qualify integrated planetary hierarchy and source-time navigation",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "4a964ba85acfaa239ccd837ccbed971f5599ba65",
@@ -65805,8 +65825,9 @@
       "review_threads": [],
       "independent_exact_candidate_review": "Not performed; historical reviews do not approve the consolidated candidate",
       "conversation_evidence": [],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2686,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=95].changes_from_main"
@@ -66490,7 +66511,7 @@
       "number": 101,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/101",
       "title": "fix(sky): restore native satellite tracking and clarify live/source state",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "fdeeff077e5d1b07a5e5ec599dd3b51e9c540aa6",
@@ -67447,8 +67468,9 @@
           "excerpt": "Bounded continuation, 2026-10-25: source transport diagnosis and preview recovery\n\nHEAD remains `7f5ea4d0c069463852698c836b3cd80a13bd75cf`; PR #101 is still a draft on unchanged PR #95. No tracked implementation/documentation change, merge or deployment.\n\nThe current acquisition obstacle is now localized before TLS/HTTP: WSL and Windows both resolve `celestrak.org` to `104.168.149.178`, but each TCP 443 connection times out at five seconds. A control TCP 443 connection to GitHub succeeds in 0.034 seconds. This does not distinguish routing/filtering/remote availability/provider blocking, nor prove the cause of the earlier long acquisition attempts. No new catalog HTTP request or download retry was made. The approved [usage policy](https://celestrak.org/usage-policy.php) and [format documentation](https://celestrak.org/NORAD/documentation/gp-data-formats.php) were rechecked.\n\nThe task preview was separately found stopped: both task containers exited at 06:13:08 UTC with code 255 and OOMKilled=false. Cause is unknown. Only `oras-satellite-live-backend` and `oras-satellite-live-preview` were started; no unrelated service or network configuration was changed.\n\nFresh verification after starting them:\n- Windows Sky URL HTTP 200, 410-byte Hub shell.\n- `python3 scripts/validation/verify_satellite_live_delivery.py`: PASS at the same reviewed HEAD; 142 Hub and 111 Sky served files match the qualified artifacts.\n- Actual current feed API HTTP 200: mounted, 14,281 records, 0 malformed, 0 fresh, 14,281 stale.\n- Protected native feed remains SHA256 `431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436`, 1,360,442 bytes.\n- Local/remote HEAD agree and worktree is clean.\n\nNo browser or unit suite was repeated; no code changed, so earlier source-matched evidence and exact-head"
         }
       ],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2791,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=101].changes_from_main"
@@ -69060,7 +69082,7 @@
       "number": 105,
       "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/105",
       "title": "Recovery: restore Stellarium-native satellite Sky and stage fresh full catalog",
-      "state": "open",
+      "state": "closed",
       "draft": true,
       "merged": false,
       "merge_commit_sha": "7d473910e551514217f17265f69dab5d80efa7fe",
@@ -69159,8 +69181,9 @@
           "excerpt": "**Fresh first-party GP candidate acquired successfully without touching the owner's catalogs.**\n\nOne-shot workflow: https://github.com/Shadowgar/Astronomy-Hub/actions/runs/40275736092 (completed SUCCESS).\nArtifact ID: **12630695024** (`firstparty-native-satellite-candidate`), downloadable from that run. No scheduled updater or automatic promotion.\n\nAcquisition: official CelesTrak `GROUP=active&FORMAT=TLE`, HTTP 200 at 2026-10-26T05:43:24Z, original **15,906** records; 5 outside the 14-day/future-epoch staging window excluded; **15,901** retained, all release-checksummed. Original SHA256 `25635f99df0d946185488b835ea3d18c70165d476dabde88357421e5ec75185c`; retained text SHA256 `8ac33db259d440ff4e65e3804199353004a40f296585756a951dca15e4cad02b`; validated nested-gzip release SHA256 `902387afd7a0b268c16bbe0303c9706873a2031dccd2eaaeb6668cca90575a21`, 1,253,585 bytes. Release ID `2026.10.26.0543`; epoch range `2026-10-12T10:19:20.558784Z` to `2026-10-26T02:35:24.605088Z`; 15,901 distinct NORAD identities including ISS, Hubble, Tiangong.\n\nArtifact ZIP downloaded and independently inspected: all member digests and 15,901 normalized identities match; no damaged ZIP entries. Original protected native catalog remains untouched. Unqualified six-digit OMM identities are not included.\n\nLocal isolated tests: **7/7 native presentation + 5/5 staged-source parser** pass. Workflow source staging and 5 parser cases passed. **These DO NOT prove owner-visible Sky motion.**\n\nNext critical gate: a task-owned **Windows/WSL actual native preview** using the candidate read-only in BOTH backend/native, compare ordinary `/sky-engine` (no fixed date, Passes or selection) against original Stellarium with identical observer/FOV and valid elements. Watch genuine unselected satellite point pixels move; ve"
         }
       ],
-      "replacement": "DRAFT_REVIEW_NOT_YET_CREATED",
+      "replacement": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
       "product_gate": "Fresh unselected satellite pixel motion, security triage, source offer, exact-head independent review, owner/device acceptance",
+      "closed_by_reconciliation": true,
       "historical_ci_only": true,
       "changes_from_main_count": 2795,
       "cumulative_changes_evidence": "inventory-detail.json.gz:pull_requests[number=105].changes_from_main"
@@ -69748,7 +69771,7 @@
       "associated_prs": [
         {
           "number": 71,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70002,9 +70025,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        90
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70017,7 +70038,7 @@
       "associated_prs": [
         {
           "number": 89,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70069,9 +70090,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        87
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70084,7 +70103,7 @@
       "associated_prs": [
         {
           "number": 86,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70138,9 +70157,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        85
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70153,7 +70170,7 @@
       "associated_prs": [
         {
           "number": 84,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70205,9 +70222,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        92
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70220,7 +70235,7 @@
       "associated_prs": [
         {
           "number": 91,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70275,9 +70290,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        89
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70290,7 +70303,7 @@
       "associated_prs": [
         {
           "number": 88,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70342,9 +70355,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        91
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70357,7 +70368,7 @@
       "associated_prs": [
         {
           "number": 90,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70409,9 +70420,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        88
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70424,7 +70433,7 @@
       "associated_prs": [
         {
           "number": 87,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -70580,9 +70589,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        83
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -70595,7 +70602,7 @@
       "associated_prs": [
         {
           "number": 82,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -71425,8 +71432,6 @@
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
       "supports_open_prs": [
-        71,
-        73,
         76,
         77
       ],
@@ -71988,9 +71993,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        94
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72003,7 +72006,7 @@
       "associated_prs": [
         {
           "number": 93,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72057,9 +72060,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        95
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72072,7 +72073,7 @@
       "associated_prs": [
         {
           "number": 94,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72125,9 +72126,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        101
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72140,7 +72139,7 @@
       "associated_prs": [
         {
           "number": 95,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72251,9 +72250,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        74
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72266,7 +72263,7 @@
       "associated_prs": [
         {
           "number": 73,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72320,9 +72317,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        78
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72335,7 +72330,7 @@
       "associated_prs": [
         {
           "number": 74,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72389,9 +72384,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        79
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72404,7 +72397,7 @@
       "associated_prs": [
         {
           "number": 78,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72460,9 +72453,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        80
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72475,7 +72466,7 @@
       "associated_prs": [
         {
           "number": 79,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72538,9 +72529,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        81
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72553,7 +72542,7 @@
       "associated_prs": [
         {
           "number": 80,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72606,9 +72595,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        84
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72621,7 +72608,7 @@
       "associated_prs": [
         {
           "number": 83,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72675,9 +72662,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        82
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72690,7 +72675,7 @@
       "associated_prs": [
         {
           "number": 81,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72743,9 +72728,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        86
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72758,7 +72741,7 @@
       "associated_prs": [
         {
           "number": 85,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72823,9 +72806,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        93
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -72838,7 +72819,7 @@
       "associated_prs": [
         {
           "number": 92,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -72854,9 +72835,11 @@
     },
     {
       "name": "recovery/reconcile-20261026",
-      "local_sha": "f7e69519a92b35190a32d76318aca9015e43469d",
-      "prs": [],
-      "tip_sha": "f7e69519a92b35190a32d76318aca9015e43469d",
+      "local_sha": "095f924427c466c06ee6b5b771fe9aee0bf9ce3e",
+      "prs": [
+        107
+      ],
+      "tip_sha": "095f924427c466c06ee6b5b771fe9aee0bf9ce3e",
       "merge_base_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
       "ahead_behind_main": "0\t113",
       "reachable_main": false,
@@ -72889,7 +72872,7 @@
         "ee1167693e52724f9658198ed6ac5e8a978b1fad merge: prepare unqualified repository recovery candidate with current main"
       ],
       "supports_open_prs": [],
-      "classification": "RETAINED_IN_CANDIDATE",
+      "classification": "CONSOLIDATED_DRAFT_BLOCKED",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
       "deletion_conditions": [
@@ -72898,7 +72881,13 @@
         "No PR/worktree/preview/deployment/workflow consumers",
         "Preserve ignored artifacts and evidence"
       ],
-      "associated_prs": [],
+      "associated_prs": [
+        {
+          "number": 107,
+          "state": "open",
+          "disposition": "F"
+        }
+      ],
       "local_diverges_remote": false,
       "exclusive_changes": {
         "f7e69519a92b35190a32d76318aca9015e43469d": [
@@ -72918,7 +72907,9 @@
       "preservation": "Exact tips and unique histories in repository-preservation.bundle; existing branches/worktrees/data retained",
       "changes_from_main_count": 2795,
       "binary_or_data_evidence_changes_count": 1877,
-      "cumulative_change_evidence": "inventory-detail.json.gz:branches[name=recovery/reconcile-20261026]"
+      "cumulative_change_evidence": "inventory-detail.json.gz:branches[name=recovery/reconcile-20261026]",
+      "remote_sha": "095f924427c466c06ee6b5b771fe9aee0bf9ce3e",
+      "snapshot_note": "Published review head at snapshot time; later evidence/CI-only commits preserve tested application tree"
     },
     {
       "name": "repo-hygiene-gitignore-package-critical-2026-06",
@@ -74794,7 +74785,7 @@
       "associated_prs": [
         {
           "number": 105,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -74852,9 +74843,7 @@
       },
       "unique_commits_vs_main_and_recovery": [],
       "exclusive_commits_vs_all_other_branches": [],
-      "supports_open_prs": [
-        105
-      ],
+      "supports_open_prs": [],
       "classification": "RETAINED_IN_CANDIDATE",
       "deletion_safe_now": false,
       "final_disposition": "RETAIN pending consolidated owner deletion approval; local worktrees/artifacts not deletion targets",
@@ -74867,7 +74856,7 @@
       "associated_prs": [
         {
           "number": 101,
-          "state": "open",
+          "state": "closed",
           "disposition": "C"
         }
       ],
@@ -76025,16 +76014,215 @@
     "local_branches": 84,
     "branch_names_union": 95,
     "worktrees": 50,
-    "open_baseline_prs_after": 25,
+    "open_baseline_prs_after": 2,
     "dispositions": {
       "C": 34,
       "E": 64,
       "F": 4,
       "D": 3
-    }
+    },
+    "remote_branches_after": 85,
+    "open_prs_after": 3
   },
   "runtime_qualified_sha": "0075b2011a0c8ccf51a271972e054998555ee708",
-  "consolidated_review_url": "DRAFT_REVIEW_NOT_YET_CREATED",
+  "consolidated_review_url": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
   "inventory_scope": "Every PR 1-105 and all baseline remote/local branch names; new recovery PR is recorded separately. No mainline integration inferred from candidate reachability.",
-  "generated_at": "2026-10-26T07:43:29.668931+00:00"
+  "generated_at": "2026-10-26T07:55:15.191666+00:00",
+  "new_recovery_pr": {
+    "number": 107,
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
+    "state": "open",
+    "draft": true,
+    "disposition": "F",
+    "reason": "Satellite pixel proof, owner/device acceptance, source-offer, security and independent review gates missing"
+  },
+  "after_snapshot": {
+    "captured_at": "2026-10-26T07:54:21.449486+00:00",
+    "main_sha": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+    "open_prs": [
+      {
+        "number": 107,
+        "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/107",
+        "draft": true,
+        "head_sha": "095f924427c466c06ee6b5b771fe9aee0bf9ce3e"
+      },
+      {
+        "number": 77,
+        "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/77",
+        "draft": false,
+        "head_sha": "c9093a28d8968d3790a76e17f4db6d9bb099c2bf"
+      },
+      {
+        "number": 76,
+        "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/76",
+        "draft": false,
+        "head_sha": "0210fbf63d088409fa465969ac3778bb22729aa0"
+      }
+    ],
+    "pr_count": 106,
+    "remote_branch_count": 85,
+    "original_branch_tips_unchanged": true,
+    "closed_without_merge": [
+      {
+        "number": 105,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "039318b254d3e797a345642929b08db28a2f5858"
+      },
+      {
+        "number": 101,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "7f5ea4d0c069463852698c836b3cd80a13bd75cf"
+      },
+      {
+        "number": 95,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "9ee6d85982edb3db276490706a82af83538e5e8d"
+      },
+      {
+        "number": 94,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "26aa6111aa3ac5227215c1a19318eda10a8d8cd8"
+      },
+      {
+        "number": 93,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "36426905f1c178d8c8f9b8bfe9edd0b639512b04"
+      },
+      {
+        "number": 92,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "c510759ba78c011679c2479a2fa9f48bf260afce"
+      },
+      {
+        "number": 91,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "2080ed5130c501a7ac286fb862e99d5c9dc6cb30"
+      },
+      {
+        "number": 90,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "4fa9ffd8a8a216ed9a313e4f4929d2bc336ff7f8"
+      },
+      {
+        "number": 89,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "94f98598131f23d9179135ec492fb1ad5d739407"
+      },
+      {
+        "number": 88,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "89491f72ef4f4ab9e75d1bc2e4599cd3e74ca3f2"
+      },
+      {
+        "number": 87,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "9eb60f09a43c2de22d9f6f4b19fa9f9b142a8af3"
+      },
+      {
+        "number": 86,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "59fd9f0f7eaf77037cc52142d79709924a15758a"
+      },
+      {
+        "number": 85,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "9e7f23360b4048902cc99066879529286163a329"
+      },
+      {
+        "number": 84,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "bdd0e0a03f593313e8789e4e56fa989f82f5ec12"
+      },
+      {
+        "number": 83,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "b68e2b40b2d94719f9afe5c3c37cc30ae36432d7"
+      },
+      {
+        "number": 82,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "7aaeeef4e4e9b6ad406752814270ea0970666104"
+      },
+      {
+        "number": 81,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "a646960edda6968be2bf8453b7863ff0dba75d18"
+      },
+      {
+        "number": 80,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "23f5c41f830fad7eb66b67fec297962c2599428e"
+      },
+      {
+        "number": 79,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "158a77053ea18e4d0aed8725f715ca373930fd13"
+      },
+      {
+        "number": 78,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "27f34a94198f2061c0a5083a68beebd567c7d87f"
+      },
+      {
+        "number": 74,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "d1e3a75c4fa3b48a41fc5167786b3147bf763e71"
+      },
+      {
+        "number": 73,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "b151d45787cf0e450aa0b187acd3eee142fa1fef"
+      },
+      {
+        "number": 71,
+        "state": "closed",
+        "merged_at": null,
+        "head_sha": "35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e"
+      }
+    ],
+    "original_container_count": 141,
+    "original_container_changes": [],
+    "new_containers": [
+      {
+        "name": "/oras-repository-recovery-20261026-preview",
+        "image": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e"
+      },
+      {
+        "name": "/oras-repository-recovery-20261026-backend",
+        "image": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a"
+      }
+    ],
+    "volumes_before": 90,
+    "volumes_after": 90,
+    "volumes_added": [],
+    "volumes_removed": [],
+    "owner_status_unchanged": true,
+    "owner_status": " M .vscode/settings.json\n",
+    "existing_worktree_changes": [],
+    "candidate_head": "095f924427c466c06ee6b5b771fe9aee0bf9ce3e",
+    "tested_code_sha": "0075b2011a0c8ccf51a271972e054998555ee708",
+    "application_diff_after_tested_sha": ""
+  }
 }
