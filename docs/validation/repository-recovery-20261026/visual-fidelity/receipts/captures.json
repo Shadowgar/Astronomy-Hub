@@ -1,0 +1,182 @@
+[
+  {
+    "path": "before/landscape-moon.png",
+    "sha256": "8704799115b7920c4fc7741a3447339e50cf5420bd9dc912a3ab5fe4208eb9d7",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/landscape-solar.png",
+    "sha256": "9a17dfca761ce3e570a108b10259d8d6bf33248a748ecea51c0776a954b0ef55",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/desktop-solar-mars.png",
+    "sha256": "3fefb32c57e84faf6007908f396927d758bb9d59a16125cad2a548ab23883e6a",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/desktop-moon.png",
+    "sha256": "30855b6571339f853c3f70cbf77c15a0efd5908ca02af35d2116f5ab3210dae4",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/portrait-solar-mars.png",
+    "sha256": "022f8369dfb6b45cf0f06d8c7d9b6b1f7cb2d1c0743240e0330bae56176d32e5",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/desktop-solar.png",
+    "sha256": "b6a13fa6d02b5b30e0c4fe489a9c68ed03b48c0c88e736b6e7e9c7efc4f7c8e2",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/desktop-sky.png",
+    "sha256": "724d9221d9a7aea362b115c5aee99ab59d9e0622404006daac73a645534575bb",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/landscape-solar-mars.png",
+    "sha256": "0bbd1b08ae01a8d7c06b0e9c9a0702f7a1efd148d035049185f3f5249bbd1242",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/portrait-moon.png",
+    "sha256": "d239d85a383cfaac079faa9968efc1dbd1917e7f03ada269c8ccbd9681048ad4",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/portrait-sky.png",
+    "sha256": "0719e0ec09e18673d2001824b4f97b0bcddf1c326e7d11e66efcac1fb36278c2",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/portrait-earth.png",
+    "sha256": "f5746701ef240aa3764df84f211286bd14348a7d0c679424dcdcda1e8da9471a",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/portrait-solar.png",
+    "sha256": "3455f63bc37ecf1d06575f5c75ad3287d4375c7ca12f1356ee295d75ecd6c30f",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/landscape-sky.png",
+    "sha256": "678725d49a2bc10aee08f46ffd4fe83fb1b0e7f660645f8384c73a208e6e6b16",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/desktop-earth.png",
+    "sha256": "892ba20ef017d8b2be109d5120329dd2032dbc787f02a5713ce7fb24c47ac663",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "before/landscape-earth.png",
+    "sha256": "09eeed7aa9d4b556730e9685157e0ad1600ed33842fffe178596aa4ebba3bd35",
+    "application": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/landscape-moon.png",
+    "sha256": "c6f2e0d26d189089d709db417831e81b72248353c1f5596a70e173515ad72842",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/landscape-solar.png",
+    "sha256": "c19dd7a70cee5a5e785b1c6c99bd9cad1ad0d398db4dfecbf4753f7023dde07c",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/desktop-solar-mars.png",
+    "sha256": "cf73cf8009d88ad78900456f809a09e8c72f75b659861901447d81da1a47fedd",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/desktop-moon.png",
+    "sha256": "3181099cabdc0aab5d34393bd962d768d868f6e3216e6889d0c6527996cb10a1",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/portrait-solar-mars.png",
+    "sha256": "2832ac857eea31eb02f4b913f653f6d454eb46657d57d51a461efbec181c2a6d",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/desktop-solar.png",
+    "sha256": "140c8c37974d0436e09aa34d0f5be7cfb70fbd529571d654a09a24dfd46e0547",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/desktop-sky.png",
+    "sha256": "93e8a424cfaa5c990ed2745e869db5b7b874a66e2db27008d45f12c237a6d713",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/landscape-solar-mars.png",
+    "sha256": "6113e026a38eb3ec102d07832ebd6c5704447e625455ce2f2fd02c6abb0f331b",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/portrait-moon.png",
+    "sha256": "24c3ff824865f9ab0f682cfbc97b3df47e4c487e43bd4fa2c6ec48c4a27834db",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/portrait-sky.png",
+    "sha256": "a3644e8fb8937a450b902122e7e9eb6ea21fdd4855ab5953a91c2b0ee7235d37",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/portrait-earth.png",
+    "sha256": "616d6a33920ca2305b3bd28d0452c58ef44c8eb868cafad81dd73d69c9ad69bc",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/portrait-solar.png",
+    "sha256": "037f566e57dab1ff22fe71e362c9ecee6c23a20ac42f7976eed00a650206eec3",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/landscape-sky.png",
+    "sha256": "06f4deb83d8c86c837b1819993ad0b7cd6f207098c4a5ce3f60c64fd8d24dd59",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/desktop-earth.png",
+    "sha256": "5573cd783ec056d1ac5f0d2ff53a0a2747ea43b6d7001ba413298d9fb2762550",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  },
+  {
+    "path": "after/landscape-earth.png",
+    "sha256": "86f640a95044d4652b81002ed59e00ae5305c53aa907ac5cb52c9405c922dac9",
+    "application": "703e2b472e8d9bff34726d7e9a68cd254496ca63",
+    "epoch": "2026-10-27T04:00:00Z"
+  }
+]

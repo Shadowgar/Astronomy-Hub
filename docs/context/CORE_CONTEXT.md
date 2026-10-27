@@ -1,5 +1,19 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Owner-rejected visuals: first implementation correction — 2026-10-27
+
+The owner explicitly rejects current visuals and authorizes a bounded shared
+foundation plus substantial Solar fidelity implementation against the immutable
+approved references; October22 cinematic scale remains controlling. Application
+703e2b47 is implemented on existing recovery/PR107 and served privately at
+`http://localhost:4231/solar-system`; matched before/reference/after gallery is
+`/owner-review/visual-fidelity/`. Source positions/time, native engines and data
+are preserved. Windows correctness checks and separate correction review pass;
+owner visual acceptance, physical iPhone and release/source gates remain open.
+[Actual changes, performance, evidence and remaining slices](../validation/repository-recovery-20261026/visual-fidelity/README.md).
+Stop for owner evaluation of this first slice; no merge, deployment or source
+archive publication. This directive supersedes the prior visual stop below.
+
 ## Focused Sky satellite repair — owner directive 2026-10-24
 
 The owner authorizes a bounded repair stacked on preserved draft PR95

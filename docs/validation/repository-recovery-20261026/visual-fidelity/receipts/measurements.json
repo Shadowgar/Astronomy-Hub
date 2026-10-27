@@ -1,0 +1,74 @@
+[
+  {
+    "phase": "before",
+    "viewport": "desktop",
+    "projected_disk_area_percent": 1.074914482929407,
+    "body_radii_px": {
+      "sun": 45.58180014370542,
+      "mercury": 12.251031784182928,
+      "venus": 23.485868611959898,
+      "earth": 22.76629598484274,
+      "mars": 32.531205656739004
+    }
+  },
+  {
+    "phase": "before",
+    "viewport": "portrait",
+    "projected_disk_area_percent": 2.181846637366221,
+    "body_radii_px": {
+      "sun": 25.366142603703985,
+      "mercury": 10.055595038033283,
+      "venus": 14.734032007176252,
+      "earth": 14.480277315576085,
+      "mars": 33.38713719697284
+    }
+  },
+  {
+    "phase": "before",
+    "viewport": "landscape",
+    "projected_disk_area_percent": 1.5154067434237108,
+    "body_radii_px": {
+      "sun": 15.922603382492419,
+      "mercury": 8.803715954451262,
+      "venus": 10.053099903954692,
+      "earth": 9.750349516346287,
+      "mars": 32.566804922412175
+    }
+  },
+  {
+    "phase": "after",
+    "viewport": "desktop",
+    "projected_disk_area_percent": 8.688444927007687,
+    "body_radii_px": {
+      "sun": 154.66840936613553,
+      "mercury": 19.173162634628266,
+      "venus": 46.503402535557434,
+      "earth": 72.06248174022207,
+      "mars": 64.78358932590754
+    }
+  },
+  {
+    "phase": "after",
+    "viewport": "portrait",
+    "projected_disk_area_percent": 8.534713694062393,
+    "body_radii_px": {
+      "sun": 50.57342361670494,
+      "mercury": 15.77296856248905,
+      "venus": 18.761173205808536,
+      "earth": 27.028614102705664,
+      "mars": 71.0862215880232
+    }
+  },
+  {
+    "phase": "after",
+    "viewport": "landscape",
+    "projected_disk_area_percent": 4.565329902219541,
+    "body_radii_px": {
+      "sun": 55.560447824516984,
+      "mercury": 5.778286573757971,
+      "venus": 14.836843056486265,
+      "earth": 23.22441712692923,
+      "mars": 30.057638018048674
+    }
+  }
+]

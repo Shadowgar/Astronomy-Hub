@@ -1,0 +1,36 @@
+{
+  "runs": [
+    {
+      "width": 390,
+      "height": 844,
+      "hit": {
+        "element": "<button class=\"solar-body-label\" aria-label=\"Select Venus in 3D view\" aria-pressed=\"false\" style=\"left: 0px; top: 0px; transform: translate3d(229.937px, 335.289px, 0px); --body-color: #e7c387;\">Venus</button>",
+        "viewport": [
+          390,
+          844,
+          390.3999938964844,
+          844
+        ],
+        "touch": 1
+      },
+      "status": "FAIL",
+      "error": "page.waitForFunction: Timeout 3000ms exceeded.\n    at wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\visual-fidelity\\touch.mjs:2:1491"
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "hit": {
+        "element": "<canvas data-engine=\"three.js r180\" width=\"844\" height=\"390\" aria-label=\"Solar System 3D view. Drag to orbit, pinch or scroll to zoom. Body and camera controls follow.\" tabindex=\"0\" style=\"display: block; touch-action: none; width: 844px; height: 390.4px;\"></canvas>",
+        "viewport": [
+          844,
+          390,
+          844,
+          390.3999938964844
+        ],
+        "touch": 1
+      },
+      "status": "FAIL",
+      "error": "locator.tap: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('navigation', { name: 'Select a celestial body' }).getByRole('button', { name: 'Sun', exact: true })\u001b[22m\n\n    at wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\visual-fidelity\\touch.mjs:2:1930"
+    }
+  ]
+}
