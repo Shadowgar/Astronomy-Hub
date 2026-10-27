@@ -12,6 +12,7 @@ import shutil
 import subprocess
 import sys
 
+sys.dont_write_bytecode = True
 from package_source import validate, sha, inventory
 
 

@@ -21,7 +21,7 @@ a fresh directory. From the extracted `astronomy-hub-source` directory:
 ```sh
 docker pull --platform linux/amd64 emscripten/emsdk@sha256:1e264934c11ffde8511441eaed6bdc44eaa30ec027e46d38be7ae67106aefdab
 docker pull --platform linux/amd64 node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0
-python3 hub/scripts/source-distribution/reconstruct.py --root "$PWD" --output /absolute/fresh/reconstruction-results
+python3 -B hub/scripts/source-distribution/reconstruct.py --root "$PWD" --output /absolute/fresh/reconstruction-results
 ```
 
 The script first validates every archived input, acquires/verifies only the

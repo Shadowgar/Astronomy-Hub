@@ -3,6 +3,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import shutil
+import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('source_package', ROOT / 'scripts/source-distribution/package_source.py')
@@ -11,6 +14,15 @@ spec.loader.exec_module(package)
 
 
 class SourcePackageTests(unittest.TestCase):
+    def test_runner_import_does_not_add_bytecode_to_the_source_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory)
+            for name in ('package_source.py', 'reconstruct.py'):
+                shutil.copyfile(ROOT / 'scripts/source-distribution' / name, target / name)
+            result = subprocess.run([sys.executable, str(target / 'reconstruct.py'), '--help'], capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertFalse((target / '__pycache__').exists())
+
     def test_every_locked_overlay_input_is_in_the_source_package(self):
         lock = json.loads((ROOT / 'integrations/renderers.lock.json').read_text())
         for name in lock['sky']['overlay']:
