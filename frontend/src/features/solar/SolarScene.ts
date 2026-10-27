@@ -3,7 +3,7 @@ import {readSolarVisitState,type SolarVisitState} from '../planet/solarVisitStat
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import type {SolarSnapshot,BodyId,Vector} from './solarContracts'
-import {physicalRadii,diskBudget,displayScale,presetAnchors,arrangeLabels,cameraTransition,visualRadius,overviewPose,overviewUp,focusPose,decorativeStars,clearViewport,qualityBudget,type SolarSizeMode,type SolarQuality,type SolarPreset,type SolarCameraView,type CameraPose,type ScreenRect} from './solarPresentation'
+import {physicalRadii,cinematicRadius,cinematicOverviewPose,diskBudget,displayScale,presetAnchors,arrangeLabels,cameraTransition,visualRadius,overviewPose,overviewUp,focusPose,decorativeStars,clearViewport,qualityBudget,type SolarSizeMode,type SolarQuality,type SolarPreset,type SolarCameraView,type CameraPose,type ScreenRect} from './solarPresentation'
 import {sunMaterial,coronaMaterial,atmosphereMaterial,starsMaterial,earthMaterial,cloudsMaterial,backgroundMaterial,planetMaterial,ringMaterial} from './solarMaterials'
 
 import {aggregateBelt} from './solarBelt'
@@ -20,7 +20,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  const glyphRadius=physicalRadii(snapshot)
  const scene=new T.Scene(),camera=new T.PerspectiveCamera(42,1,.001,2000)
  const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'low-power'})
- let quality:SolarQuality='efficient',budget=qualityBudget(quality,devicePixelRatio),pixelRatio=budget.pixelRatio
+ let quality:SolarQuality='balanced',budget=qualityBudget(quality,devicePixelRatio),pixelRatio=budget.pixelRatio
  const gpu=gpuTiming(renderer.getContext())
  renderer.setClearColor('#02040a');renderer.setPixelRatio(pixelRatio);renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0
  renderer.domElement.setAttribute('aria-label','Solar System 3D view. Drag to orbit, pinch or scroll to zoom. Body and camera controls follow.');renderer.domElement.tabIndex=0
@@ -94,7 +94,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  const backdrop=new T.Mesh(keep(new T.SphereGeometry(110,96,64)),keep(backgroundMaterial()));backdrop.renderOrder=-3;scene.add(backdrop)
  const marker=document.createElement('div');marker.className='solar-selection';marker.setAttribute('aria-hidden','true');marker.hidden=true;host.append(marker)
  const field=new T.Points(starGeometry,keep(starsMaterial(pixelRatio)));field.renderOrder=-2;scene.add(field);effects.push(field)
- function hudRects(){const bounds=host.getBoundingClientRect();return [...host.closest('.solar-shell')!.querySelectorAll('.solar-header,.solar-bodies,.solar-view-tools,.solar-context,.solar-camera,.solar-time-bar,.solar-caption')].map(e=>{const r=e.getBoundingClientRect();return{left:r.left-bounds.left,right:r.right-bounds.left,top:r.top-bounds.top,bottom:r.bottom-bounds.top}}).filter(r=>r.right>r.left&&r.bottom>r.top)}
+ function hudRects(){const bounds=host.getBoundingClientRect();return [...host.closest('.solar-shell')!.querySelectorAll('.solar-header,.solar-destinations>summary,.solar-view-tools,.solar-context,.solar-camera,.solar-time-bar,.solar-caption')].map(e=>{const r=e.getBoundingClientRect();return{left:r.left-bounds.left,right:r.right-bounds.left,top:r.top-bounds.top,bottom:r.bottom-bounds.top}}).filter(r=>r.right>r.left&&r.bottom>r.top)}
  let cachedHud:ScreenRect[]=[],labelMetrics=new Map<BodyId,{width:number;height:number}>()
  function measureLabels(){for(const o of objects)o.label.hidden=false;for(const o of objects)labelMetrics.set(o.id,{width:o.label.offsetWidth,height:o.label.offsetHeight})}
  const viewport=()=>{cachedHud=hudRects();return clearViewport(host.clientWidth,host.clientHeight,cachedHud)}
@@ -104,11 +104,11 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   const start=performance.now(),rect=host.getBoundingClientRect();renderCount++
   const anchors=objects.map(o=>{const v=o.mesh.position.clone().project(camera),edge=o.mesh.position.clone().add(new T.Vector3(visualRadius(glyphRadius,o.id),0,0).applyQuaternion(camera.quaternion)).project(camera);return{o,v,x:(v.x+1)*rect.width/2,y:(1-v.y)*rect.height/2,physicalPixels:Math.abs(edge.x-v.x)*rect.width/2}})
   const sunDistance=objects[0].mesh.position.distanceTo(camera.position)
-  const desired=(id:BodyId)=>{const body=objects.find(o=>o.id===id)!,perspective=Math.min(1,Math.pow(sunDistance/Math.max(1e-15,body.mesh.position.distanceTo(camera.position)),.85));return Math.min(rect.width*.2,rect.height*.14,40*Math.pow(glyphRadius[id]/glyphRadius.earth,.22))*perspective}
+  const desired=(id:BodyId)=>{const body=objects.find(o=>o.id===id)!,perspective=Math.min(1,Math.pow(sunDistance/Math.max(1e-15,body.mesh.position.distanceTo(camera.position)),.65));return cinematicRadius(id,rect.width,rect.height)*perspective}
   for(const a of anchors){
    const neighbors=anchors.filter(b=>b!==a&&vFinite(b.v)).map(b=>({distance:Math.hypot(a.x-b.x,a.y-b.y),desired:desired(b.o.id)}))
    const hudClearance=cachedHud.map(o=>Math.max(o.left-a.x,a.x-o.right,o.top-a.y,a.y-o.bottom))
-   const edge=Math.max(0,Math.min(a.x,rect.width-a.x,a.y,rect.height-a.y,...hudClearance)-12),budget=diskBudget(desired(a.o.id),neighbors,edge)
+   const edge=Math.max(0,Math.min(a.x,rect.width-a.x,a.y,rect.height-a.y,...(a.o.id==='sun'?[]:hudClearance))-12),budget=diskBudget(desired(a.o.id),neighbors,edge)
    const scale=vFinite(a.v)?displayScale(selected?'physical':sizeMode,a.physicalPixels,budget,Infinity):1
    a.o.mesh.scale.setScalar(scale);for(const extra of a.o.extras)extra.scale.setScalar(scale*(extra.userData.baseScale||1))
   }
@@ -146,9 +146,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  function tick(now:number){if(disposed)return;raf=0;if(flight){const u=Math.min(1,Math.max(0,(now-flight.start)/900)),pose=cameraTransition(flight.from,flight.targetFrom,flight.pose,u);camera.position.fromArray(pose.position);controls.target.fromArray(pose.target);updateControls();if(u===1){flight=null;controls.minDistance=restingMinimum;camera.near=restingNear;camera.updateProjectionMatrix()}else raf=requestAnimationFrame(tick)}draw()}
  function move(pose:CameraPose,immediate=false){cancelFlight();camera.near=reduced||immediate?restingNear:Math.min(camera.near,restingNear);camera.updateProjectionMatrix();if(reduced||immediate){controls.minDistance=restingMinimum;camera.position.fromArray(pose.position);controls.target.fromArray(pose.target);updateControls();draw()}else{flight={start:performance.now(),from:camera.position.toArray(),targetFrom:controls.target.toArray(),pose};raf=requestAnimationFrame(tick)}}
  function systemPose(aspect:number,height:number){
-  const pose=overviewPose(glyphRadius,overviewAnchors(),aspect,height,viewport(),sizeMode==='cinematic')
-  if(sizeMode==='cinematic')pose.position=pose.position.map((v,i)=>pose.target[i]+(v-pose.target[i])*1.18)as Vector
-  return pose
+  return sizeMode==='cinematic'?cinematicOverviewPose(glyphRadius,overviewAnchors(),aspect,height,viewport()):overviewPose(glyphRadius,overviewAnchors(),aspect,height,viewport(),false)
  }
  function focus(id:BodyId|null,close=false){if(disposed)return;selected=id;closeView=close;setView(id?'body':overviewScope);restingNear=id?glyphRadius[id]*.02:.001;projection();restingMinimum=id?visualRadius(glyphRadius,id)*1.1:.001;const p=snapshot.bodies.find(b=>b.source_id===id)?.position_au;move(id&&p?focusPose(glyphRadius,id,p,camera.aspect,close,host.clientHeight,viewport()):systemPose(camera.aspect,host.clientHeight))}
  const change=()=>{if(!updatingControls)draw()},start=()=>{cancelFlight();setView('custom')};controls.addEventListener('change',change);controls.addEventListener('start',start)
@@ -161,7 +159,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   // original clock and interpolation; only replace the destination camera pose.
   if(flight){flight.pose=pose;draw()}else move(pose,true)
  });resize.observe(host)
- const watchHud=()=>{for(const e of host.closest('.solar-shell')!.querySelectorAll('.solar-header,.solar-bodies,.solar-view-tools,.solar-context,.solar-camera,.solar-time-bar'))resize.observe(e)};watchHud()
+ const watchHud=()=>{for(const e of host.closest('.solar-shell')!.querySelectorAll('.solar-header,.solar-destinations>summary,.solar-view-tools,.solar-context,.solar-camera,.solar-time-bar'))resize.observe(e)};watchHud()
  const layout=new MutationObserver(()=>watchHud());layout.observe(host.closest('.solar-shell')!,{childList:true,subtree:true})
  const down=(e:PointerEvent)=>{if(e.isPrimary)press={x:e.clientX,y:e.clientY,id:e.pointerId};else press=null}
  const up=(e:PointerEvent)=>{if(!press||press.id!==e.pointerId||Math.hypot(e.clientX-press.x,e.clientY-press.y)>5){press=null;return}press=null;const r=renderer.domElement.getBoundingClientRect();pointer.set(2*(e.clientX-r.left)/r.width-1,1-2*(e.clientY-r.top)/r.height);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(objects.filter(o=>o.mesh.visible).map(o=>o.mesh))[0],found=objects.find(o=>o.mesh===hit?.object);if(found)onPick(found.id)}

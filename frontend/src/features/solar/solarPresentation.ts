@@ -38,14 +38,48 @@ export function cameraTransition(from:Vector,targetFrom:Vector,to:CameraPose,u:n
 }
 const direction=new T.Vector3(-.78,-.48,.4).normalize()
 export const overviewUp=(aspect:number):Vector=>aspect<.75?[1,0,0]:[.15,0,1]
-export function overviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,height=0,frame?:ReturnType<typeof clearViewport>,rectangular=false):CameraPose{
+export function overviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,height=0,frame?:ReturnType<typeof clearViewport>,rectangular=false,viewDirection:Vector=direction.toArray()):CameraPose{
  const bounds=new T.Box3()
  for(const b of bodies){const p=new T.Vector3(...b.position_au),r=visualRadius(radii,b.source_id);bounds.expandByPoint(p.clone().addScalar(r));bounds.expandByPoint(p.clone().addScalar(-r))}
- const center=bounds.getCenter(new T.Vector3()),up=new T.Vector3(...overviewUp(aspect)),right=up.clone().cross(direction).normalize(),vertical=direction.clone().cross(right).normalize()
+ const view=new T.Vector3(...viewDirection).normalize(),center=bounds.getCenter(new T.Vector3()),up=new T.Vector3(...overviewUp(aspect)),right=up.clone().cross(view).normalize(),vertical=view.clone().cross(right).normalize()
  const tan=Math.tan(21*Math.PI/180);let distance=1
  const horizontal=frame?(rectangular?frame.clearWidth:frame.maxGlobeRadius*2)/height:Math.max(.25,aspect)*.82,verticalFit=frame?(rectangular?frame.clearHeight:frame.maxGlobeRadius*2)/height:.7
- for(const b of bodies){const p=new T.Vector3(...b.position_au).sub(center),r=visualRadius(radii,b.source_id);distance=Math.max(distance,p.dot(direction)+(Math.abs(p.dot(right))+r)/(tan*horizontal),p.dot(direction)+(Math.abs(p.dot(vertical))+r)/(tan*verticalFit))}
- return{position:center.clone().addScaledVector(direction,distance).toArray(),target:center.toArray()}
+ for(const b of bodies){const p=new T.Vector3(...b.position_au).sub(center),r=visualRadius(radii,b.source_id);distance=Math.max(distance,p.dot(view)+(Math.abs(p.dot(right))+r)/(tan*horizontal),p.dot(view)+(Math.abs(p.dot(vertical))+r)/(tan*verticalFit))}
+ return{position:center.clone().addScaledVector(view,distance).toArray(),target:center.toArray()}
+}
+/** Screen budgets describe an illustration, never body dimensions or positions. */
+export function cinematicRadius(id:BodyId,width:number,height:number){
+ const fraction:Record<BodyId,number>={sun:.25,mercury:.026,venus:.075,earth:.12,mars:.10,jupiter:.14,saturn:.12,uranus:.075,neptune:.075}
+ return Math.min(width*.24,height*fraction[id],id==='mercury'?24:Infinity)
+}
+/** Pick a readable source-derived view, rather than rearranging the planets.
+ * This bounded search runs on framing changes, never in the render loop. */
+export function cinematicOverviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,height:number,frame:ReturnType<typeof clearViewport>):CameraPose{
+ const up=new T.Vector3(...overviewUp(aspect)),north=new T.Vector3(0,-.3978,.9175).normalize(),sun=bodies.find(b=>b.source_id==='sun'),earth=bodies.find(b=>b.source_id==='earth')
+ const origin=new T.Vector3(...(sun?.position_au||[0,0,0])),radial=new T.Vector3(...(earth?.position_au||[1,0,0])).sub(origin).normalize()
+ if(radial.lengthSq()<.1)radial.set(1,0,0)
+ const side=north.clone().cross(radial).normalize(),width=aspect*height
+ // Reserve room around actual centers for their independently enlarged disks.
+ const fit={...frame,clearWidth:frame.clearWidth*.82,clearHeight:frame.clearHeight*.82}
+ let best=overviewPose(radii,bodies,aspect,height,fit,true),score=-Infinity
+ for(let i=0;i<24;i++){
+  const angle=i*Math.PI/12,view=radial.clone().multiplyScalar(Math.cos(angle)).addScaledVector(side,Math.sin(angle)).addScaledVector(north,.65).normalize()
+  // Avoid nearly parallel camera up/view vectors on portrait screens.
+  if(Math.abs(view.dot(up.clone().normalize()))>.94)continue
+  const pose=overviewPose(radii,bodies,aspect,height,fit,true,view.toArray()),camera=new T.PerspectiveCamera(42,aspect,.001,2000)
+  camera.up.copy(up);camera.position.fromArray(pose.position);camera.lookAt(...pose.target);camera.updateMatrixWorld()
+  const projected=bodies.map(b=>({id:b.source_id,p:new T.Vector3(...b.position_au).project(camera)})),s=projected.find(b=>b.id==='sun')?.p
+  let value=0
+  for(let a=0;a<projected.length;a++)for(let b=a+1;b<projected.length;b++){
+   const x=projected[a],y=projected[b],distance=Math.hypot((x.p.x-y.p.x)*width/2,(x.p.y-y.p.y)*height/2)
+   value+=Math.min(2,distance/(cinematicRadius(x.id,width,height)+cinematicRadius(y.id,width,height)))
+  }
+  if(s){value-=Math.abs(s.x+(aspect>.9?.55:.2))*5+Math.abs(s.y-(aspect>.9?.05:.45))*2;const e=projected.find(b=>b.id==='earth')?.p;if(e&&aspect>.9&&s.x>e.x)value-=10}
+  // Prefer a view of the actual sunlit hemispheres; do not add a fake fill Sun.
+  for(const id of ['earth','mars']as const){const body=bodies.find(b=>b.source_id===id);if(!body)continue;const p=new T.Vector3(...body.position_au),towardSun=origin.clone().sub(p).normalize(),towardCamera=new T.Vector3(...pose.position).sub(p).normalize();value+=towardSun.dot(towardCamera)*(id==='earth'?6:3)}
+  if(value>score){score=value;best=pose}
+ }
+ return best
 }
 export function focusPose(radii:BodyRadii,id:BodyId,p:Vector,aspect:number,close=false,height=0,frame=focusViewport(aspect*height,height)):CameraPose{
  const target=new T.Vector3(...p),sunward=target.clone().negate().normalize()

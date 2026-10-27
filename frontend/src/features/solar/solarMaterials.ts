@@ -11,8 +11,8 @@ export function sunMaterial(){return new T.ShaderMaterial({vertexShader:surfaceV
  fragmentShader:`varying vec3 vLocal;varying vec3 vNormal;varying vec3 vEye;${noise}
  void main(){vec3 p=normalize(vLocal);float mu=max(0.,dot(normalize(vNormal),normalize(vEye)));
  float cells=fbm(p*34.);float footprint=max(length(dFdx(p*130.)),length(dFdy(p*130.)));float grain=mix(noise(p*130.),.5,smoothstep(.4,1.3,footprint));float network=smoothstep(.22,.72,cells*.65+grain*.35);
- vec3 color=mix(vec3(.72,.12,.008),vec3(1.65,.56,.08),network);
- color*=.25+.75*pow(mu,.4);gl_FragColor=vec4(color,1.);
+ vec3 color=mix(vec3(.95,.18,.025),vec3(3.2,1.25,.22),network);
+ color*=.4+.6*pow(mu,.4);gl_FragColor=vec4(color,1.);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
  }`
@@ -21,7 +21,7 @@ export function coronaMaterial(){return new T.ShaderMaterial({transparent:true,d
  vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
  fragmentShader:`varying vec2 vUv;${noise}void main(){vec2 p=(vUv-.5)*2.;float r=length(p),a=atan(p.y,p.x),d=max(0.,r-.286);
  float stream=fbm(vec3(cos(a)*12.,sin(a)*12.,r*3.));float narrow=exp(-d*62.)*.65;
- float veil=exp(-d*(12.+stream*14.))*(.12+stream*.5);float outer=exp(-d*7.)*.07;
+ float veil=exp(-d*(12.+stream*14.))*(.18+stream*.7);float outer=exp(-d*5.)*.12;
  float alpha=(narrow+veil+outer)*smoothstep(.275,.29,r)*(1.-smoothstep(.8,1.,r));gl_FragColor=vec4(mix(vec3(1.,.34,.065),vec3(1.,.7,.32),exp(-d*24.)),alpha);}`
 })}
 export function earthMaterial(){return new T.ShaderMaterial({uniforms:{map:{value:null},hasMap:{value:false}},vertexShader:surfaceVertex,
@@ -45,10 +45,15 @@ export function cloudsMaterial(){return new T.ShaderMaterial({transparent:true,d
 export function atmosphereMaterial(color:string,earth=true){return new T.ShaderMaterial({transparent:true,depthWrite:false,blending:T.AdditiveBlending,side:T.BackSide,uniforms:{tint:{value:new T.Color(color)},strength:{value:earth?1.25:.25}},vertexShader:surfaceVertex,
  fragmentShader:`uniform vec3 tint;uniform float strength;varying vec3 vNormal;varying vec3 vEye;varying vec3 vSun;void main(){vec3 n=normalize(vNormal);float edge=abs(dot(n,normalize(vEye)));float rim=pow(max(0.,1.-edge),4.);float lit=smoothstep(-.2,.5,dot(n,normalize(vSun)));gl_FragColor=vec4(tint,rim*lit*strength);}`
 })}
-// Broad optical haze is evaluated on a bounded background mesh, not every screen pixel.
+// A bounded, static procedural backdrop, disclosed as illustrative. Per-fragment
+// sampling avoids visible triangles when a close-up changes the background view.
 export function backgroundMaterial(){return new T.ShaderMaterial({side:T.BackSide,depthWrite:false,
- vertexShader:`varying vec3 vHaze;${noise}void main(){vec3 d=normalize(position);float belt=exp(-pow((d.z+.3*d.x-.1)*3.8,2.));float dust=smoothstep(.32,.72,fbm(d*18.));vHaze=vec3(.001,.002,.004)+vec3(.009,.014,.026)*belt*dust;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
- fragmentShader:`varying vec3 vHaze;void main(){gl_FragColor=vec4(vHaze,1.);
+ vertexShader:`varying vec3 vDirection;void main(){vDirection=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+ fragmentShader:`varying vec3 vDirection;${noise}void main(){vec3 d=normalize(vDirection);
+ float band=exp(-pow((d.z+.3*d.x-.1)*3.8,2.));float fog=fbm(d*11.);float dust=smoothstep(.36,.75,fbm(d*37.));
+ float structure=band*smoothstep(.28,.7,fog)*(.18+dust*.82);
+ vec3 color=vec3(.001,.002,.004)+mix(vec3(.024,.038,.072),vec3(.068,.039,.023),fog)*structure*.32;
+ gl_FragColor=vec4(color,1.);
  #include <colorspace_fragment>
  }`
 })}
@@ -70,7 +75,7 @@ export function planetMaterial(id:string){
  if(kind>1.5&&kind<3.5)value=mix(rough,bands,.7);
  if(kind>.5&&kind<1.5)value=.55+fbm(p*7.)*.35;
  if(kind>3.5)value=.65+sin(latitude*25.)*.035+rough*.06;
- vec3 albedo=mix(dark,light,value);float day=max(0.,dot(normalize(vNormal),normalize(vSun)));vec3 color=albedo*(.035+day*.98);gl_FragColor=vec4(color,1.);
+ vec3 albedo=mix(dark,light,value);float day=max(0.,dot(normalize(vNormal),normalize(vSun)));vec3 color=albedo*(.025+1.55*pow(day,.8));gl_FragColor=vec4(color,1.);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
  }`})
@@ -78,7 +83,7 @@ export function planetMaterial(id:string){
 export function ringMaterial(){return new T.ShaderMaterial({transparent:true,side:T.DoubleSide,depthWrite:false,uniforms:{inner:{value:1.2},outer:{value:2.27}},
  vertexShader:`varying vec3 local;varying vec3 world;void main(){local=position;world=(modelMatrix*vec4(position,1.)).xyz;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
  fragmentShader:`varying vec3 local;varying vec3 world;uniform float inner;uniform float outer;
- void main(){float r=length(local.xy);float bands=.65+.15*sin(r*190.)+.12*sin(r*62.);float gap=1.-smoothstep(.008,.025,abs(r-1.96));float alpha=bands*(1.-gap*.95)*smoothstep(inner,inner+.04,r)*(1.-smoothstep(outer-.06,outer,r));gl_FragColor=vec4(vec3(.58,.47,.32)*(bands+.3),alpha*.75);
+ void main(){float r=length(local.xy);float bands=.65+.15*sin(r*190.)+.12*sin(r*62.);float gap=1.-smoothstep(.008,.025,abs(r-1.96));float alpha=bands*(1.-gap*.95)*smoothstep(inner,inner+.04,r)*(1.-smoothstep(outer-.06,outer,r));gl_FragColor=vec4(mix(vec3(.43,.34,.23),vec3(.85,.77,.61),bands)*(bands+.45),alpha*.75);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
  }`})}

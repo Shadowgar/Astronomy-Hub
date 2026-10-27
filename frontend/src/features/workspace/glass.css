@@ -1,6 +1,8 @@
 @import '../../../../runtimes/shared/glass.css';
 /* Resolve legacy mode-specific fills here; geometry and scene state stay owned. */
 html .ws-shell[data-workspace-mode] {
+ --glass-border:rgb(209 231 255 / 20%); --glass-radius:16px;
+ --glass-shadow:inset 0 1px 0 rgb(255 255 255 / 7%),0 6px 24px rgb(0 6 16 / 20%);
  --cin-glass:var(--glass-fill); --cin-border:var(--glass-border); --cin-shadow:var(--glass-shadow);
  --ws-surface:var(--glass-fill); --ws-border:var(--glass-border); --ws-text:var(--glass-text); --ws-secondary:var(--glass-muted); --ws-muted:var(--glass-muted);
  --solar-glass:var(--glass-fill); --solar-border:var(--glass-border); --solar-text:var(--glass-text); --solar-muted:var(--glass-muted);
@@ -12,7 +14,7 @@ html .ws-shell[data-workspace-mode] :is(.ws-panel,.cin-mode-options,.cin-brand,.
 }
 html .ws-shell[data-workspace-mode] :is(.ws-context,.ws-sheet,.ws-drawer,.ce-location,.solar-context,.ws-menu,.cin-mode-options) { background:var(--glass-raised); }
 html .ws-shell[data-workspace-mode] :is(.solar-dialog,.as-dialog,.ws-about) { background:var(--glass-dialog); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur); }
-html .ws-shell[data-workspace-mode] .cin-brand { padding:5px 12px; gap:10px; border-radius:24px; }
+html .ws-shell[data-workspace-mode] .cin-brand { padding:0; gap:10px; border-radius:0; }
 html .ws-shell[data-workspace-mode] .cin-wordmark { font-size:16px; }
 html .ws-shell[data-workspace-mode] :is(input,select) { color:var(--glass-text); }
 html .ws-shell[data-workspace-mode] :is(.ws-menu,.cin-mode-options,.ws-earth-results) button:hover { background:#d5ebff20; }
@@ -23,21 +25,19 @@ html .ws-shell[data-workspace-mode] .glass-preference { font-size:12px; justify-
 html .ws-shell[data-workspace-mode] .glass-preference[aria-pressed=true] { background:#c6e8ff24; }
 html .ws-shell[data-workspace-mode] :is(.cin-mode-options,.ws-context,.ce-location,.solar-context) { transition:background-color 160ms ease,box-shadow 160ms ease; }
 html .ws-shell[data-workspace-mode].as-sky-night { --glass-fill:#260e0b; --glass-raised:#290f0d; --glass-dialog:#290f0d; --glass-blur:none; --glass-text:#ffaca1; --glass-muted:#e1a197; --glass-border:#b665565e; }
-@media(max-width:767px) { html .ws-shell[data-workspace-mode] .cin-brand{padding:4px 9px;gap:7px}html .ws-shell[data-workspace-mode] .cin-wordmark{font-size:14px} }
+@media(max-width:767px) { html .ws-shell[data-workspace-mode] .cin-brand{padding:0;gap:7px}html .ws-shell[data-workspace-mode] .cin-wordmark{font-size:12px} }
 @media(prefers-reduced-motion:reduce) { html .ws-shell[data-workspace-mode] :is(.cin-mode-options,.ws-context,.ce-location,.solar-context){transition:none} }
 @media(max-width:1100px) { html .ws-shell[data-workspace-mode].as-sky .as-fov{top:82px} }
-/* Frost the brand on a sibling paint layer, so its menu can sample the scene
-   directly instead of being trapped inside the brand's backdrop root. */
+/* The chooser samples the scene directly, outside any frosted brand layer. */
 html .ws-shell[data-workspace-mode] div.cin-brand {
  z-index:0; background:transparent; border-color:transparent; box-shadow:none;
  -webkit-backdrop-filter:none; backdrop-filter:none;
 }
-html .ws-shell[data-workspace-mode] div.cin-brand::before {
- content:''; position:absolute; inset:-1px; z-index:-1; pointer-events:none;
- border-radius:inherit; background:var(--glass-fill); border:1px solid var(--glass-border);
- box-shadow:var(--glass-shadow); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-}
+/* Identity sits directly on the scene, like the primary approved Solar reference.
+   The independently frosted chooser retains its own readable surface. */
+html .ws-shell[data-workspace-mode] div.cin-brand::before { content:none; }
 
 @media(forced-colors:active) { html .ws-shell[data-workspace-mode].as-sky-night{--glass-fill:Canvas;--glass-raised:Canvas;--glass-dialog:Canvas;--glass-text:CanvasText;--glass-muted:CanvasText;--glass-border:CanvasText} }
+@media(forced-colors:active) { html .ws-shell[data-workspace-mode]{--glass-border:CanvasText;--glass-shadow:none} }
 /* An open chooser owns interaction above expanded mobile context sheets. */
 html .ws-shell[data-workspace-mode].as-sky .as-header:has(.cin-brand[data-cinematic-open=true]){z-index:45}

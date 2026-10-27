@@ -1,4 +1,70 @@
-/* Planet composition reuses shared glass and Solar controls; no new material theme. */
-.planet-stage,.planet-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.planet-heading{position:absolute;left:24px;top:114px;padding:12px 18px;pointer-events:none;z-index:3}.planet-heading small{font-size:9px;letter-spacing:1.3px}.planet-heading h1{font-size:23px;margin:5px 0}.planet-heading p{font-size:11px}.planet-tools{position:absolute;left:24px;top:245px;padding:5px;display:grid;z-index:4}.planet-tools button{min-width:44px;min-height:44px}.planet-location{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;gap:8px;padding:12px;align-items:flex-end;z-index:4}.planet-location label{display:grid;gap:6px;font-size:11px}.planet-location input{width:105px;background:#07142377;border:1px solid var(--glass-border);border-radius:10px;color:var(--glass-text);padding:10px;min-height:44px}.planet-caption{position:absolute;bottom:112px;left:24px;font-size:10px;text-shadow:0 1px 3px #000;pointer-events:none}.planet-sources{right:24px;top:110px;max-height:calc(100dvh - 240px);overflow:auto;font-size:12px}.planet-sources h2{font-size:19px}.planet-entry p{font-size:12px;line-height:1.6}.planet-approach{border:1px solid var(--glass-border)!important;padding:10px 16px!important}.solar-satellites{position:absolute;left:112px;top:150px;z-index:4;padding:4px}.solar-satellites button{font-size:12px}
-@media(max-width:767px){.planet-heading{left:12px;top:100px;padding:10px 14px}.planet-tools{left:12px;top:220px}.planet-location{left:12px;right:12px;bottom:20px;transform:none;padding:10px;gap:5px;justify-content:space-between}.planet-location input{width:100%;min-width:0}.planet-location label{min-width:0;flex:1;font-size:9px}.planet-caption{left:14px;bottom:138px;max-width:260px}.planet-sources{left:80px;right:12px;top:100px;bottom:150px;max-height:none;width:auto}.solar-satellites{left:82px;top:110px}.planet-entry.solar-context{max-height:calc(100dvh - 255px);bottom:125px}}
-@media(max-height:560px){.planet-heading{top:90px;left:12px}.planet-tools{left:12px;top:210px;display:flex}.planet-location{left:auto;right:12px;bottom:12px;width:360px}.planet-caption{bottom:12px;left:12px;max-width:240px}.planet-sources{top:85px;bottom:140px;left:auto;right:12px;width:300px}.solar-satellites{left:12px;top:150px}.planet-entry.solar-context{left:auto;right:12px;top:90px;width:280px;bottom:95px;max-height:none}}
+/* Planet chrome shares the cinematic material; the native frame owns its globe. */
+.planet-shell{background:#03070b}
+/* Give the renderer its actual unobstructed viewport, rather than fitting a globe
+   beneath the product header, controls and coordinate form. */
+.planet-stage{position:absolute;inset:122px 24px 184px 92px}
+.planet-shell:has(.planet-coordinates[open]) .planet-stage{bottom:184px}
+.planet-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.planet-shell .solar-header{left:24px;right:24px;top:18px;gap:12px}
+.planet-heading{position:absolute;left:26px;right:24px;top:78px;display:flex;align-items:baseline;gap:12px;pointer-events:none;z-index:3;text-shadow:0 1px 4px #000}
+.planet-heading small{font-size:9px;letter-spacing:1px;color:var(--solar-muted)}
+.planet-heading h1{font-size:21px;font-weight:500;margin:0;order:-1}
+.planet-heading p{font-size:11px;color:var(--solar-muted);margin:0 0 0 auto;font-variant-numeric:tabular-nums}
+.planet-tools{position:absolute;left:24px;top:146px;padding:4px;display:grid;z-index:4}
+.planet-tools button{min-width:44px;min-height:44px}
+.planet-coordinates{position:absolute;right:24px;bottom:26px;z-index:4;max-width:calc(100% - 48px);box-sizing:border-box}
+.planet-coordinates summary{min-height:44px;box-sizing:border-box;display:list-item;list-style-position:inside;cursor:pointer;padding:12px 16px;font-size:12px;touch-action:manipulation}
+.planet-coordinates summary:focus-visible{outline:2px solid var(--solar-blue);outline-offset:3px;border-radius:var(--glass-radius)}
+.planet-location{display:flex;gap:8px;padding:4px 12px 12px;align-items:flex-end;max-height:calc(100dvh - 205px);overflow:auto;overscroll-behavior:contain}
+.planet-location label{display:grid;gap:6px;font-size:11px;min-width:0;flex:1}
+.planet-location input{box-sizing:border-box;width:110px;max-width:100%;background:#07142377;border:1px solid var(--glass-border);border-radius:8px;color:var(--glass-text);padding:8px;min-height:44px;font:inherit;font-size:14px}
+.planet-caption{position:absolute;bottom:38px;left:26px;font-size:10px;color:var(--solar-muted);text-shadow:0 1px 3px #000;pointer-events:none;max-width:calc(100% - 260px)}
+.planet-sources{right:24px;top:122px;bottom:96px;max-height:none;overflow:auto;font-size:12px;z-index:5}
+.planet-sources h2{font-size:19px}
+.planet-entry p{font-size:12px;line-height:1.6}
+.planet-approach{border:1px solid var(--glass-border)!important;padding:10px 16px!important}
+.solar-satellites{position:absolute;left:112px;top:150px;z-index:4;padding:4px}
+.solar-satellites button{font-size:12px}
+@media(max-width:767px){
+ .planet-shell .solar-header{left:12px;right:12px;top:12px;gap:8px}
+ .planet-shell .solar-return{font-size:10px;padding:7px 9px;white-space:nowrap}
+ .planet-stage{inset:132px 12px 220px 78px}
+ .planet-shell:has(.planet-coordinates[open]) .planet-stage{bottom:220px}
+ .planet-heading{left:14px;right:12px;top:74px;flex-wrap:wrap;gap:2px 10px}
+ .planet-heading h1{font-size:19px}
+ .planet-heading small{font-size:8px}
+ .planet-heading p{width:100%;margin:0;font-size:10px}
+ .planet-tools{left:12px;top:142px;padding:3px}
+ .planet-coordinates{right:12px;bottom:68px;max-width:calc(100% - 24px)}
+ .planet-coordinates[open]{left:12px}
+ .planet-location{gap:6px;padding:4px 10px 10px}
+ .planet-location input{width:100%;min-width:0}
+ .planet-location label{font-size:9px}
+ .planet-caption{left:14px;right:14px;bottom:30px;max-width:none;font-size:9px}
+ .planet-sources{left:78px;right:12px;top:132px;bottom:128px;width:auto}
+ .solar-satellites{left:82px;top:110px}
+ .planet-entry.solar-context{max-height:calc(100dvh - 255px);bottom:125px}
+}
+@media(max-height:560px){
+ .planet-shell .solar-header{left:12px;right:12px;top:10px}
+ .planet-heading{left:84px;right:14px;top:67px;gap:10px;flex-wrap:nowrap}
+ .planet-heading small{display:none}
+ .planet-heading h1{font-size:18px}
+ .planet-heading p{width:auto;margin-left:auto;font-size:10px}
+ .planet-stage{inset:100px 12px 66px 84px}
+ .planet-shell:has(.planet-coordinates[open]) .planet-stage{bottom:66px;right:356px}
+ .planet-tools{left:12px;top:88px;padding:3px}
+ .planet-coordinates{right:12px;bottom:10px;max-width:min(440px,calc(100% - 96px))}
+ .planet-coordinates[open]{left:auto}
+ .planet-location{max-height:calc(100dvh - 160px)}
+ .planet-location input{width:100px}
+ .planet-caption{left:84px;right:200px;bottom:20px;max-width:calc(100% - 300px);font-size:9px}
+ .planet-sources{top:100px;bottom:68px;left:auto;right:12px;width:300px}
+ .solar-satellites{left:12px;top:150px}
+ .planet-entry.solar-context{left:auto;right:12px;top:90px;width:280px;bottom:95px;max-height:none}
+}
+/* Short narrow screens reserve the form footprint from initial entry. A side
+   panel is only viable in wide landscape; never collapse the native frame. */
+@media(max-height:560px) and (max-width:699px){
+ .planet-stage,.planet-shell:has(.planet-coordinates[open]) .planet-stage{right:12px;bottom:156px}
+}
