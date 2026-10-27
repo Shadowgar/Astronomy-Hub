@@ -55,7 +55,7 @@ def rebuild(root, output):
                 '--network', 'bridge' if command == 'install' else 'none',
                 '--user', str(os.getuid()) + ':' + str(os.getgid()),
                 '--mount', f'type=bind,src={root},dst=/source', '-w', '/source/' + directory,
-                '-e', 'HOME=/tmp', '-e', 'npm_config_cache=/tmp/npm-cache',
+                '-e', 'npm_config_cache=/tmp/npm-cache',
                 '-e', 'npm_config_fetch_retries=1', '-e', 'npm_config_fetch_timeout=60000']
         for key, value in env.items():
             args += ['-e', key + '=' + value]

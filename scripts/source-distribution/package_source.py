@@ -87,6 +87,8 @@ def copy_git(repo, revision, destination, include, paths):
 
 
 def create(args):
+    if not (args.expected_hub / 'index.html').is_file():
+        raise ValueError('Expected Hub output must be a completed build with index.html')
     revision = git(ROOT, 'rev-parse', args.revision + '^{commit}').decode().strip()
     if revision != args.revision:
         raise ValueError('Use a full immutable source commit SHA')
