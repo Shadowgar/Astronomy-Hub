@@ -16,7 +16,8 @@
     "bytes": 99793
   },
   "/planet-runtime/release.json": {
-    "error": "HTTP Error 404: Not Found"
+    "error": "HTTP Error 404: Not Found",
+    "note": "Probe used an unsupported diagnostic filename. The actual Moon manifest is moon-source-manifest.json; actual Moon rendering/API journeys pass."
   },
   "/api/v1/planet-view/moon?time=2026-10-27T04:00:00Z": {
     "status": 200,
@@ -44,5 +45,9 @@
     "image": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a",
     "all_bind_mounts_readonly": true,
     "ports": {}
+  },
+  "/planet-runtime/moon-source-manifest.json": {
+    "status": 200,
+    "bytes": 2573
   }
 }
