@@ -1,0 +1,15 @@
+{
+  "containers_identical": 143,
+  "volume_names_identical": 90,
+  "task_preview_removed": true,
+  "owner_settings_legacy_catalog_sha256": {
+    "/home/rocco/Astronomy-Hub/.vscode/settings.json": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+    "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436"
+  },
+  "native_wasm_sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942",
+  "fresh_native_image_id": "sha256:4215272551374a053158e7f3a595cead3df7c354fb06419ecf4b3651af04e963",
+  "fresh_native_image_repo_digests": [
+    "astronomy-hub-source-native@sha256:4215272551374a053158e7f3a595cead3df7c354fb06419ecf4b3651af04e963"
+  ],
+  "limits": "Container IDs and volume names, read-only binds and exact protected file hashes; not a forensic snapshot of every database/volume byte."
+}

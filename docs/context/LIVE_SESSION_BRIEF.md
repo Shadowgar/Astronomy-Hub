@@ -1,5 +1,21 @@
 # LIVE SESSION BRIEF
 
+## P1 source/build qualification — 2026-10-27
+
+Existing PR107/recovery branch now has one completed clean archive-only Sky/Hub
+qualification at source commit `f7cb702c428980ce2b32539dbc74fc2b35082c12`:
+native JS/WASM exact,110Sky payloads exact,144Hub candidate files exact and1,563
+source inputs unchanged. Fresh controlled native toolchain and locked npm installs
+replace hidden workstation/cache prerequisites. The prepared23,639,435byte source
+archive SHA is `7cf5cf444b35c02f05aeebd555e4a0142fc52c666161d14bea4981de9ebf3fde`.
+Actual private HTTP retrieval/hash and desktop/portrait keyboard/touch source
+offer checks pass. Candidate remains unpublished; public anonymous HTTPS,
+third-party/combined-work legal-source scope and existing owner/device gates
+remain open. Scientific/native payloads and protected data are preserved.
+[Exact results, failed attempts, complete manifest, independent reviews and gates](../validation/repository-recovery-20261026/source-build-qualification/README.md).
+No merge/deploy/delete/new product phase. Stop source/build expansion here;
+owner/device acceptance and separately authorized product UX are next.
+
 ## Independent integration review — 2026-10-26
 
 PR107 exact head `56f5645a` / main `9a03d826` was independently reviewed on the

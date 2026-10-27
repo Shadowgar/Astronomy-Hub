@@ -55,6 +55,8 @@ jobs:
         run: node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs tests/planet/*.test.mjs tests/runtime-protocol/*.test.mjs
       - name: Satellite source admission fixtures
         run: python3 -m unittest discover -s tests/runtime -p test_native_satellite_source_stage.py -v
+      - name: Source package and archive reconstruction contracts
+        run: python3 -B -m unittest discover -s tests/validation -p test_source_package.py -v
       - name: Install root validation dependencies
         run: npm ci --no-audit --no-fund
       - name: Install Hub dependencies

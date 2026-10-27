@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "base": "http://10.254.108.2:8879",
+  "source_revision": "f7cb702c428980ce2b32539dbc74fc2b35082c12",
+  "checks": [
+    "Anonymous private HTTP archive bytes and SHA match descriptor"
+  ],
+  "layouts": [],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///tmp/pr107-source-browser.mjs:17:177"
+}
