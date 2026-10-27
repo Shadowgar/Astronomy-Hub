@@ -11,7 +11,63 @@
 <p>Warm desktop GPU p95:0.43→2.43ms on this NVIDIA laptop; CPU p95≈0.7ms. Efficient quality remains available and saved choices are preserved. No phone performance claim. The immediate mixed CDP-drag→tap sequence remains inconclusive; individual touch actions and orbit were tested separately. No public service, source archive publication, merge or deployment.</p>
 <h2>The four immutable references</h2><div class="originals" id="originals"></div><p>Implementation source:703e2b472e8d9bff34726d7e9a68cd254496ca63. Owner visual acceptance remains open.</p>
 <script>
-const privatePreview=location.pathname.startsWith('/owner-review/'),referenceRoot=privatePreview?'references/':'../../../design/cinematic-references-2026-10-21/',r1root=privatePreview?'references/':'../../../design/adaptive-explorer-r1a/evidence/';let size='desktop';
-function show(){const mode=document.querySelector('#mode').value;for(const phase of['before','after']){const src=phase+'/'+size+'-'+mode+'.png';document.querySelector('#'+phase).src=src;document.querySelector('#'+phase+'-link').href=src}let ref=mode.startsWith('solar')?document.querySelector('#reference').value:mode==='moon'?(size==='desktop'?'moon-desktop.png':'moon-mobile.png'):mode+'-cinematic.png';const src=(mode==='moon'?r1root:referenceRoot)+ref;document.querySelector('#concept').src=src;document.querySelector('#reference-link').href=src;document.querySelector('#reference-caption').textContent=mode==='moon'?'ORIGINAL R1-A · existing body-exploration layout reference':'ORIGINAL APPROVED CONCEPT · exact PNG bytes';document.querySelectorAll('[data-size]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.size===size)))}
-document.querySelector('#mode').addEventListener('change',show);document.querySelector('#reference').addEventListener('change',show);document.querySelectorAll('[data-size]').forEach(b=>b.addEventListener('click',()=>{size=b.dataset.size;show()}));for(const name of['solar-primary-cinematic.png','solar-adaptive-explorer.png','earth-cinematic.png','sky-cinematic.png']){const a=document.createElement('a');a.href=referenceRoot+name;a.target='_blank';const img=document.createElement('img');img.src=a.href;img.alt=name;a.append(img);document.querySelector('#originals').append(a)}show();
+// Controls choose trusted entries; no DOM text becomes a URL or HTML fragment.
+const privatePreview=location.pathname.startsWith('/owner-review/');
+const referenceRoot=privatePreview?'references/':'../../../design/cinematic-references-2026-10-21/';
+const r1root=privatePreview?'references/':'../../../design/adaptive-explorer-r1a/evidence/';
+const scenes=Object.freeze({
+ solar:{files:{desktop:'desktop-solar.png',portrait:'portrait-solar.png',landscape:'landscape-solar.png'},reference:'solar'},
+ mars:{files:{desktop:'desktop-solar-mars.png',portrait:'portrait-solar-mars.png',landscape:'landscape-solar-mars.png'},reference:'solar'},
+ earth:{files:{desktop:'desktop-earth.png',portrait:'portrait-earth.png',landscape:'landscape-earth.png'},reference:'earth-cinematic.png'},
+ sky:{files:{desktop:'desktop-sky.png',portrait:'portrait-sky.png',landscape:'landscape-sky.png'},reference:'sky-cinematic.png'},
+ moon:{files:{desktop:'desktop-moon.png',portrait:'portrait-moon.png',landscape:'landscape-moon.png'},reference:'moon'}
+});
+const modeControl=document.getElementById('mode'),referenceControl=document.getElementById('reference');
+const beforeImage=document.getElementById('before'),beforeLink=document.getElementById('before-link');
+const afterImage=document.getElementById('after'),afterLink=document.getElementById('after-link');
+const conceptImage=document.getElementById('concept'),conceptLink=document.getElementById('reference-link');
+const sizeButtons=[
+ [document.querySelector('button[data-size="desktop"]'),'desktop'],
+ [document.querySelector('button[data-size="portrait"]'),'portrait'],
+ [document.querySelector('button[data-size="landscape"]'),'landscape']
+];
+let scene=scenes.solar,size='desktop',solarReference='solar-primary-cinematic.png';
+function show(){
+ const file=scene.files[size];
+ const beforeUrl='before/'+file,afterUrl='after/'+file;
+ beforeImage.src=beforeUrl;beforeLink.href=beforeUrl;
+ afterImage.src=afterUrl;afterLink.href=afterUrl;
+ const moon=scene.reference==='moon';
+ const reference=moon?(size==='desktop'?'moon-desktop.png':'moon-mobile.png'):scene.reference==='solar'?solarReference:scene.reference;
+ const source=(moon?r1root:referenceRoot)+reference;
+ conceptImage.src=source;conceptLink.href=source;
+ document.getElementById('reference-caption').textContent=moon?'ORIGINAL R1-A · existing body-exploration layout reference':'ORIGINAL APPROVED CONCEPT · exact PNG bytes';
+ for(const [button,key]of sizeButtons)button.setAttribute('aria-pressed',String(key===size));
+}
+modeControl.addEventListener('change',()=>{
+ switch(modeControl.value){
+  case 'solar':scene=scenes.solar;break;
+  case 'solar-mars':scene=scenes.mars;break;
+  case 'earth':scene=scenes.earth;break;
+  case 'sky':scene=scenes.sky;break;
+  case 'moon':scene=scenes.moon;break;
+  default:return;
+ }
+ show();
+});
+referenceControl.addEventListener('change',()=>{
+ switch(referenceControl.value){
+  case 'solar-primary-cinematic.png':solarReference='solar-primary-cinematic.png';break;
+  case 'solar-adaptive-explorer.png':solarReference='solar-adaptive-explorer.png';break;
+  default:return;
+ }
+ show();
+});
+for(const [button,key]of sizeButtons)button.addEventListener('click',()=>{size=key;show()});
+for(const name of['solar-primary-cinematic.png','solar-adaptive-explorer.png','earth-cinematic.png','sky-cinematic.png']){
+ const source=referenceRoot+name,link=document.createElement('a'),image=document.createElement('img');
+ link.href=source;link.target='_blank';image.src=source;image.alt=name;
+ link.append(image);document.getElementById('originals').append(link);
+}
+show();
 </script></body></html>
