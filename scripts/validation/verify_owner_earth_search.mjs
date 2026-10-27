@@ -2,7 +2,7 @@
 // Windows runner: use Windows node.exe; Linux defaults to installed Chromium.
 import {chromium} from '../../node_modules/playwright/index.mjs';
 import assert from 'node:assert/strict';import {mkdir,writeFile} from 'node:fs/promises';
-const base=process.env.OWNER_URL||'http://localhost:4231',out=process.env.OWNER_OUT||'output/playwright/owner-acceptance/earth-search';await mkdir(out,{recursive:true});
+const base=process.env.OWNER_URL||'http://localhost:4231',out=process.argv[2]||process.env.OWNER_OUT||'output/playwright/owner-acceptance/earth-search';await mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:process.platform!=='win32',...(process.platform==='win32'?{executablePath:'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',chromiumSandbox:true,ignoreDefaultArgs:['--enable-unsafe-swiftshader']}: {})});const proof={base,runs:[]};
 try{for(const [width,height]of [[390,844],[844,390],[1440,900]]){
  const c=await browser.newContext({viewport:{width,height},hasTouch:width<900}),p=await c.newPage(),run={width,height};proof.runs.push(run);
