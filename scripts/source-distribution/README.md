@@ -40,6 +40,12 @@ network disabled. Only the extracted tree is bind-mounted. Node20 is immutable
 by image digest and platform. Every Docker argument and stdout/stderr log is
 retained under the requested results directory.
 
+Vue builds use the fixed in-container root `/work`, matching the qualified
+release. Webpack4 unminified Babel helper names and vue-loader cache identifiers
+encode absolute module/config paths; changing that root changes the app bundle
+bytes and filename even with identical source/dependencies. This fixed build
+path is part of the recipe. Outputs are compared unchanged, never normalized.
+
 The native JS/WASM must match the recorded expected hashes, every Sky Vue output
 must match the qualified110-file payload set, and the Hub build must match its
 candidate expected file set/hashes. Hub builds set `VITE_SOURCE_REVISION` from the

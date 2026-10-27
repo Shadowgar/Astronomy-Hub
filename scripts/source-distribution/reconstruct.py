@@ -52,10 +52,16 @@ def rebuild(root, output):
         shutil.copyfile(native / 'build' / filename, app / 'src/assets/js' / filename)
     node_image = settings['node']['image']
     def node(directory, command, name, env):
+        sky = directory.startswith('stellarium/')
+        # Webpack4's unminified helper identifiers include absolute module paths.
+        # /work is the qualified release's documented in-container Vue root.
+        mounted = root / directory if sky else root
+        target = '/work' if sky else '/source'
+        working = '/work' if sky else '/source/' + directory
         args = ['docker', 'run', '--rm', '--platform', 'linux/amd64',
                 '--network', 'bridge' if command == 'install' else 'none',
                 '--user', str(os.getuid()) + ':' + str(os.getgid()),
-                '--mount', f'type=bind,src={root},dst=/source', '-w', '/source/' + directory,
+                '--mount', f'type=bind,src={mounted},dst={target}', '-w', working,
                 '-e', 'npm_config_cache=/tmp/npm-cache',
                 '-e', 'npm_config_fetch_retries=1', '-e', 'npm_config_fetch_timeout=60000']
         for key, value in env.items():
