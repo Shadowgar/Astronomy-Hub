@@ -1,0 +1,104 @@
+{
+  "runs": [
+    {
+      "name": "desktop",
+      "checks": [
+        "Actual atmosphere toggles and native panel Close",
+        "Actual Polaris search and native selection",
+        "Time and satellite source status"
+      ],
+      "polaris": {
+        "model_data": {
+          "Vmag": 1.97000002861,
+          "epoch": 1991.25,
+          "pm_ra": 0,
+          "pm_de": 0,
+          "BVMag": 0.635999977589
+        },
+        "model": "star",
+        "types": [
+          "*",
+          "?"
+        ],
+        "names": [
+          "NAME Polaris",
+          "HIP 11767",
+          "Polaris",
+          "hip-11767",
+          "* alf UMi",
+          "* 1 UMi"
+        ]
+      },
+      "statusText": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nPolaris\n\nstar · hip-11767\n\nFocus\nDetails\nChange time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nPaused at the selected astronomical time. Resume Live returns to now.\n\nCurrent satellite elements: 15,899 fresh · 2 stale. Current orbital positions are not qualified for stale elements.\n\nLoading orbital data does not guarantee a visible satellite. Satellites may be too faint, eclipsed, below the horizon, or outside this view. Brightness may be estimated when measurements are unavailable.\n\nZoom in to identify a moving point, tap it, then choose Track. Stop tracking returns to free observing. Symbols are identification aids, not a promise of naked-eye visibility.\n\nPAUSED\nMIXED AGES\nOct 27, 12:00 AM EDT\nResume Live\nChange time\nPolaris, star, selected",
+      "status": "FAIL",
+      "error": "TimeoutError: locator.click: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.v-list-item').filter({ hasText: /ISS/ }).first()\u001b[22m\n",
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\5db77e21877732dceaebb85ea9392493.webm"
+    },
+    {
+      "name": "portrait",
+      "checks": [
+        "Actual atmosphere toggles and native panel Close",
+        "Actual Polaris search and native selection"
+      ],
+      "polaris": {
+        "model_data": {
+          "Vmag": 1.97000002861,
+          "epoch": 1991.25,
+          "pm_ra": 0,
+          "pm_de": 0,
+          "BVMag": 0.635999977589
+        },
+        "model": "star",
+        "types": [
+          "*",
+          "?"
+        ],
+        "names": [
+          "NAME Polaris",
+          "HIP 11767",
+          "Polaris",
+          "hip-11767",
+          "* alf UMi",
+          "* 1 UMi"
+        ]
+      },
+      "status": "FAIL",
+      "error": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTitle('Time and satellite data', { exact: true })\u001b[22m\n",
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\14e94c48c26e88da619b0b90f52b6789.webm"
+    },
+    {
+      "name": "landscape",
+      "checks": [
+        "Actual atmosphere toggles and native panel Close",
+        "Actual Polaris search and native selection",
+        "Time and satellite source status"
+      ],
+      "polaris": {
+        "model_data": {
+          "Vmag": 1.97000002861,
+          "epoch": 1991.25,
+          "pm_ra": 0,
+          "pm_de": 0,
+          "BVMag": 0.635999977589
+        },
+        "model": "star",
+        "types": [
+          "*",
+          "?"
+        ],
+        "names": [
+          "NAME Polaris",
+          "HIP 11767",
+          "Polaris",
+          "hip-11767",
+          "* alf UMi",
+          "* 1 UMi"
+        ]
+      },
+      "statusText": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nPolaris\n\nstar · hip-11767\n\nFocus\nDetails\nChange time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nPaused at the selected astronomical time. Resume Live returns to now.\n\nCurrent satellite elements: 15,899 fresh · 2 stale. Current orbital positions are not qualified for stale elements.\n\nLoading orbital data does not guarantee a visible satellite. Satellites may be too faint, eclipsed, below the horizon, or outside this view. Brightness may be estimated when measurements are unavailable.\n\nZoom in to identify a moving point, tap it, then choose Track. Stop tracking returns to free observing. Symbols are identification aids, not a promise of naked-eye visibility.\n\nPAUSED\nMIXED AGES\nOct 27, 12:00 AM EDT\nResume Live\nChange time\nPolaris, star, selected",
+      "status": "FAIL",
+      "error": "TimeoutError: locator.click: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.v-list-item').filter({ hasText: /ISS/ }).first()\u001b[22m\n",
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\e732b08d78cf3a9609034dd1324c5c8f.webm"
+    }
+  ]
+}

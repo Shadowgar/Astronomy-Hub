@@ -1,5 +1,19 @@
 # LIVE SESSION BRIEF
 
+## Owner application/UX review — 2026-10-27
+
+Private Windows preview is running at `http://localhost:4231/sky-engine`, with
+actual captures/recordings at `/owner-review/`. Application47fcc14c on existing
+recovery/PR107 repairs two proven Earth pointer obstructions; separate correction
+review and three-layout focused regressions pass. Actual Windows Edge/NVIDIA
+WebGL is verified; portrait/landscape are emulated, physical iPhone and owner
+acceptance remain open. Native/scientific payloads are preserved. Earth imagery,
+Solar visual fidelity, Moon detail and shared hierarchy remain owner decisions;
+no significant redesign is authorized. Stop for the owner to operate the preview.
+[Compact package, limits and correction sequence](../validation/repository-recovery-20261026/owner-acceptance/README.md).
+No merge, deployment or source publication. Existing release/source gates remain;
+Hub repairs need a matching source distribution before release.
+
 ## P1 source/build qualification — 2026-10-27
 
 Existing PR107/recovery branch now has one completed clean archive-only Sky/Hub

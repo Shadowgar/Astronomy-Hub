@@ -1,0 +1,48 @@
+{
+  "/api/v1/health": {
+    "status": 200,
+    "bytes": 57
+  },
+  "/runtime-versions.json": {
+    "status": 200,
+    "bytes": 4412
+  },
+  "/oras-sky-engine/oras-runtime-build.json": {
+    "status": 200,
+    "bytes": 2426
+  },
+  "/earth-runtime/release.json": {
+    "status": 200,
+    "bytes": 99793
+  },
+  "/planet-runtime/release.json": {
+    "error": "HTTP Error 404: Not Found"
+  },
+  "/api/v1/planet-view/moon?time=2026-10-27T04:00:00Z": {
+    "status": 200,
+    "bytes": 2295
+  },
+  "/api/v1/planetary-systems/earth?epoch=2026-10-27T04:00:00Z": {
+    "status": 200,
+    "bytes": 326125
+  },
+  "pr107-owner-preview": {
+    "running": true,
+    "image": "sha256:03d67b37a7b3e816f17b0320c56e29951159efb930305d4a2003c6002587b4ee",
+    "all_bind_mounts_readonly": true,
+    "ports": {
+      "8877/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "4231"
+        }
+      ]
+    }
+  },
+  "pr107-owner-backend": {
+    "running": true,
+    "image": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a",
+    "all_bind_mounts_readonly": true,
+    "ports": {}
+  }
+}

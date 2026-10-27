@@ -1,0 +1,11 @@
+{
+  "base": "http://localhost:4231",
+  "runs": [
+    {
+      "width": 390,
+      "height": 844,
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Successful selection must collapse the results covering native controls\n\n'true' !== 'false'\n"
+    }
+  ]
+}

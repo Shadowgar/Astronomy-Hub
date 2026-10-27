@@ -1,0 +1,4514 @@
+{
+  "browser": "156.0.4314.42",
+  "started": "2026-10-27T05:30:38.444Z",
+  "runs": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 900,
+      "steps": [
+        {
+          "label": "Native Sky render and controls",
+          "status": "PASS",
+          "ms": 4758,
+          "details": {
+            "frames": 1,
+            "body": "Search...\n✧\nConstellations\n◎\nObserving tools\n◐\nDisplay\nSKY VIEW\nObserving tools\n×\nAtmosphere\nLandscape\nAzimuthal Grid\nEquatorial Grid\nDeep Sky Objects\nAdvanced observing\nIllustrative Pennsylvania · not surveyed · Stellarium credits\nStars\nSource code & licenses"
+          }
+        },
+        {
+          "label": "Native object search and focus",
+          "status": "FAIL",
+          "ms": 12007,
+          "error": "TimeoutError: locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByPlaceholder('Search...')\u001b[22m\n"
+        },
+        {
+          "label": "Satellite data status and available controls",
+          "status": "FAIL",
+          "ms": 12015,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Change time', exact: true })\u001b[22m\n"
+        },
+        {
+          "label": "Sky to Earth mode navigation; observer/time retained",
+          "status": "PASS",
+          "ms": 3616,
+          "details": {
+            "frames": 1,
+            "url": "http://localhost:4231/earth?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site"
+          }
+        },
+        {
+          "label": "Live place provider search",
+          "status": "PASS",
+          "ms": 1487,
+          "details": {
+            "text": "Search Earth\nSearch Earth\nHide results\n−\nLocations\nClose\n\n5 possible locations. Choose the place you mean.\n\nSan Francisco\nCalifornia, United States\n37.78794°, -122.40752° · Photon / OpenStreetMap\nSan Francisco Bay Area\nSan Francisco, California, 94110, United States\n37.78850°, -122.35585° · Photon / OpenStreetMap\nSan Francisco Bay\nSan Mateo, California, United States\n37.71403°, -122.30779° · Photon / OpenStreetMap\nSan Francisco Maritime National Historical Park\nSan Francisco, California, United States\n37.81047°, -122.42477° · Photon / OpenStreetMap\nSan Francisco State University\n1600 Holloway Avenue, San Francisco, California, 94132, United States\n37.72452°, -122.48000° · Photon / OpenStreetMap\n\nPlace data: © OpenStreetMap contributors · Photon. Public search may be unavailable."
+          }
+        },
+        {
+          "label": "Coordinate navigation, camera zoom, imagery/source limits",
+          "status": "PASS",
+          "ms": 8437,
+          "details": {
+            "text": "Skip to workspace\nAstronomy Hub\nEARTH\n⌄\nExplore\nEarth workspace\nSearch Earth\nSearch Earth\nHide results\n−\nLocations\nClose\n\n1 location. Choose the place you mean.\n\n41.3219° N, 79.5854° W\nDecimal latitude, longitude\n41.32190°, -79.58539° · Coordinates you entered\n\nPlace data: © OpenStreetMap contributors · Photon. Public search may be unavailable.\n\n+\n−\nORAS\nSources\nSources & display quality\nIMAGERY\nEOX · Global Satellite · ready · Sentinel-2 cloudless · 2016 mosaic · 10 m\nTERRAIN\nTerrain unavailable · ellipsoid\nBUILDINGS\nNot configured\nPHOTOREALISTIC\nNot configured\n\nDetailed terrain requires a configured source. Standard imagery is available.\n\nThe 2016 Sentinel-2 cloudless mosaic is dated satellite imagery, not current aerial photography.\n\nImagery Cache\n\nEligible public imagery can remain on this device. Source cache rules and browser storage availability apply.\n\nSTATUS\navailable\nMANAGED STORAGE\n0.80 MiB\nENTRIES\n69\nPERSISTENCE\nBest effort · browser may evict\n\nBrowser HTTP cache is managed by your browser and cannot be selectively cleared here. This action removes only Hub-managed imagery entries.\n\nRefresh cache status\nClear Imagery Cache\nDiagnostics\nLIVE\nEarth layers use live source time\nTime details"
+          }
+        },
+        {
+          "label": "Earth to Sky return preserves controlled time",
+          "status": "PASS",
+          "ms": 1222,
+          "details": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.321903000989934,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-27T04:00:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "label": "Solar overview, camera orbit/zoom and physical scale",
+          "status": "FAIL",
+          "ms": 15634,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Orbit view right', exact: true })\u001b[22m\n"
+        },
+        {
+          "label": "Solar selected Sun close-up",
+          "status": "PASS",
+          "ms": 1014,
+          "details": {
+            "overviewScope": "inner",
+            "cameraView": "body",
+            "closeView": false,
+            "sizeMode": "cinematic",
+            "scale": "independently-enlarged-display-radii",
+            "near": 0.00009300934521924317,
+            "cameraUp": [
+              0.15,
+              0,
+              1
+            ],
+            "cameraQuaternion": [
+              0.4889718784648215,
+              -0.008988784035970471,
+              -0.16115034830733868,
+              0.8572375802964788
+            ],
+            "epoch": "2026-10-27T04:00:00Z",
+            "frame": "ICRF",
+            "origin": "Sun center (10)",
+            "units": "AU",
+            "selected": "sun",
+            "renderCount": 15,
+            "disposed": false,
+            "animating": false,
+            "camera": [
+              -0.004103273855430437,
+              -0.01981428560795049,
+              0.01237220624418547
+            ],
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "bodies": [
+              {
+                "id": "sun",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "geometryRadiusAu": 0.0046504674668608895,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.004650467260962158,
+                "cameraDistance": 0.02371738303090699,
+                "inView": true,
+                "radiusAu": 0.004650467260962158,
+                "glyphRadius": 0.004650467260962158,
+                "markerVisible": false,
+                "labelVisible": true,
+                "visible": true,
+                "screenRadius": 236.7566238207015,
+                "screen": [
+                  736.6187591552736,
+                  466.98123931884777
+                ]
+              },
+              {
+                "id": "mercury",
+                "position": [
+                  0.3565708021127912,
+                  -0.002779892885598375,
+                  -0.0384390552857709
+                ],
+                "geometryRadiusAu": 0.000016308388063111475,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.000016308387202198327,
+                "cameraDistance": 0.3646337119757517,
+                "inView": false,
+                "radiusAu": 0.000016308387202198327,
+                "glyphRadius": 0.000016308387202198327,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.19092948699373835,
+                "screen": [
+                  4649.532554539932,
+                  -234.77990683873023
+                ]
+              },
+              {
+                "id": "venus",
+                "position": [
+                  0.5910666532769727,
+                  0.39377735992784163,
+                  0.13979634730592427
+                ],
+                "geometryRadiusAu": 0.00004045378599889756,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00004045378434654418,
+                "cameraDistance": 0.7358819220127074,
+                "inView": false,
+                "radiusAu": 0.00004045378434654418,
+                "glyphRadius": 0.00004045378434654418,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.1278612250710509,
+                "screen": [
+                  2050.4075241684714,
+                  -946.8382262340238
+                ]
+              },
+              {
+                "id": "earth",
+                "position": [
+                  0.8299839828727769,
+                  0.5017387995538697,
+                  0.2174855659874231
+                ],
+                "geometryRadiusAu": 0.00004258750669325284,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00004258750455597227,
+                "cameraDistance": 1.004883407576898,
+                "inView": false,
+                "radiusAu": 0.00004258750455597227,
+                "glyphRadius": 0.00004258750455597227,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.1087095481700473,
+                "screen": [
+                  2255.2596895606493,
+                  -1120.9137492624197
+                ]
+              },
+              {
+                "id": "mars",
+                "position": [
+                  -0.22411554489999036,
+                  1.4276208807011725,
+                  0.6608610331291151
+                ],
+                "geometryRadiusAu": 0.00002265740773765135,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.0000226574080509289,
+                "cameraDistance": 1.601253171323353,
+                "inView": false,
+                "radiusAu": 0.0000226574080509289,
+                "glyphRadius": 0.0000226574080509289,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.03284708029012151,
+                "screen": [
+                  -267.47688809875416,
+                  -1175.2735542744451
+                ]
+              },
+              {
+                "id": "jupiter",
+                "position": [
+                  -3.639205272509622,
+                  3.528005859616513,
+                  1.6007849752717802
+                ],
+                "geometryRadiusAu": 0.00046732619236863806,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00046732617030490934,
+                "cameraDistance": 5.322034333625643,
+                "inView": false,
+                "radiusAu": 0.00046732617030490934,
+                "glyphRadius": 0.00046732617030490934,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.3745690185321848,
+                "screen": [
+                  -2907.526912001672,
+                  -1113.3758957277025
+                ]
+              },
+              {
+                "id": "saturn",
+                "position": [
+                  9.222581419922689,
+                  1.9111987556062782,
+                  0.3922263976457742
+                ],
+                "geometryRadiusAu": 0.0003892568966336601,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00038925687730393614,
+                "cameraDistance": 9.434236111655474,
+                "inView": false,
+                "radiusAu": 0.00038925687730393614,
+                "glyphRadius": 0.00038925687730393614,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.34398086955654605,
+                "screen": [
+                  3906.0034071779405,
+                  -971.4393445264598
+                ]
+              },
+              {
+                "id": "uranus",
+                "position": [
+                  8.838279441914771,
+                  15.90228397579787,
+                  6.8396517035329
+                ],
+                "geometryRadiusAu": 0.00016953450571177144,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00016953449859497232,
+                "cameraDistance": 19.450261964099933,
+                "inView": false,
+                "radiusAu": 0.00016953449859497232,
+                "glyphRadius": 0.00016953449859497232,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.01816349808071216,
+                "screen": [
+                  1035.345251875368,
+                  -1154.6425305327853
+                ]
+              },
+              {
+                "id": "neptune",
+                "position": [
+                  29.832977345368953,
+                  1.6273798618017443,
+                  -0.0765997101404015
+                ],
+                "geometryRadiusAu": 0.00016458791119007592,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00016458790412449367,
+                "cameraDistance": 29.882646208782468,
+                "inView": false,
+                "radiusAu": 0.00016458790412449367,
+                "glyphRadius": 0.00016458790412449367,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.030181696630577903,
+                "screen": [
+                  5690.58953488286,
+                  -1078.4591378153377
+                ]
+              }
+            ],
+            "drawCalls": 11,
+            "geometries": 23,
+            "textures": 3,
+            "texturesReady": 2,
+            "cloudsReady": true,
+            "quality": "efficient",
+            "backgroundVisible": false,
+            "gpuMs": {
+              "supported": true,
+              "samples": 12,
+              "median": 1.57696,
+              "p95": 16.718848
+            },
+            "orbitsVisible": true,
+            "effectsVisible": true,
+            "belt": {
+              "visible": false,
+              "requestedDensity": 2400,
+              "drawCount": 1000,
+              "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+            },
+            "starfield": "illustrative",
+            "starCount": 1200,
+            "renderCpuMs": {
+              "samples": 12,
+              "median": 0.800000011920929,
+              "p95": 54.10000002384186
+            },
+            "pixelRatio": 1
+          }
+        },
+        {
+          "label": "Solar Saturn system selection and back",
+          "status": "PASS",
+          "ms": 2277,
+          "details": {
+            "epoch": "2026-10-27T04:00:00.000Z",
+            "frame": "ICRF",
+            "origin": "Saturn center (699)",
+            "units": "km",
+            "sceneUnitKm": 1000,
+            "selected": null,
+            "sizeMode": "cinematic",
+            "orbitsRequested": true,
+            "orbitsVisible": true,
+            "renderCount": 2,
+            "disposed": false,
+            "contextLost": false,
+            "animating": false,
+            "texturesReady": 0,
+            "camera": [
+              -34303.55580667104,
+              -2669725.5157632,
+              7166763.877695778
+            ],
+            "target": [
+              -34303.55580667104,
+              7051.396543604555,
+              2563.966475046356
+            ],
+            "cameraState": {
+              "position": [
+                -34303.55580667104,
+                -2669725.5157632,
+                7166763.877695778
+              ],
+              "target": [
+                -34303.55580667104,
+                7051.396543604555,
+                2563.966475046356
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": null
+            },
+            "viewport": {
+              "clearWidth": 1400,
+              "clearHeight": 521.6000366210938,
+              "rectangleOffsetX": 0,
+              "rectangleOffsetY": -34.800018310546875
+            },
+            "standardLightPositionKm": null,
+            "bodies": [
+              {
+                "id": "saturn",
+                "appearance": "illustrative-material",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "radiusKm": 58232,
+                "displayRadiusKm": 154336.1915792868,
+                "screenRadius": 23.656904507736556,
+                "screen": [
+                  725.2581607037988,
+                  485.9500691383676
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              },
+              {
+                "id": "enceladus",
+                "appearance": "neutral-reference-sphere",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  140714.90858500404,
+                  -191414.16921081982,
+                  1985.3940410211912
+                ],
+                "radiusKm": 252.1,
+                "displayRadiusKm": 56504.10114687074,
+                "screenRadius": 8.734857049010419,
+                "screen": [
+                  747.0711249230284,
+                  513.5875182059888
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              },
+              {
+                "id": "titan",
+                "appearance": "neutral-reference-sphere",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  -385716.8976318726,
+                  -1157562.906434128,
+                  111822.44291283822
+                ],
+                "radiusKm": 2574.76,
+                "displayRadiusKm": 147889.6795203202,
+                "screenRadius": 24,
+                "screen": [
+                  662.2863494874006,
+                  657.6899572590728
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              }
+            ],
+            "drawCalls": 5,
+            "geometries": 5,
+            "textures": 0,
+            "renderCpuMs": {
+              "samples": 2,
+              "median": 338.40000000596046,
+              "p95": 338.40000000596046
+            },
+            "playing": false,
+            "speed": 86400,
+            "system": "saturn"
+          }
+        },
+        {
+          "label": "Solar to Earth system to Moon; native surface exploration",
+          "status": "PASS",
+          "ms": 4411,
+          "details": {
+            "before": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614304,
+                "longitudeDeg": -16.116970422199074,
+                "heightM": 4343500,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 27,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            },
+            "after": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614302,
+                "longitudeDeg": -1.1169704221990742,
+                "heightM": 2823275,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 37,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            }
+          }
+        },
+        {
+          "label": "Lunar coordinates, return journey and renderer disposal",
+          "status": "FAIL",
+          "ms": 12004,
+          "error": "TimeoutError: locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Latitude °N', { exact: true })\u001b[22m\n"
+        }
+      ],
+      "errors": [],
+      "httpFailures": [
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix298.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix350.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix364.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix471.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        }
+      ],
+      "requestFailures": [
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?f=json&geometry=%7B%22x%22%3A-79.58539400000973%2C%22y%22%3A41.32190300107759%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPoint&inSR=4326&outSR=4326&spatialRel=esriSpatialRelIntersects&where=Category%3D1&outFields=Name&returnGeometry=true&resultRecordCount=1",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        }
+      ],
+      "skyInitial": [
+        {
+          "url": "http://localhost:4231/sky-engine?date=2026-10-27T04:00:00Z",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/?date=2026-10-27T04%3A00%3A00Z&orasEmbedded=1&orasNightMode=0",
+          "data": {
+            "sky": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-27T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "skyBeforeLeave": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-27T04:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "earthInitial": [
+        {
+          "url": "http://localhost:4231/earth?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/earth-runtime/?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site&orasEmbedded=1",
+          "data": {
+            "earth": {
+              "owner": "Astronomy Hub",
+              "monotonicMs": 3322.5999999940395,
+              "globeTilesLoaded": true,
+              "ready": true,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "site": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816
+              },
+              "layers": [
+                {
+                  "id": "oras-site",
+                  "title": "ORAS site",
+                  "category": "Site context",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "ORAS canonical site",
+                  "status": "ready"
+                },
+                {
+                  "id": "aircraft",
+                  "title": "Aircraft near ORAS",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "adsb.lol · ODbL 1.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "satellites",
+                  "title": "Satellites · stations",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "tracking",
+                    "live-only"
+                  ],
+                  "attribution": "CelesTrak · satellite.js",
+                  "status": "loading"
+                },
+                {
+                  "id": "weather",
+                  "title": "Weather at ORAS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "Open-Meteo · CC BY 4.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "earthquakes",
+                  "title": "Earthquakes · M2.5+ · past day",
+                  "category": "Events",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "U.S. Geological Survey",
+                  "status": "disabled"
+                },
+                {
+                  "id": "fire-perimeters",
+                  "title": "Fire perimeters · recent subset",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NIFC/WFIGS",
+                  "status": "disabled"
+                },
+                {
+                  "id": "weather-radar",
+                  "title": "Radar reflectivity · CONUS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NOAA/NWS nowCOAST",
+                  "status": "disabled"
+                }
+              ],
+              "providers": {
+                "satellites": {
+                  "status": "loading",
+                  "temporalMode": "LIVE_ONLY"
+                }
+              },
+              "entityCount": 1,
+              "timings": {
+                "moduleLoadedMs": 113.59999999403954,
+                "shellInteractiveMs": 146.2999999821186,
+                "viewerReadyMs": 148.90000000596046,
+                "firstImageryTileMs": 587.7999999821186
+              },
+              "cameraMotion": {
+                "active": false
+              },
+              "cameraHeightM": 15621863.000000002,
+              "navigation": {
+                "mode": "earth",
+                "observer": {
+                  "lat": 41.32190153934777,
+                  "lon": -79.58539410405697,
+                  "elevationM": 432.816
+                },
+                "elevationSource": "oras-site",
+                "camera": {
+                  "latitudeRad": 0.7212032605399997,
+                  "longitudeRad": -1.3890271617970003,
+                  "heightM": 15621863.000000002,
+                  "headingRad": 6.283185307179586,
+                  "pitchRad": -1.568429161529859,
+                  "rollRad": 0
+                },
+                "utc": "2026-10-27T04:00:00.000Z",
+                "live": false
+              },
+              "tracking": null,
+              "selection": null,
+              "quality": {
+                "imagery": "NASA · Blue Marble · ready · Static Blue Marble composite · 500 m",
+                "terrain": "Terrain unavailable · ellipsoid",
+                "buildings": "Not configured",
+                "photorealistic": "Not configured"
+              },
+              "imagery": {
+                "selected": "auto",
+                "actual": "nasa",
+                "status": "ready",
+                "fallbackReason": "",
+                "metadata": {
+                  "label": "NASA · Blue Marble",
+                  "product": "Static Blue Marble composite",
+                  "date": null,
+                  "gsd": 500,
+                  "coverage": "Global overview; not current photography",
+                  "credit": "NASA GIBS · Blue Marble",
+                  "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+                  "host": "gibs.earthdata.nasa.gov",
+                  "cap": 8,
+                  "coverageRasterName": null,
+                  "selected": "auto",
+                  "actual": "nasa",
+                  "status": "ready",
+                  "reason": "",
+                  "loadingNote": ""
+                },
+                "localAllocations": 1,
+                "controllersCreated": 1,
+                "managedLayers": 1,
+                "labelsLayers": 1,
+                "budget": {
+                  "active": 0,
+                  "requested": 54
+                },
+                "ionSessionRequests": 0,
+                "ionSessionLedgerAvailable": true,
+                "metadataRequests": 0,
+                "metadataPending": false,
+                "view": {
+                  "height": 15621863.000000002,
+                  "rect": [
+                    -180,
+                    -90,
+                    180,
+                    90
+                  ],
+                  "point": [
+                    -79.58539410412061,
+                    41.32190153845195
+                  ],
+                  "naipCovered": false,
+                  "verifiedOras": false
+                },
+                "sources": {
+                  "nasa": {
+                    "requested": 7,
+                    "loaded": 7,
+                    "failed": 0,
+                    "cancelled": 0,
+                    "active": 0,
+                    "peak": 7,
+                    "paused": false,
+                    "partial": false,
+                    "preparing": false
+                  }
+                }
+              }
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "earthClose": [
+        {
+          "url": "http://localhost:4231/earth?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site&earthLat=41.321903&earthLon=-79.585394",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/earth-runtime/?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site&orasEmbedded=1",
+          "data": {
+            "earth": {
+              "owner": "Astronomy Hub",
+              "monotonicMs": 12831.59999999404,
+              "globeTilesLoaded": true,
+              "ready": true,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "site": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816
+              },
+              "layers": [
+                {
+                  "id": "oras-site",
+                  "title": "ORAS site",
+                  "category": "Site context",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "ORAS canonical site",
+                  "status": "ready"
+                },
+                {
+                  "id": "aircraft",
+                  "title": "Aircraft near ORAS",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "adsb.lol · ODbL 1.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "satellites",
+                  "title": "Satellites · stations",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "tracking",
+                    "live-only"
+                  ],
+                  "attribution": "CelesTrak · satellite.js",
+                  "status": "ready"
+                },
+                {
+                  "id": "weather",
+                  "title": "Weather at ORAS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "Open-Meteo · CC BY 4.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "earthquakes",
+                  "title": "Earthquakes · M2.5+ · past day",
+                  "category": "Events",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "U.S. Geological Survey",
+                  "status": "disabled"
+                },
+                {
+                  "id": "fire-perimeters",
+                  "title": "Fire perimeters · recent subset",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NIFC/WFIGS",
+                  "status": "disabled"
+                },
+                {
+                  "id": "weather-radar",
+                  "title": "Radar reflectivity · CONUS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NOAA/NWS nowCOAST",
+                  "status": "disabled"
+                }
+              ],
+              "providers": {
+                "satellites": {
+                  "status": "unavailable",
+                  "temporalMode": "LIVE_ONLY",
+                  "message": "Source unavailable. Retry the layer; Earth remains interactive."
+                }
+              },
+              "entityCount": 2,
+              "timings": {
+                "moduleLoadedMs": 113.59999999403954,
+                "shellInteractiveMs": 146.2999999821186,
+                "viewerReadyMs": 148.90000000596046,
+                "firstImageryTileMs": 587.7999999821186
+              },
+              "cameraMotion": {
+                "active": false
+              },
+              "cameraHeightM": 26190.052397990374,
+              "navigation": {
+                "mode": "earth",
+                "observer": {
+                  "lat": 41.321903001007314,
+                  "lon": -79.58539400000909,
+                  "elevationM": 432.816
+                },
+                "elevationSource": "oras-site",
+                "camera": {
+                  "latitudeRad": 0.7212032605457672,
+                  "longitudeRad": -1.3890271617969945,
+                  "heightM": 26190.052397990374,
+                  "headingRad": 6.28318530717955,
+                  "pitchRad": -1.5707826799017726,
+                  "rollRad": 0
+                },
+                "utc": "2026-10-27T04:00:00.000Z",
+                "live": false
+              },
+              "tracking": null,
+              "selection": null,
+              "quality": {
+                "imagery": "EOX · Global Satellite · ready · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+                "terrain": "Terrain unavailable · ellipsoid",
+                "buildings": "Not configured",
+                "photorealistic": "Not configured"
+              },
+              "imagery": {
+                "selected": "auto",
+                "actual": "eox-2016",
+                "status": "ready",
+                "fallbackReason": "",
+                "metadata": {
+                  "label": "EOX · Global Satellite",
+                  "product": "Sentinel-2 cloudless · 2016 mosaic",
+                  "date": null,
+                  "gsd": 10,
+                  "coverage": "Web Mercator ±85.051°; capture dates vary",
+                  "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+                  "url": "https://maps.eox.at/",
+                  "host": "tiles.maps.eox.at",
+                  "cap": 14,
+                  "coverageRasterName": null,
+                  "selected": "auto",
+                  "actual": "eox-2016",
+                  "status": "ready",
+                  "reason": "",
+                  "loadingNote": ""
+                },
+                "localAllocations": 1,
+                "controllersCreated": 1,
+                "managedLayers": 1,
+                "labelsLayers": 1,
+                "budget": {
+                  "active": 0,
+                  "requested": 212
+                },
+                "ionSessionRequests": 0,
+                "ionSessionLedgerAvailable": true,
+                "metadataRequests": 1,
+                "metadataPending": false,
+                "view": {
+                  "height": 26190.052397990374,
+                  "rect": [
+                    -79.76640415072379,
+                    41.2365857274573,
+                    -79.40438384994869,
+                    41.40693509837278
+                  ],
+                  "point": [
+                    -79.58539400000909,
+                    41.32190300100732
+                  ],
+                  "naipCovered": false,
+                  "verifiedOras": false
+                },
+                "sources": {
+                  "nasa": {
+                    "requested": 7,
+                    "loaded": 7,
+                    "failed": 0,
+                    "cancelled": 0,
+                    "active": 0,
+                    "peak": 7,
+                    "paused": false,
+                    "partial": false,
+                    "preparing": false
+                  },
+                  "eox-2016": {
+                    "requested": 83,
+                    "loaded": 83,
+                    "failed": 0,
+                    "cancelled": 0,
+                    "active": 0,
+                    "peak": 14,
+                    "paused": false,
+                    "partial": false,
+                    "preparing": false
+                  }
+                }
+              }
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "moon": [
+        {
+          "url": "http://localhost:4231/planet-view/moon?date=2026-10-27T04%3A00%3A00Z&lat=-1.4113836859614302&lon=-1.1169704221990742&height=2823275&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/planet-runtime/?channel=b46524145f567fc74dd032e356d00919",
+          "data": {
+            "moon": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614302,
+                "longitudeDeg": -1.1169704221990742,
+                "heightM": 2823275,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 37,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\a6907f431aa2f4b98d5d01cb796e55dd.webm"
+    },
+    {
+      "name": "portrait",
+      "width": 390,
+      "height": 844,
+      "steps": [
+        {
+          "label": "Native Sky render and controls",
+          "status": "PASS",
+          "ms": 3766,
+          "details": {
+            "frames": 1,
+            "body": "Search...\n✧\n◎\n◐\nSKY VIEW\nObserving tools\n×\nAtmosphere\nLandscape\nAzimuthal Grid\nEquatorial Grid\nDeep Sky Objects\nAdvanced observing\nIllustrative Pennsylvania · not surveyed · credits\nSource code & licenses"
+          }
+        },
+        {
+          "label": "Native object search and focus",
+          "status": "FAIL",
+          "ms": 12002,
+          "error": "TimeoutError: locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByPlaceholder('Search...')\u001b[22m\n"
+        },
+        {
+          "label": "Satellite data status and available controls",
+          "status": "FAIL",
+          "ms": 12005,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Change time', exact: true })\u001b[22m\n"
+        },
+        {
+          "label": "Sky to Earth mode navigation; observer/time retained",
+          "status": "PASS",
+          "ms": 3218,
+          "details": {
+            "frames": 1,
+            "url": "http://localhost:4231/earth?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site"
+          }
+        },
+        {
+          "label": "Live place provider search",
+          "status": "PASS",
+          "ms": 170,
+          "details": {
+            "text": "Search Earth\nSearch Earth\nHide results\n−\nLocations\nClose\n\n5 possible locations. Choose the place you mean.\n\nSan Francisco\nCalifornia, United States\n37.78794°, -122.40752° · Photon / OpenStreetMap\nSan Francisco Bay Area\nSan Francisco, California, 94110, United States\n37.78850°, -122.35585° · Photon / OpenStreetMap\nSan Francisco Bay\nSan Mateo, California, United States\n37.71403°, -122.30779° · Photon / OpenStreetMap\nSan Francisco Maritime National Historical Park\nSan Francisco, California, United States\n37.81047°, -122.42477° · Photon / OpenStreetMap\nSan Francisco State University\n1600 Holloway Avenue, San Francisco, California, 94132, United States\n37.72452°, -122.48000° · Photon / OpenStreetMap\n\nPlace data: © OpenStreetMap contributors · Photon. Public search may be unavailable."
+          }
+        },
+        {
+          "label": "Coordinate navigation, camera zoom, imagery/source limits",
+          "status": "FAIL",
+          "ms": 14578,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Zoom in', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-label=\"Zoom in\">+</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"ws-search-panel-heading\">…</div> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"ws-search-panel-heading\">…</div> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    23 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"ws-search-panel-heading\">…</div> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+        },
+        {
+          "label": "Earth to Sky return preserves controlled time",
+          "status": "PASS",
+          "ms": 1427,
+          "details": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.321903000989934,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-27T04:00:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "label": "Solar overview, camera orbit/zoom and physical scale",
+          "status": "FAIL",
+          "ms": 14772,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Orbit view right', exact: true })\u001b[22m\n"
+        },
+        {
+          "label": "Solar selected Sun close-up",
+          "status": "PASS",
+          "ms": 903,
+          "details": {
+            "overviewScope": "inner",
+            "cameraView": "body",
+            "closeView": false,
+            "sizeMode": "cinematic",
+            "scale": "independently-enlarged-display-radii",
+            "near": 0.00009300934521924317,
+            "cameraUp": [
+              1,
+              0,
+              0
+            ],
+            "cameraQuaternion": [
+              0.39531546297864445,
+              0.287923567805488,
+              -0.645832810487481,
+              0.5862812334792749
+            ],
+            "epoch": "2026-10-27T04:00:00Z",
+            "frame": "ICRF",
+            "origin": "Sun center (10)",
+            "units": "AU",
+            "selected": "sun",
+            "renderCount": 15,
+            "disposed": false,
+            "animating": false,
+            "camera": [
+              -0.009679739326489413,
+              -0.04674246135722568,
+              0.029186385202826563
+            ],
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "bodies": [
+              {
+                "id": "sun",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "geometryRadiusAu": 0.0046504674668608895,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.004650467260962158,
+                "cameraDistance": 0.05594997880578951,
+                "inView": true,
+                "radiusAu": 0.004650467260962158,
+                "glyphRadius": 0.004650467260962158,
+                "markerVisible": false,
+                "labelVisible": true,
+                "visible": true,
+                "screenRadius": 94.11718225583995,
+                "screen": [
+                  195.19999694824205,
+                  300.79999923706055
+                ]
+              },
+              {
+                "id": "mercury",
+                "position": [
+                  0.3565708021127912,
+                  -0.002779892885598375,
+                  -0.0384390552857709
+                ],
+                "geometryRadiusAu": 0.000016308388063111475,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.000016308387202198327,
+                "cameraDistance": 0.37502715466012,
+                "inView": false,
+                "radiusAu": 0.000016308387202198327,
+                "glyphRadius": 0.000016308387202198327,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.13641600035957885,
+                "screen": [
+                  471.9462209633507,
+                  -2526.0041256352115
+                ]
+              },
+              {
+                "id": "venus",
+                "position": [
+                  0.5910666532769727,
+                  0.39377735992784163,
+                  0.13979634730592427
+                ],
+                "geometryRadiusAu": 0.00004045378599889756,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00004045378434654418,
+                "cameraDistance": 0.7531191837203123,
+                "inView": false,
+                "radiusAu": 0.00004045378434654418,
+                "glyphRadius": 0.00004045378434654418,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.11057581946081894,
+                "screen": [
+                  -672.9501623387803,
+                  -1124.7461549947118
+                ]
+              },
+              {
+                "id": "earth",
+                "position": [
+                  0.8299839828727769,
+                  0.5017387995538697,
+                  0.2174855659874231
+                ],
+                "geometryRadiusAu": 0.00004258750669325284,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00004258750455597227,
+                "cameraDistance": 1.0204525669683535,
+                "inView": false,
+                "radiusAu": 0.00004258750455597227,
+                "glyphRadius": 0.00004258750455597227,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.0954418930362841,
+                "screen": [
+                  -784.3822738141937,
+                  -1361.007299757906
+                ]
+              },
+              {
+                "id": "mars",
+                "position": [
+                  -0.22411554489999036,
+                  1.4276208807011725,
+                  0.6608610331291151
+                ],
+                "geometryRadiusAu": 0.00002265740773765135,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.0000226574080509289,
+                "cameraDistance": 1.618253020992195,
+                "inView": false,
+                "radiusAu": 0.0000226574080509289,
+                "glyphRadius": 0.0000226574080509289,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.0296555942983863,
+                "screen": [
+                  -1477.9679479599915,
+                  770.5724562264645
+                ]
+              },
+              {
+                "id": "jupiter",
+                "position": [
+                  -3.639205272509622,
+                  3.528005859616513,
+                  1.6007849752717802
+                ],
+                "geometryRadiusAu": 0.00046732619236863806,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00046732617030490934,
+                "cameraDistance": 5.331247816659772,
+                "inView": false,
+                "radiusAu": 0.00046732617030490934,
+                "glyphRadius": 0.00046732617030490934,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.34390428957073743,
+                "screen": [
+                  -2109.939022391004,
+                  3126.773692244208
+                ]
+              },
+              {
+                "id": "saturn",
+                "position": [
+                  9.222581419922689,
+                  1.9111987556062782,
+                  0.3922263976457742
+                ],
+                "geometryRadiusAu": 0.0003892568966336601,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00038925687730393614,
+                "cameraDistance": 9.444573996337796,
+                "inView": false,
+                "radiusAu": 0.00038925687730393614,
+                "glyphRadius": 0.00038925687730393614,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.31916141992882463,
+                "screen": [
+                  -290.59263480332623,
+                  -2891.844880680719
+                ]
+              },
+              {
+                "id": "uranus",
+                "position": [
+                  8.838279441914771,
+                  15.90228397579787,
+                  6.8396517035329
+                ],
+                "geometryRadiusAu": 0.00016953450571177144,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00016953449859497232,
+                "cameraDistance": 19.468956413176347,
+                "inView": false,
+                "radiusAu": 0.00016953449859497232,
+                "glyphRadius": 0.00016953449859497232,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.016984748671434718,
+                "screen": [
+                  -1188.3213022999648,
+                  -379.8804688636892
+                ]
+              },
+              {
+                "id": "neptune",
+                "position": [
+                  29.832977345368953,
+                  1.6273798618017443,
+                  -0.0765997101404015
+                ],
+                "geometryRadiusAu": 0.00016458791119007592,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00016458790412449367,
+                "cameraDistance": 29.889765106564326,
+                "inView": false,
+                "radiusAu": 0.00016458790412449367,
+                "glyphRadius": 0.00016458790412449367,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.028165847490400246,
+                "screen": [
+                  62.790850775017596,
+                  -4540.217751296775
+                ]
+              }
+            ],
+            "drawCalls": 11,
+            "geometries": 20,
+            "textures": 3,
+            "texturesReady": 2,
+            "cloudsReady": true,
+            "quality": "efficient",
+            "backgroundVisible": false,
+            "gpuMs": {
+              "supported": true,
+              "samples": 12,
+              "median": 0.99328,
+              "p95": 19.30752
+            },
+            "orbitsVisible": true,
+            "effectsVisible": true,
+            "belt": {
+              "visible": false,
+              "requestedDensity": 2400,
+              "drawCount": 1000,
+              "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+            },
+            "starfield": "illustrative",
+            "starCount": 1200,
+            "renderCpuMs": {
+              "samples": 12,
+              "median": 0.7999999821186066,
+              "p95": 23.19999998807907
+            },
+            "pixelRatio": 1
+          }
+        },
+        {
+          "label": "Solar Saturn system selection and back",
+          "status": "PASS",
+          "ms": 1552,
+          "details": {
+            "epoch": "2026-10-27T04:00:00.000Z",
+            "frame": "ICRF",
+            "origin": "Saturn center (699)",
+            "units": "km",
+            "sceneUnitKm": 1000,
+            "selected": null,
+            "sizeMode": "cinematic",
+            "orbitsRequested": true,
+            "orbitsVisible": true,
+            "renderCount": 2,
+            "disposed": false,
+            "contextLost": false,
+            "animating": false,
+            "texturesReady": 0,
+            "camera": [
+              -34303.55580667104,
+              -3673012.420568432,
+              9851988.75440778
+            ],
+            "target": [
+              -34303.55580667104,
+              7051.396543604555,
+              2563.966475046356
+            ],
+            "cameraState": {
+              "position": [
+                -34303.55580667104,
+                -3673012.420568432,
+                9851988.75440778
+              ],
+              "target": [
+                -34303.55580667104,
+                7051.396543604555,
+                2563.966475046356
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": null
+            },
+            "viewport": {
+              "clearWidth": 350.3999938964844,
+              "clearHeight": 400.4000244140625,
+              "rectangleOffsetX": 0,
+              "rectangleOffsetY": 9.79998779296875
+            },
+            "standardLightPositionKm": null,
+            "bodies": [
+              {
+                "id": "saturn",
+                "appearance": "illustrative-material",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "radiusKm": 58232,
+                "displayRadiusKm": 153909.05577971565,
+                "screenRadius": 16.092080900463298,
+                "screen": [
+                  198.78665187770193,
+                  412.98447576816824
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              },
+              {
+                "id": "enceladus",
+                "appearance": "neutral-reference-sphere",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  140714.90858500404,
+                  -191414.16921081982,
+                  1985.3940410211912
+                ],
+                "radiusKm": 252.1,
+                "displayRadiusKm": 56472.38333878955,
+                "screenRadius": 5.941691409401834,
+                "screen": [
+                  213.6199154807365,
+                  431.7877982460648
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              },
+              {
+                "id": "titan",
+                "appearance": "neutral-reference-sphere",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  -385716.8976318726,
+                  -1157562.906434128,
+                  111822.44291283822
+                ],
+                "radiusKm": 2574.76,
+                "displayRadiusKm": 219749.40121756415,
+                "screenRadius": 24,
+                "screen": [
+                  156.5848529568096,
+                  527.8774962661943
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              }
+            ],
+            "drawCalls": 5,
+            "geometries": 5,
+            "textures": 0,
+            "renderCpuMs": {
+              "samples": 2,
+              "median": 8.299999982118607,
+              "p95": 8.299999982118607
+            },
+            "playing": false,
+            "speed": 86400,
+            "system": "saturn"
+          }
+        },
+        {
+          "label": "Solar to Earth system to Moon; native surface exploration",
+          "status": "PASS",
+          "ms": 4163,
+          "details": {
+            "before": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614302,
+                "longitudeDeg": -16.116970422199074,
+                "heightM": 6515250.000000001,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 22,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            },
+            "after": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614304,
+                "longitudeDeg": -1.1169704221990742,
+                "heightM": 4234912.5,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 26,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            }
+          }
+        },
+        {
+          "label": "Lunar coordinates, return journey and renderer disposal",
+          "status": "FAIL",
+          "ms": 12005,
+          "error": "TimeoutError: locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Latitude °N', { exact: true })\u001b[22m\n"
+        }
+      ],
+      "errors": [],
+      "httpFailures": [
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix3.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix8.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix9.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix280.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix282.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix303.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix305.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix308.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix313.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix314.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix318.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix575.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix3.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix8.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix9.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix280.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix282.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix303.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix305.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix308.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix313.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix314.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix318.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix575.eph",
+          "status": 404
+        }
+      ],
+      "requestFailures": [
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?f=json&geometry=%7B%22x%22%3A-79.58539400000973%2C%22y%22%3A41.32190300107759%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPoint&inSR=4326&outSR=4326&spatialRel=esriSpatialRelIntersects&where=Category%3D1&outFields=Name&returnGeometry=true&resultRecordCount=1",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix38.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix47.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix43.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix37.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix42.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix41.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix49.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix44.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix34.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix39.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix46.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix36.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix40.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix48.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix35.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/gaia/v1/Norder3/Dir0/Npix45.eph",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        }
+      ],
+      "skyInitial": [
+        {
+          "url": "http://localhost:4231/sky-engine?date=2026-10-27T04:00:00Z",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/?date=2026-10-27T04%3A00%3A00Z&orasEmbedded=1&orasNightMode=0",
+          "data": {
+            "sky": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-27T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "skyBeforeLeave": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-27T04:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "earthInitial": [
+        {
+          "url": "http://localhost:4231/earth?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/earth-runtime/?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site&orasEmbedded=1",
+          "data": {
+            "earth": {
+              "owner": "Astronomy Hub",
+              "monotonicMs": 3015.7999999821186,
+              "globeTilesLoaded": true,
+              "ready": true,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "site": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816
+              },
+              "layers": [
+                {
+                  "id": "oras-site",
+                  "title": "ORAS site",
+                  "category": "Site context",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "ORAS canonical site",
+                  "status": "ready"
+                },
+                {
+                  "id": "aircraft",
+                  "title": "Aircraft near ORAS",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "adsb.lol · ODbL 1.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "satellites",
+                  "title": "Satellites · stations",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "tracking",
+                    "live-only"
+                  ],
+                  "attribution": "CelesTrak · satellite.js",
+                  "status": "loading"
+                },
+                {
+                  "id": "weather",
+                  "title": "Weather at ORAS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "Open-Meteo · CC BY 4.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "earthquakes",
+                  "title": "Earthquakes · M2.5+ · past day",
+                  "category": "Events",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "U.S. Geological Survey",
+                  "status": "disabled"
+                },
+                {
+                  "id": "fire-perimeters",
+                  "title": "Fire perimeters · recent subset",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NIFC/WFIGS",
+                  "status": "disabled"
+                },
+                {
+                  "id": "weather-radar",
+                  "title": "Radar reflectivity · CONUS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NOAA/NWS nowCOAST",
+                  "status": "disabled"
+                }
+              ],
+              "providers": {
+                "satellites": {
+                  "status": "loading",
+                  "temporalMode": "LIVE_ONLY"
+                }
+              },
+              "entityCount": 1,
+              "timings": {
+                "moduleLoadedMs": 105.89999997615814,
+                "shellInteractiveMs": 138.69999998807907,
+                "viewerReadyMs": 141.39999997615814,
+                "firstImageryTileMs": 411.69999998807907
+              },
+              "cameraMotion": {
+                "active": false
+              },
+              "cameraHeightM": 9621863,
+              "navigation": {
+                "mode": "earth",
+                "observer": {
+                  "lat": 41.32190210035696,
+                  "lon": -79.5853940640924,
+                  "elevationM": 432.816
+                },
+                "elevationSource": "oras-site",
+                "camera": {
+                  "latitudeRad": 0.72120326054,
+                  "longitudeRad": -1.3890271617970003,
+                  "heightM": 9621863,
+                  "headingRad": 6.283185307179586,
+                  "pitchRad": -1.5687912668456447,
+                  "rollRad": 0
+                },
+                "utc": "2026-10-27T04:00:00.000Z",
+                "live": false
+              },
+              "tracking": null,
+              "selection": null,
+              "quality": {
+                "imagery": "NASA · Blue Marble · ready · Static Blue Marble composite · 500 m",
+                "terrain": "Terrain unavailable · ellipsoid",
+                "buildings": "Not configured",
+                "photorealistic": "Not configured"
+              },
+              "imagery": {
+                "selected": "auto",
+                "actual": "nasa",
+                "status": "ready",
+                "fallbackReason": "",
+                "metadata": {
+                  "label": "NASA · Blue Marble",
+                  "product": "Static Blue Marble composite",
+                  "date": null,
+                  "gsd": 500,
+                  "coverage": "Global overview; not current photography",
+                  "credit": "NASA GIBS · Blue Marble",
+                  "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+                  "host": "gibs.earthdata.nasa.gov",
+                  "cap": 8,
+                  "coverageRasterName": null,
+                  "selected": "auto",
+                  "actual": "nasa",
+                  "status": "ready",
+                  "reason": "",
+                  "loadingNote": ""
+                },
+                "localAllocations": 1,
+                "controllersCreated": 1,
+                "managedLayers": 1,
+                "labelsLayers": 1,
+                "budget": {
+                  "active": 0,
+                  "requested": 48
+                },
+                "ionSessionRequests": 0,
+                "ionSessionLedgerAvailable": true,
+                "metadataRequests": 0,
+                "metadataPending": false,
+                "view": {
+                  "height": 9621863,
+                  "rect": [
+                    -180,
+                    -90,
+                    180,
+                    90
+                  ],
+                  "point": [
+                    -79.58539406413868,
+                    41.32190209970561
+                  ],
+                  "naipCovered": false,
+                  "verifiedOras": false
+                },
+                "sources": {
+                  "nasa": {
+                    "requested": 6,
+                    "loaded": 6,
+                    "failed": 0,
+                    "cancelled": 0,
+                    "active": 0,
+                    "peak": 6,
+                    "paused": false,
+                    "partial": false,
+                    "preparing": false
+                  }
+                }
+              }
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "moon": [
+        {
+          "url": "http://localhost:4231/planet-view/moon?date=2026-10-27T04%3A00%3A00Z&lat=-1.4113836859614304&lon=-1.1169704221990742&height=4234912.5&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/planet-runtime/?channel=455431204fab4c49aec66e68dc02d231",
+          "data": {
+            "moon": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614304,
+                "longitudeDeg": -1.1169704221990742,
+                "heightM": 4234912.5,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 26,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\7d904b75c6fadccb445e231cd61faf94.webm"
+    },
+    {
+      "name": "landscape",
+      "width": 844,
+      "height": 390,
+      "steps": [
+        {
+          "label": "Native Sky render and controls",
+          "status": "PASS",
+          "ms": 3832,
+          "details": {
+            "frames": 1,
+            "body": "Search...\n✧\nConstellations\n◎\nObserving tools\n◐\nDisplay\nSKY VIEW\nObserving tools\n×\nAtmosphere\nLandscape\nAzimuthal Grid\nEquatorial Grid\nDeep Sky Objects\nAdvanced observing\nIllustrative Pennsylvania · not surveyed · Stellarium credits\nSource code & licenses"
+          }
+        },
+        {
+          "label": "Native object search and focus",
+          "status": "FAIL",
+          "ms": 12006,
+          "error": "TimeoutError: locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByPlaceholder('Search...')\u001b[22m\n"
+        },
+        {
+          "label": "Satellite data status and available controls",
+          "status": "FAIL",
+          "ms": 12013,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Change time', exact: true })\u001b[22m\n"
+        },
+        {
+          "label": "Sky to Earth mode navigation; observer/time retained",
+          "status": "PASS",
+          "ms": 2681,
+          "details": {
+            "frames": 1,
+            "url": "http://localhost:4231/earth?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site"
+          }
+        },
+        {
+          "label": "Live place provider search",
+          "status": "PASS",
+          "ms": 146,
+          "details": {
+            "text": "Search Earth\nSearch Earth\nHide results\n−\nLocations\nClose\n\n5 possible locations. Choose the place you mean.\n\nSan Francisco\nCalifornia, United States\n37.78794°, -122.40752° · Photon / OpenStreetMap\nSan Francisco Bay Area\nSan Francisco, California, 94110, United States\n37.78850°, -122.35585° · Photon / OpenStreetMap\nSan Francisco Bay\nSan Mateo, California, United States\n37.71403°, -122.30779° · Photon / OpenStreetMap\nSan Francisco Maritime National Historical Park\nSan Francisco, California, United States\n37.81047°, -122.42477° · Photon / OpenStreetMap\nSan Francisco State University\n1600 Holloway Avenue, San Francisco, California, 94132, United States\n37.72452°, -122.48000° · Photon / OpenStreetMap\n\nPlace data: © OpenStreetMap contributors · Photon. Public search may be unavailable."
+          }
+        },
+        {
+          "label": "Coordinate navigation, camera zoom, imagery/source limits",
+          "status": "FAIL",
+          "ms": 14572,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Zoom in', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-label=\"Zoom in\">+</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span>Locations</span> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <span>Locations</span> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    23 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <span>Locations</span> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+        },
+        {
+          "label": "Earth to Sky return preserves controlled time",
+          "status": "PASS",
+          "ms": 1286,
+          "details": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.321903000989934,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-27T04:00:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          }
+        },
+        {
+          "label": "Solar overview, camera orbit/zoom and physical scale",
+          "status": "FAIL",
+          "ms": 14544,
+          "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Orbit view right', exact: true })\u001b[22m\n"
+        },
+        {
+          "label": "Solar selected Sun close-up",
+          "status": "PASS",
+          "ms": 905,
+          "details": {
+            "overviewScope": "inner",
+            "cameraView": "body",
+            "closeView": false,
+            "sizeMode": "cinematic",
+            "scale": "independently-enlarged-display-radii",
+            "near": 0.00009300934521924317,
+            "cameraUp": [
+              0.15,
+              0,
+              1
+            ],
+            "cameraQuaternion": [
+              0.48897187846482154,
+              -0.008988784035970447,
+              -0.16115034830733863,
+              0.8572375802964788
+            ],
+            "epoch": "2026-10-27T04:00:00Z",
+            "frame": "ICRF",
+            "origin": "Sun center (10)",
+            "units": "AU",
+            "selected": "sun",
+            "renderCount": 15,
+            "disposed": false,
+            "animating": false,
+            "camera": [
+              -0.005859224505837693,
+              -0.028293589921161152,
+              0.017666755028127458
+            ],
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "bodies": [
+              {
+                "id": "sun",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "geometryRadiusAu": 0.0046504674668608895,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.004650467260962158,
+                "cameraDistance": 0.033866974704873,
+                "inView": true,
+                "radiusAu": 0.004650467260962158,
+                "glyphRadius": 0.004650467260962158,
+                "markerVisible": false,
+                "labelVisible": true,
+                "visible": true,
+                "screenRadius": 71.9216753005268,
+                "screen": [
+                  354.47999999999996,
+                  212.4000053405761
+                ]
+              },
+              {
+                "id": "mercury",
+                "position": [
+                  0.3565708021127912,
+                  -0.002779892885598375,
+                  -0.0384390552857709
+                ],
+                "geometryRadiusAu": 0.000016308388063111475,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.000016308387202198327,
+                "cameraDistance": 0.36763342459871856,
+                "inView": false,
+                "radiusAu": 0.000016308387202198327,
+                "glyphRadius": 0.000016308387202198327,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.0754007921435269,
+                "screen": [
+                  1899.7457649068153,
+                  -64.73553380116209
+                ]
+              },
+              {
+                "id": "venus",
+                "position": [
+                  0.5910666532769727,
+                  0.39377735992784163,
+                  0.13979634730592427
+                ],
+                "geometryRadiusAu": 0.00004045378599889756,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00004045378434654418,
+                "cameraDistance": 0.7412017455343444,
+                "inView": false,
+                "radiusAu": 0.00004045378434654418,
+                "glyphRadius": 0.00004045378434654418,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.05402795216041678,
+                "screen": [
+                  909.6234104095696,
+                  -385.01152740500294
+                ]
+              },
+              {
+                "id": "earth",
+                "position": [
+                  0.8299839828727769,
+                  0.5017387995538697,
+                  0.2174855659874231
+                ],
+                "geometryRadiusAu": 0.00004258750669325284,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00004258750455597227,
+                "cameraDistance": 1.0097008261989127,
+                "inView": false,
+                "radiusAu": 0.00004258750455597227,
+                "glyphRadius": 0.00004258750455597227,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.046165234582612236,
+                "screen": [
+                  999.3949681817306,
+                  -461.9247975366008
+                ]
+              },
+              {
+                "id": "mars",
+                "position": [
+                  -0.22411554489999036,
+                  1.4276208807011725,
+                  0.6608610331291151
+                ],
+                "geometryRadiusAu": 0.00002265740773765135,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.0000226574080509289,
+                "cameraDistance": 1.6065558336209034,
+                "inView": false,
+                "radiusAu": 0.0000226574080509289,
+                "glyphRadius": 0.0000226574080509289,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.014076792831489993,
+                "screen": [
+                  -75.83058725569532,
+                  -491.39711457247006
+                ]
+              },
+              {
+                "id": "jupiter",
+                "position": [
+                  -3.639205272509622,
+                  3.528005859616513,
+                  1.6007849752717802
+                ],
+                "geometryRadiusAu": 0.00046732619236863806,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00046732617030490934,
+                "cameraDistance": 5.324916203903505,
+                "inView": false,
+                "radiusAu": 0.00046732617030490934,
+                "glyphRadius": 0.00046732617030490934,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.16139235988598077,
+                "screen": [
+                  -1215.690624211406,
+                  -468.53609687215067
+                ]
+              },
+              {
+                "id": "saturn",
+                "position": [
+                  9.222581419922689,
+                  1.9111987556062782,
+                  0.3922263976457742
+                ],
+                "geometryRadiusAu": 0.0003892568966336601,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00038925687730393614,
+                "cameraDistance": 9.437480713197656,
+                "inView": false,
+                "radiusAu": 0.00038925687730393614,
+                "glyphRadius": 0.00038925687730393614,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.14871003773434488,
+                "screen": [
+                  1724.6704736983945,
+                  -409.45893575896645
+                ]
+              },
+              {
+                "id": "uranus",
+                "position": [
+                  8.838279441914771,
+                  15.90228397579787,
+                  6.8396517035329
+                ],
+                "geometryRadiusAu": 0.00016953450571177144,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00016953449859497232,
+                "cameraDistance": 19.45614476112604,
+                "inView": false,
+                "radiusAu": 0.00016953449859497232,
+                "glyphRadius": 0.00016953449859497232,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.007871832571698045,
+                "screen": [
+                  483.94432041639243,
+                  -490.3914257884502
+                ]
+              },
+              {
+                "id": "neptune",
+                "position": [
+                  29.832977345368953,
+                  1.6273798618017443,
+                  -0.0765997101404015
+                ],
+                "geometryRadiusAu": 0.00016458791119007592,
+                "displayFactor": 1,
+                "displayRadiusAu": 0.00016458790412449367,
+                "cameraDistance": 29.884884282675287,
+                "inView": false,
+                "radiusAu": 0.00016458790412449367,
+                "glyphRadius": 0.00016458790412449367,
+                "markerVisible": false,
+                "labelVisible": false,
+                "visible": true,
+                "screenRadius": 0.013071999601372397,
+                "screen": [
+                  2500.095099024966,
+                  -456.9459310683722
+                ]
+              }
+            ],
+            "drawCalls": 11,
+            "geometries": 23,
+            "textures": 3,
+            "texturesReady": 2,
+            "cloudsReady": true,
+            "quality": "efficient",
+            "backgroundVisible": false,
+            "gpuMs": {
+              "supported": true,
+              "samples": 12,
+              "median": 1.04448,
+              "p95": 16.308224
+            },
+            "orbitsVisible": true,
+            "effectsVisible": true,
+            "belt": {
+              "visible": false,
+              "requestedDensity": 2400,
+              "drawCount": 1000,
+              "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+            },
+            "starfield": "illustrative",
+            "starCount": 1200,
+            "renderCpuMs": {
+              "samples": 12,
+              "median": 0.9000000059604645,
+              "p95": 23.099999994039536
+            },
+            "pixelRatio": 1
+          }
+        },
+        {
+          "label": "Solar Saturn system selection and back",
+          "status": "PASS",
+          "ms": 1567,
+          "details": {
+            "epoch": "2026-10-27T04:00:00.000Z",
+            "frame": "ICRF",
+            "origin": "Saturn center (699)",
+            "units": "km",
+            "sceneUnitKm": 1000,
+            "selected": null,
+            "sizeMode": "cinematic",
+            "orbitsRequested": true,
+            "orbitsVisible": true,
+            "renderCount": 2,
+            "disposed": false,
+            "contextLost": false,
+            "animating": false,
+            "texturesReady": 0,
+            "camera": [
+              -34303.55580667104,
+              -3726878.766836607,
+              9996158.13639026
+            ],
+            "target": [
+              -34303.55580667104,
+              7051.396543604555,
+              2563.966475046356
+            ],
+            "cameraState": {
+              "position": [
+                -34303.55580667104,
+                -3726878.766836607,
+                9996158.13639026
+              ],
+              "target": [
+                -34303.55580667104,
+                7051.396543604555,
+                2563.966475046356
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": null
+            },
+            "viewport": {
+              "clearWidth": 804,
+              "clearHeight": 162.20001602172852,
+              "rectangleOffsetX": 0,
+              "rectangleOffsetY": -31.50001335144043
+            },
+            "standardLightPositionKm": null,
+            "bodies": [
+              {
+                "id": "saturn",
+                "appearance": "illustrative-material",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "radiusKm": 58232,
+                "displayRadiusKm": 153892.66290787692,
+                "screenRadius": 7.335377900691413,
+                "screen": [
+                  423.63510659621033,
+                  227.05763643560277
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              },
+              {
+                "id": "enceladus",
+                "appearance": "neutral-reference-sphere",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  140714.90858500404,
+                  -191414.16921081982,
+                  1985.3940410211912
+                ],
+                "radiusKm": 252.1,
+                "displayRadiusKm": 56471.2604761607,
+                "screenRadius": 2.7084472248706755,
+                "screen": [
+                  430.3965887553356,
+                  235.62896314532784
+                ],
+                "inView": true,
+                "labelVisible": false,
+                "markerVisible": true
+              },
+              {
+                "id": "titan",
+                "appearance": "neutral-reference-sphere",
+                "modelStatus": "not-requested",
+                "textureStatus": "not-requested",
+                "modelReady": false,
+                "textureReady": false,
+                "assetError": null,
+                "position": [
+                  -385716.8976318726,
+                  -1157562.906434128,
+                  111822.44291283822
+                ],
+                "radiusKm": 2574.76,
+                "displayRadiusKm": 277986.43475759187,
+                "screenRadius": 13.8332368149742,
+                "screen": [
+                  404.4088216410086,
+                  279.3970364885685
+                ],
+                "inView": true,
+                "labelVisible": true,
+                "markerVisible": false
+              }
+            ],
+            "drawCalls": 5,
+            "geometries": 5,
+            "textures": 0,
+            "renderCpuMs": {
+              "samples": 2,
+              "median": 8.400000005960464,
+              "p95": 8.400000005960464
+            },
+            "playing": false,
+            "speed": 86400,
+            "system": "saturn"
+          }
+        },
+        {
+          "label": "Solar to Earth system to Moon; native surface exploration",
+          "status": "PASS",
+          "ms": 4114,
+          "details": {
+            "before": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614304,
+                "longitudeDeg": -16.116970422199074,
+                "heightM": 4343500,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 23,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            },
+            "after": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614302,
+                "longitudeDeg": -1.1169704221990742,
+                "heightM": 2823275,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 33,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            }
+          }
+        },
+        {
+          "label": "Lunar coordinates, return journey and renderer disposal",
+          "status": "FAIL",
+          "ms": 12005,
+          "error": "TimeoutError: locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Latitude °N', { exact: true })\u001b[22m\n"
+        }
+      ],
+      "errors": [],
+      "httpFailures": [
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix298.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix344.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix346.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix350.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix364.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix465.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix466.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix467.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix471.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph",
+          "status": 404
+        }
+      ],
+      "requestFailures": [
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?f=json&geometry=%7B%22x%22%3A-79.58539400000909%2C%22y%22%3A41.321903001007364%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&geometryType=esriGeometryPoint&inSR=4326&outSR=4326&spatialRel=esriSpatialRelIntersects&where=Category%3D1&outFields=Name&returnGeometry=true&resultRecordCount=1",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "reason": {
+            "errorText": "net::ERR_ABORTED"
+          }
+        }
+      ],
+      "skyInitial": [
+        {
+          "url": "http://localhost:4231/sky-engine?date=2026-10-27T04:00:00Z",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/oras-sky-engine/?date=2026-10-27T04%3A00%3A00Z&orasEmbedded=1&orasNightMode=0",
+          "data": {
+            "sky": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-27T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "skyBeforeLeave": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-27T04:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "earthInitial": [
+        {
+          "url": "http://localhost:4231/earth?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/earth-runtime/?date=2026-10-27T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&elevationSource=oras-site&orasEmbedded=1",
+          "data": {
+            "earth": {
+              "owner": "Astronomy Hub",
+              "monotonicMs": 2494.5999999940395,
+              "globeTilesLoaded": true,
+              "ready": true,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "site": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816
+              },
+              "layers": [
+                {
+                  "id": "oras-site",
+                  "title": "ORAS site",
+                  "category": "Site context",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "ORAS canonical site",
+                  "status": "ready"
+                },
+                {
+                  "id": "aircraft",
+                  "title": "Aircraft near ORAS",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "adsb.lol · ODbL 1.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "satellites",
+                  "title": "Satellites · stations",
+                  "category": "Live Earth",
+                  "capabilities": [
+                    "selection",
+                    "tracking",
+                    "live-only"
+                  ],
+                  "attribution": "CelesTrak · satellite.js",
+                  "status": "loading"
+                },
+                {
+                  "id": "weather",
+                  "title": "Weather at ORAS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "live-only"
+                  ],
+                  "attribution": "Open-Meteo · CC BY 4.0",
+                  "status": "disabled"
+                },
+                {
+                  "id": "earthquakes",
+                  "title": "Earthquakes · M2.5+ · past day",
+                  "category": "Events",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "U.S. Geological Survey",
+                  "status": "disabled"
+                },
+                {
+                  "id": "fire-perimeters",
+                  "title": "Fire perimeters · recent subset",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NIFC/WFIGS",
+                  "status": "disabled"
+                },
+                {
+                  "id": "weather-radar",
+                  "title": "Radar reflectivity · CONUS",
+                  "category": "Environment",
+                  "capabilities": [
+                    "selection",
+                    "focus"
+                  ],
+                  "attribution": "NOAA/NWS nowCOAST",
+                  "status": "disabled"
+                }
+              ],
+              "providers": {
+                "satellites": {
+                  "status": "loading",
+                  "temporalMode": "LIVE_ONLY"
+                }
+              },
+              "entityCount": 1,
+              "timings": {
+                "moduleLoadedMs": 113.30000001192093,
+                "shellInteractiveMs": 148.5,
+                "viewerReadyMs": 151.80000001192093,
+                "firstImageryTileMs": 390.5
+              },
+              "cameraMotion": {
+                "active": false
+              },
+              "cameraHeightM": 15621863.000000002,
+              "navigation": {
+                "mode": "earth",
+                "observer": {
+                  "lat": 41.32190153934777,
+                  "lon": -79.58539410405697,
+                  "elevationM": 432.816
+                },
+                "elevationSource": "oras-site",
+                "camera": {
+                  "latitudeRad": 0.7212032605399997,
+                  "longitudeRad": -1.3890271617970003,
+                  "heightM": 15621863.000000002,
+                  "headingRad": 6.283185307179586,
+                  "pitchRad": -1.568429161529859,
+                  "rollRad": 0
+                },
+                "utc": "2026-10-27T04:00:00.000Z",
+                "live": false
+              },
+              "tracking": null,
+              "selection": null,
+              "quality": {
+                "imagery": "NASA · Blue Marble · ready · Static Blue Marble composite · 500 m",
+                "terrain": "Terrain unavailable · ellipsoid",
+                "buildings": "Not configured",
+                "photorealistic": "Not configured"
+              },
+              "imagery": {
+                "selected": "auto",
+                "actual": "nasa",
+                "status": "ready",
+                "fallbackReason": "",
+                "metadata": {
+                  "label": "NASA · Blue Marble",
+                  "product": "Static Blue Marble composite",
+                  "date": null,
+                  "gsd": 500,
+                  "coverage": "Global overview; not current photography",
+                  "credit": "NASA GIBS · Blue Marble",
+                  "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+                  "host": "gibs.earthdata.nasa.gov",
+                  "cap": 8,
+                  "coverageRasterName": null,
+                  "selected": "auto",
+                  "actual": "nasa",
+                  "status": "ready",
+                  "reason": "",
+                  "loadingNote": ""
+                },
+                "localAllocations": 1,
+                "controllersCreated": 1,
+                "managedLayers": 1,
+                "labelsLayers": 1,
+                "budget": {
+                  "active": 0,
+                  "requested": 18
+                },
+                "ionSessionRequests": 0,
+                "ionSessionLedgerAvailable": true,
+                "metadataRequests": 0,
+                "metadataPending": false,
+                "view": {
+                  "height": 15621863.000000002,
+                  "rect": [
+                    -180,
+                    -90,
+                    180,
+                    90
+                  ],
+                  "point": [
+                    -79.58539410422874,
+                    41.32190153692994
+                  ],
+                  "naipCovered": false,
+                  "verifiedOras": false
+                },
+                "sources": {
+                  "nasa": {
+                    "requested": 2,
+                    "loaded": 2,
+                    "failed": 0,
+                    "cancelled": 0,
+                    "active": 0,
+                    "peak": 2,
+                    "paused": false,
+                    "partial": false,
+                    "preparing": false
+                  }
+                }
+              }
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "moon": [
+        {
+          "url": "http://localhost:4231/planet-view/moon?date=2026-10-27T04%3A00%3A00Z&lat=-1.4113836859614302&lon=-1.1169704221990742&height=2823275&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+          "data": {
+            "gpu": []
+          }
+        },
+        {
+          "url": "http://localhost:4231/planet-runtime/?channel=40db4635a5e29c3231d3d757359d8aee",
+          "data": {
+            "moon": {
+              "bodyId": "moon",
+              "centerNaifId": "301",
+              "frame": "MOON_ME_DE440_ME421",
+              "epoch": "2026-10-27T04:00:00Z",
+              "camera": {
+                "latitudeDeg": -1.4113836859614302,
+                "longitudeDeg": -1.1169704221990742,
+                "heightM": 2823275,
+                "headingRad": 6.283185307179586,
+                "pitchRad": -1.5707963267948966,
+                "rollRad": 0
+              },
+              "radiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "source": {
+                "id": "LROC_WAC_GLOBAL_E000N0000_008P_v1.3",
+                "url": "/planet-data/moon-wac.png",
+                "status": "ready",
+                "sourceResolutionM": 3790.4188030187,
+                "pixelsPerDegree": 8,
+                "noDataPixels": 325773,
+                "noDataFraction": 0.07855251736111112
+              },
+              "sceneEpoch": "2026-10-27T04:00:00Z",
+              "terrain": false,
+              "renderedFrames": 33,
+              "disposed": false,
+              "viewerDestroyed": false,
+              "earthEffectsDisabled": true,
+              "globeRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "sceneRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "projectionRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "globeTilesLoaded": true,
+              "terrainRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "imageryRadiiM": [
+                1737400,
+                1737400,
+                1737400
+              ],
+              "illuminationModel": "Lambert sphere; no ambient Earth shading or Earthshine; historic mosaic is not reflectance",
+              "lightEmissionDirection": [
+                -0.9604055139724238,
+                0.277514994848056,
+                0.02463080116131164
+              ]
+            },
+            "gpu": [
+              "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+            ]
+          }
+        }
+      ],
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\3ac81ac6d6c088bf149b3dcc8cbb9103.webm"
+    }
+  ],
+  "gpu": {
+    "gpu": {
+      "devices": [
+        {
+          "vendorId": 4318,
+          "deviceId": 9504,
+          "subSysId": 356978725,
+          "revision": 161,
+          "vendorString": "",
+          "deviceString": "NVIDIA GeForce RTX 3060 Laptop GPU",
+          "driverVendor": "NVIDIA",
+          "driverVersion": "32.0.16.1714"
+        },
+        {
+          "vendorId": 32902,
+          "deviceId": 39520,
+          "subSysId": 355733541,
+          "revision": 1,
+          "vendorString": "",
+          "deviceString": "Intel(R) UHD Graphics",
+          "driverVendor": "",
+          "driverVersion": "30.0.101.1273"
+        },
+        {
+          "vendorId": 5140,
+          "deviceId": 140,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "",
+          "deviceString": "Microsoft Basic Render Driver",
+          "driverVendor": "",
+          "driverVersion": "10.0.26100.9711"
+        }
+      ],
+      "auxAttributes": {
+        "amdSwitchable": false,
+        "bgra8OverlaySupport": "SOFTWARE",
+        "canSupportThreadedTextureMailbox": false,
+        "directComposition": true,
+        "directMLFeatureLevel": "Not supported",
+        "directRenderingVersion": "",
+        "displayType": "ANGLE_D3D11",
+        "dx12FeatureLevel": "Not supported",
+        "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_copy_texture_3d GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_multiview_multisample GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_texture_usage GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_compressed_texture GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_EGL_image_external_wrap_modes GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_clip_cull_distance GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_border_clamp GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_storage GL_EXT_texture_type_2_10_10_10_REV GL_EXT_unpack_subimage GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_NV_EGL_stream_consumer_external GL_NV_fence GL_NV_framebuffer_blit GL_NV_pack_subimage GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_EGL_image_external_essl3 GL_OES_depth24 GL_OES_depth32 GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_border_clamp GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_texture_storage_multisample_2d_array GL_OES_vertex_array_object GL_OVR_multiview GL_OVR_multiview2 ",
+        "glImplementationParts": "(gl=egl-angle,angle=d3d11)",
+        "glRenderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.16.1714)",
+        "glResetNotificationStrategy": 33362,
+        "glVendor": "Google Inc. (NVIDIA)",
+        "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.48495 git hash: 09dc4bea9c40)",
+        "glWsExtensions": "EGL_EXT_create_context_robustness EGL_ANGLE_d3d_share_handle_client_buffer EGL_ANGLE_d3d_texture_client_buffer EGL_ANGLE_surface_d3d_texture_2d_share_handle EGL_ANGLE_query_surface_pointer EGL_ANGLE_window_fixed_size EGL_ANGLE_keyed_mutex EGL_ANGLE_surface_orientation EGL_ANGLE_direct_composition EGL_NV_post_sub_buffer EGL_KHR_create_context EGL_KHR_image EGL_KHR_image_base EGL_KHR_gl_texture_2D_image EGL_KHR_gl_texture_cubemap_image EGL_KHR_gl_renderbuffer_image EGL_KHR_get_all_proc_addresses EGL_KHR_stream EGL_KHR_stream_consumer_gltexture EGL_NV_stream_consumer_gltexture_yuv EGL_ANGLE_stream_producer_d3d_texture EGL_ANGLE_create_context_webgl_compatibility EGL_CHROMIUM_create_context_bind_generates_resource EGL_CHROMIUM_sync_control EGL_EXT_pixel_format_float EGL_KHR_surfaceless_context EGL_ANGLE_display_texture_share_group EGL_ANGLE_display_semaphore_share_group EGL_ANGLE_create_context_client_arrays EGL_ANGLE_program_cache_control EGL_ANGLE_robust_resource_initialization EGL_ANGLE_create_context_extensions_enabled EGL_ANDROID_blob_cache EGL_ANDROID_recordable EGL_ANGLE_image_d3d11_texture EGL_ANGLE_create_context_backwards_compatible EGL_KHR_no_config_context EGL_KHR_create_context_no_error EGL_KHR_reusable_sync EGL_ANGLE_memory_usage_report ",
+        "glWsVendor": "Google Inc. (NVIDIA)",
+        "glWsVersion": "1.5 (ANGLE 2.1.48495 git hash: 09dc4bea9c40)",
+        "inProcessGpu": false,
+        "initializationTime": 0.255841,
+        "isAsan": false,
+        "isClangCoverage": false,
+        "jpegDecodeAcceleratorSupported": false,
+        "maxMsaaSamples": "8",
+        "nv12OverlaySupport": "SOFTWARE",
+        "optimus": false,
+        "p010OverlaySupport": "SOFTWARE",
+        "passthroughCmdDecoder": true,
+        "pixelShaderVersion": "5.0",
+        "playreadyHardwareDrmSupport": false,
+        "processCrashCount": 0,
+        "rgb10a2OverlaySupport": "SOFTWARE",
+        "sandboxed": true,
+        "skiaBackendType": "GaneshGL",
+        "subpixelFontRendering": true,
+        "supportsD3dSharedImages": false,
+        "supportsDirectML": false,
+        "supportsDx12": false,
+        "supportsOverlays": true,
+        "supportsVulkan": false,
+        "targetCpuBits": 64,
+        "vertexShaderVersion": "5.0",
+        "visibilityCallbackCallCount": 0,
+        "vulkanVersion": "Not supported",
+        "yuy2OverlaySupport": "SOFTWARE"
+      },
+      "featureStatus": {
+        "2d_canvas": "enabled",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "enabled",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "enabled_on",
+        "rasterization": "enabled",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "disabled_off",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "enabled",
+        "video_encode": "enabled",
+        "webgl": "enabled",
+        "webgpu": "enabled",
+        "webnn": "disabled_off"
+      },
+      "driverBugWorkarounds": [
+        "disable_d3d11_vp9_ksvc_decoding",
+        "disable_dynamic_video_encode_framerate_update",
+        "disable_hevc_hmft_cbr_encoding",
+        "disable_vp9_hmft_temporal_encoding",
+        "enable_bgra8_overlays_with_yuv_overlay_support",
+        "enable_webgl_timer_query_extensions",
+        "exit_on_context_lost",
+        "force_rgb10a2_overlay_support",
+        "unpack_overlapping_rows_separately_unpack_buffer",
+        "use_first_valid_ref_for_av1_invalid_ref",
+        "use_g22_topleft_color_space_for_yuv_vp",
+        "disabled_extension_GL_KHR_blend_equation_advanced",
+        "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+      ],
+      "videoDecoding": [],
+      "videoEncoding": []
+    },
+    "modelName": "",
+    "modelVersion": "",
+    "commandLine": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --user-data-dir=\"C:\\Users\\rocco\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-CyH9v6\" --remote-debugging-pipe --no-startup-window --flag-switches-begin --flag-switches-end"
+  },
+  "finished": "2026-10-27T05:34:41.393Z"
+}
