@@ -22,15 +22,24 @@ const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparis
 }});
 const stopPanelReports=installSkyPanelReports(),stopNightReports=installSkyNightReports(),stopFovReports=installSkyFovReports();
 let timer=null,canvas=null;
+// Legal/source access is independent of engine readiness and available in both
+// standalone and embedded frames. It does not enter the scientific scene.
+const sourceLink=document.createElement?.('a');
+if(sourceLink&&document.body){
+ sourceLink.className='oras-source-offer';sourceLink.textContent='Source code & licenses';
+ sourceLink.href='/licenses/source-offer.html';sourceLink.target='_blank';sourceLink.rel='noopener noreferrer';
+ sourceLink.style.cssText='position:fixed;right:8px;bottom:4px;z-index:9999;min-height:44px;display:flex;align-items:center;padding:0 8px;color:white;background:rgba(0,0,0,.72);font:13px sans-serif;border-radius:4px';
+ document.body.appendChild(sourceLink);
+}
 const navigation=event=>endpoint.emit('navigationIntent',event.detail);
 window.addEventListener('oras-navigation-intent',navigation);
 const interaction=()=>{clearTimeout(timer);endpoint.emit('interaction',{active:true,focused:false});timer=setTimeout(()=>{timer=null;endpoint.emit('interaction',{active:false,focused:false})},350)};
-function cleanup(){clearTimeout(timer);timer=null;canvas?.removeEventListener('pointerdown',interaction);canvas?.removeEventListener('wheel',interaction);window.removeEventListener('oras-navigation-intent',navigation);document.removeEventListener('keydown',key,true);document.removeEventListener('focusin',focusin);document.removeEventListener('focusout',focusout);}
+function cleanup(){sourceLink?.remove();clearTimeout(timer);timer=null;canvas?.removeEventListener('pointerdown',interaction);canvas?.removeEventListener('wheel',interaction);window.removeEventListener('oras-navigation-intent',navigation);document.removeEventListener('keydown',key,true);document.removeEventListener('focusin',focusin);document.removeEventListener('focusout',focusout);}
 function ready(){endpoint.ready();canvas=document.querySelector('#stel-canvas');if(!canvas)return;
  canvas.addEventListener('pointerdown',interaction,{passive:true});canvas.addEventListener('wheel',interaction,{passive:true});
 }
 window.addEventListener('oras-sky-ready',ready,{once:true});if(window.orasSkyAdapter)ready();
-const nativeControl=target=>!!target?.closest?.('.oras-workspace-search,.oras-workspace-bottom');
+const nativeControl=target=>!!target?.closest?.('.oras-workspace-search,.oras-workspace-bottom,.oras-source-offer');
 const key=event=>{if(['PageUp','PageDown'].includes(event.key)){if(event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;if(document.documentElement.classList.contains('oras-workspace-embedded')&&!window.orasSkyAdapter?.panelOpen()&&!nativeControl(event.target)&&!event.target?.closest?.('input,textarea,select,[contenteditable=true]')){event.preventDefault();window.orasSkyAdapter?.zoom(event.key==='PageUp')}return}if(!document.documentElement.classList.contains('oras-workspace-embedded')||window.orasSkyAdapter?.panelOpen()||(event.key==='Tab'&&nativeControl(event.target))||(event.key==='Escape'&&event.target?.closest?.('.oras-workspace-search,.as-native-panel,.as-native-rail'))||!['Escape','Tab'].includes(event.key))return;if(event.key==='Tab')event.preventDefault();endpoint.emit('interaction',{active:false,focused:false,key:event.key});};document.addEventListener('keydown',key,true);
 const focusin=event=>{if(document.documentElement.classList.contains('oras-workspace-embedded'))endpoint.emit('interaction',{active:false,focused:window.orasSkyAdapter?.panelOpen()===true||nativeControl(event.target)});};document.addEventListener('focusin',focusin);
 const focusout=event=>{if(document.documentElement.classList.contains('oras-workspace-embedded'))endpoint.emit('interaction',{active:false,focused:window.orasSkyAdapter?.panelOpen()===true||nativeControl(event.relatedTarget)});};document.addEventListener('focusout',focusout);

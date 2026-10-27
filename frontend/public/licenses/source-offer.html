@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="oras-source-revision" content="__ORAS_SOURCE_REVISION__"><title>Source code &amp; licenses — Astronomy Hub</title><style>body{font:16px/1.6 system-ui;max-width:60rem;margin:auto;padding:24px;color:#eee;background:#111}a{color:#9bd7ff;display:inline-block;min-height:44px;overflow-wrap:anywhere}code{overflow-wrap:anywhere}p{overflow-wrap:anywhere}a:focus-visible{outline:3px solid #fff;outline-offset:3px}</style></head><body>
+<h1>Source code &amp; licenses</h1><p>Stellarium Web Engine © Stellarium Labs SRL and contributors. Modified software is provided under GNU AGPL version 3, without warranty. Original Hub-owned code retains its MIT notice; this does not replace Stellarium's license or determine the scope of a combined work.</p>
+<p><a href="/licenses/stellarium-web-engine-AGPL-3.0.txt">GNU AGPL v3 text</a> · <a href="/licenses/astronomy-hub-MIT.txt">Hub MIT notice</a></p>
+<section id="offer" aria-live="polite"><p>Checking matching corresponding source…</p></section>
+<p>Code redistribution terms are separate from imagery, catalogs, orbital data and other provider terms. Mounted scientific data is excluded from this source archive.</p>
+<script type="module">
+const target=document.getElementById('offer');
+const read=async path=>{const r=await fetch(path,{cache:'no-store'});if(!r.ok)throw Error('Source identity unavailable');const text=await r.text();if(text.length>65536)throw Error('Invalid source identity');return JSON.parse(text)};
+try{
+ const revision=document.querySelector('meta[name="oras-source-revision"]').content;
+ const [offer,versions]=await Promise.all([read('/source-distribution/manifest.json'),read('/runtime-versions.json')]);
+ if(!/^[a-f0-9]{40}$/.test(revision)||offer.schema!==1||!['candidate','published'].includes(offer.status)||offer.source_revision!==revision||offer.archive?.url!==`/source-distribution/astronomy-hub-source-${revision}.tar.gz`||!/^[a-f0-9]{64}$/.test(offer.archive?.sha256)||!Number.isSafeInteger(offer.archive.bytes)||offer.archive.bytes<=0||!/^[a-f0-9]{64}$/.test(offer.runtime?.sky_artifact_sha256)||!/^[a-f0-9]{64}$/.test(offer.runtime?.native_wasm_sha256)||offer.runtime.sky_artifact_sha256!==versions.sky?.artifact_sha256||offer.runtime.native_wasm_sha256!==versions.sky?.native_horizon?.native_output_sha256?.['stellarium-web-engine.wasm'])throw Error('Source identity mismatch');
+ target.replaceChildren();
+ const line=text=>{const p=document.createElement('p');p.textContent=text;target.append(p)};
+ line(offer.status==='candidate'?'Local, unpublished source candidate. Public anonymous HTTPS retrieval has not been qualified.':'Published corresponding source');
+ line('Matching source revision: '+revision);line('Archive SHA-256: '+offer.archive.sha256);line('Archive size: '+offer.archive.bytes+' bytes');
+ const link=document.createElement('a');link.href=offer.archive.url;link.textContent='Download matching corresponding source';target.append(link);
+ if(Array.isArray(offer.limitations))for(const item of offer.limitations.slice(0,32))if(typeof item==='string')line(item.slice(0,1000));
+}catch{target.textContent='A matching corresponding-source distribution is not available from this server. Publication and source identity remain unqualified.'}
+</script></body></html>

@@ -31,7 +31,7 @@
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
     "bridge_input_sha256": {
-      "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+      "entry.mjs": "02f48b1a30746e1de33fbefdd59a3fa5638b891591618f1f25b390992df679d2",
       "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
       "satellite-presentation.mjs": "793d02f54b186b3298930d7c75a53f8c3aafe7b40ec9aad1c2a7287fc20ffc83",
       "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"

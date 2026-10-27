@@ -1,9 +1,27 @@
-import React,{useEffect,useRef} from 'react'
+import React,{useEffect,useRef,useState} from 'react'
 import {IconButton} from './primitives'
-const source='https://github.com/Shadowgar/Astronomy-Hub/tree/n1-sky-earth-navigation-1'
+import {loadSourceOffer,type SourceOffer} from './sourceOffer'
 const upstream='https://github.com/Stellarium/stellarium-web-engine/tree/023e3b26babf7ffddf45f39293230b14cfe96993'
+export function SourceOfferDetails({offer}:{offer:SourceOffer}){
+ return <section aria-label="Corresponding source distribution">
+  <p><strong>{offer.status==='candidate'?'Local, unpublished source candidate':'Published source distribution'}</strong></p>
+  {offer.status==='candidate'?<p>Public anonymous HTTPS retrieval has not been qualified. This local candidate is prepared for review.</p>:null}
+  <p>Matching source revision: <a href={'https://github.com/Shadowgar/Astronomy-Hub/tree/'+offer.source_revision} target="_blank" rel="noreferrer" style={{overflowWrap:'anywhere'}}>{offer.source_revision}</a></p>
+  <p>Archive SHA-256: <code style={{overflowWrap:'anywhere'}}>{offer.archive.sha256}</code><br/>Archive size: {offer.archive.bytes.toLocaleString()} bytes.</p>
+  <p><a href={offer.archive.url} download>Download corresponding source and build instructions</a></p>
+  <p>Applicable code licenses:</p><ul>{offer.licenses.map(license=><li key={license.url}><a href={license.url} target="_blank" rel="noreferrer">{license.name}</a></li>)}</ul>
+  <p>Code licenses do not grant rights to separately licensed imagery or scientific datasets. Release and legal qualification remain separate.</p>
+  {offer.limitations.length?<ul aria-label="Source distribution limitations">{offer.limitations.map((limitation,index)=><li key={index}>{limitation}</li>)}</ul>:null}
+ </section>
+}
 export default function AboutLicenses({open,onClose}:{open:boolean;onClose:()=>void}){
  const dialog=useRef<HTMLDialogElement>(null),returnTo=useRef<HTMLElement|null>(null),latestClose=useRef(onClose);latestClose.current=onClose
+ const [offer,setOffer]=useState<SourceOffer|null>(null),[offerStatus,setOfferStatus]=useState<'loading'|'ready'|'unavailable'>('loading')
+ useEffect(()=>{
+  if(!open)return;const abort=new AbortController();setOffer(null);setOfferStatus('loading')
+  void loadSourceOffer(abort.signal).then(value=>{if(!abort.signal.aborted){setOffer(value);setOfferStatus('ready')}}).catch(()=>{if(!abort.signal.aborted)setOfferStatus('unavailable')})
+  return()=>abort.abort()
+ },[open])
  useEffect(()=>{
   const node=dialog.current;if(!node)return
   const closed=()=>{latestClose.current();const target=returnTo.current;returnTo.current=null;requestAnimationFrame(()=>{if(target?.isConnected)target.focus()})}
@@ -15,7 +33,9 @@ export default function AboutLicenses({open,onClose}:{open:boolean;onClose:()=>v
   <p>Astronomy Hub brings Sky observing and Earth exploration into one workspace.</p>
   <h3>Sky rendering</h3>
   <p>Stellarium Web Engine and its contained web frontend. Copyright © 2022 Stellarium Labs SRL and the contributors identified in the source notices. Distributed here with the GNU Affero General Public License, version 3.</p>
-  <ul><li><a href="/licenses/stellarium-web-engine-AGPL-3.0.txt" target="_blank" rel="noreferrer">AGPLv3 license text</a></li><li><a href={source} target="_blank" rel="noreferrer">Modified source and build instructions</a> · <a href="https://github.com/Shadowgar/Astronomy-Hub/archive/refs/heads/n1-sky-earth-navigation-1.zip" target="_blank" rel="noreferrer">Download modified source</a></li><li><a href={upstream} target="_blank" rel="noreferrer">Pinned upstream source and original notices</a></li></ul>
+  <ul><li><a href="/licenses/stellarium-web-engine-AGPL-3.0.txt" target="_blank" rel="noreferrer">AGPLv3 license text</a></li><li><a href={upstream} target="_blank" rel="noreferrer">Pinned upstream source and original notices</a></li></ul>
+  <h3>Corresponding source</h3>
+  {offerStatus==='ready'&&offer?<SourceOfferDetails offer={offer}/>:<p role="status">{offerStatus==='loading'?'Checking the matching source distribution…':'The matching source distribution is unavailable or its manifest is invalid. No download is offered until it can be verified.'}</p>}
   <h3>Earth rendering</h3><p>CesiumJS, an open-source geospatial rendering library. Copyright and third-party notices are retained with its distribution.</p><p><a href="/licenses/cesium-license.txt" target="_blank" rel="noreferrer">Cesium license and notices</a></p>
   <p>Earth coordinate search reuses pinned God’s Eye code, © 2026 Bilawal Sidhu. <a href="/licenses/gods-eye-search-MIT.txt" target="_blank" rel="noreferrer">MIT license and notices</a>. Place results use Photon and <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a>.</p>
   <h3>Data and imagery credits</h3>
