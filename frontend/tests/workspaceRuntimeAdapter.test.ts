@@ -54,3 +54,16 @@ it('selection arriving during a time acknowledgement reuses the pending intent a
 it('an explicit time command remains available even when its URL intent is unchanged',async()=>{
  hooks.client=timeClient();const runtime=rerender('');runtime.acceptClient(hooks.client);rerender('');hooks.effects.at(-1)!();await flush();const utc=new Date().toISOString();await runtime.request('setTimeIntent',{utc,live:true});expect(hooks.client.request.mock.calls.filter(([c]:any)=>c==='setTimeIntent')).toHaveLength(2)
 })
+it.each(['rejected response','request exception'])('recovers observer synchronization after a failed temporal intent: %s',async failure=>{
+ let first=true
+ hooks.client={capabilities:[],request:vi.fn(async(command:string,payload:any)=>{
+  if(command==='setTimeIntent'&&first){first=false;if(failure==='request exception')throw Error('Temporary bridge failure');return {ok:false,error:'Temporary bridge failure'}}
+  return {ok:true,...(command==='setTimeIntent'?{effectiveTime:payload.utc}:{})}
+ })}
+ useRuntimeProductState.setState({selection:null,observer:{lat:40,lon:-80,elevationM:100}})
+ const runtime=rerender('?date='+fixed);runtime.acceptClient(hooks.client);rerender('?date='+fixed);hooks.effects.at(-1)!();await flush()
+ // The same epoch can be retried from the time editor before another URL update.
+ expect((await runtime.request('setTimeIntent',{utc:fixed,live:false}))?.ok).toBe(true)
+ rerender('?date='+fixed+'&lat=35&lng=-120&elev=10');hooks.effects.at(-1)!();await flush()
+ expect(hooks.client.request.mock.calls.filter(([command]:any)=>command==='setObserverIntent').map(([,payload]:any)=>payload)).toEqual([{lat:35,lon:-120,elevationM:10,elevationSource:'provided'}])
+})

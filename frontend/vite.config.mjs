@@ -17,8 +17,11 @@ const proxyTarget =
 
 const earthTarget=process.env.ORAS_EARTH_PROXY_TARGET || 'http://127.0.0.1:8877'
 const earthProxy={'/earth-runtime/':{target:earthTarget,changeOrigin:true}}
+const planetTarget=process.env.ORAS_PLANET_PROXY_TARGET || 'http://127.0.0.1:8878'
 const apiProxy = {
   ...earthProxy,
+  '/planet-runtime/': {target:planetTarget,changeOrigin:true},
+  '/planet-data/': {target:planetTarget,changeOrigin:true},
   '/api': {
     target: proxyTarget,
     changeOrigin: true,

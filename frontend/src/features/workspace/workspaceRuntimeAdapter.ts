@@ -58,6 +58,9 @@ export function useWorkspaceRuntime(mode:RuntimeMode,search:string,onInteraction
    timeWork.current=work;temporal=work;setTime(t=>({...t,requested:utc,live,pending:true}))
    work.completion=request('setTimeIntent',{utc,live},12000).then(result=>{
     if(timeWork.current!==work||current.current!==client)return null
+    // A failed acknowledgement must not block later observer/selection intent.
+    // Only successful or pending time work is reusable for this URL epoch.
+    if(!result?.ok)timeWork.current=null
     setTime(t=>({...t,pending:false,error:!result?.ok,effective:result?.ok?result.effectiveTime||null:t.effective}))
     if(result?.ok)product.report(mode,result)
     return result

@@ -38,6 +38,8 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               print('sha=' + lock['sha'], file=output)
           PY
+      - name: Canonical runtime delivery contracts
+        run: python3 -B -m unittest discover -s tests/validation -p test_planet_deployment.py -v
       - name: Fetch immutable Earth source for contract tests
         uses: actions/checkout@v4
         with:

@@ -1,5 +1,19 @@
 # LIVE SESSION BRIEF
 
+## Independent integration review — 2026-10-26
+
+PR107 exact head `56f5645a` / main `9a03d826` was independently reviewed on the
+existing recovery branch. Three proven findings were repaired: canonical Moon
+runtime/imagery delivery, missing backend lunar/Horizons source mounts, and a
+failed-time-acknowledgement cache blocking later observer synchronization. Each
+correction has separate review. Focused Docker/API and desktop/portrait browser
+proof passes; native Sky/Earth payloads, source pins and protected data remain.
+Verdict: **BLOCKED — missing external/device/source qualifications**. This is not
+independent release approval. Source-offer/archive-only build completeness,
+physical-device/owner acceptance and retained baseline security maintenance
+remain explicit. No merge/deploy/delete/new product phase.
+[Ranked findings, exact commands, independent reviews and remaining gates](../validation/repository-recovery-20261026/integration-review/README.md).
+
 ## P0 satellite usability finalization — 2026-10-26
 
 The narrowed owner continuation is implemented at `5ef2b8a5` on existing
