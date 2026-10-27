@@ -25,6 +25,8 @@
 
 /* A contextual mobile sheet owns its controls; retain search state behind it. */
 .ws-shell[data-workspace-mode=earth].ws-shell--sheet-open .ws-earth-direct{visibility:hidden;pointer-events:none}
+/* Desktop Sources must also stay above the selected-location/search layer. */
+.ws-shell[data-workspace-mode=earth]:has(>.ws-diagnostics) .ws-earth-direct{visibility:hidden;pointer-events:none}
 
 /* Approved cinematic Earth composition: scientific Cesium canvas stays untouched. */
 .ws-shell[data-workspace-mode=earth]{--ws-surface:rgba(12,20,31,.88);--ws-border:#b5d4ef30;--ws-accent:#acd4ff;--ws-text:#edf5ff;--ws-secondary:#bacbde;--ws-muted:#a1b3c9}
