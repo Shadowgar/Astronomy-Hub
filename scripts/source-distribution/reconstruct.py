@@ -16,6 +16,24 @@ sys.dont_write_bytecode = True
 from package_source import validate, sha, inventory
 
 
+def install_preserving_locks(directory, install):
+    npm_lock = (directory / 'package-lock.json').read_bytes()
+    yarn_path = directory / 'yarn.lock'
+    yarn = yarn_path.read_bytes() if yarn_path.exists() else None
+    install()
+    if (directory / 'package-lock.json').read_bytes() != npm_lock:
+        raise ValueError('npm ci changed its authoritative package-lock.json')
+    changes = []
+    if yarn is not None and (not yarn_path.exists() or yarn_path.read_bytes() != yarn):
+        changes.append({'input': 'yarn.lock', 'archived_sha256': sha(yarn),
+                        'npm_written_sha256': sha(yarn_path.read_bytes()) if yarn_path.exists() else None})
+        # npm uses package-lock.json but rewrites this secondary Yarn lock.
+        # Vue CLI hashes both. Restore the authoritative archived input before
+        # building; never patch or normalize a generated application artifact.
+        yarn_path.write_bytes(yarn)
+    return changes
+
+
 def rebuild(root, output):
     manifest = json.loads((root / 'source-manifest.json').read_text())
     validate(root, manifest['files'])
@@ -69,8 +87,11 @@ def rebuild(root, output):
         shell = ('npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org'
                  if command == 'install' else 'npm run build')
         run(args + [node_image, 'sh', '-c', shell], name, 900)
+    restored = []
     for directory in ['stellarium/apps/web-frontend', 'hub/frontend']:
-        node(directory, 'install', 'dependencies-sky' if directory.startswith('stellarium') else 'dependencies-hub', {})
+        changes = install_preserving_locks(root / directory, lambda: node(directory, 'install', 'dependencies-sky' if directory.startswith('stellarium') else 'dependencies-hub', {}))
+        restored.extend({'directory': directory, **row} for row in changes)
+    (output / 'install-input-preservation.json').write_text(json.dumps(restored, indent=2) + '\n')
     node('stellarium/apps/web-frontend', 'build', 'sky-build', settings['node']['build_environment'])
     dist = app / 'dist'
     expected = [row for row in manifest['expected_sky'] if row['path'] != 'oras-runtime-build.json']
@@ -93,6 +114,7 @@ def rebuild(root, output):
     result = {'status': 'PASS', 'source_revision': manifest['source_revision'],
               'native': manifest['expected_native'], 'sky_files': len(actual),
               'hub_files': len(actual_hub), 'input_files_unchanged': len(manifest['files']),
+              'restored_auxiliary_lock_inputs': restored,
               'node_modules': 'fresh npm ci, lock integrity, no host caches, install scripts disabled',
               'limits': ['No mounted scientific data or existing renderer artifacts used as build inputs.',
                          'Earth/Planet artifacts and external datasets are preserved, not rebuilt here.',

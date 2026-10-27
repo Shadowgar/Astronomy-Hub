@@ -45,6 +45,13 @@ release. Webpack4 unminified Babel helper names and vue-loader cache identifiers
 encode absolute module/config paths; changing that root changes the app bundle
 bytes and filename even with identical source/dependencies. This fixed build
 path is part of the recipe. Outputs are compared unchanged, never normalized.
+npm10 also rewrites the auxiliary `yarn.lock` during `npm ci`. Vue CLI includes
+that file in its loader cache identifiers. The runner retains/restores the exact
+archived Yarn input immediately after installation, recording before/after SHA;
+it rejects any change to npm's authoritative package-lock.json. Dependency
+resolution remains governed by that unchanged npm lock/integrity. Restoring a
+source input is not normalizing generated binaries. Every original source hash
+is rechecked at the end of the qualification.
 
 The native JS/WASM must match the recorded expected hashes, every Sky Vue output
 must match the qualified110-file payload set, and the Hub build must match its

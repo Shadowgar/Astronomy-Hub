@@ -11,9 +11,24 @@ ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('source_package', ROOT / 'scripts/source-distribution/package_source.py')
 package = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(package)
+sys.modules['package_source'] = package
+runner_spec = importlib.util.spec_from_file_location('reconstruct', ROOT / 'scripts/source-distribution/reconstruct.py')
+runner = importlib.util.module_from_spec(runner_spec)
+runner_spec.loader.exec_module(runner)
 
 
 class SourcePackageTests(unittest.TestCase):
+    def test_fresh_install_preserves_authoritative_locks_before_build(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'package-lock.json').write_bytes(b'npm input')
+            (root / 'yarn.lock').write_bytes(b'archived yarn input')
+            changes = runner.install_preserving_locks(root, lambda: (root / 'yarn.lock').write_bytes(b'npm auxiliary rewrite'))
+            self.assertEqual((root / 'yarn.lock').read_bytes(), b'archived yarn input')
+            self.assertEqual(len(changes), 1)
+            with self.assertRaises(ValueError):
+                runner.install_preserving_locks(root, lambda: (root / 'package-lock.json').write_bytes(b'changed dependency input'))
+
     def test_runner_import_does_not_add_bytecode_to_the_source_manifest(self):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory)
