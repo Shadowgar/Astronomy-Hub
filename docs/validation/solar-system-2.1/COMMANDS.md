@@ -62,3 +62,42 @@ Additional retained red/green findings: AU logarithmic-depth banding; inappropri
 The staged whitespace check detected CRLF records in the three original PDS label captures. A narrow `.gitattributes` rule preserves their raw bytes (`-text -whitespace`), following the existing raw-source receipt convention. Labels were not reformatted; their source hashes remain exact. Subsequent staged diff check passes.
 
 Private gallery: `python3 scripts/validation/build_solar21_gallery.py` copied34 original-byte captures/references/videos. Windows `scripts/validation/verify_solar21_gallery.mjs` verified28images,6videos, all34HTTP assets and no horizontal overflow across3layouts. No dynamic text-to-HTML logic is used.
+
+## Hosted CI follow-up: obsolete G6 workflows
+
+At implementation commit `527f38aedfd160f4998c085cd85f14d3ff4f4dde`, all four
+CodeQL language jobs and aggregate CodeQL passed. Repository integrity (push and
+PR) and Playwright passed. Two historical G6 jobs built/types-checked successfully,
+then failed with `npm error Missing script: "test:module1"` / `"test:module2"`:
+[HiPS run](https://github.com/Shadowgar/Astronomy-Hub/actions/runs/40667143610),
+[stars run](https://github.com/Shadowgar/Astronomy-Hub/actions/runs/40667143588).
+
+`git show f75bc9eb -- frontend/package.json` proves commit
+`f75bc9eb4e3785cd6d891573766b47669275bab4` removed both commands and the old
+Babylon/ported Sky renderer and tests in May. `git merge-base --is-ancestor
+f75bc9eb origin/main` exits0. Both commands are absent from current main too.
+Of the26 unique frontend path filters in module1,25 are absent; of88 in module2,
+85 are absent, identically on main and the recovery branch. Remaining matches are
+package.json/styles.css and an intentionally disabled legacy generator. These
+jobs do not execute native Stellarium HiPS/star tests.
+
+Local `npm run test:module1` and separate `npm run test:module2` each reproduce
+exit1/missing script. The correction removes exactly the two obsolete workflows,
+without dummy npm aliases, conditionally skipping assertions, suppressing alerts,
+or changing runtime files. Existing Repository integrity retains all500 current
+frontend tests/types/build, native runtime/science/source contracts and archive
+contracts. Its triggers now also cover main/master pushes and master-target PRs,
+preserving the removed jobs' build/typecheck event coverage through the current
+suite rather than obsolete script names; Playwright and CodeQL remain unchanged. No branch protection was
+changed: read-only main/protection returned404 `Branch not protected` and
+rules/branches/main returned `[]`.
+
+Focused current-boundary command from frontend:
+
+```sh
+npm test -- --run tests/skyEngineImportBoundary.test.js tests/orasDenseStars.test.ts tests/orasRuntimeDataSources.test.js tests/orasCatalogPacks.test.js
+```
+
+**4 files /33 tests PASS**, exit0. Full successful hosted500-test evidence at the
+implementation SHA remains valid for this CI/documentation-only follow-up. Final
+exact-head check links and the independent retirement review are recorded in PR107.

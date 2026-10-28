@@ -2,9 +2,9 @@ name: Repository integrity
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, master]
   push:
-    branches: [recovery/reconcile-20261026]
+    branches: [main, master, recovery/reconcile-20261026]
 
 permissions:
   contents: read

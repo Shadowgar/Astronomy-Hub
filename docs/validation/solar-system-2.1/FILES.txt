@@ -1,5 +1,8 @@
 .dockerignore
 .gitattributes
+.github/workflows/module1-hips.yml
+.github/workflows/module2-stars.yml
+.github/workflows/repository-integrity.yml
 THIRD_PARTY_NOTICES.md
 backend/app/schemas/solar_exploration.py
 backend/app/services/solar_earth_frame.py
@@ -17,6 +20,7 @@ docs/validation/solar-system-2.1/FILES.txt
 docs/validation/solar-system-2.1/PERFORMANCE.md
 docs/validation/solar-system-2.1/PLAN.md
 docs/validation/solar-system-2.1/README.md
+docs/validation/solar-system-2.1/REVIEW_CI.md
 docs/validation/solar-system-2.1/REVIEW_FINAL.md
 docs/validation/solar-system-2.1/REVIEW_TERRAIN.md
 docs/validation/solar-system-2.1/TERRAIN_SOURCE.md
