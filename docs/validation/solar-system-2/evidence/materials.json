@@ -1,0 +1,247 @@
+{
+  "schema": "solar-material-verification.v1",
+  "scope": "isolated GLSL/HDR verification; not application or hardware qualification",
+  "pass": true,
+  "errors": [],
+  "result": {
+    "device": {
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "vendor": "Google Inc. (Google)"
+    },
+    "frames": [
+      {
+        "quality": "efficient",
+        "error": 0,
+        "nonblack": 20441,
+        "center": [
+          218,
+          203,
+          166
+        ],
+        "pipeline": {
+          "mode": "direct",
+          "bloom": false,
+          "threshold": 1.25,
+          "strength": 0.17,
+          "radius": 0.45,
+          "hdrSupported": true,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "context",
+          "width": 256,
+          "height": 192,
+          "pixelRatio": 1,
+          "disposed": false
+        }
+      },
+      {
+        "quality": "balanced",
+        "error": 0,
+        "nonblack": 21394,
+        "center": [
+          218,
+          203,
+          166
+        ],
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.25,
+          "strength": 0.17,
+          "radius": 0.45,
+          "hdrSupported": true,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 256,
+          "height": 192,
+          "pixelRatio": 1,
+          "disposed": false
+        }
+      },
+      {
+        "quality": "detailed",
+        "error": 0,
+        "nonblack": 21394,
+        "center": [
+          218,
+          203,
+          166
+        ],
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.25,
+          "strength": 0.24,
+          "radius": 0.45,
+          "hdrSupported": true,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 256,
+          "height": 192,
+          "pixelRatio": 1,
+          "disposed": false
+        }
+      }
+    ],
+    "sunward": {
+      "error": 0,
+      "nonblack": 21394,
+      "center": [
+        218,
+        203,
+        166
+      ]
+    },
+    "backlit": {
+      "error": 0,
+      "nonblack": 18651,
+      "center": [
+        1,
+        0,
+        0
+      ]
+    },
+    "compiled": [
+      {
+        "name": "earth",
+        "error": 0,
+        "nonblack": 4473,
+        "center": [
+          95,
+          143,
+          177
+        ]
+      },
+      {
+        "name": "jupiter",
+        "error": 0,
+        "nonblack": 4464,
+        "center": [
+          209,
+          181,
+          150
+        ]
+      },
+      {
+        "name": "sun",
+        "error": 0,
+        "nonblack": 4489,
+        "center": [
+          251,
+          224,
+          161
+        ]
+      },
+      {
+        "name": "clouds",
+        "error": 0,
+        "nonblack": 0,
+        "center": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "atmosphere:earth",
+        "error": 0,
+        "nonblack": 4416,
+        "center": [
+          62,
+          106,
+          156
+        ]
+      },
+      {
+        "name": "atmosphere:mars",
+        "error": 0,
+        "nonblack": 2514,
+        "center": [
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "name": "atmosphere:venus",
+        "error": 0,
+        "nonblack": 4313,
+        "center": [
+          10,
+          17,
+          29
+        ]
+      },
+      {
+        "name": "atmosphere:jupiter",
+        "error": 0,
+        "nonblack": 4478,
+        "center": [
+          12,
+          20,
+          31
+        ]
+      },
+      {
+        "name": "atmosphere:saturn",
+        "error": 0,
+        "nonblack": 4462,
+        "center": [
+          15,
+          27,
+          44
+        ]
+      },
+      {
+        "name": "atmosphere:uranus",
+        "error": 0,
+        "nonblack": 4468,
+        "center": [
+          17,
+          61,
+          73
+        ]
+      },
+      {
+        "name": "atmosphere:neptune",
+        "error": 0,
+        "nonblack": 4445,
+        "center": [
+          9,
+          38,
+          69
+        ]
+      }
+    ],
+    "ringSampling": {
+      "linearMotionDelta": 6.162441677517361,
+      "mipmappedMotionDelta": 0.6228502061631944
+    },
+    "toneMapping": {
+      "direct": {
+        "error": 0,
+        "nonblack": 4345,
+        "center": [
+          252,
+          243,
+          217
+        ]
+      },
+      "hdr": {
+        "error": 0,
+        "nonblack": 4482,
+        "center": [
+          252,
+          243,
+          217
+        ]
+      },
+      "maxChannelDifference": 0
+    }
+  }
+}

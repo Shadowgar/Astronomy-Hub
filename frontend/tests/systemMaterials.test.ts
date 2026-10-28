@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest'
 import * as T from 'three'
 import {readFileSync} from 'node:fs'
-import {installMarsModel,systemMaterial} from '../src/features/systems/systemMaterials'
+import {installMarsModel,systemMaterial,updateSystemMaterialLight} from '../src/features/systems/systemMaterials'
 
 function originalMars(){
  const bytes=readFileSync(new URL('../src/features/solar/assets/mars-nasa.glb',import.meta.url)),jsonLength=bytes.readUInt32LE(12),data=JSON.parse(bytes.subarray(20,20+jsonLength).toString()),binary=bytes.subarray(28+jsonLength)
@@ -34,5 +34,36 @@ describe('original Mars asset adoption',()=>{
  it('uses neutral loading/failure material for Mars without Mercury bands or a false map',()=>{
   const material=systemMaterial('planet','mars')
   expect(material.uniforms.hasMap.value).toBe(false);expect(material.uniforms.map.value).toBeNull();expect(material.uniforms.dark).toBeUndefined()
+ })
+})
+
+describe('parent-centered scientific lighting adapter',()=>{
+ it('updates every inherited and local shader from the actual body-to-Sun vector',()=>{
+  const body=[1000,2000,3000] as const,sun=[1000,2000,149003000] as const
+  for(const[kind,id]of[['earth','earth'],['clouds','earth'],['atmosphere','earth'],['moon','moon'],['planet','jupiter'],['planet','saturn'],['planet','mars']]as const){
+   const material=systemMaterial(kind,id)
+   updateSystemMaterialLight(material,body,sun)
+   expect(material.uniforms.sunDirection.value.toArray()).toEqual([0,0,1])
+   updateSystemMaterialLight(material,body,[1000,2000,-148997000])
+   expect(material.uniforms.sunDirection.value.toArray()).toEqual([0,0,-1])
+   material.dispose()
+  }
+  expect(body).toEqual([1000,2000,3000]);expect(sun).toEqual([1000,2000,149003000])
+ })
+ it('uses each satellite location and is invariant under common origin and unit changes',()=>{
+  const parent=systemMaterial('planet','jupiter'),moon=systemMaterial('moon','io')
+  updateSystemMaterialLight(parent,[0,0,0],[100000,0,0])
+  updateSystemMaterialLight(moon,[0,1000,0],[100000,0,0])
+  expect(parent.uniforms.sunDirection.value.y).toBe(0)
+  expect(moon.uniforms.sunDirection.value.y).toBeLessThan(0)
+  const direction=moon.uniforms.sunDirection.value.clone()
+  updateSystemMaterialLight(moon,[10,21,30],[110,20,30])
+  expect(moon.uniforms.sunDirection.value.distanceTo(direction)).toBeLessThan(1e-12)
+  parent.dispose();moon.dispose()
+ })
+ it('does not cast a ring shadow in a system that has no ring geometry',()=>{
+  const material=systemMaterial('planet','saturn')
+  expect(material.defines.SATURN_RINGS).toBeUndefined()
+  material.dispose()
  })
 })

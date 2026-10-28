@@ -24,6 +24,8 @@ Astronomy Hub is a **mixed-license repository**. The root [MIT license](LICENSE)
 
 ## Astronomy catalogs and other material
 
+- **Solar Wanderer graphics techniques**: Solar System 2.0 adapts particle-layer ring scattering, analytic planet occlusion and spherical single-scattering patterns from [hyqzz/Solar-Wanderer at 739b3675](https://github.com/hyqzz/Solar-Wanderer/tree/739b3675e25f65bedfcdf728985f2c9adb872fe1). Copyright (c) 2026 hyqzz, MIT; [full retained license](frontend/public/licenses/solar-wanderer-MIT.txt). The modified Hub modules are `frontend/src/features/solar/solarRings.ts` and `solarAtmosphere.ts`. They do not import its application, clock, ephemerides, textures or datasets. Source inspection, adaptation boundaries and separately evaluated packages are recorded in [Solar graphics receipt](docs/validation/solar-system-2/GRAPHICS.md).
+
 - **OpenNGC**: code under `scripts/skydata/` and `backend/` records OpenNGC catalog attribution and **CC BY-SA 4.0** data terms; these do not become MIT merely because ingestion software is MIT-eligible.
 - **HiPS surveys, planetary imagery, other maps and external APIs**: use source-specific permissions, credits, service conditions, and any applicable database/data licenses. See source `properties`, manifest records, and [provider licensing decision](docs/architecture/decisions/0008-provider-licensing-boundaries.md). Some rights are not established; public GitHub visibility is not a grant of redistribution rights.
 - **Fonts and icons**: [asset notices](frontend/src/features/workspace/assets/LICENSES.txt) preserve separate licensing (including SIL Open Font License for IBM Plex Sans and Lucide licensing).

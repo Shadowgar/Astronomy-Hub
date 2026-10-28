@@ -1,0 +1,553 @@
+{
+  "schema": "oras.solar.visual-assets.v2",
+  "acquired": "2026-10-28",
+  "assets": [
+    {
+      "id": "jupiter",
+      "file": "jupiter-nasa.glb",
+      "url": "/solar-assets/v2/jupiter-nasa.glb",
+      "sourcePage": "https://science.nasa.gov/resource/jupiter-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/j/Jupiter_1_142984.glb",
+      "organization": "NASA",
+      "attribution": "NASA Visualization Technology Applications and Development (VTAD)",
+      "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "terms": "NASA media guidelines permit factual educational/informational use of 3D model polygon/texture data with NASA attribution and no endorsement. No copyright-protected third-party designation, logos or persons found on selected resource/model. This is source qualification for this informational use, not unrestricted merchandise or promotional licensing.",
+      "releaseDate": "2019-04-22",
+      "downloadListingDate": "2023-09-09",
+      "acquired": "2026-10-28",
+      "sha256": "8edc4e9b88b73ca1b125a258f0ecaef7fc6494a7cadda37704af459a119f4870",
+      "bytes": 11479456,
+      "classification": "NASA-issued processed visualization; observation lineage unspecified",
+      "mapping": "original glTF mesh TEXCOORD_0",
+      "nodes": [
+        {
+          "mesh": 0,
+          "name": "cubemap"
+        }
+      ],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "Cube.003",
+          "vertices": 1649,
+          "triangles": 3072,
+          "boundsMin": [
+            -500,
+            -467.56298828125,
+            -500
+          ],
+          "boundsMax": [
+            500,
+            467.56298828125,
+            500
+          ],
+          "maximumRadius": 500.0370583148254,
+          "baseColorImage": 0,
+          "normalMapImage": null
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": "jupiter_diff.jpg",
+          "mimeType": "image/png",
+          "width": 4096,
+          "height": 3072,
+          "bytes": 11407034,
+          "sha256": "ed8357ffea87d109b8852c52a9fe5bab5533ec1ee50b82c0e1a8b73e81f02265",
+          "gpuRgba8WithMipmapsBytes": 67108864
+        }
+      ],
+      "notes": [
+        "NASA-issued educational visualization; source page provides no observation epoch, calibration, scientific longitude registration or pole/spin solution. Do not label it current imagery or measured terrain.",
+        "Preserve source POSITION and TEXCOORD_0 together; set base color sRGB. Original nodes/transforms listed below. Normalize presentation scale independently of JPL center/time and physical-radius contracts.",
+        "Cube atlas, not equirectangular. Must use original mesh UVs; applying this texture to SphereGeometry is incorrect."
+      ]
+    },
+    {
+      "id": "saturn",
+      "file": "saturn-nasa.glb",
+      "url": "/solar-assets/v2/saturn-nasa.glb",
+      "sourcePage": "https://science.nasa.gov/resource/saturn-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+      "organization": "NASA",
+      "attribution": "NASA Visualization Technology Applications and Development (VTAD)",
+      "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "terms": "NASA media guidelines permit factual educational/informational use of 3D model polygon/texture data with NASA attribution and no endorsement. No copyright-protected third-party designation, logos or persons found on selected resource/model. This is source qualification for this informational use, not unrestricted merchandise or promotional licensing.",
+      "releaseDate": "2019-04-22",
+      "downloadListingDate": "2023-09-09",
+      "acquired": "2026-10-28",
+      "sha256": "8dbfde533b13e938408d8aded1d1ce48a084806233f67775371d83013dba7d38",
+      "bytes": 5476584,
+      "classification": "NASA-issued processed visualization; observation lineage unspecified",
+      "mapping": "original glTF mesh TEXCOORD_0",
+      "nodes": [
+        {
+          "mesh": 0,
+          "name": "Saturn.001"
+        },
+        {
+          "mesh": 1,
+          "name": "RingsTop"
+        },
+        {
+          "mesh": 2,
+          "name": "RingsBottom"
+        }
+      ],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "Cube.002",
+          "vertices": 1649,
+          "triangles": 3072,
+          "boundsMin": [
+            -500,
+            -451.0190124511719,
+            -500
+          ],
+          "boundsMax": [
+            500,
+            451.0190124511719,
+            500
+          ],
+          "maximumRadius": 500.0370583148252,
+          "baseColorImage": 0,
+          "normalMapImage": null
+        },
+        {
+          "index": 1,
+          "name": "Plane.002",
+          "vertices": 256,
+          "triangles": 128,
+          "boundsMin": [
+            -1165.450439453125,
+            0,
+            -1165.450439453125
+          ],
+          "boundsMax": [
+            1165.4505615234375,
+            0,
+            1165.4503173828125
+          ],
+          "maximumRadius": 1165.4507218990848,
+          "baseColorImage": 1,
+          "normalMapImage": null
+        },
+        {
+          "index": 2,
+          "name": "Plane.002",
+          "vertices": 256,
+          "triangles": 128,
+          "boundsMin": [
+            -1165.450439453125,
+            0,
+            -1165.450439453125
+          ],
+          "boundsMax": [
+            1165.4505615234375,
+            0,
+            1165.4503173828125
+          ],
+          "maximumRadius": 1165.4507218990848,
+          "baseColorImage": 1,
+          "normalMapImage": null
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": "saturn_diff.jpg",
+          "mimeType": "image/png",
+          "width": 4096,
+          "height": 3072,
+          "bytes": 5374880,
+          "sha256": "2b4628833c2610ac6677f729376c00440a6bc4df4f85b4928519179e37536f4b",
+          "gpuRgba8WithMipmapsBytes": 67108864
+        },
+        {
+          "index": 1,
+          "name": "saturn_rings_25sat_outterRings.png",
+          "mimeType": "image/png",
+          "width": 4096,
+          "height": 16,
+          "bytes": 9615,
+          "sha256": "d4ddbcd796869bd3f8508252da4fd284c4195cd0f06c02294f6c918b568ba1c7",
+          "gpuRgba8WithMipmapsBytes": 349526
+        }
+      ],
+      "notes": [
+        "NASA-issued educational visualization; source page provides no observation epoch, calibration, scientific longitude registration or pole/spin solution. Do not label it current imagery or measured terrain.",
+        "Preserve source POSITION and TEXCOORD_0 together; set base color sRGB. Original nodes/transforms listed below. Normalize presentation scale independently of JPL center/time and physical-radius contracts.",
+        "Cube atlas, not equirectangular. Must use original mesh UVs; applying this texture to SphereGeometry is incorrect.",
+        "Mesh0 is oblate body, meshes1/2 are overlapping top/bottom rings. Integrating renderer should take mesh0 and use its own single ring renderer; do not add both supplied ring meshes. Source ring image is a visualization RGBA radial strip, not measured optical depth."
+      ]
+    },
+    {
+      "id": "mercury",
+      "file": "mercury-nasa.glb",
+      "url": "/solar-assets/v2/mercury-nasa.glb",
+      "sourcePage": "https://science.nasa.gov/resource/mercury-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/m/Mercury_1_4878.glb",
+      "organization": "NASA",
+      "attribution": "NASA Visualization Technology Applications and Development (VTAD)",
+      "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "terms": "NASA media guidelines permit factual educational/informational use of 3D model polygon/texture data with NASA attribution and no endorsement. No copyright-protected third-party designation, logos or persons found on selected resource/model. This is source qualification for this informational use, not unrestricted merchandise or promotional licensing.",
+      "releaseDate": "2019-04-22",
+      "downloadListingDate": "2023-09-09",
+      "acquired": "2026-10-28",
+      "sha256": "0222fa976a5bb3ae3222eeddaaa7150656837a97c515f065eb855e0b1dd2ab94",
+      "bytes": 3048920,
+      "classification": "NASA-issued processed visualization; observation lineage unspecified",
+      "mapping": "original glTF mesh TEXCOORD_0",
+      "nodes": [
+        {
+          "mesh": 0,
+          "name": "Cube.008"
+        }
+      ],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "Cube.009",
+          "vertices": 2034,
+          "triangles": 3072,
+          "boundsMin": [
+            -500.0000305175781,
+            -500.0000305175781,
+            -500.0000305175781
+          ],
+          "boundsMax": [
+            500.0000305175781,
+            500.0000305175781,
+            500.0000305175781
+          ],
+          "maximumRadius": 504.3532712234974,
+          "baseColorImage": 0,
+          "normalMapImage": null
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": "mercury_diff.jpg",
+          "mimeType": "image/png",
+          "width": 2048,
+          "height": 1536,
+          "bytes": 2964107,
+          "sha256": "fadf06aa5c8e6846f79a53167a528e6e91ab55142404f89df83fc858d94482f0",
+          "gpuRgba8WithMipmapsBytes": 16777216
+        }
+      ],
+      "notes": [
+        "NASA-issued educational visualization; source page provides no observation epoch, calibration, scientific longitude registration or pole/spin solution. Do not label it current imagery or measured terrain.",
+        "Preserve source POSITION and TEXCOORD_0 together; set base color sRGB. Original nodes/transforms listed below. Normalize presentation scale independently of JPL center/time and physical-radius contracts.",
+        "Cube atlas, not equirectangular. Must use original mesh UVs; applying this texture to SphereGeometry is incorrect."
+      ]
+    },
+    {
+      "id": "venus",
+      "file": "venus-nasa.glb",
+      "url": "/solar-assets/v2/venus-nasa.glb",
+      "sourcePage": "https://science.nasa.gov/resource/venus-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/v/Venus_1_12103.glb",
+      "organization": "NASA",
+      "attribution": "NASA Visualization Technology Applications and Development (VTAD)",
+      "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "terms": "NASA media guidelines permit factual educational/informational use of 3D model polygon/texture data with NASA attribution and no endorsement. No copyright-protected third-party designation, logos or persons found on selected resource/model. This is source qualification for this informational use, not unrestricted merchandise or promotional licensing.",
+      "releaseDate": "2019-04-22",
+      "downloadListingDate": "2023-09-09",
+      "acquired": "2026-10-28",
+      "sha256": "6aa26809feeb74fee371c43e9904112a76ebb3df15696e6e75297c0fce063bf9",
+      "bytes": 298748,
+      "classification": "NASA-issued processed visualization; observation lineage unspecified",
+      "mapping": "original glTF mesh TEXCOORD_0",
+      "nodes": [
+        {
+          "mesh": 0,
+          "name": "cylindrically_mapped_sphere:Mesh"
+        }
+      ],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "cylindrically_mapped_sphere:Mesh.001",
+          "vertices": 3062,
+          "triangles": 6048,
+          "boundsMin": [
+            -499.9959716796875,
+            -500,
+            -500.00054931640625
+          ],
+          "boundsMax": [
+            500.0039978027344,
+            500,
+            499.9994812011719
+          ],
+          "maximumRadius": 500.49096104593036,
+          "baseColorImage": 0,
+          "normalMapImage": null
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": "color_2016_04_26.jpg",
+          "mimeType": "image/png",
+          "width": 1440,
+          "height": 720,
+          "bytes": 163160,
+          "sha256": "95ec00618445e786598ddab5b467af9d496016d984d23c26a427b99ef9047f23",
+          "gpuRgba8WithMipmapsBytes": 5529600
+        }
+      ],
+      "notes": [
+        "NASA-issued educational visualization; source page provides no observation epoch, calibration, scientific longitude registration or pole/spin solution. Do not label it current imagery or measured terrain.",
+        "Preserve source POSITION and TEXCOORD_0 together; set base color sRGB. Original nodes/transforms listed below. Normalize presentation scale independently of JPL center/time and physical-radius contracts."
+      ]
+    },
+    {
+      "id": "uranus",
+      "file": "uranus-nasa.glb",
+      "url": "/solar-assets/v2/uranus-nasa.glb",
+      "sourcePage": "https://science.nasa.gov/resource/uranus-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/u/Uranus_1_51118.glb",
+      "organization": "NASA",
+      "attribution": "NASA Visualization Technology Applications and Development (VTAD)",
+      "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "terms": "NASA media guidelines permit factual educational/informational use of 3D model polygon/texture data with NASA attribution and no endorsement. No copyright-protected third-party designation, logos or persons found on selected resource/model. This is source qualification for this informational use, not unrestricted merchandise or promotional licensing.",
+      "releaseDate": "2019-04-22",
+      "downloadListingDate": "2023-09-09",
+      "acquired": "2026-10-28",
+      "sha256": "9c56f96bbfa82d923479c3dd83a00c35238a36addcfbcc61916f1377fe586bd5",
+      "bytes": 172652,
+      "classification": "NASA-issued processed visualization; observation lineage unspecified",
+      "mapping": "original glTF mesh TEXCOORD_0",
+      "nodes": [
+        {
+          "mesh": 0,
+          "name": "Uranus",
+          "rotation": [
+            0.7071068286895752,
+            0,
+            0,
+            0.7071067094802856
+          ]
+        }
+      ],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "cylindrically_mapped_sphere:Mesh.000",
+          "vertices": 3256,
+          "triangles": 6048,
+          "boundsMin": [
+            -499.9960021972656,
+            -500.0005187988281,
+            -488.5364990234375
+          ],
+          "boundsMax": [
+            500.0039978027344,
+            499.9994812011719,
+            488.5364990234375
+          ],
+          "maximumRadius": 500.4694201062469,
+          "baseColorImage": 0,
+          "normalMapImage": null
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": "Image_0",
+          "mimeType": "image/png",
+          "width": 1024,
+          "height": 512,
+          "bytes": 30807,
+          "sha256": "cf72fd1f5a8fd2ca14d268503db7f94b57adab8be3b80b3a1dc460644c97be28",
+          "gpuRgba8WithMipmapsBytes": 2796203
+        }
+      ],
+      "notes": [
+        "NASA-issued educational visualization; source page provides no observation epoch, calibration, scientific longitude registration or pole/spin solution. Do not label it current imagery or measured terrain.",
+        "Preserve source POSITION and TEXCOORD_0 together; set base color sRGB. Original nodes/transforms listed below. Normalize presentation scale independently of JPL center/time and physical-radius contracts.",
+        "Source node quaternion turns original Z-polar geometry to Y. Preserve node rotation or apply it once to geometry before using an application pole transform."
+      ]
+    },
+    {
+      "id": "neptune",
+      "file": "neptune-nasa.glb",
+      "url": "/solar-assets/v2/neptune-nasa.glb",
+      "sourcePage": "https://science.nasa.gov/resource/neptune-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/n/Neptune_1_49528.glb",
+      "organization": "NASA",
+      "attribution": "NASA Visualization Technology Applications and Development (VTAD)",
+      "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "terms": "NASA media guidelines permit factual educational/informational use of 3D model polygon/texture data with NASA attribution and no endorsement. No copyright-protected third-party designation, logos or persons found on selected resource/model. This is source qualification for this informational use, not unrestricted merchandise or promotional licensing.",
+      "releaseDate": "2019-04-22",
+      "downloadListingDate": "2023-09-09",
+      "acquired": "2026-10-28",
+      "sha256": "2fc3af08d56ed429b9cc56b95d151102aa5807ea958e7cb8806a42e12a699ba8",
+      "bytes": 585104,
+      "classification": "NASA-issued processed visualization; observation lineage unspecified",
+      "mapping": "original glTF mesh TEXCOORD_0",
+      "nodes": [
+        {
+          "mesh": 0,
+          "name": "Neptune",
+          "rotation": [
+            0.7071068286895752,
+            0,
+            0,
+            0.7071067094802856
+          ]
+        }
+      ],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "cylindrically_mapped_sphere:Mesh.000",
+          "vertices": 3256,
+          "triangles": 6048,
+          "boundsMin": [
+            -499.9960021972656,
+            -500.0005187988281,
+            -491.4595031738281
+          ],
+          "boundsMax": [
+            500.0039978027344,
+            499.9994812011719,
+            491.4595031738281
+          ],
+          "maximumRadius": 500.4748652842153,
+          "baseColorImage": 0,
+          "normalMapImage": null
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": "Image_0",
+          "mimeType": "image/png",
+          "width": 1024,
+          "height": 512,
+          "bytes": 443257,
+          "sha256": "471826354bab45d381ba552503ac138c779e3ae539b5f14206c42426195077cd",
+          "gpuRgba8WithMipmapsBytes": 2796203
+        }
+      ],
+      "notes": [
+        "NASA-issued educational visualization; source page provides no observation epoch, calibration, scientific longitude registration or pole/spin solution. Do not label it current imagery or measured terrain.",
+        "Preserve source POSITION and TEXCOORD_0 together; set base color sRGB. Original nodes/transforms listed below. Normalize presentation scale independently of JPL center/time and physical-radius contracts.",
+        "Source node quaternion turns original Z-polar geometry to Y. Preserve node rotation or apply it once to geometry before using an application pole transform."
+      ]
+    },
+    {
+      "id": "eros",
+      "file": "eros-nasa.glb",
+      "url": "/solar-assets/v2/eros-nasa.glb",
+      "sourcePage": "https://science.nasa.gov/resource/eros-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/e/Eros_1_10.glb",
+      "organization": "NASA",
+      "attribution": "NASA Visualization Technology Applications and Development (VTAD)",
+      "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "terms": "NASA media guidelines permit factual educational/informational use of 3D model polygon/texture data with NASA attribution and no endorsement. No copyright-protected third-party designation, logos or persons found on selected resource/model. This is source qualification for this informational use, not unrestricted merchandise or promotional licensing.",
+      "releaseDate": "2019-04-22",
+      "downloadListingDate": "2023-09-09",
+      "acquired": "2026-10-28",
+      "sha256": "4e4eab5ebf3553f78713b48db7dde601634094e85363caa5b48fbd869933b7b2",
+      "bytes": 2392188,
+      "classification": "NASA-issued processed visualization; observation lineage unspecified",
+      "mapping": "original glTF mesh TEXCOORD_0",
+      "nodes": [
+        {
+          "mesh": 0,
+          "name": "eros_LP"
+        }
+      ],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "eros_clean.001",
+          "vertices": 839,
+          "triangles": 1536,
+          "boundsMin": [
+            -1756.4544677734375,
+            -826.4843139648438,
+            -604.22119140625
+          ],
+          "boundsMax": [
+            1503.6673583984375,
+            854.3292846679688,
+            580.5714111328125
+          ],
+          "maximumRadius": 1762.819748623319,
+          "baseColorImage": 1,
+          "normalMapImage": 0
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": "eros_norm.png",
+          "mimeType": "image/png",
+          "width": 1024,
+          "height": 1024,
+          "bytes": 1460626,
+          "sha256": "c17fef31a77abd3adefc00cacc739186e26e38510616e936f82a9ec73b1f6b5a",
+          "gpuRgba8WithMipmapsBytes": 5592406
+        },
+        {
+          "index": 1,
+          "name": "eros_diff.jpg",
+          "mimeType": "image/png",
+          "width": 1024,
+          "height": 1024,
+          "bytes": 894044,
+          "sha256": "39279d996d57b13ee9194ee15b6740064f936f65a3957644a6a8ccfb0450580b",
+          "gpuRgba8WithMipmapsBytes": 5592406
+        }
+      ],
+      "notes": [
+        "NASA-issued educational visualization; source page provides no observation epoch, calibration, scientific longitude registration or pole/spin solution. Do not label it current imagery or measured terrain.",
+        "Preserve source POSITION and TEXCOORD_0 together; set base color sRGB. Original nodes/transforms listed below. Normalize presentation scale independently of JPL center/time and physical-radius contracts.",
+        "Named Eros visualization model, 839 vertices. Original normal map is a graphical detail map, not qualified elevation. Model units, body-fixed frame, spin/orientation and shape accuracy are not independently qualified; normalize to a disclosed visual extent only."
+      ]
+    }
+  ],
+  "ring": {
+    "file": "saturn-rings-nasa.png",
+    "url": "/solar-assets/v2/saturn-rings-nasa.png",
+    "parent": "saturn-nasa.glb",
+    "imageIndex": 1,
+    "sha256": "d4ddbcd796869bd3f8508252da4fd284c4195cd0f06c02294f6c918b568ba1c7",
+    "bytes": 9615,
+    "width": 4096,
+    "height": 16,
+    "mapping": "u increases outward linearly; v wraps ring azimuth. Original mesh radius/body equatorial radius is 1.232301 at u=0 and 2.330901 at u=1. Physical-radius registration not independently measured.",
+    "innerEquatorialRadiusRatio": 1.232301,
+    "outerEquatorialRadiusRatio": 2.330901,
+    "classification": "NASA-issued visualization RGB/alpha; alpha is not measured optical depth",
+    "attribution": "NASA Visualization Technology Applications and Development (VTAD)"
+  },
+  "delivery": {
+    "strategy": "Small bounded static public assets, fetched on demand. No runtime provider request, credentials or external account. Preserve original bytes in source package; raster decode may be capped by rendering quality without implying added data.",
+    "networkBytes": 23463267,
+    "maximumSingleFileBytes": 16777216,
+    "maximumPackageBytes": 33554432,
+    "textureMaxDimension": {
+      "efficient": 1024,
+      "balanced": 2048,
+      "detailed": 4096
+    },
+    "recommendedTextureCacheBytes": 201326592,
+    "lazyLoad": "Load selected or approached destination first; discard superseded requests and decoded resources on scene teardown. Original full-resolution Jupiter and Saturn images each need 64MiB RGBA8 including mipmaps; efficient1024 cap needs4MiB each, balanced2048 cap16MiB each.",
+    "scientificLimits": "These files supply appearance, never positions, ephemerides, radii, time, observer visibility, calibrated terrain or qualified body orientation."
+  },
+  "existingQualifiedAssets": {
+    "earth": "frontend/src/features/solar/assets/earth-blue-marble.png",
+    "mars": "frontend/src/features/solar/assets/mars-nasa.glb",
+    "earthClouds": "frontend/src/features/solar/assets/earth-clouds-2002.jpg",
+    "moon": "Existing read-only LROC morphology pack remains unchanged; 2880x1440, 8px/degree, no measured elevation."
+  }
+}

@@ -4,7 +4,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import type {ScreenRect} from '../solar/solarPresentation'
 import type {EvaluatedSystem,SystemSnapshot,SystemCamera,Vec3} from './systemTypes'
 import {displayRadius,fitSystem,sceneVector,validCamera,systemDiskBudgets,systemViewport} from './systemSceneMath'
-import {systemMaterial,installMarsModel} from './systemMaterials'
+import {systemMaterial,installMarsModel,updateSystemMaterialLight} from './systemMaterials'
 import {evaluateSystem} from './systemContracts'
 
 export type SystemScene={update:(value:EvaluatedSystem)=>void;focus:(id:string|null)=>void;overview:()=>void;zoom:(factor:number)=>void;orbit:(angle:number)=>void;setSizeMode:(mode:'cinematic'|'physical')=>void;setOrbits:(show:boolean)=>void;restoreCamera:(value:SystemCamera)=>boolean;diagnostics:()=>unknown;dispose:()=>void}
@@ -171,7 +171,12 @@ export function mountSystemScene(host:HTMLElement,snapshot:SystemSnapshot,reduce
   if(previous){const delta=bodies.find(b=>b.id===selected)!.mesh.position.clone().sub(previous);camera.position.add(delta);controls.target.add(delta)
    if(flight){for(const pose of [flight.from,flight.to]){pose.position=pose.position.map((v,i)=>v+delta.getComponent(i)) as Vec3;pose.target=pose.target.map((v,i)=>v+delta.getComponent(i)) as Vec3}}
   }
-  for(const material of materials)material.uniforms.sourceSun.value.fromArray(sceneVector(evaluated.sun))
+  for(const body of bodies){
+   const position=body.id===snapshot.parent.id?[0,0,0] as Vec3:evaluated.positions[body.id]
+   if(!position)continue
+   updateSystemMaterialLight(body.mesh.material,position,evaluated.sun)
+   for(const extra of body.extras)updateSystemMaterialLight(extra.material,position,evaluated.sun)
+  }
   if(sunLight)sunLight.position.fromArray(sceneVector(evaluated.sun))
   updateControls();requestDraw()
  }
