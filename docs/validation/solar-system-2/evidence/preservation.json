@@ -1,0 +1,7 @@
+{
+  "baseline": "51771f06d9ffd3b919672b7542a9c84df13d92f6",
+  "native_sky_payload_files": 111,
+  "all_native_sky_bytes_equal": true,
+  "tracked_native_engine_and_dependency_diff": "",
+  "owner_checkout_status": " M .vscode/settings.json\n"
+}

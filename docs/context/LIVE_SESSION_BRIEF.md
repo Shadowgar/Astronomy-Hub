@@ -1,5 +1,28 @@
 # LIVE SESSION BRIEF
 
+## Solar System 2.0 — owner authorization, 2026-10-28
+
+The owner explicitly authorizes substantial Solar presentation/exploration reconstruction
+on existing `recovery/reconcile-20261026` / draft PR107, starting from51771f06.
+This supersedes the prior first-slice visual stop only for the Solar2.0 scope:
+precision/lifecycle, imagery/materials/HDR, Saturn, camera travel/follow/free flight,
+continuous qualified time, source-backed small bodies and terrain where data allows.
+Native Sky/Earth/Moon ownership, JPL identity/frames, protected data/settings/volumes,
+source obligations and original approved design PNGs remain intact. No merge,
+deployment, public archive publication or branch deletion. Actual Windows/browser,
+science, performance and independent review evidence are required; the owner alone
+grants visual acceptance. Physical iPhone remains unverified.
+Implementation is delivered at application commit `fe3c3e87` with source-qualified
+motion/small bodies, original NASA assets, HDR/rings, precise camera controls,
+continuous time and native handoff corrections. Focused frontend463 tests,
+actual Windows journeys and independent corrections pass. Controlled coarse
+LOLA terrain remains separate from the default Moon runtime. Private preview:
+`http://localhost:4231/solar-system`; gallery `/owner-review/solar-system-2/`.
+Owner visual acceptance, physical iPhone and matching/public source release remain
+open. Stop further product work for owner evaluation after hosted qualification.
+[Current implementation and exact evidence](../validation/solar-system-2/README.md).
+[Plan and loaded context](../validation/solar-system-2/PLAN.md).
+
 ## Owner-rejected visuals: first implementation correction — 2026-10-27
 
 The owner explicitly rejects current visuals and authorizes a bounded shared

@@ -1,0 +1,168 @@
+{
+  "review": "Independent non-author Solar2 integration review",
+  "date": "2026-10-28",
+  "branch": "recovery/reconcile-20261026",
+  "head": "ea5aa46e453c93e4d007c059de8999708653fa71",
+  "sourceHashes": {
+    "frontend/src/features/solar/SolarScene.ts": "2c791a7cc1947f3521814da0da251de10396bf1556ddb498a7b25c2e1a7917f9",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "e93f32d7797fa869e060c79a6d5f3d83dec22dd4a58e78d006fbaea6978f64fd",
+    "frontend/src/features/solar/SolarCameraController.ts": "cff7942de257437be778d85baa212e405f7da6756b1eae24d0ac1f8b8f53f596",
+    "frontend/src/features/solar/solarAssets.ts": "b6ae9a02b3ee62507879e6ea9a707a520d7a2927e2e24dc22a25165c4f14fba7",
+    "frontend/src/features/solar/solarClock.ts": "107390b8b794d843ff53c380c04e88070782582377d2d8f47d89b03efa502635",
+    "frontend/src/features/solar/solarPrecision.ts": "94dbc6e2f319202797bfb91b85ac5b68d080d6ba7bf4f466775610e4c5e2d703",
+    "frontend/src/features/solar/solarExplorer.css": "a3e968c6dddd6bd5bd74a6d5fba51a118ac3ad0268d04072bb9e2fdbb5c2a970",
+    "frontend/src/features/planet/solarVisitState.ts": "08f224d21f7f9d55145b0c251b99b5f1d935d504f9d28d6a4f31d8fa95a85a47",
+    "frontend/src/features/systems/PlanetSelector.tsx": "7dce8a5a8643edd64e415be125643b652f1cec34232a9299bba1d830e144e9f1",
+    "frontend/src/features/systems/SystemScene.ts": "cf401391a40e91ace3d72eec6b743b7c896e2411bf85172dfbda401ac6dcf91a",
+    "frontend/src/features/systems/systemMaterials.ts": "450ab870fee017071115956d05991b4d93dc5cb978c20016aaea9ea2b942b79d",
+    "frontend/vite.config.mjs": "66815cbb6a755035328545899c0911a4ef79d186ac8ff625c718b55ef87722bb",
+    "docs/validation/solar-system-2/gallery/index.html": "5ae3a7af80db9b66c78f24393f9102df2fa48df67e1b8e985ec05d7ffee61aa4"
+  },
+  "platform": "Linux headless Chromium through private Docker preview http://solar2.localhost:4231; supporting interaction evidence, not Windows/device performance",
+  "browserRuns": [
+    {
+      "command": "/home/rocco/.codex/skills/playwright/scripts/playwright_cli.sh -s=solar2-review run-code 'async page => {\nconst errors=[];page.on(\"pageerror\",e=>errors.push(e.message));\nconst ready=async()=>{await page.waitForFunction(()=>{const d=window.orasSolarDiagnostics?.();return d&&!d.disposed&&!d.animating&&!document.querySelector('\\''[aria-label=\"Play simulation\"]'\\'').disabled},{},{timeout:90000})};\nconst mode=async value=>{if(!await page.locator(\".solar-framing\").evaluate(e=>e.open))await page.locator(\".solar-framing>summary\").click();await page.getByLabel(\"Camera mode\",{exact:true}).selectOption(value)};\nawait ready();\nawait page.getByRole(\"button\",{name:\"Play simulation\",exact:true}).click();await page.waitForTimeout(1000);await page.getByRole(\"button\",{name:\"Pause simulation\",exact:true}).click();\nconst paused=await page.evaluate(()=>({epoch:window.orasSolarDiagnostics().epoch,canonical:new URLSearchParams(sessionStorage.getItem(\"oras.runtime.intent.v1\")).get(\"date\")}));\nawait mode(\"free\");await page.locator(\".solar-destinations>summary\").click();await page.getByRole(\"navigation\",{name:\"Select a celestial body\"}).getByRole(\"button\",{name:\"Earth\",exact:true}).click();\nconst reselect=await page.evaluate(()=>({actual:window.orasSolarDiagnostics().navigation,ui:document.querySelector('\\''[aria-label=\"Camera mode\"]'\\'').value,pad:!!document.querySelector(\".solar-flight-pad\")}));\nawait ready();await mode(\"free\");await page.getByRole(\"button\",{name:\"Recenter view\",exact:true}).click();await ready();\nconst recenter=await page.evaluate(()=>({actual:window.orasSolarDiagnostics().navigation,ui:document.querySelector('\\''[aria-label=\"Camera mode\"]'\\'').value,pad:!!document.querySelector(\".solar-flight-pad\")}));\nawait page.getByRole(\"button\",{name:\"Science, scale & sources\",exact:true}).click();await page.getByLabel(\"Show 2,048 JPL asteroid orbits\",{exact:true}).check();await page.getByRole(\"button\",{name:\"Close panel\",exact:true}).click();await page.getByLabel(\"Simulation rate\",{exact:true}).selectOption(\"3600\");await mode(\"free\");\nconst departure=await page.evaluate(()=>window.orasSolarDiagnostics());await page.getByRole(\"button\",{name:\"Explore Earth & moons →\",exact:true}).click();await page.locator(\"[data-system-status=ready]\").waitFor({timeout:90000});await page.getByRole(\"button\",{name:\"← Solar System\",exact:true}).click();await ready();\nconst returned=await page.evaluate(()=>window.orasSolarDiagnostics());const v=page.viewportSize();await page.setViewportSize({width:v.width+20,height:v.height+10});await page.waitForTimeout(150);const resized=await page.evaluate(()=>window.orasSolarDiagnostics());await page.setViewportSize(v);\nconst beforeLoss=await page.evaluate(()=>window.orasSolarDiagnostics());await page.evaluate(()=>document.querySelector(\".solar-canvas canvas\").getContext(\"webgl2\").getExtension(\"WEBGL_lose_context\").loseContext());await page.getByRole(\"button\",{name:\"Retry Solar System\",exact:true}).click();await page.waitForFunction(id=>{const d=window.orasSolarDiagnostics();return d.instanceId!==id&&!d.disposed},beforeLoss.instanceId);await ready();const recovered=await page.evaluate(()=>window.orasSolarDiagnostics());\nreturn {paused,reselect,recenter,systemReturn:{epoch:returned.epoch,expectedEpoch:departure.epoch,newInstance:returned.instanceId!==departure.instanceId,navigation:returned.navigation,asteroids:returned.asteroids.visible,rate:await page.getByLabel(\"Simulation rate\",{exact:true}).inputValue(),cameraView:returned.cameraView,cameraMaxDelta:Math.max(...returned.camera.map((n,i)=>Math.abs(n-departure.camera[i]))),resizeCameraMaxDelta:Math.max(...resized.camera.map((n,i)=>Math.abs(n-returned.camera[i])))},recovery:{beforeEpoch:beforeLoss.epoch,afterEpoch:recovered.epoch,newInstance:beforeLoss.instanceId!==recovered.instanceId,navigation:recovered.navigation,asteroids:recovered.asteroids.visible,canvases:await page.locator(\".solar-canvas canvas\").count(),cameraMaxDelta:Math.max(...recovered.camera.map((n,i)=>Math.abs(n-beforeLoss.camera[i])))},errors};\n}'",
+      "result": {
+        "paused": {
+          "epoch": "2026-10-30T04:47:53.491Z",
+          "canonical": "2026-10-30T04:47:53.491Z"
+        },
+        "reselect": {
+          "actual": "orbit",
+          "ui": "orbit",
+          "pad": false
+        },
+        "recenter": {
+          "actual": "orbit",
+          "ui": "orbit",
+          "pad": false
+        },
+        "systemReturn": {
+          "epoch": "2026-10-30T04:47:53.491Z",
+          "expectedEpoch": "2026-10-30T04:47:53.491Z",
+          "newInstance": true,
+          "navigation": "free",
+          "asteroids": true,
+          "rate": "3600",
+          "cameraView": "custom",
+          "cameraMaxDelta": 0,
+          "resizeCameraMaxDelta": 0
+        },
+        "recovery": {
+          "beforeEpoch": "2026-10-30T04:47:53.491Z",
+          "afterEpoch": "2026-10-30T04:47:53.491Z",
+          "newInstance": true,
+          "navigation": "free",
+          "asteroids": true,
+          "canvases": 1,
+          "cameraMaxDelta": 0
+        },
+        "errors": []
+      }
+    },
+    {
+      "command": "/home/rocco/.codex/skills/playwright/scripts/playwright_cli.sh -s=solar2-review run-code 'async page=>{\nconst errors=[];page.on(\"pageerror\",e=>errors.push(e.message));\nconst ready=async()=>page.waitForFunction(()=>{const d=window.orasSolarDiagnostics?.();return d&&!d.disposed&&!d.animating&&!document.querySelector('\\''[aria-label=\"Play simulation\"]'\\'').disabled},{},{timeout:90000});\nawait page.goto(\"http://solar2.localhost:4231/solar-system?date=2026-10-27T04:00:00.000Z&solarBody=saturn\");await ready();const saturn=await page.evaluate(()=>{const d=window.orasSolarDiagnostics();return {selected:d.selected,near:d.near,body:d.bodies.find(b=>b.id===\"saturn\")}});\nawait page.goto(\"http://solar2.localhost:4231/solar-system?date=2026-10-27T04:00:00.000Z&solarBody=eros\");\nawait page.waitForFunction(()=>{const d=window.orasSolarDiagnostics?.();return d&&d.asteroids.available&&!d.animating&&d.bodies.find(b=>b.id===\"eros\")?.screenRadius>20},{},{timeout:90000});await ready();\nawait page.getByRole(\"button\",{name:\"Orbit camera right\",exact:true}).click();await page.locator(\".solar-framing>summary\").click();await page.getByLabel(\"Camera mode\",{exact:true}).selectOption(\"free\");\nconst before=await page.evaluate(()=>window.orasSolarDiagnostics());await page.evaluate(()=>document.querySelector(\".solar-canvas canvas\").getContext(\"webgl2\").getExtension(\"WEBGL_lose_context\").loseContext());await page.getByRole(\"button\",{name:\"Retry Solar System\",exact:true}).click();\nawait page.waitForFunction(id=>{const d=window.orasSolarDiagnostics();return d.instanceId!==id&&!d.disposed&&d.asteroids.available&&!d.animating},before.instanceId);await ready();await page.waitForTimeout(300);const recovered=await page.evaluate(()=>window.orasSolarDiagnostics());\nawait page.goto(\"http://solar2.localhost:4231/solar-system?date=2020-01-01T00:00:00.000Z&solarBody=eros\");await ready();\nconst unavailable=await page.evaluate(()=>({available:window.orasSolarDiagnostics().asteroids.available,disabled:document.querySelector(\".solar-context button\").disabled,scale:document.querySelector(\".solar-scale-note\").textContent,message:document.querySelector(\".solar-context [role=status]\").textContent}));\nawait page.goto(\"http://solar2.localhost:4231/solar-system\");await ready();await page.getByRole(\"button\",{name:\"Play simulation\",exact:true}).click();await page.waitForTimeout(1000);const running=await page.getByRole(\"button\",{name:\"Pause simulation\",exact:true}).count();if(running)await page.getByRole(\"button\",{name:\"Pause simulation\",exact:true}).click();\nconst dateless=await page.evaluate(p=>({runningAfter1sec:p===1,epoch:window.orasSolarDiagnostics().epoch,canonical:new URLSearchParams(sessionStorage.getItem(\"oras.runtime.intent.v1\")).get(\"date\"),sourceRequests:performance.getEntriesByType(\"resource\").filter(r=>r.name.includes(\"/api/v1/solar-system?\")).length}),running);\nconst previous=await page.evaluate(()=>window.orasSolarDiagnostics());await page.getByRole(\"button\",{name:\"+1 day\",exact:true}).click();await page.waitForFunction(old=>window.orasSolarDiagnostics().trajectoryEpoch!==old,previous.trajectoryEpoch);const next=await page.evaluate(()=>window.orasSolarDiagnostics());const source=await(await page.request.get(\"http://solar2.localhost:4231/api/v1/solar-system?epoch=\"+encodeURIComponent(next.epoch))).json();\nreturn {saturn:{selected:saturn.selected,screenRadius:saturn.body.screenRadius,cameraDistance:saturn.body.cameraDistance,radius:saturn.body.radiusAu},erosRecovery:{beforeRadius:before.bodies.find(b=>b.id===\"eros\").screenRadius,afterRadius:recovered.bodies.find(b=>b.id===\"eros\").screenRadius,beforeNear:before.near,afterNear:recovered.near,cameraMaxDelta:Math.max(...recovered.camera.map((n,i)=>Math.abs(n-before.camera[i]))),mode:recovered.navigation,newInstance:recovered.instanceId!==before.instanceId,canvases:1},unavailable,dateless,trajectory:{sameInstance:previous.instanceId===next.instanceId,epoch:next.trajectoryEpoch,matchesApi:next.trajectoryPoints.every(p=>{const t=source.bodies.find(b=>b.source_id===p.id).trajectory;return p.first===t[0].epoch&&p.last===t.at(-1).epoch&&p.count===t.length})},errors,loadedScripts:await page.evaluate(()=>performance.getEntriesByType(\"resource\").filter(r=>r.name.endsWith(\".js\")).map(r=>r.name))};\n}'",
+      "result": {
+        "saturn": {
+          "selected": "saturn",
+          "screenRadius": 212.44965521804033,
+          "cameraDistance": 0.004136468196940383,
+          "radius": 0.00038925687730393614
+        },
+        "erosRecovery": {
+          "beforeRadius": 189.40529912253012,
+          "afterRadius": 189.40529912253012,
+          "beforeNear": 1.1256844713900063e-9,
+          "afterNear": 1.1256844713900063e-9,
+          "cameraMaxDelta": 0,
+          "mode": "free",
+          "newInstance": true
+        },
+        "unavailable": {
+          "available": false,
+          "disabled": true,
+          "scale": "Destination unavailableAwaiting source position",
+          "message": "Eros is unavailable at this epoch or its source is still loading. Approximation coverage: JD2461020.5–2461380.5 TDB (December 2025–December 2026). Choose a supported epoch to approach it."
+        },
+        "dateless": {
+          "runningAfter1sec": true,
+          "epoch": "2020-01-04T13:35:45.600Z",
+          "canonical": "2020-01-04T13:35:45.600Z",
+          "sourceRequests": 1
+        },
+        "trajectory": {
+          "sameInstance": true,
+          "epoch": "2020-01-05T13:35:45.600Z",
+          "matchesApi": true
+        },
+        "errors": [],
+        "loadedScripts": [
+          "http://solar2.localhost:4231/assets/index-Cc5AK2yr.js",
+          "http://solar2.localhost:4231/assets/SolarWorkspace-R1QUGx4D.js",
+          "http://solar2.localhost:4231/assets/solarMaterials-Dr9byMFE.js",
+          "http://solar2.localhost:4231/assets/solar-DdazvHzT.js"
+        ]
+      },
+      "note": "Results retain measured values only; the command's literal canvases placeholder is omitted. Actual canvas count is measured in the first run."
+    }
+  ],
+  "tests": [
+    {
+      "cwd": "frontend",
+      "command": "npm test -- --run tests/solarFoundation.test.ts tests/solarAssets.test.ts tests/solarMotion.test.ts tests/solarLighting.test.ts tests/solarSmallBodies.test.ts",
+      "files": 5,
+      "passed": 30
+    },
+    {
+      "cwd": "frontend",
+      "command": "npm test -- --run tests/systemMaterials.test.ts tests/solarPresentation.test.ts tests/solarVisitState.test.ts tests/solarAcceptance.test.ts tests/solarScientificView.test.ts tests/solarRefinement.test.ts",
+      "files": 6,
+      "passed": 25
+    },
+    {
+      "cwd": "frontend",
+      "command": "npm test -- --run tests/solarCameraController.test.ts tests/solarVisitState.test.ts tests/solarFoundation.test.ts tests/solarAssets.test.ts tests/solarLighting.test.ts tests/systemMaterials.test.ts",
+      "files": 6,
+      "passed": 32
+    }
+  ],
+  "wheelRegression": {
+    "method": "Real Three OrbitControls wheel event through SolarCameraController, EventTarget test canvas",
+    "setup": {
+      "camera": [
+        0,
+        0,
+        3
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ],
+      "body": [
+        0,
+        0,
+        1.5
+      ],
+      "radius": 0.2,
+      "deltaY": -1400,
+      "deltaMode": 0
+    },
+    "red": {
+      "cameraZ": 1.4630249373465887,
+      "distanceToBody": 0.03697506265341133,
+      "inside": true
+    },
+    "green": {
+      "cameraZ": 1.7039999999999997,
+      "distanceToBody": 0.20399999999999974,
+      "inside": false
+    }
+  },
+  "retainedFailures": [
+    "Initial supporting Vite4234 API proxy returned502; browser qualification used the private Docker preview instead.",
+    "First final batch used the nonexistent ready-system button label Return to Solar and timed out; corrected to the observed ← Solar System label. This was a harness failure."
+  ],
+  "terrainReceipt": "../../../../output/playwright/owner-acceptance/solar2-terrain/review-regression.json",
+  "status": "No remaining actionable P1/P2 in examined Solar integration, shared lighting adapter, gallery source and separately reviewed isolated terrain corrections; owner/release/device gates remain."
+}

@@ -9,6 +9,21 @@ global:
   - docs/context/LIVE_SESSION_BRIEF.md
 
 tasks:
+  solar_reconstruction:
+    # Owner October28 scoped pack; replaces broad historical packs for this run.
+    load:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
+    - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
+    - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/adaptive-explorer-r1a/README.md
+    - docs/validation/repository-recovery-20261026/owner-acceptance/README.md
+    - docs/validation/repository-recovery-20261026/visual-fidelity/README.md
+    - docs/validation/solar-system-2/PLAN.md
+
   docs_change:
     load:
     - docs/context/CORE_CONTEXT.md
