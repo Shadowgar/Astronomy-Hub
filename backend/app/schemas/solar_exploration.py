@@ -55,3 +55,49 @@ class SolarSnapshot(BaseModel):
 
     class Config:
         fields = {'schema_version': 'schema'}
+
+
+class MotionSample(BaseModel):
+    epoch: str
+    jd_tdb: float
+    position_au: Vector
+    velocity_au_s: Vector
+
+
+class MotionTrack(BaseModel):
+    id: Literal['sun','mercury','venus','earth','mars','jupiter','saturn','uranus','neptune']
+    ephemeris_target: str
+    position_reference: str
+    samples: conlist(MotionSample,min_items=2,max_items=385)
+
+
+class Coverage(BaseModel):
+    start: str
+    end: str
+
+
+class MotionSampling(BaseModel):
+    step_seconds: int
+    interpolation: Literal['cubic-hermite']
+    max_position_error_km: float
+    qualification_points_per_segment: Literal[3]
+    time_fraction: str
+    qualification: str
+
+
+class SolarMotion(BaseModel):
+    schema_version: Literal['oras.solar-motion.v1']
+    epoch: str
+    origin: Literal['Sun center (10)']
+    frame: Literal['ICRF']
+    units: Literal['AU,AU/s']
+    time_scale: str
+    corrections: str
+    coverage: Coverage
+    sampled_coverage: Coverage
+    source: Source
+    tracks: conlist(MotionTrack,min_items=9,max_items=9)
+    sampling: MotionSampling
+
+    class Config:
+        fields = {'schema_version': 'schema'}
