@@ -1,7 +1,7 @@
 import * as T from 'three'
 import type {BodyId,Vector,SolarSnapshot} from './solarContracts'
 
-export type BodyRadii=Record<BodyId,number>
+export type BodyRadii=Record<string,number>
 export type SolarPreset='full'|'inner'|'outer'
 export type SolarCameraView=SolarPreset|'body'|'custom'
 export type SolarSizeMode='cinematic'|'physical'
@@ -19,7 +19,7 @@ export function physicalRadii(snapshot:SolarSnapshot):BodyRadii{
  return Object.fromEntries(snapshot.bodies.map(b=>[b.source_id,b.shape.mean_radius_km/snapshot.km_per_au])) as BodyRadii
 }
 // Ring extent/orientation and optical atmosphere remain disclosed illustrations.
-export const visualRadius=(radii:BodyRadii,id:BodyId)=>radii[id]*(id==='saturn'?2.27:1.03)
+export const visualRadius=(radii:BodyRadii,id:string)=>radii[id]*(id==='saturn'?140180/58232:1.03)
 type Anchor={source_id:BodyId;position_au:Vector}
 export function presetAnchors<A extends Anchor>(bodies:A[],preset:SolarPreset):A[]{
  const inner=new Set<BodyId>(['sun','mercury','venus','earth','mars'])
@@ -48,9 +48,9 @@ export function overviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,heigh
  return{position:center.clone().addScaledVector(view,distance).toArray(),target:center.toArray()}
 }
 /** Screen budgets describe an illustration, never body dimensions or positions. */
-export function cinematicRadius(id:BodyId,width:number,height:number){
- const fraction:Record<BodyId,number>={sun:.25,mercury:.026,venus:.075,earth:.12,mars:.10,jupiter:.14,saturn:.12,uranus:.075,neptune:.075}
- return Math.min(width*.24,height*fraction[id],id==='mercury'?24:Infinity)
+export function cinematicRadius(id:string,width:number,height:number){
+ const fraction:Record<string,number>={sun:.25,mercury:.026,venus:.075,earth:.12,mars:.10,jupiter:.14,saturn:.12,uranus:.075,neptune:.075}
+ return Math.min(width*.24,height*(fraction[id]??.018),id==='mercury'?24:Infinity)
 }
 /** Pick a readable source-derived view, rather than rearranging the planets.
  * This bounded search runs on framing changes, never in the render loop. */
@@ -81,7 +81,7 @@ export function cinematicOverviewPose(radii:BodyRadii,bodies:Anchor[],aspect:num
  }
  return best
 }
-export function focusPose(radii:BodyRadii,id:BodyId,p:Vector,aspect:number,close=false,height=0,frame=focusViewport(aspect*height,height)):CameraPose{
+export function focusPose(radii:BodyRadii,id:string,p:Vector,aspect:number,close=false,height=0,frame=focusViewport(aspect*height,height)):CameraPose{
  const target=new T.Vector3(...p),sunward=target.clone().negate().normalize()
  if(id==='sun')sunward.copy(direction)
  // View mostly the illuminated hemisphere, with a visible terminator. This changes

@@ -1,0 +1,64 @@
+.solar-search-label{display:grid;gap:7px;padding:10px 12px;font-size:11px;letter-spacing:.05em;color:#b7c3d3}
+.solar-search-label input{width:100%;min-height:40px;box-sizing:border-box;border:1px solid #ffffff24;border-radius:12px;background:#05091199;color:#eff5ff;padding:8px 12px;font:inherit;font-size:13px}
+.solar-search-results{display:grid;max-height:220px;overflow:auto;padding:4px 10px}
+.solar-search-results button,.solar-eros-destination,.solar-system-entry{border:1px solid #ffffff1c;border-radius:12px;background:#1a233269;color:#edf4ff;padding:10px 14px;text-align:left;cursor:pointer}
+.solar-eros-destination{margin:5px 12px 12px;width:calc(100% - 24px)}
+.solar-eros-destination span{display:block;font-size:11px;color:#b2bdcc;margin-top:3px}
+.solar-navigation-modes{display:flex;align-items:center;gap:8px;margin:6px 0 2px}
+.solar-navigation-modes label{display:flex;align-items:center;gap:7px;color:#9fadc0;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.solar-navigation-modes select,.solar-time-bar select{appearance:auto;background:#121a27cc;border:1px solid #ffffff1c;border-radius:9px;color:#e9f0fc;font-size:11px;min-height:32px;padding:3px 8px}
+.solar-navigation-modes button{font-size:11px;color:#d4ddeb;background:transparent;border:0;cursor:pointer}
+.solar-time-bar{display:flex;align-items:center;gap:7px;padding-right:10px}
+.solar-time-bar>button:first-child{width:42px;min-height:42px;display:grid;place-items:center;border-radius:50%;border:1px solid #efb97877;color:#ffd59e;background:#d58e2315;font-size:17px}
+.solar-time-bar button:disabled{opacity:.4;cursor:wait}
+.solar-time-bar time span{font-variant-numeric:tabular-nums}
+.solar-system-entry{width:100%;margin:9px 0;color:#f5c58b;border-color:#d9a66044;background:#c4924c12;font-size:12px}
+.solar-flight-pad{position:absolute;right:20px;bottom:82px;max-width:258px;padding:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;z-index:10}
+.solar-flight-pad p{grid-column:1/-1;font-size:11px;color:#a9b7c9;margin:0 0 4px}
+.solar-flight-pad button{touch-action:none;min-height:40px;border:1px solid #ffffff2b;border-radius:9px;background:#15203399;color:#e4edfa;text-transform:capitalize}
+.solar-flight-pad button:active{background:#835c2d99}
+.solar-context:has(+.solar-context){display:none}
+.solar-destinations[open]{max-height:calc(100dvh - 205px);overflow:auto}
+.solar-body-label{font-weight:400;text-shadow:0 1px 6px #000}
+@media(max-width:767px){
+ .solar-time-bar{gap:3px;padding-right:6px;max-width:calc(100% - 20px)}
+ .solar-time-bar>button:first-child{width:36px;min-height:36px;flex-shrink:0}
+ .solar-time-bar select{max-width:100px;font-size:10px;padding:3px}
+ .solar-time-bar time{font-size:11px}.solar-time-bar time span{font-size:10px}
+ .solar-time-steps button{min-width:26px;width:26px;padding:0}
+ .solar-navigation-modes{gap:3px}.solar-navigation-modes label{font-size:9px}
+ .solar-navigation-modes select{font-size:10px;max-width:118px}
+ .solar-flight-pad{right:10px;bottom:130px;max-width:210px;padding:7px}
+ .solar-context[aria-label="Selected asteroid details"]{font-size:11px;max-height:180px;overflow:auto}
+}
+@media(max-height:500px) and (min-width:600px){
+ .solar-camera{max-width:245px}.solar-navigation-modes{margin:3px 0}
+ .solar-flight-pad{bottom:62px;max-width:220px}.solar-flight-pad p{display:none}
+ .solar-context[aria-label="Selected asteroid details"]{max-height:170px}
+}
+
+/* Preserve the scene-first horizontal controls; camera modes live in View. */
+.ws-shell[data-workspace-mode=solar] .solar-time-bar{left:24px;right:auto;transform:none}
+.ws-shell[data-workspace-mode=solar] .solar-caption{bottom:86px}
+.ws-shell[data-workspace-mode=solar] .solar-navigation-modes{display:grid;gap:7px;padding:8px 6px}
+.ws-shell[data-workspace-mode=solar] .solar-navigation-modes label{display:grid;gap:5px}
+.ws-shell[data-workspace-mode=solar] .solar-navigation-modes select{width:100%;min-height:36px}
+.ws-shell[data-workspace-mode=solar] .solar-bodies{position:static;width:100%;box-shadow:none;border:0;background:none;box-sizing:border-box}
+.ws-shell[data-workspace-mode=solar] .solar-destinations[open]{width:284px}
+@media(max-width:767px){
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar{left:14px;right:14px;bottom:14px;max-width:none}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar>button:nth-child(2)>svg{display:none}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar>button:nth-child(2){gap:2px;padding:5px 7px;min-width:0}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar time{min-width:90px}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar .solar-time-steps{gap:0}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar .solar-time-steps button{width:24px;min-width:24px}
+}
+@media(max-height:560px) and (min-width:560px){
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar{left:14px;max-width:calc(100vw - 360px)}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar>button:nth-child(2)>svg{display:none}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar>button:nth-child(2){padding:4px 6px}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar .solar-time-steps{display:none}
+}
+
+/* Open mode choices must stay above the destination disclosure beneath them. */
+.ws-shell[data-workspace-mode=solar] .solar-header:has(.cin-brand[data-cinematic-open=true]){z-index:12}
