@@ -1,5 +1,24 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Solar System 2.1 — owner authorization, 2026-10-28
+
+The owner authorizes actual pinned Takram Earth atmosphere and NASA 3D Tiles
+regional planetary terrain integration from `b4005ce4`, on existing recovery/PR107.
+This supersedes the Solar2.0 stop only for the attached2.1 scope. Preserve native
+Sky/Earth/Moon, Solar2 science/exploration, source boundaries, private preview and
+rollback. No merge, production deployment, branch deletion or protected-data changes.
+Actual browser/performance/source qualification and independent review are required;
+owner acceptance and physical iPhone remain open.
+Actual Takram Earth atmosphere and NASA TilesRenderer Apollo17 regional terrain are
+implemented.500frontend tests,7warning-clean Docker frame/motion tests,10source
+tests, actual Windows atmosphere/terrain/navigation/performance and separate
+independent corrections are qualified. Final hosted checks are recorded in PR107.
+Private preview remains localhost:4231; gallery `/owner-review/solar-system-2.1/`.
+Owner acceptance, physical iPhone, matching/public source release and retained
+baseline advisory maintenance remain open. Stop product expansion for owner review.
+[Implementation, exact evidence and limits](../validation/solar-system-2.1/README.md).
+[Execution plan and evidence](../validation/solar-system-2.1/PLAN.md).
+
 ## Solar System 2.0 — owner authorization, 2026-10-28
 
 The owner explicitly authorizes substantial Solar presentation/exploration reconstruction

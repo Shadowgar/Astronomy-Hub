@@ -1,0 +1,14 @@
+{
+  "base": "http://127.0.0.1:4231",
+  "started": "2026-10-28T07:37:07.306Z",
+  "platform": "win32",
+  "browserVersion": "156.0.4314.42",
+  "browserDnsOverride": "MAP solar21.localhost 127.0.0.1 (browser only)",
+  "environment": "Windows Edge hardware; inspect renderer below",
+  "checks": [],
+  "errors": [],
+  "stage": "1440 initial",
+  "pass": false,
+  "failure": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4231/planet-terrain/apollo17-nac-v1?date=2026-10-28T00:00:00Z&lat=40&lng=-80&elev=400&elevationSource=manual\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4231/planet-terrain/apollo17-nac-v1?date=2026-10-28T00:00:00Z&lat=40&lng=-80&elev=400&elevationSource=manual\", waiting until \"load\"\u001b[22m\n",
+  "failureDiagnostics": null
+}

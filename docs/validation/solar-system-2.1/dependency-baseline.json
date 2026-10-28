@@ -1,0 +1,13 @@
+{
+  "baseline": "b4005ce48e9869c298de4ed019c67e4e246accda",
+  "existingFrontendResolvedVersionChanges": [],
+  "newIsolatedPackageLock": "frontend/graphics/package-lock.json",
+  "newIsolatedGraphAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  }
+}

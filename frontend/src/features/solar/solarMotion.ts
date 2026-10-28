@@ -1,9 +1,10 @@
 /** Checked JPL source windows; renderer lifetime is independent of scientific time. */
+import {validateEarthOrientation,evaluateEarthOrientation,type EarthOrientation} from './solarEarthFrame'
 import {bodyIds,type BodyId,type Vector} from './solarContracts'
 import {parseSceneDate} from '../runtime/productState'
 
 export type SolarMotionSample={epoch:string;jd_tdb:number;position_au:Vector;velocity_au_s:Vector}
-export type SolarMotion={schema:'oras.solar-motion.v1';epoch:string;origin:'Sun center (10)';frame:'ICRF';units:'AU,AU/s';source:{id:string;release:string;sha256:string};coverage:{start:string;end:string};sampled_coverage:{start:string;end:string};tracks:{id:BodyId;ephemeris_target:string;position_reference:string;samples:SolarMotionSample[]}[];sampling:{step_seconds:number;interpolation:'cubic-hermite';max_position_error_km:number;qualification_points_per_segment:3;qualification:string}}
+export type SolarMotion={earth_orientation?:EarthOrientation;schema:'oras.solar-motion.v1';epoch:string;origin:'Sun center (10)';frame:'ICRF';units:'AU,AU/s';source:{id:string;release:string;sha256:string};coverage:{start:string;end:string};sampled_coverage:{start:string;end:string};tracks:{id:BodyId;ephemeris_target:string;position_reference:string;samples:SolarMotionSample[]}[];sampling:{step_seconds:number;interpolation:'cubic-hermite';max_position_error_km:number;qualification_points_per_segment:3;qualification:string}}
 const targets=['10','199','299','399','4','5','6','7','8']
 const stamp=(value:unknown)=>typeof value==='string'&&parseSceneDate(value)?Date.parse(value):NaN
 const vector=(v:unknown,bound:number):v is Vector=>Array.isArray(v)&&v.length===3&&v.every(n=>typeof n==='number'&&Number.isFinite(n)&&Math.abs(n)<bound)
@@ -27,6 +28,7 @@ export function validateSolarMotion(raw:unknown,epoch?:string):SolarMotion{
   if(stamp(track.samples[0].epoch)!==start||stamp(track.samples.at(-1)!.epoch)!==end)fail()
   seen.add(track.id)
  }
+ if(s.earth_orientation)validateEarthOrientation(s.earth_orientation,s.tracks[3].samples.map(sample=>sample.epoch))
  return s
 }
 
@@ -38,7 +40,7 @@ export function solarMotionNeedsRefresh(s:SolarMotion,utcMs:number,rate:number){
  const start=Date.parse(s.sampled_coverage.start),end=Date.parse(s.sampled_coverage.end),margin=Math.min((end-start)*.1,Math.max(60000,Math.abs(rate)*30000))
  return rate>0?end-utcMs<margin:utcMs-start<margin
 }
-export function evaluateSolarMotion(s:SolarMotion,utcMs:number):{epoch:string;jd_tdb:number;positions:Record<BodyId,Vector>}{
+export function evaluateSolarMotion(s:SolarMotion,utcMs:number):{epoch:string;jd_tdb:number;positions:Record<BodyId,Vector>;icrfToItrs:number[]|null}{
  if(!solarMotionContains(s,utcMs))throw Error('Time is outside sampled Solar source coverage.')
  // Browser Date/URL state has millisecond resolution. Preserve one epoch for
  // reported UTC and all vectors even when the animation clock has fractions.
@@ -52,7 +54,7 @@ export function evaluateSolarMotion(s:SolarMotion,utcMs:number):{epoch:string;jd
   jd=a.jd_tdb+u*(b.jd_tdb-a.jd_tdb)
   positions[track.id]=u===0?[...a.position_au]:u===1?[...b.position_au]:a.position_au.map((p,i)=>(2*u3-3*u2+1)*p+(u3-2*u2+u)*dt*a.velocity_au_s[i]+(-2*u3+3*u2)*b.position_au[i]+(u3-u2)*dt*b.velocity_au_s[i]) as Vector
  }
- return {epoch:new Date(utcMs).toISOString(),jd_tdb:jd,positions}
+ return {epoch:new Date(utcMs).toISOString(),jd_tdb:jd,positions,icrfToItrs:evaluateEarthOrientation(s.earth_orientation,utcMs)}
 }
 export async function loadSolarMotion(epoch:string,signal:AbortSignal,fetcher:typeof fetch=fetch){
  signal.throwIfAborted()

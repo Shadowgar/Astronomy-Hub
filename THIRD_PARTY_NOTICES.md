@@ -40,3 +40,11 @@ Astronomy Hub is a **mixed-license repository**. The root [MIT license](LICENSE)
 5. A new contribution to **original** Hub code is not automatically relicensed if the contributor lacks authority, or if it modifies/adapts copyleft code; settle rights before distribution.
 
 This file documents known boundaries but is **not a comprehensive intellectual-property or redistribution clearance audit**. The [readiness tracker](docs/OPEN_SOURCE_READINESS.md) records remaining owner decisions and verification steps.
+
+## Solar System 2.1 runtime dependencies
+
+- `@takram/three-atmosphere`0.19.1 and `@takram/three-geospatial`0.9.1: MIT; exact package lookup textures retained, not regenerated. Upstream Bruneton scattering shaders additionally retain INRIA/Eric Bruneton BSD-3-Clause notices.
+- `postprocessing`6.39.5: Zlib.
+- NASA AMMOS `3d-tiles-renderer`0.5.3: Apache-2.0.
+- All runtime rendering resolves Three.js0.180.0. The vanilla packages have a separate standard npm lockfile under `frontend/graphics`; no React19/R3F integration or ignored peer checks. Exact bundled license copies live in `frontend/public/licenses`.
+- Apollo17 NAC regional elevation and orthomosaic: NASA/GSFC/Arizona State University PDS products, public-domain PDS terms. Derived bounded tiles preserve source labels, precise byte-range hashes and derivation receipts under `frontend/public/planet-terrain/apollo17-nac-v1` and the Solar2.1 source validation record. NASA endorsement is not implied.

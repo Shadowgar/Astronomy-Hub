@@ -1,0 +1,23 @@
+.terrain-shell{background:#03060c;isolation:isolate}
+.terrain-stage{position:absolute;inset:0;overflow:hidden}
+.terrain-stage canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
+.terrain-stage canvas:focus-visible{outline:2px solid #a8d3ff;outline-offset:-4px}
+.terrain-heading{position:absolute;top:100px;left:32px;pointer-events:none;text-shadow:0 2px 12px #000}
+.terrain-heading small{font-size:10px;letter-spacing:.19em;color:#b1c8dd}
+.terrain-heading h1{font-size:clamp(25px,3vw,40px);font-weight:400;letter-spacing:-.035em;margin:8px 0}
+.terrain-heading p{font-size:12px;color:#c4ced8;margin:0}
+.terrain-tools{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:7px;border-radius:18px;max-width:calc(100% - 28px);white-space:nowrap;overflow:auto}
+.terrain-tools button,.terrain-notice button,.terrain-panel-heading button{flex:0 0 auto;min-width:38px;min-height:38px;padding:7px 11px;border:1px solid #b7d6ff2e;border-radius:10px;background:#0c17293b;color:#eef7ff;cursor:pointer;font:inherit;font-size:12px}
+.terrain-tools button:hover,.terrain-tools button:focus-visible{background:#86b7ed33}
+.terrain-caption{position:absolute;bottom:25px;left:14px;right:14px;text-align:center;font-size:11px;color:#c4d3df;pointer-events:none;text-shadow:0 2px 5px #000}
+.terrain-sources{position:absolute;z-index:12;right:24px;top:95px;bottom:120px;width:min(370px,calc(100% - 32px));padding:18px 22px;border-radius:20px;overflow:auto;color:#d8e5ef;font-size:12px;line-height:1.5}
+.terrain-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.terrain-panel-heading h2{font-size:16px;font-weight:500;margin:0 0 8px}
+.terrain-sources label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0}
+.terrain-sources select{color:#fff;background:#192735;border:1px solid #8ba6bf77;border-radius:8px;padding:7px}
+.terrain-sources a{color:#acd6ff}.terrain-sources .terrain-relief{justify-content:flex-start}
+.terrain-notice{position:absolute;bottom:118px;left:50%;transform:translateX(-50%);border-radius:15px;padding:12px;max-width:540px;width:calc(100% - 40px);font-size:12px}
+.terrain-notice p{margin:0 0 8px}.terrain-notice button+button{margin-left:6px}
+@media(max-width:600px){.terrain-heading{top:91px;left:18px}.terrain-heading h1{font-size:26px;line-height:1.12}.terrain-tools{bottom:52px;padding:5px;gap:3px;flex-wrap:wrap;justify-content:center;width:calc(100% - 28px);white-space:normal;overflow:visible}.terrain-tools button{padding:8px;min-height:40px;font-size:11px}.terrain-caption{bottom:20px;font-size:10px}.terrain-sources{right:16px;top:88px;bottom:155px;padding:16px}.terrain-notice{bottom:155px}.terrain-shell .solar-return{font-size:12px;padding:10px}}
+@media(max-height:500px){.terrain-heading{top:78px;left:22px}.terrain-heading h1{font-size:23px;margin:4px 0}.terrain-heading p{font-size:10px}.terrain-heading small{font-size:8px}.terrain-tools{bottom:36px;padding:4px}.terrain-tools button{min-height:32px;padding:5px 9px}.terrain-caption{bottom:12px}.terrain-sources{top:72px;bottom:83px}.terrain-notice{bottom:85px}.terrain-shell .solar-loading{top:50%;bottom:auto}}
+@media(prefers-reduced-motion:reduce){.terrain-shell *{scroll-behavior:auto}}

@@ -85,6 +85,23 @@ class MotionSampling(BaseModel):
     qualification: str
 
 
+class EarthOrientationSample(BaseModel):
+    epoch: str
+    quaternion: conlist(float,min_items=4,max_items=4)
+
+
+class EarthOrientation(BaseModel):
+    from_frame: Literal['ICRF']
+    to_frame: Literal['ITRS']
+    quaternion_order: Literal['xyzw']
+    interpolation: Literal['shortest-slerp']
+    model: str
+    polar_motion: str
+    accuracy: str
+    max_sampled_interpolation_error_arcsec: float
+    samples: conlist(EarthOrientationSample,min_items=2,max_items=385)
+
+
 class SolarMotion(BaseModel):
     schema_version: Literal['oras.solar-motion.v1']
     epoch: str
@@ -98,6 +115,7 @@ class SolarMotion(BaseModel):
     source: Source
     tracks: conlist(MotionTrack,min_items=9,max_items=9)
     sampling: MotionSampling
+    earth_orientation: EarthOrientation
 
     class Config:
         fields = {'schema_version': 'schema'}

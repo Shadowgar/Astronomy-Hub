@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "command": "node scripts/validation/review_solar21_graphics_bundle.mjs",
+  "hashes": {
+    "package.json": "44b1a74ee1b95eb4fe15cc865bda3716dfd9fffa28c882419ebf666e76277030",
+    "package-lock.json": "2dae37e3f014550cd326877626ff0cb76b1bf6b3893a1e661834b833e8c8bc90",
+    "graphics/package.json": "c161e98759c87d33097ae0da09c761aa8bac1a17f20bb0e84fdcb8a2330d82b0",
+    "graphics/package-lock.json": "3b64bab5a487a274b03017e736879c605d7c64ffef8446a57b6ba495143efd61",
+    "vite.config.mjs": "38bf693b31291f8f550e7ecb06f51cad2472e438733d32f5355c017d98201ae8"
+  },
+  "totalBundledModules": 196,
+  "graphicsBundledModules": 12,
+  "hubReactVersion": "18.3.1",
+  "graphicsReactVersion": "19.3.1",
+  "graphicsFiberVersion": "9.8.2",
+  "bundledReactModules": [
+    "frontend/node_modules/react/cjs/react.production.min.js",
+    "frontend/node_modules/react/index.js",
+    "frontend/node_modules/react/cjs/react-jsx-runtime.production.min.js",
+    "frontend/node_modules/react/jsx-runtime.js"
+  ],
+  "unwantedGraphicsReactOrR3FModules": [],
+  "bundledTakramVanillaModules": [
+    "frontend/graphics/node_modules/@takram/three-geospatial/build/shared.js",
+    "frontend/graphics/node_modules/@takram/three-geospatial/build/shared3.js",
+    "frontend/graphics/node_modules/@takram/three-geospatial/build/index.js",
+    "frontend/graphics/node_modules/@takram/three-geospatial/build/shaders.js",
+    "frontend/graphics/node_modules/@takram/three-atmosphere/build/shared2.js",
+    "frontend/graphics/node_modules/@takram/three-atmosphere/build/shared3.js",
+    "frontend/graphics/node_modules/@takram/three-atmosphere/build/shared.js",
+    "frontend/graphics/node_modules/@takram/three-atmosphere/build/index.js",
+    "frontend/graphics/node_modules/@takram/three-atmosphere/build/shaders/bruneton.js"
+  ]
+}

@@ -61,15 +61,15 @@ export function coronaMaterial(){return new T.ShaderMaterial({transparent:true,d
  #include <colorspace_fragment>
  }`
 })}
-export function earthMaterial(){return new T.ShaderMaterial({uniforms:{...lightUniforms(),map:{value:null},hasMap:{value:false},cloudMap:{value:null},hasCloudMap:{value:false}},vertexShader:surfaceVertex,
- fragmentShader:`${surfaceFragmentHeader}uniform sampler2D map,cloudMap;uniform bool hasMap,hasCloudMap;varying vec2 vUv;varying vec3 vNormal;varying vec3 vEye;varying vec3 vSun;
+export function earthMaterial(){return new T.ShaderMaterial({uniforms:{...lightUniforms(),customAtmosphere:{value:true},map:{value:null},hasMap:{value:false},cloudMap:{value:null},hasCloudMap:{value:false}},vertexShader:surfaceVertex,
+ fragmentShader:`${surfaceFragmentHeader}uniform sampler2D map,cloudMap;uniform bool hasMap,hasCloudMap,customAtmosphere;varying vec2 vUv;varying vec3 vNormal;varying vec3 vEye;varying vec3 vSun;
  void main(){
  #include <logdepthbuf_fragment>
  vec3 n=normalize(vNormal),l=normalize(vSun),e=normalize(vEye),albedo=hasMap?texture2D(map,vUv).rgb:vec3(.02,.08,.16);
  float day=max(0.,dot(n,l)),rim=pow(1.-max(0.,dot(n,e)),3.);float ocean=smoothstep(.015,.12,albedo.b-max(albedo.r,albedo.g));
  float cloudShade=hasCloudMap?exp(-texture2D(cloudMap,vUv).r*.7):1.;
  vec3 color=albedo*(.008+1.65*pow(day,.8)*cloudShade);float spec=pow(max(0.,dot(n,normalize(l+e))),70.)*ocean*day;
- color+=vec3(.46,.65,.8)*spec*.38; color+=vec3(.045,.20,.48)*rim*smoothstep(-.15,.45,dot(n,l))*.65;
+ color+=vec3(.46,.65,.8)*spec*.38; if(customAtmosphere)color+=vec3(.045,.20,.48)*rim*smoothstep(-.15,.45,dot(n,l))*.65;
  gl_FragColor=vec4(color,1.);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>

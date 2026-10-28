@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, timezone
 import numpy as np
 from backend.app.services import planetary_ephemeris_service as ephemeris
 from backend.app.services.solar_exploration import BODIES
+from backend.app.services.solar_earth_frame import earth_orientation
 
 KM_PER_AU = 149597870.7
 STEP_SECONDS = 3600
@@ -86,6 +87,7 @@ def solar_motion(epoch):
             time_scale='UTC input; TDB kernel evaluation',corrections='geometric; no light-time or aberration',
             coverage=dict(start=_iso(start),end=_iso(end)),sampled_coverage=dict(start=_iso(stamps[0]),end=_iso(stamps[-1])),
             source=dict(id=ephemeris.SOURCE_KEY,release=runtime.manifest['release_version'],sha256=runtime.manifest['sha256']),
+            earth_orientation=earth_orientation(stamps,times,check_times),
             tracks=tracks,sampling=dict(step_seconds=STEP_SECONDS,interpolation='cubic-hermite',max_position_error_km=max(errors),
                 qualification_points_per_segment=3,time_fraction='UTC; TDB endpoint duration; leap transitions clipped',
                 qualification='Checked at quarter, half and three-quarter times against direct DE442s. Sampled interpolation error below 1 km; not a physical accuracy or all-times guarantee. No extrapolation; future UTC uses installed leap-second tables.'))

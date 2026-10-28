@@ -28,3 +28,7 @@ docs/validation/planetary-systems/ps3/evidence/build-reviewed.log.txt -whitespac
 docs/validation/planetary-systems/ps3/evidence/cross-system-reviewed.log.txt -whitespace
 docs/validation/planetary-systems/ps3/evidence/frontend-reviewed.log.txt -whitespace
 docs/validation/planetary-systems/ps3/evidence/resilience-reviewed.log.txt -whitespace
+
+# Official PDS labels are original byte-range captures with CRLF records.
+# Keep the source hashes valid; do not normalize their bytes or whitespace.
+frontend/public/planet-terrain/apollo17-nac-v1/sources/*.IMG.lbl -text -whitespace

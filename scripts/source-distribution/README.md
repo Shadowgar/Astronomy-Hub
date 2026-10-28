@@ -32,7 +32,7 @@ apt repository. Official base-image toolchain caches are identified by immutable
 image digest; no unidentified host cache is mounted. It runs `make js-es6` on
 the already patched tree; do not reapply the horizon patch.
 
-Both npm installations are fresh `npm ci --ignore-scripts`, with exact lockfile
+All three npm installations (Sky, Hub and isolated vanilla graphics) are fresh `npm ci --ignore-scripts`, with exact lockfile
 integrity, registry.npmjs.org, no audit/fund calls, one fetch retry and60second
 fetch timeout. Each has its own ephemeral container `/tmp` cache. Install scripts
 are disabled so they cannot fetch undocumented binaries. Build stages run with

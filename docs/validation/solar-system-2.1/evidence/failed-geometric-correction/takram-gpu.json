@@ -1,0 +1,524 @@
+{
+  "schema": "solar21-takram-gpu.v1",
+  "scope": "controlled real Takram/Three GPU proof; not application, hardware or owner acceptance",
+  "pass": false,
+  "errors": [],
+  "result": {
+    "device": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "beforeStats": {
+      "sum": 52217787,
+      "nonblack": 196608,
+      "center": [
+        147,
+        184,
+        212
+      ],
+      "corner": [
+        15,
+        28,
+        45
+      ]
+    },
+    "views": [
+      {
+        "name": "full",
+        "distance": 3,
+        "sun": [
+          0,
+          0,
+          1
+        ],
+        "sum": 36287279,
+        "nonblack": 196608,
+        "center": [
+          124,
+          160,
+          184
+        ],
+        "corner": [
+          15,
+          28,
+          45
+        ],
+        "renderMilliseconds": 49.29999999888241,
+        "maximumInteriorStep": 2,
+        "webglError": 0,
+        "diagnostics": {
+          "state": "active",
+          "reason": null,
+          "version": "0.19.1",
+          "active": true,
+          "renders": 1,
+          "loadMilliseconds": 190.09999999962747,
+          "altitudeM": 12741999.999999996,
+          "lookupBytes": 8527872,
+          "targetBytes": 1572864,
+          "width": 512,
+          "height": 384,
+          "atmosphereModel": "Takram Bruneton Earth",
+          "toneMappingStages": 0,
+          "independentAnimationLoops": 0,
+          "disposed": false
+        },
+        "capture": "takram-full.png"
+      },
+      {
+        "name": "terminator",
+        "distance": 3,
+        "sun": [
+          1,
+          0,
+          0
+        ],
+        "sum": 17291409,
+        "nonblack": 153434,
+        "center": [
+          1,
+          1,
+          4
+        ],
+        "corner": [
+          15,
+          28,
+          45
+        ],
+        "renderMilliseconds": 1.099999999627471,
+        "maximumInteriorStep": 0,
+        "webglError": 0,
+        "diagnostics": {
+          "state": "active",
+          "reason": null,
+          "version": "0.19.1",
+          "active": true,
+          "renders": 2,
+          "loadMilliseconds": 190.09999999962747,
+          "altitudeM": 12741999.999999996,
+          "lookupBytes": 8527872,
+          "targetBytes": 1572864,
+          "width": 512,
+          "height": 384,
+          "atmosphereModel": "Takram Bruneton Earth",
+          "toneMappingStages": 0,
+          "independentAnimationLoops": 0,
+          "disposed": false
+        },
+        "capture": "takram-terminator.png"
+      },
+      {
+        "name": "crescent",
+        "distance": 3,
+        "sun": [
+          1,
+          0,
+          -2
+        ],
+        "sum": 9910140,
+        "nonblack": 112334,
+        "center": [
+          0,
+          0,
+          0
+        ],
+        "corner": [
+          15,
+          28,
+          45
+        ],
+        "renderMilliseconds": 0.599999999627471,
+        "maximumInteriorStep": 0,
+        "webglError": 0,
+        "diagnostics": {
+          "state": "active",
+          "reason": null,
+          "version": "0.19.1",
+          "active": true,
+          "renders": 3,
+          "loadMilliseconds": 190.09999999962747,
+          "altitudeM": 12741999.999999996,
+          "lookupBytes": 8527872,
+          "targetBytes": 1572864,
+          "width": 512,
+          "height": 384,
+          "atmosphereModel": "Takram Bruneton Earth",
+          "toneMappingStages": 0,
+          "independentAnimationLoops": 0,
+          "disposed": false
+        },
+        "capture": "takram-crescent.png"
+      },
+      {
+        "name": "backlit",
+        "distance": 3,
+        "sun": [
+          0,
+          0,
+          -1
+        ],
+        "sum": 9821576,
+        "nonblack": 111816,
+        "center": [
+          0,
+          0,
+          0
+        ],
+        "corner": [
+          15,
+          28,
+          45
+        ],
+        "renderMilliseconds": 0.40000000037252903,
+        "maximumInteriorStep": 0,
+        "webglError": 0,
+        "diagnostics": {
+          "state": "active",
+          "reason": null,
+          "version": "0.19.1",
+          "active": true,
+          "renders": 4,
+          "loadMilliseconds": 190.09999999962747,
+          "altitudeM": 12741999.999999996,
+          "lookupBytes": 8527872,
+          "targetBytes": 1572864,
+          "width": 512,
+          "height": 384,
+          "atmosphereModel": "Takram Bruneton Earth",
+          "toneMappingStages": 0,
+          "independentAnimationLoops": 0,
+          "disposed": false
+        },
+        "capture": "takram-backlit.png"
+      },
+      {
+        "name": "close",
+        "distance": 1.02,
+        "sun": [
+          1,
+          0,
+          0.05
+        ],
+        "sum": 26000587,
+        "nonblack": 196608,
+        "center": [
+          153,
+          113,
+          132
+        ],
+        "corner": [
+          16,
+          30,
+          48
+        ],
+        "renderMilliseconds": 0.8000000007450581,
+        "maximumInteriorStep": 0,
+        "webglError": 0,
+        "diagnostics": {
+          "state": "active",
+          "reason": null,
+          "version": "0.19.1",
+          "active": true,
+          "renders": 5,
+          "loadMilliseconds": 190.09999999962747,
+          "altitudeM": 127419.99999999907,
+          "lookupBytes": 8527872,
+          "targetBytes": 1572864,
+          "width": 512,
+          "height": 384,
+          "atmosphereModel": "Takram Bruneton Earth",
+          "toneMappingStages": 0,
+          "independentAnimationLoops": 0,
+          "disposed": false
+        },
+        "capture": "takram-close.png"
+      },
+      {
+        "name": "atmospheric",
+        "distance": 1.0001,
+        "sun": [
+          1,
+          0,
+          0.05
+        ],
+        "sum": 43223661,
+        "nonblack": 196608,
+        "center": [
+          202,
+          101,
+          43
+        ],
+        "corner": [
+          77,
+          38,
+          18
+        ],
+        "renderMilliseconds": 0.599999999627471,
+        "maximumInteriorStep": 0,
+        "webglError": 0,
+        "diagnostics": {
+          "state": "active",
+          "reason": null,
+          "version": "0.19.1",
+          "active": true,
+          "renders": 6,
+          "loadMilliseconds": 190.09999999962747,
+          "altitudeM": 637.0999999977648,
+          "lookupBytes": 8527872,
+          "targetBytes": 1572864,
+          "width": 512,
+          "height": 384,
+          "atmosphereModel": "Takram Bruneton Earth",
+          "toneMappingStages": 0,
+          "independentAnimationLoops": 0,
+          "disposed": false
+        },
+        "capture": "takram-atmospheric.png"
+      },
+      {
+        "name": "far",
+        "distance": 30,
+        "sun": [
+          1,
+          0,
+          1
+        ],
+        "sum": 17392721,
+        "nonblack": 196510,
+        "center": [
+          34,
+          91,
+          131
+        ],
+        "corner": [
+          15,
+          28,
+          45
+        ],
+        "renderMilliseconds": 1,
+        "maximumInteriorStep": 0,
+        "webglError": 0,
+        "diagnostics": {
+          "state": "active",
+          "reason": null,
+          "version": "0.19.1",
+          "active": true,
+          "renders": 7,
+          "loadMilliseconds": 190.09999999962747,
+          "altitudeM": 184758999.99999997,
+          "lookupBytes": 8527872,
+          "targetBytes": 1572864,
+          "width": 512,
+          "height": 384,
+          "atmosphereModel": "Takram Bruneton Earth",
+          "toneMappingStages": 0,
+          "independentAnimationLoops": 0,
+          "disposed": false
+        },
+        "capture": "takram-far.png"
+      }
+    ],
+    "changedPixels": 86502,
+    "totalChannelDelta": 15930508,
+    "foregroundToneMapping": {
+      "before": [
+        252,
+        243,
+        217
+      ],
+      "after": [
+        252,
+        243,
+        217
+      ],
+      "maximumDifference": 0
+    },
+    "backgroundOpaqueEquivalence": {
+      "impactParameterM": 6388680.766714441,
+      "pixel": [
+        420,
+        192
+      ],
+      "background": [
+        238,
+        205,
+        199
+      ],
+      "opaque": [
+        252,
+        240,
+        209
+      ],
+      "maximumDifference": 35
+    },
+    "memoryActive": {
+      "geometries": 5,
+      "textures": 7
+    },
+    "memoryDisposed": {
+      "geometries": 0,
+      "textures": 0
+    },
+    "portrait": {
+      "state": "active",
+      "reason": null,
+      "version": "0.19.1",
+      "active": true,
+      "renders": 12,
+      "loadMilliseconds": 190.09999999962747,
+      "altitudeM": 12741999.999999996,
+      "lookupBytes": 8527872,
+      "targetBytes": 2633280,
+      "width": 390,
+      "height": 844,
+      "atmosphereModel": "Takram Bruneton Earth",
+      "toneMappingStages": 0,
+      "independentAnimationLoops": 0,
+      "disposed": false
+    },
+    "landscape": {
+      "state": "active",
+      "reason": null,
+      "version": "0.19.1",
+      "active": true,
+      "renders": 13,
+      "loadMilliseconds": 190.09999999962747,
+      "altitudeM": 12741999.999999996,
+      "lookupBytes": 8527872,
+      "targetBytes": 2633280,
+      "width": 844,
+      "height": 390,
+      "atmosphereModel": "Takram Bruneton Earth",
+      "toneMappingStages": 0,
+      "independentAnimationLoops": 0,
+      "disposed": false
+    },
+    "efficient": {
+      "state": "fallback",
+      "reason": "efficient-quality",
+      "version": "0.19.1",
+      "active": false,
+      "renders": 13,
+      "loadMilliseconds": 190.09999999962747,
+      "altitudeM": 12741999.999999996,
+      "lookupBytes": 8527872,
+      "targetBytes": 2633280,
+      "width": 844,
+      "height": 390,
+      "atmosphereModel": "Takram Bruneton Earth",
+      "toneMappingStages": 0,
+      "independentAnimationLoops": 0,
+      "disposed": false
+    },
+    "contextLoss": {
+      "state": "fallback",
+      "reason": "webgl-context-lost",
+      "version": "0.19.1",
+      "active": false,
+      "renders": 14,
+      "loadMilliseconds": 190.09999999962747,
+      "altitudeM": 12741999.999999996,
+      "lookupBytes": 0,
+      "targetBytes": 0,
+      "width": 844,
+      "height": 390,
+      "atmosphereModel": "Takram Bruneton Earth",
+      "toneMappingStages": 0,
+      "independentAnimationLoops": 0,
+      "disposed": false
+    },
+    "disposed": {
+      "state": "disposed",
+      "reason": "disposed",
+      "version": "0.19.1",
+      "active": false,
+      "renders": 14,
+      "loadMilliseconds": 190.09999999962747,
+      "altitudeM": 12741999.999999996,
+      "lookupBytes": 0,
+      "targetBytes": 0,
+      "width": 844,
+      "height": 390,
+      "atmosphereModel": "Takram Bruneton Earth",
+      "toneMappingStages": 0,
+      "independentAnimationLoops": 0,
+      "disposed": true
+    },
+    "statuses": [
+      {
+        "state": "fallback",
+        "reason": "earth-frame-unavailable",
+        "version": "0.19.1"
+      },
+      {
+        "state": "loading",
+        "reason": null,
+        "version": "0.19.1"
+      },
+      {
+        "state": "fallback",
+        "reason": "comparison-selected",
+        "version": "0.19.1"
+      },
+      {
+        "state": "loading",
+        "reason": null,
+        "version": "0.19.1"
+      },
+      {
+        "state": "active",
+        "reason": null,
+        "version": "0.19.1"
+      },
+      {
+        "state": "fallback",
+        "reason": "comparison-selected",
+        "version": "0.19.1"
+      },
+      {
+        "state": "active",
+        "reason": null,
+        "version": "0.19.1"
+      },
+      {
+        "state": "fallback",
+        "reason": "efficient-quality",
+        "version": "0.19.1"
+      },
+      {
+        "state": "active",
+        "reason": null,
+        "version": "0.19.1"
+      },
+      {
+        "state": "fallback",
+        "reason": "webgl-context-lost",
+        "version": "0.19.1"
+      },
+      {
+        "state": "disposed",
+        "reason": "disposed",
+        "version": "0.19.1"
+      }
+    ],
+    "programs": [
+      {
+        "name": "",
+        "runnable": true
+      },
+      {
+        "name": "SolarScattering:earth",
+        "runnable": true
+      },
+      {
+        "name": "OutputShader",
+        "runnable": true
+      },
+      {
+        "name": "EffectMaterial",
+        "runnable": true
+      },
+      {
+        "name": "SolarTakramLibraryComposition",
+        "runnable": true
+      }
+    ]
+  }
+}

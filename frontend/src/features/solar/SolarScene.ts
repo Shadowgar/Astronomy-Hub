@@ -2,7 +2,9 @@ import * as T from 'three'
 import {readSolarVisitState,type SolarVisitState} from '../planet/solarVisitState'
 import {SolarCameraController,type NavigationMode} from './SolarCameraController'
 import {SolarResourceOwner} from './solarAssets'
-import {relativeVector} from './solarPrecision'
+import {relativeVector,pointOccluded} from './solarPrecision'
+import {createSolarTakram} from './solarTakram'
+import {earthSurfaceQuaternion} from './solarEarthFrame'
 import {createSolarRenderPipeline} from './solarRenderPipeline'
 import {SATURN_RING_INNER_RATIO,SATURN_RING_OUTER_RATIO} from './solarRings'
 import {setAtmosphereQuality,atmosphereForBody,atmosphereShellRatio} from './solarAtmosphere'
@@ -16,7 +18,7 @@ import {aggregateBelt} from './solarBelt'
 import {gpuTiming} from './solarGpuTiming'
 
 export type SolarObjectId=BodyId|'eros'
-export type SolarScene={updateSnapshot:(snapshot:SolarSnapshot,jdTdb?:number)=>void;setAnimation:(callback:((now:number)=>boolean)|null)=>void;setNavigation:(mode:NavigationMode,preserveView?:boolean)=>void;flightInput:(direction:string|null)=>void;setReducedMotion:(value:boolean)=>void;setAsteroids:(visible:boolean)=>void;restoreView:(state:SolarVisitState)=>boolean;focus:(id:SolarObjectId|null,close?:boolean)=>void;zoom:(factor:number)=>void;orbit:(angle:number)=>void;setOrbits:(visible:boolean)=>void;setEffects:(visible:boolean)=>void;setOverview:(scope:SolarPreset)=>void;setSizeMode:(mode:SolarSizeMode)=>void;setBelt:(visible:boolean,density:number)=>void;setQuality:(quality:SolarQuality)=>void;diagnostics:()=>unknown;dispose:()=>void}
+export type SolarScene={updateSnapshot:(snapshot:SolarSnapshot,jdTdb?:number,icrfToItrs?:number[]|null)=>void;setAtmosphereMethod:(method:'takram'|'custom')=>void;setAnimation:(callback:((now:number)=>boolean)|null)=>void;setNavigation:(mode:NavigationMode,preserveView?:boolean)=>void;flightInput:(direction:string|null)=>void;setReducedMotion:(value:boolean)=>void;setAsteroids:(visible:boolean)=>void;restoreView:(state:SolarVisitState)=>boolean;focus:(id:SolarObjectId|null,close?:boolean)=>void;zoom:(factor:number)=>void;orbit:(angle:number)=>void;setOrbits:(visible:boolean)=>void;setEffects:(visible:boolean)=>void;setOverview:(scope:SolarPreset)=>void;setSizeMode:(mode:SolarSizeMode)=>void;setBelt:(visible:boolean,density:number)=>void;setQuality:(quality:SolarQuality)=>void;diagnostics:()=>unknown;dispose:()=>void}
 const colors:Record<BodyId,string>={sun:'#ffbd68',mercury:'#aaa398',venus:'#e7c387',earth:'#8ec5ff',mars:'#ec9466',jupiter:'#d4b191',saturn:'#dfcc9b',uranus:'#8bd8dc',neptune:'#547ed8'}
 const earthUrl=new URL('./assets/earth-blue-marble.png',import.meta.url).href
 const cloudUrl=new URL('./assets/earth-clouds-2002.jpg',import.meta.url).href
@@ -27,10 +29,11 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  const glyphRadius=physicalRadii(snapshot)
  const scene=new T.Scene(),camera=new T.PerspectiveCamera(42,1,.001,2000),viewCamera=new T.PerspectiveCamera()
  const assets=new SolarResourceOwner(),instanceId=crypto.randomUUID()
+ let icrfToItrs:number[]|null=null,atmosphereMethod:'takram'|'custom'='takram'
  let jdTdb=NaN,pathSourceEpoch=snapshot.epoch
  let smallPack:SmallBodyPack|null=null,asteroidsVisible=false,smallAvailable=false,pendingErosFocus=false,notifiedSmallAvailable:boolean|null=null,smallPosition:[number,number,number]|null=null
  let animate:((now:number)=>boolean)|null=null,inFrame=false,frameIntervals:number[]=[],lastFrame=0
- const positions=()=>snapshot.bodies.map(b=>({position:b.position_au,radius:glyphRadius[b.source_id]})).concat(smallPosition?[{position:smallPosition,radius:glyphRadius.eros}]:[])
+ const positions=()=>snapshot.bodies.map(b=>({position:b.position_au,radius:glyphRadius[b.source_id],clearanceAU:b.source_id==='earth'?1000/(snapshot.km_per_au*1000):undefined})).concat(smallPosition?[{position:smallPosition,radius:glyphRadius.eros,clearanceAU:undefined}]:[])
  const sourcePosition=(id:string)=>id==='eros'?smallPosition:snapshot.bodies.find(b=>b.source_id===id)?.position_au
  const request=()=>{if(!disposed&&!raf)raf=requestAnimationFrame(tick)}
  const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance',logarithmicDepthBuffer:true})
@@ -51,6 +54,8 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  const setView=(view:SolarCameraView)=>{cameraView=view;onView(view)}
  const leaders=document.createElementNS('http://www.w3.org/2000/svg','svg');leaders.classList.add('solar-leaders');leaders.setAttribute('aria-hidden','true');host.append(leaders)
  let disposed=false,raf=0,renderCount=0,selected:SolarObjectId|null=null,closeView=false,orbitsVisible=true,effectsVisible=false,texturesReady=0,cloudsReady=false,updatingControls=false
+ const takram=createSolarTakram(renderer,viewCamera,{requestFrame:request,onStatus:status=>host.dispatchEvent(new CustomEvent('solar-atmosphere-status',{detail:status}))})
+ pipeline.setAtmospherePass(takram.pass);pipeline.setSceneUnitsPerAU(snapshot.km_per_au*1000)
  let press:null|{x:number;y:number;id:number}=null
  const vFinite=(v:{x:number;y:number;z:number})=>Number.isFinite(v.x)&&Number.isFinite(v.y)&&v.z>-1&&v.z<1
  const ray=new T.Raycaster(),pointer=new T.Vector2(),frameTimes:number[]=[]
@@ -78,7 +83,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   }).catch(()=>textureFailure(object.id))
  }
  for(const body of snapshot.bodies){
-  const radius=glyphRadius[body.source_id],geometry=keep(new T.SphereGeometry(radius,64,40))
+  const radius=glyphRadius[body.source_id],geometry=keep(new T.SphereGeometry(radius,body.source_id==='earth'?256:64,body.source_id==='earth'?128:40))
   const material=keep(body.source_id==='sun'?sunMaterial():body.source_id==='earth'?earthMaterial():planetMaterial(body.source_id))
   const mesh=new T.Mesh(geometry,material);mesh.position.fromArray(body.position_au);scene.add(mesh)
   // Static presentation orientation. Never claimed as a measured body-fixed frame.
@@ -90,8 +95,8 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   const object={id:body.source_id,mesh,label,anchor,leader,extras:[] as any[]};objects.push(object)
   if(body.source_id==='earth'){
    void assets.texture(earthUrl,2048).then(t=>{if(disposed)return;material.uniforms.map.value=t;material.uniforms.hasMap.value=true;texturesReady++;request()}).catch(()=>textureFailure('Earth'))
-   const cloudMaterial=keep(cloudsMaterial()),clouds=new T.Mesh(keep(new T.SphereGeometry(radius*1.008,64,40)),cloudMaterial)
-   clouds.position.copy(mesh.position);clouds.rotation.copy(mesh.rotation);scene.add(clouds);effects.push(clouds);object.extras.push(clouds)
+   const cloudMaterial=keep(cloudsMaterial()),clouds=new T.Mesh(keep(new T.SphereGeometry(radius*1.008,256,128)),cloudMaterial)
+   clouds.position.copy(mesh.position);clouds.rotation.copy(mesh.rotation);clouds.userData.clouds=true;scene.add(clouds);effects.push(clouds);object.extras.push(clouds)
    void assets.texture(cloudUrl,2048,false).then(t=>{if(disposed)return;cloudMaterial.uniforms.map.value=t;material.uniforms.cloudMap.value=t;material.uniforms.hasCloudMap.value=effectsVisible;cloudsReady=true;clouds.visible=effectsVisible;request()}).catch(()=>textureFailure('Cloud'))
   }
   const visual=solarVisualAsset(body.source_id)
@@ -102,7 +107,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   }
   if(atmosphereShellRatio(body.source_id)){
    const atmosphere=new T.Mesh(keep(new T.SphereGeometry(radius*atmosphereShellRatio(body.source_id)!,48,32)),keep(atmosphereForBody(body.source_id)!))
-   atmosphere.position.copy(mesh.position);scene.add(atmosphere);effects.push(atmosphere);object.extras.push(atmosphere)
+   atmosphere.userData.atmosphere=true;atmosphere.position.copy(mesh.position);scene.add(atmosphere);effects.push(atmosphere);object.extras.push(atmosphere)
   }
   if(body.source_id!=='sun'){
    const g=keep(new T.BufferGeometry());g.setAttribute('position',new T.BufferAttribute(new Float32Array(129*3),3));g.setDrawRange(0,body.trajectory.length)
@@ -153,6 +158,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   for(const object of objects){
    const source=sourcePosition(object.id);object.mesh.visible=!!source
    if(!source)continue
+   if(object.id==='earth'&&icrfToItrs){object.mesh.quaternion.copy(earthSurfaceQuaternion(icrfToItrs));for(const extra of object.extras)if(extra.userData.clouds)extra.quaternion.copy(object.mesh.quaternion)}
    object.mesh.position.fromArray(relativeVector(source,origin));setSolarMaterialLight(object.mesh.material,source,sun)
    for(const extra of object.extras){extra.position.copy(object.mesh.position);setSolarMaterialLight(extra.material,source,sun)}
   }
@@ -172,18 +178,25 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
    const scale=vFinite(a.v)?displayScale(selected?'physical':sizeMode,a.physicalPixels,budget,Infinity):1
    a.o.mesh.scale.setScalar(scale);for(const extra of a.o.extras)extra.scale.setScalar(scale*(extra.userData.baseScale||1))
   }
+  const earth=objects.find(o=>o.id==='earth')!
+  takram.setEnabled(effectsVisible&&atmosphereMethod==='takram')
+  takram.updateFrame({cameraPositionAU:origin,earthPositionAU:sourcePosition('earth')!,sunPositionAU:sun,icrfToItrs:icrfToItrs||[],kmPerAu:snapshot.km_per_au,earthRadiusM:glyphRadius.earth*snapshot.km_per_au*1000,physicalScale:earth.mesh.scale.x,frameAvailable:!!icrfToItrs,sceneUnitsPerAU:snapshot.km_per_au*1000})
+  const active=takram.diagnostics().active
+  for(const extra of earth.extras){if(extra.userData.atmosphere)extra.visible=effectsVisible&&quality!=='efficient'&&!active;if(extra.userData.clouds)extra.visible=effectsVisible&&cloudsReady&&earth.mesh.position.length()>glyphRadius.earth*earth.mesh.scale.x*1.008}
+  earth.mesh.material.uniforms.customAtmosphere.value=!active
   corona.scale.setScalar(objects[0].mesh.scale.x);corona.quaternion.copy(camera.quaternion);gpu.begin();pipeline.render();gpu.end()
   marker.hidden=true
+  const occluded=(object:typeof objects[number])=>pointOccluded(object.mesh.position.toArray(),objects.filter(o=>o!==object&&o.mesh.visible).map(o=>({position:o.mesh.position.toArray(),radius:glyphRadius[o.id]*o.mesh.scale.x})))
   const projected=objects.map(o=>{const v=o.mesh.position.clone().project(viewCamera),edge=o.mesh.position.clone().add(new T.Vector3(visualRadius(glyphRadius,o.id)*o.mesh.scale.x,0,0).applyQuaternion(camera.quaternion)).project(viewCamera);return{o,v,x:(v.x+1)*rect.width/2,y:(1-v.y)*rect.height/2,radius:Math.abs(edge.x-v.x)*rect.width/2}})
   const occupied:ScreenRect[]=cachedHud.map(r=>({left:r.left-6,right:r.right+6,top:r.top-6,bottom:r.bottom+6}))
   const bodies=projected.filter(p=>p.o.mesh.visible&&p.v.z>-1&&p.v.z<1).map(p=>{const pad=p.o.id===selected?12:4;return{left:p.x-p.radius-pad,right:p.x+p.radius+pad,top:p.y-p.radius-pad,bottom:p.y+p.radius+pad}})
-  const labels=projected.filter(({o,v})=>o.mesh.visible&&v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88).sort((a,b)=>b.o.mesh.position.lengthSq()-a.o.mesh.position.lengthSq()).map(({o,x,y,radius})=>{return{id:o.id,x,y,radius,...labelMetrics.get(o.id)!}})
+  const labels=projected.filter(({o,v})=>o.mesh.visible&&!occluded(o)&&v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88).sort((a,b)=>b.o.mesh.position.lengthSq()-a.o.mesh.position.lengthSq()).map(({o,x,y,radius})=>{return{id:o.id,x,y,radius,...labelMetrics.get(o.id)!}})
   const placements=arrangeLabels(labels,rect.width,rect.height,[...occupied,...bodies],selected)
   for(const {o,v,x,y,radius} of [...projected].sort((a,b)=>Number(b.o.id===selected)-Number(a.o.id===selected)||b.o.mesh.position.lengthSq()-a.o.mesh.position.lengthSq())){
    const r=glyphRadius[o.id]*o.mesh.scale.x,edge=o.mesh.position.clone().add(new T.Vector3(r,0,0).applyQuaternion(camera.quaternion)).project(viewCamera)
    const pixelRadius=Math.abs(edge.x-v.x)*rect.width/2
    if(o.id===selected&&v.z>-1&&v.z<1){const size=pixelRadius*2+22;marker.hidden=false;Object.assign(marker.style,{left:`${(v.x+1)*rect.width/2-size/2}px`,top:`${(1-v.y)*rect.height/2-size/2}px`,width:`${size}px`,height:`${size}px`})}
-   const visible=o.mesh.visible&&v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88
+   const visible=o.mesh.visible&&!occluded(o)&&v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88
    o.label.hidden=!visible;o.anchor.hidden=!visible||pixelRadius>=3;o.leader.style.display='none';if(!visible)continue
    Object.assign(o.anchor.style,{left:`${x}px`,top:`${y}px`})
    const{width:w,height:h}=labelMetrics.get(o.id)!
@@ -213,7 +226,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  function systemPose(aspect:number,height:number){
   return sizeMode==='cinematic'?cinematicOverviewPose(glyphRadius,overviewAnchors(),aspect,height,viewport()):overviewPose(glyphRadius,overviewAnchors(),aspect,height,viewport(),false)
  }
- function focus(id:SolarObjectId|null,close=false){if(disposed)return;pendingErosFocus=id==='eros'&&!smallPosition;if(id==='eros'&&!smallPosition){selected=id;request();return}selected=id;closeView=close;setView(id?'body':overviewScope);restingNear=id?glyphRadius[id]*.02:.001;projection();restingMinimum=id?visualRadius(glyphRadius,id)*1.1:.001;const p=id?sourcePosition(id):null;if(id&&!p){request();return}move(id&&p?focusPose(glyphRadius,id,p,camera.aspect,close,host.clientHeight,viewport()):systemPose(camera.aspect,host.clientHeight))}
+ function focus(id:SolarObjectId|null,close=false){if(disposed)return;pendingErosFocus=id==='eros'&&!smallPosition;if(id==='eros'&&!smallPosition){selected=id;request();return}selected=id;closeView=close;setView(id?'body':overviewScope);restingNear=id==='earth'?100/(snapshot.km_per_au*1000):id?glyphRadius[id]*.02:.001;projection();restingMinimum=id==='earth'?glyphRadius.earth+1000/(snapshot.km_per_au*1000):id?visualRadius(glyphRadius,id)*1.1:.001;const p=id?sourcePosition(id):null;if(id&&!p){request();return}move(id&&p?focusPose(glyphRadius,id,p,camera.aspect,close,host.clientHeight,viewport()):systemPose(camera.aspect,host.clientHeight))}
  const resize=new ResizeObserver(()=>{const{width,height}=host.getBoundingClientRect();if(!width||!height)return
   const aspect=width/height
   measureLabels();camera.aspect=aspect;if(cameraView!=='custom')camera.up.fromArray(overviewUp(aspect));projection();renderer.setSize(width,height);pipeline.resize(width,height,pixelRatio)
@@ -233,12 +246,13 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
  measureLabels();const rect=host.getBoundingClientRect();camera.aspect=rect.width/Math.max(1,rect.height);camera.up.fromArray(overviewUp(camera.aspect));camera.updateProjectionMatrix();renderer.setSize(rect.width,rect.height);pipeline.resize(rect.width,rect.height,pixelRatio);projection();move(systemPose(camera.aspect,host.clientHeight),true)
  return{
   focus,
-  updateSnapshot(next,jd){
+  setAtmosphereMethod(method){atmosphereMethod=method;request()},
+  updateSnapshot(next,jd,rotation){
    if(disposed)return
    if(next.source.sha256!==snapshot.source.sha256||next.frame!==snapshot.frame||next.origin!==snapshot.origin)throw Error('Solar source changed during playback.')
    const previous=selected?sourcePosition(selected):null
    for(const path of paths){const body=next.bodies.find(b=>b.source_id===path.userData.id);if(body&&body.trajectory!==path.userData.trajectory){pathSourceEpoch=next.epoch;path.userData.trajectory=body.trajectory;path.userData.source=body.trajectory.map(p=>p.position_au);path.geometry.setDrawRange(0,body.trajectory.length)}}
-   snapshot=next;jdTdb=jd??NaN
+   snapshot=next;jdTdb=jd??NaN;icrfToItrs=rotation??null
    if(selected==='eros'&&smallPack&&smallBodyEpochAvailable(smallPack,jdTdb))smallPosition=propagateSmallBody(smallPack.bodies.find(b=>b.designation==='433')!,jdTdb)
    const current=selected?sourcePosition(selected):null
    if(previous&&current)navigator.follow(relativeVector(current,previous))
@@ -257,8 +271,8 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   setBelt(visible,density){beltVisible=visible;beltDensity=Math.min(6000,Math.max(0,Math.floor(density)));belt.visible=visible;beltGeometry.setDrawRange(0,Math.min(beltDensity,quality==='efficient'?1000:quality==='balanced'?3000:6000));draw()},
   setOrbits(visible){orbitsVisible=visible;for(const p of paths)p.visible=visible;draw()},
   setEffects(visible){effectsVisible=visible;const earth=objects.find(o=>o.id==='earth');if(earth)earth.mesh.material.uniforms.hasCloudMap.value=visible&&cloudsReady;pipeline.setEffects(visible);for(const e of effects)e.visible=visible;backdrop.visible=visible&&budget.background;draw()},
-  setQuality(value){if(disposed)return;gpu.reset();frameTimes.length=0;quality=value;budget=qualityBudget(quality,devicePixelRatio);pixelRatio=budget.pixelRatio;renderer.setPixelRatio(pixelRatio);pipeline.setQuality(value);pipeline.resize(host.clientWidth,host.clientHeight,pixelRatio);for(const o of objects)for(const e of o.extras)setAtmosphereQuality(e.material,value);field.material.uniforms.pixelRatio.value=pixelRatio;starGeometry.setDrawRange(0,budget.starCount);beltGeometry.setDrawRange(0,Math.min(beltDensity,quality==='efficient'?1000:quality==='balanced'?3000:6000));backdrop.visible=effectsVisible&&budget.background;draw()},
-  diagnostics(){const r=renderer.domElement.getBoundingClientRect(),sorted=[...frameTimes].sort((a,b)=>a-b);return{instanceId,navigation:navigator.mode,precision:'camera-relative CPU64/GPU32',assets:assets.diagnostics(),pipeline:pipeline.diagnostics(),frameIntervalsMs:{samples:frameIntervals.length,median:[...frameIntervals].sort((a,b)=>a-b)[Math.floor(frameIntervals.length*.5)],p95:[...frameIntervals].sort((a,b)=>a-b)[Math.floor(frameIntervals.length*.95)]},trajectoryEpoch:pathSourceEpoch,trajectoryPoints:paths.map(p=>({id:p.userData.id,first:p.userData.trajectory[0]?.epoch,last:p.userData.trajectory.at(-1)?.epoch,count:p.geometry.drawRange.count})),asteroids:{visible:asteroidsVisible,available:smallAvailable,count:smallPoints.visible?2048:0,source:smallPack?.sources,model:smallPack?.model},overviewScope,cameraView,closeView,sizeMode,scale:sizeMode==='physical'?'physical-mean-radii-AU':'independently-enlarged-display-radii',near:camera.near,cameraUp:camera.up.toArray(),cameraQuaternion:camera.quaternion.toArray(),epoch:snapshot.epoch,frame:snapshot.frame,origin:snapshot.origin,units:snapshot.units,selected,renderCount,disposed,animating:navigator.animating,camera:camera.position.toArray(),target:controls.target.toArray(),bodies:objects.map(o=>{const p=o.mesh.position.clone().project(viewCamera),edge=o.mesh.position.clone().add(new T.Vector3(visualRadius(glyphRadius,o.id)*o.mesh.scale.x,0,0).applyQuaternion(camera.quaternion)).project(viewCamera);if(!o.mesh.geometry.boundingSphere)o.mesh.geometry.computeBoundingSphere();return{id:o.id,position:sourcePosition(o.id),renderPosition:o.mesh.position.toArray(),visualSource:o.mesh.userData.visualSource,geometryRadiusAu:o.mesh.geometry.boundingSphere.radius,displayFactor:o.mesh.scale.x,displayRadiusAu:glyphRadius[o.id]*o.mesh.scale.x,cameraDistance:o.mesh.position.length(),inView:vFinite(p)&&Math.abs(p.x)<=1&&Math.abs(p.y)<=1, radiusAu:glyphRadius[o.id],glyphRadius:glyphRadius[o.id],markerVisible:!o.anchor.hidden,labelVisible:!o.label.hidden,visible:o.mesh.visible,screenRadius:Math.abs(edge.x-p.x)*r.width/2,screen:[r.left+(p.x+1)*r.width/2,r.top+(1-p.y)*r.height/2]}}),drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,texturesReady,cloudsReady,quality,backgroundVisible:backdrop.visible,gpuMs:gpu.read(),orbitsVisible,effectsVisible,belt:{visible:beltVisible,requestedDensity:beltDensity,drawCount:beltGeometry.drawRange.count,model:'illustrative aggregate; no identities or precise asteroid ephemerides'},starfield:'illustrative',starCount:budget.starCount,renderCpuMs:{samples:sorted.length,median:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)]},pixelRatio}},
-  dispose(){if(disposed)return;disposed=true;cancelFlight();resize.disconnect();layout.disconnect();cancelAnimationFrame(raf);animate=null;navigator.dispose();assets.dispose();pipeline.dispose();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',cancel);renderer.domElement.removeEventListener('webglcontextlost',contextLost);marker.remove();leaders.remove();gpu.dispose();for(const o of objects){o.label.remove();o.anchor.remove()}for(const r of resources)r.dispose();resources.clear();scene.clear();renderer.dispose();renderer.forceContextLoss();renderer.domElement.remove()}
+  setQuality(value){if(disposed)return;gpu.reset();frameTimes.length=0;quality=value;budget=qualityBudget(quality,devicePixelRatio);pixelRatio=budget.pixelRatio;renderer.setPixelRatio(pixelRatio);pipeline.setQuality(value);takram.setQuality(value);pipeline.resize(host.clientWidth,host.clientHeight,pixelRatio);for(const o of objects)for(const e of o.extras)setAtmosphereQuality(e.material,value);field.material.uniforms.pixelRatio.value=pixelRatio;starGeometry.setDrawRange(0,budget.starCount);beltGeometry.setDrawRange(0,Math.min(beltDensity,quality==='efficient'?1000:quality==='balanced'?3000:6000));backdrop.visible=effectsVisible&&budget.background;draw()},
+  diagnostics(){const r=renderer.domElement.getBoundingClientRect(),sorted=[...frameTimes].sort((a,b)=>a-b);return{instanceId,navigation:navigator.mode,precision:'camera-relative CPU64/GPU32',assets:assets.diagnostics(),pipeline:pipeline.diagnostics(),atmosphere:{method:atmosphereMethod,...takram.diagnostics()},earthOrientation:{frame:icrfToItrs?'ITRS':'unavailable',icrfToItrs},frameIntervalsMs:{samples:frameIntervals.length,median:[...frameIntervals].sort((a,b)=>a-b)[Math.floor(frameIntervals.length*.5)],p95:[...frameIntervals].sort((a,b)=>a-b)[Math.floor(frameIntervals.length*.95)]},trajectoryEpoch:pathSourceEpoch,trajectoryPoints:paths.map(p=>({id:p.userData.id,first:p.userData.trajectory[0]?.epoch,last:p.userData.trajectory.at(-1)?.epoch,count:p.geometry.drawRange.count})),asteroids:{visible:asteroidsVisible,available:smallAvailable,count:smallPoints.visible?2048:0,source:smallPack?.sources,model:smallPack?.model},overviewScope,cameraView,closeView,sizeMode,scale:sizeMode==='physical'?'physical-mean-radii-AU':'independently-enlarged-display-radii',near:camera.near,cameraUp:camera.up.toArray(),cameraQuaternion:camera.quaternion.toArray(),epoch:snapshot.epoch,frame:snapshot.frame,origin:snapshot.origin,units:snapshot.units,selected,renderCount,disposed,animating:navigator.animating,camera:camera.position.toArray(),target:controls.target.toArray(),bodies:objects.map(o=>{const p=o.mesh.position.clone().project(viewCamera),edge=o.mesh.position.clone().add(new T.Vector3(visualRadius(glyphRadius,o.id)*o.mesh.scale.x,0,0).applyQuaternion(camera.quaternion)).project(viewCamera);if(!o.mesh.geometry.boundingSphere)o.mesh.geometry.computeBoundingSphere();return{id:o.id,position:sourcePosition(o.id),renderPosition:o.mesh.position.toArray(),visualSource:o.mesh.userData.visualSource,geometryRadiusAu:o.mesh.geometry.boundingSphere.radius,displayFactor:o.mesh.scale.x,displayRadiusAu:glyphRadius[o.id]*o.mesh.scale.x,cameraDistance:o.mesh.position.length(),inView:vFinite(p)&&Math.abs(p.x)<=1&&Math.abs(p.y)<=1, radiusAu:glyphRadius[o.id],glyphRadius:glyphRadius[o.id],markerVisible:!o.anchor.hidden,labelVisible:!o.label.hidden,visible:o.mesh.visible,screenRadius:Math.abs(edge.x-p.x)*r.width/2,screen:[r.left+(p.x+1)*r.width/2,r.top+(1-p.y)*r.height/2]}}),drawCalls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,texturesReady,cloudsReady,quality,backgroundVisible:backdrop.visible,gpuMs:gpu.read(),orbitsVisible,effectsVisible,belt:{visible:beltVisible,requestedDensity:beltDensity,drawCount:beltGeometry.drawRange.count,model:'illustrative aggregate; no identities or precise asteroid ephemerides'},starfield:'illustrative',starCount:budget.starCount,renderCpuMs:{samples:sorted.length,median:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)]},pixelRatio}},
+  dispose(){if(disposed)return;disposed=true;cancelFlight();resize.disconnect();layout.disconnect();cancelAnimationFrame(raf);animate=null;navigator.dispose();assets.dispose();takram.dispose();pipeline.dispose();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',cancel);renderer.domElement.removeEventListener('webglcontextlost',contextLost);marker.remove();leaders.remove();gpu.dispose();for(const o of objects){o.label.remove();o.anchor.remove()}for(const r of resources)r.dispose();resources.clear();scene.clear();renderer.dispose();renderer.forceContextLoss();renderer.domElement.remove()}
  }
 }

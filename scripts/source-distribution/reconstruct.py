@@ -88,8 +88,8 @@ def rebuild(root, output):
                  if command == 'install' else 'npm run build')
         run(args + [node_image, 'sh', '-c', shell], name, 900)
     restored = []
-    for directory in ['stellarium/apps/web-frontend', 'hub/frontend']:
-        changes = install_preserving_locks(root / directory, lambda: node(directory, 'install', 'dependencies-sky' if directory.startswith('stellarium') else 'dependencies-hub', {}))
+    for directory in ['stellarium/apps/web-frontend', 'hub/frontend', 'hub/frontend/graphics']:
+        changes = install_preserving_locks(root / directory, lambda: node(directory, 'install', 'dependencies-' + directory.replace('/','-'), {}))
         restored.extend({'directory': directory, **row} for row in changes)
     (output / 'install-input-preservation.json').write_text(json.dumps(restored, indent=2) + '\n')
     node('stellarium/apps/web-frontend', 'build', 'sky-build', settings['node']['build_environment'])

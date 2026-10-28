@@ -1,0 +1,9 @@
+import {describe,it,expect} from 'vitest'
+import * as T from 'three'
+import {evaluateEarthOrientation,validateEarthOrientation,earthSurfaceQuaternion} from '../src/features/solar/solarEarthFrame'
+function fixture(){return {from_frame:'ICRF',to_frame:'ITRS',quaternion_order:'xyzw',interpolation:'shortest-slerp',model:'test rotation fixture',polar_motion:'zero; no observed EOP table installed',accuracy:'test',max_sampled_interpolation_error_arcsec:0,samples:[{epoch:'2026-10-28T00:00:00.000Z',quaternion:[0,0,0,1]},{epoch:'2026-10-28T01:00:00.000Z',quaternion:[0,0,Math.sin(Math.PI/24),Math.cos(Math.PI/24)]}]}}
+describe('source Earth frame',()=>{
+ it('interpolates rotation and preserves handedness and endpoints',()=>{const f=fixture(),e=validateEarthOrientation(f,f.samples.map(s=>s.epoch)),m=evaluateEarthOrientation(e,Date.parse(f.samples[0].epoch)+1800000)!;expect(m[0]).toBeCloseTo(Math.cos(Math.PI/24),12);expect(m[3]).toBeCloseTo(Math.sin(Math.PI/24),12);expect(evaluateEarthOrientation(undefined,0)).toBeNull();expect(()=>evaluateEarthOrientation(e,0)).toThrow()})
+ it('maps Greenwich, east and north through inverse Earth frame',()=>{const q=earthSurfaceQuaternion([1,0,0,0,1,0,0,0,1]);for(const [local,want] of [[[1,0,0],[1,0,0]],[[0,0,-1],[0,1,0]],[[0,1,0],[0,0,1]]]){const v=new T.Vector3().fromArray(local).applyQuaternion(q).toArray();v.forEach((n:number,i:number)=>expect(n).toBeCloseTo(want[i],12))}})
+ it('rejects mismatched epochs, reflection-like quaternion corruption and unsupported frame',()=>{for(const mutate of [(f:any)=>f.to_frame='MOON_ME',(f:any)=>f.samples[1].quaternion[3]=2,(f:any)=>f.samples[1].epoch=f.samples[0].epoch,(f:any)=>f.max_sampled_interpolation_error_arcsec=NaN]){const f=fixture(),epochs=f.samples.map(s=>s.epoch);mutate(f);expect(()=>validateEarthOrientation(f,epochs)).toThrow()}})
+})

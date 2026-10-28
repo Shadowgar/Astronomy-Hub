@@ -23,6 +23,7 @@ tasks:
     - docs/validation/repository-recovery-20261026/owner-acceptance/README.md
     - docs/validation/repository-recovery-20261026/visual-fidelity/README.md
     - docs/validation/solar-system-2/PLAN.md
+    - docs/validation/solar-system-2.1/PLAN.md
 
   docs_change:
     load:

@@ -181,8 +181,22 @@ const orasRuntimeSpaPlugin = {
     // Bounded, source-receipted Solar appearance files only. Keep scientific bulk
     // and the optional lunar height source outside automatic public copying.
     for(const name of ['manifest.json','mercury-nasa.glb','venus-nasa.glb','jupiter-nasa.glb','saturn-nasa.glb','uranus-nasa.glb','neptune-nasa.glb','eros-nasa.glb','saturn-rings-nasa.png'])this.emitFile({type:'asset',fileName:'solar-assets/v2/'+name,source:fs.readFileSync(path.resolve(__dirname,'public/solar-assets/v2',name))})
+    // Explicit bounded Solar2.1 packs only: no global skydata/planetary mirrors.
+    for(const directory of ['assets/solar/takram-0.19.1','planet-terrain/apollo17-nac-v1']){
+      const root=path.resolve(__dirname,'public',directory)
+      let total=0
+      const walk=(relative='')=>{for(const entry of fs.readdirSync(path.join(root,relative),{withFileTypes:true})){
+        const name=path.join(relative,entry.name)
+        if(entry.isSymbolicLink())throw Error('Runtime pack may not contain symlinks')
+        if(entry.isDirectory()){walk(name);continue}
+        const bytes=fs.readFileSync(path.join(root,name));total+=bytes.length
+        if(total>64*1024*1024)throw Error('Bounded runtime pack exceeds64MiB')
+        this.emitFile({type:'asset',fileName:directory+'/'+name.split(path.sep).join('/'),source:bytes})
+      }}
+      walk()
+    }
     // Explicit legal assets only; never enable bulk public/skydata copying.
-    for(const name of ['stellarium-web-engine-AGPL-3.0.txt','cesium-license.txt','sky-data-credits.html','README.txt','gods-eye-search-MIT.txt','three-MIT.txt','astronomy-hub-MIT.txt','solar-wanderer-MIT.txt'])this.emitFile({type:'asset',fileName:'licenses/'+name,source:fs.readFileSync(path.resolve(__dirname,'public/licenses',name))})
+    for(const name of ['stellarium-web-engine-AGPL-3.0.txt','cesium-license.txt','sky-data-credits.html','README.txt','gods-eye-search-MIT.txt','three-MIT.txt','astronomy-hub-MIT.txt','solar-wanderer-MIT.txt','takram-three-geospatial-MIT.txt','bruneton-atmosphere-BSD.txt','postprocessing-zlib.txt','nasa-3d-tiles-renderer-Apache-2.0.txt'])this.emitFile({type:'asset',fileName:'licenses/'+name,source:fs.readFileSync(path.resolve(__dirname,'public/licenses',name))})
     this.emitFile({type:'asset',fileName:'licenses/source-offer.html',source:fs.readFileSync(path.resolve(__dirname,'public/licenses/source-offer.html'),'utf8').replace('__ORAS_SOURCE_REVISION__',/^[a-f0-9]{40}$/.test(process.env.VITE_SOURCE_REVISION||'')?process.env.VITE_SOURCE_REVISION:'')})
     for(const [fileName,source] of Object.entries({'runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','runtime-bridge/sky/native-panels.mjs':'../runtimes/sky-adapter/native-panels.mjs','packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'})) this.emitFile({type:'asset',fileName,source:fs.readFileSync(path.resolve(__dirname,source))})
     for(const name of ['navigation.mjs','continued-input.mjs'])this.emitFile({type:'asset',fileName:'packages/runtime-protocol/'+name,source:fs.readFileSync(path.resolve(__dirname,'../packages/runtime-protocol/'+name))})
@@ -199,6 +213,18 @@ const orasRuntimeSpaPlugin = {
 
 export default defineConfig({
   plugins: [react(), orasRuntimeSpaPlugin],
+  resolve: {dedupe:['three'],alias:[
+    {find:/^three$/,replacement:path.resolve(__dirname,'node_modules/three/build/three.module.js')},
+    {find:/^three\/addons\//,replacement:path.resolve(__dirname,'node_modules/three/examples/jsm')+'/'},
+    ...['@takram/three-atmosphere','@takram/three-geospatial','postprocessing','3d-tiles-renderer'].flatMap(name=>{
+      const directory=path.resolve(__dirname,'graphics/node_modules',name)
+      const pkg=JSON.parse(fs.readFileSync(path.join(directory,'package.json')))
+      return Object.entries(pkg.exports).filter(([key])=>['.','./shaders/bruneton','./core','./three'].includes(key)).map(([key,entry])=>({
+        find:new RegExp('^'+(name+(key==='.'?'':key.slice(1))).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'$'),
+        replacement:path.join(directory,typeof entry==='string'?entry:typeof entry.import==='string'?entry.import:entry.import.default),
+      }))
+    }),
+  ]},
   build: {copyPublicDir:false},
   test: {
     environment: 'node',
