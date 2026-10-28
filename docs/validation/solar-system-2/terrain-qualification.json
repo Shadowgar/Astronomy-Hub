@@ -1,0 +1,142 @@
+{
+  "status": "PASS controlled terrain adapter demonstration; production Moon unchanged",
+  "url": "http://localhost:4231/owner-review/solar2-terrain/",
+  "epoch": "2026-10-28T00:00:00Z",
+  "nativeCesium": "1.138.0",
+  "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "physicalDevice": false,
+  "sourceLODCounts": {
+    "0": 2,
+    "1": 8,
+    "2": 1,
+    "3": 4
+  },
+  "terrainRenderedHeights": [
+    {
+      "longitude": -23,
+      "latitude": 10,
+      "heightMeters": -505.9998931971718
+    },
+    {
+      "longitude": -23,
+      "latitude": 13,
+      "heightMeters": -805.7506638064542
+    },
+    {
+      "longitude": -23,
+      "latitude": 16,
+      "heightMeters": -1642.8767984575281
+    }
+  ],
+  "sphereRenderedHeights": [
+    {
+      "longitude": -23,
+      "latitude": 10,
+      "heightMeters": -4.072505897724089
+    },
+    {
+      "longitude": -23,
+      "latitude": 13,
+      "heightMeters": -16.122199779043477
+    },
+    {
+      "longitude": -23,
+      "latitude": 16,
+      "heightMeters": -15.913064472712701
+    }
+  ],
+  "sameCamera": true,
+  "oneRenderer": true,
+  "disposedZeroRenderer": true,
+  "disposedSourceBytes": 0,
+  "pageErrors": [],
+  "warnings": [
+    "Vite bundle larger than500KB",
+    "Initial software WebGL ReadPixels GPU stall warnings"
+  ],
+  "sourceHashes": {
+    "runtimes/planet-runtime/lolaTerrain.mjs": "cbf8982ab9cc19bff288aa28dbad331de0a7338d153af967542021b6ddaa81ab",
+    "runtimes/planet-runtime/lolaTerrain.test.mts": "9cc371bda61be8c593533cbe8d1aa986ab9e08eccd8c6b77f2059ac404dd250b",
+    "frontend/src/features/planet/lolaHeightGrid.ts": "5fac3cc32da97aff1b95eaaa053bf79853e93f495fd6bd5f7500085eb2e063ee",
+    "scripts/validation/solar2-terrain-demo/entry.mjs": "13f8487a3fba1774422ab234c3a91b2f6683b5dbcea5e126b6b336b1628117f2",
+    "scripts/validation/solar2-terrain-demo/vite.config.mjs": "9d8b83c7892aa26f6e901186de6871bf48ef26b4c922b691009b266e7cbcbabb",
+    "scripts/validation/solar2-terrain-demo/index.html": "589195090248eb49a5f1733ef843cf7a0c1348d05e58c5a91227fc8fec4f6586",
+    "scripts/validation/solar2-terrain-demo/style.css": "e0831e598d7df38e2f72eb0aa6685a9e89ce36296bb5a402e7c667f9ba1afe5c"
+  },
+  "preservedNativeSourceHashes": {
+    "runtimes/planet-runtime/PlanetRuntime.mjs": "4c81671d7ecf424dade347126d55fa70e41f0b127f10b697262aac305e38d40c",
+    "runtimes/planet-runtime/contracts.mjs": "90016be440c2a1ed0041256278f3a31e23f12832385fee3ff0135a41d0aa6eba",
+    "runtimes/planet-runtime/entry.mjs": "45723a5edaecef789fcb209de797b035c65255b4178f3a05a9b1a69f90a3020d",
+    "runtimes/planet-runtime/vite.config.mjs": "2c037e364dfa200c635d2fbc3145c7557516e353793df601deab32f82149d21c"
+  },
+  "artifactHashes": {
+    "terrain-comparison-final.webm": "f1f36dc6c942ad8e17d6e7c064adc71426da5a7b61b694aa3b9cd811892b5f7d",
+    "portrait-terrain-final.png": "88a45e02513cb3349d4b4e9f037bebf754a7bf6608bbb0a99f5685b971e11afe",
+    "oblique-terrain-final.png": "2cabf00af98831535ff846758f0c628e108016554dbbac17f93f46d4dea51213",
+    "oblique-sphere-final.png": "18cd7639020a68a49b9484c77dd9fcb9b68a0c26dd01f6c8dfe2f6265670a98d",
+    "globe-terrain-final.png": "7c720e4c81efc57231f3806ec39e154122333a6000dd55593e1a196f2c0754ae",
+    "review-regression.json": "c608ae83ddebf195705232f73c1243d1c59b9f387318eb36323eab9e688c5375",
+    "review-globe-latest.png": "5848e64ada81cad066e1e0643871655ea341f790bccd07679731721933dca4a6",
+    "review-oblique-latest.png": "9332f39579ea3445cb62006795cf8dbbd5cd89629a3ff2cfca31d83f6435fbb7"
+  },
+  "nativeTests": 4,
+  "samplerTests": 5,
+  "limits": [
+    "7.58km coarse grid, no highres detail",
+    "Sphere illumination retained, no terrain self-shadowing",
+    "Terrain native production route remains disabled",
+    "Linux software browser, not Windows GPU or physical iPhone acceptance"
+  ],
+  "servedSources": {
+    "imagery": {
+      "url": "http://localhost:4231/planet-data/moon-wac.png",
+      "bytes": 4256691,
+      "sha256": "218ddb0ed75af907dd0d8c6a1e5a41a6628a9654803a0b88fa352b17ca90c3d8"
+    },
+    "height": {
+      "url": "http://localhost:4231/owner-review/solar2-terrain/data/ldem_4.img",
+      "bytes": 2073600,
+      "sha256": "c04632eba6449af49e3108ed7c25b3b1c450600abd3690df4fc815853a1af476"
+    },
+    "contract": {
+      "url": "http://localhost:4231/api/v1/planet-view/moon?time=2026-10-28T00%3A00%3A00Z",
+      "bytes": 2296,
+      "sha256": "bce59a073ceaacb5cfe7afd7fe5d1f9ff0c322f211c00c7004ccd1186bc3fe8d"
+    }
+  },
+  "originalVisualCaptureSourceHashes": {
+    "runtimes/planet-runtime/lolaTerrain.mjs": "5573b548ded42ae4f38ddc794398b3f33d78664ea47e111ed3eb48330e813b21",
+    "runtimes/planet-runtime/lolaTerrain.test.mts": "182cd12be902c8c86932a3753c004122110140b8079a10c6090c7f2ad8504124",
+    "frontend/src/features/planet/lolaHeightGrid.ts": "5fac3cc32da97aff1b95eaaa053bf79853e93f495fd6bd5f7500085eb2e063ee",
+    "scripts/validation/solar2-terrain-demo/entry.mjs": "562128de848468e0c46858f728a4e0e3724f58ea5b21763381e5d39c748b0e33",
+    "scripts/validation/solar2-terrain-demo/vite.config.mjs": "9d8b83c7892aa26f6e901186de6871bf48ef26b4c922b691009b266e7cbcbabb",
+    "scripts/validation/solar2-terrain-demo/index.html": "deeb0e95bd5fdd129541ee6709b66b09f05dfd6f2aa9337d22306d6c97a6eddf",
+    "scripts/validation/solar2-terrain-demo/style.css": "e0831e598d7df38e2f72eb0aa6685a9e89ce36296bb5a402e7c667f9ba1afe5c"
+  },
+  "reviewCorrections": {
+    "lateInitialization": "Delayed actual WAC response, release, resume: ready remains false; zero canvas/source bytes; Oblique has no page errors (independent Linux Playwright review).",
+    "polarCaps": "Original source byte grid unchanged. Each exact pole now uses its nearest source-row mean; explicitly extrapolated cap in native diagnostics and UI. Native every-tile/every-level invariant red before, green after correction."
+  },
+  "visualCaptureQualification": "Original screenshots/video predate the isolated lifecycle guard and polar-cap correction; midlatitude relief and production native source are unchanged. Latest focused independent review is recorded separately.",
+  "independentReview": {
+    "receipt": "review-regression.json",
+    "sha256": "c608ae83ddebf195705232f73c1243d1c59b9f387318eb36323eab9e688c5375",
+    "status": "PASS; no actionable P1/P2 in scoped review",
+    "nativePoleSamples": 180,
+    "poleHeightMeters": {
+      "north": -2.3531250953674316,
+      "south": 31.1315975189209
+    },
+    "perPoleRangeMeters": 0
+  }
+}
