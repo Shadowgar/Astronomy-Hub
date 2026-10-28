@@ -1245,8 +1245,8 @@
     {
       "file": "index.html",
       "source": "docs/validation/solar-system-2/gallery/index.html",
-      "bytes": 6900,
-      "sha256": "5ae3a7af80db9b66c78f24393f9102df2fa48df67e1b8e985ec05d7ffee61aa4"
+      "bytes": 6923,
+      "sha256": "ca2e469b3a4c8b47dc5f0d37620ef38eb5374f222375b6d1917d44acf7ce237f"
     }
   ],
   "retained_failure_directories": [
@@ -1256,5 +1256,31 @@
     "handoffs",
     "handoffs-final"
   ],
-  "capture_note": "Fixed-epoch images are final committed application source. Recordings cover unchanged Solar paths before late native-exit corrections; final handoff proof is separately qualified."
+  "capture_note": "Fixed-epoch images are final committed application source. Recordings cover unchanged Solar paths before late native-exit corrections; final handoff proof is separately qualified.",
+  "gallery_browser": {
+    "errors": [],
+    "checks": [
+      "overview/desktop",
+      "overview/portrait",
+      "overview/landscape",
+      "saturn/desktop",
+      "saturn/portrait",
+      "saturn/landscape",
+      "earth/desktop",
+      "earth/portrait",
+      "earth/landscape",
+      "mars/desktop",
+      "mars/portrait",
+      "mars/landscape"
+    ],
+    "referenceSha": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+    "preview": {
+      "epoch": "2026-10-27T04:00:00Z",
+      "assets": 9,
+      "modules": [
+        "http://localhost:4231/assets/index-BjtgXpsj.js"
+      ]
+    },
+    "status": "PASS"
+  }
 }

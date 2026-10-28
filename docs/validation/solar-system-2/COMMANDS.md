@@ -99,3 +99,14 @@ Both setup/type failures were fixed before the final build and browser repeat.
 
 CodeQL and repository/Playwright hosted conclusions must be read on PR107 for
 the exact final SHA; these local results do not predict or replace hosted checks.
+
+Private gallery real-browser verification (`output/playwright/solar2/verify-gallery-current.mjs`
+launched with Windows Node) passes12scene/layout combinations, original primary
+reference SHA, hostile unsupported select value, portrait no-overflow, and the
+default localhost preview's9actual source textures. An initial portrait overflow
+failed; the single source-hash text wrap correction has separate390/1440 browser
+red/green review. Gallery proof is included in runtime-receipt.json.
+
+Hosted checkpoint18506d947c934662aa8d727c4dff5c80c0774245 passed Repository integrity,
+Playwright, all4CodeQL analyses and aggregateCodeQL. The final evidence/gallery
+head is checked separately on PR107; no inherited-alert-free claim is made.

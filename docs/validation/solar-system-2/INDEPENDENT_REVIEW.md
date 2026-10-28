@@ -131,3 +131,13 @@ moved-Earth repeat browser checks are desktop-only. The reviewer did not operate
 the Windows browser. Physical-device, owner visual acceptance and release/source
 gates remain open.
 
+
+## Final gallery portrait correction
+
+The complete original SHA256 string overflowed a390px gallery viewport. Root's
+actual Windows check failed before `small{overflow-wrap:anywhere}` and passed
+after it. A separate reviewer independently observed390px corrected width versus
+575px after temporarily restoring `normal`. At1440px both versions retain the
+identical three-column and image bounds; all64 hash characters remain. No HTML
+logic, source image bytes or application rendering changed. Independent browser
+override was removed; no actionable regression remains in this scoped fix.

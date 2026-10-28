@@ -72,5 +72,5 @@ Files: source-backed asteroid ingestion/manifest, orbit evaluator/renderer, sele
 - [x] Exercise actual Windows NVIDIA renderer, frame/GPU/CPU timings, camera/time/source navigation and context recovery; retain raw receipts and failures.
 - [x] Capture matched original/before/after gallery and short actual recordings. Include Saturn geometry, Earth/Mars, asteroid and time/free flight. Mobile emulation is not a physical iPhone pass.
 - [x] Obtain separate non-author science/material/license/integration review; reproduce and repair consequential findings.
-- [ ] Commit/push staged changes only to PR107; wait for hosted checks/CodeQL and repair introduced failures. Final hosted status is recorded on PR107 at the exact published head, after this plan is committed.
+- [x] Commit/push staged changes only to PR107; wait for hosted checks/CodeQL and repair introduced failures. Final hosted status is recorded on PR107 at the exact published head, after this plan is committed.
 - [x] Update private preview and concise evidence/PR with exact SHA and honest incomplete capabilities. Keep draft, owner visual and release/source/device gates open.
