@@ -10,7 +10,7 @@ global:
 
 tasks:
   solar_reconstruction:
-    # Owner October28 scoped pack; replaces broad historical packs for this run.
+    # Owner October28/29 scoped Solar implementation and corrective review pack.
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
@@ -24,6 +24,7 @@ tasks:
     - docs/validation/repository-recovery-20261026/visual-fidelity/README.md
     - docs/validation/solar-system-2/PLAN.md
     - docs/validation/solar-system-2.1/PLAN.md
+    - docs/validation/solar-system-2.1.1/PLAN.md
 
   docs_change:
     load:

@@ -1,0 +1,17 @@
+{
+  "source": "existing /planet-data/moon-wac.png",
+  "sourceSha256": "218ddb0ed75af907dd0d8c6a1e5a41a6628a9654803a0b88fa352b17ca90c3d8",
+  "sourceDimensions": [
+    2880,
+    1440
+  ],
+  "sourceSampling": "8 pixels/degree; approximately 3.79 km/pixel at equator",
+  "projection": "orthographic, center 0N 0E, north up, east right; static morphology",
+  "dimensions": [
+    384,
+    384
+  ],
+  "outputSha256": "1d83e67c2340369af3413005bd61cd3b05b1d2634fa404d10769f4339299fb9f",
+  "sourceAuthority": "runtimes/planet-runtime/moon-source-manifest.json",
+  "limitation": "Location context only; no precise NAC-to-ME421 registration or selected-epoch illumination."
+}

@@ -5,21 +5,22 @@ import {LRUCache,PriorityQueue,DownloadPriorityQueue} from '3d-tiles-renderer/co
 import {gpuTiming} from '../solar/solarGpuTiming'
 import {lunarFrame,localToBodyFixed,terrainBudget,type TerrainManifest,type TerrainQuality,type Vec3} from './terrainContracts'
 import {TerrainTransport} from './terrainTransport'
+import {regionalCameraEnvelope} from './terrainContext'
 
 export type TerrainPose={camera:Vec3;target:Vec3}
 export type TerrainStatus={ready:boolean;lost:boolean;failed:number;visible:number;levels:number[];notice:string}
-export type TerrainScene={dispose:()=>void;diagnostics:()=>any;pose:()=>TerrainPose;zoom:(factor:number)=>void;orbit:(angle:number)=>void;view:(preset:'overview'|'detail'|'top')=>void;retry:()=>void;setQuality:(quality:TerrainQuality)=>void;setReducedMotion:(reduced:boolean)=>void;setRelief:(enabled:boolean)=>void}
+export type TerrainScene={dispose:()=>void;diagnostics:()=>any;pose:()=>TerrainPose;zoom:(factor:number)=>void;orbit:(angle:number)=>void;view:(preset:'overview'|'detail'|'top')=>void;setQuality:(quality:TerrainQuality)=>void;setReducedMotion:(reduced:boolean)=>void;setRelief:(enabled:boolean)=>void}
 
 /** NASA owns tile traversal/loading; this adapter owns a single local lunar scene. */
 export function mountTerrainScene(host:HTMLElement,manifest:TerrainManifest,options:{quality:TerrainQuality;reduced:boolean;initial?:TerrainPose;onStatus:(status:TerrainStatus)=>void;onRestore:(pose:TerrainPose)=>void}):TerrainScene{
  const started=performance.now(),frame=lunarFrame(manifest.latitudeDeg,manifest.longitudeDeg,manifest.centerBodyFixedM)
  const scene=new T.Scene(),camera=new T.PerspectiveCamera(45,1,1,150000)
  const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:options.quality==='efficient'?'low-power':'high-performance'})
- renderer.setClearColor('#03060c');renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.NoToneMapping
+ renderer.setClearColor('#0b111b');renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.NoToneMapping
  const canvas=renderer.domElement;canvas.tabIndex=0;canvas.setAttribute('aria-label','Apollo 17 measured terrain. Drag to orbit, two fingers to pan, pinch or scroll to zoom. Arrow keys orbit; plus and minus zoom; Home restores the overview.');host.append(canvas)
  camera.up.set(0,0,1)
  const gpu=gpuTiming(renderer.getContext()),controls=new OrbitControls(camera,canvas)
- controls.enableDamping=!options.reduced;controls.dampingFactor=.13;controls.screenSpacePanning=false;controls.minDistance=80;controls.maxDistance=Math.max(...manifest.extentM)*12;controls.maxPolarAngle=Math.PI*.475;controls.minPolarAngle=.04;controls.zoomSpeed=.8
+ controls.enableDamping=!options.reduced;controls.dampingFactor=.13;controls.screenSpacePanning=false;controls.minDistance=80;controls.maxDistance=regionalCameraEnvelope(manifest.extentM,1).maximumDistance;controls.maxPolarAngle=Math.PI*.475;controls.minPolarAngle=.04;controls.zoomSpeed=.8
  const tiles=new TilesRenderer(manifest.tilesetUrl),transport=new TerrainTransport(manifest,location.origin)
  // The package defaults to WGS84. This dataset is a 1,737,400 m lunar sphere.
  tiles.ellipsoid=new Ellipsoid(manifest.radiusM,manifest.radiusM,manifest.radiusM);tiles.ellipsoid.name='Moon reference sphere';tiles.surface=tiles.ellipsoid
@@ -43,10 +44,10 @@ export function mountTerrainScene(host:HTMLElement,manifest:TerrainManifest,opti
  function pose():TerrainPose{return{camera:camera.position.toArray(),target:controls.target.toArray()}}
  function status(force=false){const now=performance.now(),value={ready:tiles.visibleTiles.size>0,lost,failed:(tiles as any).stats.failed,visible:tiles.visibleTiles.size,levels:visibleLevels(),notice},key=JSON.stringify(value);if(!force&&key===lastPublished&&now-lastStatus<350)return;lastPublished=key;lastStatus=now;options.onStatus(value)}
  function setQuality(value:TerrainQuality){quality=value;const budget=terrainBudget(value,devicePixelRatio);renderer.setPixelRatio(budget.pixelRatio);tiles.errorTarget=budget.errorTarget;tiles.maxTilesProcessed=budget.maxTilesProcessed;lru.maxSize=budget.cacheTiles;lru.minSize=Math.floor(budget.cacheTiles*.65);lru.maxBytesSize=budget.cacheBytes;lru.minBytesSize=Math.floor(budget.cacheBytes*.65);lru.unloadPercent=1;downloads.maxJobsPerOrigin=budget.downloadJobs;parsing.maxJobs=budget.parseJobs;nodes.maxJobs=budget.nodeJobs;resize()}
- function resize(){if(disposed)return;const rect=host.getBoundingClientRect();if(rect.width<1||rect.height<1)return;renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;camera.updateProjectionMatrix();tiles.setResolutionFromRenderer(camera,renderer);request()}
+ function resize(){if(disposed)return;const rect=host.getBoundingClientRect();if(rect.width<1||rect.height<1)return;renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;controls.maxDistance=regionalCameraEnvelope(manifest.extentM,camera.aspect).maximumDistance;camera.updateProjectionMatrix();tiles.setResolutionFromRenderer(camera,renderer);request()}
  function view(preset:'overview'|'detail'|'top'){
   controls.target.set(0,0,middle)
-  const fit=Math.max(1,1/Math.max(camera.aspect,.35)),distance=span*(preset==='detail'?.24:1.15)*fit
+  const envelope=regionalCameraEnvelope(manifest.extentM,camera.aspect),distance=preset==='detail'?envelope.detailDistance:envelope.overviewDistance
   if(preset==='top')camera.position.set(0,-distance*.02,middle+distance)
   else camera.position.set(distance*.33,-distance*.78,middle+distance*.67)
   controls.update();lastFrame=0;request()
@@ -105,7 +106,6 @@ export function mountTerrainScene(host:HTMLElement,manifest:TerrainManifest,opti
   pose,zoom,orbit,view,setQuality,
   setReducedMotion(value){reduced=value;controls.enableDamping=!value;request()},
   setRelief(value){relief=value;tiles.forEachLoadedModel((model:any)=>model.traverse((mesh:any)=>{if(mesh.isMesh)applyRelief(mesh)}));request()},
-  retry(){if(disposed||lost)return;notice='';tiles.resetFailedTiles();status(true);request()},
   diagnostics(){return{library:{name:'3d-tiles-renderer',version:'0.5.3',constructor:tiles.constructor.name,instanceOfTilesRenderer:tiles instanceof TilesRenderer,threeRevision:T.REVISION},source:{region:manifest.regionId,frame:manifest.frame,heightDatum:manifest.heightDatum,elevationResolutionM:manifest.elevationResolutionM,imageryResolutionM:manifest.imageryResolutionM,centerBodyFixedM:manifest.centerBodyFixedM,ellipsoidRadiiM:tiles.ellipsoid.radius.toArray()},disposed,lost,quality,reduced,relief,pose:pose(),cameraBodyFixedM:localToBodyFixed(camera.position.toArray(),frame),renderCount,firstModelMs,firstVisibleMs,stats:{...(tiles as any).stats},visibleLevels:visibleLevels(),visibleTiles:[...tiles.visibleTiles].map(t=>({depth:t.internal.depth,geometricError:t.geometricError,uri:t.content?.uri})),loadedCount,disposedModels,cache:{bytes:(lru as any).cachedBytes,maxBytes:lru.maxBytesSize,maxTiles:lru.maxSize},transport:transport.diagnostics(),queues:{downloads:downloads.maxJobsPerOrigin,parse:parsing.maxJobs,nodes:nodes.maxJobs},graphics:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,programs:renderer.info.programs?.length??0,pixelRatio:renderer.getPixelRatio()},activeFrameIntervalsMs:summarize(frameIntervals),cpuFrameMs:summarize(cpuMs),gpuMs:gpu.read()}}
   ,dispose(){if(disposed)return;disposed=true;cancelAnimationFrame(raf);raf=0;observer.disconnect();document.removeEventListener('visibilitychange',onVisibility);canvas.removeEventListener('keydown',onKey);canvas.removeEventListener('webglcontextlost',onLost);canvas.removeEventListener('webglcontextrestored',onRestored);controls.removeEventListener('change',onChange);controls.dispose();transport.dispose();tiles.dispose();tiles.removeEventListener('load-model',onModel);tiles.removeEventListener('dispose-model',onDisposeModel);tiles.removeEventListener('needs-update',onUpdate);tiles.removeEventListener('tile-visibility-change',onUpdate);tiles.removeEventListener('load-error',onLoadError);for(const materials of auxiliaryMaterials.values())for(const material of materials)material.dispose();auxiliaryMaterials.clear();gpu.dispose();renderer.dispose();renderer.forceContextLoss();canvas.remove()}
  }

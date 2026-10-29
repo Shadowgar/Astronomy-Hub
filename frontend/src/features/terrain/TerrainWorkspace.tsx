@@ -7,6 +7,7 @@ import {safeSolarReturn} from '../planet/planetContracts'
 import {terrainNativeExit} from './terrainNavigation'
 import {loadTerrainManifest,terrainMoonReturn,type TerrainManifest,type TerrainQuality} from './terrainContracts'
 import {mountTerrainScene,type TerrainPose,type TerrainScene,type TerrainStatus} from './TerrainScene'
+import {TerrainContext} from './TerrainContext'
 import '../workspace/workspace.css'
 import '../solar/solar.css'
 import './terrain.css'
@@ -52,9 +53,14 @@ export default function TerrainWorkspace(){
   navigate(nativeDestination.path,{state:nativeDestination.state})
  }
  return <div className="ws-shell solar-shell terrain-shell" data-workspace-mode="terrain" data-terrain-status={error?'error':status?.lost?'context-lost':status?.ready?'ready':'loading'}>
-  <main ref={host} className="terrain-stage" aria-label="Measured lunar regional terrain"/>
+  <section className="terrain-survey" aria-label="Bounded Apollo 17 survey">
+   <div className="terrain-survey-heading"><span>APOLLO 17 · MEASURED SURFACE</span><span>{manifest?manifest.extentM.map(n=>(n/1000).toFixed(2)).join(' × ')+' km · ':''}5 m source</span></div>
+   <main ref={host} className="terrain-stage" aria-label="Measured lunar regional terrain"/>
+   <div className="terrain-survey-boundary">Measured coverage ends at the tile edge</div>
+  </section>
   <header className="solar-header"><CinematicBrand mode="solar" onMode={leave} allowCurrentMode/><button className="solar-return" onClick={()=>leave()}>Return to Moon</button></header>
-  <section className="terrain-heading"><small>MOON · REGIONAL EXPLORATION</small><h1>{manifest?.name||'Apollo 17'}</h1><p>Measured terrain · 5 m source sampling</p></section>
+  <section className="terrain-heading"><small>MOON / APOLLO 17</small><h1>Explore the measured landscape</h1></section>
+  <TerrainContext manifest={manifest} onOverview={()=>leave()}/>
   {error?<section className="solar-message solar-glass" role="alert"><p>{error}</p><button onClick={retryView}>Retry terrain</button><button onClick={()=>leave()}>Return to Moon</button></section>:!status?.ready&&!status?.lost?<p className="solar-loading solar-glass" role="status">{status?.failed?'Some terrain tiles could not load. Use Retry tiles.':'Loading local lunar terrain…'}</p>:null}
   {status?.lost?<section className="solar-message solar-glass" role="alert"><p>The graphics context stopped. Retry restores your regional camera and UTC.</p><button onClick={retryView}>Restore terrain</button><button onClick={()=>leave()}>Return to Moon</button></section>:null}
   <nav className="terrain-tools solar-glass" aria-label="Lunar terrain controls">
@@ -64,12 +70,13 @@ export default function TerrainWorkspace(){
    <button onClick={()=>setSources(value=>!value)} aria-expanded={sources} aria-controls="terrain-sources">Sources &amp; view</button>
   </nav>
   <div className="terrain-caption">5 m source · {manifest&&status?.levels.length?status.levels.map(level=>manifest.elevationResolutionM*2**(manifest.tiles.levels-1-level)).join(' / ')+' m tiles · ':''}true height scale · regional coverage</div>
-  {status?.notice&&!status.lost?<section className="terrain-notice solar-glass" role="status"><p>{status.notice}</p><button onClick={()=>engine.current?.retry()}>Retry tiles</button><button onClick={retryView}>Reload region</button></section>:null}
+  {status?.notice&&!status.lost?<section className="terrain-notice solar-glass" role="status"><p>{status.notice}</p><button onClick={retryView}>Retry tiles</button><button onClick={retryView}>Reload region</button></section>:null}
   {sources?<section id="terrain-sources" className="terrain-sources solar-glass" aria-label="Terrain source and view settings"><div className="terrain-panel-heading"><h2>Terrain &amp; source</h2><button onClick={()=>setSources(false)} aria-label="Close terrain sources">×</button></div>
    <label>Graphics<select value={quality} onChange={event=>setQuality(event.target.value as TerrainQuality)}><option value="balanced">Balanced</option><option value="efficient">Efficient</option></select></label>
    <label className="terrain-relief"><input type="checkbox" checked={relief} onChange={event=>setRelief(event.target.checked)}/>Relief inspection</label>
    <p>{relief?'Gray measured geometry with fixed illustrative lighting; this is not sunlight at the selected epoch.':'Original orthomosaic on measured geometry. Historical image shadows remain; this is not illumination at the selected epoch.'}</p>
    <p>{epoch} · UTC retained for your return</p>
+   <p>The globe is a location guide, separate from this measured survey. Exact alignment between this LROC_ME product and the native Moon frame is unqualified. Coarse global terrain differs by up to 597 m here and is not blended into the 5 m measurements.</p>
    {manifest?<><p>{manifest.elevationResolutionM} m elevation posts · {manifest.imageryResolutionM} m imagery pixels. {(manifest.extentM[0]/1000).toFixed(2)} × {(manifest.extentM[1]/1000).toFixed(2)} km coverage.</p><p>Planetocentric, east-positive · {manifest.radiusM.toLocaleString()} m lunar sphere.</p><p>{manifest.frame} · {manifest.heightDatum}</p><p>Levels refine with camera distance. Zooming past source sampling adds no measured detail.</p>{manifest.limitations.map((limit,index)=><p key={index}>{limit}</p>)}{manifest.sources.map(source=><p key={source.id}><a href={source.url} target="_blank" rel="noreferrer">{source.id}</a> · {source.license}</p>)}</>:null}
    <p><a href="https://github.com/NASA-AMMOS/3DTilesRendererJS/tree/v0.5.3" target="_blank" rel="noreferrer">NASA AMMOS 3D Tiles Renderer 0.5.3</a> · Apache-2.0</p><p>Drag to orbit; two fingers or right-drag to pan; pinch or scroll to zoom. Focus the scene for arrow keys, + / − and Home. Reduced motion removes camera damping.</p>
   </section>:null}

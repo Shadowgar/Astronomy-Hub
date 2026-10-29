@@ -1,5 +1,21 @@
 # LIVE SESSION BRIEF
 
+## Solar System 2.1.1 — owner-rejected defect correction, 2026-10-29
+
+The owner rejected Earth concentric bands and the isolated Apollo17 rectangular
+patch despite2.1 CI. Starting `ed0c81f785c6da68183e757ff381eba2727a2007` on
+`recovery/reconcile-20261026` / draft PR107, only these corrections are authorized.
+The current candidate fixes a separate Takram normalized-depth roundtrip precision
+loss and presents the unchanged5m measured terrain inside a bounded survey view
+with source-qualified approximate global lunar context. Native Moon remains the
+planetary overview. Seamless NAC/native frame alignment is not qualified.
+Prior engineering proof remains valid only within its tested scope; owner visual
+acceptance and physical iPhone remain pending. Do not start Solar2.2, merge,
+deploy, publish source or modify protected data. Current evidence and remaining
+qualification state: [Solar2.1.1 plan](../validation/solar-system-2.1.1/PLAN.md)
+and [review handoff](../validation/solar-system-2.1.1/README.md).
+
+
 ## Solar System 2.1 — owner authorization, 2026-10-28
 
 The owner authorizes actual pinned Takram Earth atmosphere and NASA 3D Tiles

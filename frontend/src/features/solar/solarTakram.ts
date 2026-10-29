@@ -1,7 +1,7 @@
 import * as T from 'three'
 import {Pass,FullScreenQuad} from 'three/addons/postprocessing/Pass.js'
 import {EffectPass} from 'postprocessing'
-import {AerialPerspectiveEffect} from '@takram/three-atmosphere'
+import {SolarAerialPerspectiveEffect} from './solarTakramDepth'
 import {Ellipsoid} from '@takram/three-geospatial'
 import {common,definitions,runtime} from '@takram/three-atmosphere/shaders/bruneton'
 import type {SolarQuality} from './solarPresentation'
@@ -210,7 +210,7 @@ export function createSolarTakram(renderer:any,camera:any,options:Options={}){
   // geometric correction OFF: this shared depth buffer also contains space
   // objects, which must never be projected onto the ground sphere.
   const radius=inputFrame?.earthRadiusM||6371000
-  effect=new AerialPerspectiveEffect(camera,{...loaded,ellipsoid:new Ellipsoid(radius,radius,radius),correctAltitude:true,correctGeometricError:false,sky:false,sun:false,moon:false,sunLight:false,skyLight:false,transmittance:true,inscatter:true})
+  effect=new SolarAerialPerspectiveEffect(camera,{...loaded,ellipsoid:new Ellipsoid(radius,radius,radius),correctAltitude:true,correctGeometricError:false,sky:false,sun:false,moon:false,sunLight:false,skyLight:false,transmittance:true,inscatter:true})
   effectPass=new EffectPass(camera,effect);effectPass.renderToScreen=false
   // Upstream uses shared fullscreen geometry. Give this adapter an owned copy
   // so repeated route lifetimes release every uploaded geometry it introduced.
