@@ -1,0 +1,289 @@
+{
+  "started": "2026-10-24T08:16:26.466Z",
+  "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02:58:00Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "7cfe992c8050be555db1238686c4046a07eb4f1f33b6561462662e8a7678b77d",
+    "runtimes/sky-adapter/entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13",
+    "frontend/src/config/orasSite.json": "3779ff6baf6417e79c424fffbcc35de39b09bd551f09bf40e9e45fcc7a746115"
+  },
+  "samples": [
+    {
+      "requestedUtc": "2026-06-04T02:58:00.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "speed": 0,
+      "objects": [
+        {
+          "norad_id": "43689",
+          "radec": [
+            -0.000009191004,
+            4.39637e-7,
+            -6.27609e-7,
+            1
+          ],
+          "magnitude": 5.439655776566,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          }
+        },
+        {
+          "norad_id": "28096",
+          "radec": [
+            -0.000002144808,
+            -0.000007079551,
+            0.000003633991,
+            1
+          ],
+          "magnitude": 2.605776334588,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          }
+        }
+      ]
+    },
+    {
+      "requestedUtc": "2026-06-04T02:58:04.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "speed": 0,
+      "objects": [
+        {
+          "norad_id": "43689",
+          "radec": [
+            -0.000009115468,
+            5.32586e-7,
+            -4.67243e-7,
+            1
+          ],
+          "magnitude": 5.434155725015,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          }
+        },
+        {
+          "norad_id": "28096",
+          "radec": [
+            -0.000002147072,
+            -0.000007224711,
+            0.000003510329,
+            1
+          ],
+          "magnitude": 2.614888606815,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          }
+        }
+      ]
+    },
+    {
+      "requestedUtc": "2026-06-04T02:58:08.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "speed": 0,
+      "objects": [
+        {
+          "norad_id": "43689",
+          "radec": [
+            -0.000009039341,
+            6.25856e-7,
+            -3.07351e-7,
+            1
+          ],
+          "magnitude": 5.429756220456,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 43689,
+              "tle": [
+                "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+                "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+              ],
+              "mag": 5,
+              "status": "Operational",
+              "owner": "Exploitation of Meteorological Satellites (EUMETSAT)",
+              "launch_site": "Europe's Spaceport, Kourou, French Guiana",
+              "group": [
+                "Science"
+              ],
+              "designation": "18087A"
+            },
+            "names": [
+              "NAME Metop C",
+              "NAME METOP-C",
+              "NORAD 43689",
+              "COSPAR 2018-087A"
+            ],
+            "short_name": "Metop C"
+          }
+        },
+        {
+          "norad_id": "28096",
+          "radec": [
+            -0.000002148909,
+            -0.00000736946,
+            0.000003386176,
+            1
+          ],
+          "magnitude": 2.625065215696,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Native API source-coordinate comparison; intentional historical paused diagnostic, not input/pixel/Live accuracy proof."
+  ],
+  "status": "SAMPLED",
+  "finished": "2026-10-24T08:16:30.999Z"
+}

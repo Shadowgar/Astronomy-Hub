@@ -1,0 +1,46 @@
+[
+  {
+    "path": "/planet-runtime/",
+    "status": 200,
+    "bytes": 661,
+    "content_type": "text/html"
+  },
+  {
+    "path": "/planet-runtime/moon-source-manifest.json",
+    "status": 200,
+    "bytes": 2573,
+    "content_type": "application/json"
+  },
+  {
+    "path": "/planet-data/moon-wac.png",
+    "status": 200,
+    "bytes": 4256691,
+    "content_type": "image/png"
+  },
+  {
+    "path": "/earth-runtime/cesium/Widgets/widgets.css",
+    "status": 200,
+    "bytes": 30710,
+    "content_type": "text/css"
+  },
+  {
+    "path": "/api/v1/planet-view/moon?time=2026-10-26T12:00:00Z",
+    "status": 200,
+    "bytes": 2294,
+    "content_type": "application/json"
+  },
+  {
+    "path": "/api/v1/planetary-systems/mars?epoch=2026-10-26T12:00:00Z",
+    "status": 200,
+    "bytes": 1427277,
+    "content_type": "application/json"
+  },
+  {
+    "path": "/planet-runtime/missing.js",
+    "status": 404
+  },
+  {
+    "path": "/planet-data/missing.png",
+    "status": 404
+  }
+]

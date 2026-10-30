@@ -1,0 +1,576 @@
+[
+  {
+    "file": "assets/solar-primary-cinematic.png",
+    "bytes": 2260404,
+    "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+    "source": "docs/design/cinematic-references-2026-10-21/solar-primary-cinematic.png",
+    "label": "Original approved bytes; visual direction, not scientific fixture."
+  },
+  {
+    "file": "assets/1440x900-solar-baseline-opening.png",
+    "bytes": 206467,
+    "sha256": "47d710ed81431b3aede3d03d7d2b153b3a3e658cbb614ae16282c42ba92b4840",
+    "source": "output/cinematic-glass/browser/1440x900-solar-baseline-opening.png",
+    "label": "solar 1440\u00d7900 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/1440x900-solar-baseline-selected.png",
+    "bytes": 407741,
+    "sha256": "2825e3cde3435c7ea9d403b298370ba84dc6d351d9c266fe2c18916b0c47d986",
+    "source": "output/cinematic-glass/browser/1440x900-solar-baseline-selected.png",
+    "label": "solar 1440\u00d7900 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/1440x900-solar-baseline-expanded.png",
+    "bytes": 454146,
+    "sha256": "14d70fc4e46a638a58d1565964d120167297672124388a6949d633c461a1ef9c",
+    "source": "output/cinematic-glass/browser/1440x900-solar-baseline-expanded.png",
+    "label": "solar 1440\u00d7900 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/1440x900-solar-candidate-opening.png",
+    "bytes": 223255,
+    "sha256": "8c5e5ce0ba27d52627cbf0a2e29261816facd8a13d9ee0a5a1e594e684abd464",
+    "source": "output/cinematic-glass/browser/1440x900-solar-candidate-opening.png",
+    "label": "solar 1440\u00d7900 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/1440x900-solar-candidate-selected.png",
+    "bytes": 433799,
+    "sha256": "6ebe40aa77ca217fe27e7b6c32ae3c235d18ed6ecfb8842fbddd0058b72e10ea",
+    "source": "output/cinematic-glass/browser/1440x900-solar-candidate-selected.png",
+    "label": "solar 1440\u00d7900 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/1440x900-solar-candidate-expanded.png",
+    "bytes": 484015,
+    "sha256": "5bd4995e65c77d5ec8e2b1d89216c4680ee9f6bf4bb2ede01bc4233d32d287b4",
+    "source": "output/cinematic-glass/browser/1440x900-solar-candidate-expanded.png",
+    "label": "solar 1440\u00d7900 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/1440x900-solar-material-crop.png",
+    "bytes": 107497,
+    "sha256": "12210cbe498dc1f711029677e62d7861846b0f5e27ca65078b342908a0970529",
+    "source": "output/cinematic-glass/browser/1440x900-solar-material-crop.png",
+    "label": "Actual material/control detail: 1440x900-solar-material-crop.png"
+  },
+  {
+    "file": "assets/1440x900-solar-candidate-controls.png",
+    "bytes": 454592,
+    "sha256": "85d1bac4d6ffd09a4375daba7c8d5c5fa2f9ab7fcc74e13ff8689a1cb9ba2a92",
+    "source": "output/cinematic-glass/browser/1440x900-solar-candidate-controls.png",
+    "label": "Actual material/control detail: 1440x900-solar-candidate-controls.png"
+  },
+  {
+    "file": "assets/390x900-solar-baseline-opening.png",
+    "bytes": 135365,
+    "sha256": "8dbf86a3032a33bba2a7fb44e30148459d7999b55a4aa160bcdf03dbaa3b5f39",
+    "source": "output/cinematic-glass/browser/390x900-solar-baseline-opening.png",
+    "label": "solar 390\u00d7900 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/390x900-solar-baseline-selected.png",
+    "bytes": 171701,
+    "sha256": "304d1b743e6affbf23e16afb4eae5c336f82b79001029880b7704d2cad8997b6",
+    "source": "output/cinematic-glass/browser/390x900-solar-baseline-selected.png",
+    "label": "solar 390\u00d7900 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/390x900-solar-baseline-expanded.png",
+    "bytes": 172756,
+    "sha256": "5422d014d9fe294b168602d8d6ae4d59409f98da729a9d4b0e67f0ae0d05520e",
+    "source": "output/cinematic-glass/browser/390x900-solar-baseline-expanded.png",
+    "label": "solar 390\u00d7900 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/390x900-solar-candidate-opening.png",
+    "bytes": 155804,
+    "sha256": "3316fea4e8bb5183c55c4fbd92079a6595dd242282e751a04d71cb1a9964c730",
+    "source": "output/cinematic-glass/browser/390x900-solar-candidate-opening.png",
+    "label": "solar 390\u00d7900 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/390x900-solar-candidate-selected.png",
+    "bytes": 193720,
+    "sha256": "32257718531e003819fb28ac6b9d6ad4d0bfb6ca793f0fb9605d2e5c7b428798",
+    "source": "output/cinematic-glass/browser/390x900-solar-candidate-selected.png",
+    "label": "solar 390\u00d7900 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/390x900-solar-candidate-expanded.png",
+    "bytes": 206569,
+    "sha256": "5d4d963d899873800d5b6f098e14153dfb58de09bdfde9124309ed57c9e59d98",
+    "source": "output/cinematic-glass/browser/390x900-solar-candidate-expanded.png",
+    "label": "solar 390\u00d7900 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/390x900-solar-material-crop.png",
+    "bytes": 105246,
+    "sha256": "0f117a00828b75313f8788d3079d0b478616704067ea5feed64cc30ebdc1bf69",
+    "source": "output/cinematic-glass/browser/390x900-solar-material-crop.png",
+    "label": "Actual material/control detail: 390x900-solar-material-crop.png"
+  },
+  {
+    "file": "assets/390x900-solar-candidate-controls.png",
+    "bytes": 254605,
+    "sha256": "62edebcd92746a3384b709c7faa4a287b9aa63ca5cf920a0e2b5b07494f1cc43",
+    "source": "output/cinematic-glass/browser/390x900-solar-candidate-controls.png",
+    "label": "Actual material/control detail: 390x900-solar-candidate-controls.png"
+  },
+  {
+    "file": "assets/667x390-solar-baseline-opening.png",
+    "bytes": 87173,
+    "sha256": "c52641a5fd092bfe50c80380c1eaedd7a8bb60b8215f8818318c5d1e20374dd0",
+    "source": "output/cinematic-glass/browser/667x390-solar-baseline-opening.png",
+    "label": "solar 667\u00d7390 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/667x390-solar-baseline-selected.png",
+    "bytes": 106331,
+    "sha256": "c36d5f8abb36ffdd0e6cd919c2c2d85bd73015899c529fab20193632d6c674da",
+    "source": "output/cinematic-glass/browser/667x390-solar-baseline-selected.png",
+    "label": "solar 667\u00d7390 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/667x390-solar-baseline-expanded.png",
+    "bytes": 107463,
+    "sha256": "27a033cb8387f4e5a776ef61e611679f9cc53ea008f6ebf68b52d35aedf453f4",
+    "source": "output/cinematic-glass/browser/667x390-solar-baseline-expanded.png",
+    "label": "solar 667\u00d7390 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/667x390-solar-candidate-opening.png",
+    "bytes": 105857,
+    "sha256": "96d3cb16936156a2360add16ff70e763f864132f3cb8fc89c0b75d9f02ad5ebe",
+    "source": "output/cinematic-glass/browser/667x390-solar-candidate-opening.png",
+    "label": "solar 667\u00d7390 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/667x390-solar-candidate-selected.png",
+    "bytes": 129667,
+    "sha256": "46c9d730a95ff05421d4f06e633836a8f0083edb3090cc73d3b21ce5c3fd3a3a",
+    "source": "output/cinematic-glass/browser/667x390-solar-candidate-selected.png",
+    "label": "solar 667\u00d7390 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/667x390-solar-candidate-expanded.png",
+    "bytes": 130404,
+    "sha256": "c664450ab612575d6ffe5558d85d24e018ccf477baee782fd1e04cc39aaeb6e3",
+    "source": "output/cinematic-glass/browser/667x390-solar-candidate-expanded.png",
+    "label": "solar 667\u00d7390 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/667x390-solar-material-crop.png",
+    "bytes": 27365,
+    "sha256": "7f7bc0ff035194de56d93013518a57515be71b1bb05c6da101efe4a1f4be39b6",
+    "source": "output/cinematic-glass/browser/667x390-solar-material-crop.png",
+    "label": "Actual material/control detail: 667x390-solar-material-crop.png"
+  },
+  {
+    "file": "assets/667x390-solar-candidate-controls.png",
+    "bytes": 153780,
+    "sha256": "d0b22763b0ddd50f0dfad34e2d8c94ea10f1eed757753d4695ca124ef1c6a0ac",
+    "source": "output/cinematic-glass/browser/667x390-solar-candidate-controls.png",
+    "label": "Actual material/control detail: 667x390-solar-candidate-controls.png"
+  },
+  {
+    "file": "assets/earth-cinematic.png",
+    "bytes": 2658442,
+    "sha256": "83601f768035502c1b7fbc9265866135ba40c838b0c6b598127d506112f812b1",
+    "source": "docs/design/cinematic-references-2026-10-21/earth-cinematic.png",
+    "label": "Original approved bytes; visual direction, not scientific fixture."
+  },
+  {
+    "file": "assets/1440x900-earth-baseline-opening.png",
+    "bytes": 1434136,
+    "sha256": "b653d107e76512796461eadd6cc559160821f1e588862ade273ae2cc080bed9b",
+    "source": "output/cinematic-glass/browser/1440x900-earth-baseline-opening.png",
+    "label": "earth 1440\u00d7900 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/1440x900-earth-baseline-selected.png",
+    "bytes": 1647523,
+    "sha256": "63a87ec9f853a0c4cee00a8c83205278495ac1ab8d883ba92ba9bb55089c63c2",
+    "source": "output/cinematic-glass/browser/1440x900-earth-baseline-selected.png",
+    "label": "earth 1440\u00d7900 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/1440x900-earth-baseline-expanded.png",
+    "bytes": 1669958,
+    "sha256": "15cef2cb189bcd13840a24839fcc9eee545ab1e7bd8b5c868aadae272c1a3aa7",
+    "source": "output/cinematic-glass/browser/1440x900-earth-baseline-expanded.png",
+    "label": "earth 1440\u00d7900 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/1440x900-earth-candidate-opening.png",
+    "bytes": 1466793,
+    "sha256": "83afe6122a543dcf346b2da2fbc6d81ac071b894b1b38a15929345ab939d9131",
+    "source": "output/cinematic-glass/browser/1440x900-earth-candidate-opening.png",
+    "label": "earth 1440\u00d7900 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/1440x900-earth-candidate-selected.png",
+    "bytes": 1682665,
+    "sha256": "bf28582a74cdb44be4213b8b80505a5fbdf4d9ca8cde5a3f09ae907bfbc4c903",
+    "source": "output/cinematic-glass/browser/1440x900-earth-candidate-selected.png",
+    "label": "earth 1440\u00d7900 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/1440x900-earth-candidate-expanded.png",
+    "bytes": 1800843,
+    "sha256": "4769818352ea8367ed557de00865e487145826ab39d893396a27dfa973cd9df1",
+    "source": "output/cinematic-glass/browser/1440x900-earth-candidate-expanded.png",
+    "label": "earth 1440\u00d7900 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/1440x900-earth-material-crop.png",
+    "bytes": 115365,
+    "sha256": "86c085425faefde12bce33a026f5931d9fbb61aa8da70d88b4434cb28305116a",
+    "source": "output/cinematic-glass/browser/1440x900-earth-material-crop.png",
+    "label": "Actual material/control detail: 1440x900-earth-material-crop.png"
+  },
+  {
+    "file": "assets/1440x900-earth-candidate-controls.png",
+    "bytes": 1753020,
+    "sha256": "2cd82dddf6c8884c69689683aee314291cc68da0c25f4a189cd17ec4ad65f3c0",
+    "source": "output/cinematic-glass/browser/1440x900-earth-candidate-controls.png",
+    "label": "Actual material/control detail: 1440x900-earth-candidate-controls.png"
+  },
+  {
+    "file": "assets/390x900-earth-baseline-opening.png",
+    "bytes": 473736,
+    "sha256": "70455243f013267e9f642a2b37aee70857a84ae5d01e8ab539eaa5781d52c627",
+    "source": "output/cinematic-glass/browser/390x900-earth-baseline-opening.png",
+    "label": "earth 390\u00d7900 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/390x900-earth-baseline-selected.png",
+    "bytes": 341196,
+    "sha256": "383c9b317eb3c56366de4d56c775ece54549910cd7894f0df79c899e1cdb1abb",
+    "source": "output/cinematic-glass/browser/390x900-earth-baseline-selected.png",
+    "label": "earth 390\u00d7900 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/390x900-earth-baseline-expanded.png",
+    "bytes": 306736,
+    "sha256": "00a68af021efa2650215c553ab05f7f4bc16ec5bd90273ea71b4f3d740e5199f",
+    "source": "output/cinematic-glass/browser/390x900-earth-baseline-expanded.png",
+    "label": "earth 390\u00d7900 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/390x900-earth-candidate-opening.png",
+    "bytes": 498135,
+    "sha256": "6e15662c0910feebcd2896efcfc804452110bf6f846a25a86d4bd1a8977ec79b",
+    "source": "output/cinematic-glass/browser/390x900-earth-candidate-opening.png",
+    "label": "earth 390\u00d7900 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/390x900-earth-candidate-selected.png",
+    "bytes": 435631,
+    "sha256": "c1a4f286333b5876080c0954cc725ede81bfbad6388a172b9f64050cf2f11b66",
+    "source": "output/cinematic-glass/browser/390x900-earth-candidate-selected.png",
+    "label": "earth 390\u00d7900 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/390x900-earth-candidate-expanded.png",
+    "bytes": 433324,
+    "sha256": "29fa0ef46c0cddfc8cc1061f5e6ee281eaab000571244479c5aeca0afab03918",
+    "source": "output/cinematic-glass/browser/390x900-earth-candidate-expanded.png",
+    "label": "earth 390\u00d7900 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/390x900-earth-material-crop.png",
+    "bytes": 94707,
+    "sha256": "f3c3b9c44dede7fc3f615c59a111a0c22772d8d66d6a47fdd3da70a556ec7614",
+    "source": "output/cinematic-glass/browser/390x900-earth-material-crop.png",
+    "label": "Actual material/control detail: 390x900-earth-material-crop.png"
+  },
+  {
+    "file": "assets/390x900-earth-candidate-controls.png",
+    "bytes": 425381,
+    "sha256": "42daa5c09f356877fb291e33a3abb91e4be9da3094bc4c99b5174ca3c97eebc7",
+    "source": "output/cinematic-glass/browser/390x900-earth-candidate-controls.png",
+    "label": "Actual material/control detail: 390x900-earth-candidate-controls.png"
+  },
+  {
+    "file": "assets/667x390-earth-baseline-opening.png",
+    "bytes": 361074,
+    "sha256": "59affe2fba2747b00d81e1c55d796454d834a59b57f16d9d7a596b56d4971b8b",
+    "source": "output/cinematic-glass/browser/667x390-earth-baseline-opening.png",
+    "label": "earth 667\u00d7390 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/667x390-earth-baseline-selected.png",
+    "bytes": 246901,
+    "sha256": "770c0d2245b2f341962da70fb77ba24cbc37f431e37f3d7c72db42e48a520e2b",
+    "source": "output/cinematic-glass/browser/667x390-earth-baseline-selected.png",
+    "label": "earth 667\u00d7390 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/667x390-earth-baseline-expanded.png",
+    "bytes": 242638,
+    "sha256": "e220bf9c02a30c421b27e6c6296d27e36eafef756f9fa0634551bd71432f46b9",
+    "source": "output/cinematic-glass/browser/667x390-earth-baseline-expanded.png",
+    "label": "earth 667\u00d7390 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/667x390-earth-candidate-opening.png",
+    "bytes": 384146,
+    "sha256": "7c19b55a414243ffc12c197a3885d28bfed763a1a67c620e2ba5d80dffe5e665",
+    "source": "output/cinematic-glass/browser/667x390-earth-candidate-opening.png",
+    "label": "earth 667\u00d7390 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/667x390-earth-candidate-selected.png",
+    "bytes": 324557,
+    "sha256": "09bdf2ba2eb6f2caf87cfbfb2eb899598397ce7940c5f0342ac702ed4724971b",
+    "source": "output/cinematic-glass/browser/667x390-earth-candidate-selected.png",
+    "label": "earth 667\u00d7390 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/667x390-earth-candidate-expanded.png",
+    "bytes": 316553,
+    "sha256": "1789b8ccb5049bb2d56ff5c14b9cc5bc86505b321ec0dc45a619d5527cc9e1eb",
+    "source": "output/cinematic-glass/browser/667x390-earth-candidate-expanded.png",
+    "label": "earth 667\u00d7390 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/667x390-earth-material-crop.png",
+    "bytes": 60840,
+    "sha256": "d6b3ba8c90d1e916c104dd543fe7a3961461649633e07e35e7ba38b4c187fdd3",
+    "source": "output/cinematic-glass/browser/667x390-earth-material-crop.png",
+    "label": "Actual material/control detail: 667x390-earth-material-crop.png"
+  },
+  {
+    "file": "assets/667x390-earth-candidate-controls.png",
+    "bytes": 289515,
+    "sha256": "478a784a9e846d46072f08ee48eb016c5c390ebc9250cfcab61a6c50ad75d643",
+    "source": "output/cinematic-glass/browser/667x390-earth-candidate-controls.png",
+    "label": "Actual material/control detail: 667x390-earth-candidate-controls.png"
+  },
+  {
+    "file": "assets/sky-cinematic.png",
+    "bytes": 2092968,
+    "sha256": "e932e4a7cf59cf92d810e4dffbcbb5873d0fee8b51997d3f3ae162c84c7a7c91",
+    "source": "docs/design/cinematic-references-2026-10-21/sky-cinematic.png",
+    "label": "Original approved bytes; visual direction, not scientific fixture."
+  },
+  {
+    "file": "assets/1440x900-sky-baseline-opening.png",
+    "bytes": 472872,
+    "sha256": "7e40515c37c42cc09f90c1bf9f7e6016f1d3f2de9f7cfc3a1c20afbd2288b565",
+    "source": "output/cinematic-glass/browser/1440x900-sky-baseline-opening.png",
+    "label": "sky 1440\u00d7900 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/1440x900-sky-baseline-selected.png",
+    "bytes": 608842,
+    "sha256": "cacbe7d08c1bcedfdc4d9f79c3c09e014490dd13d2067592d5f231bfb9650a6d",
+    "source": "output/cinematic-glass/browser/1440x900-sky-baseline-selected.png",
+    "label": "sky 1440\u00d7900 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/1440x900-sky-baseline-expanded.png",
+    "bytes": 603177,
+    "sha256": "950627ad4b4211c0abae4d2fed5c258fc78a9ac665c588476773569106a9e336",
+    "source": "output/cinematic-glass/browser/1440x900-sky-baseline-expanded.png",
+    "label": "sky 1440\u00d7900 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/1440x900-sky-candidate-opening.png",
+    "bytes": 536461,
+    "sha256": "5ef917a9bf71971df5e1779d142f774da8c82db3140df86f82df2bb84afe964b",
+    "source": "output/cinematic-glass/browser/1440x900-sky-candidate-opening.png",
+    "label": "sky 1440\u00d7900 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/1440x900-sky-candidate-selected.png",
+    "bytes": 678197,
+    "sha256": "03753d5a0414c5c9d1a2a8fa612edfb885609b3c88ac70b1ca9f780778c29fa7",
+    "source": "output/cinematic-glass/browser/1440x900-sky-candidate-selected.png",
+    "label": "sky 1440\u00d7900 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/1440x900-sky-candidate-expanded.png",
+    "bytes": 699981,
+    "sha256": "f9c3ad555e494a0b31b38f64abba034d70f3ac525ac74caa49e827fcb42b3278",
+    "source": "output/cinematic-glass/browser/1440x900-sky-candidate-expanded.png",
+    "label": "sky 1440\u00d7900 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/1440x900-sky-material-crop.png",
+    "bytes": 53037,
+    "sha256": "bfa1c7c2effd9fc381c0e7f9cfaa4ada46faf7011715b2158586e4465201d6a6",
+    "source": "output/cinematic-glass/browser/1440x900-sky-material-crop.png",
+    "label": "Actual material/control detail: 1440x900-sky-material-crop.png"
+  },
+  {
+    "file": "assets/1440x900-sky-candidate-controls.png",
+    "bytes": 798854,
+    "sha256": "ee4290a9b97f39ea382d97d986dc9623d417f6f2274fcb17daaa00ad0a196d81",
+    "source": "output/cinematic-glass/browser/1440x900-sky-candidate-controls.png",
+    "label": "Actual material/control detail: 1440x900-sky-candidate-controls.png"
+  },
+  {
+    "file": "assets/390x900-sky-baseline-opening.png",
+    "bytes": 178635,
+    "sha256": "18598e5c212a549a4516daa2b28fba2f50f912a3b636bb31a363af6451655b8d",
+    "source": "output/cinematic-glass/browser/390x900-sky-baseline-opening.png",
+    "label": "sky 390\u00d7900 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/390x900-sky-baseline-selected.png",
+    "bytes": 210980,
+    "sha256": "833dd2e4eac7ae4404dab81d2a8dd0dd84a3dd005421ac820fe7ad3fd4862b09",
+    "source": "output/cinematic-glass/browser/390x900-sky-baseline-selected.png",
+    "label": "sky 390\u00d7900 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/390x900-sky-baseline-expanded.png",
+    "bytes": 198187,
+    "sha256": "d3f6f862a0bcdb65a5639b7fb0fd0f8fc61a10abe7e4d80cdf817bacf7d113f4",
+    "source": "output/cinematic-glass/browser/390x900-sky-baseline-expanded.png",
+    "label": "sky 390\u00d7900 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/390x900-sky-candidate-opening.png",
+    "bytes": 222322,
+    "sha256": "7c8dc896f8dfc3201584c8880aa8b73bfa2d73f5e2e55b38a321ae33500a2f83",
+    "source": "output/cinematic-glass/browser/390x900-sky-candidate-opening.png",
+    "label": "sky 390\u00d7900 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/390x900-sky-candidate-selected.png",
+    "bytes": 265834,
+    "sha256": "fd582e3bfc8a4c286249cc883b6fc4f583a1b77face65f5b4606a4d33fbe86be",
+    "source": "output/cinematic-glass/browser/390x900-sky-candidate-selected.png",
+    "label": "sky 390\u00d7900 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/390x900-sky-candidate-expanded.png",
+    "bytes": 280723,
+    "sha256": "c1f72f6e9f36ca4c36d041c3e5143bee658b5284c6af5761971d61a38f0ae74b",
+    "source": "output/cinematic-glass/browser/390x900-sky-candidate-expanded.png",
+    "label": "sky 390\u00d7900 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/390x900-sky-material-crop.png",
+    "bytes": 99341,
+    "sha256": "dea2f409882ecc725db9dfaaf3e958880b53b221f220f1c81b5b091b6b7521cc",
+    "source": "output/cinematic-glass/browser/390x900-sky-material-crop.png",
+    "label": "Actual material/control detail: 390x900-sky-material-crop.png"
+  },
+  {
+    "file": "assets/390x900-sky-candidate-controls.png",
+    "bytes": 264642,
+    "sha256": "fde39d182a0b0e5f636d6bb53d9282b06ecb6eb469598c7a185e334430b4b168",
+    "source": "output/cinematic-glass/browser/390x900-sky-candidate-controls.png",
+    "label": "Actual material/control detail: 390x900-sky-candidate-controls.png"
+  },
+  {
+    "file": "assets/667x390-sky-baseline-opening.png",
+    "bytes": 119812,
+    "sha256": "382cae6d631ac80ea25ace9576fb0bafbc24532d494af53ee4bd38e8c1979ce9",
+    "source": "output/cinematic-glass/browser/667x390-sky-baseline-opening.png",
+    "label": "sky 667\u00d7390 baseline initial; actual native application"
+  },
+  {
+    "file": "assets/667x390-sky-baseline-selected.png",
+    "bytes": 128373,
+    "sha256": "374213d3437a13174df77eb6e231e64c076268cd682d8e8a430416d6d6f566f2",
+    "source": "output/cinematic-glass/browser/667x390-sky-baseline-selected.png",
+    "label": "sky 667\u00d7390 baseline selected; actual native application"
+  },
+  {
+    "file": "assets/667x390-sky-baseline-expanded.png",
+    "bytes": 98733,
+    "sha256": "4c9d324dc20c97060eaad963bd655183455be328a3a8e7b9d26f640d4379d1e6",
+    "source": "output/cinematic-glass/browser/667x390-sky-baseline-expanded.png",
+    "label": "sky 667\u00d7390 baseline expanded; actual native application"
+  },
+  {
+    "file": "assets/667x390-sky-candidate-opening.png",
+    "bytes": 180799,
+    "sha256": "7145954c3492dd3251515af87e0f32aaec0f4b882b54ae775aa250074e49e341",
+    "source": "output/cinematic-glass/browser/667x390-sky-candidate-opening.png",
+    "label": "sky 667\u00d7390 candidate initial; actual native application"
+  },
+  {
+    "file": "assets/667x390-sky-candidate-selected.png",
+    "bytes": 201670,
+    "sha256": "b8723c1114fca499c1a6dde53655456b3396c4fc2c16bd42615b0fdb1a2fbbe2",
+    "source": "output/cinematic-glass/browser/667x390-sky-candidate-selected.png",
+    "label": "sky 667\u00d7390 candidate selected; actual native application"
+  },
+  {
+    "file": "assets/667x390-sky-candidate-expanded.png",
+    "bytes": 202015,
+    "sha256": "4373a700a4389553ffbd6c6216f9593b43db30b1d4e46747ed8a7a61bfb22a65",
+    "source": "output/cinematic-glass/browser/667x390-sky-candidate-expanded.png",
+    "label": "sky 667\u00d7390 candidate expanded; actual native application"
+  },
+  {
+    "file": "assets/667x390-sky-material-crop.png",
+    "bytes": 127122,
+    "sha256": "d3239f83adbbb7dfd4c13beb31747ecd1984b6bfda43a8a554477cb9d767db3a",
+    "source": "output/cinematic-glass/browser/667x390-sky-material-crop.png",
+    "label": "Actual material/control detail: 667x390-sky-material-crop.png"
+  },
+  {
+    "file": "assets/667x390-sky-candidate-controls.png",
+    "bytes": 198260,
+    "sha256": "715130a9c6df8422dd7e948d790e1f8db71001b5e3f1ef1ab45fd99bef4596de",
+    "source": "output/cinematic-glass/browser/667x390-sky-candidate-controls.png",
+    "label": "Actual material/control detail: 667x390-sky-candidate-controls.png"
+  },
+  {
+    "file": "assets/solar-adaptive-explorer.png",
+    "bytes": 2047493,
+    "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7",
+    "source": "docs/design/cinematic-references-2026-10-21/solar-adaptive-explorer.png",
+    "label": "Original Adaptive Explorer reference; unchanged bytes."
+  },
+  {
+    "file": "assets/compositing-actual-bright-globe-dialog.png",
+    "bytes": 457303,
+    "sha256": "67d9da9a5f323c784cbcded728bb02f635ec2f19c6ad8985700552b8e7349da3",
+    "source": "output/cinematic-glass/compositing/actual-bright-globe-dialog.png",
+    "label": "compositing \u2014 actual-bright-globe-dialog.png"
+  },
+  {
+    "file": "assets/compositing-standard.png",
+    "bytes": 278985,
+    "sha256": "ce6cb7f5a313e8440561ef0ce74fb57b9d6966fa18fd28e93ed22613288e18a1",
+    "source": "output/cinematic-glass/compositing/standard.png",
+    "label": "compositing \u2014 standard.png"
+  },
+  {
+    "file": "assets/compositing-diagnostic-filter-disabled.png",
+    "bytes": 293577,
+    "sha256": "4d2036dc04fd3b1eb6cd96ea9cbe120906b183d20dcae7f3e05db8c55e7b4514",
+    "source": "output/cinematic-glass/compositing/diagnostic-filter-disabled.png",
+    "label": "compositing \u2014 diagnostic-filter-disabled.png"
+  },
+  {
+    "file": "assets/compositing-diagnostic-opaque.png",
+    "bytes": 100849,
+    "sha256": "940b22716c93a49d68c5c69ebc4c18d9526ccbaf55f5fd6a321ac619706b3e4c",
+    "source": "output/cinematic-glass/compositing/diagnostic-opaque.png",
+    "label": "compositing \u2014 diagnostic-opaque.png"
+  },
+  {
+    "file": "assets/accessibility-night-opaque.png",
+    "bytes": 120041,
+    "sha256": "a5ab8c6ffb7d0963bbdffce22a3eaf7a034c4521c47a745213540dc915f7c2c2",
+    "source": "output/cinematic-glass/accessibility/night-opaque.png",
+    "label": "accessibility \u2014 night-opaque.png"
+  },
+  {
+    "file": "assets/accessibility-forced-colors.png",
+    "bytes": 165638,
+    "sha256": "41f5f52088ed4975b6062822c9e955cbe3765afb19a9181777d12fde29bb5f26",
+    "source": "output/cinematic-glass/accessibility/forced-colors.png",
+    "label": "accessibility \u2014 forced-colors.png"
+  }
+]

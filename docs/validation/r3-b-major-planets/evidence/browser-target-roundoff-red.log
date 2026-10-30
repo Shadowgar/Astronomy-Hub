@@ -1,0 +1,26 @@
+1440 Nine real source-backed bodies, no marketing headline
+1440 Sun select/focus/approach exact source target, explicit center, unchanged time
+1440 Mercury select/focus/approach exact source target, explicit center, unchanged time
+1440 Venus select/focus/approach exact source target, explicit center, unchanged time
+1440 Earth select/focus/approach exact source target, explicit center, unchanged time
+1440 Mars select/focus/approach exact source target, explicit center, unchanged time
+1440 Jupiter select/focus/approach exact source target, explicit center, unchanged time
+1440 Saturn select/focus/approach exact source target, explicit center, unchanged time
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    9.68091944829015,
+    15.533953103185496,
++   6.666401299184041
+-   6.66640129918404
+  ]
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-b-major-planets-1/scripts/validation/verify_r3b_major_planets.mjs:5:357 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [Array],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

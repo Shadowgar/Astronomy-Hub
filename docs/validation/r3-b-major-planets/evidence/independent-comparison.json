@@ -1,0 +1,204 @@
+{
+  "comparisonOnly": true,
+  "accuracyCertified": false,
+  "localSource": {
+    "id": "jpl_de442s_local",
+    "release": "de442s-2025-02-06",
+    "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+  },
+  "independentSource": "Horizons DE441; see raw responses",
+  "rows": [
+    {
+      "target": "399",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        0.0029305096235508446,
+        0.0010877203748831054,
+        -5.944253747395267e-05
+      ],
+      "normKm": 0.0031264285827316282,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "399",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        0.00661378366375458,
+        0.013923637946546141,
+        0.0092008253703003
+      ],
+      "normKm": 0.017951741294710333,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "4",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        0.00032905156536293666,
+        -0.0030571818107842335,
+        -0.0018942045937994513
+      ],
+      "normKm": 0.0036114604525079195,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "4",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        -0.05144113013853734,
+        -0.0772292427909037,
+        -0.03754771172172964
+      ],
+      "normKm": 0.10010183049037814,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "5",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        0.13269354816831447,
+        -1.541480091865788,
+        3.0229634803718017
+      ],
+      "normKm": 3.395891142985248,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "5",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        -0.38572443601678413,
+        -6.163078419580436,
+        13.460019570953808
+      ],
+      "normKm": 14.80893128476522,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "6",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        0.012590058984843553,
+        -0.008204033476008288,
+        -0.02497656174189142
+      ],
+      "normKm": 0.02914866012295966,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "6",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        0.003741076468547888,
+        -0.12024255382897786,
+        -0.17088141524427994
+      ],
+      "normKm": 0.20898020356087843,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "7",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        -219.29539516472855,
+        -249.92348271426738,
+        -149.26683740545775
+      ],
+      "normKm": 364.4623523788301,
+      "inherited50kmPass": false,
+      "comparisonEnvelopeKm": 1500
+    },
+    {
+      "target": "7",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        -1040.6430786384856,
+        -477.1398286852878,
+        -163.6825591128703
+      ],
+      "normKm": 1156.4568359406023,
+      "inherited50kmPass": false,
+      "comparisonEnvelopeKm": 1500
+    },
+    {
+      "target": "8",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        52.454397962929775,
+        -25.907851148757548,
+        -11.852912791803169
+      ],
+      "normKm": 59.69231238986877,
+      "inherited50kmPass": false,
+      "comparisonEnvelopeKm": 1500
+    },
+    {
+      "target": "8",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        289.9382053662481,
+        -159.13835315859845,
+        -72.16724880383087
+      ],
+      "normKm": 338.52221518970583,
+      "inherited50kmPass": false,
+      "comparisonEnvelopeKm": 1500
+    },
+    {
+      "target": "199",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        -0.0006066452258002868,
+        8.304350024301854e-06,
+        0.0005664106499325444
+      ],
+      "normKm": 0.0008300050702089803,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "199",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        0.004512633629305773,
+        0.003239414835754825,
+        0.001908837896586024
+      ],
+      "normKm": 0.0058737835222191165,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "299",
+      "jdUtc": 2451545.0,
+      "deltaKm": [
+        4.901227384342954e-05,
+        0.0017602699605200047,
+        0.00211473802717607
+      ],
+      "normKm": 0.0027519210491002352,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    },
+    {
+      "target": "299",
+      "jdUtc": 2461099.5,
+      "deltaKm": [
+        0.0016807007927184035,
+        -0.008425319491105858,
+        -0.006768454518555646
+      ],
+      "normKm": 0.0109372181221556,
+      "inherited50kmPass": true,
+      "comparisonEnvelopeKm": 50
+    }
+  ]
+}

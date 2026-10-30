@@ -1,0 +1,3070 @@
+{
+  "base": "http://127.0.0.1:4224",
+  "epoch": "2026-10-23T01:05:00Z",
+  "source_sha256": {
+    "frontend/src/features/solar/assets/mars-nasa.glb": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+    "frontend/src/features/solar/assets/provenance.json": "566ba89818af6aa2c65b24a673303930b67f273619ae0ee26006a637bfbb30c1",
+    "frontend/src/features/systems/PlanetSelector.tsx": "6fe9ad6a2644ac48f66f0445591c0c9799aa7aa6ded03c2bda346321073d8622",
+    "frontend/src/features/systems/SystemScene.ts": "6f2ac031be2ddafb52d9005c616e48952ed3b9963f7c2f1216e89d6072aab852",
+    "frontend/src/features/systems/SystemWorkspace.tsx": "904c3eb71226ca554a27bf63517a42527c65a128d584d2dade5437177f2aa5c1",
+    "frontend/src/features/systems/systemContracts.ts": "a286896dec6fa046fcb5b839629e8dd7df05310d7822fb58cbd2458ec38ca606",
+    "frontend/src/features/systems/systemMaterials.ts": "7a25139498ff211e4b6ea12d785508197636676e4e1023b1341694c0348ecd30",
+    "frontend/src/features/systems/systemPlayback.ts": "ae448937731167a30659afc3a9ee652618862a6e1ec1e4e0396115254cee6e10",
+    "frontend/src/features/systems/systemSceneMath.ts": "973ea97c4e4a7ff2f635520635a54a6626594d2ad0ba9e702ad255b184aab53a",
+    "frontend/src/features/systems/systemTypes.ts": "c02c253a6dd38a1bcd7725ddb4c5b4d960ddf4d2df13ceb353255d5fd9589d19",
+    "frontend/src/features/systems/systems.css": "f8811648a0d53889147c0088362d625d8bcc12dde45c76b21d213a7d8968c047",
+    "scripts/validation/verify_ps2_material_lifecycle.mjs": "37cfccc9342e744ad93d348a2b8f7b1f78613561b9739eb3ec531c92bf710ccb"
+  },
+  "served_index_sha256": "973051cb1bf6d32ef594b9c5b48ae816f645a78f9c209c745b0671306e4382a0",
+  "served_assets": [
+    {
+      "path": "/assets/index-C18a5g-v.js",
+      "sha256": "414fec84cf12ac3a12575120af70bd1c8271b4114b2820fb148cfc198e51f21f"
+    }
+  ],
+  "checks": [
+    {
+      "name": "mars-original-model-source-light-idle",
+      "status": "PASS",
+      "page_errors": [],
+      "renderer": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      },
+      "initial": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 25.399999999441206,
+          "p95": 26.800000000745058
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "initial_sun_direct_residual_km": [
+        0.012696944177150726,
+        0.0003871917724609375,
+        -0.00016482174396514893
+      ],
+      "glb_responses": [
+        {
+          "url": "http://127.0.0.1:4224/assets/mars-nasa-CvpPatzZ.glb",
+          "status": 200
+        }
+      ],
+      "served_glb_sha256": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+      "idle_before": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 25.399999999441206,
+          "p95": 26.800000000745058
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "idle_after": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 25.399999999441206,
+          "p95": 26.800000000745058
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "progressed": {
+        "epoch": "2026-10-23T02:02:01.440Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 6,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25372135.29145318,
+          -213953000.9760675,
+          -98819571.17851955
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5450.161202544487,
+            "screenRadius": 43.46296818793692,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              8331.339598948829,
+              1359.7395064491934,
+              -3749.2982174347467
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2070.103315583503,
+            "screenRadius": 16.047865177084404,
+            "screen": [
+              784.6639782922023,
+              484.7524902848055
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              17947.77379562898,
+              -7819.950312469976,
+              -12935.547090946826
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3231.7137877784407,
+            "screenRadius": 24.000000000000004,
+            "screen": [
+              854.5217072265687,
+              573.3067245682846
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 6,
+          "median": 0.900000000372529,
+          "p95": 26.800000000745058
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "progressed_api_sun": [
+        25372135.278386515,
+        -213953000.97647014,
+        -98819571.17835179
+      ],
+      "light_direct_tolerance_km": 0.1
+    },
+    {
+      "name": "mars-glb-unavailable-neutral-fallback",
+      "status": "PASS",
+      "page_errors": [],
+      "actual": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "error",
+            "textureStatus": "error",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": "Original NASA Mars model unavailable",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 17.200000000186265,
+          "p95": 17.200000000186265
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      }
+    },
+    {
+      "name": "delayed-mars-model-after-parent-switch",
+      "status": "PASS",
+      "page_errors": [],
+      "retained_response_status": 200,
+      "before": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "loading",
+            "textureStatus": "loading",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 18.90000000037253,
+          "p95": 18.90000000037253
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "old_before_release": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": true,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "loading",
+            "textureStatus": "loading",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 0,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 18.90000000037253,
+          "p95": 18.90000000037253
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "old_after_release": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": true,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "loading",
+            "textureStatus": "loading",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 0,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 18.90000000037253,
+          "p95": 18.90000000037253
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "active": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Jupiter center (599)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          -13202.985529938478,
+          -4132434.9783716807,
+          11052885.85227735
+        ],
+        "target": [
+          -13202.985529938478,
+          -2244.277534043533,
+          -1271.001894669782
+        ],
+        "cameraState": {
+          "position": [
+            -13202.985529938478,
+            -4132434.9783716807,
+            11052885.85227735
+          ],
+          "target": [
+            -13202.985529938478,
+            -2244.277534043533,
+            -1271.001894669782
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "jupiter",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 69911,
+            "displayRadiusKm": 281981.44368452154,
+            "screenRadius": 28.0135525020709,
+            "screen": [
+              721.3116564112402,
+              484.24694958236495
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "io",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -149680.87634462214,
+              -355700.6041985097,
+              -172123.1708579027
+            ],
+            "radiusKm": 1821.49,
+            "displayRadiusKm": 104504.2078404654,
+            "screenRadius": 10.34346553922618,
+            "screen": [
+              706.4836286459685,
+              523.2134315951405
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "europa",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              423052.38000798126,
+              -478752.1591637497,
+              -215499.691988285
+            ],
+            "radiusKm": 1560.8,
+            "displayRadiusKm": 167329.5092631378,
+            "screenRadius": 16.5479569687187,
+            "screen": [
+              763.2143462618075,
+              536.143471114462
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "ganymede",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              409908.9267308056,
+              888698.329547536,
+              432977.7940819996
+            ],
+            "radiusKm": 2631.2,
+            "displayRadiusKm": 240651.2596994824,
+            "screenRadius": 24,
+            "screen": [
+              762.3737545758756,
+              385.6963901370169
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "callisto",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              1665193.7340531587,
+              -782729.9934027618,
+              -344121.4114275676
+            ],
+            "radiusKm": 2410.3,
+            "displayRadiusKm": 245612.6773203636,
+            "screenRadius": 24,
+            "screen": [
+              886.0599401764385,
+              568.7092357743788
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 9,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 42,
+          "p95": 42
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "jupiter"
+      }
+    },
+    {
+      "name": "mars-webgl-loss-retry",
+      "status": "PASS",
+      "page_errors": [],
+      "before": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 17.600000000558794,
+          "p95": 18
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "disposed": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": true,
+        "contextLost": true,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 0,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 17.600000000558794,
+          "p95": 18
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "retried": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 11.399999999441206,
+          "p95": 22
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      }
+    },
+    {
+      "name": "focused-path-visibility-restores-preference",
+      "status": "PASS",
+      "page_errors": [],
+      "overview_enabled": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 17.600000000558794,
+          "p95": 18
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "focused_enabled": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "phobos",
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": false,
+        "renderCount": 4,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          5530.6972027097745,
+          -5085.203566449138,
+          -5414.193216588632
+        ],
+        "target": [
+          5530.6972027097745,
+          -5050.300373153191,
+          -5507.60909041902
+        ],
+        "cameraState": {
+          "position": [
+            5530.6972027097745,
+            -5085.203566449138,
+            -5414.193216588632
+          ],
+          "target": [
+            5530.6972027097745,
+            -5050.300373153191,
+            -5507.60909041902
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "phobos"
+        },
+        "viewport": {
+          "clearWidth": 1120,
+          "clearHeight": 521,
+          "rectangleOffsetX": 140,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 3389.5,
+            "screenRadius": 429.06669933374104,
+            "screen": [
+              2549.5424850899894,
+              2855.6764188005172
+            ],
+            "inView": false,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 11.080000000000002,
+            "screenRadius": 130.2499999999997,
+            "screen": [
+              580,
+              484.4999999999895
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 6.2,
+            "screenRadius": 0.5099504073097034,
+            "screen": [
+              2722.137356501188,
+              2436.0036069477114
+            ],
+            "inView": false,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 1,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 4,
+          "median": 17.600000000558794,
+          "p95": 18
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "reloaded_focus": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "phobos",
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": false,
+        "renderCount": 2,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          5530.6972027097745,
+          -5085.203566449138,
+          -5414.193216588632
+        ],
+        "target": [
+          5530.6972027097745,
+          -5050.300373153191,
+          -5507.60909041902
+        ],
+        "cameraState": {
+          "position": [
+            5530.6972027097745,
+            -5085.203566449138,
+            -5414.193216588632
+          ],
+          "target": [
+            5530.6972027097745,
+            -5050.300373153191,
+            -5507.60909041902
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "phobos"
+        },
+        "viewport": {
+          "clearWidth": 1120,
+          "clearHeight": 521,
+          "rectangleOffsetX": 140,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "loading",
+            "textureStatus": "loading",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 3389.5,
+            "screenRadius": 429.06669933374104,
+            "screen": [
+              2549.5424850899567,
+              2855.6764188004668
+            ],
+            "inView": false,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 11.08,
+            "screenRadius": 130.25000000000009,
+            "screen": [
+              580,
+              484.5
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 6.2,
+            "screenRadius": 0.5099504073097034,
+            "screen": [
+              2722.1373565011577,
+              2436.003606947674
+            ],
+            "inView": false,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 1,
+        "geometries": 1,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 12,
+          "p95": 12
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "overview_restored": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 5,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 5,
+          "median": 0.6999999992549419,
+          "p95": 46.799999999813735
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "disabled": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": false,
+        "orbitsVisible": false,
+        "renderCount": 6,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 3,
+        "geometries": 5,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 6,
+          "median": 0.6999999992549419,
+          "p95": 46.799999999813735
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "focused_disabled": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "phobos",
+        "sizeMode": "cinematic",
+        "orbitsRequested": false,
+        "orbitsVisible": false,
+        "renderCount": 6,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          5530.6972027097745,
+          -5085.203566449138,
+          -5414.193216588632
+        ],
+        "target": [
+          5530.6972027097745,
+          -5050.300373153191,
+          -5507.60909041902
+        ],
+        "cameraState": {
+          "position": [
+            5530.6972027097745,
+            -5085.203566449138,
+            -5414.193216588632
+          ],
+          "target": [
+            5530.6972027097745,
+            -5050.300373153191,
+            -5507.60909041902
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "phobos"
+        },
+        "viewport": {
+          "clearWidth": 1120,
+          "clearHeight": 521,
+          "rectangleOffsetX": 140,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 719.6374717649624,
+            "screen": [
+              2549.5424850899894,
+              2855.6764188005172
+            ],
+            "inView": false,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 25286.20980394558,
+            "screen": [
+              580,
+              484.4999999999895
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 264.6403828872517,
+            "screen": [
+              2722.137356501188,
+              2436.0036069477114
+            ],
+            "inView": false,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 3,
+        "geometries": 5,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 6,
+          "median": 0.6999999992549419,
+          "p95": 46.799999999813735
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "overview_disabled": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": false,
+        "orbitsVisible": false,
+        "renderCount": 9,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 3,
+        "geometries": 5,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 9,
+          "median": 0.40000000037252903,
+          "p95": 46.799999999813735
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "restored_parent": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "mars",
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "mars"
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "loading",
+            "textureStatus": "loading",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 13.899999999441206,
+          "p95": 13.899999999441206
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      },
+      "restored_null": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          25292850.72536414,
+          -213955431.38758022,
+          -98818547.62468103
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "loading",
+            "textureStatus": "loading",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 5684.9231467624295,
+            "screenRadius": 45.33510564114087,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              5530.6972027097745,
+              -5050.300373153191,
+              -5507.60909041902
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2151.026523053495,
+            "screenRadius": 16.73911592903663,
+            "screen": [
+              763.0900257260615,
+              536.3550229448573
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              15297.853490618669,
+              -11549.574438225201,
+              -13535.499000008962
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3217.5096840436227,
+            "screenRadius": 23.999999999999993,
+            "screen": [
+              835.2047980124895,
+              601.6274999308374
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 14.299999999813735,
+          "p95": 14.299999999813735
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "mars"
+      }
+    }
+  ],
+  "limitations": [
+    "Actual Chromium WebGL using requested ANGLE SwiftShader; not a physical GPU/device benchmark.",
+    "503 and delayed-GLB responses are controlled browser fixtures; original source files and services are unchanged.",
+    "Renderer diagnostics establish exposed disposal counters and frame behavior, not driver-level memory reclamation.",
+    "Sun and moon vectors match the admitted API sample interpolation; direct API comparisons use the stated 0.1km qualification threshold, not the measured-checkpoint maximum as an all-times bound. Browser Date truncates sample UTC microseconds to milliseconds.",
+    "Desktop 1440x900 only; broad responsive/system qualification is separate."
+  ],
+  "served_index_sha256_after": "973051cb1bf6d32ef594b9c5b48ae816f645a78f9c209c745b0671306e4382a0",
+  "served_unchanged": true,
+  "source_unchanged": true,
+  "status": "PASS"
+}

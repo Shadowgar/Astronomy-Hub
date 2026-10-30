@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "finding": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4298238214",
+  "priorReviewedHead": "eb84f3f139278a6dad8431d55672d57788122417",
+  "sourceBefore": {
+    "runtimes/earth-runtime/core/CameraController.mjs": "1c9af9d135759de1e0e17daf9e91d559c67e42a5481bdc58d9eff272ac567a29",
+    "runtimes/earth-runtime/entry.mjs": "a399edf789d200af310289b15629c49d3b079fc7687f8c0a10bf036c620aa1a2",
+    "integrations/renderers.lock.json": "b6be23f62c66cf54db29084f75e4ed6204d95bc87df5b7f2ebe08459c24d07e0",
+    "frontend/public/runtime-versions.json": "dfa169e679ef5755a2e00aeb055c7278df072033a04193240a89766abe1aed30"
+  },
+  "sourceAfter": {
+    "runtimes/earth-runtime/core/CameraController.mjs": "3b13a443cf361aabd9a5c4de5e655ef5c1bc9383c845563e9089da51c27686c9",
+    "runtimes/earth-runtime/entry.mjs": "b4e31179362db39f250c50b41c773134763b7c2c09925da29ae4e51186efcc08",
+    "integrations/renderers.lock.json": "89798c0408bed826e6968e6fa14e7e9c030d51b5300c0aeb967b233a19ad2213",
+    "frontend/public/runtime-versions.json": "88dc601aa82340c7487acd10ea16883972955e41e08cd7100e4ac9544d70b82a"
+  },
+  "unit": "1 genuine RED,5 focused GREEN;161 runtime/Earth regressions PASS",
+  "browser": "Controlled persisted events in actual Cesium; not actual bfcache/Back qualification",
+  "fullNavigation": "Desktop5/22,mobile7/22 FAIL; not rerun; cause UNKNOWN",
+  "oldEarthArtifact": "834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c",
+  "newEarthArtifact": "662e617078a4448d8235a2c9925c339ea7126cd430ec38cca5426fe8b60345b5",
+  "builds": "8 fresh compiled Earth outputs match independently; unchanged assets reused;512-file complete Earth verified.129 Hub files match in two builds.",
+  "preservation": "71/73 baseline paths unchanged; observerProvenance and CameraController are explicit reviewed corrections; Sky native/science/data/settings/source pins/rollback unchanged.",
+  "browserProofSha256": "36911c50f4662d4099fcf35f600f6d82759545595bd6e919182124d3bbadc6d2",
+  "browserWidths": [
+    1440,
+    390
+  ]
+}

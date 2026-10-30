@@ -1,24 +1,327 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active product and execution guard — R0, 2026-10-13
+## Current owner direction — 2026-10-21
 
-Owner-approved product intent is **Astronomy Hub — Adaptive Explorer**, defined in
-[PRODUCT_VISION](docs/product/PRODUCT_VISION.md) and the existing
-[workspace design contract](docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md).
-One shared component/design system has contextual Sky, Solar System, Earth and
-other planetary-surface configurations. Keep tools confined to their mode and the
-rendered universe primary. Controlled renderer handoffs may provide visual continuity;
-no continuous cross-body camera or new transitions are claimed implemented.
-Style direction is approved; final screens/layouts and visual references are not.
-Future UI implementation requires the owner's accepted reference revision, never
-a coder-generated substitute or automatic reuse of the old ORA-6 waiver.
+The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
+from PR #80 `23f5c41f830fad7eb66b67fec297962c2599428e`. R0 is completed/merged;
+R1/N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`.
+PR73/74 remain OPEN; PR78/79/80 are delivered OPEN DRAFTS, not merged or deployed.
+PR71 stays OPEN and independent. No production deployment from this stack.
 
-R0 permits documentation/governance and one unmerged documentation PR only.
-R1–R5 in the existing MASTER_PLAN are proposals, not execution authority. Historical
-C5/C6/D–H orders cannot activate further development. PR #71 remains unmerged with
-imagery/search/visual acceptance unfinished; preserve closed/unmerged PR #67.
-No source, renderer/artifact/dependency/data/Docker/production changes in this task.
-Existing science, source reuse, isolation, zero-cost and preservation rules continue.
+Preserve accepted Sky/Earth scrolling, Pennsylvania landscape, satellite presentation,
+Earth search/imagery/cache, scientific data, settings, source pins, volumes and rollbacks.
+Historical N1 desktop5/22 and mobile7/22 stopped at240s; no assertion mismatch reproduced,
+cause UNKNOWN. Those records remain PARTIALLY QUALIFIED, never a fresh44/44 pass.
+Browser proof is distinct from physical-device acceptance and OWNER ACCEPTED is distinct
+from TECHNICALLY QUALIFIED, PARTIALLY QUALIFIED, OPEN PR, MERGED and DEPLOYED.
+
+Only R3-A is activated: Sun/Earth/Mars source-backed positions, controlled epoch,
+selection/focus, accessible entry/return, isolated renderer lifetime and a tested R4
+interface. Full R3, R4 surfaces, R5 and X1–X4 need separate owner authorization.
+No merge, deployment, paid provider/account/spending, Google activation or advanced
+tracker/stellar/DSO implementation. Stop for owner review of the bounded slice.
+
+Current execution: [PROJECT_STATE](docs/execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](docs/execution/MASTER_PLAN.md).
+
+Earlier dated execution directions below are historical where superseded here; permanent architecture and validation rules still apply.
+
+## Historical — Active R2-B — owner authorization 2026-10-17
+
+N1 remains OWNER ACCEPTED. R2-A is delivered in draft PR78 at
+`27f34a94198f2061c0a5083a68beebd567c7d87f`. The owner now authorizes bounded
+R2-B automatic imagery/native dispatch/eligible persistent-cache integration from
+PR71 `35dcc94c` on a separate branch/draft stacked on R2-A. Earlier R2-A stop gates
+below are superseded only for this package. No merge of71/73/74/78/R2-B, deployment,
+R3, new provider spending/accounts/dependencies, terrain/buildings or upstream edits.
+Preserve accepted camera/scrolling, observer/time/tracking/selection, search, Sky
+landscape/satellites, data/settings/volumes and existing artifact/rollback identities.
+PEMA release rights and ion remain gated; imagery/cache and physical performance
+claims require source-bound proof. [Scope and evidence](docs/validation/r2-b-earth-imagery-cache/README.md).
+
+
+## Historical — Active R2-A — owner authorization 2026-10-17
+
+**N1 OWNER ACCEPTED. R2-A Earth Search, Navigation and Location Context ACTIVE.**
+The owner explicitly accepts N1 and authorizes implementation on a separate branch
+stacked on PR74 (`r1-b-adaptive-sky-implementation-1`) at integrated PR75 merge
+`d1e3a75c4fa3b48a41fc5167786b3147bf763e71`. PR74 and PR73 remain OPEN; no merge,
+deployment, paid provider/account/spending, new dependency or R3 is authorized.
+Deliver a working desktop/mobile Earth search preview and draft PR, then stop.
+
+Preserve accepted Sky/Earth scrolling/camera, Pennsylvania scenery, satellite
+presentation, science/data/source pins, settings, volumes and original artifacts.
+N1's historical full navigation record remains desktop5/22 and mobile7/22 at240s
+caps, cause UNKNOWN, no assertion mismatch reproduced. Owner acceptance does not
+turn those records into a fresh44-group pass. Do not reopen N1 acceptance or rerun
+its timeout/resource investigation. Earlier N1 stop/pending-acceptance directives
+below are historical and superseded by this explicit owner instruction.
+
+R2-A restores Hub contextual address/place/coordinate search through qualified
+existing functionality, explicit ambiguous-result choice, native Cesium navigation,
+location context and honest source/error states. Assess PR71 implementation and
+evidence for reuse without merging, closing, discarding or blindly cherry-picking.
+R2 imagery/cache integration beyond this assessment remains subsequent work.
+Scoped implementation and proof: [R2-A Earth search](docs/validation/r2-a-earth-search/README.md).
+
+
+## Historical — Active N1 delivery authorization — owner override 2026-10-16
+
+**PARTIALLY QUALIFIED. PR #75 MERGE EXPLICITLY OWNER-AUTHORIZED.**
+
+The owner first authorized commit/push for review only in
+[the PR conversation](https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6221730719),
+with status PARTIALLY QUALIFIED — DO NOT MERGE. The owner's subsequent chat instruction,
+“merge and move on”, explicitly supersedes that merge restriction for **PR #75 only**.
+Commit/push the preserved candidate, finish exact-head Codex review and address genuine
+in-scope findings, then merge PR75 into its existing `r1-b-adaptive-sky-implementation-1`
+base. PR74 and PR73 remain OPEN; their base chain remains intact. Do not deploy,
+begin R2/R3, change accepted features or retry the stalled full navigation suites.
+
+This is an explicit delivery/merge exception, not a navigation PASS or N1 acceptance.
+Desktop5/22 and mobile7/22 groups completed before240-second outer caps. No functional
+assertion mismatch reproduced; underlying cause UNKNOWN. Seven source-matching earlier
+browser families remain historical PASS evidence, never fresh44-group qualification.
+Scrolling and Pennsylvania scenery remain OWNER ACCEPTED. Satellite symbols, selection/
+time, FOV and product navigation remain pending the owner's respective acceptance/retest.
+Preserve data/settings/source pins/rollback identities. N1 NOT FINALIZED. Stop after
+PR75 delivery/merge and its exact-head review results. No merge of PR74/73 is authorized.
+
+Codex review of97eacd2d identified one genuine P2 coordinate-flight/handoff race.
+The sole correction disables Enter Sky here while busy/pending. Focused2-case RED/
+GREEN,268 frontend tests/typecheck, independent129-file Hub builds and actual
+desktop/mobile pending-flight/correct-location Sky handoffs PASS. Full stalled
+navigation suites are NOT rerun; prior5/22 and7/22 remain FAIL. A follow-up exact-head
+review is required before the already-authorized PR75 merge. Native science,
+accepted wheel/controller/panorama/satellite policy and the three UX fixes are unchanged.
+
+Follow-up review of42741d52 found saved elevation provenance was discarded on session
+restoration. A validated optional source now persists with observer intent and is
+used only when no URL observer supersedes it. Focused RED/GREEN,270 frontend tests,
+typecheck,two identical129-file Hub builds and actual desktop/mobile missing/provided
+zero restoration PASS.72/73 protected paths remain byte-identical; the one reviewed
+helper correction is explicitly recorded, while data/settings/native/source pins and
+rollback copies remain unchanged. Earlier browser evidence is historical with the
+reviewed source deltas qualified separately. Full navigation5/22 and7/22 remains FAIL.
+
+
+Latest review of eb84f3f1 identified persisted Earth departure clearing satellite
+tracking. The narrow correction preserves tracking only for persisted pagehide;
+ordinary input and teardown still stop tracking. Focused lifecycle RED/GREEN and
+161 runtime/Earth tests PASS; separately bound desktop/mobile real-Cesium checks use
+controlled persisted events, not actual bfcache/Back qualification. Earth entry is
+rebuilt reproducibly and admission metadata updated; original artifacts retained.
+71/73 baseline protected paths are unchanged, with observerProvenance and the tiny
+CameraController lifecycle option explicitly reviewed/qualified. No accepted scroll
+gain/damping/threshold change. Full navigation5/22 and7/22 remains FAIL/UNKNOWN,
+no rerun. Existing owner-authorized PR75-only merge exception and stop gate apply.
+
+Earlier N1 execution sections below are historical where they conflict with this override.
+
+## Historical — Active N1 final UX corrections — owner directive 2026-10-16
+
+This earlier N1 directive is historical for delivery gates; the active owner override is above.
+
+Owner qualification follow-up (2026-10-16): use exactly one bounded attempt per
+desktop/mobile navigation suite; do not repeat resource investigations, stop
+unrelated workloads/services, prune Docker or increase timeouts to obtain green.
+Reuse identity-matching evidence honestly. If either mandatory suite still fails,
+stop retries and report the gap for owner review; no unqualified readiness commit
+or push and no implicit qualification exception.
+
+Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73,
+baseline `f3629f9a8e4b4ac7a158a1448912d75ca36574db`. The owner authorizes three
+bounded corrections: satellite selection preserves native time/lighting/location,
+a visible native-backed FOV readout, and Astronomy Hub product navigation with
+accessible About & Licenses. Existing standalone runtime endpoints remain internal
+integration/testing surfaces; ordinary menus and copied object links stay in Hub.
+Preserve source pins, native C/WASM, scientific math/data, renderer lifetime and
+all five resolved P2 corrections. No provider/dependency/spending or new native changes.
+
+Scrolling at `301f9eb3`, Pennsylvania scenery at `53ac7478`, and Adaptive Explorer
+visual direction remain OWNER ACCEPTED. Satellite symbols at `f3629f9a` remain
+PENDING FINAL OWNER ACCEPTANCE with their hint policy unchanged. Selection/time:
+PENDING OWNER RETEST. FOV: PENDING OWNER VISUAL ACCEPTANCE. Product identity and
+navigation: PENDING OWNER ACCEPTANCE. Entire N1: NOT YET FINALIZED. PR #75 OPEN,
+UNMERGED. Satellite Explorer proposals are recorded only in the existing master plan;
+no feature/milestone is activated. No merge/deploy/R2/R3 or Earth imagery expansion.
+
+Qualify actual Docker/Chromium desktop/mobile time/illumination, real-input FOV,
+menu/license/focus and accepted navigation/rendering regressions, exact committed/
+served identities and all latest-head reviews. Preserve failed evidence/settings/
+volumes/rollback identities; commit/push the qualified correction to existing PR75,
+then STOP for owner testing at <http://127.0.0.1:4202/sky-engine>.
+Scoped evidence: [N1 final UX corrections](docs/validation/n1-final-ux/README.md).
+
+
+## Historical — Active N1 satellite zoom reveal repair — owner directive 2026-10-16
+
+Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73.
+The owner rejects the satellite presentation at `9cb158e35a1623be81263155c10839e14626c312`:
+wide-field points work, but real mouse-wheel zoom fails to reveal symbols without
+clicking. Prior direct-FOV Chromium checks do not qualify this reported journey.
+Scrolling at `301f9eb3` and Pennsylvania scenery at `53ac7478` remain OWNER ACCEPTED;
+Adaptive Explorer direction is preserved. Prior five P2 findings remain resolved,
+subject to no regressions. Satellite zoom reveal is PENDING OWNER RETEST; entire N1
+is NOT YET FINALIZED. PR #75 stays OPEN AND UNMERGED.
+
+Investigate native/reactive FOV, hint controls, native magnitude gate and actual
+pixels under real wheel/trackpad/touch input before a minimal contained adapter
+fix. Preserve native propagation/photometry/coordinates, original TLE/catalog bytes,
+observer/time, selection/NORAD/Focus/tracking, accepted input gain/camera animation,
+landscape assets, lifecycle, settings/volumes and existing rollbacks. No new native
+C/WASM change, dependency/provider/spending, merge, deployment or R2/R3. Qualify
+real Docker/browser input with RED/GREEN evidence and committed/served identities,
+then STOP for owner testing at <http://127.0.0.1:4202/sky-engine>.
+
+Repair qualification: native close-view hint floor 4, with unchanged accepted
+5°/7° transition and wheel/camera behavior. Focused RED/GREEN, 153 runtime/Earth
+and 252 frontend tests, six source/promotion regressions, typechecking, independent
+builds, seven real-input pixel journeys, central-icon checks, 30 native satellite
+scenes, 44 navigation groups and four observer-history variants pass. Data/HiPS
+request failures and historical/software limitations remain explicitly recorded in
+[the scoped report](docs/validation/n1-satellite-zoom-reveal/README.md). Final committed/served/review identity is guarded by
+the report's post-commit receipt. Satellite remains PENDING OWNER RETEST; no merge.
+
+
+
+## Historical — Active N1 final remediation — PR #75, owner directive 2026-10-15
+
+Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 →
+#73. The owner accepts smooth scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`,
+the original illustrative Pennsylvania panorama at
+`53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7`, and the Adaptive Explorer visual direction.
+These accepted designs supersede historical pending-acceptance statements below.
+
+The owner authorizes four bounded corrections: observational Earth navigation
+snapshots and cancellation, validated observer-elevation provenance, consistent
+pinned native build/attestation source selection, and restrained native satellite
+hints based on field of view and selection. Use contained adapters and supported
+native APIs. Preserve photometry, propagation, model behavior, science, observer/time,
+accepted camera animation, landscape assets/controls, standalone defaults, data,
+settings, rollback artifacts, and single-renderer ownership. No new native C/WASM
+modification is authorized; existing pinned native outputs must remain identical.
+
+All four corrections are technically qualified: 150 runtime/Earth tests, 252
+frontend tests, typechecking, three source-selection tests, reproducible builds,
+44 actual Chromium navigation groups, ten elevation cases per width, and native
+satellite/landscape/cancellation matrices pass. The three P2 fixes are **QUALIFIED**;
+original threads are answered and resolved after verified pushed implementation
+`b7b5da90b34f33124084cf73e36ee7c2644575f0`.
+Final-head review at `ea802138` found an additional P2 in correction 2: post-mount
+same-route observer updates bypassed provenance validation. The same-route path is now technically qualified with three hook RED cases,
+seven focused GREEN tests and four actual same-renderer Sky/Earth desktop/mobile
+history variants. Fresh complete 44-journey/20-elevation matrices, frontend252,
+runtime150, Python3, typechecking and independent Hub reproduction pass. No
+native/asset/controller math changes are involved. Original P2 threads and the same-route follow-up are resolved. Review of
+`90f2a5bd` then found UI-only promotion incorrectly resetting native identity flags.
+This bounded metadata correction passes three promotion regressions and preserves
+all rendering/native/Hub payload bytes; strict equivalence retains the original
+browser hashes and fresh desktop/mobile admission/history qualifies corrected
+metadata. Python qualification is source-selection3 plus promotion3. Post-push
+resolution/review status for both added P2s and exact final SHA
+are recorded with guarded served/committed-input receipts at
+`http://127.0.0.1:4202/evidence/remediation/final-delivery.json`. Owner handoff requires
+that receipt to show the new thread resolved and final-head review completed.
+
+Satellite presentation is **PENDING OWNER VISUAL ACCEPTANCE**; entire N1 is
+**PENDING FINAL OWNER ACCEPTANCE**. Live Earth satellite-provider qualification
+remains unavailable; historical source-backed tracking is identified separately.
+PR #75 is **OPEN AND UNMERGED**. Preview: <http://127.0.0.1:4202/sky-engine>.
+Scoped evidence: [Active N1 final remediation — PR #75](docs/validation/n1-final-remediation/README.md). Commit/push only qualified work,
+then STOP for final owner testing. No merge, deployment, R2/R3, provider/catalog/
+dependency changes, paid assets or new provider spending. Artistic scenery remains
+illustrative and must never be treated as surveyed ORAS terrain.
+
+## Historical N1 Pennsylvania landscape correction — superseded — PR #75, 2026-10-15
+
+The owner rejects the plain black circle and authorizes an original rural
+northwestern Pennsylvania panorama through the contained Sky adapter and existing
+native landscape mechanisms. This supersedes the previous charcoal appearance
+gate below. No further native renderer modification or rebuild is authorized.
+Keep accepted scrolling at `301f9eb3` unchanged. Preserve science, observer/time,
+Landscape/Atmosphere/Night Mode, original standalone landscapes, lifecycle,
+settings, mounted data and all rollback artifacts. Label the artwork illustrative,
+not surveyed ORAS terrain; artistic ridge heights are never scientific measurements.
+
+Single agent on existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73.
+Qualify actual desktop/mobile browser rendering, 360-degree seam, day/night and
+Sky/Earth round trips. Investigate open P2s separately without unrelated fixes.
+Commit/push the qualified visual correction and STOP for owner visual acceptance.
+No merge, deployment, R2/N2/R3, paid assets, new provider or dependency.
+Evidence: `docs/validation/n1-pennsylvania/README.md`. Entire N1 remains unfinalized.
+
+## Historical N1 native horizon correction — superseded, PR #75, 2026-10-15
+
+The owner explicitly authorizes the minimum native C styling hook and controlled
+native/frontend rebuild for embedded zero-horizon fill/border only. This supersedes
+the native-artifact stop gate in the historical investigation below. Preserve the
+upstream pin via a reproducible downstream patch, existing geometry/occlusion,
+scientific/rendering math, standalone defaults and landscape ownership. Use the
+existing toolchain; no providers/dependencies/data changes or spending.
+Scrolling at `301f9eb3` is OWNER ACCEPTED and must remain unchanged. Qualify actual
+Docker/browser pixels, controls, day/night, observer locations, desktop/mobile,
+standalone and navigation. Dark appearance remains pending owner visual review;
+entire N1 is not finalized. Existing branch/PR #75 → #74 → #73 remain unmerged.
+Native dark horizon is technically qualified; appearance remains PENDING OWNER
+VISUAL ACCEPTANCE, and full N1 is not finalized. Evidence:
+`docs/validation/n1-native-horizon/README.md`. Single agent. No production
+deployment, R2, N2, R3 or unrelated implementation.
+
+## Historical N1 horizon investigation — PR #75, 2026-10-15
+
+The owner accepts scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`
+and explicitly says "I approve the scrolling now." Preserve that camera behavior.
+Dark charcoal neutral ground is approved for implementation; its implementation
+is BLOCKED at the protected native artifact boundary. The pinned `zero` landscape
+hardcodes the fill/border on an anonymous circle; the exposed landscape color is
+unused by rendering. Real browser probing confirms no effect. Do not patch native
+binaries/source, imitate the horizon in CSS, or bypass the public API. Stop and
+report the specific native-hook requirement under the owner's directive.
+Dark horizon owner visual verification remains pending; entire N1 is not finalized.
+PR #75 remains OPEN/UNMERGED, depending on #74 → #73. No merge, deploy, R2, N2,
+R3, providers/dependencies or spending. Single agent. Focused review regression,
+acceptance records and blocker evidence may be completed without a runtime change.
+See `docs/validation/n1-horizon-investigation/README.md`.
+
+## Historical N1 smooth-camera repair — PR #75, 2026-10-15
+
+The owner explicitly authorized functional Sky ↔ Earth navigation from PR #74
+`a57532796502a1db9ae1a7e4e4dc83e113db558f`, then rejected N1 at
+`8fe05ca1a8505dc20449635fa47b615e4bd23a0c` and authorized correcting PR #75.
+Repair actual Earth camera motion with frame-rate-independent continuous animation,
+accumulated wheel/trackpad intent, geographic stability and safe interruption on
+`n1-sky-earth-navigation-1`. Previous sensitivity/notch targets are superseded.
+Preserve native Sky, Landscape, Night Mode, handoff safeguards and owner settings.
+The unmerged dependency chain remains #75 → #74 → #73. This owner authorization
+supersedes the historical R1-B Sky-only rebuild restriction below for bounded N1.
+Reuse the existing contained SWE, owned Cesium Viewer and versioned bridge.
+Preserve science/data, settings, native binaries, existing providers and $0 spend.
+Qualify actual desktop/mobile browser journeys, report input/timing/failures and
+stop for owner testing. No merge, deployment, N2 or unrelated implementation.
+Single agent. CORE/LIVE and the validation evidence record current repair status.
+
+## Historical R1-B — real Adaptive Explorer Sky, 2026-10-13
+
+The owner accepts PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` as the visual
+implementation target, including the revised Sky observing controls, and separately
+authorizes bounded R1-B application implementation. PR #73 remains unmerged.
+Branch `r1-b-adaptive-sky-implementation-1` starts at that exact head; its PR
+must explicitly depend on PR #73. No merge or deployment is authorized.
+
+Implement the real minimal glass Sky interface using the existing Hub frontend,
+contained Stellarium runtime, native search/selection and observing controls,
+location/time bridge and serial renderer lifecycle. Preserve Explore. A continuous
+outward Sky-to-Earth transition requires a qualified scale/camera handoff contract;
+do not represent the existing route switch as that journey. No new engine,
+scientific calculations, mapping/providers, aircraft, Weather, satellites or R2–R5.
+Provider spending remains $0. Preserve owner settings/data/volumes, Earth and all
+rollback identities; rebuild and attest only the changed Sky UI artifact.
+
+Qualification must show the real application in desktop/mobile browsers, engine
+control effects, screenshots bound to tested source, lifecycle and performance
+observations. Software rendering is not physical-device qualification. Historical
+R1-A browser gaps remain historical, not retroactively passed. STOP for owner
+acceptance of the working application. Single agent.
 
 ## 1. Purpose
 
@@ -325,7 +628,7 @@ Rules:
 - source IDs must remain stable.
 - catalog namespaces must be explicit and durable.
 
-### Current approved catalog/data directions
+### Historical — Current approved catalog/data directions
 
 Stars:
 
@@ -985,8 +1288,7 @@ Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` and ADR0009 before
 renderer/engine work. C0–C5.6 bounded packages and C5.6.5 audit evidence are
 complete; C5.6.75 is a historical documentation checkpoint superseded by merged
 PR #68. The former C5.7-D/C6 sequence is historical under R0; no later
-package is activated by those documents. Current authorization is R0 documentation
-only. PR #71 is unmerged and unaccepted as a complete mapping/search/visual product;
+package is activated by those documents. Current authorization is bounded R1-B real Sky implementation from the owner-approved PR #73 head; see LIVE/PROJECT_STATE. PR #71 is unmerged and unaccepted as a complete mapping/search/visual product;
 closed/unmerged PR #67 and all unfinished C5.7 gates are preserved. Provider spending
 remains $0; ion eligibility and zero-charge protection remain conditional.
 Use current LIVE/PROJECT_STATE and the Adaptive Explorer requirements/checkpoints;

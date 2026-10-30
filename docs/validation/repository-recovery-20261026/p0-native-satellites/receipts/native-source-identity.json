@@ -1,0 +1,11 @@
+{
+  "pin": "023e3b26babf7ffddf45f39293230b14cfe96993",
+  "files": {
+    "src/modules/satellites.c": "419dd72bca65f1740b033156ad4dfff5dd97e6125d4cd408f0954e1f18d2a8b1",
+    "src/core.c": "03b33506ef28a7a7c160e234985d8b368d54b21378728ccac09f496f32a52f15",
+    "src/telescope.c": "25246d0eca6349d46029b3ca1377e905c572c03622a9fdb686d261461736441e",
+    "src/tonemapper.c": "0edff6eb553cb801a6f4300fa106965cd5b6ae1a4952921cf8e4fbb6102d4827",
+    "src/projection.c": "f545f98250282d7991854867c71c1347562dc133bcd3e1ebf1e8ba2b8f671491",
+    "src/js/canvas.js": "0573de7b78548a2a7540c9bcb2d3dd0c1a35cbff4814996b0a8b2ba9ab98ad32"
+  }
+}

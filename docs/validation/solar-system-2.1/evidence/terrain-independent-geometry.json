@@ -1,0 +1,13 @@
+{
+  "reviewer": "independent atmosphere agent reviewing terrain conversion",
+  "rasterio": "1.5.2",
+  "gdal": "3.12.2",
+  "sourceHashChecks": 6,
+  "tiles": 85,
+  "sourceVerticesChecked": 1414485,
+  "maximumPositionErrorM": 0.00012207027202748577,
+  "glbExternalUris": 0,
+  "rootBasisDeterminant": 1.0,
+  "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+  "pass": true
+}

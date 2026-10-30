@@ -1,0 +1,36 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/immersiveReveal.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/immersiveReveal.test.ts (2 tests | 1 failed) 9ms
+   × renderer blur cannot clear focus owned by a Hub control or resurrect a latent hide 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/immersiveReveal.test.ts > renderer blur cannot clear focus owned by a Hub control or resurrect a latent hide
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/immersiveReveal.test.ts:22:26
+     20|  chrome.setFocused(true); // User taps/focuses the exposed Hub Explore…
+     21|  chrome.interact(false,false); // Delayed native canvas blur must not …
+     22|  expect(store.values[2]).toBe(true);expect(store.values[1]).toBe(false…
+       |                          ^
+     23|  chrome.interact(true,false);vi.advanceTimersByTime(300);expect(store.…
+     24|  chrome.setFocused(false);chrome.interact(true,false);vi.advanceTimers…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  00:31:36
+   Duration  181ms (transform 43ms, setup 0ms, import 58ms, tests 9ms, environment 0ms)

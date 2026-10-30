@@ -1,0 +1,32 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/earthCinematic.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-ux-1/frontend
+
+stderr | tests/earthCinematic.test.tsx > retains selected source location in its own collapsed card when results are closed
+Warning: useLayoutEffect does nothing on the server, because its effect cannot be encoded into the server renderer's output format. This will lead to a mismatch between the initial, non-hydrated UI and the intended UI. To avoid this, useLayoutEffect should only be used in components that render exclusively on the client. See https://reactjs.org/link/uselayouteffect-ssr for common fixes.
+    at MemoryRouter (/home/rocco/Astronomy-Hub/frontend/node_modules/react-router/dist/umd/react-router.development.js:1097:7)
+
+ ❯ tests/earthCinematic.test.tsx (1 test | 1 failed) 35ms
+   × retains selected source location in its own collapsed card when results are closed 33ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/earthCinematic.test.tsx > retains selected source location in its own collapsed card when results are closed
+AssertionError: expected '<section class="ws-earth-search ws-pa…' to contain 'aria-label="Selected location"'
+
+Expected: "aria-label="Selected location""
+Received: "<section class="ws-earth-search ws-panel" data-earth-search="true" aria-label="Earth location search"><form><label for="earth-search-query">Search Earth</label><div class="ws-earth-search-input"><input id="earth-search-query" type="search" placeholder="City, street address, or latitude, longitude" autoComplete="off" maxLength="200" value="Coordinates"/><button class="ws-primary" type="submit">Search Earth</button></div></form><button class="ws-search-reopen" type="button" aria-label="Show search results and location" aria-expanded="false" aria-controls="earth-search-content">Coordinates <span aria-hidden="true">+</span></button></section>"
+
+ ❯ tests/earthCinematic.test.tsx:8:15
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  19:19:40
+   Duration  781ms (transform 197ms, setup 0ms, import 381ms, tests 35ms, environment 0ms)

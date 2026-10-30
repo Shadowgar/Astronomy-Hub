@@ -1,0 +1,89 @@
+{
+  "schema": "oras.lunar-height-grid.v1",
+  "id": "LDEM_4",
+  "version": "V3.0",
+  "body": "moon",
+  "naifCenterId": "301",
+  "sourceOrganization": "NASA Goddard Space Flight Center / LRO LOLA Science Team; archive NASA PDS Geosciences Node, Washington University in St. Louis",
+  "attribution": "NASA/GSFC/LRO LOLA Science Team; Smith et al., LOLA gridded data product LDEM_4 V3.0, NASA Planetary Data System",
+  "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+  "rightsContextUrl": "https://pds-geosciences.wustl.edu/missions/lro/lola.htm",
+  "rights": "NASA GSFC-produced scientific data, used as factual educational terrain source under NASA media usage guidelines; attribution and no endorsement. PDS page links JPL copyright/image-use policy. Not a grant to use NASA identifiers.",
+  "acquired": "2026-10-28",
+  "productCreated": "2017-09-15",
+  "observationRange": [
+    "2009-07-13T17:33:17",
+    "2016-11-29T05:48:19"
+  ],
+  "files": [
+    {
+      "file": "ldem_4.img",
+      "url": "/solar-assets/lunar-height-v1/ldem_4.img",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/ldem_4.img",
+      "bytes": 2073600,
+      "sha256": "c04632eba6449af49e3108ed7c25b3b1c450600abd3690df4fc815853a1af476"
+    },
+    {
+      "file": "ldem_4.lbl",
+      "url": "/solar-assets/lunar-height-v1/ldem_4.lbl",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/ldem_4.lbl",
+      "bytes": 5107,
+      "sha256": "b5a197b4d417e3b5e0e84f8fe15f9a1d2203b8eb5d7213236c0ffbc86e940cc6"
+    }
+  ],
+  "width": 1440,
+  "height": 720,
+  "encoding": "signed 16-bit little-endian, row-major, no header",
+  "scaleMetersPerUnit": 0.5,
+  "referenceRadiusMeters": 1737400,
+  "projection": "SIMPLE CYLINDRICAL",
+  "latitude": "planetocentric, north-positive",
+  "longitude": "east-positive",
+  "mapReferenceFrame": "MEAN EARTH/POLAR AXIS OF DE421",
+  "compatibleExistingMoonFrame": "MOON_ME_DE440_ME421",
+  "registration": "pixel centers",
+  "firstPixelCenterDegrees": {
+    "longitude": 0.125,
+    "latitude": 89.875
+  },
+  "pixelStepDegrees": {
+    "longitude": 0.25,
+    "latitude": -0.25
+  },
+  "extentDegrees": {
+    "west": 0,
+    "east": 360,
+    "south": -90,
+    "north": 90
+  },
+  "sourceResolutionMeters": 7580.84,
+  "sourceActualElevationRangeMeters": [
+    -8878.5,
+    10504
+  ],
+  "sourceLabelMinimumDigitalNumber": -17758,
+  "sourceActualMinimumDigitalNumber": -17757,
+  "noData": "No explicit sentinel or per-pixel observation-density mask in this source label; preserve all signed samples, including zero. Source is gridded/resampled and may include interpolation.",
+  "limits": [
+    "Coarse global relief, approximately7.58km per equatorial pixel; not high-resolution terrain or landing-site navigation.",
+    "Source label warns about possible45-degree latitude-band edge artifacts and describes interpolation of incomplete coverage at higher resolutions.",
+    "Terrain sampler interpolates the supplied grid; it does not recover subpixel terrain, roughness, boulders or shadow detail.",
+    "Exact image alignment, surface normals, tile seams, native Cesium loading/lifecycle and visual result still need runtime qualification before enabling existing Moon terrain.",
+    "The existing source-qualified Moon renderer and LROC morphology pack are unchanged."
+  ],
+  "svsCrossCheck": {
+    "page": "https://svs.gsfc.nasa.gov/4720/",
+    "download": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_4_uint.tif",
+    "sha256": "e6668bec27fc9b8fbb02d198c7ddfb08eedeeb790167b494f95e6b34201da05e",
+    "sampleCount": 1036800,
+    "mismatches": 0,
+    "relation": "SVS uint = original PDS signed +20000; each row shifted by720 columns to center0-degree longitude. Use original PDS bytes at runtime to avoid this extra transform."
+  },
+  "runtimeStatus": "source and sampler prepared; existing Moon terrain not enabled",
+  "delivery": {
+    "strategy": "Optional on-demand2MiB source grid. No automatic remote fetch, huge tile pack, renderer dependency, protected pack or Docker volume change.",
+    "decodedInt16Bytes": 2073600,
+    "sampledTile65SquaredFloat32Bytes": 16900,
+    "networkBytes": 2078707
+  }
+}

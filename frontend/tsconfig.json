@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "strict": true,
     "resolveJsonModule": true,
     "noEmit": true,
@@ -11,8 +16,36 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "paths": {
+      "@takram/three-atmosphere": [
+        "../graphics/node_modules/@takram/three-atmosphere/./types/index.d.ts"
+      ],
+      "@takram/three-atmosphere/shaders/bruneton": [
+        "../graphics/node_modules/@takram/three-atmosphere/./types/shaders/bruneton/index.d.ts"
+      ],
+      "@takram/three-geospatial": [
+        "../graphics/node_modules/@takram/three-geospatial/./types/index.d.ts"
+      ],
+      "3d-tiles-renderer": [
+        "../graphics/node_modules/3d-tiles-renderer/./src/index.d.ts"
+      ],
+      "3d-tiles-renderer/core": [
+        "../graphics/node_modules/3d-tiles-renderer/./src/core/renderer/index.d.ts"
+      ],
+      "3d-tiles-renderer/three": [
+        "../graphics/node_modules/3d-tiles-renderer/./src/three/renderer/index.d.ts"
+      ],
+      "postprocessing": [
+        "../graphics/node_modules/postprocessing/build/types/index.d.ts"
+      ]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

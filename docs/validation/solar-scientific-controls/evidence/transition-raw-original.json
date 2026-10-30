@@ -1,0 +1,1688 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "name": "Sun",
+      "before": {
+        "overviewScope": "full",
+        "cameraView": "body",
+        "scale": "physical-mean-radii-AU",
+        "near": 3.2616774404396655e-7,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.46607114074307804,
+          -0.255732539461299,
+          -0.46120725922192835,
+          0.7103987782000459
+        ],
+        "epoch": "2026-10-23T01:05:00.123Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "mercury",
+        "renderCount": 62,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.3547782576080059,
+          -0.10739835290048312,
+          -0.09409273330270801
+        ],
+        "target": [
+          0.3548442348236,
+          -0.10736289623594229,
+          -0.09412889325871707
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "cameraDistance": 0.3824336030443505,
+            "inView": false,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 20.304414752562057,
+            "screen": [
+              1726.7355352075392,
+              249.02596448713788
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442348236,
+              -0.10736289623594229,
+              -0.09412889325871707
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "cameraDistance": 0.00008317277473120174,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 236.75662382173846,
+            "screen": [
+              625.9531249992176,
+              454.0000000000978
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.635354466501187,
+              0.3306108869583743,
+              0.10857108371709757
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "cameraDistance": 0.5582541768116396,
+            "inView": false,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.15208245659295017,
+            "screen": [
+              -397.516358962804,
+              -861.2868222578682
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826855279342,
+              0.4464453061607563,
+              0.19351844019958775
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "cameraDistance": 0.8079862440922687,
+            "inView": false,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.09923988057549238,
+            "screen": [
+              -21.870786674970315,
+              -790.0100127086562
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.169072282413181,
+              1.4302037208484393,
+              0.6605611910935444
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "cameraDistance": 1.791128714270457,
+            "inView": false,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.3103335497928583,
+            "screen": [
+              22657.866288994428,
+              9427.568666160252
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6160962335326166,
+              3.5464075338064305,
+              1.6081098923836026
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "cameraDistance": 5.658236073284567,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.24193621371733087,
+            "screen": [
+              3209.8240748502712,
+              647.642802231229
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490058753776,
+              1.8905275193172344,
+              0.3834344073133826
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "cameraDistance": 9.108375326626346,
+            "inView": false,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.13481978625112134,
+            "screen": [
+              949.5245085215244,
+              -218.61022059391655
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857504496502,
+              15.896303010613353,
+              6.836825763347399
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "cameraDistance": 19.40034637387019,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.019402896161917482,
+            "screen": [
+              -595.4188633944208,
+              -880.4911077972904
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833715596070462,
+              1.6153635646722828,
+              -0.08153613909600249
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "cameraDistance": 29.529236578308165,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.008241649205418256,
+            "screen": [
+              1187.0634555848374,
+              -155.76817225071227
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 24,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": false,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 59,
+          "median": 0.2999999988824129,
+          "p95": 1.299999998882413
+        },
+        "pixelRatio": 1
+      },
+      "startDistance": 0.00008317277473120175,
+      "samples": [
+        {
+          "elapsed": 20.299999998882413,
+          "distance": 0.00008317277473120175,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 35.399999998509884,
+          "distance": 0.00526897940667014,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 61.399999998509884,
+          "distance": 0.005268979406670112,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 83.5,
+          "distance": 0.005268979406670122,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 102.79999999888241,
+          "distance": 0.005268979406670129,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 123.59999999962747,
+          "distance": 0.005268979406670108,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 143.19999999925494,
+          "distance": 0.005268979406670142,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 160,
+          "distance": 0.005268979406670116,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 176.09999999962747,
+          "distance": 0.005268979406670128,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 193.7999999988824,
+          "distance": 0.005268979406670122,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 211.19999999925494,
+          "distance": 0.005268979406670123,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 227.7999999988824,
+          "distance": 0.005268979406670121,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 244.89999999850988,
+          "distance": 0.005268979406670141,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 261.3999999985099,
+          "distance": 0.005268979406670122,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 277.59999999962747,
+          "distance": 0.005268979406670131,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 294.3999999985099,
+          "distance": 0.005268979406670128,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 311.09999999962747,
+          "distance": 0.005268979406670106,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 327.69999999925494,
+          "distance": 0.005268979406670113,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 344.2999999988824,
+          "distance": 0.005268979406670131,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 363.5,
+          "distance": 0.005268979406670131,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 382.09999999962747,
+          "distance": 0.005268979406670127,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 400,
+          "distance": 0.005268979406670116,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 418.8999999985099,
+          "distance": 0.005268979406670127,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 441.5,
+          "distance": 0.005268979406670126,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 470.09999999962747,
+          "distance": 0.005268979406670118,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 493.3999999985099,
+          "distance": 0.005268979406670129,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 515.0999999996275,
+          "distance": 0.005268979406670129,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 536.3999999985099,
+          "distance": 0.0052689794066701195,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 556.7999999988824,
+          "distance": 0.00526897940667013,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 575.3999999985099,
+          "distance": 0.005268979406670124,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 595,
+          "distance": 0.005268979406670126,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 611.8999999985099,
+          "distance": 0.005268979406670127,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 633.1999999992549,
+          "distance": 0.005700998242895472,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 652.5999999996275,
+          "distance": 0.006535730197622138,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 671.0999999996275,
+          "distance": 0.007453611273699894,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 689.7999999988824,
+          "distance": 0.008459499053211812,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 707.5,
+          "distance": 0.009557694684112607,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 725.5,
+          "distance": 0.010736588622100234,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 742.0999999996275,
+          "distance": 0.011986597016682489,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 761.5999999996275,
+          "distance": 0.013293939749754012,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 779.6999999992549,
+          "distance": 0.015994831009471078,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 800,
+          "distance": 0.01733857919938523,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 817.8999999985099,
+          "distance": 0.018648609390592586,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 840.2999999988824,
+          "distance": 0.019875307933026432,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 866.5999999996275,
+          "distance": 0.020997220359965714,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 897.8999999985099,
+          "distance": 0.022752725510085576,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 926.3999999985099,
+          "distance": 0.023647785143064832,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 953.5,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 969.8999999985099,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 977.8999999985099,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 994.5,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1011.5999999996275,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1027.699999999255,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1044.5,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1061.2999999988824,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1077.8999999985099,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1094.3999999985099,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1111.0999999996275,
+          "distance": 0.023717383030906994,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        }
+      ],
+      "after": {
+        "overviewScope": "full",
+        "cameraView": "body",
+        "scale": "physical-mean-radii-AU",
+        "near": 0.00009300934521924317,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.4889718784648215,
+          -0.008988784035970455,
+          -0.16115034830733865,
+          0.8572375802964788
+        ],
+        "epoch": "2026-10-23T01:05:00.123Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "sun",
+        "renderCount": 109,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -0.004103273855430436,
+          -0.01981428560795049,
+          0.012372206244185474
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "cameraDistance": 0.02371738303090699,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 236.75662382070146,
+            "screen": [
+              625.953125,
+              454.0000000000002
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442348236,
+              -0.10736289623594229,
+              -0.09412889325871707
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "cameraDistance": 0.3845134034141092,
+            "inView": false,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.442352316976411,
+            "screen": [
+              10642.093034513446,
+              1368.0811215685112
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.635354466501187,
+              0.3306108869583743,
+              0.10857108371709757
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "cameraDistance": 0.7354986249458105,
+            "inView": false,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.13829434325259626,
+            "screen": [
+              2260.778905743669,
+              -928.8118812376264
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826855279342,
+              0.4464453061607563,
+              0.19351844019958775
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "cameraDistance": 1.0053585855535077,
+            "inView": false,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.11532058245069976,
+            "screen": [
+              2382.041001465049,
+              -1135.874790059072
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.169072282413181,
+              1.4302037208484393,
+              0.6605611910935444
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "cameraDistance": 1.5968456258863384,
+            "inView": false,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.0323867955505186,
+            "screen": [
+              -292.62677189455184,
+              -1187.009719798442
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6160962335326166,
+              3.5464075338064305,
+              1.6081098923836026
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "cameraDistance": 5.32079035191111,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.37074208255255314,
+            "screen": [
+              -2968.9316545263937,
+              -1126.377690696353
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490058753776,
+              1.8905275193172344,
+              0.3834344073133826
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "cameraDistance": 9.43545826200546,
+            "inView": false,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.3453180385330512,
+            "screen": [
+              3812.638546339704,
+              -983.9436750642373
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857504496502,
+              15.896303010613353,
+              6.836825763347399
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "cameraDistance": 19.45100795253033,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.018165110563939102,
+            "screen": [
+              926.3627953997529,
+              -1167.6337495950554
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833715596070462,
+              1.6153635646722828,
+              -0.08153613909600249
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "cameraDistance": 29.882738500577172,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.030215360201069075,
+            "screen": [
+              5586.309766897815,
+              -1091.452814464432
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 24,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": false,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 106,
+          "median": 0.2999999988824129,
+          "p95": 0.599999999627471
+        },
+        "pixelRatio": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "Jupiter",
+      "before": {
+        "overviewScope": "full",
+        "cameraView": "body",
+        "scale": "physical-mean-radii-AU",
+        "near": 3.2616774404396655e-7,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.46607114074307804,
+          -0.255732539461299,
+          -0.46120725922192835,
+          0.7103987782000459
+        ],
+        "epoch": "2026-10-23T01:05:00.123Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "mercury",
+        "renderCount": 153,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.3547782576080059,
+          -0.10739835290048312,
+          -0.09409273330270801
+        ],
+        "target": [
+          0.3548442348236,
+          -0.10736289623594229,
+          -0.09412889325871707
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "cameraDistance": 0.3824336030443505,
+            "inView": false,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 20.304414752562057,
+            "screen": [
+              1726.7355352075392,
+              249.02596448713788
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442348236,
+              -0.10736289623594229,
+              -0.09412889325871707
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "cameraDistance": 0.00008317277473120174,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 236.75662382173846,
+            "screen": [
+              625.9531249992176,
+              454.0000000000978
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.635354466501187,
+              0.3306108869583743,
+              0.10857108371709757
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "cameraDistance": 0.5582541768116396,
+            "inView": false,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.15208245659295017,
+            "screen": [
+              -397.516358962804,
+              -861.2868222578682
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826855279342,
+              0.4464453061607563,
+              0.19351844019958775
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "cameraDistance": 0.8079862440922687,
+            "inView": false,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.09923988057549238,
+            "screen": [
+              -21.870786674970315,
+              -790.0100127086562
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.169072282413181,
+              1.4302037208484393,
+              0.6605611910935444
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "cameraDistance": 1.791128714270457,
+            "inView": false,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.3103335497928583,
+            "screen": [
+              22657.866288994428,
+              9427.568666160252
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6160962335326166,
+              3.5464075338064305,
+              1.6081098923836026
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "cameraDistance": 5.658236073284567,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.24193621371733087,
+            "screen": [
+              3209.8240748502712,
+              647.642802231229
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490058753776,
+              1.8905275193172344,
+              0.3834344073133826
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "cameraDistance": 9.108375326626346,
+            "inView": false,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.13481978625112134,
+            "screen": [
+              949.5245085215244,
+              -218.61022059391655
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857504496502,
+              15.896303010613353,
+              6.836825763347399
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "cameraDistance": 19.40034637387019,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.019402896161917482,
+            "screen": [
+              -595.4188633944208,
+              -880.4911077972904
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833715596070462,
+              1.6153635646722828,
+              -0.08153613909600249
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "cameraDistance": 29.529236578308165,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.008241649205418256,
+            "screen": [
+              1187.0634555848374,
+              -155.76817225071227
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 24,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": false,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 150,
+          "median": 0.2999999988824129,
+          "p95": 0.599999999627471
+        },
+        "pixelRatio": 1
+      },
+      "startDistance": 0.00008317277473120175,
+      "samples": [
+        {
+          "elapsed": 27.700000001117587,
+          "distance": 0.00008317277473120175,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 41.80000000074506,
+          "distance": 0.0005294805509554778,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 73.20000000111759,
+          "distance": 0.0005294805509554685,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 96.80000000074506,
+          "distance": 0.0005294805509554646,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 118.70000000111759,
+          "distance": 0.0005294805509554464,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 142.40000000037253,
+          "distance": 0.0005294805509554561,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 160.40000000037253,
+          "distance": 0.000529480550955462,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 182.90000000037253,
+          "distance": 0.0005294805509554648,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 199.80000000074506,
+          "distance": 0.0005294805509554562,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 217.7000000011176,
+          "distance": 0.0005294805509554731,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 233.5,
+          "distance": 0.0005294805509554752,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 253.2000000011176,
+          "distance": 0.0005294805509554608,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 276.2000000011176,
+          "distance": 0.000529480550955484,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 295,
+          "distance": 0.0005294805509554347,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 317.30000000074506,
+          "distance": 0.0005294805509554609,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 337.7000000011176,
+          "distance": 0.0005294805509554406,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 356.09999999962747,
+          "distance": 0.0005294805509554497,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 376.7000000011176,
+          "distance": 0.0005294805509555149,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 400.90000000037253,
+          "distance": 0.0005294805509554415,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 423.7000000011176,
+          "distance": 0.0005294805509555116,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 446.80000000074506,
+          "distance": 0.0005294805509555011,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 466.2000000011176,
+          "distance": 0.000529480550955541,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 485.30000000074506,
+          "distance": 0.0005294805509554849,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 504.30000000074506,
+          "distance": 0.0005294805509554919,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 523.0999999996275,
+          "distance": 0.0005759656768089182,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 541.9000000003725,
+          "distance": 0.0006311270538091048,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 562.5,
+          "distance": 0.0006912850889414209,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 580.9000000003725,
+          "distance": 0.0007558471286511143,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 612,
+          "distance": 0.0008256636412646544,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 646.8000000007451,
+          "distance": 0.000979864499771733,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 677.0999999996275,
+          "distance": 0.001151894036106876,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 708.5,
+          "distance": 0.0013399020781609864,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 738.4000000003725,
+          "distance": 0.001537681812404462,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 760.9000000003725,
+          "distance": 0.001738246003628204,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 787.7000000011176,
+          "distance": 0.0018368340049725654,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 815.7000000011176,
+          "distance": 0.0020221735544346804,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 837.0999999996275,
+          "distance": 0.0021062551722012155,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 859.0999999996275,
+          "distance": 0.0022478448793834946,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 881.3000000007451,
+          "distance": 0.0023021662247887215,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 903.3000000007451,
+          "distance": 0.002343836967214565,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 937,
+          "distance": 0.0023829143138866843,
+          "animating": true,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 973.4000000003725,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 991.9000000003725,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1003.3000000007451,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1019.9000000003725,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1036.800000000745,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1053.5,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1070.0999999996275,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1086.5999999996275,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        },
+        {
+          "elapsed": 1103.4000000003725,
+          "distance": 0.002383363468555127,
+          "animating": false,
+          "epoch": "2026-10-23T01:05:00.123Z"
+        }
+      ],
+      "after": {
+        "overviewScope": "full",
+        "cameraView": "body",
+        "scale": "physical-mean-radii-AU",
+        "near": 0.000009346523406098187,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.4746722536484137,
+          0.482646064633571,
+          0.5263118763513277,
+          0.51452389324657
+        ],
+        "epoch": "2026-10-23T01:05:00.123Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "jupiter",
+        "renderCount": 194,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -3.6137216476260843,
+          3.546454210263595,
+          1.6083088509322703
+        ],
+        "target": [
+          -3.6160962335326166,
+          3.5464075338064305,
+          1.6081098923836026
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "cameraDistance": 5.31253037374892,
+            "inView": false,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 1.653148103970885,
+            "screen": [
+              1876.1592681104246,
+              -197.4744549444989
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442348236,
+              -0.10736289623594229,
+              -0.09412889325871707
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "cameraDistance": 5.656694165671182,
+            "inView": false,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.005264772356152747,
+            "screen": [
+              1797.261739606795,
+              -176.1496795135821
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.635354466501187,
+              0.3306108869583743,
+              0.10857108371709757
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "cameraDistance": 5.535838642347268,
+            "inView": false,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.012074964460797588,
+            "screen": [
+              1583.5016705681924,
+              -77.47433289059494
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826855279342,
+              0.4464453061607563,
+              0.19351844019958775
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "cameraDistance": 5.6300409271718035,
+            "inView": false,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.011996746500368971,
+            "screen": [
+              1499.1581758069551,
+              -29.878050668974808
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.169072282413181,
+              1.4302037208484393,
+              0.6605611910935444
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "cameraDistance": 4.152390999164376,
+            "inView": false,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.008261723384777042,
+            "screen": [
+              1400.2608569181784,
+              21.421266259417308
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6160962335326166,
+              3.5464075338064305,
+              1.6081098923836026
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "cameraDistance": 0.0023833634685551273,
+            "inView": true,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 236.7566238208264,
+            "screen": [
+              625.9531249997816,
+              453.9999999998907
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490058753776,
+              1.8905275193172344,
+              0.3834344073133826
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "cameraDistance": 13.006337382979853,
+            "inView": false,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.0818192426938047,
+            "screen": [
+              803.2604994680067,
+              242.5109619028811
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857504496502,
+              15.896303010613353,
+              6.836825763347399
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "cameraDistance": 18.31042736396529,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.015627603785759447,
+            "screen": [
+              -458.25995595209685,
+              822.11346941065
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833715596070462,
+              1.6153635646722828,
+              -0.08153613909600249
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "cameraDistance": 33.545726185951516,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.005995802772783242,
+            "screen": [
+              717.9613234270855,
+              296.0956627401502
+            ]
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 24,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": false,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 180,
+          "median": 0.2000000011175871,
+          "p95": 0.5
+        },
+        "pixelRatio": 1
+      },
+      "status": "PASS"
+    }
+  ],
+  "interrupted": "PASS"
+}

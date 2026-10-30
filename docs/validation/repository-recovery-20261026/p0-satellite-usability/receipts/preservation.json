@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-26T18:02:29.632611+00:00",
+  "protected_containers": 141,
+  "changes": [],
+  "volumes": 90,
+  "owner_status": " M .vscode/settings.json\n",
+  "protected_hashes": {
+    "/home/rocco/Astronomy-Hub/.vscode/settings.json": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+    "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436"
+  },
+  "native_wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942",
+  "new_containers": 0,
+  "task_mounts_read_only": true
+}

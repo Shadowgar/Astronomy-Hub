@@ -54,7 +54,7 @@ def verify(artifact, repo=REPO, *, qualified=False):
     inputs = release["inputs"]
     require(inputs and len({r["path"] for r in inputs}) == len(inputs), "Empty or duplicate source manifest")
     for row in inputs:
-        root = repo if row["path"].startswith("packages/runtime-protocol/") else repo / "runtimes/earth-runtime"
+        root = repo if row["path"].startswith(("packages/runtime-protocol/", "packages/imagery-cache/")) else repo / "runtimes/earth-runtime"
         path = member(root, row["path"])
         require(path.stat().st_size == row["bytes"] and hashlib.sha256(path.read_bytes()).hexdigest() == row["sha256"], "Source drift: " + row["path"])
     if qualified:

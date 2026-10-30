@@ -1,0 +1,20 @@
+{
+  "originalFilename": "timestamp-green.txt",
+  "rawSha256": "4ce057498fdb82c3460f0a902b8d48cd3fc4b9919150134ab215256c5b39be41",
+  "encoding": "UTF-8; concatenate lines to recover original exact bytes",
+  "lines": [
+    "\n",
+    "> astronomy-hub-frontend@0.0.1 test\n",
+    "> vitest run --run tests/solarContracts.test.ts\n",
+    "\n",
+    "\n",
+    " RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/frontend\n",
+    "\n",
+    "\n",
+    " Test Files  1 passed (1)\n",
+    "      Tests  9 passed (9)\n",
+    "   Start at  09:42:16\n",
+    "   Duration  163ms (transform 45ms, setup 0ms, import 67ms, tests 9ms, environment 0ms)\n",
+    "\n"
+  ]
+}

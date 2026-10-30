@@ -1,0 +1,288 @@
+{
+  "provenance": {
+    "capturedAt": "2026-10-30T17:16:34.840232+00:00",
+    "endpoint": "/api/v1/solar-system?epoch=2026-10-27T04:00:00.000Z",
+    "runtime": "Existing private pr107-owner-backend Docker API",
+    "responseSha256": "bcbc4f4ba0bc626ca2c252f63f7ed877be31d71100f36f3d221a32cb6c32a37a",
+    "omitted": "Only historical trajectory arrays were replaced by empty arrays. All body centers, shape radii, epoch, frame, source identity and units are unmodified API values. This fixture qualifies camera geometry, not ephemeris accuracy."
+  },
+  "snapshot": {
+    "schema": "oras.solar.v1",
+    "epoch": "2026-10-27T04:00:00Z",
+    "time_scale": "UTC input; Skyfield converts to TDB for kernel evaluation",
+    "origin": "Sun center (10)",
+    "frame": "ICRF",
+    "units": "AU",
+    "km_per_au": 149597870.7,
+    "corrections": "geometric; no light-time or aberration",
+    "source": {
+      "id": "jpl_de442s_local",
+      "release": "de442s-2025-02-06",
+      "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+    },
+    "trajectory_model": "Open DE442s sampled prior paths over nominal sidereal periods for each planet (129 samples); clipped at kernel coverage. Not osculating elements or closed ellipses.",
+    "bodies": [
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "sun",
+        "model": "sun",
+        "name": "Sun",
+        "ephemeris_target": "10",
+        "position_reference": "Sun center",
+        "position_au": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 695700.0,
+          "units": "km",
+          "source": "IAU 2015 nominal solar radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented; Sun is not a solid surface."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "mercury",
+        "model": "planet",
+        "name": "Mercury",
+        "ephemeris_target": "199",
+        "position_reference": "Mercury center",
+        "position_au": [
+          0.3565708021127912,
+          -0.002779892885598375,
+          -0.0384390552857709
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 2439.7,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "venus",
+        "model": "planet",
+        "name": "Venus",
+        "ephemeris_target": "299",
+        "position_reference": "Venus center",
+        "position_au": [
+          0.5910666532769727,
+          0.39377735992784163,
+          0.13979634730592427
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 6051.8,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "earth",
+        "model": "planet",
+        "name": "Earth",
+        "ephemeris_target": "399",
+        "position_reference": "Earth center",
+        "position_au": [
+          0.8299839828727769,
+          0.5017387995538697,
+          0.2174855659874231
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 6371.0,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "mars",
+        "model": "planet",
+        "name": "Mars",
+        "ephemeris_target": "4",
+        "position_reference": "Mars system barycenter (not body center)",
+        "position_au": [
+          -0.22411554489999036,
+          1.4276208807011725,
+          0.6608610331291151
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 3389.5,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "jupiter",
+        "model": "planet",
+        "name": "Jupiter",
+        "ephemeris_target": "5",
+        "position_reference": "Jupiter system barycenter (not body center)",
+        "position_au": [
+          -3.639205272509622,
+          3.528005859616513,
+          1.6007849752717802
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 69911.0,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "saturn",
+        "model": "planet",
+        "name": "Saturn",
+        "ephemeris_target": "6",
+        "position_reference": "Saturn system barycenter (not body center)",
+        "position_au": [
+          9.222581419922689,
+          1.9111987556062782,
+          0.3922263976457742
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 58232.0,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "uranus",
+        "model": "planet",
+        "name": "Uranus",
+        "ephemeris_target": "7",
+        "position_reference": "Uranus system barycenter (not body center)",
+        "position_au": [
+          8.838279441914771,
+          15.90228397579787,
+          6.8396517035329
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 25362.0,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      },
+      {
+        "catalog": "Solar System (JPL)",
+        "source_id": "neptune",
+        "model": "planet",
+        "name": "Neptune",
+        "ephemeris_target": "8",
+        "position_reference": "Neptune system barycenter (not body center)",
+        "position_au": [
+          29.832977345368953,
+          1.6273798618017443,
+          -0.0765997101404015
+        ],
+        "trajectory": [],
+        "body_fixed_frame": null,
+        "shape": {
+          "model": "reference mean sphere; not a qualified surface ellipsoid",
+          "mean_radius_km": 24622.0,
+          "units": "km",
+          "source": "NASA/NSSDC planetary fact sheet mean radius"
+        },
+        "orientation": {
+          "status": "unavailable",
+          "source": null
+        },
+        "surface": {
+          "available": false,
+          "reason": "R4 body/frame/source qualification not implemented."
+        }
+      }
+    ]
+  }
+}

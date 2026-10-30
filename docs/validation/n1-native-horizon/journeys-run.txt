@@ -1,0 +1,44 @@
+1440 initial ORAS Sky and served source identity 1949ms
+1440 native Landscape toggle and Sky Night Mode ON 6311ms
+1440 Explore dismissal and focus return 485ms
+1440 arrival and short outward overshoot stay in Sky 1922ms
+1440 reverse input leaves boundary hysteresis 853ms
+1440 ORAS Sky → Earth by deliberate wheel 10724ms
+1440 Earth → ORAS Sky through accessible Explore 9457ms
+1440 native desktop drag explores Earth 20053ms
+1440 Earth geographic exploration to Central Park coordinates 4595ms
+1440 ordinary inward zoom reaches boundary without a mode change 16347ms
+1440 Earth → New York Sky by deliberate inward wheel 7187ms
+1440 New York Sky → Earth by trackpad-sized outward input 16271ms
+1440 Browser Back restores New York sky observer/time/camera 3355ms
+1440 repeat 1: outward/inward, reversal and preserved observer/time/night 67776ms
+1440 repeat 2: outward/inward, reversal and preserved observer/time/night 58730ms
+1440 repeat 3: outward/inward, reversal and preserved observer/time/night 46690ms
+1440 cancel while destination loading restores source 2589ms
+1440 Browser Back interrupts pending native snapshot delivery 4698ms
+1440 Escape interrupts handoff 3195ms
+1440 Browser Back and Forward preserve geographic context 12472ms
+1440 Night Mode OFF persists across reload 15788ms
+1440 Live time remains live through Earth and Sky 17675ms
+390 initial ORAS Sky and served source identity 1514ms
+390 native Landscape toggle and Sky Night Mode ON 3555ms
+390 Explore dismissal and focus return 310ms
+390 arrival and short outward overshoot stay in Sky 1466ms
+390 reverse input leaves boundary hysteresis 647ms
+390 ORAS Sky → Earth by deliberate wheel 7934ms
+390 Earth → ORAS Sky through accessible Explore 2471ms
+390 native touch drag explores Earth 11508ms
+390 Earth geographic exploration to Central Park coordinates 2385ms
+390 ordinary inward zoom reaches boundary without a mode change 5994ms
+390 Earth → New York Sky by deliberate inward wheel 3699ms
+390 New York Sky → Earth by trackpad-sized outward input 7639ms
+390 Browser Back restores New York sky observer/time/camera 1630ms
+390 repeat 1: outward/inward, reversal and preserved observer/time/night 20848ms
+390 repeat 2: outward/inward, reversal and preserved observer/time/night 19848ms
+390 repeat 3: outward/inward, reversal and preserved observer/time/night 23299ms
+390 cancel while destination loading restores source 1949ms
+390 Browser Back interrupts pending native snapshot delivery 2886ms
+390 Escape interrupts handoff 3591ms
+390 Browser Back and Forward preserve geographic context 8494ms
+390 Night Mode OFF persists across reload 8867ms
+390 Live time remains live through Earth and Sky 11170ms

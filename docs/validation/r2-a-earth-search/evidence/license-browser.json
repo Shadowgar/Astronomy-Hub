@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_r2_earth_search_license.mjs": "223b10de8afc7316f8870abfc87bafb4766e6fb5d905bb8b54a251c86ce8c4d3",
+    "frontend/vite.config.mjs": "425797f3360cb2b64f99312d58553f8ca778f9a8d4078421ede4e8eda7383322",
+    "frontend/tests/licenseAssets.test.js": "2ac68cbe86507c5508f7d3339d93cd601a5f0ab84479c56794174443d38c461d",
+    "frontend/src/features/workspace/AboutLicenses.tsx": "5bc96e2b905b6d7338a69d210404cc785c303119d8199e9c16efa5b3fad1aba8",
+    "frontend/public/licenses/gods-eye-search-MIT.txt": "b231bb38e2d4eab741643126087cbe9df2b58e2f2e5abf27ad613d05f52b01ca",
+    "packages/earth-search/LICENSE.txt": "b231bb38e2d4eab741643126087cbe9df2b58e2f2e5abf27ad613d05f52b01ca"
+  },
+  "url": "http://127.0.0.1:4203/licenses/gods-eye-search-MIT.txt",
+  "servedSha256": "b231bb38e2d4eab741643126087cbe9df2b58e2f2e5abf27ad613d05f52b01ca"
+}

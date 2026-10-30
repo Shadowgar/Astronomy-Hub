@@ -11,8 +11,15 @@ router = APIRouter()
 
 
 @router.get("/sky/satellite-feed", response_model=ResponseEnvelope)
-async def satellite_feed(time: str | None = None):
+async def satellite_feed(time: str | None = None, norad: str | None = None):
     try:
-        return build_satellite_feed_status(time=time)
-    except ValueError as exc:
-        return error_response(status_code=400, code="invalid_request", message=str(exc))
+        return build_satellite_feed_status(time=time, norad=norad)
+    except ValueError:
+        return error_response(
+            status_code=400,
+            code="invalid_request",
+            message=(
+                "Invalid satellite feed request. Use an ISO-8601 time with timezone "
+                "and a positive canonical NORAD number."
+            ),
+        )

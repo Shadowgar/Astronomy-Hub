@@ -1,0 +1,3586 @@
+{
+  "base": "http://127.0.0.1:4231",
+  "started": "2026-10-29T05:03:38.341Z",
+  "platform": "win32",
+  "browserVersion": "156.0.4314.50",
+  "environment": "Windows Edge hardware; inspect renderer below",
+  "checks": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "detailZoomSteps": 0,
+      "video": "bc502884b3262f455ac54db3209c92d2.webm",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "initial": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.632927750005,
+            -7600.586920136359,
+            6516.533862513963
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 5,
+        "firstModelMs": 426.60000002384186,
+        "firstVisibleMs": 448.60000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 1,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 1,
+          "failed": 0,
+          "inFrustum": 1,
+          "used": 1,
+          "active": 1,
+          "visible": 1,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          0
+        ],
+        "visibleTiles": [
+          {
+            "depth": 0,
+            "geometricError": 40,
+            "uri": "tiles/0/0/0.glb"
+          }
+        ],
+        "loadedCount": 1,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 634564,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 618544,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 1,
+          "triangles": 33792,
+          "geometries": 1,
+          "textures": 1,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 4,
+          "median": 34.69999999999993,
+          "p95": 215.29999999999995
+        },
+        "cpuFrameMs": {
+          "samples": 5,
+          "median": 3.299999952316284,
+          "p95": 18.69999998807907
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 5,
+          "median": 0.00512,
+          "p95": 0.702464
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "detail": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            405.5039999999995,
+            -958.4639999999803,
+            811.1205849609207
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400679.7432755744,
+          832465.8080054384,
+          597833.4013336604
+        ],
+        "renderCount": 51,
+        "firstModelMs": 426.60000002384186,
+        "firstVisibleMs": 448.60000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 37,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 37,
+          "failed": 0,
+          "inFrustum": 30,
+          "used": 37,
+          "active": 28,
+          "visible": 21,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          2,
+          3
+        ],
+        "visibleTiles": [
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/1.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/5/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/5.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/2/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/2/5.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/5.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/2.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/5/2.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/3.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/5/3.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/2/2.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/2.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/2/3.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/3.glb"
+          }
+        ],
+        "loadedCount": 37,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 23478868,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 38,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 20789716,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 21,
+          "triangles": 709632,
+          "geometries": 30,
+          "textures": 30,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 49,
+          "median": 13.900000000000091,
+          "p95": 41.799999999999955
+        },
+        "cpuFrameMs": {
+          "samples": 51,
+          "median": 3.5,
+          "p95": 8.599999964237213
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 51,
+          "median": 0.16384,
+          "p95": 4.972544
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "balancedOrbit": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            -1018.9936172016571,
+            -211.51534557607692,
+            811.1205849608622
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1401185.6841854048,
+          831109.4841873354,
+          598534.4970831589
+        ],
+        "renderCount": 142,
+        "firstModelMs": 426.60000002384186,
+        "firstVisibleMs": 448.60000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 37,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 37,
+          "failed": 0,
+          "inFrustum": 30,
+          "used": 37,
+          "active": 28,
+          "visible": 21,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          2,
+          3
+        ],
+        "visibleTiles": [
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/3.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/3.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/5.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/5.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/5/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/5/5.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/3.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/5/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/3.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/2.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/5/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/1.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/0.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/2/2.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/2/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/0.glb"
+          }
+        ],
+        "loadedCount": 37,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 23478868,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 38,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 20789716,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 21,
+          "triangles": 709632,
+          "geometries": 37,
+          "textures": 37,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 50,
+          "median": 13.900000000000091,
+          "p95": 41.799999999999955
+        },
+        "cpuFrameMs": {
+          "samples": 142,
+          "median": 2.899999976158142,
+          "p95": 6
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 141,
+          "median": 0.28672,
+          "p95": 2.307072
+        },
+        "epoch": "2026-10-28T00:00:00.000Z",
+        "benchmarkRafMs": {
+          "samples": 89,
+          "median": 6.900000000000091,
+          "p95": 7,
+          "maximum": 7.100000000000364,
+          "raw": [
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            6.899999999999864,
+            6.7999999999999545,
+            7.100000000000136,
+            6.899999999999864,
+            7,
+            7,
+            6.800000000000182,
+            7,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.799999999999727,
+            7.100000000000364,
+            6.899999999999636,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            7,
+            6.900000000000091,
+            6.899999999999636,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.900000000000091,
+            7.099999999999909,
+            6.900000000000091,
+            7,
+            6.799999999999727,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            6.899999999999636,
+            7
+          ]
+        }
+      },
+      "efficientReliefOrbit": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "efficient",
+        "reduced": false,
+        "relief": true,
+        "pose": {
+          "camera": [
+            -9.462131381222894,
+            1040.6715146392394,
+            811.1205849608041
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400298.7321164436,
+          831756.8382010766,
+          599709.8160024384
+        ],
+        "renderCount": 235,
+        "firstModelMs": 426.60000002384186,
+        "firstVisibleMs": 448.60000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 26,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 26,
+          "failed": 0,
+          "inFrustum": 15,
+          "used": 21,
+          "active": 16,
+          "visible": 10,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          2
+        ],
+        "visibleTiles": [
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/2.glb"
+          }
+        ],
+        "loadedCount": 37,
+        "disposedModels": 11,
+        "cache": {
+          "bytes": 21850400,
+          "maxBytes": 67108864,
+          "maxTiles": 40
+        },
+        "transport": {
+          "requests": 38,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 20789716,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 2,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 10,
+          "triangles": 337920,
+          "geometries": 26,
+          "textures": 26,
+          "programs": 2,
+          "pixelRatio": 1
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 53,
+          "median": 13.900000000000091,
+          "p95": 69.29999999999995
+        },
+        "cpuFrameMs": {
+          "samples": 180,
+          "median": 2.600000023841858,
+          "p95": 4.600000023841858
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.254976,
+          "p95": 1.08544
+        },
+        "epoch": "2026-10-28T00:00:00.000Z",
+        "benchmarkRafMs": {
+          "samples": 89,
+          "median": 6.900000000000091,
+          "p95": 7,
+          "maximum": 7.100000000000364,
+          "raw": [
+            6.899999999999636,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.899999999999636,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.899999999999636,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7.099999999999909,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            7.100000000000364,
+            6.799999999999727,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.899999999999636,
+            7,
+            7,
+            6.900000000000091,
+            6.800000000000182,
+            7.099999999999909,
+            6.900000000000091,
+            7,
+            6.799999999999727,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7
+          ]
+        }
+      },
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "efficient",
+        "reduced": false,
+        "relief": true,
+        "pose": {
+          "camera": [
+            115.1869983313038,
+            1034.3203994542603,
+            811.1205849608014
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400236.9583432795,
+          831865.1258124377,
+          599703.8547628882
+        ],
+        "renderCount": 3,
+        "firstModelMs": null,
+        "firstVisibleMs": null,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 0,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 67108864,
+          "maxTiles": 40
+        },
+        "transport": {
+          "requests": 1,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 56952,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 2,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 0,
+          "triangles": 0,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 2,
+          "median": 34.80000000000018,
+          "p95": 34.80000000000018
+        },
+        "cpuFrameMs": {
+          "samples": 3,
+          "median": 0.699999988079071,
+          "p95": 1.399999976158142
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 2,
+          "median": 0.00512,
+          "p95": 0.00512
+        }
+      },
+      "backForward": true,
+      "nativeEntry": true,
+      "nativeCameraBefore": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.180075467935815&lon=30.71002134906621&height=30000.000000000142&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "nativeCameraAfter": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.18007546793581&lon=30.71002134906621&height=29999.999999999956&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "resize": true,
+      "keyboard": true,
+      "touchPinch": false,
+      "reducedMotion": false
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "detailZoomSteps": 1,
+      "video": "54089d13ddb4e133d1602fc2899d24de.webm",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "initial": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": true,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.632927750005,
+            -7600.586920136359,
+            6516.533862513963
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 5,
+        "firstModelMs": 99.80000001192093,
+        "firstVisibleMs": 110.19999998807907,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 1,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 1,
+          "failed": 0,
+          "inFrustum": 1,
+          "used": 1,
+          "active": 1,
+          "visible": 1,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          0
+        ],
+        "visibleTiles": [
+          {
+            "depth": 0,
+            "geometricError": 40,
+            "uri": "tiles/0/0/0.glb"
+          }
+        ],
+        "loadedCount": 1,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 634564,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 618544,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 1,
+          "triangles": 33792,
+          "geometries": 1,
+          "textures": 1,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 4,
+          "median": 20.900000000000006,
+          "p95": 62.5
+        },
+        "cpuFrameMs": {
+          "samples": 5,
+          "median": 2.399999976158142,
+          "p95": 10
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 5,
+          "median": 0.001024,
+          "p95": 0.628736
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "detail": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": true,
+        "relief": false,
+        "pose": {
+          "camera": [
+            283.85279999999955,
+            -670.9247999999906,
+            564.131784960929
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400457.2711394432,
+          832192.1671991665,
+          598018.0852016929
+        ],
+        "renderCount": 40,
+        "firstModelMs": 99.80000001192093,
+        "firstVisibleMs": 110.19999998807907,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 29,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 29,
+          "failed": 0,
+          "inFrustum": 14,
+          "used": 29,
+          "active": 22,
+          "visible": 7,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          2,
+          3
+        ],
+        "visibleTiles": [
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/1.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/4.glb"
+          }
+        ],
+        "loadedCount": 29,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 18402356,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 30,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 16310456,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 7,
+          "triangles": 236544,
+          "geometries": 14,
+          "textures": 14,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 37,
+          "median": 7,
+          "p95": 34.69999999999999
+        },
+        "cpuFrameMs": {
+          "samples": 40,
+          "median": 2.5,
+          "p95": 7.300000011920929
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 39,
+          "median": 0.185344,
+          "p95": 1.901568
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "balancedOrbit": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": true,
+        "relief": false,
+        "pose": {
+          "camera": [
+            -713.2955320411663,
+            -148.06074190324966,
+            564.1317849608871
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400811.4297763244,
+          831242.7405264943,
+          598508.8522263418
+        ],
+        "renderCount": 129,
+        "firstModelMs": 99.80000001192093,
+        "firstVisibleMs": 110.19999998807907,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 37,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 37,
+          "failed": 0,
+          "inFrustum": 14,
+          "used": 29,
+          "active": 22,
+          "visible": 7,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          2,
+          3
+        ],
+        "visibleTiles": [
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/2.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/4.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/0.glb"
+          }
+        ],
+        "loadedCount": 37,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 23478868,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 38,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 20789716,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 7,
+          "triangles": 236544,
+          "geometries": 33,
+          "textures": 33,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 37,
+          "median": 7,
+          "p95": 34.69999999999999
+        },
+        "cpuFrameMs": {
+          "samples": 129,
+          "median": 2.300000011920929,
+          "p95": 3.800000011920929
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 128,
+          "median": 0.207872,
+          "p95": 2.407424
+        },
+        "epoch": "2026-10-28T00:00:00.000Z",
+        "benchmarkRafMs": {
+          "samples": 89,
+          "median": 6.900000000000091,
+          "p95": 7,
+          "maximum": 13.899999999999977,
+          "raw": [
+            7,
+            7,
+            6.900000000000091,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            7,
+            7,
+            6.800000000000068,
+            7,
+            6.899999999999977,
+            7,
+            13.899999999999977,
+            6.899999999999977,
+            6.899999999999977,
+            7.100000000000023,
+            6.899999999999977,
+            6.900000000000091,
+            7,
+            7,
+            6.899999999999977,
+            6.899999999999977,
+            6.899999999999977,
+            7.199999999999932,
+            6.7000000000000455,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.7999999999999545,
+            7,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            7,
+            6.800000000000182,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.7999999999999545,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7.100000000000136,
+            6.7999999999999545,
+            7,
+            6.900000000000091,
+            6.899999999999864
+          ]
+        }
+      },
+      "efficientReliefOrbit": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "efficient",
+        "reduced": true,
+        "relief": true,
+        "pose": {
+          "camera": [
+            -6.6234919668506,
+            728.4700602474757,
+            564.1317849608464
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400190.5633280512,
+          831695.8883361132,
+          599331.5754698376
+        ],
+        "renderCount": 222,
+        "firstModelMs": 99.80000001192093,
+        "firstVisibleMs": 110.19999998807907,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 26,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 26,
+          "failed": 0,
+          "inFrustum": 7,
+          "used": 13,
+          "active": 10,
+          "visible": 4,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          1,
+          2
+        ],
+        "visibleTiles": [
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/1.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/0/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/1.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/1/1.glb"
+          }
+        ],
+        "loadedCount": 37,
+        "disposedModels": 11,
+        "cache": {
+          "bytes": 21850400,
+          "maxBytes": 67108864,
+          "maxTiles": 40
+        },
+        "transport": {
+          "requests": 38,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 20789716,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 2,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 25,
+          "textures": 25,
+          "programs": 2,
+          "pixelRatio": 1
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 40,
+          "median": 7,
+          "p95": 62.5
+        },
+        "cpuFrameMs": {
+          "samples": 180,
+          "median": 2.199999988079071,
+          "p95": 3.200000047683716
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.072704,
+          "p95": 2.60608
+        },
+        "epoch": "2026-10-28T00:00:00.000Z",
+        "benchmarkRafMs": {
+          "samples": 89,
+          "median": 6.900000000000091,
+          "p95": 7,
+          "maximum": 7.099999999999909,
+          "raw": [
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            6.900000000000091,
+            7.099999999999909,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            7,
+            6.900000000000091,
+            6.999999999999773,
+            6.800000000000182,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.899999999999636,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.800000000000182,
+            7.099999999999909,
+            6.900000000000091,
+            7,
+            6.799999999999727,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.899999999999636,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            7,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            7,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            7
+          ]
+        }
+      },
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "efficient",
+        "reduced": true,
+        "relief": true,
+        "pose": {
+          "camera": [
+            47.60411006767093,
+            415.6986633793235,
+            318.8261512673549
+          ],
+          "target": [
+            1.2938196425924096,
+            -0.1440861082223106,
+            -12.17541503906249
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400057.677871621,
+          831680.0280220011,
+          598953.3806267361
+        ],
+        "renderCount": 237,
+        "firstModelMs": 99.80000001192093,
+        "firstVisibleMs": 110.19999998807907,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 40,
+        "disposedModels": 40,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 67108864,
+          "maxTiles": 40
+        },
+        "transport": {
+          "requests": 41,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 22470252,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 2,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 53,
+          "median": 7,
+          "p95": 41.669999999999845
+        },
+        "cpuFrameMs": {
+          "samples": 180,
+          "median": 2.199999988079071,
+          "p95": 3.200000047683716
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.059392,
+          "p95": 2.60608
+        }
+      },
+      "backForward": true,
+      "nativeEntry": true,
+      "nativeCameraBefore": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.180075467935815&lon=30.71002134906621&height=30000.000000000142&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "nativeCameraAfter": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.18007546793581&lon=30.71002134906621&height=29999.999999999956&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "resize": true,
+      "keyboard": true,
+      "touchPinch": true,
+      "reducedMotion": true
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "detailZoomSteps": 3,
+      "video": "0fa59befc6a4992cd76d9e2cec299830.webm",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "initial": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.632927750005,
+            -7600.586920136359,
+            6516.533862513963
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 5,
+        "firstModelMs": 57.30000001192093,
+        "firstVisibleMs": 68.10000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 1,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 1,
+          "failed": 0,
+          "inFrustum": 1,
+          "used": 1,
+          "active": 1,
+          "visible": 1,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          0
+        ],
+        "visibleTiles": [
+          {
+            "depth": 0,
+            "geometricError": 40,
+            "uri": "tiles/0/0/0.glb"
+          }
+        ],
+        "loadedCount": 1,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 634564,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 618544,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 1,
+          "triangles": 33792,
+          "geometries": 1,
+          "textures": 1,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 4,
+          "median": 20.89999999999999,
+          "p95": 20.900000000000006
+        },
+        "cpuFrameMs": {
+          "samples": 5,
+          "median": 2.400000035762787,
+          "p95": 9.700000047683716
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 5,
+          "median": 0.001024,
+          "p95": 0.200704
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "detail": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            139.08787199999983,
+            -328.7531519999947,
+            270.21511296093286
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400192.5292974468,
+          831866.5346397029,
+          598237.8590046517
+        ],
+        "renderCount": 44,
+        "firstModelMs": 57.30000001192093,
+        "firstVisibleMs": 68.10000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 29,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 29,
+          "failed": 0,
+          "inFrustum": 17,
+          "used": 29,
+          "active": 22,
+          "visible": 10,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          2,
+          3
+        ],
+        "visibleTiles": [
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/0.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/0/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/1.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/4/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/2/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/4.glb"
+          }
+        ],
+        "loadedCount": 29,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 18402356,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 30,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 16310456,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 10,
+          "triangles": 337920,
+          "geometries": 17,
+          "textures": 17,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 39,
+          "median": 7,
+          "p95": 20.900000000000006
+        },
+        "cpuFrameMs": {
+          "samples": 44,
+          "median": 2.300000011920929,
+          "p95": 5.600000023841858
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 44,
+          "median": 0.054272,
+          "p95": 1.12128
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "balancedOrbit": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            -349.51481070017184,
+            -72.54976353259315,
+            270.21511296091256
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400366.0670295185,
+          831401.3155700936,
+          598478.3348467296
+        ],
+        "renderCount": 134,
+        "firstModelMs": 57.30000001192093,
+        "firstVisibleMs": 68.10000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 37,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 37,
+          "failed": 0,
+          "inFrustum": 18,
+          "used": 29,
+          "active": 22,
+          "visible": 11,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          2,
+          3
+        ],
+        "visibleTiles": [
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/1.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/4.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/5.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/0.glb"
+          },
+          {
+            "depth": 3,
+            "geometricError": 0,
+            "uri": "tiles/3/3/2.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/3/3.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/0.glb"
+          }
+        ],
+        "loadedCount": 37,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 23478868,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 38,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 20789716,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 11,
+          "triangles": 371712,
+          "geometries": 37,
+          "textures": 37,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 39,
+          "median": 7,
+          "p95": 20.900000000000006
+        },
+        "cpuFrameMs": {
+          "samples": 134,
+          "median": 2.100000023841858,
+          "p95": 3.400000035762787
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 133,
+          "median": 0.078848,
+          "p95": 1.932288
+        },
+        "epoch": "2026-10-28T00:00:00.000Z",
+        "benchmarkRafMs": {
+          "samples": 89,
+          "median": 6.900000000000091,
+          "p95": 7,
+          "maximum": 7.100000000000136,
+          "raw": [
+            6.900000000000091,
+            7,
+            6.899999999999977,
+            6.899999999999977,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            6.900000000000091,
+            7,
+            7,
+            6.899999999999977,
+            6.899999999999977,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            7,
+            6.899999999999977,
+            6.899999999999977,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7.099999999999909,
+            6.7999999999999545,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7.100000000000136,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            7.099999999999909,
+            6.7999999999999545,
+            7,
+            7,
+            6.800000000000182,
+            7,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.7999999999999545,
+            7.100000000000136,
+            6.7999999999999545,
+            7,
+            7,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            6.899999999999864,
+            7
+          ]
+        }
+      },
+      "efficientReliefOrbit": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "efficient",
+        "reduced": false,
+        "relief": true,
+        "pose": {
+          "camera": [
+            -3.2455110637574345,
+            356.95032952126377,
+            270.2151129608915
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1400061.8424698648,
+          831623.3579968069,
+          598881.4692360426
+        ],
+        "renderCount": 228,
+        "firstModelMs": 57.30000001192093,
+        "firstVisibleMs": 68.10000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 26,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 26,
+          "failed": 0,
+          "inFrustum": 7,
+          "used": 13,
+          "active": 10,
+          "visible": 4,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          1,
+          2
+        ],
+        "visibleTiles": [
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/2/1.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/0/1.glb"
+          },
+          {
+            "depth": 2,
+            "geometricError": 10,
+            "uri": "tiles/2/1/1.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/1/1.glb"
+          }
+        ],
+        "loadedCount": 37,
+        "disposedModels": 11,
+        "cache": {
+          "bytes": 21850400,
+          "maxBytes": 67108864,
+          "maxTiles": 40
+        },
+        "transport": {
+          "requests": 38,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 20789716,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 2,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 26,
+          "textures": 26,
+          "programs": 2,
+          "pixelRatio": 1
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 43,
+          "median": 7,
+          "p95": 20.900000000000006
+        },
+        "cpuFrameMs": {
+          "samples": 180,
+          "median": 2.100000023841858,
+          "p95": 2.700000047683716
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.1792,
+          "p95": 1.857536
+        },
+        "epoch": "2026-10-28T00:00:00.000Z",
+        "benchmarkRafMs": {
+          "samples": 89,
+          "median": 6.900000000000091,
+          "p95": 7,
+          "maximum": 7.100000000000136,
+          "raw": [
+            6.7999999999999545,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7.100000000000136,
+            6.899999999999864,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.7999999999999545,
+            7,
+            7,
+            7,
+            6.899999999999864,
+            6.900000000000091,
+            6.900000000000091,
+            6.899999999999864,
+            7.100000000000136,
+            6.7999999999999545,
+            7,
+            7,
+            7,
+            6.7999999999999545,
+            7,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999864,
+            7,
+            6.900000000000091,
+            6.899999999999864,
+            7,
+            7,
+            7,
+            6.800000000000182,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            7,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.900000000000091,
+            7,
+            6.900000000000091,
+            6.899999999999636,
+            7,
+            7,
+            6.900000000000091,
+            7,
+            7,
+            6.800000000000182,
+            7,
+            6.900000000000091,
+            7,
+            6.899999999999636,
+            6.900000000000091
+          ]
+        }
+      },
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "efficient",
+        "reduced": false,
+        "relief": true,
+        "pose": {
+          "camera": [
+            24.233630068219632,
+            203.59126846655462,
+            150.01535245108056
+          ],
+          "target": [
+            1.5415877599315018,
+            -0.1716787823429656,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1399996.2950614411,
+          831616.3845847759,
+          598696.0588911177
+        ],
+        "renderCount": 251,
+        "firstModelMs": 57.30000001192093,
+        "firstVisibleMs": 68.10000002384186,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 42,
+        "disposedModels": 42,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 67108864,
+          "maxTiles": 40
+        },
+        "transport": {
+          "requests": 49,
+          "active": 1,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 26391792,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 2,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 65,
+          "median": 7,
+          "p95": 20.900000000000006
+        },
+        "cpuFrameMs": {
+          "samples": 180,
+          "median": 2.099999964237213,
+          "p95": 2.600000023841858
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.180224,
+          "p95": 1.128448
+        }
+      },
+      "backForward": true,
+      "nativeEntry": true,
+      "nativeCameraBefore": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.180075467935815&lon=30.71002134906621&height=30000.000000000142&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "nativeCameraAfter": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.18007546793581&lon=30.71002134906621&height=29999.999999999956&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "resize": true,
+      "keyboard": true,
+      "touchPinch": true,
+      "reducedMotion": false
+    },
+    {
+      "shortPortrait": 540,
+      "layout": {
+        "canvas": {
+          "x": 12.800000190734863,
+          "y": 208.8000030517578,
+          "width": 364.8000183105469,
+          "height": 190.40000915527344,
+          "top": 208.8000030517578,
+          "right": 377.60001850128174,
+          "bottom": 399.20001220703125,
+          "left": 12.800000190734863
+        },
+        "survey": {
+          "x": 12,
+          "y": 184,
+          "width": 366.3999938964844,
+          "height": 238,
+          "top": 184,
+          "right": 378.3999938964844,
+          "bottom": 422,
+          "left": 12
+        },
+        "tools": {
+          "x": 14,
+          "y": 427.3999938964844,
+          "width": 362.3999938964844,
+          "height": 84.5999984741211,
+          "top": 427.3999938964844,
+          "right": 376.3999938964844,
+          "bottom": 511.99999237060547,
+          "left": 14
+        },
+        "context": {
+          "x": 16,
+          "y": 102,
+          "width": 358.3999938964844,
+          "height": 74,
+          "top": 102,
+          "right": 374.3999938964844,
+          "bottom": 176,
+          "left": 16
+        },
+        "overflow": false
+      }
+    },
+    {
+      "shortPortrait": 501,
+      "layout": {
+        "canvas": {
+          "x": 12.800000190734863,
+          "y": 208.8000030517578,
+          "width": 364.8000183105469,
+          "height": 152,
+          "top": 208.8000030517578,
+          "right": 377.60001850128174,
+          "bottom": 360.8000030517578,
+          "left": 12.800000190734863
+        },
+        "survey": {
+          "x": 12,
+          "y": 184,
+          "width": 366.3999938964844,
+          "height": 199.60000610351562,
+          "top": 184,
+          "right": 378.3999938964844,
+          "bottom": 383.6000061035156,
+          "left": 12
+        },
+        "tools": {
+          "x": 14,
+          "y": 389,
+          "width": 362.3999938964844,
+          "height": 84.5999984741211,
+          "top": 389,
+          "right": 376.3999938964844,
+          "bottom": 473.5999984741211,
+          "left": 14
+        },
+        "context": {
+          "x": 16,
+          "y": 102,
+          "width": 358.3999938964844,
+          "height": 74,
+          "top": 102,
+          "right": 374.3999938964844,
+          "bottom": 176,
+          "left": 16
+        },
+        "overflow": false
+      }
+    },
+    {
+      "contextImageFailure": true,
+      "terrainRemainsReady": true,
+      "markerHidden": true
+    },
+    {
+      "failedTileRecovery": true,
+      "poseRetained": true,
+      "utcRetained": true,
+      "retryDisposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.632927750005,
+            -7600.586920136361,
+            6516.533862513965
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 4,
+        "firstModelMs": null,
+        "firstVisibleMs": null,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 0,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 1,
+          "aborted": 0,
+          "receivedBytes": 56952,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 0,
+          "triangles": 0,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 3,
+          "median": 12.501999999999981,
+          "p95": 13.800000000000011
+        },
+        "cpuFrameMs": {
+          "samples": 4,
+          "median": 2.300000011920929,
+          "p95": 2.599999964237213
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 4,
+          "median": 0.01024,
+          "p95": 0.04096
+        }
+      },
+      "diagnostics": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.6329277500045,
+            -7600.586920136338,
+            6516.533862513954
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 5,
+        "firstModelMs": 52.30000001192093,
+        "firstVisibleMs": 62.10000002384186,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 1,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 1,
+          "failed": 0,
+          "inFrustum": 1,
+          "used": 1,
+          "active": 1,
+          "visible": 1,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          0
+        ],
+        "visibleTiles": [
+          {
+            "depth": 0,
+            "geometricError": 40,
+            "uri": "tiles/0/0/0.glb"
+          }
+        ],
+        "loadedCount": 1,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 634564,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 618544,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 1,
+          "triangles": 33792,
+          "geometries": 1,
+          "textures": 1,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 4,
+          "median": 13.899999999999977,
+          "p95": 27.700000000000045
+        },
+        "cpuFrameMs": {
+          "samples": 5,
+          "median": 0.5,
+          "p95": 9.399999976158142
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 5,
+          "median": 0.038912,
+          "p95": 0.556032
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      }
+    },
+    {
+      "destination": "Solar System",
+      "url": "http://127.0.0.1:4231/solar-system?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=manual",
+      "native": null,
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.632927750005,
+            -7600.586920136359,
+            6516.533862513963
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 5,
+        "firstModelMs": 54.19999998807907,
+        "firstVisibleMs": 64.60000002384186,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 1,
+        "disposedModels": 1,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 618544,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 1,
+          "triangles": 33792,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 4,
+          "median": 20.799999999999997,
+          "p95": 20.80000000000001
+        },
+        "cpuFrameMs": {
+          "samples": 5,
+          "median": 2.199999988079071,
+          "p95": 10
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 3,
+          "median": 0.007168,
+          "p95": 0.04096
+        }
+      }
+    },
+    {
+      "destination": "Earth",
+      "url": "http://127.0.0.1:4231/earth?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "native": {
+        "mode": "earth",
+        "observer": {
+          "lat": 40.0000001969647,
+          "lon": -80.00000032546157,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "camera": {
+          "latitudeRad": 0.6981317007977317,
+          "longitudeRad": -1.3962634015954636,
+          "heightM": 15621863.000000002,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5684454694251215,
+          "rollRad": 0
+        },
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false
+      },
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.632927750005,
+            -7600.586920136359,
+            6516.533862513963
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 5,
+        "firstModelMs": 55.90000003576279,
+        "firstVisibleMs": 65.60000002384186,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 1,
+        "disposedModels": 1,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 618544,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 1,
+          "triangles": 33792,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 4,
+          "median": 20.799999999999983,
+          "p95": 20.80000000000001
+        },
+        "cpuFrameMs": {
+          "samples": 5,
+          "median": 2.199999988079071,
+          "p95": 9.100000023841858
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 3,
+          "median": 0.006144,
+          "p95": 0.038912
+        }
+      }
+    },
+    {
+      "destination": "Sky",
+      "url": "http://127.0.0.1:4231/sky-engine?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "native": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.00000000001537,
+          "lon": -79.99999999997344,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            3215.632927750005,
+            -7600.586920136359,
+            6516.533862513963
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1405818.8243973504,
+          838786.8796061917,
+          593567.2249207099
+        ],
+        "renderCount": 5,
+        "firstModelMs": 66.69999998807907,
+        "firstVisibleMs": 77.60000002384186,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 1,
+        "disposedModels": 1,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 2,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 618544,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 1,
+          "triangles": 33792,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 4,
+          "median": 20.80000000000001,
+          "p95": 34.69999999999999
+        },
+        "cpuFrameMs": {
+          "samples": 5,
+          "median": 2.300000011920929,
+          "p95": 10
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 3,
+          "median": 0.009216,
+          "p95": 0.039936
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "stage": "return Sky",
+  "sourceManifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+  "pass": true
+}

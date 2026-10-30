@@ -1,5 +1,11 @@
 #`ARCHITECTURE_OVERVIEW.md`
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ---
 
 # ASTRONOMY HUB — ARCHITECTURE OVERVIEW
@@ -21,7 +27,7 @@ This document is **authoritative for system structure**, but does NOT define exe
 
 ---
 
-## Current Foundation and Approved Future Direction
+## Historical — Current Foundation and Approved Future Direction
 
 C0–C5.6 completed bounded local checkpoints implement the renderer-centered
 workspace, small Hub product state and serial versioned Sky/Earth bridge. SWE

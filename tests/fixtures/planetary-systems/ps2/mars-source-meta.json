@@ -1,0 +1,33 @@
+{
+  "target_id": "499",
+  "center_id": "10",
+  "step_minutes": 60,
+  "query": {
+    "format": "json",
+    "OBJ_DATA": "'YES'",
+    "MAKE_EPHEM": "'YES'",
+    "EPHEM_TYPE": "'VECTORS'",
+    "REF_SYSTEM": "'ICRF'",
+    "REF_PLANE": "'FRAME'",
+    "VEC_CORR": "'NONE'",
+    "VEC_TABLE": "'2'",
+    "OUT_UNITS": "'KM-S'",
+    "CSV_FORMAT": "'YES'",
+    "TIME_TYPE": "'TDB'",
+    "CAL_TYPE": "'GREGORIAN'",
+    "COMMAND": "'499'",
+    "CENTER": "'500@10'",
+    "START_TIME": "'2026-10-01 00:00'",
+    "STOP_TIME": "'2026-11-01 00:00'",
+    "STEP_SIZE": "'60 m'"
+  },
+  "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27499%27&CENTER=%27500%4010%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27",
+  "bytes": 152428,
+  "sha256": "8610967e5925250641c44038847b1e743514d674919a1feb75a4daae400852a1",
+  "samples": 745,
+  "first_jd_tdb": 2461314.5,
+  "last_jd_tdb": 2461345.5,
+  "target_header": "Target body name: Mars (499)                      {source: mar099}",
+  "center_header": "Center body name: Sun (10)                        {source: DE441}",
+  "raw_file": "499-relative-10.json"
+}

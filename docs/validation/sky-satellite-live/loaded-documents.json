@@ -1,0 +1,1386 @@
+{
+  "packs": [
+    "frontend_change",
+    "backend_change",
+    "validation",
+    "review",
+    "debug"
+  ],
+  "additional_explicit": [
+    "docs/validation/n1-satellite-zoom-reveal/README.md",
+    "original N1 satellite browser evidence as referenced therein"
+  ],
+  "documents": [
+    {
+      "path": "docs/context/CORE_CONTEXT.md",
+      "review": "bounded sections",
+      "ranges": [
+        [
+          201,
+          471
+        ]
+      ],
+      "total_lines": 471
+    },
+    {
+      "path": "docs/context/LIVE_SESSION_BRIEF.md",
+      "review": "bounded sections",
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          985,
+          1054
+        ]
+      ],
+      "total_lines": 1054
+    },
+    {
+      "path": "docs/validation/r3-a-solar-system/RECONCILIATION.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 36
+    },
+    {
+      "path": "docs/validation/r4-a-planet-view/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          92,
+          92
+        ],
+        [
+          93,
+          93
+        ]
+      ],
+      "total_lines": 121
+    },
+    {
+      "path": "docs/validation/planetary-systems/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          28,
+          28
+        ],
+        [
+          29,
+          29
+        ]
+      ],
+      "total_lines": 126
+    },
+    {
+      "path": "docs/architecture/decisions/0010-r3-a-solar-runtime.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 116
+    },
+    {
+      "path": "docs/product/PRODUCT_VISION.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          17,
+          17
+        ],
+        [
+          61,
+          61
+        ]
+      ],
+      "total_lines": 187
+    },
+    {
+      "path": "docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          51,
+          51
+        ],
+        [
+          52,
+          52
+        ],
+        [
+          74,
+          74
+        ]
+      ],
+      "total_lines": 685
+    },
+    {
+      "path": "docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          46,
+          46
+        ],
+        [
+          47,
+          47
+        ],
+        [
+          91,
+          91
+        ]
+      ],
+      "total_lines": 152
+    },
+    {
+      "path": "docs/validation/solar-cinematic/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 121
+    },
+    {
+      "path": "docs/validation/cinematic-acceptance/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          22,
+          22
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          56,
+          56
+        ]
+      ],
+      "total_lines": 77
+    },
+    {
+      "path": "docs/validation/solar-scientific-controls/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          50,
+          50
+        ],
+        [
+          51,
+          51
+        ]
+      ],
+      "total_lines": 62
+    },
+    {
+      "path": "docs/validation/solar-cinematic-balance/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          44,
+          44
+        ],
+        [
+          45,
+          45
+        ]
+      ],
+      "total_lines": 47
+    },
+    {
+      "path": "docs/validation/earth-sky-completion/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          17,
+          17
+        ],
+        [
+          70,
+          70
+        ]
+      ],
+      "total_lines": 154
+    },
+    {
+      "path": "docs/validation/cinematic-glass/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          52,
+          52
+        ],
+        [
+          53,
+          53
+        ]
+      ],
+      "total_lines": 90
+    },
+    {
+      "path": "docs/design/adaptive-explorer-r1a/README.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          24,
+          24
+        ],
+        [
+          132,
+          132
+        ]
+      ],
+      "total_lines": 279
+    },
+    {
+      "path": "docs/validation/SYSTEM_VALIDATION_SPEC.md",
+      "review": "full",
+      "ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "total_lines": 262
+    },
+    {
+      "path": "docs/ASTRONOMY_HUB_DIAGRAM.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          39,
+          39
+        ]
+      ],
+      "total_lines": 64
+    },
+    {
+      "path": "docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md",
+      "review": "full",
+      "ranges": [
+        [
+          1,
+          181
+        ]
+      ],
+      "total_lines": 181
+    },
+    {
+      "path": "docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          25,
+          25
+        ],
+        [
+          26,
+          26
+        ],
+        [
+          37,
+          37
+        ]
+      ],
+      "total_lines": 882
+    },
+    {
+      "path": "docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          43,
+          43
+        ],
+        [
+          44,
+          44
+        ]
+      ],
+      "total_lines": 376
+    },
+    {
+      "path": "docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          61,
+          61
+        ],
+        [
+          62,
+          62
+        ],
+        [
+          68,
+          68
+        ]
+      ],
+      "total_lines": 532
+    },
+    {
+      "path": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          693,
+          693
+        ],
+        [
+          694,
+          694
+        ]
+      ],
+      "total_lines": 952
+    },
+    {
+      "path": "docs/validation/EARTH_HD_MAPPING_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          47,
+          47
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          299,
+          299
+        ]
+      ],
+      "total_lines": 409
+    },
+    {
+      "path": "docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          128,
+          128
+        ],
+        [
+          129,
+          129
+        ],
+        [
+          498,
+          498
+        ]
+      ],
+      "total_lines": 2214
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE_OVERVIEW.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          145,
+          145
+        ],
+        [
+          146,
+          146
+        ],
+        [
+          162,
+          162
+        ]
+      ],
+      "total_lines": 270
+    },
+    {
+      "path": "docs/architecture/ENGINE_SPEC.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          26,
+          26
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          94,
+          94
+        ]
+      ],
+      "total_lines": 329
+    },
+    {
+      "path": "docs/architecture/ENGINE_CATALOG.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          59,
+          59
+        ],
+        [
+          60,
+          60
+        ],
+        [
+          74,
+          74
+        ]
+      ],
+      "total_lines": 388
+    },
+    {
+      "path": "docs/architecture/OBJECT_MODEL.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 242
+    },
+    {
+      "path": "docs/architecture/DATA_CONTRACTS.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 263
+    },
+    {
+      "path": "docs/architecture/TONIGHT_CONTRACT.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          47,
+          47
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          108,
+          108
+        ]
+      ],
+      "total_lines": 114
+    },
+    {
+      "path": "docs/architecture/STACK_OVERVIEW.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          270,
+          270
+        ],
+        [
+          271,
+          271
+        ],
+        [
+          298,
+          298
+        ]
+      ],
+      "total_lines": 450
+    },
+    {
+      "path": "docs/execution/PROJECT_STATE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          67,
+          67
+        ],
+        [
+          68,
+          68
+        ],
+        [
+          151,
+          151
+        ]
+      ],
+      "total_lines": 973
+    },
+    {
+      "path": "docs/execution/MASTER_PLAN.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          67,
+          67
+        ],
+        [
+          68,
+          68
+        ],
+        [
+          134,
+          134
+        ]
+      ],
+      "total_lines": 538
+    },
+    {
+      "path": "docs/features/FEATURE_EXECUTION_MODEL.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 206
+    },
+    {
+      "path": "docs/features/FEATURE_CATALOG.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          82,
+          82
+        ],
+        [
+          83,
+          83
+        ],
+        [
+          117,
+          117
+        ]
+      ],
+      "total_lines": 318
+    },
+    {
+      "path": "docs/features/FEATURE_ACCEPTANCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 255
+    },
+    {
+      "path": "docs/features/FEATURE_TRACKER.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          193,
+          193
+        ],
+        [
+          194,
+          194
+        ],
+        [
+          232,
+          232
+        ]
+      ],
+      "total_lines": 399
+    },
+    {
+      "path": "docs/execution/EARTH_CAPABILITY_PLAN.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          34,
+          34
+        ],
+        [
+          35,
+          35
+        ],
+        [
+          69,
+          69
+        ]
+      ],
+      "total_lines": 981
+    },
+    {
+      "path": "docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          22,
+          22
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          117,
+          117
+        ]
+      ],
+      "total_lines": 249
+    },
+    {
+      "path": "docs/execution/C6_GLOBAL_MAPPING_SPEC.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          24,
+          24
+        ],
+        [
+          25,
+          25
+        ],
+        [
+          29,
+          29
+        ]
+      ],
+      "total_lines": 513
+    },
+    {
+      "path": "docs/architecture/decisions/0009-owned-earth-feature-reuse.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          49,
+          49
+        ]
+      ],
+      "total_lines": 63
+    },
+    {
+      "path": "docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          18,
+          18
+        ]
+      ],
+      "total_lines": 378
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "total_lines": 403
+    },
+    {
+      "path": "docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          17,
+          17
+        ]
+      ],
+      "total_lines": 212
+    },
+    {
+      "path": "docs/architecture/INGESTION_STRATEGY.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 204
+    },
+    {
+      "path": "docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          60,
+          60
+        ],
+        [
+          61,
+          61
+        ]
+      ],
+      "total_lines": 476
+    },
+    {
+      "path": "docs/audits/EARTH_CAPABILITY_RECONCILIATION_INPUT_2026-10-05.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          216,
+          216
+        ],
+        [
+          217,
+          217
+        ]
+      ],
+      "total_lines": 689
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          17,
+          17
+        ],
+        [
+          61,
+          61
+        ]
+      ],
+      "total_lines": 3295
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PUBLIC_EXPORT_AUDIT_2026-10-05.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          19,
+          19
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          37,
+          37
+        ]
+      ],
+      "total_lines": 170
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          46,
+          46
+        ],
+        [
+          47,
+          47
+        ],
+        [
+          60,
+          60
+        ]
+      ],
+      "total_lines": 1976
+    },
+    {
+      "path": "docs/audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          29,
+          29
+        ],
+        [
+          30,
+          30
+        ]
+      ],
+      "total_lines": 103
+    },
+    {
+      "path": "docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          13,
+          13
+        ],
+        [
+          167,
+          167
+        ]
+      ],
+      "total_lines": 317
+    },
+    {
+      "path": "docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          38,
+          38
+        ]
+      ],
+      "total_lines": 628
+    },
+    {
+      "path": "docs/audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          22,
+          22
+        ],
+        [
+          23,
+          23
+        ]
+      ],
+      "total_lines": 136
+    },
+    {
+      "path": "docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "total_lines": 152
+    },
+    {
+      "path": "docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          26,
+          26
+        ]
+      ],
+      "total_lines": 45
+    },
+    {
+      "path": "docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          171,
+          171
+        ],
+        [
+          172,
+          172
+        ],
+        [
+          189,
+          189
+        ]
+      ],
+      "total_lines": 194
+    },
+    {
+      "path": "docs/runtime/FAILURE_PATTERNS.md",
+      "review": "bounded first/authority excerpts; earlier oversized output not claimed",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "total_lines": 50
+    }
+  ],
+  "captured_against": "PR95 9ee6d85982edb3db276490706a82af83538e5e8d before task governance insertions; recorded line ranges are historical load ranges",
+  "task_created_documents": "This repair creates its own validation report, matrix, plan and evidence. The README is registered in the five existing packs; their union grows by one supporting document. These task outputs are not additional pre-existing context discovery."
+}

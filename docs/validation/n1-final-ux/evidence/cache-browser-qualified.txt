@@ -1,0 +1,2 @@
+1440 actual Cesium tracking preserved through controlled persisted lifecycle; pointer still untracks PASS
+390 actual Cesium tracking preserved through controlled persisted lifecycle; pointer still untracks PASS

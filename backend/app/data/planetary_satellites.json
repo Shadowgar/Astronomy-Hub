@@ -1,0 +1,375 @@
+{
+  "source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+  "source_sha256": "9a9c004d950923ea368a8c4815d813c9c232c332d1586402a23b15d9581370d1",
+  "satellites": [
+    {
+      "parent": "earth",
+      "id": "moon",
+      "name": "Moon",
+      "naif_id": "301",
+      "radius_km": 1737.4,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "mars",
+      "id": "phobos",
+      "name": "Phobos",
+      "naif_id": "401",
+      "radius_km": 11.08,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "mars",
+      "id": "deimos",
+      "name": "Deimos",
+      "naif_id": "402",
+      "radius_km": 6.2,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "io",
+      "name": "Io",
+      "naif_id": "501",
+      "radius_km": 1821.49,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "europa",
+      "name": "Europa",
+      "naif_id": "502",
+      "radius_km": 1560.8,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "ganymede",
+      "name": "Ganymede",
+      "naif_id": "503",
+      "radius_km": 2631.2,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "callisto",
+      "name": "Callisto",
+      "naif_id": "504",
+      "radius_km": 2410.3,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "amalthea",
+      "name": "Amalthea",
+      "naif_id": "505",
+      "radius_km": 83.5,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "thebe",
+      "name": "Thebe",
+      "naif_id": "514",
+      "radius_km": 49.3,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "adrastea",
+      "name": "Adrastea",
+      "naif_id": "515",
+      "radius_km": 8.2,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "metis",
+      "name": "Metis",
+      "naif_id": "516",
+      "radius_km": 21.5,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "jupiter",
+      "id": "himalia",
+      "name": "Himalia",
+      "naif_id": "506",
+      "radius_km": 85.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "mimas",
+      "name": "Mimas",
+      "naif_id": "601",
+      "radius_km": 198.2,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "enceladus",
+      "name": "Enceladus",
+      "naif_id": "602",
+      "radius_km": 252.1,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "tethys",
+      "name": "Tethys",
+      "naif_id": "603",
+      "radius_km": 531.1,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "dione",
+      "name": "Dione",
+      "naif_id": "604",
+      "radius_km": 561.4,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "rhea",
+      "name": "Rhea",
+      "naif_id": "605",
+      "radius_km": 763.5,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "titan",
+      "name": "Titan",
+      "naif_id": "606",
+      "radius_km": 2574.76,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "hyperion",
+      "name": "Hyperion",
+      "naif_id": "607",
+      "radius_km": 135.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "iapetus",
+      "name": "Iapetus",
+      "naif_id": "608",
+      "radius_km": 734.3,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "phoebe",
+      "name": "Phoebe",
+      "naif_id": "609",
+      "radius_km": 106.5,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "janus",
+      "name": "Janus",
+      "naif_id": "610",
+      "radius_km": 89.2,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "epimetheus",
+      "name": "Epimetheus",
+      "naif_id": "611",
+      "radius_km": 58.2,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "helene",
+      "name": "Helene",
+      "naif_id": "612",
+      "radius_km": 18.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "atlas",
+      "name": "Atlas",
+      "naif_id": "615",
+      "radius_km": 15.1,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "naif_id": "616",
+      "radius_km": 43.1,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "pandora",
+      "name": "Pandora",
+      "naif_id": "617",
+      "radius_km": 40.6,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "saturn",
+      "id": "pan",
+      "name": "Pan",
+      "naif_id": "618",
+      "radius_km": 14.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "uranus",
+      "id": "ariel",
+      "name": "Ariel",
+      "naif_id": "701",
+      "radius_km": 578.9,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "uranus",
+      "id": "umbriel",
+      "name": "Umbriel",
+      "naif_id": "702",
+      "radius_km": 584.7,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "uranus",
+      "id": "titania",
+      "name": "Titania",
+      "naif_id": "703",
+      "radius_km": 788.9,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "uranus",
+      "id": "oberon",
+      "name": "Oberon",
+      "naif_id": "704",
+      "radius_km": 761.4,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "uranus",
+      "id": "miranda",
+      "name": "Miranda",
+      "naif_id": "705",
+      "radius_km": 235.8,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "triton",
+      "name": "Triton",
+      "naif_id": "801",
+      "radius_km": 1352.6,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "nereid",
+      "name": "Nereid",
+      "naif_id": "802",
+      "radius_km": 170.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "naiad",
+      "name": "Naiad",
+      "naif_id": "803",
+      "radius_km": 29.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "thalassa",
+      "name": "Thalassa",
+      "naif_id": "804",
+      "radius_km": 40.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "despina",
+      "name": "Despina",
+      "naif_id": "805",
+      "radius_km": 74.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "galatea",
+      "name": "Galatea",
+      "naif_id": "806",
+      "radius_km": 79.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "larissa",
+      "name": "Larissa",
+      "naif_id": "807",
+      "radius_km": 96.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    },
+    {
+      "parent": "neptune",
+      "id": "proteus",
+      "name": "Proteus",
+      "naif_id": "808",
+      "radius_km": 208.0,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "radius_reference": "1"
+    }
+  ]
+}

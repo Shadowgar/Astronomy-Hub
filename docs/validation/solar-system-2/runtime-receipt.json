@@ -1,0 +1,1286 @@
+{
+  "application_commit": "fe3c3e876b8ea1e3a95020779497d7bb5bd5fdb9",
+  "scope": "Engineering/browser evidence; no owner visual, physical iPhone, source-release or deployment acceptance",
+  "frontend_tests": {
+    "files": 69,
+    "passed": 463
+  },
+  "journeys": [
+    {
+      "layout": "desktop",
+      "status": "PASS",
+      "checks": [
+        "Actual source geometry, camera-relative render positions, nine NASA assets, one output transform",
+        "Saturn selection and smooth physical approach stay in Solar with original UV imagery",
+        "Forward JPL playback and object follow preserve renderer, relative camera and GPU resource counts",
+        "Reverse source time without a renderer rebuild",
+        "Controlled free flight changes camera, not scientific time or source centers",
+        "Real source population and named Eros source mesh/approach with approximation disclosure",
+        "Explicit source-backed Saturn moon system and same-epoch return release/recreate one Solar renderer",
+        "Custom/free camera survives resize",
+        "Context loss visibly releases renderer; retry creates exactly one fresh canvas"
+      ],
+      "errors": []
+    },
+    {
+      "layout": "portrait",
+      "status": "PASS",
+      "checks": [
+        "Actual source geometry, camera-relative render positions, nine NASA assets, one output transform",
+        "Saturn selection and smooth physical approach stay in Solar with original UV imagery",
+        "Forward JPL playback and object follow preserve renderer, relative camera and GPU resource counts",
+        "Reverse source time without a renderer rebuild",
+        "Controlled free flight changes camera, not scientific time or source centers",
+        "Real source population and named Eros source mesh/approach with approximation disclosure",
+        "Explicit source-backed Saturn moon system and same-epoch return release/recreate one Solar renderer",
+        "Custom/free camera survives resize",
+        "Context loss visibly releases renderer; retry creates exactly one fresh canvas"
+      ],
+      "errors": []
+    },
+    {
+      "layout": "landscape",
+      "status": "PASS",
+      "checks": [
+        "Actual source geometry, camera-relative render positions, nine NASA assets, one output transform",
+        "Saturn selection and smooth physical approach stay in Solar with original UV imagery",
+        "Forward JPL playback and object follow preserve renderer, relative camera and GPU resource counts",
+        "Reverse source time without a renderer rebuild",
+        "Controlled free flight changes camera, not scientific time or source centers",
+        "Real source population and named Eros source mesh/approach with approximation disclosure",
+        "Explicit source-backed Saturn moon system and same-epoch return release/recreate one Solar renderer",
+        "Custom/free camera survives resize",
+        "Context loss visibly releases renderer; retry creates exactly one fresh canvas"
+      ],
+      "errors": []
+    }
+  ],
+  "handoffs": {
+    "base": "http://solar2.localhost:4231",
+    "platform": "win32",
+    "runs": [
+      {
+        "layout": "desktop",
+        "errors": [],
+        "checks": [
+          "Sky\u2192running Solar\u2192Earth preserves final time and releases the old renderer",
+          "Native Sky return receives updated UTC and unchanged observer intent",
+          "Native observing controls remain operable without Solar interference",
+          "Moved Earth search observer survives repeated Solar/Sky/Earth routes without stale search-history recenter",
+          "Direct Solar bookmark uses validated observer/elevation intent for an accurately centered Earth arrival"
+        ],
+        "before": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 457
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-27T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "solarEpoch": "2026-10-27T20:10:33.600Z",
+        "earth": {
+          "owner": "Astronomy Hub",
+          "monotonicMs": 990.5,
+          "globeTilesLoaded": false,
+          "ready": true,
+          "disposed": false,
+          "viewerDestroyed": false,
+          "site": {
+            "lat": 41.321903,
+            "lon": -79.585394,
+            "elevationM": 432.816
+          },
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "ORAS canonical site",
+              "status": "ready"
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "adsb.lol \u00b7 ODbL 1.0",
+              "status": "disabled"
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites \u00b7 stations",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "tracking",
+                "live-only"
+              ],
+              "attribution": "CelesTrak \u00b7 satellite.js",
+              "status": "loading"
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+              "status": "disabled"
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+              "category": "Events",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "U.S. Geological Survey",
+              "status": "disabled"
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters \u00b7 recent subset",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NIFC/WFIGS",
+              "status": "disabled"
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity \u00b7 CONUS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NOAA/NWS nowCOAST",
+              "status": "disabled"
+            }
+          ],
+          "providers": {
+            "satellites": {
+              "status": "loading",
+              "temporalMode": "LIVE_ONLY"
+            }
+          },
+          "entityCount": 1,
+          "timings": {
+            "moduleLoadedMs": 124.89999997615814,
+            "shellInteractiveMs": 160.39999997615814,
+            "viewerReadyMs": 163.10000002384186,
+            "firstImageryTileMs": 593.3000000119209
+          },
+          "cameraMotion": {
+            "active": false
+          },
+          "cameraHeightM": 15621863.000000002,
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 41.32190153934777,
+              "lon": -79.58539410405697,
+              "elevationM": 457
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.7212032605399997,
+              "longitudeRad": -1.3890271617970003,
+              "heightM": 15621863.000000002,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568429161529859,
+              "rollRad": 0
+            },
+            "utc": "2026-10-27T20:10:33.599Z",
+            "live": false
+          },
+          "tracking": null,
+          "selection": null,
+          "quality": {
+            "imagery": "NASA \u00b7 Blue Marble \u00b7 loading \u00b7 Static Blue Marble composite \u00b7 500 m",
+            "terrain": "Terrain unavailable \u00b7 ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          },
+          "imagery": {
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "loading",
+            "fallbackReason": "",
+            "metadata": {
+              "label": "NASA \u00b7 Blue Marble",
+              "product": "Static Blue Marble composite",
+              "date": null,
+              "gsd": 500,
+              "coverage": "Global overview; not current photography",
+              "credit": "NASA GIBS \u00b7 Blue Marble",
+              "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+              "host": "gibs.earthdata.nasa.gov",
+              "cap": 8,
+              "coverageRasterName": null,
+              "selected": "auto",
+              "actual": "nasa",
+              "status": "loading",
+              "reason": "",
+              "loadingNote": ""
+            },
+            "localAllocations": 1,
+            "controllersCreated": 1,
+            "managedLayers": 1,
+            "labelsLayers": 1,
+            "budget": {
+              "active": 25,
+              "requested": 25
+            },
+            "ionSessionRequests": 0,
+            "ionSessionLedgerAvailable": true,
+            "metadataRequests": 0,
+            "metadataPending": false,
+            "view": {
+              "height": 15621863.000000002,
+              "rect": [
+                -180,
+                -90,
+                180,
+                90
+              ],
+              "point": [
+                -79.58539410412061,
+                41.32190153845195
+              ],
+              "naipCovered": false,
+              "verifiedOras": false
+            },
+            "sources": {
+              "nasa": {
+                "requested": 7,
+                "loaded": 0,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 7,
+                "peak": 7,
+                "paused": false,
+                "partial": false,
+                "preparing": false
+              }
+            }
+          }
+        },
+        "after": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 457
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-27T20:10:33.599Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "moved": {
+          "mode": "earth",
+          "observer": {
+            "lat": 12.00000000047692,
+            "lon": 23.000000000132005,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.20943951023931967,
+            "longitudeRad": 0.4014257279586956,
+            "heightM": 39999.99999999852,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.570787785998363,
+            "rollRad": 0
+          },
+          "utc": "2026-10-27T20:10:33.598Z",
+          "live": false
+        },
+        "again": {
+          "mode": "earth",
+          "observer": {
+            "lat": 12.000000064652921,
+            "lon": 23.000001188898306,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.20943951024799984,
+            "longitudeRad": 0.401425727961,
+            "heightM": 15621862.999999998,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.569823327044924,
+            "rollRad": 0
+          },
+          "utc": "2026-10-27T20:10:33.598Z",
+          "live": false
+        },
+        "direct": {
+          "mode": "earth",
+          "observer": {
+            "lat": 12.000000062929743,
+            "lon": 23.000001188443022,
+            "elevationM": 456
+          },
+          "elevationSource": "provided",
+          "camera": {
+            "latitudeRad": 0.20943951023931942,
+            "longitudeRad": 0.401425727958696,
+            "heightM": 15621862.999999994,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5698233270450381,
+            "rollRad": 0
+          },
+          "utc": "2026-10-27T04:00:00.000Z",
+          "live": false
+        },
+        "status": "PASS"
+      },
+      {
+        "layout": "portrait",
+        "errors": [],
+        "checks": [
+          "Sky\u2192running Solar\u2192Earth preserves final time and releases the old renderer",
+          "Native Sky return receives updated UTC and unchanged observer intent",
+          "Native observing controls remain operable without Solar interference"
+        ],
+        "before": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 457
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-27T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "solarEpoch": "2026-10-27T20:01:29.280Z",
+        "earth": {
+          "owner": "Astronomy Hub",
+          "monotonicMs": 879.3000000119209,
+          "globeTilesLoaded": false,
+          "ready": true,
+          "disposed": false,
+          "viewerDestroyed": false,
+          "site": {
+            "lat": 41.321903,
+            "lon": -79.585394,
+            "elevationM": 432.816
+          },
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "ORAS canonical site",
+              "status": "ready"
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "adsb.lol \u00b7 ODbL 1.0",
+              "status": "disabled"
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites \u00b7 stations",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "tracking",
+                "live-only"
+              ],
+              "attribution": "CelesTrak \u00b7 satellite.js",
+              "status": "loading"
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+              "status": "disabled"
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+              "category": "Events",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "U.S. Geological Survey",
+              "status": "disabled"
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters \u00b7 recent subset",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NIFC/WFIGS",
+              "status": "disabled"
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity \u00b7 CONUS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NOAA/NWS nowCOAST",
+              "status": "disabled"
+            }
+          ],
+          "providers": {
+            "satellites": {
+              "status": "loading",
+              "temporalMode": "LIVE_ONLY"
+            }
+          },
+          "entityCount": 1,
+          "timings": {
+            "moduleLoadedMs": 111.80000001192093,
+            "shellInteractiveMs": 148.30000001192093,
+            "viewerReadyMs": 152.10000002384186,
+            "firstImageryTileMs": 396.60000002384186
+          },
+          "cameraMotion": {
+            "active": false
+          },
+          "cameraHeightM": 9621863,
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 41.32190210035696,
+              "lon": -79.5853940640924,
+              "elevationM": 457
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.72120326054,
+              "longitudeRad": -1.3890271617970003,
+              "heightM": 9621863,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5687912668456447,
+              "rollRad": 0
+            },
+            "utc": "2026-10-27T20:01:29.279Z",
+            "live": false
+          },
+          "tracking": null,
+          "selection": null,
+          "quality": {
+            "imagery": "NASA \u00b7 Blue Marble \u00b7 loading \u00b7 Static Blue Marble composite \u00b7 500 m",
+            "terrain": "Terrain unavailable \u00b7 ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          },
+          "imagery": {
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "loading",
+            "fallbackReason": "",
+            "metadata": {
+              "label": "NASA \u00b7 Blue Marble",
+              "product": "Static Blue Marble composite",
+              "date": null,
+              "gsd": 500,
+              "coverage": "Global overview; not current photography",
+              "credit": "NASA GIBS \u00b7 Blue Marble",
+              "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+              "host": "gibs.earthdata.nasa.gov",
+              "cap": 8,
+              "coverageRasterName": null,
+              "selected": "auto",
+              "actual": "nasa",
+              "status": "loading",
+              "reason": "",
+              "loadingNote": ""
+            },
+            "localAllocations": 1,
+            "controllersCreated": 1,
+            "managedLayers": 1,
+            "labelsLayers": 1,
+            "budget": {
+              "active": 24,
+              "requested": 27
+            },
+            "ionSessionRequests": 0,
+            "ionSessionLedgerAvailable": true,
+            "metadataRequests": 0,
+            "metadataPending": false,
+            "view": {
+              "height": 9621863,
+              "rect": [
+                -180,
+                -90,
+                180,
+                90
+              ],
+              "point": [
+                -79.58539406413868,
+                41.32190209970561
+              ],
+              "naipCovered": false,
+              "verifiedOras": false
+            },
+            "sources": {
+              "nasa": {
+                "requested": 6,
+                "loaded": 0,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 6,
+                "peak": 6,
+                "paused": false,
+                "partial": false,
+                "preparing": false
+              }
+            }
+          }
+        },
+        "after": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.321902100357576,
+            "lon": -79.58539406411742,
+            "elevationM": 457
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-27T20:01:29.279Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "status": "PASS"
+      },
+      {
+        "layout": "landscape",
+        "errors": [],
+        "checks": [
+          "Sky\u2192running Solar\u2192Earth preserves final time and releases the old renderer",
+          "Native Sky return receives updated UTC and unchanged observer intent",
+          "Native observing controls remain operable without Solar interference"
+        ],
+        "before": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 457
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-27T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "solarEpoch": "2026-10-27T20:02:21.120Z",
+        "earth": {
+          "owner": "Astronomy Hub",
+          "monotonicMs": 883.5,
+          "globeTilesLoaded": false,
+          "ready": true,
+          "disposed": false,
+          "viewerDestroyed": false,
+          "site": {
+            "lat": 41.321903,
+            "lon": -79.585394,
+            "elevationM": 432.816
+          },
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "ORAS canonical site",
+              "status": "ready"
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "adsb.lol \u00b7 ODbL 1.0",
+              "status": "disabled"
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites \u00b7 stations",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "tracking",
+                "live-only"
+              ],
+              "attribution": "CelesTrak \u00b7 satellite.js",
+              "status": "loading"
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "Open-Meteo \u00b7 CC BY 4.0",
+              "status": "disabled"
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes \u00b7 M2.5+ \u00b7 past day",
+              "category": "Events",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "U.S. Geological Survey",
+              "status": "disabled"
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters \u00b7 recent subset",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NIFC/WFIGS",
+              "status": "disabled"
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity \u00b7 CONUS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NOAA/NWS nowCOAST",
+              "status": "disabled"
+            }
+          ],
+          "providers": {
+            "satellites": {
+              "status": "loading",
+              "temporalMode": "LIVE_ONLY"
+            }
+          },
+          "entityCount": 1,
+          "timings": {
+            "moduleLoadedMs": 120,
+            "shellInteractiveMs": 150.80000001192093,
+            "viewerReadyMs": 153.5,
+            "firstImageryTileMs": 373.80000001192093
+          },
+          "cameraMotion": {
+            "active": false
+          },
+          "cameraHeightM": 15621863.000000002,
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 41.32190153934777,
+              "lon": -79.58539410405697,
+              "elevationM": 457
+            },
+            "elevationSource": "provided",
+            "camera": {
+              "latitudeRad": 0.7212032605399997,
+              "longitudeRad": -1.3890271617970003,
+              "heightM": 15621863.000000002,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.568429161529859,
+              "rollRad": 0
+            },
+            "utc": "2026-10-27T20:02:21.119Z",
+            "live": false
+          },
+          "tracking": null,
+          "selection": null,
+          "quality": {
+            "imagery": "NASA \u00b7 Blue Marble \u00b7 loading \u00b7 Static Blue Marble composite \u00b7 500 m",
+            "terrain": "Terrain unavailable \u00b7 ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          },
+          "imagery": {
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "loading",
+            "fallbackReason": "",
+            "metadata": {
+              "label": "NASA \u00b7 Blue Marble",
+              "product": "Static Blue Marble composite",
+              "date": null,
+              "gsd": 500,
+              "coverage": "Global overview; not current photography",
+              "credit": "NASA GIBS \u00b7 Blue Marble",
+              "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+              "host": "gibs.earthdata.nasa.gov",
+              "cap": 8,
+              "coverageRasterName": null,
+              "selected": "auto",
+              "actual": "nasa",
+              "status": "loading",
+              "reason": "",
+              "loadingNote": ""
+            },
+            "localAllocations": 1,
+            "controllersCreated": 1,
+            "managedLayers": 1,
+            "labelsLayers": 1,
+            "budget": {
+              "active": 17,
+              "requested": 18
+            },
+            "ionSessionRequests": 0,
+            "ionSessionLedgerAvailable": true,
+            "metadataRequests": 0,
+            "metadataPending": false,
+            "view": {
+              "height": 15621863.000000002,
+              "rect": [
+                -180,
+                -90,
+                180,
+                90
+              ],
+              "point": [
+                -79.58539410422874,
+                41.32190153692994
+              ],
+              "naipCovered": false,
+              "verifiedOras": false
+            },
+            "sources": {
+              "nasa": {
+                "requested": 2,
+                "loaded": 0,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 2,
+                "peak": 2,
+                "paused": false,
+                "partial": false,
+                "preparing": false
+              }
+            }
+          }
+        },
+        "after": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219015393746,
+            "lon": -79.58539410405257,
+            "elevationM": 457
+          },
+          "elevationSource": "provided",
+          "utc": "2026-10-27T20:02:21.119Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "status": "PASS"
+      }
+    ]
+  },
+  "captures": [
+    {
+      "layout": "desktop",
+      "errors": [],
+      "images": [
+        {
+          "scene": "overview",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "saturn",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "earth",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "mars",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        }
+      ]
+    },
+    {
+      "layout": "portrait",
+      "errors": [],
+      "images": [
+        {
+          "scene": "overview",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "saturn",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "earth",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "mars",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        }
+      ]
+    },
+    {
+      "layout": "landscape",
+      "errors": [],
+      "images": [
+        {
+          "scene": "overview",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "saturn",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "earth",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        },
+        {
+          "scene": "mars",
+          "entryModules": [
+            "http://solar2.localhost:4231/assets/index-BjtgXpsj.js"
+          ],
+          "gpu": {
+            "vendor": "Google Inc. (NVIDIA)",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "texturesReady": 9,
+          "epoch": "2026-10-27T04:00:00Z"
+        }
+      ]
+    }
+  ],
+  "gallery_files": [
+    {
+      "file": "before/desktop-overview.png",
+      "source": "output/playwright/solar2/before/desktop-overview.png",
+      "bytes": 666163,
+      "sha256": "140c8c37974d0436e09aa34d0f5be7cfb70fbd529571d654a09a24dfd46e0547"
+    },
+    {
+      "file": "after/desktop-overview.png",
+      "source": "output/playwright/solar2/final-current/desktop-overview.png",
+      "bytes": 563406,
+      "sha256": "4d2aaaf4aea9c6e5328a50d19fbfb4d5078f60aa531e761de8a8dedab1fc1da4"
+    },
+    {
+      "file": "before/desktop-saturn.png",
+      "source": "output/playwright/solar2/before/desktop-saturn.png",
+      "bytes": 687404,
+      "sha256": "5d9325bd295e8dbe22322e3b713a1b4b5cbdc88b88cf2ae96d65a220c060602b"
+    },
+    {
+      "file": "after/desktop-saturn.png",
+      "source": "output/playwright/solar2/final-current/desktop-saturn.png",
+      "bytes": 421767,
+      "sha256": "adbc626adf416ec976a64dbbdc92fae964d4327bc20f888efb3e2d33856e6152"
+    },
+    {
+      "file": "before/desktop-earth.png",
+      "source": "output/playwright/solar2/before/desktop-earth.png",
+      "bytes": 720207,
+      "sha256": "339949b4ebd7242f6f9557ff6942e2b0f2861bb6d34ae15054e1df21349ab041"
+    },
+    {
+      "file": "after/desktop-earth.png",
+      "source": "output/playwright/solar2/final-current/desktop-earth.png",
+      "bytes": 552751,
+      "sha256": "ceede90083fb169aacfa0d28023397c6a29dbfd965a9a1bf9ace7a0800338bfe"
+    },
+    {
+      "file": "before/desktop-mars.png",
+      "source": "output/playwright/solar2/before/desktop-mars.png",
+      "bytes": 511703,
+      "sha256": "7344c5012f0c793930a2f73fd20e85d67547c80aa460c3dd7825308d6603277c"
+    },
+    {
+      "file": "after/desktop-mars.png",
+      "source": "output/playwright/solar2/final-current/desktop-mars.png",
+      "bytes": 428664,
+      "sha256": "13229834862a2474915935c15c3e8afcc4018b09870eed1a0478f216ca9d81a4"
+    },
+    {
+      "file": "before/portrait-overview.png",
+      "source": "output/playwright/solar2/before/portrait-overview.png",
+      "bytes": 214648,
+      "sha256": "d11fb1483076a3dc8996e45d34aa8211133447ffa6d5cc1cf79547b4f6306075"
+    },
+    {
+      "file": "after/portrait-overview.png",
+      "source": "output/playwright/solar2/final-current/portrait-overview.png",
+      "bytes": 173205,
+      "sha256": "22c07a22aa37c37972d5ade40fabbe3f0c2e4c30bacfa67d4553462046d4e0fd"
+    },
+    {
+      "file": "before/portrait-saturn.png",
+      "source": "output/playwright/solar2/before/portrait-saturn.png",
+      "bytes": 226172,
+      "sha256": "b5ad6f8bf8abd799d77489cff6da5b14742dd7e17b70a4f224eb2597074fe56d"
+    },
+    {
+      "file": "after/portrait-saturn.png",
+      "source": "output/playwright/solar2/final-current/portrait-saturn.png",
+      "bytes": 143539,
+      "sha256": "7948c95dc1f6fc42b73ef4b28553b97a15d7066cb0d564097d2216fa85cee0bf"
+    },
+    {
+      "file": "before/portrait-earth.png",
+      "source": "output/playwright/solar2/before/portrait-earth.png",
+      "bytes": 221192,
+      "sha256": "1405980019ccb5806c51cad86a7743b9d29672a46db79fc74e4b448acb4c7b97"
+    },
+    {
+      "file": "after/portrait-earth.png",
+      "source": "output/playwright/solar2/final-current/portrait-earth.png",
+      "bytes": 170137,
+      "sha256": "904ebb4966ba58397376f89dd5486d8991ee0286564d76751918185e8e8dcd2d"
+    },
+    {
+      "file": "before/portrait-mars.png",
+      "source": "output/playwright/solar2/before/portrait-mars.png",
+      "bytes": 169764,
+      "sha256": "2832ac857eea31eb02f4b913f653f6d454eb46657d57d51a461efbec181c2a6d"
+    },
+    {
+      "file": "after/portrait-mars.png",
+      "source": "output/playwright/solar2/final-current/portrait-mars.png",
+      "bytes": 141671,
+      "sha256": "bca4db446382ccac4587936f45a94fc18e06f988953a8f0b5d3238108ece2582"
+    },
+    {
+      "file": "before/landscape-overview.png",
+      "source": "output/playwright/solar2/before/landscape-overview.png",
+      "bytes": 231304,
+      "sha256": "c19dd7a70cee5a5e785b1c6c99bd9cad1ad0d398db4dfecbf4753f7023dde07c"
+    },
+    {
+      "file": "after/landscape-overview.png",
+      "source": "output/playwright/solar2/final-current/landscape-overview.png",
+      "bytes": 194771,
+      "sha256": "b092350beb3053b585140f25c3276033b4c4b03fe4c3e42bb7ee014582040924"
+    },
+    {
+      "file": "before/landscape-saturn.png",
+      "source": "output/playwright/solar2/before/landscape-saturn.png",
+      "bytes": 235543,
+      "sha256": "e318fda1d9bb52a454bccb7f0e6b47e4ea107b4a18c72505725b16df571cad26"
+    },
+    {
+      "file": "after/landscape-saturn.png",
+      "source": "output/playwright/solar2/final-current/landscape-saturn.png",
+      "bytes": 167962,
+      "sha256": "27d9d8116f012710f6940c29c8602c01a2b574e277b55008a263e2798c9c7461"
+    },
+    {
+      "file": "before/landscape-earth.png",
+      "source": "output/playwright/solar2/before/landscape-earth.png",
+      "bytes": 236969,
+      "sha256": "00ed5d590cc7ca82bcd60ea5c9de009a676b80fd920a5dd48687ca7c8d15a7fa"
+    },
+    {
+      "file": "after/landscape-earth.png",
+      "source": "output/playwright/solar2/final-current/landscape-earth.png",
+      "bytes": 186124,
+      "sha256": "56a85479f28ca260d4783b0243ff3584cee7acffb73403bb75089085e54ca223"
+    },
+    {
+      "file": "before/landscape-mars.png",
+      "source": "output/playwright/solar2/before/landscape-mars.png",
+      "bytes": 200191,
+      "sha256": "6113e026a38eb3ec102d07832ebd6c5704447e625455ce2f2fd02c6abb0f331b"
+    },
+    {
+      "file": "after/landscape-mars.png",
+      "source": "output/playwright/solar2/final-current/landscape-mars.png",
+      "bytes": 165504,
+      "sha256": "3cb349bdda522b15981e1249404b39c2f98998a3f097433b7d30ceab907060e4"
+    },
+    {
+      "file": "reference/solar-primary-cinematic.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-primary-cinematic.png",
+      "bytes": 2260404,
+      "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab"
+    },
+    {
+      "file": "reference/solar-adaptive-explorer.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-adaptive-explorer.png",
+      "bytes": 2047493,
+      "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7"
+    },
+    {
+      "file": "reference/earth-cinematic.png",
+      "source": "docs/design/cinematic-references-2026-10-21/earth-cinematic.png",
+      "bytes": 2658442,
+      "sha256": "83601f768035502c1b7fbc9265866135ba40c838b0c6b598127d506112f812b1"
+    },
+    {
+      "file": "reference/sky-cinematic.png",
+      "source": "docs/design/cinematic-references-2026-10-21/sky-cinematic.png",
+      "bytes": 2092968,
+      "sha256": "e932e4a7cf59cf92d810e4dffbcbb5873d0fee8b51997d3f3ae162c84c7a7c91"
+    },
+    {
+      "file": "detail/desktop-saturn-oblique.png",
+      "source": "output/playwright/solar2/final-journeys/desktop-saturn-oblique.png",
+      "bytes": 397376,
+      "sha256": "5fb5f794b5966c718cfaa0956fee2d1a5567974bbfbc5989023225c22b47b7fe"
+    },
+    {
+      "file": "detail/desktop-saturn-backlit.png",
+      "source": "output/playwright/solar2/final-journeys/desktop-saturn-backlit.png",
+      "bytes": 281172,
+      "sha256": "b5392f38eb6b86ab38d2c44fa21847bbf0f4549c9d9cd29a5c037def91911973"
+    },
+    {
+      "file": "detail/desktop-eros.png",
+      "source": "output/playwright/solar2/final-journeys/desktop-eros.png",
+      "bytes": 262390,
+      "sha256": "f0ba2024e5af43644c5a906c73f9d02c46887a6dd7a908bf8e7f51e90eb885f6"
+    },
+    {
+      "file": "detail/desktop-saturn-system.png",
+      "source": "output/playwright/solar2/final-journeys/desktop-saturn-system.png",
+      "bytes": 87754,
+      "sha256": "a7c0b9b8139fa4aec5bdad448204b53037ace46fc0c0c7789def1f3fc7193121"
+    },
+    {
+      "file": "video/desktop.webm",
+      "source": "output/playwright/solar2/final-journeys/video/9dd1fc9dac3d84579fa7596ef7201fb4.webm",
+      "bytes": 2686236,
+      "sha256": "c3b2a96b72a85c58c17eb29e23a1950d307337b32c0b1aa0dee0fe50a85c0302"
+    },
+    {
+      "file": "video/portrait.webm",
+      "source": "output/playwright/solar2/final-journeys/video/456ef6a340de19042bec5af793fe41d6.webm",
+      "bytes": 1681602,
+      "sha256": "d32cb22458e86c815c6ecbc19708b55689090eb2c18f05b3e5e73f7749d1e4ff"
+    },
+    {
+      "file": "video/landscape.webm",
+      "source": "output/playwright/solar2/final-journeys/video/a9c1a9ab518b03165c7017384135b3de.webm",
+      "bytes": 2199286,
+      "sha256": "6889aab759d02175fa8526befce1f33118ba652cb0097c6e288e8fa1604f5990"
+    },
+    {
+      "file": "index.html",
+      "source": "docs/validation/solar-system-2/gallery/index.html",
+      "bytes": 6923,
+      "sha256": "ca2e469b3a4c8b47dc5f0d37620ef38eb5374f222375b6d1917d44acf7ce237f"
+    }
+  ],
+  "retained_failure_directories": [
+    "first",
+    "journeys1",
+    "journeys2",
+    "handoffs",
+    "handoffs-final"
+  ],
+  "capture_note": "Fixed-epoch images are final committed application source. Recordings cover unchanged Solar paths before late native-exit corrections; final handoff proof is separately qualified.",
+  "gallery_browser": {
+    "errors": [],
+    "checks": [
+      "overview/desktop",
+      "overview/portrait",
+      "overview/landscape",
+      "saturn/desktop",
+      "saturn/portrait",
+      "saturn/landscape",
+      "earth/desktop",
+      "earth/portrait",
+      "earth/landscape",
+      "mars/desktop",
+      "mars/portrait",
+      "mars/landscape"
+    ],
+    "referenceSha": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+    "preview": {
+      "epoch": "2026-10-27T04:00:00Z",
+      "assets": 9,
+      "modules": [
+        "http://localhost:4231/assets/index-BjtgXpsj.js"
+      ]
+    },
+    "status": "PASS"
+  }
+}

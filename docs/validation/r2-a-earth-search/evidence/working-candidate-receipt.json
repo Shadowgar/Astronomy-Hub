@@ -1,0 +1,145 @@
+{
+  "status": "PASS",
+  "head": "d1e3a75c4fa3b48a41fc5167786b3147bf763e71",
+  "committed": false,
+  "base": "http://127.0.0.1:4203",
+  "N1": "OWNER ACCEPTED; historical full navigation remains5/22 and7/22, not rerun",
+  "focusedBrowser": [
+    {
+      "suite": "desktop",
+      "proofSha256": "466515b1c87c217f909c9740981360a8ac3b77bd1a4fc7bbd5dd12738e3b517f",
+      "steps": [
+        "Earth ready; exactly one owned renderer",
+        "Ambiguous real city: explicit second candidate; native destination matches",
+        "Real zoom/pan; center anchoring preserved",
+        "Real named place: native camera and contextual details",
+        "Same-runtime Back/Forward restores actual panned/search camera bookmarks",
+        "Reload restores search destination through qualified host/native bookmark",
+        "Invalid coordinates declined without navigation",
+        "Reviewed hemisphere-letter city name reaches real provider and native destination",
+        "Offline coordinate search reaches genuine zero latitude/longitude",
+        "Real street address: provider details and actual Cesium destination",
+        "Declared no-result, unavailable and busy cases remain distinct and usable",
+        "Sky return uses actual searched surface observer/time; accepted panorama unchanged",
+        "Back from Sky restores searched Earth camera; one active renderer",
+        "Existing manual Explore coordinates and canonical ORAS context preserved"
+      ],
+      "screenshots": [
+        {
+          "name": "city-results",
+          "file": "1440-city-results.png",
+          "sha256": "347fb11722959e10a6af32649f2c74bce4b32156508210149c3832ec5c9618f2"
+        },
+        {
+          "name": "native-earth",
+          "file": "1440-native-earth.png",
+          "sha256": "56d7a16b72fad41ce21844c4d4c5366f4ec5ae947a36d3f2bf7df452e76f0380"
+        },
+        {
+          "name": "street-address",
+          "file": "1440-street-address.png",
+          "sha256": "0eae555cea2ca40bc1f2210ecf3f732dbb9587140c9961736268e0e4cd168036"
+        },
+        {
+          "name": "no-results",
+          "file": "1440-no-results.png",
+          "sha256": "a7256cc017b3541ea11fc1fbd6f8d600c6b6404b687ab6b511a8615993d91387"
+        },
+        {
+          "name": "provider-unavailable",
+          "file": "1440-provider-unavailable.png",
+          "sha256": "afa3ffce0d7dd530465d4d19ed53e0b311900c9a5d35b92709dcbf47978d51d4"
+        },
+        {
+          "name": "sky-return",
+          "file": "1440-sky-return.png",
+          "sha256": "de8af2c9693bb0c970a1e81fe12b4e489522ec1a51d7508b064a645c419e7cc8"
+        }
+      ]
+    },
+    {
+      "suite": "mobile",
+      "proofSha256": "d5c453b6bf9e33d7f83cd808be0fedad9ba80e72ec1f7dba2aa981209a5d9e48",
+      "steps": [
+        "Earth ready; exactly one owned renderer",
+        "Ambiguous real city: explicit second candidate; native destination matches",
+        "Real zoom/pan; center anchoring preserved",
+        "Real named place: native camera and contextual details",
+        "Same-runtime Back/Forward restores actual panned/search camera bookmarks",
+        "Reload restores search destination through qualified host/native bookmark",
+        "Invalid coordinates declined without navigation",
+        "Reviewed hemisphere-letter city name reaches real provider and native destination",
+        "Offline coordinate search reaches genuine zero latitude/longitude",
+        "Real street address: provider details and actual Cesium destination",
+        "Declared no-result, unavailable and busy cases remain distinct and usable",
+        "Sky return uses actual searched surface observer/time; accepted panorama unchanged",
+        "Back from Sky restores searched Earth camera; one active renderer",
+        "Existing manual Explore coordinates and canonical ORAS context preserved"
+      ],
+      "screenshots": [
+        {
+          "name": "city-results",
+          "file": "390-city-results.png",
+          "sha256": "e67236da6de4d01bc165347ab893c381f9752a2d1187d390a3c72bf796f2c36f"
+        },
+        {
+          "name": "native-earth",
+          "file": "390-native-earth.png",
+          "sha256": "56c20c32ae9735b6f0b9ce12794fbb17684dc97f20d47ac6ed0e4b8f60e6a266"
+        },
+        {
+          "name": "street-address",
+          "file": "390-street-address.png",
+          "sha256": "11ff514167a9776dccbf91280ab253901fc1100cbfb58a2b477b7f50c339458f"
+        },
+        {
+          "name": "no-results",
+          "file": "390-no-results.png",
+          "sha256": "2d2155395a1d8684aaf055d28a6c8aa4be02c3174691c0226b7429a5b4df7de0"
+        },
+        {
+          "name": "provider-unavailable",
+          "file": "390-provider-unavailable.png",
+          "sha256": "00af09589eff45885a46a7869c091d0f201573f5a2db10ca1ebcb9149a52aee1"
+        },
+        {
+          "name": "sky-return",
+          "file": "390-sky-return.png",
+          "sha256": "72d04fe198bfd4431a5322abcb246e4661d6a20aba7fb3dcc8c24c67784c61cb"
+        }
+      ]
+    }
+  ],
+  "licenseBrowserProofSha256": "11d28541ae7bbedc2ef08c554907fb263833af522183254f3ea58acd5cdc2d0c",
+  "layoutProofSha256": "5143d3d305c3f43f77ba19a0461b4055467d96a28d53eea849880ee09a9a7a6c",
+  "served": [
+    {
+      "url": "/assets/index-C_kAQEup.js",
+      "sha256": "286f21e5e1b2d2637e0f481e98becb87304cf50a1b0678794ad8378905048e14"
+    },
+    {
+      "url": "/assets/index-DJKmQR4n.css",
+      "sha256": "901ce51c42f102c620644715cbefda1af23ca6f48b8171e1386238b29f6446b7"
+    }
+  ],
+  "hubBuildFiles": 130,
+  "hubBuildManifestSha256": "db574cfd02746d0416fdd4aea38efdf553e260ee84a4674c083583302f94a23f",
+  "earthArtifact": "662e617078a4448d8235a2c9925c339ea7126cd430ec38cca5426fe8b60345b5",
+  "skyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
+  "acceptedRendererSourcesUnchanged": [
+    "runtimes",
+    "vendor",
+    "integrations/renderers.lock.json",
+    "packages/runtime-protocol",
+    "frontend/public/runtime-versions.json",
+    "frontend/public/oras-sky-engine"
+  ],
+  "originalContainersPreserved": 101,
+  "volumesPreserved": 90,
+  "ownerSettingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "limitations": [
+    "Software Chromium/emulated mobile only",
+    "PR71 imagery/cache not integrated",
+    "Public Photon best-effort availability; local single-worker admission only"
+  ]
+}

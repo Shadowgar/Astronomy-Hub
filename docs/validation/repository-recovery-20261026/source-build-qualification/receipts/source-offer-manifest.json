@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "status": "candidate",
+  "source_revision": "f7cb702c428980ce2b32539dbc74fc2b35082c12",
+  "archive": {
+    "url": "/source-distribution/astronomy-hub-source-f7cb702c428980ce2b32539dbc74fc2b35082c12.tar.gz",
+    "sha256": "7cf5cf444b35c02f05aeebd555e4a0142fc52c666161d14bea4981de9ebf3fde",
+    "bytes": 23639435
+  },
+  "runtime": {
+    "sky_artifact_sha256": "64af86ab95641cc013de510dc5ed0e8fce0959d648c3a2010ac07b5df96a9635",
+    "native_wasm_sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+  },
+  "licenses": [
+    {
+      "name": "GNU AGPL v3 (Stellarium)",
+      "url": "/licenses/stellarium-web-engine-AGPL-3.0.txt"
+    },
+    {
+      "name": "MIT (original Hub-owned code)",
+      "url": "/licenses/astronomy-hub-MIT.txt"
+    }
+  ],
+  "limitations": [
+    "Unpublished engineering candidate; no anonymous public HTTPS retrieval or production qualification.",
+    "AGPL combined-work scope and missing upstream font/notice provenance require external review.",
+    "Mounted scientific data and provider imagery are not part of this code source distribution.",
+    "Archive-only native/Sky/Hub reconstruction passed with exact output hashes; legal and public retrieval qualifications remain separate."
+  ]
+}

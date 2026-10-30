@@ -1,0 +1,94 @@
+{
+  "id": "pennsylvania-woodland-v1",
+  "illustrative": true,
+  "surveyed": false,
+  "scientificHorizon": false,
+  "source": {
+    "path": "panorama.png",
+    "sha256": "3c9582921ad8e774b321cc41b7d65ed7efdaaaa377e2214269fa6205c5f7c6d4",
+    "width": 1774,
+    "height": 887,
+    "transparentPixels": 766767,
+    "opaquePixels": 155
+  },
+  "nativeHealpixSha256": "35dbe93b341d8924c03e8eedd3081eaf2d553f4d3cf8894cd889fd7aa72c2484",
+  "format": "native observed-frame HiPS PNG RGBA; NESTED order 0",
+  "alphaEncoding": "source matte alpha 250..255 becomes opaque 255; lower edge coverage retained; premultiplied-alpha bilinear resampling",
+  "files": [
+    {
+      "path": "properties",
+      "bytes": 240,
+      "sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
+    },
+    {
+      "path": "description.en.utf8",
+      "bytes": 371,
+      "sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff"
+    },
+    {
+      "path": "Norder0/Allsky.png",
+      "bytes": 284565,
+      "sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481"
+    },
+    {
+      "path": "Norder0/Dir0/Npix0.png",
+      "bytes": 20555,
+      "sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245"
+    },
+    {
+      "path": "Norder0/Dir0/Npix1.png",
+      "bytes": 7308,
+      "sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56"
+    },
+    {
+      "path": "Norder0/Dir0/Npix2.png",
+      "bytes": 7419,
+      "sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3"
+    },
+    {
+      "path": "Norder0/Dir0/Npix3.png",
+      "bytes": 12461,
+      "sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef"
+    },
+    {
+      "path": "Norder0/Dir0/Npix4.png",
+      "bytes": 392640,
+      "sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862"
+    },
+    {
+      "path": "Norder0/Dir0/Npix5.png",
+      "bytes": 328225,
+      "sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf"
+    },
+    {
+      "path": "Norder0/Dir0/Npix6.png",
+      "bytes": 231251,
+      "sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af"
+    },
+    {
+      "path": "Norder0/Dir0/Npix7.png",
+      "bytes": 261540,
+      "sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33"
+    },
+    {
+      "path": "Norder0/Dir0/Npix8.png",
+      "bytes": 578107,
+      "sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35"
+    },
+    {
+      "path": "Norder0/Dir0/Npix9.png",
+      "bytes": 576406,
+      "sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4"
+    },
+    {
+      "path": "Norder0/Dir0/Npix10.png",
+      "bytes": 553591,
+      "sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836"
+    },
+    {
+      "path": "Norder0/Dir0/Npix11.png",
+      "bytes": 577286,
+      "sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff"
+    }
+  ]
+}

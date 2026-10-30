@@ -1,0 +1,22 @@
+from pathlib import Path
+import subprocess,json,os
+root=Path.cwd();out=root/'output/cinematic-hub';oldroot='/home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1'
+def inspect(name):return json.loads(subprocess.check_output(['docker','inspect',name]))[0]
+b=inspect('oras-solar-cinematic-backend');args=['docker','run','-d','--name','oras-cinematic-hub-backend','--network','oras-solar-cinematic']
+for value in b['Config']['Env']:args+=['-e',value]
+for bind in b['HostConfig']['Binds']:
+ src,dst,mode=bind.rsplit(':',2)
+ if src.startswith(oldroot):src=str(root)+src[len(oldroot):]
+ args+=['-v',f'{src}:{dst}:{mode}']
+if b['Config'].get('WorkingDir'):args+=['-w',b['Config']['WorkingDir']]
+args+=[b['Config']['Image'],*b['Config']['Cmd']]
+print('Task backend:',subprocess.check_output(args,text=True).strip())
+p=inspect('oras-solar-cinematic-preview');config=Path(oldroot+'/output/solar-cinematic/nginx.conf').read_text().replace('oras-solar-cinematic-backend','oras-cinematic-hub-backend');(out/'nginx.conf').write_text(config)
+args=['docker','run','-d','--name','oras-cinematic-integrated-preview','--network','oras-solar-cinematic','-p','127.0.0.1:4216:8877']
+for bind in p['HostConfig']['Binds']:
+ src,dst,mode=bind.rsplit(':',2)
+ if dst=='/frontend':src=str(out/'hub')
+ elif dst=='/evidence':src=str(root/'output')
+ elif dst=='/etc/nginx/conf.d/default.conf':src=str(out/'nginx.conf')
+ args+=['-v',f'{src}:{dst}:{mode}']
+args+=[p['Config']['Image']];print('Task preview:',subprocess.check_output(args,text=True).strip())

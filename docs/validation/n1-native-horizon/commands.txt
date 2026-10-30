@@ -1,0 +1,51 @@
+# Workdir: /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+# Initial state / authorization / context (Default Mode, single agent)
+git status --short
+git branch --show-current
+git rev-parse HEAD
+gh pr view 75 --json state,headRefName,headRefOid,baseRefName,url
+docker image inspect astronomy-hub-stellarium-jsbuild --format '{{.Id}}'
+docker inspect oras-n1-owner-preview --format '{{json .Mounts}}'
+# Baseline browser RED: missing new native property, actual green screenshot.
+N1_HORIZON_BASELINE=1 N1_WIDTHS=1440 N1_EVIDENCE_DIR=output/n1/native-horizon/before node scripts/validation/verify_n1_horizon.mjs
+# Test-first adapter RED, followed by GREEN in full final suite:
+git show f9a56194:runtimes/sky-adapter/plugin.js > output/n1/native-horizon/plugin-before.js
+N1_PLUGIN_SOURCE=output/n1/native-horizon/plugin-before.js node --test tests/runtime/sky-landscape-context.test.mjs
+node --test tests/runtime/sky-landscape-context.test.mjs
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend test
+npm --prefix frontend run typecheck
+# Isolated pin+overlay+one native patch; existing offline Docker native/UI toolchain.
+bash scripts/runtime/build_sky_horizon.sh
+# Exact final successful complete recipe in a SECOND fresh directory:
+ORAS_SKY_BUILD_DIR=/tmp/n1-horizon-reproduction bash scripts/runtime/build_sky_horizon.sh
+# Intermediate UI-only rebuild after scoped release-order fix:
+python3 scripts/runtime/integrate_sky_bridge.py output/n1/native-horizon-build/upstream/apps/web-frontend
+docker run --rm --network none --user 1001:1001 -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/native-horizon-build/upstream/apps/web-frontend:/work -v /var/tmp/oras-phase-c/sky-reconstruction/upstream/apps/web-frontend/node_modules:/work/node_modules:ro -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096' node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 npm run build
+python3 scripts/runtime/attest_sky_horizon.py output/n1/native-horizon-build/upstream
+# Default UI-only promotion correctly rejects changed native artifacts:
+python3 scripts/runtime/record_sky_workspace.py output/n1/native-horizon-build/upstream/apps/web-frontend/dist
+# Backup every prior locked Sky file, Hub dist, lock and admission before promotion.
+# Paths and all hashes verified in preservation.json / rollback.json.
+python3 scripts/runtime/record_sky_workspace.py output/n1/native-horizon-build/upstream/apps/web-frontend/dist --native-horizon-attestation output/n1/native-horizon-build/native-horizon-attestation.json
+python3 scripts/runtime/record_runtime_versions.py output/n1/earth
+npm --prefix frontend run build
+# Final actual native matrix and unchanged accepted navigation:
+N1_EVIDENCE_DIR=output/n1/native-horizon/visual node scripts/validation/verify_n1_horizon.mjs
+node scripts/validation/compare_n1_horizon_pixels.mjs
+N1_EVIDENCE_DIR=output/n1/native-horizon/journeys node scripts/validation/verify_n1_navigation.mjs
+N1_SERVED_EVIDENCE=output/n1/native-horizon/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
+# Exact served WASM HTTP 200/no-store/SHA-256 also checked against lock and attestation.
+python3 scripts/runtime/earth_artifact.py verify --source output/n1/earth
+python3 scripts/validation/validate_architecture_docs.py
+# No camera / protocol / science / pinned source / dependencies changed:
+git diff --exit-code 301f9eb3 -- runtimes/earth-runtime packages/runtime-protocol frontend/src runtimes/sky-adapter/native-wheel.mjs runtimes/sky-adapter/entry.mjs integrations/sky-overlay vendor frontend/package.json frontend/package-lock.json
+# Final review / source identity / push checks:
+git status --short
+git diff --check
+git diff --cached --check
+git log --oneline -5
+gh api graphql -f 'query=query { repository(owner:"Shadowgar",name:"Astronomy-Hub") { pullRequest(number:75) { reviewThreads(first:100) { nodes { id isResolved isOutdated path comments(first:30) { nodes { databaseId body url } } } } } } }'
+# Stage only named correction/artifact/evidence/governance files, commit to existing
+# branch, push origin n1-sky-earth-navigation-1 and update PR75 using --body-file.
+# No merge or deployment.

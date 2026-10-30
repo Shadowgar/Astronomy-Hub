@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "urlAfterBack": "http://127.0.0.1:4210/earth?date=2026-02-28T00%3A00%3A00Z&earthLat=41&earthLon=-79",
+  "finalUrl": "http://127.0.0.1:4210/solar-system?date=2026-02-28T00%3A00%3A00.000Z&earthLat=40&earthLon=-80&solarFrom=earth",
+  "error": "AssertionError [ERR_ASSERTION]: Superseded entry ACK must not override Back\n+ actual - expected\n\n+ '/solar-system'\n- '/earth'\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/scripts/validation/verify_r3_entry_race.mjs:5:789"
+}

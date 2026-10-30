@@ -1,0 +1,38 @@
+name: Isolated native satellite source recovery
+
+# One-time source candidate on the recovery branch. Does not run on main, does
+# not schedule refreshes, does not modify a repository file or deploy data.
+on:
+  push:
+    branches: [sky-native-satellite-recovery-1]
+    paths:
+      - '.github/workflows/native-satellite-recovery.yml'
+      - 'scripts/skydata/stage_fresh_native_satellites.py'
+      - 'tests/runtime/test_native_satellite_source_stage.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sky-native-recovery-source-candidate
+  cancel-in-progress: false
+
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check offline parsing and source admission
+        run: python3 -m unittest discover -s tests/runtime -p test_native_satellite_source_stage.py -v
+      - name: One bounded official source request and offline admission
+        run: python3 scripts/skydata/stage_fresh_native_satellites.py --output-dir "$RUNNER_TEMP/native-satellite-candidate"
+      - name: Upload candidate only (never promoted)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firstparty-native-satellite-candidate
+          path: ${{ runner.temp }}/native-satellite-candidate/
+          retention-days: 3
+          if-no-files-found: error

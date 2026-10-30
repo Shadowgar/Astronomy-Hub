@@ -1,0 +1,55 @@
+.....F                                                                   [100%]
+=================================== FAILURES ===================================
+____ test_malformed_provider_candidates_remain_unavailable_on_cached_retry _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f208642fd10>
+
+    def test_malformed_provider_candidates_remain_unavailable_on_cached_retry(monkeypatch):
+        from backend.app.services import earth_search as s
+        calls=[]
+        async def malformed(q):
+            calls.append(q)
+            return {'features':[{'geometry':{'type':'Point','coordinates':[0,91]},'properties':{'osm_type':'N','osm_id':123,'name':'Invalid fixture'}}]}
+        monkeypatch.setattr(s,'fetch_photon',malformed);monkeypatch.setattr(s,'service',s.PlaceSearch())
+        for _ in range(2):
+            response=client.get('/api/earth/search?q=malformed-provider')
+>           assert response.status_code==503
+E           assert 200 == 503
+E            +  where 200 = <Response [200 OK]>.status_code
+
+backend/tests/test_earth_search.py:76: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-17T18:30:09.398188+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "5807bba4-a20f-4033-b736-4554fa5894dd", "route": "/api/earth/search", "method": "GET"}
+{"timestamp": "2026-10-17T18:30:09.398671+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "5807bba4-a20f-4033-b736-4554fa5894dd", "route": "/api/earth/search", "method": "GET", "status_code": 503, "duration_ms": 0}
+{"timestamp": "2026-10-17T18:30:09.399660+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/earth/search?q=malformed-provider \"HTTP/1.1 503 Service Unavailable\"", "logger": "httpx", "request_id": null}
+{"timestamp": "2026-10-17T18:30:09.401619+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "746b684a-23be-426a-80cf-947ad8c28ffa", "route": "/api/earth/search", "method": "GET"}
+{"timestamp": "2026-10-17T18:30:09.403008+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "746b684a-23be-426a-80cf-947ad8c28ffa", "route": "/api/earth/search", "method": "GET", "status_code": 200, "duration_ms": 1}
+{"timestamp": "2026-10-17T18:30:09.404269+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/earth/search?q=malformed-provider \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/earth/search?q=malformed-provider "HTTP/1.1 503 Service Unavailable"
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/earth/search?q=malformed-provider "HTTP/1.1 200 OK"
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/testclient.py:29
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:29: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    [], typing.ContextManager[anyio.abc.BlockingPortal]
+
+../usr/local/lib/python3.12/site-packages/httpx/_client.py:690
+  /usr/local/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+../usr/local/lib/python3.12/site-packages/_pytest/cacheprovider.py:469
+  /usr/local/lib/python3.12/site-packages/_pytest/cacheprovider.py:469: PytestCacheWarning: cache could not write path /work/.pytest_cache/v/cache/nodeids: [Errno 30] Read-only file system: '/work/.pytest_cache/v/cache/nodeids'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+../usr/local/lib/python3.12/site-packages/_pytest/cacheprovider.py:423
+  /usr/local/lib/python3.12/site-packages/_pytest/cacheprovider.py:423: PytestCacheWarning: cache could not write path /work/.pytest_cache/v/cache/lastfailed: [Errno 30] Read-only file system: '/work/.pytest_cache/v/cache/lastfailed'
+    config.cache.set("cache/lastfailed", self.lastfailed)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED backend/tests/test_earth_search.py::test_malformed_provider_candidates_remain_unavailable_on_cached_retry
+1 failed, 5 passed, 4 warnings in 1.28s

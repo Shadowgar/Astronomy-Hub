@@ -1,0 +1,56 @@
+{
+  "status": "REPRODUCED",
+  "evidenceClass": "real Chromium application and native Sky/Earth handoff",
+  "rows": [
+    {
+      "supplied": "oras-site",
+      "native": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.782900000023176,
+          "lon": -73.96540000002213,
+          "elevationM": 123
+        },
+        "elevationSource": "provided",
+        "utc": "2026-10-14T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "earthUrl": "http://127.0.0.1:4202/earth?lat=40.782900000023176&lng=-73.96540000002213&elev=123&elevationSource=oras-site&date=2026-10-14T02%3A10%3A00.000Z",
+      "earthClaim": "oras-site",
+      "elevation": "123"
+    },
+    {
+      "supplied": "unavailable-zero",
+      "native": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.782900000023176,
+          "lon": -73.96540000002213,
+          "elevationM": 123
+        },
+        "elevationSource": "unavailable-zero",
+        "utc": "2026-10-14T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "earthUrl": "http://127.0.0.1:4202/earth?lat=40.782900000023176&lng=-73.96540000002213&elev=123&elevationSource=unavailable-zero&date=2026-10-14T02%3A10%3A00.000Z",
+      "earthClaim": "unavailable-zero",
+      "elevation": "123"
+    }
+  ]
+}

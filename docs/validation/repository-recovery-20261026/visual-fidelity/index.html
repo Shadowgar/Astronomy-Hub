@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Astronomy Hub — cinematic correction</title><style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#090e16;color:#edf2f8}body{margin:0 auto;padding:28px;max-width:1700px}a{color:#c0dcf8}h1{font-size:29px;font-weight:500;letter-spacing:-.7px}p{line-height:1.65;max-width:1050px;color:#bdc9d8}.eyebrow{font-size:11px;letter-spacing:2px;color:#e1b77e}nav,.controls{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}button,select,a.action{min-height:44px;padding:10px 15px;color:#e9f1fb;background:#131e2d;border:1px solid #3d4d60;border-radius:10px;font:inherit;font-size:13px}button{cursor:pointer}button[aria-pressed=true]{border-color:#d3ad77;color:#edc78c}.comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.comparison figure{margin:0;min-width:0}figcaption{padding:12px 0;line-height:1.5;font-size:12px;color:#b9c7d9}img{display:block;width:100%;height:490px;object-fit:contain;background:#03070c;border:1px solid #283649;border-radius:12px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}.metric{padding:20px;background:#111b29;border:1px solid #2d3b4e;border-radius:12px}.metric strong{display:block;font-size:25px;font-weight:450;margin-bottom:7px}.metric span{font-size:12px;color:#b6c7dc}.originals{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.originals img{height:180px}small{color:#aebdd0}@media(max-width:850px){body{padding:16px}.comparison{grid-template-columns:1fr}.comparison img{height:auto;max-height:750px}.originals{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr}}
+</style><body><div class="eyebrow">ACTUAL APPLICATION · FIRST IMPLEMENTATION SLICE</div><h1>Cinematic Astronomy Hub</h1><p>The owner rejected the previous implementation. These are matched real Windows Edge/NVIDIA captures before and after the correction, alongside the immutable approved references. This is a new implementation for review, not owner visual acceptance.</p>
+<nav><a class="action" href="/solar-system?date=2026-10-27T04:00:00Z">Operate Solar</a><a class="action" href="/earth">Earth</a><a class="action" href="/sky-engine">Sky</a><a class="action" href="/planet-view/moon?date=2026-10-27T04:00:00Z">Moon</a></nav>
+<div class="metrics"><div class="metric"><strong>46 → 155 px</strong><span>Desktop overview Sun radius; source position unchanged</span></div><div class="metric"><strong>1.07 → 8.69%</strong><span>Desktop projected body-disk area; not a claim about physical scale</span></div><div class="metric"><strong>128 → 70 px</strong><span>Desktop camera panel height, with presets disclosed on demand</span></div></div>
+<div class="controls"><label>Scene <select id="mode"><option value="solar">Solar overview</option><option value="solar-mars">Mars selected close-up</option><option value="earth">Earth</option><option value="sky">Sky</option><option value="moon">Moon</option></select></label><button data-size="desktop" aria-pressed="true">Desktop · 1440×900</button><button data-size="portrait" aria-pressed="false">Portrait · 390×844</button><button data-size="landscape" aria-pressed="false">Landscape · 844×390</button><label>Solar reference <select id="reference"><option value="solar-primary-cinematic.png">Primary cinematic</option><option value="solar-adaptive-explorer.png">Adaptive Explorer companion</option></select></label></div>
+<div class="comparison"><figure><a id="before-link" target="_blank"><img id="before" alt="Actual application before correction"></a><figcaption>BEFORE · application47fcc14c, delivery7743ac81 · same review epoch</figcaption></figure><figure><a id="reference-link" target="_blank"><img id="concept" alt="Exact original approved reference"></a><figcaption id="reference-caption"></figcaption></figure><figure><a id="after-link" target="_blank"><img id="after" alt="Actual revised application"></a><figcaption>AFTER · application703e2b47 · real native engines/source data</figcaption></figure></div>
+<p><small>All captures use27 October2026 04:00UTC and matching viewport dimensions. Reference PNG bytes are original and unmodified; they are contained in the comparison frame without cropping. Generated concepts are visual direction, not literal geometry, ephemerides, source imagery or provider promises. There is no separate cinematic mobile PNG; Moon uses the existing approved R1-A reference. Mobile checks are emulated touch on Windows, not physical iPhone evidence. Click an image to inspect its original resolution.</small></p>
+<h2>What changed</h2><p>A compact shared identity replaces stacked brand pills. Solar’s permanent body rail moves into an accessible destination chooser; View presets disclose on demand. Source-derived camera choices favor readable, sunlit faces; enlarged disks, luminous Sun, finer backdrop and existing NASA materials give the scene more presence. Physical scale and source disclosures remain available. Moon’s initial overview fits its actual frame; coordinates no longer force a clipped short-screen viewport.</p>
+<h2>What remains</h2><p>This is a substantial first slice, not complete concept fidelity. Earth still needs a separately chosen imagery/terrain source; Moon remains a coarse historical sphere. Richer source-qualified planet materials, integrated selected-body overview composition, native Sky/planet credit placement and further shared panel unification remain next slices. Solar’s illustrative backdrop is not a catalog sky; its belt remains an optional aggregate. The original concepts’ simultaneous planet arrangement cannot be reproduced by changing scientific positions.</p>
+<p>Warm desktop GPU p95:0.43→2.43ms on this NVIDIA laptop; CPU p95≈0.7ms. Efficient quality remains available and saved choices are preserved. No phone performance claim. The immediate mixed CDP-drag→tap sequence remains inconclusive; individual touch actions and orbit were tested separately. No public service, source archive publication, merge or deployment.</p>
+<h2>The four immutable references</h2><div class="originals" id="originals"></div><p>Implementation source:703e2b472e8d9bff34726d7e9a68cd254496ca63. Owner visual acceptance remains open.</p>
+<script>
+// Controls choose trusted entries; no DOM text becomes a URL or HTML fragment.
+const privatePreview=location.pathname.startsWith('/owner-review/');
+const referenceRoot=privatePreview?'references/':'../../../design/cinematic-references-2026-10-21/';
+const r1root=privatePreview?'references/':'../../../design/adaptive-explorer-r1a/evidence/';
+const scenes=Object.freeze({
+ solar:{files:{desktop:'desktop-solar.png',portrait:'portrait-solar.png',landscape:'landscape-solar.png'},reference:'solar'},
+ mars:{files:{desktop:'desktop-solar-mars.png',portrait:'portrait-solar-mars.png',landscape:'landscape-solar-mars.png'},reference:'solar'},
+ earth:{files:{desktop:'desktop-earth.png',portrait:'portrait-earth.png',landscape:'landscape-earth.png'},reference:'earth-cinematic.png'},
+ sky:{files:{desktop:'desktop-sky.png',portrait:'portrait-sky.png',landscape:'landscape-sky.png'},reference:'sky-cinematic.png'},
+ moon:{files:{desktop:'desktop-moon.png',portrait:'portrait-moon.png',landscape:'landscape-moon.png'},reference:'moon'}
+});
+const modeControl=document.getElementById('mode'),referenceControl=document.getElementById('reference');
+const beforeImage=document.getElementById('before'),beforeLink=document.getElementById('before-link');
+const afterImage=document.getElementById('after'),afterLink=document.getElementById('after-link');
+const conceptImage=document.getElementById('concept'),conceptLink=document.getElementById('reference-link');
+const sizeButtons=[
+ [document.querySelector('button[data-size="desktop"]'),'desktop'],
+ [document.querySelector('button[data-size="portrait"]'),'portrait'],
+ [document.querySelector('button[data-size="landscape"]'),'landscape']
+];
+let scene=scenes.solar,size='desktop',solarReference='solar-primary-cinematic.png';
+function show(){
+ const file=scene.files[size];
+ const beforeUrl='before/'+file,afterUrl='after/'+file;
+ beforeImage.src=beforeUrl;beforeLink.href=beforeUrl;
+ afterImage.src=afterUrl;afterLink.href=afterUrl;
+ const moon=scene.reference==='moon';
+ const reference=moon?(size==='desktop'?'moon-desktop.png':'moon-mobile.png'):scene.reference==='solar'?solarReference:scene.reference;
+ const source=(moon?r1root:referenceRoot)+reference;
+ conceptImage.src=source;conceptLink.href=source;
+ document.getElementById('reference-caption').textContent=moon?'ORIGINAL R1-A · existing body-exploration layout reference':'ORIGINAL APPROVED CONCEPT · exact PNG bytes';
+ for(const [button,key]of sizeButtons)button.setAttribute('aria-pressed',String(key===size));
+}
+modeControl.addEventListener('change',()=>{
+ switch(modeControl.value){
+  case 'solar':scene=scenes.solar;break;
+  case 'solar-mars':scene=scenes.mars;break;
+  case 'earth':scene=scenes.earth;break;
+  case 'sky':scene=scenes.sky;break;
+  case 'moon':scene=scenes.moon;break;
+  default:return;
+ }
+ show();
+});
+referenceControl.addEventListener('change',()=>{
+ switch(referenceControl.value){
+  case 'solar-primary-cinematic.png':solarReference='solar-primary-cinematic.png';break;
+  case 'solar-adaptive-explorer.png':solarReference='solar-adaptive-explorer.png';break;
+  default:return;
+ }
+ show();
+});
+for(const [button,key]of sizeButtons)button.addEventListener('click',()=>{size=key;show()});
+for(const name of['solar-primary-cinematic.png','solar-adaptive-explorer.png','earth-cinematic.png','sky-cinematic.png']){
+ const source=referenceRoot+name,link=document.createElement('a'),image=document.createElement('img');
+ link.href=source;link.target='_blank';image.src=source;image.alt=name;
+ link.append(image);document.getElementById('originals').append(link);
+}
+show();
+</script></body></html>

@@ -1,0 +1,16 @@
+{
+  "head": "ea4e9fec24ab88473daf463f90afba1de7b23b50",
+  "status": "FAIL",
+  "checks": [
+    "ordinary arrival and short overshoot stay Sky",
+    "decaying trackpad inertia at clamp stays Sky"
+  ],
+  "pageErrors": [],
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok((await nav()).camera.fovRad<180*Math.PI/180)\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_scroll_safeguards.mjs:16:38",
+  "inputs": {
+    "removed": [],
+    "frames": [
+      []
+    ]
+  }
+}

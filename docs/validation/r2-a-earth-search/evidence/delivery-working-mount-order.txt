@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/r2-a-earth-search-1/scripts/validation/verify_r2_earth_search_delivery.py", line 52, in <module>
+    assert now['State']['StartedAt']==previous['State']['StartedAt'] and now['State']['Status']==previous['State']['Status']and now['Mounts']==previous['Mounts'],previous['Name']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: /oras-h7b-wp

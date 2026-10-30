@@ -1,0 +1,68 @@
+{
+  "status": "PASS FOR REUSED EVIDENCE AND IDENTITIES ONLY",
+  "historicalProofsNotRerun": true,
+  "families": [
+    {
+      "family": "browser",
+      "originalProofSha256": "922db9ff2bcbedee986d002cd8200080649b7692d099d94853eb58bcaf0d25c5",
+      "status": "REUSED PASS - current source hashes match",
+      "runs": 2
+    },
+    {
+      "family": "satellite-recheck/browser",
+      "originalProofSha256": "3c653cab01396d6fbb20eabd5d841379280a773066499aa1bfcd6c1aba982726",
+      "status": "REUSED PASS - current source hashes match",
+      "runs": 7
+    },
+    {
+      "family": "satellite-recheck/symbol-pixels",
+      "originalProofSha256": "4d648b74afe297fd3d3e39771f03940abd860dc2a195529559981e6be97b3ca3",
+      "status": "REUSED PASS - current source hashes match",
+      "runs": 7
+    },
+    {
+      "family": "native-satellites",
+      "originalProofSha256": "67ad26e5a5767345f8cc0ac3e1a82b527f800037b5f31de04a528df4252331e1",
+      "status": "REUSED PASS - current source hashes match",
+      "runs": 2
+    },
+    {
+      "family": "pennsylvania",
+      "originalProofSha256": "2ba8d69212b19379a12a4e6c6c7c2556098394db4995edad6b8dac27616f58d8",
+      "status": "REUSED PASS - current source hashes match",
+      "runs": 2
+    },
+    {
+      "family": "observer-history",
+      "originalProofSha256": "3b5cbb4a2ce1260170d70c8d9d043d0a17b06fae5df105dfe858fa29c50556fe",
+      "status": "REUSED PASS - current source hashes match",
+      "runs": 4
+    },
+    {
+      "family": "product-paths",
+      "originalProofSha256": "59dab1922124b2149bfba3d67ec5bd21c83920ff1e207a6e4a6982073109e03a",
+      "status": "REUSED PASS - current source hashes match",
+      "runs": 2
+    }
+  ],
+  "ux": [
+    {
+      "width": 1440,
+      "selectionCases": 6,
+      "scenes": 42,
+      "checks": 9,
+      "pageErrors": [],
+      "smallestFovDegrees": 0.0002777777886012164
+    },
+    {
+      "width": 390,
+      "selectionCases": 6,
+      "scenes": 42,
+      "checks": 9,
+      "pageErrors": [],
+      "smallestFovDegrees": 0.0002777777886012164
+    }
+  ],
+  "protectedPathsUnchanged": 73,
+  "fullNavigation": "Exactly one fresh attempt each: desktopFAIL5 completed groups; mobileFAIL7 completed groups. Retry cycle stopped."
+}

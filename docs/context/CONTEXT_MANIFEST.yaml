@@ -9,11 +9,42 @@ global:
   - docs/context/LIVE_SESSION_BRIEF.md
 
 tasks:
+  solar_reconstruction:
+    # Owner October28–30 scoped Solar implementation and corrective review pack.
+    load:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
+    - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
+    - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/adaptive-explorer-r1a/README.md
+    - docs/validation/repository-recovery-20261026/owner-acceptance/README.md
+    - docs/validation/repository-recovery-20261026/visual-fidelity/README.md
+    - docs/validation/solar-system-2/PLAN.md
+    - docs/validation/solar-system-2.1/PLAN.md
+    - docs/validation/solar-system-2.1.1/PLAN.md
+    - docs/validation/solar-system-2.2/PLAN.md
+    - docs/validation/solar-system-2.2/README.md
+
   docs_change:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
+    - docs/validation/cinematic-glass/README.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -76,6 +107,11 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/validation/sky-satellite-live/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -111,8 +147,21 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/validation/sky-satellite-live/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
+    - docs/validation/cinematic-glass/README.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/ASTRONOMY_HUB_DIAGRAM.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -149,8 +198,21 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/validation/sky-satellite-live/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
+    - docs/validation/cinematic-glass/README.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
@@ -197,6 +259,11 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/validation/sky-satellite-live/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -224,8 +291,21 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/validation/sky-satellite-live/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
+    - docs/validation/cinematic-glass/README.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
@@ -274,6 +354,10 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
@@ -313,8 +397,20 @@ tasks:
     # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/validation/r3-a-solar-system/RECONCILIATION.md
+    - docs/validation/r4-a-planet-view/README.md
+    - docs/validation/planetary-systems/README.md
+    - docs/architecture/decisions/0010-r3-a-solar-runtime.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md
+    - docs/validation/solar-cinematic/README.md
+    - docs/validation/cinematic-acceptance/README.md
+    - docs/validation/solar-scientific-controls/README.md
+    - docs/validation/solar-cinematic-balance/README.md
+    - docs/validation/earth-sky-completion/README.md
+    - docs/validation/cinematic-glass/README.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md

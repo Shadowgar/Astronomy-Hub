@@ -1,0 +1,34 @@
+[
+  {
+    "path": "tests/earth/admitted-map-sources.test.mjs",
+    "sha256": "8778120230e59847c3c0a09465bed0bdd2b273077e80d952a2aa953deb1b5bcd"
+  },
+  {
+    "path": "tests/earth/display-config.test.mjs",
+    "sha256": "49bbcdf6ea0f656cde4d19c0d77e7ed6b3338f4453e346c0630b887c411babb2"
+  },
+  {
+    "path": "tests/earth/imagery-cache.test.mjs",
+    "sha256": "ac50aea9e076f4469e56a806a79d98eb28c7e5ea4a097ec81e87f342bcbe55c5"
+  },
+  {
+    "path": "tests/earth/imagery-controller.test.mjs",
+    "sha256": "6598328dd5e36c5d16983bd683eb46b3cff84d457b62aa7836476e3348cca745"
+  },
+  {
+    "path": "tests/earth/imagery-policy.test.mjs",
+    "sha256": "6124a90e0afef0d3c7d2a1985a4dfde2cf9f0f9f04c16a5fcbcc6db9bc16b5a5"
+  },
+  {
+    "path": "tests/earth/imagery-requests.test.mjs",
+    "sha256": "a3e67061721ef8778524dcabf375c62fc92f026e0bf345ca3d285775b1bfa9b1"
+  },
+  {
+    "path": "tests/earth/imagery-session.test.mjs",
+    "sha256": "a1950c90899e20d2c428c13f018a25b3b5e71c26dd7bbf7717b956bbbd6f3b0f"
+  },
+  {
+    "path": "tests/earth/viewer-imagery-progress.test.mjs",
+    "sha256": "f5a83584071abc3c0ccfbe24615c0fff747f357be5e75aa81afe00141ecb1fd1"
+  }
+]

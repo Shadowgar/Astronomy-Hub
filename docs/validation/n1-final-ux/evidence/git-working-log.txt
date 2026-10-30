@@ -1,0 +1,5 @@
+f3629f9a fix(n1): reveal native satellite symbols through real zoom
+9cb158e3 fix(n1): retain native identity during UI-only promotions
+90f2a5bd fix(n1): preserve provenance during same-route observer updates
+ea802138 docs(n1): record verified delivery and resolved P2 reviews
+b7b5da90 fix(n1): qualify snapshots, elevation, source builds and native satellites

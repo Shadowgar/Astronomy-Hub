@@ -1,5 +1,79 @@
 # `DOC_INVENTORY.md`
 
+Current integrated planetary-system review preview and package ledger: [PS3](validation/planetary-systems/ps3/README.md).
+
+PS2 major-moon implementation, source limits and qualification: [PS2](validation/planetary-systems/ps2/README.md).
+
+Current owner-authorized [planetary systems](validation/planetary-systems/README.md) extend preserved PR92 in bounded PS1/PS2/PS3 draft packages. Earth–Moon first, then qualified major-moon subsets; no merge or deployment. Earlier single-globe restrictions below are historical within this explicit scope.
+
+Current owner-authorized [R4-A lunar Planet View](validation/r4-a-planet-view/README.md) resumes the canonical roadmap from draft PR91; no broad visual redesign, merge or deployment.
+
+Current owner visual rejection activates [G1/G2/V1 glass correction](validation/cinematic-glass/README.md) stacked on PR90. Approved references remain; no visual acceptance, merge, deployment or R4.
+
+Current owner-authorized [Earth/Sky completion](validation/earth-sky-completion/README.md) continues from PR88, preserving owner-confirmed satisfactory Solar responsiveness. Draft delivery and visual acceptance remain separate.
+
+Owner-approved cinematic sizing correction: [current implementation/evidence](validation/solar-cinematic-balance/README.md); prior physical-default qualification remains historical.
+
+Current owner-approved Solar scientific-size/control correction and source-matched
+proof: [Solar scientific controls](validation/solar-scientific-controls/README.md).
+Prior cinematic/current-time evidence remains historical at its recorded source.
+
+## Current integrated PR88 visual correction evidence — 2026-10-22
+
+[Earth/Solar/Sky corrections, exact commands, current screenshots and limits](validation/cinematic-acceptance/README.md) continue the owner-authorized packages84–88 from4e07ebfb. The approved original visual family is unchanged. This supporting validation report is routed through the five visual/docs/review context packs, adding one unique document to their combined inventory. Original technical/historical evidence remains intact; owner visual and hardware acceptance remain separate. Earlier PR83-only execution wording below is historical where superseded by CORE/LIVE/PROJECT_STATE. No merge, deployment, paid provider or R4 authority.
+
+
+## Current PR83 refinement evidence
+
+[Reference/actual screenshots, remaining gaps, fresh qualification and exact commands](validation/solar-cinematic/refinement/README.md). Supporting evidence; existing approved direction and draft stack, OWNER VISUAL ACCEPTANCE PENDING. No new phase or merge/deployment authority.
+
+## Cinematic Solar implementation evidence — 2026-10-21
+
+[Validation](validation/solar-cinematic/README.md), [fidelity/screenshots](validation/solar-cinematic/FIDELITY.md), [commands](validation/solar-cinematic/COMMANDS.md), [plan](validation/solar-cinematic/PLAN.md).
+Supporting evidence only; owner visual acceptance pending, no merge/deployment or new phase.
+
+## Cinematic owner-approved reference inventory — 2026-10-21
+
+- `docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md` — **SUPPORT, owner-approved visual decision/provenance**, with exact concept image hashes, original R1-A/ORA-6 sketch links, source limitations and implementation comparison gates. The canonical design authority remains `docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md`. The four original image assets are imported byte for byte from the owner-committed repository ZIP into `docs/design/cinematic-references-2026-10-21/`; all four hashes match the approval ledger and original manifest. This document must be routed through appropriate context packs before visual production implementation.
+
+## Current scope reconciliation — 2026-10-21
+R3-A renderer/science decision: [ADR0010](architecture/decisions/0010-r3-a-solar-runtime.md).
+
+R3-A reconciliation/proof: [package ledger](validation/r3-a-solar-system/RECONCILIATION.md), [context inventory](validation/r3-a-solar-system/context.json). These are evidence under the existing authority, not a new master plan.
+
+
+Current execution: [PROJECT_STATE](execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
+## R2-B imagery/cache support — 2026-10-17
+
+[Implementation and evidence](validation/r2-b-earth-imagery-cache/README.md) ·
+[Bounded integration plan](validation/r2-b-earth-imagery-cache/plan.md).
+R2-A remains draft and N1 owner accepted; historical records retain their identities.
+
+
+## R2-A support inventory — 2026-10-17
+
+- `docs/validation/r2-a-earth-search/README.md` — bounded implementation, actual preview,
+  commands/browser/screenshots, exact identities and remaining qualification.
+- `docs/validation/r2-a-earth-search/plan.md` — owner-authorized inline design/implementation.
+- `docs/validation/r2-a-earth-search/PR71_REUSE.md` — exact-head reuse/integration and
+  retained rights/hardware limitations; does not authorize PR71 merge.
+
+LIVE/PROJECT_STATE activate R2-A and record N1 OWNER ACCEPTED. Historical R1/N1
+inventory/acceptance language below describes earlier checkpoints only.
+
+## R1-A design reference inventory — SUPPORT, 2026-10-13
+
+- `docs/design/adaptive-explorer-r1a/README.md`: design scope, preview, evidence and open decisions; routed through five applicable context packs.
+- `docs/design/adaptive-explorer-r1a/{index,explorer,review,system}.html`: editable review gallery, shared four-mode layouts, mobile frame and component/token reference.
+- `docs/design/adaptive-explorer-r1a/{reference,gallery}.css` and `reference.js`: isolated reference styling and sample interactions; never application/runtime inputs.
+- `docs/design/adaptive-explorer-r1a/verify.mjs` and `evidence/*`: focused browser capture/check runner, PNG screenshots and source-hash/browser ledger.
+
+All R1-A/01 screens are **PENDING OWNER VISUAL ACCEPTANCE**. Canonical product/design
+and execution authority remain in the existing documents; these are proposals/proof.
+
 ---
 
 # DOCUMENT INVENTORY (SYSTEM CLASSIFICATION — AUTHORITATIVE)

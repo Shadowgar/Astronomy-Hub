@@ -1,0 +1,39 @@
+{
+  "/api/v1/health": {
+    "status": 200,
+    "sha256": "1ef5063e188cd29120eee74cfc60245f600019b31b9dd38909fea0eed3d0b03c"
+  },
+  "/oras-sky-engine/oras-runtime-build.json": {
+    "status": 200,
+    "sha256": "8814dfab7031ef6b9e5d5ccf194ff81b92ec3f301432abc57bfd09e3172ea2ad"
+  },
+  "/earth-runtime/release.json": {
+    "status": 200,
+    "sha256": "0ebfdf16c931e62b22a718a2758ce6046ad07000a2aae2aede9f0ba7ec8996c0"
+  },
+  "/planet-runtime/moon-source-manifest.json": {
+    "status": 200,
+    "sha256": "c6386e1668831fd9aa072b280507aceadd490b147a0d66f73ead8b909a00eccf"
+  },
+  "/owner-review/visual-fidelity/": {
+    "status": 200,
+    "sha256": "eb5204d361c93b2dd46847a8d0e8593e44d76552cba79876006c006abb3a2234"
+  },
+  "pr107-owner-preview": {
+    "running": true,
+    "all_bind_mounts_readonly": true,
+    "ports": {
+      "8877/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "4231"
+        }
+      ]
+    }
+  },
+  "pr107-owner-backend": {
+    "running": true,
+    "all_bind_mounts_readonly": true,
+    "ports": {}
+  }
+}

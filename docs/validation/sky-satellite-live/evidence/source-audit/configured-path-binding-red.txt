@@ -1,0 +1,82 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_release_validation_is_bound_to_configured_feed_bytes ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-22/test_release_validation_is_bou0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc2d4a91220>
+
+    def test_release_validation_is_bound_to_configured_feed_bytes(tmp_path: Path, monkeypatch) -> None:
+        import gzip
+        release = tmp_path / "current"
+        _build_fixture_release(release)
+        canonical = release / "tle_satellite.jsonl.gz"
+        record = json.loads(gzip.decompress(gzip.decompress(canonical.read_bytes())).splitlines()[0])
+        record["model_data"].update(norad_number=99999, source_id="99999")
+        record["model_data"]["tle"] = [line[:2] + "99999" + line[7:] for line in record["model_data"]["tle"]]
+        alternate = release / "different.jsonl.gz"
+        alternate.write_bytes(gzip.compress(gzip.compress(json.dumps(record).encode())))
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(alternate))
+        monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+        monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
+
+        data = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z").json()["data"]
+
+        assert data["mounted"] is True
+>       assert data["status"] == "degraded"
+E       AssertionError: assert 'ready' == 'degraded'
+E
+E         - degraded
+E         + ready
+
+backend/tests/test_satellite_feed_api.py:323: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T08:08:58.844336+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "ec441d75-68d1-47e0-b27e-6f799a6e03c5", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-24T08:08:58.847159+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "ec441d75-68d1-47e0-b27e-6f799a6e03c5", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 2}
+{"timestamp": "2026-10-24T08:08:58.877091+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z "HTTP/1.1 200 OK"
+_____ test_release_validation_does_not_ignore_configured_manifest_filename _____
+
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-22/test_release_validation_does_n0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc2d48cdaf0>
+
+    def test_release_validation_does_not_ignore_configured_manifest_filename(tmp_path: Path, monkeypatch) -> None:
+        release = tmp_path / "current"
+        _build_fixture_release(release)
+        alternate_manifest = release / "different-manifest.json"
+        alternate_manifest.write_text("{}", encoding="utf-8")
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+        monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(alternate_manifest))
+        monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
+
+        data = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z").json()["data"]
+
+        assert data["mounted"] is True
+        assert data["release_manifest_available"] is True
+>       assert data["status"] == "degraded"
+E       AssertionError: assert 'ready' == 'degraded'
+E
+E         - degraded
+E         + ready
+
+backend/tests/test_satellite_feed_api.py:344: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T08:08:59.048055+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "4db18ca8-f5fa-4809-833c-24c06dc2bcb9", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-24T08:08:59.051261+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "4db18ca8-f5fa-4809-833c-24c06dc2bcb9", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 3}
+{"timestamp": "2026-10-24T08:08:59.053471+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z "HTTP/1.1 200 OK"
+=============================== warnings summary ===============================
+../../.venv/lib/python3.12/site-packages/httpx/_client.py:690
+  /home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_feed_api.py::test_release_validation_is_bound_to_configured_feed_bytes
+FAILED backend/tests/test_satellite_feed_api.py::test_release_validation_does_not_ignore_configured_manifest_filename
+2 failed, 14 deselected, 1 warning in 2.31s

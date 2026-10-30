@@ -1,0 +1,200 @@
+{
+  "base": "http://localhost:4231",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "closed": {
+        "box": {
+          "x": 92,
+          "y": 122,
+          "width": 1324,
+          "height": 594
+        },
+        "diameter": 522.72,
+        "camera": {
+          "latitudeDeg": -1.4113836859614308,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 6080286.145374104,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "open": {
+        "box": {
+          "x": 92,
+          "y": 122,
+          "width": 1324,
+          "height": 594
+        },
+        "diameter": 522.72,
+        "camera": {
+          "latitudeDeg": -1.4113836859614308,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 6080286.145374104,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "closed": {
+        "box": {
+          "x": 78,
+          "y": 132,
+          "width": 300.3999938964844,
+          "height": 492
+        },
+        "diameter": 264.35199462890625,
+        "camera": {
+          "latitudeDeg": -1.4113836859614306,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 4126599.6977490396,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "open": {
+        "box": {
+          "x": 78,
+          "y": 132,
+          "width": 300.3999938964844,
+          "height": 492
+        },
+        "diameter": 264.35199462890625,
+        "camera": {
+          "latitudeDeg": -1.4113836859614306,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 4126599.6977490396,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "closed": {
+        "box": {
+          "x": 84,
+          "y": 100,
+          "width": 748,
+          "height": 224.39999389648438
+        },
+        "diameter": 197.47200805664062,
+        "camera": {
+          "latitudeDeg": -1.4113836859614304,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 9792978.322493963,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "open": {
+        "box": {
+          "x": 84,
+          "y": 100,
+          "width": 404,
+          "height": 224.39999389648438
+        },
+        "diameter": 106.65600435144762,
+        "camera": {
+          "latitudeDeg": -1.4113836859614304,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 9792978.322493963,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 540,
+      "closed": {
+        "box": {
+          "x": 84,
+          "y": 100,
+          "width": 294.3999938964844,
+          "height": 284
+        },
+        "diameter": 249.92000000000002,
+        "camera": {
+          "latitudeDeg": -1.4113836859614306,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 2210318.78519322,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "open": {
+        "box": {
+          "x": 84,
+          "y": 100,
+          "width": 294.3999938964844,
+          "height": 284
+        },
+        "diameter": 249.92000000000002,
+        "camera": {
+          "latitudeDeg": -1.4113836859614306,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 2210318.78519322,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 480,
+      "height": 390,
+      "closed": {
+        "box": {
+          "x": 84,
+          "y": 100,
+          "width": 384,
+          "height": 134.40000915527344
+        },
+        "diameter": 118.27200805664059,
+        "camera": {
+          "latitudeDeg": -1.4113836859614304,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 8186213.851333096,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "open": {
+        "box": {
+          "x": 84,
+          "y": 100,
+          "width": 384,
+          "height": 134.40000915527344
+        },
+        "diameter": 118.27200805664059,
+        "camera": {
+          "latitudeDeg": -1.4113836859614304,
+          "longitudeDeg": -16.116970422199074,
+          "heightM": 8186213.851333096,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5707963267948966,
+          "rollRad": 0
+        }
+      },
+      "status": "PASS"
+    }
+  ]
+}

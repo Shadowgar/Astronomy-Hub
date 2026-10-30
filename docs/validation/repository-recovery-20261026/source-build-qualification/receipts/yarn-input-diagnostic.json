@@ -1,0 +1,6 @@
+{
+  "reason": "npm ci rewrote auxiliary yarn.lock; restore exact archived source input before Vue cache-identifier evaluation",
+  "before_sha256": "ef171d00f217ab9ce13fd7136c9b038cfd8f7857a8fb88cf26101f6e5c798e26",
+  "archived_sha256": "1a7b444b18334a34e9818536afac9654eba09199901fec607ef7c50273132115",
+  "qualification": "diagnostic only; no owner source or protected generated payload changed"
+}

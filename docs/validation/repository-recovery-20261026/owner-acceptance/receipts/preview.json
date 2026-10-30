@@ -1,0 +1,54 @@
+{
+  "candidate": "47fcc14c93693149ad16bcf2e078893db655f20d",
+  "url": "http://localhost:4231",
+  "backend": "777f77dc73fbdd6c8bbad62896b6fdcfd985c63cc69c39825c0d63848d9b49f6",
+  "preview": "78832df688bf8f136849badd25d64e2ec0e75a223d23337ca12792d41f31e9bb",
+  "network": "oras-repository-recovery-20261026",
+  "mounts": [
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/output/source-qualification/extracted-f7cb702c/astronomy-hub-source/hub/frontend/dist",
+      "/frontend"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/output/recovery/p0-source-preservation/release",
+      "/recovery-satellites"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+      "/skydata"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+      "/skydata/catalog-packs"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+      "/skydata/dense-star-tiles"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/earth",
+      "/earth"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/output/r4-a/planet",
+      "/planet"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-surface/release",
+      "/planet-data"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/output/playwright/owner-acceptance/nginx.conf",
+      "/etc/nginx/conf.d/default.conf"
+    ],
+    [
+      "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/output/playwright/owner-acceptance",
+      "/owner-review"
+    ]
+  ],
+  "readonly": true,
+  "preview_image": "sha256:03d67b37a7b3e816f17b0320c56e29951159efb930305d4a2003c6002587b4ee",
+  "compiled_hub": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/output/playwright/owner-acceptance/hub",
+  "served_root": "/owner-review/hub",
+  "source_archive_published": false
+}

@@ -1,0 +1,47 @@
+{
+  "reference": "Independently requested JPL Horizons DE441; local DE442s; comparison is fit agreement, not physical accuracy",
+  "position_test_threshold_km": 0.05,
+  "velocity_test_threshold_km_s": 1e-06,
+  "records": [
+    {
+      "epoch": "2000-01-01T00:00:00Z",
+      "jd_tdb": 2451544.500742869,
+      "horizons_position_difference_km": 0.0008174573685785787,
+      "horizons_velocity_difference_km_s": 2.1152013102469363e-09,
+      "sampled_coverage": {
+        "start": "1999-12-16T00:00:00Z",
+        "end": "2000-01-17T00:00:00Z"
+      },
+      "samples_per_track": 769,
+      "interpolation": {
+        "step_seconds": 3600,
+        "interpolation": "cubic-hermite",
+        "max_position_error_km": 7.293293659254789e-05,
+        "qualification_points_per_segment": 3,
+        "time_fraction": "UTC; TDB endpoint duration; leap transitions clipped",
+        "qualification": "Every segment checked at quarter, half and three-quarter times against direct DE442s for Moon and parent-to-Sun; measured sampled error, not an all-times accuracy guarantee. Playback stops at sampled coverage. Future UTC uses installed Skyfield leap-second table."
+      },
+      "service_evaluation_seconds": 0.04949560200020642
+    },
+    {
+      "epoch": "2026-10-23T12:00:00Z",
+      "jd_tdb": 2461337.0008007227,
+      "horizons_position_difference_km": 0.0026746722766399864,
+      "horizons_velocity_difference_km_s": 7.119268186636906e-09,
+      "sampled_coverage": {
+        "start": "2026-10-07T12:00:00Z",
+        "end": "2026-11-08T12:00:00Z"
+      },
+      "samples_per_track": 769,
+      "interpolation": {
+        "step_seconds": 3600,
+        "interpolation": "cubic-hermite",
+        "max_position_error_km": 7.488668557787156e-05,
+        "qualification_points_per_segment": 3,
+        "time_fraction": "UTC; TDB endpoint duration; leap transitions clipped",
+        "qualification": "Every segment checked at quarter, half and three-quarter times against direct DE442s for Moon and parent-to-Sun; measured sampled error, not an all-times accuracy guarantee. Playback stops at sampled coverage. Future UTC uses installed Skyfield leap-second table."
+      },
+      "service_evaluation_seconds": 0.023624869000286708
+    }
+  ]
+}

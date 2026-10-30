@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "finding": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4297945509",
+  "reviewedInitialHead": "97eacd2d2954d21b92a749872066fa6b7f71d340",
+  "correction": "One disabled={busy||pending} button attribute; no renderer/input/math change.",
+  "sourceSha256": "a5a4c73fb6f4745dbd81aaba3e7cb65679a53e5e5f289717ae66eb1042cdd788",
+  "focusedUnit": {
+    "red": 2,
+    "green": 2,
+    "completionCases": [
+      "success",
+      "failure"
+    ]
+  },
+  "frontend": {
+    "passed": 268,
+    "files": 38
+  },
+  "typecheck": "PASS",
+  "focusedBrowser": {
+    "status": "PASS",
+    "widths": [
+      1440,
+      390
+    ],
+    "proofSha256": "035d494554dc4597dd3576dda86f7341025a28b9ae0fc4e5723129a269247048"
+  },
+  "hubBuilds": {
+    "status": "PASS",
+    "files": 129
+  },
+  "fullNavigation": "NOT RERUN; prior5/22 and7/22 remain FAIL; partial qualification and owner merge exception unchanged."
+}

@@ -1,0 +1,55 @@
+{
+  "deliveryHead": "f3629f9a8e4b4ac7a158a1448912d75ca36574db",
+  "state": "OPEN",
+  "base": "r1-b-adaptive-sky-implementation-1",
+  "codexStates": [
+    {
+      "code_review": {
+        "commit_sha": "f3629f9a8e4b4ac7a158a1448912d75ca36574db",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      },
+      "security_review": {
+        "commit_sha": null,
+        "has_any_findings": null,
+        "has_unresolved_findings": null,
+        "status": null
+      }
+    }
+  ],
+  "unresolved": [],
+  "checks": {
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-16T13:38:13Z",
+        "conclusion": "NEUTRAL",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-16T13:38:11Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-16T13:38:19Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      }
+    ]
+  },
+  "chain": {
+    "p74": {
+      "state": "OPEN",
+      "headRefOid": "a57532796502a1db9ae1a7e4e4dc83e113db558f",
+      "baseRefName": "r1-a-adaptive-explorer-design-1"
+    },
+    "p73": {
+      "state": "OPEN",
+      "headRefOid": "b151d45787cf0e450aa0b187acd3eee142fa1fef",
+      "baseRefName": "main"
+    }
+  }
+}

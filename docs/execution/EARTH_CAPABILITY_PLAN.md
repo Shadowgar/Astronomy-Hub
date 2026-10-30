@@ -1,8 +1,14 @@
 # Earth capability plan — planning reference
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ## R0 supersession of execution order — 2026-10-13
 
-Only R0 documentation/governance is active in LIVE/PROJECT_STATE. The C5/C6
+R0 is merged; only R1-A design references are active in LIVE/PROJECT_STATE. The C5/C6
 qualification, source reuse plans, request budgets, source hierarchy and evidence
 below are preserved dated inputs; their former active/next-action statements are
 superseded for task activation. PR #70 is merged; PR #71 is an existing unmerged
@@ -626,10 +632,10 @@ must record explicit owner choice; proposed defaults are not approval.
 ## basemaps — Global imagery / base-map switching
 
 **Owner-facing purpose:** Global imagery / base-map switching.
-**Current Hub / entrypoints:** `ImageryController / boundImageryRequests / VisualFoundation`; [`runtimes/earth-runtime/core/ImageryController.mjs`](../../runtimes/earth-runtime/core/ImageryController.mjs); [`runtimes/earth-runtime/core/imageryRequests.mjs`](../../runtimes/earth-runtime/core/imageryRequests.mjs); [`runtimes/earth-runtime/core/VisualFoundation.mjs`](../../runtimes/earth-runtime/core/VisualFoundation.mjs)
+**Current Hub / entrypoints:** `ImageryController / observeImageryRequests / VisualFoundation`; [`runtimes/earth-runtime/core/ImageryController.mjs`](../../runtimes/earth-runtime/core/ImageryController.mjs); [`runtimes/earth-runtime/core/imageryRequests.mjs`](../../runtimes/earth-runtime/core/imageryRequests.mjs); [`runtimes/earth-runtime/core/VisualFoundation.mjs`](../../runtimes/earth-runtime/core/VisualFoundation.mjs)
 **Pinned upstream:** Five selectable stacks: Google3D, Bing Aerial, Bing Labels, Esri World Imagery and OSM. MapSourceController switches asynchronously with generations/cache/credits and keyless fallback. [Exact modules/functions/stages](../audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md).
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / MEDIUM.
-**Runtime status / evidence:** Code exists; Reference keyless Esri has local detail; Hub public imagery is regional HD, not uniform global HD. **Missing/different from upstream:** Provider stack tray/global HD. Hub qualified CONUS USGS with GIBS/NaturalEarth coarse globe fallback and bounded requests. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
+**Runtime status / evidence:** R2-B reuses pinned native MapSourceController with automatic coverage-aware PEMA (loopback-only), eligible NAIP, dated EOX2016 and NASA/Natural Earth fallback; Cesium owns dispatch/refinement, with request observation rather than the former artificial throttle. Public/global aerial detail is not implied. Genuine desktop/mobile imagery/cache/restart and fallback evidence includes partial EOX and unsuccessful ORAS aerial requests; PEMA redistribution and physical acceptance remain unqualified. [Current bounded R2-B evidence](../validation/r2-b-earth-imagery-cache/README.md). [Historical observations](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md) retain their original dates.
 **Bug versus scope versus unverified:** Bounded current/dormant/ellipsoid scope; global terrain/3D qualification absent, not implied by optional code.
 **Provider/credential/license/distribution:** Audit provider/data gate: GATED. Hosted-provider entitlement/fair use; keyless successful tile is not an unlimited license. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C6; HD qualification deliberately chose public source/coverage bounds. Global imagery account/licensing and scale remain owner decision. Proposed target: C6.

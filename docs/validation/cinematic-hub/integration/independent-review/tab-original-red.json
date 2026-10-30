@@ -1,0 +1,6 @@
+{
+  "acknowledged": false,
+  "predicate": "document.activeElement===document.querySelector(.cin-mode-trigger)",
+  "boundMs": 5000,
+  "active": "<iframe title=\"ORAS Cesium Earth Runtime\" allowfullscreen=\"\" src=\"/earth-runtime/?date=2026-02-28T00%3A00%3A00Z&amp;orasEmbedded=1\"></iframe>"
+}

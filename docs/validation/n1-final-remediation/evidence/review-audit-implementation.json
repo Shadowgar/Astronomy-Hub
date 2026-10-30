@@ -1,0 +1,25 @@
+{
+  "implementationHead": "b7b5da90b34f33124084cf73e36ee7c2644575f0",
+  "state": "OPEN",
+  "base": "r1-b-adaptive-sky-implementation-1",
+  "allThreadsEnumerated": true,
+  "unresolvedThreads": 0,
+  "codex": {
+    "code_review": {
+      "commit_sha": "b7b5da90b34f33124084cf73e36ee7c2644575f0",
+      "has_any_findings": false,
+      "has_unresolved_findings": false,
+      "status": "completed"
+    },
+    "security_review": {
+      "commit_sha": null,
+      "has_any_findings": null,
+      "has_unresolved_findings": null,
+      "status": null
+    }
+  },
+  "codeRabbit": "SUCCESS status; review skipped for non-default stacked base",
+  "gitGuardian": "NEUTRAL",
+  "reviewScope": "Code review completed; no separate security review requested or claimed",
+  "recordedAt": "2026-10-16T06:17:26.532612+00:00"
+}

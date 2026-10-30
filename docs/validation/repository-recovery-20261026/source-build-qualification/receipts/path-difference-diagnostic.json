@@ -1,0 +1,8 @@
+{
+  "path_prefix_old": "/work",
+  "path_prefix_actual": "/source/stellarium/apps/web-frontend",
+  "vue_cache_identifier_old": "dec867b4",
+  "vue_cache_identifier_actual": "419b4f50",
+  "normalized_matches_exact": true,
+  "warning": "Diagnostic normalization only; no output was promoted or modified."
+}

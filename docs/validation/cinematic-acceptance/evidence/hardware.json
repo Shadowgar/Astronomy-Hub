@@ -1,0 +1,9 @@
+{
+  "class": "Software Chromium only",
+  "browserRenderer": "ANGLE Vulkan SwiftShader (Subzero)",
+  "driDevicesExposed": false,
+  "nvidiaSmiAvailable": true,
+  "nvidiaSmiObservedOutput": "Failed to initialize NVML: GPU access blocked by the operating system; Failed to properly shut down NVML: GPU access blocked by the operating system",
+  "physicalGpuMobileQualified": false,
+  "resourceChanges": false
+}

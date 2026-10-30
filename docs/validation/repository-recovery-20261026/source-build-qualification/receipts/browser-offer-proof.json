@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "base": "http://10.254.108.2:8879",
+  "source_revision": "f7cb702c428980ce2b32539dbc74fc2b35082c12",
+  "checks": [
+    "Anonymous private HTTP archive bytes and SHA match descriptor",
+    "Hub About and standalone native source offer: keyboard/touch, matching revision/digest, Escape focus return"
+  ],
+  "layouts": [
+    {
+      "width": 1440,
+      "height": 900,
+      "download_rect": {
+        "x": 445,
+        "y": 507.359375,
+        "width": 312.1875,
+        "height": 15
+      },
+      "native_link_rect": {
+        "x": 1280.140625,
+        "y": 852,
+        "width": 151.859375,
+        "height": 44
+      },
+      "page_errors": [],
+      "about_keyboard_or_touch": true,
+      "source_page_verified": true
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "download_rect": {
+        "x": 39,
+        "y": 611.34375,
+        "width": 242.828125,
+        "height": 35.796875
+      },
+      "native_link_rect": {
+        "x": 230.140625,
+        "y": 852,
+        "width": 151.859375,
+        "height": 44
+      },
+      "page_errors": [],
+      "about_keyboard_or_touch": true,
+      "source_page_verified": true
+    }
+  ]
+}

@@ -24,6 +24,8 @@ Astronomy Hub is a **mixed-license repository**. The root [MIT license](LICENSE)
 
 ## Astronomy catalogs and other material
 
+- **Solar Wanderer graphics techniques**: Solar System 2.0 adapts particle-layer ring scattering, analytic planet occlusion and spherical single-scattering patterns from [hyqzz/Solar-Wanderer at 739b3675](https://github.com/hyqzz/Solar-Wanderer/tree/739b3675e25f65bedfcdf728985f2c9adb872fe1). Copyright (c) 2026 hyqzz, MIT; [full retained license](frontend/public/licenses/solar-wanderer-MIT.txt). The modified Hub modules are `frontend/src/features/solar/solarRings.ts` and `solarAtmosphere.ts`. They do not import its application, clock, ephemerides, textures or datasets. Source inspection, adaptation boundaries and separately evaluated packages are recorded in [Solar graphics receipt](docs/validation/solar-system-2/GRAPHICS.md).
+
 - **OpenNGC**: code under `scripts/skydata/` and `backend/` records OpenNGC catalog attribution and **CC BY-SA 4.0** data terms; these do not become MIT merely because ingestion software is MIT-eligible.
 - **HiPS surveys, planetary imagery, other maps and external APIs**: use source-specific permissions, credits, service conditions, and any applicable database/data licenses. See source `properties`, manifest records, and [provider licensing decision](docs/architecture/decisions/0008-provider-licensing-boundaries.md). Some rights are not established; public GitHub visibility is not a grant of redistribution rights.
 - **Fonts and icons**: [asset notices](frontend/src/features/workspace/assets/LICENSES.txt) preserve separate licensing (including SIL Open Font License for IBM Plex Sans and Lucide licensing).
@@ -38,3 +40,11 @@ Astronomy Hub is a **mixed-license repository**. The root [MIT license](LICENSE)
 5. A new contribution to **original** Hub code is not automatically relicensed if the contributor lacks authority, or if it modifies/adapts copyleft code; settle rights before distribution.
 
 This file documents known boundaries but is **not a comprehensive intellectual-property or redistribution clearance audit**. The [readiness tracker](docs/OPEN_SOURCE_READINESS.md) records remaining owner decisions and verification steps.
+
+## Solar System 2.1 runtime dependencies
+
+- `@takram/three-atmosphere`0.19.1 and `@takram/three-geospatial`0.9.1: MIT; exact package lookup textures retained, not regenerated. Upstream Bruneton scattering shaders additionally retain INRIA/Eric Bruneton BSD-3-Clause notices.
+- `postprocessing`6.39.5: Zlib.
+- NASA AMMOS `3d-tiles-renderer`0.5.3: Apache-2.0.
+- All runtime rendering resolves Three.js0.180.0. The vanilla packages have a separate standard npm lockfile under `frontend/graphics`; no React19/R3F integration or ignored peer checks. Exact bundled license copies live in `frontend/public/licenses`.
+- Apollo17 NAC regional elevation and orthomosaic: NASA/GSFC/Arizona State University PDS products, public-domain PDS terms. Derived bounded tiles preserve source labels, precise byte-range hashes and derivation receipts under `frontend/public/planet-terrain/apollo17-nac-v1` and the Solar2.1 source validation record. NASA endorsement is not implied.

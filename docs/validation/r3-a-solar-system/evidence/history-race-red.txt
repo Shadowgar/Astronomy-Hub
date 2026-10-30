@@ -1,0 +1,18 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Resolved scene focus must follow latest history selection
+
+'mars' !== 'earth'
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/scripts/validation/verify_r3_history_race.mjs:4:1139 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'mars',
+  expected: 'earth',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

@@ -1,0 +1,1176 @@
+{
+  "started": "2026-10-24T08:23:39.370Z",
+  "base": "http://127.0.0.1:4226",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "steps": [
+    {
+      "name": "initial-sky",
+      "at": "2026-10-24T08:23:41.983Z",
+      "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "mode": "sky",
+      "heavyFrames": [
+        {
+          "id": 1,
+          "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+        }
+      ],
+      "previousFrames": [],
+      "canvasCount": 0,
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-06-04T02:58:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "speed": 0,
+        "hints": false,
+        "offset": 2,
+        "satellites": true,
+        "fovDeg": 119.99999999998879,
+        "selected": null,
+        "locked": null
+      }
+    }
+  ],
+  "frameEvents": [
+    {
+      "event": "attached",
+      "id": 1,
+      "at": "2026-10-24T08:23:39.965Z",
+      "url": ""
+    }
+  ],
+  "pageErrors": [],
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "b2254eff03ace7dda6e52ce352500c873b100eb4e04db3c9179a2c8f64568679",
+    "frontend/src/features/workspace/TimeSurface.tsx": "4a60a044a3659d4fe837ecea5ffd06a6b2c8a5b117802a1989764038bdcba532",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "frontend/src/features/solar/solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+    "frontend/src/features/planet/planetContracts.ts": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf"
+  },
+  "protocol": [
+    {
+      "at": "2026-10-24T08:23:40.467Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "embedded": true
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:40.852Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 1,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:40.930Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:40.992Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 2,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:41.106Z",
+      "type": "command",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "lat": 41.321903,
+        "lon": -79.585394,
+        "elevationM": 432.816,
+        "elevationSource": "oras-site"
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:41.179Z",
+      "type": "result",
+      "command": "setObserverIntent",
+      "id": 3,
+      "payload": {
+        "ok": true,
+        "effectiveObserver": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        }
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:41.264Z",
+      "type": "command",
+      "command": "setTimeIntent",
+      "id": 5,
+      "payload": {
+        "utc": "2026-06-04T02:58:00.000Z",
+        "live": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:41.265Z",
+      "type": "command",
+      "command": "setPresentation",
+      "id": 6,
+      "payload": {
+        "embedded": true,
+        "creditsAtTop": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:41.309Z",
+      "type": "result",
+      "command": "setTimeIntent",
+      "id": 5,
+      "payload": {
+        "ok": true,
+        "temporalMode": "CONTROLLED",
+        "effectiveTime": "2026-06-04T02:58:00.000Z"
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:41.310Z",
+      "type": "result",
+      "command": "setPresentation",
+      "id": 6,
+      "payload": {
+        "ok": true
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:44.569Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 1,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:44.927Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 2,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:45.357Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 3,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:45.639Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 4,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:45.946Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 5,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:46.241Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 6,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:46.535Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 7,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:46.830Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 8,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:47.098Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 9,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:47.317Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 10,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:47.628Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 11,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:47.929Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 12,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:48.158Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 13,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:48.420Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 14,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:48.733Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 15,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:49.060Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 16,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:49.374Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 17,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:49.646Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 18,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:49.924Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 19,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:50.246Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 20,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:50.479Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 21,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:50.748Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 22,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:50.970Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 23,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:51.303Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 24,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:51.541Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 25,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:51.853Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 26,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:52.120Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 27,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:52.427Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 28,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:52.687Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 29,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:52.918Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 30,
+      "payload": {
+        "active": true,
+        "focused": false
+      }
+    },
+    {
+      "at": "2026-10-24T08:23:53.352Z",
+      "type": "event",
+      "command": "interaction",
+      "id": 31,
+      "payload": {
+        "active": false,
+        "focused": false
+      }
+    }
+  ],
+  "networkFailures": [
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/surveys/dss/v1/properties",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix471.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+      "status": 404
+    },
+    {
+      "url": "http://127.0.0.1:4226/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+      "status": 404
+    }
+  ],
+  "console": [
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x14040011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x14040011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x14040011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x14040011ee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ],
+  "limitations": [
+    "DOM iframe detachment and one active heavy surface are renderer lifecycle evidence; this is not physical GPU allocation/driver proof.",
+    "Native hints-off is exercised through the existing native public property because the embedded compact tools do not expose a satellite-hint checkbox. Real wheel input exercises subsequent zoom. Cross-remount persistence is recorded rather than assumed."
+  ],
+  "previewBytes": {
+    "hubAsset": "/assets/index-BGMWxqs2.js",
+    "servedHubSha": "04fb9c5c7a8aa4ee3c12780d68f55ccf5e1d5d15453ea45868de47abab3aad9f",
+    "localHubSha": "04fb9c5c7a8aa4ee3c12780d68f55ccf5e1d5d15453ea45868de47abab3aad9f",
+    "skyBuild": {
+      "runtime": "oras-sky-engine",
+      "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+      "overlay_version": "oras-sky-workspace.1",
+      "native_wasm_identical": false,
+      "native_vendor_chunks_identical": false,
+      "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+      "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+      "native_horizon": {
+        "purpose": "embedded-zero-horizon-colors",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+        "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+        "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+        "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+        "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+        "native_output_sha256": {
+          "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+          "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+        }
+      },
+      "material_input_sha256": {
+        "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+        "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+      },
+      "bridge_input_sha256": {
+        "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+        "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+        "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+        "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+      },
+      "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+      "navigation_input_sha256": {
+        "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+        "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+        "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+      },
+      "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+    },
+    "versions": {
+      "hub": {
+        "version": "phase-c-cesium.v1",
+        "base_commit": "51a66347dd5997673a6b7c523d66e980f3a8701d",
+        "qualification": "working-tree implementation; PR records final commit"
+      },
+      "bridge": {
+        "major": 1,
+        "minor": 2
+      },
+      "sky": {
+        "upstream": "https://github.com/Stellarium/stellarium-web-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "historical_import_sha": null,
+        "reconstruction": {
+          "status": "qualified",
+          "native_wasm_identical": false,
+          "emscripten": "1.39.17",
+          "emsdk_image": "emscripten/emsdk@sha256:1e264934c11ffde8511441eaed6bdc44eaa30ec027e46d38be7ae67106aefdab",
+          "build_image_id": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "node_image": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "bridge_overlay": "workspace.1",
+          "baseline_native_wasm_identical": true,
+          "baseline_regression": "34 API/search/browser checks and 86 native conformance tests"
+        },
+        "overlay_version": "oras-sky-workspace.1",
+        "build_recipe": "scripts/runtime/build_sky_horizon.sh",
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf",
+        "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
+        "workspace_adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "artifact_hash_scope": "Application files excluding identity marker",
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        }
+      },
+      "earth": {
+        "upstream": "https://github.com/bilawalsidhu/gods-eye-view",
+        "sha": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+        "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
+        "runtime_version": "oras-earth.v1",
+        "cesium": "1.138.0",
+        "artifact_sha256": "bba92a4790578f33fe2cb128c9aa6d13a9578574eddd5c147cff4162d7b36e97",
+        "public_exports": [
+          "maps/controller",
+          "maps/defaults",
+          "maps/catalog",
+          "maps/imagery",
+          "sources/adsb-lol",
+          "sources/live",
+          "layers/satellites/source",
+          "sources/space",
+          "sources/regional",
+          "layers/earthquakes",
+          "layers/perimeters"
+        ],
+        "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
+        "source_input_sha256": "b452c4a3dfe69b4a892ce82434382cd8ca05d68cbfc11ec8a853bb52cf1e2684"
+      }
+    }
+  },
+  "nativeFrameSample": {
+    "samples": 30,
+    "elapsedMs": 1116.6,
+    "intervalsMs": [
+      33.30000000000018,
+      33.29999999999973,
+      33.30000000000018,
+      33.40000000000009,
+      33.29999999999973,
+      16.700000000000273,
+      33.40000000000009,
+      33.19999999999982,
+      33.40000000000009,
+      33.29999999999973,
+      33.40000000000009,
+      33.30000000000018,
+      16.699999999999818,
+      33.30000000000018,
+      33.29999999999973,
+      33.30000000000018,
+      33.40000000000009,
+      33.29999999999973,
+      50,
+      50,
+      33.40000000000009,
+      49.90000000000009,
+      33.30000000000018,
+      50.09999999999991,
+      33.29999999999973,
+      50,
+      50,
+      49.90000000000009,
+      33.40000000000009,
+      66.69999999999982
+    ],
+    "medianMs": 33.40000000000009,
+    "p95Ms": 50.09999999999991,
+    "maxMs": 66.69999999999982,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "performanceNow": 3806.39999999851,
+    "resources": 250,
+    "scope": "Bounded requestAnimationFrame cadence under headless software rendering, no FPS gate or physical GPU qualification."
+  },
+  "status": "FAIL",
+  "error": "Error: Bounded real zoom threshold not reached\n    at realZoom (file:///home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/output/sky-satellite-live/time-audit/navigation-recovery.mjs:6:372)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/output/sky-satellite-live/time-audit/navigation-recovery.mjs:8:25",
+  "failureUrl": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+  "failureDOM": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 7.1°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nPAUSED\nSTALE DATA\nJun 3, 10:58 PM EDT\nResume Live\nChange time",
+  "finished": "2026-10-24T08:23:53.775Z"
+}

@@ -1,11 +1,17 @@
 # MASTER PLAN - PRODUCT REFERENCE
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ## R0 canonical routing — 2026-10-13
 
 This older root reference is historical. Current product intent is
 [PRODUCT_VISION](product/PRODUCT_VISION.md); proposed R0–R5 checkpoints are maintained
 only in [execution/MASTER_PLAN](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
-LIVE/PROJECT_STATE authorize only R0 documentation. The former C6 next-action text
+LIVE/PROJECT_STATE record merged R0 and authorize only R1-A visual design. The former C6 next-action text
 and Phase B implementation assumptions below are superseded. PR #71 remains
 unmerged; do not restart its research, merge/discard it or activate any later phase.
 
@@ -89,7 +95,7 @@ Data model:
 Ingestion -> Normalization -> Storage -> Cache -> API -> Client Rendering
 ```
 
-## Current Runtime Direction
+## Historical — Current Runtime Direction
 
 The active public sky runtime is:
 

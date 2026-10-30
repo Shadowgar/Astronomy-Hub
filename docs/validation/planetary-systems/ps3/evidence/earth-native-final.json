@@ -1,0 +1,3489 @@
+{
+  "status": "PASS",
+  "base": "http://127.0.0.1:4225",
+  "source_sha256": {
+    "backend/app/data/planetary_satellites.json": "3b70cbf1efc3224ef6259c82db49ce6492c3bd2eaddcd9a7410603b162e0975b",
+    "backend/app/main.py": "bcf9ef7ee5a39a39ab9f61283a94ea1a09d49950ac0924e75a120e1ffd003218",
+    "backend/app/routes/planetary_systems.py": "531a5b77d468c5a4c58931fec3b2ae031aeeba466aef31432111b3523a06fe41",
+    "backend/app/schemas/planetary_systems.py": "415b62759bf4c080f2f45b24b1b7bd27d0de257bd295ca7d6a836e1213aba864",
+    "backend/app/services/planetary_systems.py": "f9f3b289a57f81aa973d5579a64806aeb1e0233e442863be3d4719d9e4e886ec",
+    "frontend/src/features/planet/PlanetWorkspace.tsx": "2e9efa2d5377886648e8369e6e02752e68aca9c4757df6ec7f201f3798296236",
+    "frontend/src/features/planet/planetContracts.ts": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "e8ab2db980c8ac0ec3ec37f543a288b241089fedbfab5799a4000b43a9363b7d",
+    "frontend/src/features/systems/PlanetSelector.tsx": "6fe9ad6a2644ac48f66f0445591c0c9799aa7aa6ded03c2bda346321073d8622",
+    "frontend/src/features/systems/SystemScene.ts": "6f2ac031be2ddafb52d9005c616e48952ed3b9963f7c2f1216e89d6072aab852",
+    "frontend/src/features/systems/SystemWorkspace.tsx": "bf719996482a68acc72bbef780a083fa5d776d51f50bb65fd3747abf52d535cd",
+    "frontend/src/features/systems/systemContracts.ts": "a286896dec6fa046fcb5b839629e8dd7df05310d7822fb58cbd2458ec38ca606",
+    "frontend/src/features/systems/systemMaterials.ts": "7a25139498ff211e4b6ea12d785508197636676e4e1023b1341694c0348ecd30",
+    "frontend/src/features/systems/systemPlayback.ts": "ae448937731167a30659afc3a9ee652618862a6e1ec1e4e0396115254cee6e10",
+    "frontend/src/features/systems/systemSceneMath.ts": "973ea97c4e4a7ff2f635520635a54a6626594d2ad0ba9e702ad255b184aab53a",
+    "frontend/src/features/systems/systemTypes.ts": "c02c253a6dd38a1bcd7725ddb4c5b4d960ddf4d2df13ceb353255d5fd9589d19",
+    "frontend/src/features/systems/systems.css": "f8811648a0d53889147c0088362d625d8bcc12dde45c76b21d213a7d8968c047",
+    "frontend/src/routes/AppRouter.tsx": "debf6e9bf4e548962444ddf3af5813e653bc6d025997ca800339b4df6839142d"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "status": "PASS",
+      "checks": [
+        "Hover/flyout pointer corridor, focus/Escape restores parent; no Mercury/Venus flyout",
+        "Planet click opens actual Earth-centered scene, both bodies visible and one renderer",
+        "Physical mean radii option; immutable source positions",
+        "Play advances UTC and Moon geometry; pause stable; direct DE442s comparison within1km",
+        "Selected Moon → real R4 globe → Earth System camera/UTC; native destroy acknowledged",
+        "Deep-link/reload restores camera/selection/time",
+        "Keyboard camera/overview; desktop orbit",
+        "Original Solar camera retained with progressed time; Back/Forward hierarchy"
+      ],
+      "errors": [],
+      "documents": [
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01%3A05%3A00Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A03%3A30.720Z",
+        "http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A03%3A30.720Z&lat=-1.366625477990008&lon=31.434792605007942&height=4343500.000000001&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871708%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871708%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871708%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.022219963139%2C-864736.4532632391%2C2259333.7337068566%5D%2C%22target%22%3A%5B-2921.022219963139%2C-17052.21995781493%2C-9431.840692967191%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T06%3A03%3A30.720Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.022219963139%2C-864736.4532632391%2C2259333.7337068566%5D%2C%22target%22%3A%5B-2921.022219963139%2C-17052.21995781493%2C-9431.840692967191%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T06%3A03%3A30.720Z"
+      ],
+      "historyEvents": [
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z\",\"state\":{\"idx\":0}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"usr\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}},\"key\":\"p2xlbdh8\",\"idx\":0}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"3ql6iaka\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T01:05:00.000Z\",\"camera\":{\"position\":[-2921.069568557141,-864736.4096951691,2259333.3958925977],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"7b58ia49\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[-2921.069568557141,-864736.4096951691,2259333.3958925977],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"mbujnbxl\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[-2921.069568557141,-864736.4096951691,2259333.3958925977],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"siystkt0\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-864736.4096951691%2C2259333.3958925977%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[-2921.069568557141,-864736.4096951691,2259333.3958925977],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"qwopf5ga\",\"idx\":1}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"mdb409ot\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871706],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"cqrm1mde\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871706],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"8i9brjsx\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871706],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"1vgz24ht\",\"idx\":2}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A03%3A30.720Z\",\"state\":{\"usr\":{\"planetReturn\":{\"path\":\"/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871706],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}}}},\"key\":\"7o6j8cc5\",\"idx\":3}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A03%3A30.720Z&lat=-1.366625477990008&lon=31.434792605007942&height=4343500.000000001&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0\",\"state\":{\"usr\":{\"planetReturn\":{\"path\":\"/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871706],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}}}},\"key\":\"eyp6hfrb\",\"idx\":3}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871706%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871706],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"35vhhazl\",\"idx\":4}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871708%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871708],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"ouy7et9c\",\"idx\":4}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&moon=moon&camera=%7B%22position%22%3A%5B377224.2420816331%2C-60191.91319783038%2C6071.590857871708%5D%2C%22target%22%3A%5B378640.75796874374%2C-54905.40393740506%2C-8576.490296723528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[377224.2420816331,-60191.91319783038,6071.590857871708],\"target\":[378640.75796874374,-54905.40393740506,-8576.490296723528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"a6e6dwqs\",\"idx\":4}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"jtk8ceox\",\"idx\":5}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A03%3A30.720Z&camera=%7B%22position%22%3A%5B-2921.022219963139%2C-864736.4532632391%2C2259333.7337068566%5D%2C%22target%22%3A%5B-2921.022219963139%2C-17052.21995781493%2C-9431.840692967191%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":{\"position\":[-2921.022219963139,-864736.4532632391,2259333.7337068566],\"target\":[-2921.022219963139,-17052.21995781493,-9431.840692967191],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"cmgcsnyo\",\"idx\":5}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T06%3A03%3A30.720Z\",\"state\":{\"usr\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T06:03:30.720Z\",\"camera\":[-2.6172202209308635,-1.1642290749417274,1.8045966927269488],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"custom\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}},\"key\":\"rjg00crr\",\"idx\":6}}"
+      ],
+      "originalSolar": {
+        "overviewScope": "inner",
+        "cameraView": "inner",
+        "closeView": false,
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 0.001,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.48847371604357337,
+          -0.24753448371180314,
+          -0.4374258009947337,
+          0.7132873030779596
+        ],
+        "epoch": "2026-10-23T01:05:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 12,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -2.6172202209308635,
+          -1.1642290749417274,
+          1.8045966927269488
+        ],
+        "target": [
+          0.3494654812712253,
+          0.6614236648749421,
+          0.2832194095463908
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 35.494006139851216,
+            "displayRadiusAu": 0.16506371351376792,
+            "cameraDistance": 3.38553396780923,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 59.958455677186194,
+            "screen": [
+              861.3489020458702,
+              631.0153940632811
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442282973396,
+              -0.10736293117108117,
+              -0.09412891124488226
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 2932.476555540461,
+            "displayRadiusAu": 0.04782396312912269,
+            "cameraDistance": 3.6817512212794843,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 16.097870782907158,
+            "screen": [
+              940.5043366326362,
+              607.1672734045225
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.6353544803787602,
+              0.33061086433550213,
+              0.10857107265939048
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 2007.011541074868,
+            "displayRadiusAu": 0.08119121206366801,
+            "cameraDistance": 3.9610972640902524,
+            "inView": true,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.911684720588095,
+            "screen": [
+              844.2689003473218,
+              488.778464830663
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826979030497,
+              0.446445286652144,
+              0.19351843174382305
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1943.5112459837328,
+            "displayRadiusAu": 0.08276929404291557,
+            "cameraDistance": 4.163710418311613,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.148986473287103,
+            "screen": [
+              840.2283408611951,
+              435.60494474149834
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.1690722633599993,
+              1.4302037214294911,
+              0.6605611908461897
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "displayFactor": 4220.750795375127,
+            "displayRadiusAu": 0.09563127305209697,
+            "cameraDistance": 3.7461082721417083,
+            "inView": true,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 31.945080082786447,
+            "screen": [
+              404.7783838556037,
+              377.5617039400575
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.616096225529583,
+              3.54640754014203,
+              1.6081098949043962
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 4.8193835346078675,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.3613653260120486,
+            "screen": [
+              -2709.172812908581,
+              385.86742037236354
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490060785118,
+              1.8905275121752214,
+              0.38343440427614267
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 12.315522406093898,
+            "inView": true,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": true,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 0.09182120509492186,
+            "screen": [
+              1058.0933225832764,
+              79.95622003351569
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857509530857,
+              15.896303008545571,
+              6.836825762370475
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 21.164776576281138,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.013528098537225475,
+            "screen": [
+              -20.728395162195028,
+              -420.8860789344094
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.8337155963245,
+              1.6153635605216732,
+              -0.08153614080109546
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 32.62432938315303,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.007248577569933801,
+            "screen": [
+              1302.5376999149619,
+              -13.29451166467689
+            ]
+          }
+        ],
+        "drawCalls": 20,
+        "geometries": 22,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 9,
+          "median": 1.2999999998137355,
+          "p95": 32.200000000186265
+        },
+        "pixelRatio": 1
+      },
+      "enterHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -2.6172202209308635,
+                  -1.1642290749417274,
+                  1.8045966927269488
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T01:05:00.000Z",
+            "camera": {
+              "position": [
+                -2921.069568557141,
+                -864736.4096951691,
+                2259333.3958925977
+              ],
+              "target": [
+                -2921.069568557141,
+                -17052.288810871483,
+                -9431.877620207757
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": null
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "7b58ia49",
+        "idx": 1
+      },
+      "overview": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 2,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 3,
+        "camera": [
+          -2921.069568557141,
+          -864736.4096951691,
+          2259333.3958925977
+        ],
+        "target": [
+          -2921.069568557141,
+          -17052.288810871483,
+          -9431.877620207757
+        ],
+        "cameraState": {
+          "position": [
+            -2921.069568557141,
+            -864736.4096951691,
+            2259333.3958925977
+          ],
+          "target": [
+            -2921.069568557141,
+            -17052.288810871483,
+            -9431.877620207757
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "earth",
+            "appearance": "historical-earth-imagery",
+            "modelStatus": "not-requested",
+            "textureStatus": "ready",
+            "modelReady": false,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 134135.5729349411,
+            "screenRadius": 65,
+            "screen": [
+              721.4155505745779,
+              475.1593896853133
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "appearance": "historical-lroc-imagery",
+            "modelStatus": "not-requested",
+            "textureStatus": "ready",
+            "modelReady": false,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 49965.9741975113,
+            "screenRadius": 23.999999999999996,
+            "screen": [
+              904.688558515651,
+              510.42745768741526
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 2,
+          "median": 79.70000000018626,
+          "p95": 79.70000000018626
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      },
+      "motion": {
+        "before": "2026-10-23T01:05:00.000Z",
+        "after": "2026-10-23T06:03:30.720Z",
+        "reference_position_km": [
+          378640.75796879537,
+          -54905.403937730145,
+          -8576.490296890568
+        ],
+        "actual_position_km": [
+          378640.75796874374,
+          -54905.403937405055,
+          -8576.490296723528
+        ]
+      },
+      "beforeSurfaceHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -2.6172202209308635,
+                  -1.1642290749417274,
+                  1.8045966927269488
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:03:30.720Z",
+            "camera": {
+              "position": [
+                377224.2420816331,
+                -60191.91319783038,
+                6071.590857871706
+              ],
+              "target": [
+                378640.75796874374,
+                -54905.40393740506,
+                -8576.490296723528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "cqrm1mde",
+        "idx": 2
+      },
+      "surfaceReturnHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -2.6172202209308635,
+                  -1.1642290749417274,
+                  1.8045966927269488
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:03:30.720Z",
+            "camera": {
+              "position": [
+                377224.2420816331,
+                -60191.91319783038,
+                6071.590857871708
+              ],
+              "target": [
+                378640.75796874374,
+                -54905.40393740506,
+                -8576.490296723528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "ouy7et9c",
+        "idx": 4
+      },
+      "beforeReloadHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -2.6172202209308635,
+                  -1.1642290749417274,
+                  1.8045966927269488
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:03:30.720Z",
+            "camera": {
+              "position": [
+                377224.2420816331,
+                -60191.91319783038,
+                6071.590857871708
+              ],
+              "target": [
+                378640.75796874374,
+                -54905.40393740506,
+                -8576.490296723528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "ouy7et9c",
+        "idx": 4
+      },
+      "afterReloadHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -2.6172202209308635,
+                  -1.1642290749417274,
+                  1.8045966927269488
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:03:30.720Z",
+            "camera": {
+              "position": [
+                377224.2420816331,
+                -60191.91319783038,
+                6071.590857871708
+              ],
+              "target": [
+                378640.75796874374,
+                -54905.40393740506,
+                -8576.490296723528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "ouy7et9c",
+        "idx": 4
+      },
+      "beforeSolarHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -2.6172202209308635,
+                  -1.1642290749417274,
+                  1.8045966927269488
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          }
+        },
+        "key": "jtk8ceox",
+        "idx": 5
+      },
+      "returnedSolar": {
+        "overviewScope": "inner",
+        "cameraView": "custom",
+        "closeView": false,
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 0.001,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.4884737160435735,
+          -0.24753448371180314,
+          -0.43742580099473377,
+          0.7132873030779597
+        ],
+        "epoch": "2026-10-23T06:03:30.720Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 13,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -2.6172202209308626,
+          -1.164229074941727,
+          1.8045966927269488
+        ],
+        "target": [
+          0.3494654812712253,
+          0.6614236648749421,
+          0.2832194095463908
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 35.039519220478276,
+            "displayRadiusAu": 0.16295013697468852,
+            "cameraDistance": 3.3855339678092293,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 59.19071101337697,
+            "screen": [
+              861.3489020458703,
+              631.0153940632814
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3557540748637745,
+              -0.10226378669571974,
+              -0.09149921631842688
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 2896.0614826854803,
+            "displayRadiusAu": 0.0472300920210074,
+            "cameraDistance": 3.682597742517319,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 15.888638676690544,
+            "screen": [
+              939.0120448678595,
+              605.9494793188983
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.6333230735234189,
+              0.3338995595226022,
+              0.11017942253433627
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 2002.4003840873513,
+            "displayRadiusAu": 0.08100467331330695,
+            "cameraDistance": 3.9599837120941084,
+            "inView": true,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.858553265393837,
+            "screen": [
+              843.1071789031129,
+              488.43956111391856
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8661751252123787,
+              0.44928315158395854,
+              0.1947484701266847
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1939.0018766566245,
+            "displayRadiusAu": 0.08257725125615278,
+            "cameraDistance": 4.162820695452724,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.09610009024046,
+            "screen": [
+              839.2696070421481,
+              435.36654292160534
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.17184643251442488,
+              1.4301168254333099,
+              0.6605961537933235
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "displayFactor": 4219.9608679122275,
+            "displayRadiusAu": 0.09561337534323941,
+            "cameraDistance": 3.7442249997759682,
+            "inView": true,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 31.95873715857835,
+            "screen": [
+              404.16708028644075,
+              377.8486809173447
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6172614389108615,
+              3.545484827537889,
+              1.6077427598293803
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 4.8187383153441665,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.3616445501349119,
+            "screen": [
+              -2711.6294796219026,
+              386.493803890907
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.22819419575622,
+              1.8915674863210483,
+              0.3838766708370944
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 12.315444803476742,
+            "inView": true,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": true,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 0.09182045985405285,
+            "screen": [
+              1057.9783277534655,
+              79.9139360118179
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852124421600783,
+              15.896604096070973,
+              6.836968011746474
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 21.164655823111957,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.013528531679387612,
+            "screen": [
+              -20.801001530088516,
+              -420.9059107774997
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833678597639132,
+              1.6159679535253244,
+              -0.08128785270216117
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 32.624329727503266,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.00724853473180076,
+            "screen": [
+              1302.5102691805648,
+              -13.304427445046485
+            ]
+          }
+        ],
+        "drawCalls": 20,
+        "geometries": 22,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 10,
+          "median": 0.6999999992549419,
+          "p95": 28.600000000558794
+        },
+        "pixelRatio": 1
+      },
+      "afterSolarHistory": {
+        "usr": {
+          "r4SolarView": {
+            "schema": "oras.solar-return.v1",
+            "epoch": "2026-10-23T06:03:30.720Z",
+            "camera": [
+              -2.6172202209308635,
+              -1.1642290749417274,
+              1.8045966927269488
+            ],
+            "target": [
+              0.3494654812712253,
+              0.6614236648749421,
+              0.2832194095463908
+            ],
+            "cameraUp": [
+              0.15,
+              0,
+              1
+            ],
+            "cameraView": "custom",
+            "closeView": false,
+            "near": 0.001,
+            "preferences": {
+              "orbits": true,
+              "effects": true,
+              "quality": "efficient",
+              "belt": false,
+              "beltDensity": 2400,
+              "overview": "inner",
+              "sizeMode": "cinematic"
+            }
+          }
+        },
+        "key": "rjg00crr",
+        "idx": 6
+      }
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "status": "PASS",
+      "checks": [
+        "Planet click opens actual Earth-centered scene, both bodies visible and one renderer",
+        "Physical mean radii option; immutable source positions",
+        "Play advances UTC and Moon geometry; pause stable; direct DE442s comparison within1km",
+        "Selected Moon → real R4 globe → Earth System camera/UTC; native destroy acknowledged",
+        "Deep-link/reload restores camera/selection/time",
+        "Keyboard camera/overview; actual CDP touch orbit",
+        "Original Solar camera retained with progressed time; Back/Forward hierarchy"
+      ],
+      "errors": [],
+      "documents": [
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01%3A05%3A00Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.2168794523%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.216879452%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.216879452%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.216879452%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T04%3A05%3A17.280Z",
+        "http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T04%3A05%3A17.280Z&lat=-1.3656501142304938&lon=32.432720870720914&height=6515250&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+        "http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T04%3A05%3A17.280Z&lat=-1.3656501142304938&lon=32.432720870720914&height=6515250&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796642%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796642%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B376946.2895710067%2C-70878.13017627194%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-989938.6736062893%2C-823504.5934827912%2C3259728.1104480396%5D%2C%22target%22%3A%5B-2921.0787640173803%2C-17052.302358527493%2C-9431.884883701452%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T04%3A05%3A17.280Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-989938.6736062893%2C-823504.5934827912%2C3259728.1104480396%5D%2C%22target%22%3A%5B-2921.0787640173803%2C-17052.302358527493%2C-9431.884883701452%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T04%3A05%3A17.280Z"
+      ],
+      "historyEvents": [
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z\",\"state\":{\"idx\":0}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"usr\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}},\"key\":\"w76rfkr4\",\"idx\":0}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"2av1tmsz\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.2168794523%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T01:05:00.000Z\",\"camera\":{\"position\":[-2921.069568557141,-1245147.2168794523,3277475.4227932957],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"oqf0ted9\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.216879452%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[-2921.069568557141,-1245147.216879452,3277475.4227932957],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"9dxxvhz9\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.216879452%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[-2921.069568557141,-1245147.216879452,3277475.4227932957],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"h8wt0t99\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1245147.216879452%2C3277475.4227932957%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[-2921.069568557141,-1245147.216879452,3277475.4227932957],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"fru7kkiv\",\"idx\":1}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"e0a6evnx\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"qdk21sj1\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"5ipjsoo0\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"30nwgcji\",\"idx\":2}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T04%3A05%3A17.280Z\",\"state\":{\"usr\":{\"planetReturn\":{\"path\":\"/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}}}},\"key\":\"p1ccs0xi\",\"idx\":3}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T04%3A05%3A17.280Z&lat=-1.3656501142304938&lon=32.432720870720914&height=6515250&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0\",\"state\":{\"usr\":{\"planetReturn\":{\"path\":\"/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}}}},\"key\":\"0an51bpd\",\"idx\":3}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T04%3A05%3A17.280Z&lat=-1.3656501142304938&lon=32.432720870720914&height=6515250&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0\",\"state\":{\"usr\":{\"planetReturn\":{\"path\":\"/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}}}},\"key\":\"5q4v5n0z\",\"idx\":3}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"v53srpbv\",\"idx\":4}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B375530.689807136%2C-70610.57775109581%2C13745.898902796642%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[375530.689807136,-70610.57775109581,13745.898902796642],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"le74xnt7\",\"idx\":4}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&moon=moon&camera=%7B%22position%22%3A%5B376946.2895710067%2C-70878.13017627194%2C13745.898902796645%5D%2C%22target%22%3A%5B378018.82686343987%2C-61324.7238407749%2C-11983.733822211167%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[376946.2895710067,-70878.13017627194,13745.898902796645],\"target\":[378018.82686343987,-61324.7238407749,-11983.733822211167],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"3cpvje6p\",\"idx\":4}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"4sx3df9h\",\"idx\":5}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T04%3A05%3A17.280Z&camera=%7B%22position%22%3A%5B-989938.6736062893%2C-823504.5934827912%2C3259728.1104480396%5D%2C%22target%22%3A%5B-2921.0787640173803%2C-17052.302358527493%2C-9431.884883701452%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":{\"position\":[-989938.6736062893,-823504.5934827912,3259728.1104480396],\"target\":[-2921.0787640173803,-17052.302358527493,-9431.884883701452],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"dzoyo90i\",\"idx\":5}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T04%3A05%3A17.280Z\",\"state\":{\"usr\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T04:05:17.280Z\",\"camera\":[-4.843725016327449,-2.5343858721088566,2.946394023699557],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[1,0,0],\"cameraView\":\"custom\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}},\"key\":\"abopcg16\",\"idx\":6}}"
+      ],
+      "originalSolar": {
+        "overviewScope": "inner",
+        "cameraView": "inner",
+        "closeView": false,
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 0.001,
+        "cameraUp": [
+          1,
+          0,
+          0
+        ],
+        "cameraQuaternion": [
+          -0.5475701401024565,
+          0.0068435049545233,
+          0.7070736640831261,
+          -0.4474002030265254
+        ],
+        "epoch": "2026-10-23T01:05:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -4.843725016327449,
+          -2.5343858721088566,
+          2.946394023699557
+        ],
+        "target": [
+          0.3494654812712253,
+          0.6614236648749421,
+          0.2832194095463908
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 34.67247555989281,
+            "displayRadiusAu": 0.16124321244779208,
+            "cameraDistance": 6.210154710265581,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 31.519905224744775,
+            "screen": [
+              316.6549772271132,
+              410.76101084607114
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442282973396,
+              -0.10736293117108117,
+              -0.09412891124488226
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 4120.8727746267505,
+            "displayRadiusAu": 0.06720478881961041,
+            "cameraDistance": 6.493099588403071,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 12.60060607231929,
+            "screen": [
+              337.3605734200229,
+              367.5041088728364
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.6353544803787602,
+              0.33061086433550213,
+              0.10857107265939048
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 2003.9294459270084,
+            "displayRadiusAu": 0.08106652965122096,
+            "cameraDistance": 6.80306971392426,
+            "inView": true,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 14.420048061038331,
+            "screen": [
+              254.74491377237146,
+              367.6515962728648
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826979030497,
+              0.446445286652144,
+              0.19351843174382305
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1933.824918028555,
+            "displayRadiusAu": 0.08235677750699379,
+            "cameraDistance": 7.006231757130667,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 14.223783561193088,
+            "screen": [
+              229.631741848122,
+              349.2480127225949
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.1690722633599993,
+              1.4302037214294911,
+              0.6605611908461897
+            ],
+            "geometryRadiusAu": 0.00002265740912741269,
+            "displayFactor": 7874.225856406609,
+            "displayRadiusAu": 0.17840954831377961,
+            "cameraDistance": 6.5418178471866035,
+            "inView": true,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 33.30868865754534,
+            "screen": [
+              53.24680984718464,
+              525.8411257312281
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.616096225529583,
+              3.54640754014203,
+              1.6081098949043962
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 6.346189831690716,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.12782951192670033,
+            "screen": [
+              -565.7774147415839,
+              1359.6775949075882
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490060785118,
+              1.8905275121752214,
+              0.38343440427614267
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 14.972503386064924,
+            "inView": true,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.07328812314870564,
+            "screen": [
+              123.35185354259285,
+              14.254628852506674
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857509530857,
+              15.896303008545571,
+              6.836825762370475
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 23.289957591554003,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.011382234566963412,
+            "screen": [
+              -768.9053205044319,
+              453.1407218550873
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.8337155963245,
+              1.6153635605216732,
+              -0.08153614080109546
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 35.05586497119581,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.006565430701016978,
+            "screen": [
+              182.20090890877228,
+              -266.98198630820707
+            ]
+          }
+        ],
+        "drawCalls": 20,
+        "geometries": 21,
+        "textures": 2,
+        "texturesReady": 1,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 1.2000000001862645,
+          "p95": 29.399999999441206
+        },
+        "pixelRatio": 1
+      },
+      "enterHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -4.843725016327449,
+                  -2.5343858721088566,
+                  2.946394023699557
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  1,
+                  0,
+                  0
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T01:05:00.000Z",
+            "camera": {
+              "position": [
+                -2921.069568557141,
+                -1245147.2168794523,
+                3277475.4227932957
+              ],
+              "target": [
+                -2921.069568557141,
+                -17052.288810871483,
+                -9431.877620207757
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": null
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "oqf0ted9",
+        "idx": 1
+      },
+      "overview": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 3,
+        "camera": [
+          -2921.069568557141,
+          -1245147.2168794523,
+          3277475.4227932957
+        ],
+        "target": [
+          -2921.069568557141,
+          -17052.288810871483,
+          -9431.877620207757
+        ],
+        "cameraState": {
+          "position": [
+            -2921.069568557141,
+            -1245147.2168794523,
+            3277475.4227932957
+          ],
+          "target": [
+            -2921.069568557141,
+            -17052.288810871483,
+            -9431.877620207757
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 350,
+          "clearHeight": 456,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": 10
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "earth",
+            "appearance": "historical-earth-imagery",
+            "modelStatus": "not-requested",
+            "textureStatus": "ready",
+            "modelReady": false,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 194398.93244926797,
+            "screenRadius": 65,
+            "screen": [
+              195.9767155346048,
+              433.5550736505724
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "appearance": "historical-lroc-imagery",
+            "modelStatus": "not-requested",
+            "textureStatus": "ready",
+            "modelReady": false,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 72026.10093605639,
+            "screenRadius": 23.999999999999996,
+            "screen": [
+              322.28932493430284,
+              457.86948045303046
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 21,
+          "p95": 78.20000000018626
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      },
+      "motion": {
+        "before": "2026-10-23T01:05:00.000Z",
+        "after": "2026-10-23T04:05:17.280Z",
+        "reference_position_km": [
+          378018.82686344103,
+          -61324.723840718485,
+          -11983.733822183049
+        ],
+        "actual_position_km": [
+          378018.82686343987,
+          -61324.72384077491,
+          -11983.733822211167
+        ]
+      },
+      "beforeSurfaceHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -4.843725016327449,
+                  -2.5343858721088566,
+                  2.946394023699557
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  1,
+                  0,
+                  0
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T04:05:17.280Z",
+            "camera": {
+              "position": [
+                375530.689807136,
+                -70610.57775109581,
+                13745.898902796645
+              ],
+              "target": [
+                378018.82686343987,
+                -61324.7238407749,
+                -11983.733822211167
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "qdk21sj1",
+        "idx": 2
+      },
+      "surfaceReturnHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -4.843725016327449,
+                  -2.5343858721088566,
+                  2.946394023699557
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  1,
+                  0,
+                  0
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T04:05:17.280Z",
+            "camera": {
+              "position": [
+                375530.689807136,
+                -70610.57775109581,
+                13745.898902796645
+              ],
+              "target": [
+                378018.82686343987,
+                -61324.7238407749,
+                -11983.733822211167
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "v53srpbv",
+        "idx": 4
+      },
+      "beforeReloadHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -4.843725016327449,
+                  -2.5343858721088566,
+                  2.946394023699557
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  1,
+                  0,
+                  0
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T04:05:17.280Z",
+            "camera": {
+              "position": [
+                375530.689807136,
+                -70610.57775109581,
+                13745.898902796645
+              ],
+              "target": [
+                378018.82686343987,
+                -61324.7238407749,
+                -11983.733822211167
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "v53srpbv",
+        "idx": 4
+      },
+      "afterReloadHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -4.843725016327449,
+                  -2.5343858721088566,
+                  2.946394023699557
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  1,
+                  0,
+                  0
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T04:05:17.280Z",
+            "camera": {
+              "position": [
+                375530.689807136,
+                -70610.57775109581,
+                13745.898902796642
+              ],
+              "target": [
+                378018.82686343987,
+                -61324.7238407749,
+                -11983.733822211167
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "le74xnt7",
+        "idx": 4
+      },
+      "beforeSolarHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -4.843725016327449,
+                  -2.5343858721088566,
+                  2.946394023699557
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  1,
+                  0,
+                  0
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          }
+        },
+        "key": "4sx3df9h",
+        "idx": 5
+      },
+      "returnedSolar": {
+        "overviewScope": "inner",
+        "cameraView": "custom",
+        "closeView": false,
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 0.001,
+        "cameraUp": [
+          1,
+          0,
+          0
+        ],
+        "cameraQuaternion": [
+          -0.5475701401024565,
+          0.006843504954523497,
+          0.707073664083126,
+          -0.44740020302652544
+        ],
+        "epoch": "2026-10-23T04:05:17.280Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 13,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -4.843725016327448,
+          -2.534385872108854,
+          2.9463940236995563
+        ],
+        "target": [
+          0.3494654812712253,
+          0.6614236648749421,
+          0.2832194095463908
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 34.395536248887566,
+            "displayRadiusAu": 0.15995531524868878,
+            "cameraDistance": 6.210154710265579,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 31.268146424862962,
+            "screen": [
+              316.6549772271132,
+              410.7610108460711
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3554034408713038,
+              -0.10428613223823079,
+              -0.09254322485540052
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 4088.312179150137,
+            "displayRadiusAu": 0.06667377802104366,
+            "cameraDistance": 6.493955732897162,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 12.498560527781356,
+            "screen": [
+              336.75210492386,
+              367.64200188670065
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.6341301384056357,
+              0.33259842004240897,
+              0.1095428824144605
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 2001.4937492834842,
+            "displayRadiusAu": 0.08096799650447024,
+            "cameraDistance": 6.802515742391813,
+            "inView": true,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 14.403348415788733,
+            "screen": [
+              254.3996537245639,
+              367.9028745505481
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8668923342521831,
+              0.4481599240803158,
+              0.19426162039145886
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1931.4676250436005,
+            "displayRadiusAu": 0.08225638628125728,
+            "cameraDistance": 7.005780664311811,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 14.207105352817598,
+            "screen": [
+              229.3535464337925,
+              349.4692646568034
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.1707478035638627,
+              1.430151786798257,
+              0.6605825594285265
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "displayFactor": 7873.85761429028,
+            "displayRadiusAu": 0.1784012049018884,
+            "cameraDistance": 6.540581696614856,
+            "inView": true,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 33.31403953920384,
+            "screen": [
+              53.22045893278753,
+              526.0458912878007
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6167999993736175,
+              3.545850298655449,
+              1.607888177925393
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 6.345566545917655,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.12785060180740215,
+            "screen": [
+              -565.7629371116545,
+              1359.8905555990004
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228311388176213,
+              1.8911556138762746,
+              0.3837015143639522
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 14.972475376879286,
+            "inView": true,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.07328783633611696,
+            "screen": [
+              123.3017637652078,
+              14.28563838491484
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852414758773609,
+              15.896484855385898,
+              6.836911676115943
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 23.289855476505036,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.011382419752550277,
+            "screen": [
+              -768.9328935049887,
+              453.1636505533376
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833693252445965,
+              1.615728587205332,
+              -0.0813861857956882
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 35.05587312861969,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.006565409475123851,
+            "screen": [
+              182.1874386965196,
+              -266.97365736344415
+            ]
+          }
+        ],
+        "drawCalls": 20,
+        "geometries": 22,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 10,
+          "median": 0.7000000001862645,
+          "p95": 41.299999999813735
+        },
+        "pixelRatio": 1
+      },
+      "afterSolarHistory": {
+        "usr": {
+          "r4SolarView": {
+            "schema": "oras.solar-return.v1",
+            "epoch": "2026-10-23T04:05:17.280Z",
+            "camera": [
+              -4.843725016327449,
+              -2.5343858721088566,
+              2.946394023699557
+            ],
+            "target": [
+              0.3494654812712253,
+              0.6614236648749421,
+              0.2832194095463908
+            ],
+            "cameraUp": [
+              1,
+              0,
+              0
+            ],
+            "cameraView": "custom",
+            "closeView": false,
+            "near": 0.001,
+            "preferences": {
+              "orbits": true,
+              "effects": true,
+              "quality": "efficient",
+              "belt": false,
+              "beltDensity": 2400,
+              "overview": "inner",
+              "sizeMode": "cinematic"
+            }
+          }
+        },
+        "key": "abopcg16",
+        "idx": 6
+      }
+    },
+    {
+      "width": 667,
+      "height": 390,
+      "status": "PASS",
+      "checks": [
+        "Planet click opens actual Earth-centered scene, both bodies visible and one renderer",
+        "Physical mean radii option; immutable source positions",
+        "Play advances UTC and Moon geometry; pause stable; direct DE442s comparison within1km",
+        "Selected Moon → real R4 globe → Earth System camera/UTC; native destroy acknowledged",
+        "Deep-link/reload restores camera/selection/time",
+        "Keyboard camera/overview; actual CDP touch orbit",
+        "Original Solar camera retained with progressed time; Back/Forward hierarchy"
+      ],
+      "errors": [],
+      "documents": [
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T01%3A05%3A00Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A29%3A00.000Z",
+        "http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A29%3A00Z&lat=-1.3668358321440053&lon=31.219652892469867&height=4343500&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.21901969135%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.21901969135%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691347%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691347%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2098718.086462454%2C-243575.34732132117%2C2600080.6225284627%5D%2C%22target%22%3A%5B-2921.871159325412%2C-17051.99008135739%2C-9432.612275579784%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T06%3A29%3A00.000Z",
+        "http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2098718.086462454%2C-243575.34732132117%2C2600080.6225284627%5D%2C%22target%22%3A%5B-2921.871159325412%2C-17051.99008135739%2C-9432.612275579784%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D",
+        "http://127.0.0.1:4225/solar-system?date=2026-10-23T06%3A29%3A00.000Z"
+      ],
+      "historyEvents": [
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T01:05:00Z\",\"state\":{\"idx\":0}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"usr\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}},\"key\":\"6x4npqca\",\"idx\":0}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"ol35uc2i\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T01:05:00.000Z\",\"camera\":{\"position\":[-2921.069568557141,-1191155.4689232123,3132970.4122575484],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"opuevtwo\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[-2921.069568557141,-1191155.4689232123,3132970.4122575484],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"q1g2cppr\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[-2921.069568557141,-1191155.4689232123,3132970.4122575484],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"n4e2hscj\",\"idx\":1}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2921.069568557141%2C-1191155.4689232123%2C3132970.4122575484%5D%2C%22target%22%3A%5B-2921.069568557141%2C-17052.288810871483%2C-9431.877620207757%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[-2921.069568557141,-1191155.4689232123,3132970.4122575484],\"target\":[-2921.069568557141,-17052.288810871483,-9431.877620207757],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"5vbvcusg\",\"idx\":1}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"msbipiyq\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691353],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"ksaug7n8\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691353],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"f298qrde\",\"idx\":2}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691353],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"h0qujlfw\",\"idx\":2}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A29%3A00.000Z\",\"state\":{\"usr\":{\"planetReturn\":{\"path\":\"/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691353],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}}}},\"key\":\"8y0l9h2f\",\"idx\":3}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planet-view/moon?date=2026-10-23T06%3A29%3A00Z&lat=-1.3668358321440053&lon=31.219652892469867&height=4343500&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0\",\"state\":{\"usr\":{\"planetReturn\":{\"path\":\"/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691353],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}}}},\"key\":\"4o6yaa0d\",\"idx\":3}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691353%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691353],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"s9ky75ow\",\"idx\":4}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.21901969135%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.21901969135],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"1ylu6l31\",\"idx\":4}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691347%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691347],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"1y5fl51v\",\"idx\":4}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&moon=moon&camera=%7B%22position%22%3A%5B376795.02486318775%2C-60840.845284827556%2C12447.219019691347%5D%2C%22target%22%3A%5B378757.0007534536%2C-53518.65157913008%2C-7841.421810589528%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3A%22moon%22%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[376795.02486318775,-60840.845284827556,12447.219019691347],\"target\":[378757.0007534536,-53518.65157913008,-7841.421810589528],\"up\":[0,0,1],\"focus\":\"moon\"},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"qlm88k67\",\"idx\":4}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}}},\"key\":\"4jgi0tn0\",\"idx\":5}}",
+        "PS_HISTORY replaceState {\"url\":\"http://127.0.0.1:4225/planetary-system/earth?date=2026-10-23T06%3A29%3A00.000Z&camera=%7B%22position%22%3A%5B-2098718.086462454%2C-243575.34732132117%2C2600080.6225284627%5D%2C%22target%22%3A%5B-2921.871159325412%2C-17051.99008135739%2C-9432.612275579784%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D\",\"state\":{\"usr\":{\"systemReturn\":{\"path\":\"/solar-system?date=2026-10-23T01%3A05%3A00Z\",\"state\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T01:05:00Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"inner\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}}},\"systemView\":{\"schema\":\"oras.system-return.v1\",\"system\":\"earth\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":{\"position\":[-2098718.086462454,-243575.34732132117,2600080.6225284627],\"target\":[-2921.871159325412,-17051.99008135739,-9432.612275579784],\"up\":[0,0,1],\"focus\":null},\"sizeMode\":\"cinematic\",\"orbits\":true}},\"key\":\"ugzjkwck\",\"idx\":5}}",
+        "PS_HISTORY pushState {\"url\":\"http://127.0.0.1:4225/solar-system?date=2026-10-23T06%3A29%3A00.000Z\",\"state\":{\"usr\":{\"r4SolarView\":{\"schema\":\"oras.solar-return.v1\",\"epoch\":\"2026-10-23T06:29:00.000Z\",\"camera\":[-5.633448220360741,-3.020369382283188,3.351380282178167],\"target\":[0.3494654812712253,0.6614236648749421,0.2832194095463908],\"cameraUp\":[0.15,0,1],\"cameraView\":\"custom\",\"closeView\":false,\"near\":0.001,\"preferences\":{\"orbits\":true,\"effects\":true,\"quality\":\"efficient\",\"belt\":false,\"beltDensity\":2400,\"overview\":\"inner\",\"sizeMode\":\"cinematic\"}}},\"key\":\"1scnwd5q\",\"idx\":6}}"
+      ],
+      "originalSolar": {
+        "overviewScope": "inner",
+        "cameraView": "inner",
+        "closeView": false,
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 0.001,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.4884737160435733,
+          -0.2475344837118032,
+          -0.43742580099473377,
+          0.7132873030779597
+        ],
+        "epoch": "2026-10-23T01:05:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -5.633448220360741,
+          -3.020369382283188,
+          3.351380282178167
+        ],
+        "target": [
+          0.3494654812712253,
+          0.6614236648749421,
+          0.2832194095463908
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 31.229314762213622,
+            "displayRadiusAu": 0.14523090588395668,
+            "cameraDistance": 7.2173485334083685,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 10.570634843460246,
+            "screen": [
+              298.23634611088823,
+              243.26718291462757
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3548442282973396,
+              -0.10736293117108117,
+              -0.09412891124488226
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 5300.779670610903,
+            "displayRadiusAu": 0.08644716734186392,
+            "cameraDistance": 7.497785448840136,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 6.069944623609598,
+            "screen": [
+              315.9684608888122,
+              239.69886588037005
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.6353544803787602,
+              0.33061086433550213,
+              0.10857107265939048
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 2003.890513207153,
+            "displayRadiusAu": 0.08106495467536791,
+            "cameraDistance": 7.812987103750223,
+            "inView": true,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 5.437962404285465,
+            "screen": [
+              297.2112249532929,
+              215.29182457704565
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8679826979030497,
+              0.446445286652144,
+              0.19351843174382305
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1932.6445732117184,
+            "displayRadiusAu": 0.08230650956672914,
+            "cameraDistance": 8.01620230533949,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 5.381067524250367,
+            "screen": [
+              297.0216797781884,
+              203.53353708493063
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.1690722633599993,
+              1.4302037214294911,
+              0.6605611908461897
+            ],
+            "geometryRadiusAu": 0.00002265740912741269,
+            "displayFactor": 15605.382213334338,
+            "displayRadiusAu": 0.35357751259822406,
+            "cameraDistance": 7.543706843005971,
+            "inView": true,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.735335769482756,
+            "screen": [
+              203.962050961144,
+              191.73533576957544
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.616096225529583,
+              3.54640754014203,
+              1.6081098949043962
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 7.087401488775086,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.045063252542459464,
+            "screen": [
+              -158.24756600711663,
+              199.75546291548727
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228490060785118,
+              1.8905275121752214,
+              0.38343440427614267
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 15.93119017885185,
+            "inView": true,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": true,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 0.029636492790358737,
+            "screen": [
+              379.90102661318457,
+              86.33590804708228
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.852857509530857,
+              15.896303008545571,
+              6.836825762370475
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 24.079906109393907,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.004669580768631443,
+            "screen": [
+              15.253128218029849,
+              -95.06111266718335
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.8337155963245,
+              1.6153635605216732,
+              -0.08153614080109546
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 35.933196967202264,
+            "inView": true,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": true,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 0.0027529924796097782,
+            "screen": [
+              492.425783090674,
+              29.24387285306149
+            ]
+          }
+        ],
+        "drawCalls": 21,
+        "geometries": 22,
+        "textures": 2,
+        "texturesReady": 1,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 1.300000000745058,
+          "p95": 27.40000000037253
+        },
+        "pixelRatio": 1
+      },
+      "enterHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -5.633448220360741,
+                  -3.020369382283188,
+                  3.351380282178167
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T01:05:00.000Z",
+            "camera": {
+              "position": [
+                -2921.069568557141,
+                -1191155.4689232123,
+                3132970.4122575484
+              ],
+              "target": [
+                -2921.069568557141,
+                -17052.288810871483,
+                -9431.877620207757
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": null
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "opuevtwo",
+        "idx": 1
+      },
+      "overview": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 3,
+        "camera": [
+          -2921.069568557141,
+          -1191155.4689232123,
+          3132970.4122575484
+        ],
+        "target": [
+          -2921.069568557141,
+          -17052.288810871483,
+          -9431.877620207757
+        ],
+        "cameraState": {
+          "position": [
+            -2921.069568557141,
+            -1191155.4689232123,
+            3132970.4122575484
+          ],
+          "target": [
+            -2921.069568557141,
+            -17052.288810871483,
+            -9431.877620207757
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 627,
+          "clearHeight": 163,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -30.5
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "earth",
+            "appearance": "historical-earth-imagery",
+            "modelStatus": "not-requested",
+            "textureStatus": "ready",
+            "modelReady": false,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 258517.43678294285,
+            "screenRadius": 39.1807543064319,
+            "screen": [
+              333.94272311548394,
+              222.57866029423005
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "appearance": "historical-lroc-imagery",
+            "modelStatus": "not-requested",
+            "textureStatus": "ready",
+            "modelReady": false,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 95824.91216589797,
+            "screenRadius": 14.466740051605623,
+            "screen": [
+              391.2040543215156,
+              233.60076941873274
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 20.09999999962747,
+          "p95": 103
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      },
+      "motion": {
+        "before": "2026-10-23T01:05:00.000Z",
+        "after": "2026-10-23T06:29:00.000Z",
+        "reference_position_km": [
+          378757.000760734,
+          -53518.65158408168,
+          -7841.421812782004
+        ],
+        "actual_position_km": [
+          378757.0007534535,
+          -53518.65157913007,
+          -7841.421810589527
+        ]
+      },
+      "beforeSurfaceHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -5.633448220360741,
+                  -3.020369382283188,
+                  3.351380282178167
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:29:00.000Z",
+            "camera": {
+              "position": [
+                376795.02486318775,
+                -60840.845284827556,
+                12447.219019691353
+              ],
+              "target": [
+                378757.0007534536,
+                -53518.65157913008,
+                -7841.421810589528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "ksaug7n8",
+        "idx": 2
+      },
+      "surfaceReturnHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -5.633448220360741,
+                  -3.020369382283188,
+                  3.351380282178167
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:29:00.000Z",
+            "camera": {
+              "position": [
+                376795.02486318775,
+                -60840.845284827556,
+                12447.219019691353
+              ],
+              "target": [
+                378757.0007534536,
+                -53518.65157913008,
+                -7841.421810589528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "s9ky75ow",
+        "idx": 4
+      },
+      "beforeReloadHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -5.633448220360741,
+                  -3.020369382283188,
+                  3.351380282178167
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:29:00.000Z",
+            "camera": {
+              "position": [
+                376795.02486318775,
+                -60840.845284827556,
+                12447.219019691353
+              ],
+              "target": [
+                378757.0007534536,
+                -53518.65157913008,
+                -7841.421810589528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "s9ky75ow",
+        "idx": 4
+      },
+      "afterReloadHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -5.633448220360741,
+                  -3.020369382283188,
+                  3.351380282178167
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          },
+          "systemView": {
+            "schema": "oras.system-return.v1",
+            "system": "earth",
+            "epoch": "2026-10-23T06:29:00.000Z",
+            "camera": {
+              "position": [
+                376795.02486318775,
+                -60840.845284827556,
+                12447.219019691347
+              ],
+              "target": [
+                378757.0007534536,
+                -53518.65157913008,
+                -7841.421810589528
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "focus": "moon"
+            },
+            "sizeMode": "cinematic",
+            "orbits": true
+          }
+        },
+        "key": "1y5fl51v",
+        "idx": 4
+      },
+      "beforeSolarHistory": {
+        "usr": {
+          "systemReturn": {
+            "path": "/solar-system?date=2026-10-23T01%3A05%3A00Z",
+            "state": {
+              "r4SolarView": {
+                "schema": "oras.solar-return.v1",
+                "epoch": "2026-10-23T01:05:00Z",
+                "camera": [
+                  -5.633448220360741,
+                  -3.020369382283188,
+                  3.351380282178167
+                ],
+                "target": [
+                  0.3494654812712253,
+                  0.6614236648749421,
+                  0.2832194095463908
+                ],
+                "cameraUp": [
+                  0.15,
+                  0,
+                  1
+                ],
+                "cameraView": "inner",
+                "closeView": false,
+                "near": 0.001,
+                "preferences": {
+                  "orbits": true,
+                  "effects": true,
+                  "quality": "efficient",
+                  "belt": false,
+                  "beltDensity": 2400,
+                  "overview": "inner",
+                  "sizeMode": "cinematic"
+                }
+              }
+            }
+          }
+        },
+        "key": "4jgi0tn0",
+        "idx": 5
+      },
+      "returnedSolar": {
+        "overviewScope": "inner",
+        "cameraView": "custom",
+        "closeView": false,
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 0.001,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.4884737160435733,
+          -0.24753448371180325,
+          -0.43742580099473394,
+          0.7132873030779596
+        ],
+        "epoch": "2026-10-23T06:29:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 13,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -5.63344822036074,
+          -3.020369382283185,
+          3.351380282178167
+        ],
+        "target": [
+          0.3494654812712253,
+          0.6614236648749421,
+          0.2832194095463908
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 30.78114418345884,
+            "displayRadiusAu": 0.1431467032801311,
+            "cameraDistance": 7.217348533408367,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 10.41893610874029,
+            "screen": [
+              298.23634611088823,
+              243.26718291462765
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3558279931798447,
+              -0.10182730357878447,
+              -0.09127370550702421
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 5225.345942745321,
+            "displayRadiusAu": 0.08521696489972674,
+            "cameraDistance": 7.49941223738074,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 5.981731948389036,
+            "screen": [
+              315.64600550499404,
+              239.4332521269641
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.6331486421983495,
+              0.33417984379881777,
+              0.11031657904994789
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 1999.647522517789,
+            "displayRadiusAu": 0.080893309645036,
+            "cameraDistance": 7.8120247487945145,
+            "inView": true,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 5.426939450408357,
+            "screen": [
+              296.9330251189859,
+              215.21089117412214
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8660202731788957,
+              0.4495251896919681,
+              0.19485337874835265
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1928.5441698561942,
+            "displayRadiusAu": 0.08213188362014442,
+            "cameraDistance": 8.015417714081607,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 5.370044410444307,
+            "screen": [
+              296.7865659459214,
+              203.4759530656924
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.17208327548538854,
+              1.4301091941530073,
+              0.6605990412234821
+            ],
+            "geometryRadiusAu": 0.00002265740773765135,
+            "displayFactor": 15645.239580286836,
+            "displayRadiusAu": 0.3544805772251024,
+            "cameraDistance": 7.541456776187509,
+            "inView": true,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.806506787999332,
+            "screen": [
+              203.84539709885794,
+              191.8065067885126
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6173609147003587,
+              3.5454060291661627,
+              1.6077114062308842
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 7.086211676670762,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.0450741226329987,
+            "screen": [
+              -158.3251284867974,
+              199.84571833243163
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.228168927278862,
+              1.8916562816107843,
+              0.38391443282872384
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 15.931149171758566,
+            "inView": true,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": true,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 0.029636298343175424,
+            "screen": [
+              379.860991745011,
+              86.32081934448102
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.85206182728156,
+              15.896629802685336,
+              6.836980156940234
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 24.079706517966265,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.004669710031105001,
+            "screen": [
+              15.227716868961153,
+              -95.06639293992322
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.8336754379088,
+              1.6160195586653257,
+              -0.08126665299965291
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 35.9332162209886,
+            "inView": true,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": true,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 0.002752977002304924,
+            "screen": [
+              492.41465287823536,
+              29.239642857950276
+            ]
+          }
+        ],
+        "drawCalls": 21,
+        "geometries": 23,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 10,
+          "median": 0.7999999998137355,
+          "p95": 27.40000000037253
+        },
+        "pixelRatio": 1
+      },
+      "afterSolarHistory": {
+        "usr": {
+          "r4SolarView": {
+            "schema": "oras.solar-return.v1",
+            "epoch": "2026-10-23T06:29:00.000Z",
+            "camera": [
+              -5.633448220360741,
+              -3.020369382283188,
+              3.351380282178167
+            ],
+            "target": [
+              0.3494654812712253,
+              0.6614236648749421,
+              0.2832194095463908
+            ],
+            "cameraUp": [
+              0.15,
+              0,
+              1
+            ],
+            "cameraView": "custom",
+            "closeView": false,
+            "near": 0.001,
+            "preferences": {
+              "orbits": true,
+              "effects": true,
+              "quality": "efficient",
+              "belt": false,
+              "beltDensity": 2400,
+              "overview": "inner",
+              "sizeMode": "cinematic"
+            }
+          }
+        },
+        "key": "1scnwd5q",
+        "idx": 6
+      }
+    }
+  ],
+  "limitations": [
+    "Actual Chromium SwiftShader; emulated viewports and touch, not physical-device/GPU qualification.",
+    "No measured terrain or live imagery; system texture orientations illustrative."
+  ],
+  "source_unchanged": true
+}

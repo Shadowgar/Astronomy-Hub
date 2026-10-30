@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: FOV report accepts only exact finite native angle and current authenticated Sky session
+ok 1 - FOV report accepts only exact finite native angle and current authenticated Sky session
+  ---
+  duration_ms: 1.46193
+  type: 'test'
+  ...
+# Subtest: native reactive reports coalesce at 10Hz, require hello, recover cached pages and release all listeners/timers
+ok 2 - native reactive reports coalesce at 10Hz, require hello, recover cached pages and release all listeners/timers
+  ---
+  duration_ms: 1.042177
+  type: 'test'
+  ...
+# Subtest: a silent native zoomTo change is sampled without requiring a reactive change event
+ok 3 - a silent native zoomTo change is sampled without requiring a reactive change event
+  ---
+  duration_ms: 0.546464
+  type: 'test'
+  ...
+# Subtest: the bounded native sampler pauses while hidden and releases its visibility listener on stop
+ok 4 - the bounded native sampler pauses while hidden and releases its visibility listener on stop
+  ---
+  duration_ms: 1.141283
+  type: 'test'
+  ...
+# Subtest: cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+ok 5 - cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+  ---
+  duration_ms: 4.704523
+  type: 'test'
+  ...
+# Subtest: genuine Sky departure closes the endpoint
+ok 6 - genuine Sky departure closes the endpoint
+  ---
+  duration_ms: 1.000717
+  type: 'test'
+  ...
+# Subtest: interaction timers are cleared on every cached departure
+ok 7 - interaction timers are cleared on every cached departure
+  ---
+  duration_ms: 1.267254
+  type: 'test'
+  ...
+# Subtest: cached departure resets active interaction and restored page can interact normally
+ok 8 - cached departure resets active interaction and restored page can interact normally
+  ---
+  duration_ms: 1.31137
+  type: 'test'
+  ...
+# Subtest: every cached cycle resets interaction without accumulating timers or endpoints
+ok 9 - every cached cycle resets interaction without accumulating timers or endpoints
+  ---
+  duration_ms: 0.954876
+  type: 'test'
+  ...
+# Subtest: departure before canvas readiness still explicitly resets interaction and closes once
+ok 10 - departure before canvas readiness still explicitly resets interaction and closes once
+  ---
+  duration_ms: 0.598742
+  type: 'test'
+  ...
+# Subtest: entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+ok 11 - entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+  ---
+  duration_ms: 2.508407
+  type: 'test'
+  ...
+# Subtest: explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+ok 12 - explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+  ---
+  duration_ms: 0.749163
+  type: 'test'
+  ...
+# Subtest: entry owns the real FOV reporter through cached restoration and explicit destruction
+ok 13 - entry owns the real FOV reporter through cached restoration and explicit destruction
+  ---
+  duration_ms: 0.864086
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 65.538881

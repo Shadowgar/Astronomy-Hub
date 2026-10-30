@@ -1,0 +1,36 @@
+{
+  "status": "PASS_SOURCE_BUILD_SERVED_AND_PRESERVATION",
+  "head": "34eb8f08392a1886ac409e39d3f50938c0491ac6",
+  "hubArtifact": "f98bd89fffdd5fb04ab69d7d83602618d6b1985a18f520f364f98c3aa46dc7b6",
+  "builds": 3,
+  "hubFiles": 136,
+  "earthFiles": 514,
+  "sourceHashCount": 261,
+  "navigationGroups": {
+    "1440": 14,
+    "390": 14
+  },
+  "preservation": {
+    "status": "PASS",
+    "head": "34eb8f08392a1886ac409e39d3f50938c0491ac6",
+    "protectedPaths": [
+      "frontend/public/oras-sky-engine",
+      "docs/design/cinematic-references-2026-10-21",
+      "frontend/src/features/solar/assets/earth-blue-marble.png",
+      "frontend/src/features/solar/assets/mars-nasa.glb",
+      "frontend/src/features/solar/assets/earth-clouds-2002.jpg",
+      "integrations/renderers.lock.json",
+      "frontend/public/runtime-versions.json",
+      "runtimes",
+      "packages/runtime-protocol",
+      "scripts/skydata"
+    ],
+    "settingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+    "kernelSha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+    "nativeEarthArtifact": "cb1f579d3f7625ad776d6182740da581c152c3a79684b4f2520477672eb12c3e",
+    "nativeSkyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
+    "upstreamPin": "e7707d9a0f34d9fbffc300023c319f95caa5be30"
+  },
+  "ownerVisualAcceptance": "PENDING",
+  "physicalGpuMobile": "UNQUALIFIED"
+}

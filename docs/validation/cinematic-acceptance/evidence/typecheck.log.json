@@ -1,0 +1,5 @@
+{
+  "format": "Lossless UTF-8 command stdout/stderr; original terminal whitespace retained by JSON escaping",
+  "original_sha256": "eaf8519de1a7c341ec55d8ac83722fe2065100ebfbcb6936cb60b1b30be155d3",
+  "stdout": "\n> astronomy-hub-frontend@0.0.1 typecheck\n> tsc --noEmit\n\n"
+}

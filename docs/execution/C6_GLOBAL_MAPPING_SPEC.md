@@ -1,8 +1,14 @@
 # C6 — Google-Earth-Class Global Mapping
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ## R0 supersession of execution order — 2026-10-13
 
-Only R0 documentation/governance is active in LIVE/PROJECT_STATE. The C5/C6
+R0 is merged; only R1-A design references are active in LIVE/PROJECT_STATE. The C5/C6
 qualification, source reuse plans, request budgets, source hierarchy and evidence
 below are preserved dated inputs; their former active/next-action statements are
 superseded for task activation. PR #70 is merged; PR #71 is an existing unmerged

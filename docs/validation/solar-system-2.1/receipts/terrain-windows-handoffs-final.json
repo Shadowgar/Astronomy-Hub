@@ -1,0 +1,723 @@
+{
+  "base": "http://127.0.0.1:4231",
+  "platform": "win32",
+  "browserVersion": "156.0.4314.42",
+  "epoch": "2026-10-28T00:00:00.000Z",
+  "runs": [
+    {
+      "failure": "none",
+      "mode": "Earth",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "terrain": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            1943.039999999999,
+            -4592.639999999976,
+            3932.7845849609193
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1403491.5438850138,
+          835924.3237513751,
+          595499.2024460264
+        ],
+        "renderCount": 10,
+        "firstModelMs": 344.2999999523163,
+        "firstVisibleMs": 360.0999999642372,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 5,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 5,
+          "failed": 0,
+          "inFrustum": 5,
+          "used": 5,
+          "active": 4,
+          "visible": 4,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          1
+        ],
+        "visibleTiles": [
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/0/0.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/1/0.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/0/1.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/1/1.glb"
+          }
+        ],
+        "loadedCount": 5,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 3172820,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 6,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 2861656,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 5,
+          "textures": 5,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 9,
+          "median": 7,
+          "p95": 34.69999999999999
+        },
+        "cpuFrameMs": {
+          "samples": 10,
+          "median": 0.9000000357627869,
+          "p95": 13.5
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 8,
+          "median": 0.091136,
+          "p95": 0.428032
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "native": {
+        "mode": "earth",
+        "observer": {
+          "lat": 40.0000001969647,
+          "lon": -80.00000032546157,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "camera": {
+          "latitudeRad": 0.6981317007977317,
+          "longitudeRad": -1.3962634015954636,
+          "heightM": 15621863.000000002,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5684454694251215,
+          "rollRad": 0
+        },
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false
+      },
+      "url": "http://127.0.0.1:4231/earth?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            1943.039999999999,
+            -4592.639999999976,
+            3932.7845849609193
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1403491.5438850138,
+          835924.3237513751,
+          595499.2024460264
+        ],
+        "renderCount": 10,
+        "firstModelMs": 344.2999999523163,
+        "firstVisibleMs": 360.0999999642372,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 5,
+        "disposedModels": 5,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 6,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 2861656,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 9,
+          "median": 7,
+          "p95": 34.69999999999999
+        },
+        "cpuFrameMs": {
+          "samples": 10,
+          "median": 0.9000000357627869,
+          "p95": 13.5
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 8,
+          "median": 0.091136,
+          "p95": 0.428032
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "failure": "none",
+      "mode": "Sky",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "terrain": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": false,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            1943.039999999999,
+            -4592.639999999976,
+            3932.7845849609193
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1403491.5438850138,
+          835924.3237513751,
+          595499.2024460264
+        ],
+        "renderCount": 10,
+        "firstModelMs": 67.59999996423721,
+        "firstVisibleMs": 80.89999997615814,
+        "stats": {
+          "inCacheSinceLoad": 0,
+          "inCache": 5,
+          "queued": 0,
+          "downloading": 0,
+          "parsing": 0,
+          "loaded": 5,
+          "failed": 0,
+          "inFrustum": 5,
+          "used": 5,
+          "active": 4,
+          "visible": 4,
+          "refused": 0,
+          "tilesProcessed": 0
+        },
+        "visibleLevels": [
+          1
+        ],
+        "visibleTiles": [
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/0/0.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/1/0.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/0/1.glb"
+          },
+          {
+            "depth": 1,
+            "geometricError": 20,
+            "uri": "tiles/1/1/1.glb"
+          }
+        ],
+        "loadedCount": 5,
+        "disposedModels": 0,
+        "cache": {
+          "bytes": 3172820,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 6,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 2861656,
+          "sessionByteLimit": 167772160,
+          "disposed": false
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 5,
+          "textures": 5,
+          "programs": 1,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 9,
+          "median": 7,
+          "p95": 27.69999999999999
+        },
+        "cpuFrameMs": {
+          "samples": 10,
+          "median": 0.8999999761581421,
+          "p95": 9.599999964237213
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 10,
+          "median": 0.631808,
+          "p95": 3.448832
+        },
+        "epoch": "2026-10-28T00:00:00.000Z"
+      },
+      "native": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.00000000001537,
+          "lon": -79.99999999997344,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "url": "http://127.0.0.1:4231/sky-engine?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": {
+        "library": {
+          "name": "3d-tiles-renderer",
+          "version": "0.5.3",
+          "constructor": "Rn",
+          "instanceOfTilesRenderer": true,
+          "threeRevision": "180"
+        },
+        "source": {
+          "region": "apollo17-nac-v1",
+          "frame": "LROC_ME",
+          "heightDatum": "Radial metres above the 1737400 m lunar reference sphere",
+          "elevationResolutionM": 5,
+          "imageryResolutionM": 5,
+          "centerBodyFixedM": [
+            1399947.994862484,
+            831559.5081893147,
+            598453.2144021682
+          ],
+          "ellipsoidRadiiM": [
+            1737400,
+            1737400,
+            1737400
+          ]
+        },
+        "disposed": true,
+        "lost": false,
+        "quality": "balanced",
+        "reduced": false,
+        "relief": false,
+        "pose": {
+          "camera": [
+            1943.039999999999,
+            -4592.639999999976,
+            3932.7845849609193
+          ],
+          "target": [
+            0,
+            0,
+            -12.175415039062498
+          ]
+        },
+        "cameraBodyFixedM": [
+          1403491.5438850138,
+          835924.3237513751,
+          595499.2024460264
+        ],
+        "renderCount": 10,
+        "firstModelMs": 67.59999996423721,
+        "firstVisibleMs": 80.89999997615814,
+        "stats": {
+          "queued": 0,
+          "parsing": 0,
+          "downloading": 0,
+          "failed": 0,
+          "inFrustum": 0,
+          "traversed": 0,
+          "used": 0,
+          "active": 0,
+          "visible": 0
+        },
+        "visibleLevels": [],
+        "visibleTiles": [],
+        "loadedCount": 5,
+        "disposedModels": 5,
+        "cache": {
+          "bytes": 0,
+          "maxBytes": 134217728,
+          "maxTiles": 90
+        },
+        "transport": {
+          "requests": 6,
+          "active": 0,
+          "failures": 0,
+          "aborted": 0,
+          "receivedBytes": 2861656,
+          "sessionByteLimit": 167772160,
+          "disposed": true
+        },
+        "queues": {
+          "downloads": 4,
+          "parse": 1,
+          "nodes": 1
+        },
+        "graphics": {
+          "calls": 4,
+          "triangles": 135168,
+          "geometries": 0,
+          "textures": 0,
+          "programs": 0,
+          "pixelRatio": 1.0000000149011612
+        },
+        "activeFrameIntervalsMs": {
+          "samples": 9,
+          "median": 7,
+          "p95": 27.69999999999999
+        },
+        "cpuFrameMs": {
+          "samples": 10,
+          "median": 0.8999999761581421,
+          "p95": 9.599999964237213
+        },
+        "gpuMs": {
+          "supported": true,
+          "samples": 10,
+          "median": 0.631808,
+          "p95": 3.448832
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "failure": "manifest pending",
+      "mode": "Earth",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "native": {
+        "mode": "earth",
+        "observer": {
+          "lat": 40.0000001969647,
+          "lon": -80.00000032546157,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "camera": {
+          "latitudeRad": 0.6981317007977317,
+          "longitudeRad": -1.3962634015954636,
+          "heightM": 15621863.000000002,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5684454694251215,
+          "rollRad": 0
+        },
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false
+      },
+      "url": "http://127.0.0.1:4231/earth?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": null,
+      "status": "PASS"
+    },
+    {
+      "failure": "manifest pending",
+      "mode": "Sky",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "native": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.00000000001537,
+          "lon": -79.99999999997344,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "url": "http://127.0.0.1:4231/sky-engine?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": null,
+      "status": "PASS"
+    },
+    {
+      "failure": "manifest failed",
+      "mode": "Earth",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "native": {
+        "mode": "earth",
+        "observer": {
+          "lat": 40.0000001969647,
+          "lon": -80.00000032546157,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "camera": {
+          "latitudeRad": 0.6981317007977317,
+          "longitudeRad": -1.3962634015954636,
+          "heightM": 15621863.000000002,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5684454694251215,
+          "rollRad": 0
+        },
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false
+      },
+      "url": "http://127.0.0.1:4231/earth?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": null,
+      "status": "PASS"
+    },
+    {
+      "failure": "manifest failed",
+      "mode": "Sky",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "native": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.00000000001537,
+          "lon": -79.99999999997344,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "url": "http://127.0.0.1:4231/sky-engine?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": null,
+      "status": "PASS"
+    },
+    {
+      "failure": "GPU initialization failed",
+      "mode": "Earth",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "native": {
+        "mode": "earth",
+        "observer": {
+          "lat": 40.0000001969647,
+          "lon": -80.00000032546157,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "camera": {
+          "latitudeRad": 0.6981317007977317,
+          "longitudeRad": -1.3962634015954636,
+          "heightM": 15621863.000000002,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.5684454694251215,
+          "rollRad": 0
+        },
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false
+      },
+      "url": "http://127.0.0.1:4231/earth?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": null,
+      "status": "PASS"
+    },
+    {
+      "failure": "GPU initialization failed",
+      "mode": "Sky",
+      "errors": [],
+      "manifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "native": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.00000000001537,
+          "lon": -79.99999999997344,
+          "elevationM": 400
+        },
+        "elevationSource": "provided",
+        "utc": "2026-10-28T00:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "url": "http://127.0.0.1:4231/sky-engine?date=2026-10-28T00%3A00%3A00.000Z&lat=40&lng=-80&elev=400&elevationSource=provided",
+      "disposed": null,
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS"
+}

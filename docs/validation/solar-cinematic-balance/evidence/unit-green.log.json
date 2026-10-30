@@ -1,0 +1,5 @@
+{
+  "originalSha256": "99766331ac978a3b710a47093caa1454ab1ed7400fddd84178f1382233974489",
+  "encoding": "UTF-8",
+  "content": "\n> astronomy-hub-frontend@0.0.1 test\n> vitest run tests/solarCinematicScale.test.ts tests/solarAcceptance.test.ts tests/solarScientificView.test.ts\n\n\n RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/frontend\n\n\n Test Files  3 passed (3)\n      Tests  16 passed (16)\n   Start at  22:19:59\n   Duration  242ms (transform 156ms, setup 0ms, import 309ms, tests 37ms, environment 0ms)\n\n"
+}

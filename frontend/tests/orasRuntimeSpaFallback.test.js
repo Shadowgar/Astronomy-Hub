@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import config from '../vite.config.mjs'
 
 import {
   getOrasRuntimeRemoteFallbackPath,
@@ -8,6 +9,17 @@ import {
 } from '../vite.config.mjs'
 
 describe('oras runtime SPA fallback', () => {
+  it('routes the separate Moon frame and imagery through both Vite modes', () => {
+    for (const mode of ['server', 'preview']) {
+      for (const prefix of ['/planet-runtime/', '/planet-data/']) {
+        expect(config[mode].proxy[prefix].target).toBe(
+          process.env.ORAS_PLANET_PROXY_TARGET || 'http://127.0.0.1:8878',
+        )
+        expect(config[mode].proxy[prefix].rewrite).toBeUndefined()
+      }
+    }
+  })
+
   it('does not treat same-origin remote-data requests as SPA routes', () => {
     expect(isOrasRuntimeSpaPath('/oras-sky-engine/remote-data/swe-data-packs/minimal/2020-09-01/minimal_2020-09-01_186e7ee2/stars')).toBe(false)
     expect(isOrasRuntimeSpaPath('/oras-sky-engine/remote-data/surveys/dss/v1')).toBe(false)

@@ -1,0 +1,78 @@
+{
+  "status": "FAIL",
+  "runs": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "before": {
+        "utc": 61339.59603203702,
+        "speed": 1,
+        "selection": 25544,
+        "lock": null,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T14:18:17.168Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "tracked": {
+        "utc": 61339.59604545138,
+        "speed": 1,
+        "selection": 25544,
+        "lock": 25544,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T14:18:18.327Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -0.004384918497,
+            "pitchRad": 0.511608042079,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "stopHit": {
+        "bounds": {
+          "x": 1112.40625,
+          "y": 108,
+          "width": 101.875,
+          "height": 44,
+          "top": 108,
+          "right": 1214.28125,
+          "bottom": 152,
+          "left": 1112.40625
+        },
+        "hit": "<button class=\"ws-drawer-handle\" aria-label=\"Expand details\"><span></span></button>",
+        "reachable": false
+      },
+      "status": "FAIL",
+      "error": "locator.click: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: 'Selected object', exact: true }).getByRole('button', { name: 'Stop tracking', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-pressed=\"true\">Stop tracking</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <button class=\"ws-drawer-handle\" aria-label=\"Expand details\">…</button> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <button class=\"ws-drawer-handle\" aria-label=\"Expand details\">…</button> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    8 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <button class=\"ws-drawer-handle\" aria-label=\"Expand details\">…</button> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\n    at /home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/scripts/validation/verify_satellite_tracking_controls.mjs:19:86",
+      "body": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nISS (ZARYA)\n\nsatellite · 25544\n\nFocus\nStop tracking\nDetails\nLIVE\nTRACKING\nSTALE DATA\nOct 26, 10:18 AM EDT\nChange time\nISS (ZARYA), satellite, selected"
+    }
+  ]
+}

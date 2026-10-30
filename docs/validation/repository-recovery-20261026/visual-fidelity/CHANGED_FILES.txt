@@ -1,0 +1,16 @@
+frontend/src/features/planet/PlanetFrame.tsx
+frontend/src/features/planet/PlanetWorkspace.tsx
+frontend/src/features/planet/planet.css
+frontend/src/features/planet/planetPresentation.ts
+frontend/src/features/solar/SolarScene.ts
+frontend/src/features/solar/SolarWorkspace.tsx
+frontend/src/features/solar/solarFidelity.css
+frontend/src/features/solar/solarMaterials.ts
+frontend/src/features/solar/solarPresentation.ts
+frontend/src/features/workspace/cinematic.css
+frontend/src/features/workspace/glass.css
+frontend/src/features/workspace/skyCinematic.css
+frontend/tests/planetPresentation.test.ts
+frontend/tests/solarVisualFidelity.test.ts
+scripts/validation/verify_cinematic_fidelity.mjs
+scripts/validation/verify_moon_disclosure.mjs

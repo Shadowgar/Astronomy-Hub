@@ -1,0 +1,9 @@
+{
+  status: 'FAIL',
+  pointerClear: false,
+  error: 'AssertionError [ERR_ASSERTION]: Search surface covers mode chooser\n' +
+    '\n' +
+    'false !== true\n' +
+    '\n' +
+    '    at file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_cinematic_mode_overlay.mjs:2:1112'
+}

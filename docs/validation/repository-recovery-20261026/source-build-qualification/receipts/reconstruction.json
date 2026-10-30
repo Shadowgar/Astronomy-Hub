@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "source_revision": "f7cb702c428980ce2b32539dbc74fc2b35082c12",
+  "native": {
+    "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+    "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+  },
+  "sky_files": 110,
+  "hub_files": 144,
+  "input_files_unchanged": 1563,
+  "restored_auxiliary_lock_inputs": [
+    {
+      "directory": "stellarium/apps/web-frontend",
+      "input": "yarn.lock",
+      "archived_sha256": "1a7b444b18334a34e9818536afac9654eba09199901fec607ef7c50273132115",
+      "npm_written_sha256": "ef171d00f217ab9ce13fd7136c9b038cfd8f7857a8fb88cf26101f6e5c798e26"
+    }
+  ],
+  "node_modules": "fresh npm ci, lock integrity, no host caches, install scripts disabled",
+  "limits": [
+    "No mounted scientific data or existing renderer artifacts used as build inputs.",
+    "Earth/Planet artifacts and external datasets are preserved, not rebuilt here.",
+    "No publication, legal compliance or physical-device qualification."
+  ]
+}

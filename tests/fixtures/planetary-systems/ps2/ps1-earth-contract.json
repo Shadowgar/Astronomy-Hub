@@ -1,0 +1,181 @@
+{
+  "schema": "oras.planetary-system.v1",
+  "system_id": "earth",
+  "epoch": "2026-10-23T12:00:00Z",
+  "time": {
+    "input_scale": "UTC",
+    "evaluation_scale": "TDB",
+    "jd_tdb": 2461337.0008007227
+  },
+  "parent": {
+    "id": "earth",
+    "name": "Earth",
+    "naif_id": "399",
+    "radius_km": 6371.0,
+    "radius_source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+    "material": "earth"
+  },
+  "satellites": [
+    {
+      "id": "moon",
+      "name": "Moon",
+      "naif_id": "301",
+      "radius_km": 1737.4,
+      "radius_source": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "status": "qualified",
+      "reason": null,
+      "surface": {
+        "available": true,
+        "destination": "/planet-view/moon"
+      }
+    }
+  ],
+  "origin": "Earth center (399)",
+  "frame": "ICRF",
+  "units": "km",
+  "corrections": "geometric; no light-time or aberration",
+  "coverage": {
+    "start": "1900-01-01T00:00:00Z",
+    "end": "2051-01-01T00:00:00Z"
+  },
+  "sampled_coverage": {
+    "start": "2026-10-23T11:00:00Z",
+    "end": "2026-10-23T13:00:00Z"
+  },
+  "source": {
+    "id": "jpl_de442s_local",
+    "release": "de442s-2025-02-06",
+    "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+    "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de442s.bsp"
+  },
+  "tracks": [
+    {
+      "id": "moon",
+      "samples": [
+        {
+          "epoch": "2026-10-23T11:00:00Z",
+          "jd_tdb": 2461336.9591340562,
+          "position_km": [
+            379599.4438051775,
+            -38720.13900547092,
+            -19.041734784529172
+          ],
+          "velocity_km_s": [
+            0.029608562853773085,
+            0.9128399319876075,
+            0.4812960667724305
+          ]
+        },
+        {
+          "epoch": "2026-10-23T12:00:00Z",
+          "jd_tdb": 2461337.0008007227,
+          "position_km": [
+            379688.269818123,
+            -35432.02280244701,
+            1713.6457003993378
+          ],
+          "velocity_km_s": [
+            0.019735973713852783,
+            0.9138772304164543,
+            0.4813004885331752
+          ]
+        },
+        {
+          "epoch": "2026-10-23T13:00:00Z",
+          "jd_tdb": 2461337.0424673893,
+          "position_km": [
+            379741.5199710611,
+            -32140.324431225916,
+            3446.2671433016512
+          ],
+          "velocity_km_s": [
+            0.009844347484095172,
+            0.9148299579033176,
+            0.48125937734772795
+          ]
+        }
+      ]
+    }
+  ],
+  "sun_track": {
+    "id": "sun",
+    "samples": [
+      {
+        "epoch": "2026-10-23T11:00:00Z",
+        "jd_tdb": 2461336.9591340562,
+        "position_km": [
+          -129307733.54980075,
+          -67632602.50616592,
+          -29316347.40287549
+        ],
+        "velocity_km_s": [
+          15.236118193320683,
+          -23.630482574380565,
+          -10.242382039963081
+        ]
+      },
+      {
+        "epoch": "2026-10-23T12:00:00Z",
+        "jd_tdb": 2461337.0008007227,
+        "position_km": [
+          -129252850.02123666,
+          -67717654.57493336,
+          -29353212.32904968
+        ],
+        "velocity_km_s": [
+          15.254729749018294,
+          -23.620664795936595,
+          -10.238131676154417
+        ]
+      },
+      {
+        "epoch": "2026-10-23T13:00:00Z",
+        "jd_tdb": 2461337.0424673893,
+        "position_km": [
+          -129197899.50464612,
+          -67802671.27874961,
+          -29390061.94502746
+        ],
+        "velocity_km_s": [
+          15.273333763658933,
+          -23.610835380798676,
+          -10.233876375926346
+        ]
+      }
+    ]
+  },
+  "state": {
+    "moon": {
+      "position_km": [
+        379688.269818123,
+        -35432.02280244701,
+        1713.6457003993378
+      ],
+      "velocity_km_s": [
+        0.019735973713852783,
+        0.9138772304164543,
+        0.4813004885331752
+      ]
+    },
+    "sun": {
+      "position_km": [
+        -129252850.02123666,
+        -67717654.57493336,
+        -29353212.32904968
+      ],
+      "velocity_km_s": [
+        15.254729749018294,
+        -23.620664795936595,
+        -10.238131676154417
+      ]
+    }
+  },
+  "sampling": {
+    "step_seconds": 3600,
+    "interpolation": "cubic-hermite",
+    "max_position_error_km": 7.488668557787156e-05,
+    "qualification_points_per_segment": 3,
+    "time_fraction": "UTC; TDB endpoint duration; leap transitions clipped",
+    "qualification": "Every segment checked at quarter, half and three-quarter times against direct DE442s for Moon and parent-to-Sun; measured sampled error, not an all-times accuracy guarantee. Playback stops at sampled coverage. Future UTC uses installed Skyfield leap-second table."
+  }
+}

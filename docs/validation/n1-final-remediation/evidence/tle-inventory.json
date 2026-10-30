@@ -1,0 +1,35 @@
+{
+  "path": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz",
+  "sha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436",
+  "gzipLayers": 2,
+  "records": 14281,
+  "sample": {
+    "types": [
+      "Asa"
+    ],
+    "model": "tle_satellite",
+    "model_data": {
+      "norad_number": 67892,
+      "tle": [
+        "1 67892U 26035P   26154.30318155  .00034645  00000-0  10700-2 0  9994",
+        "2 67892  97.2857  87.7782 0000987  27.7455 332.3840 15.33460393 17115"
+      ],
+      "mag": 6.0,
+      "status": "Operational",
+      "owner": "United States",
+      "launch_site": "Air Force Western Test Range, California, USA",
+      "subtype": "Starlink",
+      "group": [
+        "Starlink"
+      ],
+      "designation": "26035P"
+    },
+    "names": [
+      "NAME STARLINK-36813",
+      "NORAD 67892",
+      "COSPAR 2026-035P"
+    ],
+    "wp_title": "Starlink_(satellite_constellation)",
+    "short_name": "STARLINK-36813"
+  }
+}

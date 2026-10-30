@@ -1,0 +1,17 @@
+{
+  "attempted_at": "2026-10-25T04:29:05.355024+00:00",
+  "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=TLE",
+  "max_download_bytes": 8388608,
+  "timeout_seconds": 120,
+  "redirects": false,
+  "retries": 0,
+  "promotion": false,
+  "policy_urls": [
+    "https://celestrak.org/usage-policy.php",
+    "https://celestrak.org/NORAD/documentation/gp-data-formats.php"
+  ],
+  "status": "acquisition_failed_no_retry",
+  "reason": "Owner resumed after environment restart; prior request 20h earlier timed out without bytes; one new bounded request, no retry or promotion",
+  "error": "URLError: <urlopen error timed out>",
+  "completed_at": "2026-10-25T04:31:05.534707+00:00"
+}

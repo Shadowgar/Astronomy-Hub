@@ -1,3 +1,5 @@
+import {SearchLocation} from './SearchLocation.mjs';
+import {observerElevationSource} from '../../../packages/runtime-protocol/observer-elevation.mjs';
 import {EVENT_LAYERS} from '../layers/EventLayers.mjs';
 import {VisualFoundation} from './VisualFoundation.mjs';
 import {Cartesian3,Color,JulianDate,Cartesian2,NearFarScalar,DistanceDisplayCondition} from 'cesium';
@@ -10,9 +12,10 @@ import {ProviderStatusRegistry} from './ProviderStatusRegistry.mjs';
 import {RuntimeLifecycle} from './RuntimeLifecycle.mjs';
 export const ORAS_SITE=Object.freeze({lat:41.321903,lon:-79.585394,elevationM:432.816});
 export class EarthRuntime {
-  constructor(){this.ready=false;this.lifecycle=new RuntimeLifecycle();this.site={...ORAS_SITE};this.observer={...ORAS_SITE};this.timings={moduleLoadedMs:performance.now()};this.layerRows=new Map();this.selectionMetadata=null;}
+  constructor(){this.ready=false;this.lifecycle=new RuntimeLifecycle();this.site={...ORAS_SITE};this.observer={...ORAS_SITE};this.observerElevationSource='oras-site';this.timings={moduleLoadedMs:performance.now()};this.layerRows=new Map();this.selectionMetadata=null;}
   async initialize(){
     this.controller=new ViewerController(document.querySelector('#viewer'),document.querySelector('#credits'));this.viewer=this.controller.viewer;this.lifecycle.add(()=>this.controller.destroy());
+    this.searchLocation=new SearchLocation(this.viewer);this.lifecycle.add(()=>this.searchLocation.destroy());
     this.camera=new CameraController(this.viewer);this.lifecycle.add(()=>this.camera.destroy());this.camera.home(this.site);
     this.attribution=new AttributionManager(document.querySelector('#attributions'));this.lifecycle.add(()=>this.attribution.destroy());
     this.attribution.set('code','God’s Eye MIT modules','/earth-runtime/LICENSE-gods-eye.txt');
@@ -46,6 +49,7 @@ export class EarthRuntime {
     return {selection,layers:this.registry.snapshot().map(row=>{const provider=this.providerStatus.get(row.id),enabled=['loading','ready','unavailable'].includes(row.status);return {id:row.id,title:row.title,category:row.category,...(provider?.temporalMode?{temporalMode:provider.temporalMode}:{}),enabled,status:!enabled?'off':provider?.status==='unavailable'?'unavailable':provider?.status==='loading'?'loading':provider?.status==='ready'&&provider.observedAt?(provider.temporalMode==='LIVE_ONLY'?'live':'ready'):row.status==='ready'?'ready':row.status==='unavailable'?'unavailable':'loading',source:row.attribution,sourceTime:provider?.observedAt??null,...(provider?.count!==undefined?{count:provider.count}:{})};}),tracking:!!this.viewer.trackedEntity,quality:{...this.visual?.quality}};
   }
   setTime(utc){if(this.lifecycle.closed)throw Error('Disposed');this.viewer.clock.currentTime=JulianDate.fromIso8601(utc);this.viewer.clock.shouldAnimate=false;document.querySelector('#time').textContent='Requested time: '+utc+' · live layers use source time';this.viewer.scene.requestRender();return {ok:true,temporalMode:'CONTROLLED',effectiveTime:JulianDate.toDate(this.viewer.clock.currentTime).toISOString()};}
-  async setObserver(value){if(this.lifecycle.closed)throw Error('Disposed');this.observer={...value};await this.registry.update(this.context);return {ok:true,effectiveObserver:{...this.observer}};}
+  async setObserver(value){if(this.lifecycle.closed)throw Error('Disposed');this.observer={lat:value.lat,lon:value.lon,elevationM:value.elevationM};this.observerElevationSource=observerElevationSource(this.observer,value.elevationSource,this.site);await this.registry.update(this.context);return {ok:true,effectiveObserver:{...this.observer}};}
+  navigation(){const view=this.camera.navigation(this.site,{observer:this.observer,elevationSource:this.observerElevationSource});return view?{mode:'earth',...view,utc:JulianDate.toDate(this.viewer.clock.currentTime).toISOString(),live:this.liveTime===true}:null;}
   async destroy(){await this.lifecycle.destroy();this.ready=false;document.querySelector('#earth').dataset.status='destroyed';}
 }

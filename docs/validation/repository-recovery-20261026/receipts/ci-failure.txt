@@ -1,0 +1,68 @@
+PR #107: 2 failing checks analyzed.
+------------------------------------------------------------
+Check: Repository source checks
+Details: https://github.com/Shadowgar/Astronomy-Hub/actions/runs/40287807307/job/121455505314
+Run ID: 40287807307
+Job ID: 121455505314
+Status: ok
+Workflow: Repository integrity (failure)
+Branch/SHA: recovery/reconcile-20261026 095f924427c4
+Run URL: https://github.com/Shadowgar/Astronomy-Hub/actions/runs/40287807307
+Failure snippet:
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8120557Z   ...
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8120894Z 1..258
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8121221Z # tests 258
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8121552Z # suites 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8121889Z # pass 218
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8122225Z # fail 40
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8122553Z # cancelled 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8122893Z # skipped 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8123473Z # todo 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8124194Z # duration_ms 1746.109655
+  Repository source checks	Runtime and science contracts	2026-10-26T07:46:18.8203517Z ##[error]Process completed with exit code 1.
+  Repository source checks	Post Run actions/checkout@v4	﻿2026-10-26T07:46:18.8344542Z Post job cleanup.
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9202851Z [command]/usr/bin/git version
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9248824Z git version 2.55.0
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9289541Z Temporarily overriding HOME='/home/runner/work/_temp/f694aa35-e0b1-4043-a13b-8fcc4e818de3' before making global git config changes
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9291014Z Adding repository directory to the temporary git global config as a safe directory
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9295287Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Astronomy-Hub/Astronomy-Hub
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9335065Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9382460Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9691462Z fatal: No url found for submodule path 'third_party/spectorjs' in .gitmodules
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:46:18.9733526Z ##[warning]The process '/usr/bin/git' failed with exit code 128
+  Repository source checks	Complete job	﻿2026-10-26T07:46:18.9898653Z Cleaning up orphan processes
+  Repository source checks	Complete job	2026-10-26T07:46:19.0208053Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+------------------------------------------------------------
+Check: Repository source checks
+Details: https://github.com/Shadowgar/Astronomy-Hub/actions/runs/40287724801/job/121455245032
+Run ID: 40287724801
+Job ID: 121455245032
+Status: ok
+Workflow: Repository integrity (failure)
+Branch/SHA: recovery/reconcile-20261026 095f924427c4
+Run URL: https://github.com/Shadowgar/Astronomy-Hub/actions/runs/40287724801
+Failure snippet:
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9160002Z   ...
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9160184Z 1..258
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9160373Z # tests 258
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9160549Z # suites 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9160723Z # pass 218
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9160892Z # fail 40
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9161061Z # cancelled 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9161236Z # skipped 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9161413Z # todo 0
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9161791Z # duration_ms 1388.359662
+  Repository source checks	Runtime and science contracts	2026-10-26T07:45:34.9215512Z ##[error]Process completed with exit code 1.
+  Repository source checks	Post Run actions/checkout@v4	﻿2026-10-26T07:45:34.9336855Z Post job cleanup.
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0080403Z [command]/usr/bin/git version
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0110436Z git version 2.55.0
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0141198Z Temporarily overriding HOME='/home/runner/work/_temp/6497e0e4-c293-4cd7-962e-87f888875cee' before making global git config changes
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0142571Z Adding repository directory to the temporary git global config as a safe directory
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0145895Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Astronomy-Hub/Astronomy-Hub
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0178009Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0207459Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0437665Z fatal: No url found for submodule path 'third_party/spectorjs' in .gitmodules
+  Repository source checks	Post Run actions/checkout@v4	2026-10-26T07:45:35.0488339Z ##[warning]The process '/usr/bin/git' failed with exit code 128
+  Repository source checks	Complete job	﻿2026-10-26T07:45:35.0615044Z Cleaning up orphan processes
+  Repository source checks	Complete job	2026-10-26T07:45:35.0856563Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+------------------------------------------------------------

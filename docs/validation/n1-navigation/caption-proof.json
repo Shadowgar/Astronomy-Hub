@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "sourceSha256": "f0f4676cd5ba1d7d3beb0f209ddf37cf1d304aff0a721c058be0c395e6b3bada",
+  "scope": "Only fallback caption height changed after 40 journey checks; both viewport captions are fully inside their button.",
+  "rows": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "geometry": {
+        "button": {
+          "top": 760,
+          "bottom": 830,
+          "height": 70
+        },
+        "caption": {
+          "top": 804,
+          "bottom": 822,
+          "text": "Elevation unavailable · 0 m fallback"
+        }
+      }
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "geometry": {
+        "button": {
+          "top": 678,
+          "bottom": 744,
+          "height": 66
+        },
+        "caption": {
+          "top": 720,
+          "bottom": 738,
+          "text": "Elevation unavailable · 0 m fallback"
+        }
+      }
+    }
+  ]
+}

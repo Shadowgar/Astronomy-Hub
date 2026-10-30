@@ -1,0 +1,63 @@
+{
+  "status": "FAIL",
+  "runs": [
+    {
+      "width": 540,
+      "height": 390,
+      "checks": [
+        {
+          "ok": false,
+          "message": "Date and UTC text remain inside time-bar glass",
+          "details": {
+            "text": {
+              "x": 57.734375,
+              "y": 322.5,
+              "width": 67.53125,
+              "height": 60,
+              "top": 322.5,
+              "right": 125.265625,
+              "bottom": 382.5,
+              "left": 57.734375
+            },
+            "bar": {
+              "x": 14,
+              "y": 324,
+              "width": 240,
+              "height": 54,
+              "top": 324,
+              "right": 254,
+              "bottom": 378,
+              "left": 14
+            }
+          }
+        }
+      ],
+      "errors": [],
+      "console": [
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x15840013aa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x15840013aa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "type": "warning",
+          "text": "[.WebGL-0x15840013aa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        }
+      ],
+      "networkFailures": [],
+      "screens": [
+        "540x390-inner.png"
+      ]
+    }
+  ],
+  "failures": [
+    "540x390: Date and UTC text remain inside time-bar glass"
+  ],
+  "limitations": [
+    "Software Chromium rendering; no physical GPU/device or owner visual acceptance."
+  ],
+  "error": "Error: Date and UTC text remain inside time-bar glass\n    at check (file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_solar_acceptance.mjs:10:181)\n    at file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_solar_acceptance.mjs:25:3"
+}

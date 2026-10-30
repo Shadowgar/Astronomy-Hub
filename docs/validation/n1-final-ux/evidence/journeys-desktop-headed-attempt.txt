@@ -1,0 +1,21 @@
+1440 initial ORAS Sky and served source identity 2814ms
+1440 native Landscape toggle and Sky Night Mode ON 11413ms
+1440 Explore dismissal and focus return 6214ms
+1440 arrival and short outward overshoot stay in Sky 3695ms
+1440 reverse input leaves boundary hysteresis 6831ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.boundingBox: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for locator('canvas').first()[22m
+
+    at hoverScene (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:37:94)
+    at wheelBurst (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:41:71)
+    at outward (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:59:90)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:71:3 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

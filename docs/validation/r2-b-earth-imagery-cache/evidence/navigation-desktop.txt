@@ -1,0 +1,7 @@
+1440 Invalid coordinates rejected; genuine zero coordinates reach native camera
+1440 Accepted native wheel zoom preserves center anchor
+1440 Back/Forward restores actual coordinate and panned/zoomed bookmarks
+1440 Reload preserves coordinate destination and native time
+1440 Sky/Earth round trip 1: native observer/time/panorama and one renderer preserved
+1440 Sky/Earth round trip 2: native observer/time/panorama and one renderer preserved
+1440 Canonical ORAS context restored

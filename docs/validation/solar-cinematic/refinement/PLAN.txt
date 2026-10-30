@@ -1,0 +1,7 @@
+PR83 refinement, approved primary/Adaptive direction; baseline 23806bcaff704b13bcf54eaf898e306e4f51e3af.
+1. Preserve baseline artifact/context/settings/containers, fresh baseline desktop/mobile captures (done).
+2. Test presentation viewport fitting and quality policy before implementation. Preserve exact science vectors and camera targets. Match approved luminous Sun and atmospheric Earth with bounded procedural optical effects and original NASA static clouds. Keep Mars original UV model.
+3. Add decorative deep background, selected-body brackets, scene-aware selected framing and compact mobile card. Explicit render-quality setting affects display only; survives epoch/context retry.
+4. Actual browser render/texture/performance and controlled quality comparison; desktop/mobile and compact/touch/keyboard, native returns/history/time, reduced motion, loss/retry/cleanup. No N1 suite rerun.
+5. Reproducible host/Docker artifacts, exact served bytes, preservation. Update matched image comparison/gap matrix with no visual acceptance claim.
+6. Commit/push same draftPR83; independent exact-head review and scoped fixes if needed; owner review only.

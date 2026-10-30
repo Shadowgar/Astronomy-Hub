@@ -1,0 +1,13 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4204/earth-runtime/?orasProof=1
+Call log:
+[2m  - navigating to "http://127.0.0.1:4204/earth-runtime/?orasProof=1", waiting until "load"[22m
+
+    at /home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/scripts/validation/verify_r2b_imagery.mjs:17:71 {
+  name: 'Error'
+}
+
+Node.js v22.22.0

@@ -1,0 +1,56 @@
+{
+  "status": "REPRODUCED",
+  "scope": "Installed library + exact shader arithmetic, not browser pixel proof",
+  "results": [
+    {
+      "correctGeometricError": true,
+      "correctionAmount": 1,
+      "cameraAfterAltitudeCorrectionM": [
+        0,
+        0,
+        26360000
+      ],
+      "rayOffAxisDegrees": 14.028986487466357,
+      "cameraHalfFovDegrees": 21,
+      "opaquePointECEFM": [
+        31513657056.145676,
+        0,
+        -126096157493.69595
+      ],
+      "correctedOpaquePointECEFM": [
+        1542048.4201545715,
+        0,
+        -6170225.820007324
+      ],
+      "physicalRayImpactRadiusM": 6389999.999999999,
+      "atmosphericEvaluationRayImpactRadiusM": 1248156.190369574,
+      "bottomRadiusM": 6360000,
+      "topRadiusM": 6420000
+    },
+    {
+      "correctGeometricError": false,
+      "correctionAmount": 0,
+      "cameraAfterAltitudeCorrectionM": [
+        0,
+        0,
+        26360000
+      ],
+      "rayOffAxisDegrees": 14.028986487466357,
+      "cameraHalfFovDegrees": 21,
+      "opaquePointECEFM": [
+        31513657056.145676,
+        0,
+        -126096157493.69595
+      ],
+      "correctedOpaquePointECEFM": [
+        31513657056.145676,
+        0,
+        -126096157493.69595
+      ],
+      "physicalRayImpactRadiusM": 6389999.999999999,
+      "atmosphericEvaluationRayImpactRadiusM": 6389999.999999999,
+      "bottomRadiusM": 6360000,
+      "topRadiusM": 6420000
+    }
+  ]
+}

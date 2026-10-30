@@ -1,0 +1,5 @@
+{
+  "format": "Lossless UTF-8 command stdout/stderr; original terminal whitespace retained by JSON escaping",
+  "original_sha256": "ac7f310809a8a08c07fbdb9150d58a7ff4ab4949e4d467b1a89de92ef7218e62",
+  "stdout": "\n> astronomy-hub-frontend@0.0.1 test\n> vitest run\n\n\n RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/frontend\n\n\n Test Files  49 passed (49)\n      Tests  319 passed (319)\n   Start at  20:48:35\n   Duration  3.84s (transform 10.97s, setup 0ms, import 20.14s, tests 7.61s, environment 10ms)\n\n"
+}

@@ -1,0 +1,230 @@
+TAP version 13
+# Subtest: actual pinned controller retains healthy caches, one safety base and independent overlay order
+ok 1 - actual pinned controller retains healthy caches, one safety base and independent overlay order
+  ---
+  duration_ms: 9.21914
+  type: 'test'
+  ...
+# Subtest: terminal NASA failure removes the managed layer and labels only; recovery does not duplicate local
+ok 2 - terminal NASA failure removes the managed layer and labels only; recovery does not duplicate local
+  ---
+  duration_ms: 6.898715
+  type: 'test'
+  ...
+# Subtest: healthy cached providers remain reusable without Hub switching pauses or camera changes
+ok 3 - healthy cached providers remain reusable without Hub switching pauses or camera changes
+  ---
+  duration_ms: 3.139454
+  type: 'test'
+  ...
+# Subtest: ordinary rejected factory retry retains the controller; cached successful fallback retry recreates only after cooldown
+ok 4 - ordinary rejected factory retry retains the controller; cached successful fallback retry recreates only after cooldown
+  ---
+  duration_ms: 3.859185
+  type: 'test'
+  ...
+# Subtest: tile fallback and explicit eligible retry reuse the successful original provider, without accumulating listeners
+ok 5 - tile fallback and explicit eligible retry reuse the successful original provider, without accumulating listeners
+  ---
+  duration_ms: 4.83685
+  type: 'test'
+  ...
+# Subtest: a paused old provider SDK cancellation event cannot tear down the pending replacement
+ok 6 - a paused old provider SDK cancellation event cannot tear down the pending replacement
+  ---
+  duration_ms: 1.932445
+  type: 'test'
+  ...
+# Subtest: elapsed cooldown automatically recovers the overview without duplicating the safety base
+ok 7 - elapsed cooldown automatically recovers the overview without duplicating the safety base
+  ---
+  duration_ms: 2.711894
+  type: 'test'
+  ...
+# Subtest: initial stationary eligible camera qualifies footprint and selects NAIP without a moveEnd
+ok 8 - initial stationary eligible camera qualifies footprint and selects NAIP without a moveEnd
+  ---
+  duration_ms: 19.438256
+  type: 'test'
+  ...
+# Subtest: unavailable footprint and metadata timeout keep truthful global fallback with bounded requests
+ok 9 - unavailable footprint and metadata timeout keep truthful global fallback with bounded requests
+  ---
+  duration_ms: 5.438809
+  type: 'test'
+  ...
+# Subtest: late metadata from an earlier camera is rejected and cannot switch or populate coverage
+ok 10 - late metadata from an earlier camera is rejected and cannot switch or populate coverage
+  ---
+  duration_ms: 3.48024
+  type: 'test'
+  ...
+# Subtest: automatic recovery after cooldown keeps cached healthy providers and listener counts
+ok 11 - automatic recovery after cooldown keeps cached healthy providers and listener counts
+  ---
+  duration_ms: 5.568821
+  type: 'test'
+  ...
+# Subtest: verified stationary footprint with provider failure retains actual fallback and respects factory cooldown
+ok 12 - verified stationary footprint with provider failure retains actual fallback and respects factory cooldown
+  ---
+  duration_ms: 4.007497
+  type: 'test'
+  ...
+# Subtest: automatic recovery honours Retry-After and permanently stops unauthorized hosts
+ok 13 - automatic recovery honours Retry-After and permanently stops unauthorized hosts
+  ---
+  duration_ms: 11.458743
+  type: 'test'
+  ...
+# Subtest: footprint qualification remains independent of imagery dispatch and rejects partial coverage
+ok 14 - footprint qualification remains independent of imagery dispatch and rejects partial coverage
+  ---
+  duration_ms: 2.42014
+  type: 'test'
+  ...
+# Subtest: stale selection and renderer teardown reject in-flight coverage and release its request lease
+ok 15 - stale selection and renderer teardown reject in-flight coverage and release its request lease
+  ---
+  duration_ms: 7.554889
+  type: 'test'
+  ...
+# Subtest: automatic health wake does not repeatedly render a healthy full-Earth or unauthorized fallback
+ok 16 - automatic health wake does not repeatedly render a healthy full-Earth or unauthorized fallback
+  ---
+  duration_ms: 5.658032
+  type: 'test'
+  ...
+# Subtest: last-choice-wins native switching can load the latest provider while an obsolete factory is pending
+ok 17 - last-choice-wins native switching can load the latest provider while an obsolete factory is pending
+  ---
+  duration_ms: 1.770385
+  type: 'test'
+  ...
+# Subtest: stationary footprint 429 automatically reopens after Retry-After without another camera move
+ok 18 - stationary footprint 429 automatically reopens after Retry-After without another camera move
+  ---
+  duration_ms: 4.54308
+  type: 'test'
+  ...
+# Subtest: tilted coverage targets the visible ground rather than the camera subpoint
+ok 19 - tilted coverage targets the visible ground rather than the camera subpoint
+  ---
+  duration_ms: 1.883566
+  type: 'test'
+  ...
+# Subtest: a horizon or sky center with no ground intersection never queries coverage or claims regional imagery
+ok 20 - a horizon or sky center with no ground intersection never queries coverage or claims regional imagery
+  ---
+  duration_ms: 1.91145
+  type: 'test'
+  ...
+# Subtest: one loaded tile with outstanding refinement is partial rather than repeatedly reporting ready
+ok 21 - one loaded tile with outstanding refinement is partial rather than repeatedly reporting ready
+  ---
+  duration_ms: 1.872705
+  type: 'test'
+  ...
+# Subtest: one transient aerial tile failure retains useful imagery while repeated failures use native fallback
+ok 22 - one transient aerial tile failure retains useful imagery while repeated failures use native fallback
+  ---
+  duration_ms: 6.428729
+  type: 'test'
+  ...
+# Subtest: nadir coverage uses the center pixel and ellipsoid fallback before rendered tiles exist
+ok 23 - nadir coverage uses the center pixel and ellipsoid fallback before rendered tiles exist
+  ---
+  duration_ms: 2.44278
+  type: 'test'
+  ...
+# Subtest: rendered globe refinement cannot stale a coverage response for an unchanged camera
+ok 24 - rendered globe refinement cannot stale a coverage response for an unchanged camera
+  ---
+  duration_ms: 2.367085
+  type: 'test'
+  ...
+# Subtest: a guarded failure already reported by Cesium counts once toward native fallback
+ok 25 - a guarded failure already reported by Cesium counts once toward native fallback
+  ---
+  duration_ms: 7.402445
+  type: 'test'
+  ...
+# Subtest: NAIP attaches promptly without visible-tile preflight and preserves native cache reuse
+ok 26 - NAIP attaches promptly without visible-tile preflight and preserves native cache reuse
+  ---
+  duration_ms: 3.836733
+  type: 'test'
+  ...
+# Subtest: a hard host response during a pending replacement remains registered for cooldown recovery
+ok 27 - a hard host response during a pending replacement remains registered for cooldown recovery
+  ---
+  duration_ms: 2.296515
+  type: 'test'
+  ...
+# Subtest: a finite grazing ground hit keeps global imagery without a close-view footprint query
+ok 28 - a finite grazing ground hit keeps global imagery without a close-view footprint query
+  ---
+  duration_ms: 1.91713
+  type: 'test'
+  ...
+# Subtest: an active guarded unauthorized rejection reaches local fallback after pausing its host
+ok 29 - an active guarded unauthorized rejection reaches local fallback after pausing its host
+  ---
+  duration_ms: 2.735911
+  type: 'test'
+  ...
+# Subtest: latest Paris camera defeats an older pending NYC provider without another moveEnd
+ok 30 - latest Paris camera defeats an older pending NYC provider without another moveEnd
+  ---
+  duration_ms: 5.982509
+  type: 'test'
+  ...
+# Subtest: a healthy verified PEMA view does not preflight the lower-quality NAIP fallback
+ok 31 - a healthy verified PEMA view does not preflight the lower-quality NAIP fallback
+  ---
+  duration_ms: 1.627937
+  type: 'test'
+  ...
+# Subtest: a cached fallback from an obsolete factory recovers automatically after a stationary return
+ok 32 - a cached fallback from an obsolete factory recovers automatically after a stationary return
+  ---
+  duration_ms: 5.142367
+  type: 'test'
+  ...
+# Subtest: terminal source changes invalidate pending cache writes; disposal keeps the client released
+ok 33 - terminal source changes invalidate pending cache writes; disposal keeps the client released
+  ---
+  duration_ms: 1.674258
+  type: 'test'
+  ...
+# Subtest: native automatic fallback invalidates pending cache ownership
+not ok 34 - native automatic fallback invalidates pending cache ownership
+  ---
+  duration_ms: 10.310928
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-controller.test.mjs:159:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+
+      assert.ok(h.cacheScenes.length>before)
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-controller.test.mjs:161:206)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 33
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 214.590512

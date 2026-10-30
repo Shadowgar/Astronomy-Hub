@@ -1,0 +1,43 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/observerSessionProvenance.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/observerSessionProvenance.test.ts (2 tests | 2 failed) 45ms
+   × persists and restores missing-elevation provenance when a later URL has no observer 31ms
+   × restores a validated saved source and lets explicit URL observer intent supersede it 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/observerSessionProvenance.test.ts > persists and restores missing-elevation provenance when a later URL has no observer
+AssertionError: expected null to be 'unavailable-zero' // Object.is equality
+
+- Expected:
+"unavailable-zero"
+
++ Received:
+null
+
+ ❯ tests/observerSessionProvenance.test.ts:5:359
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/observerSessionProvenance.test.ts > restores a validated saved source and lets explicit URL observer intent supersede it
+AssertionError: expected 'provided' to be 'unavailable-zero' // Object.is equality
+
+Expected: "unavailable-zero"
+Received: "provided"
+
+ ❯ tests/observerSessionProvenance.test.ts:8:467
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  14:46:41
+   Duration  184ms (transform 45ms, setup 0ms, import 34ms, tests 45ms, environment 0ms)

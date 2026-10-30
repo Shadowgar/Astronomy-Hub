@@ -1,0 +1,82 @@
+{
+  "kind": "live Photon via actual FastAPI route in isolated process, no provider mocks",
+  "calls": [
+    {
+      "query": "Springfield",
+      "elapsedMs": 18,
+      "exceptionClass": "ReadTimeout"
+    }
+  ],
+  "httpcoreEvents": [
+    {
+      "elapsedMs": 29,
+      "event": "connect_tcp.started"
+    },
+    {
+      "elapsedMs": 174,
+      "event": "connect_tcp.complete"
+    },
+    {
+      "elapsedMs": 174,
+      "event": "start_tls.started"
+    },
+    {
+      "elapsedMs": 954,
+      "event": "start_tls.complete"
+    },
+    {
+      "elapsedMs": 955,
+      "event": "send_request_headers.started"
+    },
+    {
+      "elapsedMs": 955,
+      "event": "send_request_headers.complete"
+    },
+    {
+      "elapsedMs": 955,
+      "event": "send_request_body.started"
+    },
+    {
+      "elapsedMs": 955,
+      "event": "send_request_body.complete"
+    },
+    {
+      "elapsedMs": 956,
+      "event": "receive_response_headers.started"
+    },
+    {
+      "elapsedMs": 6962,
+      "event": "receive_response_headers.failed"
+    },
+    {
+      "elapsedMs": 6962,
+      "event": "response_closed.started"
+    },
+    {
+      "elapsedMs": 6963,
+      "event": "response_closed.complete"
+    }
+  ],
+  "results": [
+    {
+      "phase": "fresh isolated service",
+      "status": 503,
+      "elapsedMs": 6948,
+      "body": {
+        "detail": "Place search is unavailable. Coordinates still work."
+      },
+      "upstreamStarts": 1
+    },
+    {
+      "phase": "same-query cached retry; no upstream retry",
+      "status": 503,
+      "elapsedMs": 2,
+      "body": {
+        "detail": "Place search is unavailable. Coordinates still work."
+      },
+      "upstreamStarts": 1
+    }
+  ],
+  "cacheKeyCount": 1,
+  "backoffActive": false
+}

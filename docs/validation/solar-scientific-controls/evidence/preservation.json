@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "baseline": "4e07ebfb4821b57e6bed3df4937eb78cce9755ee",
+  "head": "6180cc96a5bf7ca5111dfe11cab404117ab6147b",
+  "protectedPaths": [
+    "packages/runtime-protocol",
+    "packages/imagery-cache",
+    "backend/app",
+    "scripts/skydata",
+    "frontend/src/features/solar/assets",
+    "docs/design/cinematic-references-2026-10-21",
+    "docs/design/Astronomy_Hub_Approved_Design_References_2026-10-21.zip"
+  ],
+  "nativeSkyUnchangedPayloadFiles": 108,
+  "originalContainers": 117,
+  "containerStateAndMountChanges": [],
+  "originalVolumes": 90,
+  "currentVolumes": 90,
+  "ownerSettingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "kernelSha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+  "upstreamPin": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+  "earthCandidateArtifact": "43e822e52ffe01bc7591579e329ce0fb5aed5a521ffb9cd47808173f8beb03d3",
+  "skyCandidateArtifact": "b1dbd0f039ccf4ed4c0a669baf5bd7288b1ea07c9db98e199c04949431a644fb",
+  "allowedChanges": "Owned Earth resolution and owned Sky UI/default only; original artifacts and pins retained"
+}

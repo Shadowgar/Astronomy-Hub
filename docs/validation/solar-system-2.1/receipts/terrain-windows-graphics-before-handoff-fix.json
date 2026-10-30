@@ -1,0 +1,113 @@
+{
+  "sourceManifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+  "browserVersion": "156.0.4314.42",
+  "graphicsLayoutsPass": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "initialVisibleMs": 391.5,
+      "balancedGpuMs": {
+        "supported": true,
+        "samples": 143,
+        "median": 0.36352,
+        "p95": 1.59744
+      },
+      "efficientReliefGpuMs": {
+        "supported": true,
+        "samples": 180,
+        "median": 0.370688,
+        "p95": 2.171904
+      },
+      "balancedCpuMs": {
+        "samples": 145,
+        "median": 2.5,
+        "p95": 4.399999976158142
+      },
+      "cacheBytes": 26017124,
+      "LOD": [
+        2,
+        3
+      ],
+      "nativeEntry": true,
+      "nativeCameraBefore": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.180075467935815&lon=30.71002134906621&height=30000.000000000142&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "nativeCameraAfter": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.18007546793581&lon=30.71002134906621&height=29999.999999999956&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "disposedGeometries": 0,
+      "disposedTextures": 0
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "initialVisibleMs": 99.30000001192093,
+      "balancedGpuMs": {
+        "supported": true,
+        "samples": 128,
+        "median": 0.47616,
+        "p95": 1.378304
+      },
+      "efficientReliefGpuMs": {
+        "supported": true,
+        "samples": 180,
+        "median": 0.44544,
+        "p95": 1.107968
+      },
+      "balancedCpuMs": {
+        "samples": 129,
+        "median": 2.200000047683716,
+        "p95": 4.199999988079071
+      },
+      "cacheBytes": 18402356,
+      "LOD": [
+        2,
+        3
+      ],
+      "nativeEntry": true,
+      "nativeCameraBefore": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.180075467935815&lon=30.71002134906621&height=30000.000000000142&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "nativeCameraAfter": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.18007546793581&lon=30.71002134906621&height=29999.999999999956&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "disposedGeometries": 0,
+      "disposedTextures": 0
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "initialVisibleMs": 68,
+      "balancedGpuMs": {
+        "supported": true,
+        "samples": 129,
+        "median": 0.60416,
+        "p95": 2.224128
+      },
+      "efficientReliefGpuMs": {
+        "supported": true,
+        "samples": 180,
+        "median": 0.545792,
+        "p95": 1.006592
+      },
+      "balancedCpuMs": {
+        "samples": 130,
+        "median": 2.199999988079071,
+        "p95": 3.399999976158142
+      },
+      "cacheBytes": 18402356,
+      "LOD": [
+        2,
+        3
+      ],
+      "nativeEntry": true,
+      "nativeCameraBefore": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.180075467935815&lon=30.71002134906621&height=30000.000000000142&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "nativeCameraAfter": "http://127.0.0.1:4231/planet-view/moon?date=2026-10-28T00%3A00%3A00Z&lat=20.18007546793581&lon=30.71002134906621&height=29999.999999999956&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "disposedGeometries": 0,
+      "disposedTextures": 0
+    }
+  ],
+  "overallRunStatus": "FAIL at Earth native observer; three layouts completed",
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(Math.abs(native.observer.lat-40)<1e-5)\n"
+}

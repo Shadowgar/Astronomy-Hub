@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-glass-1/frontend
+
+
+ Test Files  52 passed (52)
+      Tests  337 passed (337)
+   Start at  14:47:23
+   Duration  3.64s (transform 11.76s, setup 0ms, import 19.77s, tests 6.18s, environment 12ms)

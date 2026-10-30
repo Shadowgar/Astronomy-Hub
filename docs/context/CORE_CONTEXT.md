@@ -1,12 +1,305 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Solar System 2.2 — implemented candidate, owner acceptance pending, 2026-10-30
+
+Existing recovery branch / draft PR107. Application39f73b2ff0162d491fcf65b41a0bc038dd608b65
+implements the owner's scoped2.2 directive from66fff051, superseding only the
+historical2.1.1 no2.2 gate. Previewlocalhost:4231 is verified on Windows NVIDIA;
+existing containers were already running, historical outage cause remains unknown.
+Original mounts/IDs/rollback are preserved; new bundle is isolated inhub-solar22.
+Selected-body source detail, linear compositing, refinedSun and staged physical
+travel retainJPL/ITRS/Takram/nativeMoon/Earth/Sky and regionalApollo17 ownership.
+599frontend+7Docker science tests,56captures,10Earth views,27journey groups,
+6streaming cases,3short recordings and24GPU cases passed their stated checks.
+Separate reviews corrected camera collision, Eros material and transparency defects.
+Application-head hostedCodeQL/integrity/Playwright pass; final evidence-head status
+andSHA are recorded onPR107. [Current report](../validation/solar-system-2.2/README.md).
+
+Owner visual acceptance and physicaliPhone remain pending. Portrait clustering,
+softSaturn imagery, illustrativeSun and one319.5ms cold desktop recording hitch
+remain disclosed. Existing final-source/public-offer and release gates remain.
+No merge/deploy/sourcepublication/tunnel/protecteddeletion occurred. Stop product
+work here for owner inspection; do not silently start a new feature phase.
+
+## Solar System 2.1.1 — owner-rejected defect correction, 2026-10-29
+
+The owner rejected Earth concentric bands and the isolated Apollo17 rectangular
+patch despite2.1 CI. Starting `ed0c81f785c6da68183e757ff381eba2727a2007` on
+`recovery/reconcile-20261026` / draft PR107, only these corrections are authorized.
+The current candidate fixes a separate Takram normalized-depth roundtrip precision
+loss and presents the unchanged5m measured terrain inside a bounded survey view
+with source-qualified approximate global lunar context. Native Moon remains the
+planetary overview. Seamless NAC/native frame alignment is not qualified.
+Prior engineering proof remains valid only within its tested scope; owner visual
+acceptance and physical iPhone remain pending. Do not start Solar2.2, merge,
+deploy, publish source or modify protected data. Current evidence and remaining
+qualification state: [Solar2.1.1 plan](../validation/solar-system-2.1.1/PLAN.md)
+and [review handoff](../validation/solar-system-2.1.1/README.md).
+
+
+## Solar System 2.1 — owner authorization, 2026-10-28
+
+The owner authorizes actual pinned Takram Earth atmosphere and NASA 3D Tiles
+regional planetary terrain integration from `b4005ce4`, on existing recovery/PR107.
+This supersedes the Solar2.0 stop only for the attached2.1 scope. Preserve native
+Sky/Earth/Moon, Solar2 science/exploration, source boundaries, private preview and
+rollback. No merge, production deployment, branch deletion or protected-data changes.
+Actual browser/performance/source qualification and independent review are required;
+owner acceptance and physical iPhone remain open.
+Actual Takram Earth atmosphere and NASA TilesRenderer Apollo17 regional terrain are
+implemented.500frontend tests,7warning-clean Docker frame/motion tests,10source
+tests, actual Windows atmosphere/terrain/navigation/performance and separate
+independent corrections are qualified. Final hosted checks are recorded in PR107.
+Private preview remains localhost:4231; gallery `/owner-review/solar-system-2.1/`.
+Owner acceptance, physical iPhone, matching/public source release and retained
+baseline advisory maintenance remain open. Stop product expansion for owner review.
+[Implementation, exact evidence and limits](../validation/solar-system-2.1/README.md).
+[Execution plan and evidence](../validation/solar-system-2.1/PLAN.md).
+
+## Solar System 2.0 — owner authorization, 2026-10-28
+
+The owner explicitly authorizes substantial Solar presentation/exploration reconstruction
+on existing `recovery/reconcile-20261026` / draft PR107, starting from51771f06.
+This supersedes the prior first-slice visual stop only for the Solar2.0 scope:
+precision/lifecycle, imagery/materials/HDR, Saturn, camera travel/follow/free flight,
+continuous qualified time, source-backed small bodies and terrain where data allows.
+Native Sky/Earth/Moon ownership, JPL identity/frames, protected data/settings/volumes,
+source obligations and original approved design PNGs remain intact. No merge,
+deployment, public archive publication or branch deletion. Actual Windows/browser,
+science, performance and independent review evidence are required; the owner alone
+grants visual acceptance. Physical iPhone remains unverified.
+Implementation is delivered at application commit `fe3c3e87` with source-qualified
+motion/small bodies, original NASA assets, HDR/rings, precise camera controls,
+continuous time and native handoff corrections. Focused frontend463 tests,
+actual Windows journeys and independent corrections pass. Controlled coarse
+LOLA terrain remains separate from the default Moon runtime. Private preview:
+`http://localhost:4231/solar-system`; gallery `/owner-review/solar-system-2/`.
+Owner visual acceptance, physical iPhone and matching/public source release remain
+open. Stop further product work for owner evaluation after hosted qualification.
+[Current implementation and exact evidence](../validation/solar-system-2/README.md).
+[Plan and loaded context](../validation/solar-system-2/PLAN.md).
+
+## Owner-rejected visuals: first implementation correction — 2026-10-27
+
+The owner explicitly rejects current visuals and authorizes a bounded shared
+foundation plus substantial Solar fidelity implementation against the immutable
+approved references; October22 cinematic scale remains controlling. Application
+703e2b47 is implemented on existing recovery/PR107 and served privately at
+`http://localhost:4231/solar-system`; matched before/reference/after gallery is
+`/owner-review/visual-fidelity/`. Source positions/time, native engines and data
+are preserved. Windows correctness checks and separate correction review pass;
+owner visual acceptance, physical iPhone and release/source gates remain open.
+[Actual changes, performance, evidence and remaining slices](../validation/repository-recovery-20261026/visual-fidelity/README.md).
+Stop for owner evaluation of this first slice; no merge, deployment or source
+archive publication. This directive supersedes the prior visual stop below.
+
+## Focused Sky satellite repair — owner directive 2026-10-24
+
+The owner authorizes a bounded repair stacked on preserved draft PR95
+`9ee6d85982edb3db276490706a82af83538e5e8d`, branch
+`sky-satellite-live-repair-1`. This supersedes the prior stop checkpoint only for
+satellite diagnosis, native tracking, time/source status and focused qualification.
+PS1–PS3, Moon/Solar/Earth, source math, accepted navigation, native binaries,
+Pennsylvania scenery, data/settings and rollback remain protected. No merge,
+production deployment, new paid source or broader X satellite milestone.
+
+The mounted native catalog contains14,281 checksum-valid historical TLE records;
+all are stale at current UTC. Bounded approved-source attempts on October24 and25 timed out
+without bytes or promotion. Historical point/motion and UI qualification must
+remain distinct from current Live orbital accuracy, which is blocked. Native
+photometry/SGP4 and5°/7° identification thresholds with minimum offset4 remain.
+The repair and source-matched evidence are recorded in
+[Sky satellite repair](../validation/sky-satellite-live/README.md).
+Stop for owner functional acceptance; physical-device and source-freshness gates
+are not replaced by automated tests.
+
+
+## Hierarchical planetary systems — owner directive 2026-10-24
+
+The owner rejects the detached Moon selector from PR92 and authorizes planetary
+hierarchy: Solar → parent system → selected moon → individually qualified Planet
+View. Base PR92 `c510759ba78c011679c2479a2fa9f48bf260afce` remains unchanged.
+PS1 implements Earth399/Moon301 relative geometry and source-time motion first;
+PS2 separately qualifies major-moon subsets using actual parent centers; PS3
+qualifies integration. PS1 draft PR93 at36426905 andPS2 draft PR94 at26aa6111 are delivered, with independent
+exact-head review complete. Draft PR95 (`ps3-planetary-integration-1`) delivers qualified
+cross-system navigation, motion, selection, source failures, lifecycle and preserved
+native handoffs. Independent application review is complete with no remaining
+actionable findings; stop for owner functional/visual review. The [PS3 review handoff](../validation/planetary-systems/ps3/README.md)
+records actual source-matched evidence and remaining limits. Owner functional/visual and physical-device acceptance remain open. [Execution and evidence](../validation/planetary-systems/README.md).
+
+This directive supersedes historical single-globe/no-moons execution limits only.
+Preserve approved glass, source positions, cinematic/physical scale choices, native
+Earth/Sky, R4-A Moon globe, data/settings/pins/volumes and rollback. Strict warning-clean
+R4-A Docker qualification and owner/device acceptance remain open. The separate
+future lunar tiled-detail and elevation-datum/terrain package remains on the existing
+roadmap. No merge, deployment, paid source or unapproved bulk data download.
+
+
+## Bounded R4 Planet View — owner authorization 2026-10-23
+
+PR91 glass foundation is delivered as a draft at `2080ed5130c501a7ac286fb862e99d5c9dc6cb30`.
+The owner now prioritizes R4 and stops broad cinematic redesign. This supersedes
+older no-R4 execution text for one scientifically qualified non-Earth slice only;
+it does not grant prior visual/release acceptance, merge or production authority.
+Work is isolated on `r4-a-planet-view-1`, stacked on PR91. Moon is the selected
+first qualified destination: exact center301, NAIF lunar ME frame,1,737.4km sphere,
+original LROC morphology and explicit terrain/source limits. Earth alone cannot
+satisfy AE-04. Preserve nine-body Solar, belt, cinematic sizing/responsiveness,
+Earth/SWE/navigation, glass, data/settings/pins/rollback. No paid sources or X work.
+[Current R4 scope and evidence](../validation/r4-a-planet-view/README.md).
+
+
+## Owner visual rejection and glass correction — 2026-10-23
+
+The owner rejects current PR88–90 visual fidelity, including opaque dark panels.
+Prior functional qualification remains evidence, not visual acceptance. Approved
+cinematic/Adaptive Explorer references are unchanged. G1 shared translucent material,
+G2 all-mode chrome integration and V1 supported scene assessment are active on a
+new draft branch stacked on PR90 `4fa9ffd8`. Preserve source math, native ownership,
+accepted navigation, data/settings/pins/rollback and Solar responsiveness. No paid
+providers, merge, deployment or R4. Stop for owner visual acceptance of actual UI.
+[Current implementation/evidence](../validation/cinematic-glass/README.md).
+
+
+Current completion checkpoint: E1 draft PR89 at `94f98598131f23d9179135ec492fb1ad5d739407`;
+S1/combined I1 on `cinematic-sky-completion-1`, stacked on E1. Native presentation,
+source-backed object context and focused combined qualification are implemented.
+Owner Earth/Sky visual acceptance and physical GPU qualification remain pending.
+The comparison gallery, test limits and R4 readiness-only recommendation are in
+`docs/validation/earth-sky-completion/README.md`. No merge, deployment or R4 activation.
+
+
+## Earth and Sky cinematic completion — owner authorization 2026-10-23
+
+The owner reports Solar at PR88 `89491f72ef4f4ab9e75d1bc2e4599cd3e74ca3f2`
+looks better and camera/navigation is smooth on the owner's computer. This is
+owner-confirmed satisfactory Solar responsiveness and positive visual feedback,
+not final release acceptance, a hardware benchmark or merge authority. Preserve
+its cinematic sizing, True physical scale, camera behavior and scientific source.
+
+The active scope is E1 Earth visual/source/navigation completion, S1 supported
+native Stellarium visual/UX completion, and I1 combined qualification, in bounded
+draft PRs stacked from PR88. Use exact approved original references and current
+renderer evidence. Preserve accepted N1 mechanics, Pennsylvania panorama, satellite
+presentation, science, source pins, rights, cache rules, settings and rollback.
+After delivery, assess Earth/Moon/Mars R4 readiness only. No R4 implementation,
+merge, production deployment, paid provider/account or destructive operation.
+Stop for owner Earth/Sky visual acceptance. [Execution](../validation/earth-sky-completion/README.md).
+
+
+## Owner-approved cinematic sizing correction — 2026-10-22
+
+The owner rejected155e7df9 visually and reported lag. The owner explicitly selected
+**cinematic system view with disclosed size enlargement** over the physical-size
+default. This supersedes the following physical-default directive, which remains
+historical. Restore readable cinematic globes at immutable source positions/time;
+disclose independent size enlargement persistently and provide True physical scale.
+All/Inner/Outer remain camera presets, never body-visibility filters. Body close-ups
+use the physical globe and camera approach. Original imagery, scientific values,
+native runtimes, accepted navigation, settings, data/pins/rollback remain protected.
+Measure actual browser costs; do not infer the owner's lag cause from software
+rendering alone. Continue draft PR88 only; no merge, deployment or R4. Owner visual
+acceptance remains pending. [Current correction](../validation/solar-cinematic-balance/README.md).
+
+## Owner-approved scientific Solar controls — 2026-10-22
+
+The owner rejects misleading globe enlargement and hidden-body view toggles, and
+explicitly approves true physical mean radii at the same AU scale as source positions.
+All/Inner/Outer are camera framing presets only: every supported body remains in the
+scene, and zooming out from Inner reveals the outer planets without a visibility switch.
+Unresolved bodies use labeled symbolic position points; selecting a body moves the
+camera to a close-up instead of enlarging its globe. Recenter, zoom and orbit are
+separate, with an explicit camera state. Optical/decorative effects and statistical
+belt are optional, off by default, and do not represent measured observations.
+This supersedes earlier enlarged-glyph presentation guidance while preserving the
+approved cinematic visual family, real ephemeris vectors/time/identity, mean-radius
+provenance, original imagery/UVs, illustrative orientation disclosures and all native
+Earth/Sky/accepted navigation. Existing draft PR88 continues; no merge, deployment,
+paid provider or R4. [Current implementation and evidence](../validation/solar-scientific-controls/README.md).
+
+## Final cinematic visual acceptance correction pass — 2026-10-22
+
+The owner directs bounded corrections on existing draft PR88 from verified
+`4e07ebfb4821b57e6bed3df4937eb78cce9755ee`, preserving packages84–88 and the
+approved design family. Diagnose real Earth camera/source/LOD/resolution/loading;
+correct demonstrated defects, Solar clipping/HUD composition and native Sky
+presentation under historical and source-backed dark-sky conditions. Keep real
+science, accepted mechanics, original assets, source pins, data/settings and rollback.
+[Current correction evidence](../validation/cinematic-acceptance/README.md) separates
+source limits, software rendering, technical checks and pending owner visual
+acceptance. Independent final exact-head review is required. No merge, deployment,
+paid provider or R4; stop for owner visual acceptance.
+
+
+## Active owner authorization — complete cinematic Hub and R3-B (2026-10-22)
+
+The new owner directive supersedes earlier limits to Solar R3-A and the earlier
+prohibition on Earth/Sky cinematic integration and R3-B. PR83 at b68e2b40 remains
+technically qualified within its recorded scope and **OWNER VISUALLY REJECTED**.
+The approved original Solar/Earth/Sky images are the common visual targets; Adaptive
+Explorer remains the interaction reference. This is an implementation extension of
+existing R0–R5 authority, not a new roadmap or competing design specification.
+
+Authorized bounded packages: shared cinematic UI and slogan removal; source-backed
+R3-B Sun plus eight planets and honestly modeled aggregate main belt; Earth cinematic
+UX; Sky cinematic UX; cross-mode fidelity/integration. Use separately reviewable
+draft branches stacked on the preserved PR83 chain. Each renderer retains its own
+science, scene and lifecycle. UI tokens/branding are shared; tools stay contextual.
+Earth search must be directly visible. Sky retains real Stellarium observing controls,
+scientific object positions, Pennsylvania horizon and accepted Sky/Earth scrolling.
+
+All planets must have qualified identities, explicit centers/barycenters, frames and
+UTC, independent reference checks, selection/focus and honest appearance. Aggregate
+belt particles carry no individual ephemeris identities; density/LOD/visibility are
+explicit. Identified asteroids require qualified orbital data. Pluto/dwarfs, Kuiper
+Belt, moons and comets are subsequent source-qualified content; not a blocker for
+this eight-planet/main-belt slice. No R4 surfaces, paid sources, merge or deployment.
+
+Actual before/after desktop/mobile screenshots against original references, selected
+and expanded/collapsed states, short screens, time/navigation, focused runtime tests
+and independent technical review are required. Green tests do not grant visual
+acceptance. Hardware qualification remains distinct from SwiftShader evidence.
+Preserve data, source pins, settings, rollback and historical partial qualification.
+[Execution and evidence](../validation/cinematic-hub/README.md).
+
+
+## Latest owner visual decision — 2026-10-21
+
+The cinematic Solar/Earth/Sky visual family is OWNER APPROVED as the presentation direction, with exact concept PNG hashes and scientific/rights caveats in [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). The original Adaptive Explorer and ORA-6 sketches remain required UX evidence. R3-A science remains qualified in its bounded scope, while its **current visual appearance is OWNER REJECTED**; current work continues Solar visual refinement on existing draft PR83 from reviewed23806bca, with [actual browser comparisons and explicit remaining gaps](../validation/solar-cinematic/refinement/README.md). No new visual-direction decision is required. No implicit merge, deployment, provider spending, R3-B or R4 authority. N1 accepted mechanics and mounted data remain protected.
+
+## Current owner direction — 2026-10-21
+
+The owner activates **bounded R3-A Solar System**, after documentation reconciliation,
+from PR #80 `23f5c41f830fad7eb66b67fec297962c2599428e`. R0 is completed/merged;
+R1/N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`.
+PR73/74 remain OPEN; PR78/79/80 are delivered OPEN DRAFTS, not merged or deployed.
+PR71 stays OPEN and independent. No production deployment from this stack.
+
+Preserve accepted Sky/Earth scrolling, Pennsylvania landscape, satellite presentation,
+Earth search/imagery/cache, scientific data, settings, source pins, volumes and rollbacks.
+Historical N1 desktop5/22 and mobile7/22 stopped at240s; no assertion mismatch reproduced,
+cause UNKNOWN. Those records remain PARTIALLY QUALIFIED, never a fresh44/44 pass.
+Browser proof is distinct from physical-device acceptance and OWNER ACCEPTED is distinct
+from TECHNICALLY QUALIFIED, PARTIALLY QUALIFIED, OPEN PR, MERGED and DEPLOYED.
+
+Only R3-A is activated: Sun/Earth/Mars source-backed positions, controlled epoch,
+selection/focus, accessible entry/return, isolated renderer lifetime and a tested R4
+interface. Full R3, R4 surfaces, R5 and X1–X4 need separate owner authorization.
+No merge, deployment, paid provider/account/spending, Google activation or advanced
+tracker/stellar/DSO implementation. Stop for owner review of the bounded slice.
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+Earlier dated execution directions below are historical where superseded here; permanent architecture and validation rules still apply.
+
 ## Adaptive Explorer product authority — 2026-10-13
 
 Astronomy Hub — Adaptive Explorer is one universe-first interface and shared
 component/design system, contextually configured for Sky, Solar System, Earth and
 other planetary surfaces. Restrained iOS-like translucent glass, professional
 typography, accessible/responsive controls, reduced motion and progressive disclosure
-are approved intent; exact screens/layouts remain owner-pending. Mode-only tools
+are approved intent; PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` is the owner-approved visual target. Mode-only tools
 must not leak into other modes. One small universal Explore alternative may make
 journeys accessible without permanent cross-mode clutter.
 
@@ -15,8 +308,18 @@ this existing hierarchy; [workspace design](../design/UNIFIED_WORKSPACE_DESIGN_S
 contains the design approval boundary. Continuity may use controlled renderer
 handoffs; cross-body travel is planned, not established by the existing Sky/Earth
 bridge. Old ORA-6/ORA-7 acceptance describes its historical baseline only. Current
-activation is always LIVE/PROJECT_STATE: R0 docs only, PR #71 unmerged with imagery,
-search and visual acceptance open. Old C6 roadmaps cannot activate implementation.
+activation is always LIVE/PROJECT_STATE: R0 merged; R1-B is implemented in unmerged
+PR #74, and the owner has separately authorized bounded N1 Sky ↔ Earth navigation
+from its exact head. PR #73 remains its unmerged dependency. PR #71 imagery, search
+and visual acceptance remain open. Old C6 roadmaps cannot activate implementation.
+
+N1 is now OWNER ACCEPTED and PR75 merged into PR74 at `d1e3a75c`. The owner
+separately activates R2-A Earth search/navigation/location context. LIVE and
+PROJECT_STATE record the current bounded authorization; R3 remains unauthorized.
+
+The subsequent R2-B owner directive authorizes bounded PR71 imagery/cache reuse
+from the R2-A head, with current navigation preserved; LIVE/PROJECT_STATE record
+its scope. No merge, deployment, provider spending or R3 is authorized.
 
 ## Purpose
 
@@ -92,7 +395,7 @@ Ingestion -> Normalization -> Storage -> Cache -> API -> Client Rendering
 
 Do not introduce features that bypass these models.
 
-## Current Runtime Reality
+## Historical — Current Runtime Reality
 
 The active public ORAS sky runtime is:
 

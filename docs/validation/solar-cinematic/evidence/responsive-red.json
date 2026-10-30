@@ -1,0 +1,51 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "frontend/src/features/solar/solar.css": "7d16ccd2261bb095d9d18474700ca786042e5b7b4128e97ad095007254d8daf6",
+    "scripts/validation/verify_cinematic_compact.mjs": "9ce5daa58ef76137498429dca929a99afa5cd6f829a0371e055779aa67e206ac"
+  },
+  "runs": [
+    {
+      "width": 667,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 844,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch"
+      ]
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Visible control must receive pointer: Show cinematic effects\n    at hit (file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_cinematic_compact.mjs:9:327)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_cinematic_compact.mjs:13:648"
+}

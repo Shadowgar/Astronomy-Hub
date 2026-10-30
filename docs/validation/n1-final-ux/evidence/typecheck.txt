@@ -1,0 +1,5 @@
+
+> astronomy-hub-frontend@0.0.1 typecheck
+> tsc --noEmit
+
+src/features/sky-engine/RuntimeHost.tsx(8,49): error TS2305: Module '"../../../../runtimes/sky-adapter/native-panels.mjs"' has no exported member 'validSkyFovReport'.

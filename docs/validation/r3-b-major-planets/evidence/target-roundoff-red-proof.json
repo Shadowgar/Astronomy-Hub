@@ -1,0 +1,50 @@
+{
+  "status": "FAIL",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "checks": [
+        "Nine real source-backed bodies, no marketing headline",
+        "Sun select/focus/approach exact source target, explicit center, unchanged time",
+        "Mercury select/focus/approach exact source target, explicit center, unchanged time",
+        "Venus select/focus/approach exact source target, explicit center, unchanged time",
+        "Earth select/focus/approach exact source target, explicit center, unchanged time",
+        "Mars select/focus/approach exact source target, explicit center, unchanged time",
+        "Jupiter select/focus/approach exact source target, explicit center, unchanged time",
+        "Saturn select/focus/approach exact source target, explicit center, unchanged time"
+      ],
+      "errors": [],
+      "screens": [
+        "1440x900-inner-system.png",
+        "1440x900-full-system.png",
+        "1440x900-sun.png",
+        "1440x900-mercury.png",
+        "1440x900-venus.png",
+        "1440x900-earth.png",
+        "1440x900-mars.png",
+        "1440x900-jupiter.png",
+        "1440x900-saturn.png",
+        "1440x900-saturn-expanded.png"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "frontend/src/features/solar/solarBelt.ts": "536b847379774913c3a9012a86374439a412b1e04b2aa28b995c7c5f9919fd30",
+    "backend/app/schemas/solar_exploration.py": "2c277b67e6cab20fb46e8ed7734d8794f7cdf54439d96a44b6fdc43fbac9a290",
+    "backend/app/services/solar_exploration.py": "38e7c4def28e80384c2e4c1b0f4ca67a9ba682a45c0135f2e74a7820465ab5f4",
+    "frontend/src/features/solar/SolarScene.ts": "9e2453c3d9185d04bbb4de36e9fe3be3f54d6bb5d06a7951d90259d82d57f373",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "3ab3e81e0b3ca414e6d240fa479ccd7fd16cf4e9ae245019586c3532f05f55b4",
+    "frontend/src/features/solar/assets/earth-blue-marble.png": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+    "frontend/src/features/solar/assets/earth-clouds-2002.jpg": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+    "frontend/src/features/solar/assets/mars-nasa.glb": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+    "frontend/src/features/solar/assets/provenance.json": "566ba89818af6aa2c65b24a673303930b67f273619ae0ee26006a637bfbb30c1",
+    "frontend/src/features/solar/solar.css": "2f572cc44894b92256006999ebf8b5468b2376b5eadb4f50552959d4ac9a3358",
+    "frontend/src/features/solar/solarContracts.ts": "b8727de348e6438c1fe70e0c86a57b4a0bae6c276f45c796c92e6e6652656c4a",
+    "frontend/src/features/solar/solarGpuTiming.ts": "6f7f4b2952c544968f30f3fb1f57c0d3377aee9caafbedcceee3815bd9ee6dce",
+    "frontend/src/features/solar/solarMaterials.ts": "01b070a87851830d0c3058c4ab087b617d53249ccc7346bfcc54f9d86e13a6f2",
+    "frontend/src/features/solar/solarPresentation.ts": "9ae010b1874461829eb61fee2b58dfb971fe71d90863a1e3cd6ae519815fcb1b",
+    "frontend/src/features/solar/threeBoundary.d.ts": "9791da33cb74455a017c4c4597391d1c1e624506e1c6ed0725d9b90b6acd06a5"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    9.68091944829015,\n    15.533953103185496,\n+   6.666401299184041\n-   6.66640129918404\n  ]\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-b-major-planets-1/scripts/validation/verify_r3b_major_planets.mjs:5:357"
+}

@@ -1,0 +1,29 @@
+{
+  "nativeSky": [
+    {
+      "path": "css/chunk-vendors.11c203ce.css",
+      "sha256": "c190ae569a8bbacd73b194d3e1b14d7ac0412ad1187d1907a5dddcbff5239c4b",
+      "unchanged": true
+    },
+    {
+      "path": "js/chunk-vendors.c8723c79.js",
+      "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260",
+      "unchanged": true
+    },
+    {
+      "path": "js/stellarium-web-engine.f0d016d1.wasm",
+      "sha256": "54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09",
+      "unchanged": true
+    }
+  ],
+  "ownerSettingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "ownerSettingsUnchanged": true,
+  "homeAndPackagesUnchanged": true,
+  "skyArtifact": "3b80bb352c8d1680d9217ce9b8e7fc5dbb8ed0b71b59c2f0f66d1143d103b50f",
+  "earthArtifact": "cbe7f8d88c855f5f4fca7dc5fd7ae078d2b570c95a256b69c6529a5f5cd5108c",
+  "dataPolicy": "No tracked astronomy data, provider, owner-settings or mount configuration changes. Existing preview data bind mounts remain read-only.",
+  "allPreviewMountsReadOnly": true,
+  "earthPin": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+  "earthExternalSourceClean": true,
+  "verifiedAt": "2026-10-15T04:28:30Z"
+}

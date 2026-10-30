@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "acceptedRuntimeSourceCommit": "301f9eb3ddfd21a22ad04378bf09ee45c59e8adc",
+  "protectedPathsUnchanged": [
+    "runtimes",
+    "packages/runtime-protocol",
+    "integrations",
+    "frontend/src",
+    "frontend/public",
+    "frontend/package.json",
+    "frontend/package-lock.json",
+    "frontend/vite.config.mjs",
+    "vendor"
+  ],
+  "skyArtifact": "3b80bb352c8d1680d9217ce9b8e7fc5dbb8ed0b71b59c2f0f66d1143d103b50f",
+  "skyFilesVerified": 96,
+  "earthArtifact": "2f2c8530cd8499ef3c646b244d37c9a5ae8574047cabcdc751976e4908234794",
+  "rootOwnerSettingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "previewMountsReadOnly": true,
+  "rollbackEarthFilesVerified": 512,
+  "rollbackHubPresent": true,
+  "skyNativeSourceIdentity": "native-source-identity.json",
+  "newProviderSpendUSD": 0
+}

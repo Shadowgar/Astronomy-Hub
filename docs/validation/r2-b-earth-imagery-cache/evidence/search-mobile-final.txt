@@ -1,0 +1,23 @@
+390 Earth ready; exactly one owned renderer
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: actual place search status
+
+503 !== 200
+
+    at pick (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/scripts/validation/verify_r2_earth_search.mjs:8:1646)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:453:9)
+    at process.callbackTrampoline (node:internal/async_hooks:130:17)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/scripts/validation/verify_r2_earth_search.mjs:12:37 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 503,
+  expected: 200,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

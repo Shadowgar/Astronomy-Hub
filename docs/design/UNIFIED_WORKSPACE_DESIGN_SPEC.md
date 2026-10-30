@@ -1,6 +1,67 @@
 # Unified workspace design contract
 
-## Adaptive Explorer design contract — R0, 2026-10-13
+## Current owner-approved visual direction — 2026-10-21
+
+**OWNER APPROVED:** the exact cinematic Solar System, Earth and Sky design-family illustrations delivered in the current owner session, identified by immutable SHA-256 in [Cinematic Design Reference](ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). **Primary Solar reference:** `solar-primary-cinematic.png`. The previous Adaptive Explorer R1-A and ORA-6 sketches remain binding inputs for UX behaviors, progressive disclosure, context-specific controls and accessibility. The newer images supply the approved premium scene-first cinematic presentation, not substitute scientific datasets or permission to copy third-party assets.
+
+The current R3-A scene's large static panels, flat glyphs and overly diagrammatic appearance are **OWNER VISUALLY REJECTED**; retain its verified scientific/selection/return foundation. Future visual packages must import original PNG reference bytes from the owner asset pack, verify hashes, compare actual browser screenshots against them side by side, and request a separate visual-fidelity decision. Approval of design direction does **not** claim exact pixel alignment, physical performance, real Solar/sky positions in illustrations or new provider rights. Next bounded implementation: Solar R3-A cinematic visual fidelity; Sky and Earth styling subsequently, without modifying N1 accepted mechanics.
+
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
+## Accepted implementation target — R1-B, 2026-10-13
+
+The owner accepts the Adaptive Explorer visual direction and revised Sky controls
+at PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef` and explicitly authorizes
+real application Sky implementation on a separate dependent branch. Preserve the
+reference files. Earlier pending-design statements below are historical; actual
+application fidelity, interactions and owner acceptance still require proof.
+PR #73 remains unmerged. No later milestone, merge or deployment is authorized.
+
+
+## Historical R1-A/01 editable visual proposal — 2026-10-13
+
+**PENDING OWNER VISUAL ACCEPTANCE.** The owner authorized actual design-reference
+creation after R0's merge, not application implementation. Required design-task
+context: [R1-A reference README](adaptive-explorer-r1a/README.md), with exact source,
+preview command, screenshot ledger and browser qualification. Open the
+[visual gallery](adaptive-explorer-r1a/index.html) and [shared design system](adaptive-explorer-r1a/system.html).
+
+One component system combines Immersive Explorer's structure, Minimal Explorer's
+restraint, Focused Explorer's organization and Journey View's navigation. Four
+neutral desktop/mobile layouts are illustrated; the Moon represents body-specific
+surfaces. No scene images, renderer, provider calls or scientific values are faked.
+Local sample interactions demonstrate design states only.
+
+The historical ORA-6 reference remains unchanged. R1-A/01 is an owner-review proposal,
+not a coder substitute for owner acceptance. Screens, layout, materials and motion
+remain open. Record accepted files/revision/states and explicit owner decision here
+before separately authorizing R1-B implementation. No R1-A merge is authorized.
+
+### Bounded Sky-controls completion — owner direction, 2026-10-13
+
+The owner likes the current visual direction; preserve the layout, shared glass,
+navigation and other-mode designs. Sky's existing Constellations, Observing tools
+and Display groups must expose all nine native controls: Constellations,
+Constellation Art, Atmosphere, Landscape, Azimuthal Grid, Equatorial Grid,
+Deep Sky Objects, Night Mode and Fullscreen. Equatorial J2000 Grid remains an
+advanced observing option. Toggle states are local reference samples; Fullscreen
+is an action preview. No Stellarium connection or scientific behavior is implemented.
+
+Future separately authorized R1-B must preserve the original native Stellarium
+functionality through its supported integration: constellation lines and names
+together, artwork, atmosphere, landscape, azimuthal grid, equatorial grid of date,
+separate J2000 grid, DSOs, native night mode and fullscreen enter/exit behavior.
+Do not recreate sky math, grids, visibility or native rendering in Hub code.
+These controls are Sky-only. Updated controls and nested focus behavior require
+owner review and browser qualification; current status is BLOCKED_ENVIRONMENT.
+The gallery/ledger explicitly attribute prior captures to source
+`60e92336f7d715fc83d174f07ac350573d0e1953`, not the newer reference.
+
+## Historical Adaptive Explorer design contract — R0, 2026-10-13
 
 Current design intent is [Adaptive Explorer](../product/PRODUCT_VISION.md): one
 universe-first interface and shared tokens/components, contextually configured for

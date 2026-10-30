@@ -1,0 +1,69 @@
+{
+  "head": "625376a0e24d26175e402077c27614bda67369d5",
+  "sourceHashes": {
+    "frontend/src/features/workspace/AdaptiveSkyChrome.tsx": "31a4bf81256e019084f515f12e8ddba55aba8e652d5bb2581e2c0eb0d4dddf47",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "bb7522649a2d84c30801ec5af3c8e8700ec56dc3488aaa98e892a72be28c07ec",
+    "frontend/src/features/workspace/skyNightMode.ts": "3d21ac7313a4d4019630be3d406b7ccc15b8a670d14b3219c13ff9e20db27b03",
+    "frontend/src/features/workspace/adaptiveSky.css": "5506ad4d97df2ffdfe5b8dea7484383ecc05b17e2d4541438b675c8e9f6d0156",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "3ae17a934649a44e225f9c17e6b8c7d5e1743419067aafbc63c6c85fbfd06aa6",
+    "runtimes/sky-adapter/plugin.js": "c263f49f1275988d5c3a75d90ca9caf5f5371546f1a3d61b3551ad08e27d9dfd",
+    "runtimes/sky-adapter/entry.mjs": "0f715ec3cfd8ec8becafefdb01d4a5bab365dd0d927c58c495e877569b05e18d",
+    "runtimes/sky-adapter/native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
+    "frontend/public/runtime-versions.json": "5a40e52cdd3cf53783444fe628665db6fc31f5d13f6ce824a15deb918c569cff",
+    "scripts/validation/verify_sky_corrections.mjs": "33ca837d86f73ff559bb50e542d5059ddf71dda929b23361af2b73960ee15a97"
+  },
+  "base": "http://127.0.0.1:4201",
+  "started": "2026-10-14T05:18:26.130Z",
+  "status": "PASS",
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "screenshots": [
+        "night-off-1440.png",
+        "night-on-1440.png",
+        "night-observing-1440.png",
+        "night-explore-1440.png",
+        "night-selection-1440.png",
+        "night-location-1440.png"
+      ],
+      "observer": {
+        "lat": -33.87499999999547,
+        "lon": -80.12499999997385,
+        "elevationM": 12.5
+      },
+      "selected": {
+        "id": "Bright Star Catalog (local):star-vega:star",
+        "name": "Vega",
+        "kind": "star",
+        "catalog": "Bright Star Catalog (local)",
+        "source_id": "star-vega",
+        "model": "star",
+        "ra": 279.23473511,
+        "dec": 38.7836918,
+        "facts": [
+          {
+            "label": "Catalog",
+            "value": "Bright Star Catalog (local)"
+          },
+          {
+            "label": "Source ID",
+            "value": "star-vega"
+          },
+          {
+            "label": "Magnitude",
+            "value": "0.03"
+          }
+        ],
+        "available": true,
+        "focusable": true,
+        "trackable": false,
+        "link": "/oras-sky-engine/skysource/Vega?catalog=Bright+Star+Catalog+%28local%29&source_id=star-vega&model=star&date=2026-10-13T02%3A10%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=279.23473511&dec=38.7836918"
+      },
+      "nightPersistence": "native toggle, two Earth/Sky cycles, reload ON and OFF; no Earth style leakage",
+      "fullscreen": "correct remount label and native state, two round trips, one listener per Sky and zero on Earth",
+      "pageErrors": []
+    }
+  ],
+  "finished": "2026-10-14T05:20:12.384Z"
+}
