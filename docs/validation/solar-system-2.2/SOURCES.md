@@ -131,17 +131,8 @@ These are local source/unit checks. Docker/browser/GPU timing, matched visual
 quality, owner acceptance and physical-device qualification belong to the
 integrated validation; this source report does not assert those results.
 
-Prepared bounded Windows browser regression (not yet executed by this author):
-
-```sh
-node --check scripts/validation/verify_solar22_streaming.mjs
-node scripts/validation/verify_solar22_streaming.mjs http://127.0.0.1:4231 output/playwright/solar-system-2.2/streaming
-```
-
-Syntax check passes. The second command requires Windows Node, headed Edge and
-the coordinated exclusive GPU window; it rejects software renderers and anything
-other than the qualified NVIDIA RTX3060. It records actual overview/detail
-requests, promotion timing, draw/resources, delayed-model UV race, selection
-cancellation, explicit503 fallback, actual8k/2k Earth transitions, controlled
-bitmap-delivery retirement, original Eros and actual context-loss/retry. Its
-network/decode barriers are disclosed; it does not replace normal journey timing.
+Actual Windows Edge/NVIDIA texture lifecycle: **6/6 PASS**; see
+[streaming qualification](STREAMING.md) for the compressed raw receipt, retained
+initial harness failures and exact invocation. Admission accounting is not total
+VRAM; measured first-promotion latency is one controlled run, not an FPS or
+physical-phone claim. Owner acceptance remains open.

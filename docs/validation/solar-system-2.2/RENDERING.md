@@ -90,6 +90,11 @@ subtle golden limb tint, reduces diffuse corona veil and increases existing
 angular streamer contrast. No extra noise samples or animation were added.
 The new limb test failed before implementation and passes afterward. These later
 Sun pixels still require a new capture; the earlier image cannot qualify them.
+The next actual overview capture exposed overly pronounced streamer fans. The
+coordinator rejected that amplitude and reduced the existing corona terms to a
+compact glow with weak angular variation, retaining the warmer color and
+photosphere correction. Source review confirms no added geometry/noise or
+lighting-state changes; its final pixel assessment remains in the visual report.
 
 ## Open qualification
 

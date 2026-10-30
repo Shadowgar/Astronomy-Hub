@@ -1,17 +1,25 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
-## Solar System 2.2 — owner-authorized cinematic completion, 2026-10-30
+## Solar System 2.2 — implemented candidate, owner acceptance pending, 2026-10-30
 
-The owner authorizes autonomous private-preview restoration and substantial Solar
-rendering, source-texture streaming, Sun/lighting, composition and exploration
-improvements from66fff05108ca7ed7ee0ee1d5137b4b2619c28373 on existing recovery/PR107.
-This explicitly supersedes the2.1.1 no2.2 stop only for the attached scope. Prior
-visuals remain unaccepted. Preserve JPL/time/source identities, corrected Takram,
-existing native engines/regional terrain, data/settings and rollback. No merge,
-production deployment, public tunnel, source publication or destructive cleanup.
-Actual Windows visual/performance proof and independent review are required.
-[Current scoped plan](../validation/solar-system-2.2/PLAN.md).
+Existing recovery branch / draft PR107. Application39f73b2ff0162d491fcf65b41a0bc038dd608b65
+implements the owner's scoped2.2 directive from66fff051, superseding only the
+historical2.1.1 no2.2 gate. Previewlocalhost:4231 is verified on Windows NVIDIA;
+existing containers were already running, historical outage cause remains unknown.
+Original mounts/IDs/rollback are preserved; new bundle is isolated inhub-solar22.
+Selected-body source detail, linear compositing, refinedSun and staged physical
+travel retainJPL/ITRS/Takram/nativeMoon/Earth/Sky and regionalApollo17 ownership.
+599frontend+7Docker science tests,56captures,10Earth views,27journey groups,
+6streaming cases,3short recordings and24GPU cases passed their stated checks.
+Separate reviews corrected camera collision, Eros material and transparency defects.
+Application-head hostedCodeQL/integrity/Playwright pass; final evidence-head status
+andSHA are recorded onPR107. [Current report](../validation/solar-system-2.2/README.md).
 
+Owner visual acceptance and physicaliPhone remain pending. Portrait clustering,
+softSaturn imagery, illustrativeSun and one319.5ms cold desktop recording hitch
+remain disclosed. Existing final-source/public-offer and release gates remain.
+No merge/deploy/sourcepublication/tunnel/protecteddeletion occurred. Stop product
+work here for owner inspection; do not silently start a new feature phase.
 
 ## Solar System 2.1.1 — owner-rejected defect correction, 2026-10-29
 
