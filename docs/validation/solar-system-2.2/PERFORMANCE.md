@@ -28,7 +28,7 @@ Eighteen desktop cases cover Earth/Saturn/Sun × Balanced/Efficient/Detailed × 
 
 Each fresh, cache-disabled context waits for base textures/clouds, stable science inputs including Eros, completed atmosphere lookup loading, no camera animation, and settled detail reservations where available. Initial Balanced readiness and a subsequent requested-quality switch are timed separately. The fixed epoch is `2026-10-27T04:00:00Z`.
 
-The existing Orbit camera right control is activated once per RAF: 40 warm-up frames followed by 200 measured frames. Independent RAF/input samples retain all 200; existing renderer CPU/GPU diagnostics retain 180 rolling samples. Assertions require GPU timing, 200 rendered frames, stable geometry/texture counts, unchanged source positions/epoch, valid target/quality, foreground visibility and no console/network errors. All passed. These are actual frame timings, not FPS extrapolated from GPU duration.
+The existing Orbit camera right control is activated once per RAF: 40 warm-up frames followed by 200 measured frames. Independent RAF/input samples retain all 200; existing renderer CPU/GPU diagnostics retain 180 rolling samples. Assertions require GPU timing, 200 rendered frames, stable geometry/texture counts, unchanged source positions/epoch, valid target/quality, foreground visibility and no console errors or HTTP error responses. All passed. These are actual frame timings, not FPS extrapolated from GPU duration.
 
 ## Desktop CPU/GPU results
 
@@ -82,6 +82,6 @@ Two earlier attempts failed strictly and are retained:
 - [Artifact-fetch DNS failure](performance-first-failure.json.gz): baseline rendering passed; Node's artifact request could not resolve `solar211.localhost`. Bundle hashing now uses loopback with the original Host header, matching the browser route. No measurement assertion was relaxed.
 - [Incomplete science-readiness failure](performance-source-readiness-failure.json.gz): six Earth cases passed, then baseline Saturn's Eros position changed from unavailable to loaded. Both builds now wait for finite Eros/science inputs before measurement; the strict unchanged-position assertion remains.
 
-The final run had zero console errors and zero HTTP/network failures. One baseline Earth Balanced warning event contains D3D11 FXAA warnings X3595 and X4000; candidate cases had none. The raw warning is retained. No lookup-table cancellation exception or broad error filter was needed.
+The final run had zero console errors and zero HTTP error responses. The response listener does not independently inventory every failed transport request. One baseline Earth Balanced warning event contains D3D11 FXAA warnings X3595 and X4000; candidate cases had none. The raw warning is retained. No lookup-table cancellation exception or broad error filter was needed.
 
 Only the tested RTX float-render-target path is qualified here. Unsupported-float fallback, physical phones, thermal/battery behavior, long-duration travel/streaming and asynchronous GPU compiler completion are not qualified by this performance sweep. Visual, interaction and streaming qualification are separate evidence. No commit, push, merge or deployment was performed by this benchmark task.

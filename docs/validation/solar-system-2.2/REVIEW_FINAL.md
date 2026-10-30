@@ -155,3 +155,9 @@ both browser processes closed. Evidence is in `output/solar2.2/gallery/`: final
 the successful route/video checks, the retained before screenshot, and final
 gallery/video frames. Browser/GPU ownership was released. No application/runtime
 edit, commit or push was made by this reviewer.
+
+Independent receipt review also verified the benchmark hashes, all nine paired
+table rows, six mobile cases, sample counts and memory/startup limits against the
+compressed receipt. A P3 reporting overstatement was corrected: the harness
+records console errors and HTTP error responses, not an independent inventory of
+every failed transport request. No blocking discrepancy was found.
