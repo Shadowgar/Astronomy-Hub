@@ -1,6 +1,6 @@
 import * as T from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
-import {cameraTransition,type CameraPose} from './solarPresentation'
+import {cameraTransition,cameraTravelDuration,type CameraPose} from './solarPresentation'
 import {flightSpeed,stopAtSurface,type OpaqueBody} from './solarPrecision'
 import type {Vector} from './solarContracts'
 
@@ -62,7 +62,7 @@ export class SolarCameraController{
   this.controls.minDistance=Math.min(this.controls.minDistance,minimum)
   this.camera.near=this.reduced||immediate?near:Math.min(this.camera.near,near);this.camera.updateProjectionMatrix()
   if(this.reduced||immediate){this.camera.position.fromArray(pose.position);this.controls.target.fromArray(pose.target);this.controls.minDistance=minimum;this.updateControls()}
-  else this.flight={start:performance.now(),from:this.camera.position.toArray(),targetFrom:this.controls.target.toArray(),pose,duration:1800}
+  else this.flight={start:performance.now(),from:this.camera.position.toArray(),targetFrom:this.controls.target.toArray(),pose,duration:cameraTravelDuration(this.camera.position.toArray(),this.controls.target.toArray(),pose)}
   this.request()
  }
  follow(delta:Vector){

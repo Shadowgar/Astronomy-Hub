@@ -90,6 +90,16 @@ export function ringMaterial(){
    uniform vec3 sunDirection;uniform sampler2D radialMap;uniform bool hasRadialMap;uniform float mapInner,mapOuter;
    varying vec3 vRelative,vRingNormal,vEye;varying float vRadius;
    ${ringShadowGlsl}
+   float ringLayerTransmission(float tau,float mu,float mu0){
+    float a=1./mu,b=1./mu0,y=tau*abs(a-b);
+    // The equal-path limit is tau/mu * exp(-tau/mu). A short series
+    // avoids subtracting nearly equal exponentials, including thin rings.
+    float divided=y<.01?1.-y*.5+y*y/6.:(1.-exp(-y))/y;
+    return tau*b*exp(-tau*min(a,b))*divided;
+   }
+   float ringStraightAlpha(float scatter,float shadow,float coverage){
+    return 2.8*scatter*shadow/max(coverage,.0001);
+   }
    void main(){
     #include <logdepthbuf_fragment>
     float u=(vRadius-ringInner)/(ringOuter-ringInner);
@@ -100,19 +110,20 @@ export function ringMaterial(){
     float phaseCos=clamp(dot(eye,light),-1.,1.);
     bool sameSide=dot(normal,eye)*dot(normal,light)>0.;
     float reflected=mu0/(mu+mu0)*(1.-exp(-tau*(1./mu+1./mu0)));
-    // Transmission through a particle layer, evaluated stably when mu≈mu0.
-    float a=1./mu,b=1./mu0;
-    float transmitted=abs(a-b)<.01?tau*a*exp(-tau*a):abs((exp(-tau*a)-exp(-tau*b))/(a-b))*b;
+    float transmitted=ringLayerTransmission(tau,mu,mu0);
     float backscatter=.65+.35*phaseCos;
     float opposition=1.+.3*exp(-36.*(1.-phaseCos));
-    float forward=.18+.85*pow(max(0.,-phaseCos),5.);
+    float forward=.15+1.2*pow(max(0.,-phaseCos),8.);
     float scatter=sameSide?reflected*backscatter*opposition:transmitted*forward;
     float behind=dot(vRelative,light),separation=length(vRelative-light*behind);
     float shadow=behind<0.?smoothstep(.985,1.015,separation):1.;
     vec3 albedo=profile.rgb;
     if(hasRadialMap)albedo=texture2D(radialMap,vec2(clamp((vRadius-mapInner)/(mapOuter-mapInner),0.,1.),.5)).rgb;
-    // A small disclosed ambient term preserves silhouettes; no second light.
-    gl_FragColor=vec4(albedo*(.006+2.8*scatter*shadow),1.-exp(-tau/mu));
+    // Transfer already integrates the particle optical depth. Straight-alpha
+    // blending applies view coverage once: normalize radiance by that coverage
+    // first, otherwise the thin C ring and backlit gaps are darkened twice.
+    float coverage=1.-exp(-tau/mu);
+    gl_FragColor=vec4(albedo*(.006+ringStraightAlpha(scatter,shadow,coverage)),coverage);
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
    }`

@@ -182,7 +182,7 @@ const orasRuntimeSpaPlugin = {
     // and the optional lunar height source outside automatic public copying.
     for(const name of ['manifest.json','mercury-nasa.glb','venus-nasa.glb','jupiter-nasa.glb','saturn-nasa.glb','uranus-nasa.glb','neptune-nasa.glb','eros-nasa.glb','saturn-rings-nasa.png'])this.emitFile({type:'asset',fileName:'solar-assets/v2/'+name,source:fs.readFileSync(path.resolve(__dirname,'public/solar-assets/v2',name))})
     // Explicit bounded Solar2.1 packs only: no global skydata/planetary mirrors.
-    for(const directory of ['assets/solar/takram-0.19.1','planet-terrain/apollo17-nac-v1']){
+    for(const directory of ['assets/solar/takram-0.19.1','planet-terrain/apollo17-nac-v1','solar-assets/v2.2']){
       const root=path.resolve(__dirname,'public',directory)
       let total=0
       const walk=(relative='')=>{for(const entry of fs.readdirSync(path.join(root,relative),{withFileTypes:true})){

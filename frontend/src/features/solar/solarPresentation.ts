@@ -26,15 +26,31 @@ export function presetAnchors<A extends Anchor>(bodies:A[],preset:SolarPreset):A
  return bodies.filter(b=>preset==='full'||(preset==='inner'?inner.has(b.source_id):!inner.has(b.source_id)))
 }
 export type CameraPose={position:Vector;target:Vector}
-/** Logarithmic distance interpolation makes true-scale close-ups navigable. */
+const smoother=(u:number)=>u*u*u*(u*(u*6-15)+10)
+/** Longer scale changes need time to read; this is presentation, not travel speed. */
+export function cameraTravelDuration(from:Vector,targetFrom:Vector,to:CameraPose){
+ const a=Math.max(1e-15,Math.hypot(...from.map((v,i)=>v-targetFrom[i]))),b=Math.max(1e-15,Math.hypot(...to.position.map((v,i)=>v-to.target[i]))),travel=Math.hypot(...targetFrom.map((v,i)=>v-to.target[i])),cruise=Math.max(a,b,travel*1.5)
+ return Math.min(4800,1700+(Math.log10(cruise/a)+Math.log10(cruise/b))*480)
+}
+/** Depart the old body before crossing interplanetary space, then approach the
+ * destination with its target already acquired. Every join has zero velocity
+ * and acceleration. The controller still guards every swept opaque segment. */
 export function cameraTransition(from:Vector,targetFrom:Vector,to:CameraPose,u:number):CameraPose{
  if(u<=0)return{position:[...from],target:[...targetFrom]}
  if(u>=1)return{position:[...to.position],target:[...to.target]}
- const ease=u*u*(3-2*u),start=new T.Vector3(...from).sub(new T.Vector3(...targetFrom)),end=new T.Vector3(...to.position).sub(new T.Vector3(...to.target))
+ const start=new T.Vector3(...from).sub(new T.Vector3(...targetFrom)),end=new T.Vector3(...to.position).sub(new T.Vector3(...to.target))
  const a=Math.max(1e-15,start.length()),b=Math.max(1e-15,end.length());start.normalize();end.normalize()
- const rotation=new T.Quaternion().setFromUnitVectors(start,end),turn=new T.Quaternion().slerpQuaternions(new T.Quaternion(),rotation,ease)
- const target=new T.Vector3(...targetFrom).lerp(new T.Vector3(...to.target),ease),position=target.clone().add(start.applyQuaternion(turn).multiplyScalar(Math.exp(Math.log(a)+(Math.log(b)-Math.log(a))*ease)))
- return{position:position.toArray(),target:target.toArray()}
+ const oldTarget=new T.Vector3(...targetFrom),newTarget=new T.Vector3(...to.target),travel=oldTarget.distanceTo(newTarget)
+ const rotation=new T.Quaternion().setFromUnitVectors(start,end),directionAt=(t:number)=>start.clone().applyQuaternion(new T.Quaternion().slerpQuaternions(new T.Quaternion(),rotation,t))
+ const radial=(x:number,y:number,t:number)=>Math.exp(Math.log(x)+(Math.log(y)-Math.log(x))*t)
+ let target:any,direction:any,distance:number
+ if(travel>Math.min(a,b)*.5){
+  const cruise=Math.max(a,b,travel*1.5),depart=Math.log(cruise/a),arrive=Math.log(cruise/b),total=depart+arrive+4,first=depart/total,last=(depart+4)/total
+  if(u<first){target=oldTarget;direction=start;distance=radial(a,cruise,smoother(u/first))}
+  else if(u<last){const t=smoother((u-first)/(last-first));target=oldTarget.lerp(newTarget,t);direction=directionAt(t);distance=cruise}
+  else{target=newTarget;direction=end;distance=radial(cruise,b,smoother((u-last)/(1-last)))}
+ }else{const t=smoother(u);target=oldTarget.lerp(newTarget,t);direction=directionAt(t);distance=radial(a,b,t)}
+ return{position:target.clone().addScaledVector(direction,distance).toArray(),target:target.toArray()}
 }
 const direction=new T.Vector3(-.78,-.48,.4).normalize()
 export const overviewUp=(aspect:number):Vector=>aspect<.75?[1,0,0]:[.15,0,1]
@@ -62,8 +78,8 @@ export function cinematicOverviewPose(radii:BodyRadii,bodies:Anchor[],aspect:num
  // Reserve room around actual centers for their independently enlarged disks.
  const fit={...frame,clearWidth:frame.clearWidth*.82,clearHeight:frame.clearHeight*.82}
  let best=overviewPose(radii,bodies,aspect,height,fit,true),score=-Infinity
- for(let i=0;i<24;i++){
-  const angle=i*Math.PI/12,view=radial.clone().multiplyScalar(Math.cos(angle)).addScaledVector(side,Math.sin(angle)).addScaledVector(north,.65).normalize()
+ for(const elevation of [-.85,-.45,.3,.55,.85,1.2])for(let i=0;i<24;i++){
+  const angle=i*Math.PI/12,view=radial.clone().multiplyScalar(Math.cos(angle)).addScaledVector(side,Math.sin(angle)).addScaledVector(north,elevation).normalize()
   // Avoid nearly parallel camera up/view vectors on portrait screens.
   if(Math.abs(view.dot(up.clone().normalize()))>.94)continue
   const pose=overviewPose(radii,bodies,aspect,height,fit,true,view.toArray()),camera=new T.PerspectiveCamera(42,aspect,.001,2000)
@@ -74,7 +90,7 @@ export function cinematicOverviewPose(radii:BodyRadii,bodies:Anchor[],aspect:num
    const x=projected[a],y=projected[b],distance=Math.hypot((x.p.x-y.p.x)*width/2,(x.p.y-y.p.y)*height/2)
    value+=Math.min(2,distance/(cinematicRadius(x.id,width,height)+cinematicRadius(y.id,width,height)))
   }
-  if(s){value-=Math.abs(s.x+(aspect>.9?.55:.2))*5+Math.abs(s.y-(aspect>.9?.05:.45))*2;const e=projected.find(b=>b.id==='earth')?.p;if(e&&aspect>.9&&s.x>e.x)value-=10}
+  if(s){value-=Math.abs(s.x+(aspect>.9?.5:.2))*18+Math.abs(s.y-(aspect>.9?.05:.35))*22;const e=projected.find(b=>b.id==='earth')?.p;if(e&&aspect>.9&&s.x>e.x)value-=10}
   // Prefer a view of the actual sunlit hemispheres; do not add a fake fill Sun.
   for(const id of ['earth','mars']as const){const body=bodies.find(b=>b.source_id===id);if(!body)continue;const p=new T.Vector3(...body.position_au),towardSun=origin.clone().sub(p).normalize(),towardCamera=new T.Vector3(...pose.position).sub(p).normalize();value+=towardSun.dot(towardCamera)*(id==='earth'?6:3)}
   if(value>score){score=value;best=pose}
@@ -88,6 +104,11 @@ export function focusPose(radii:BodyRadii,id:string,p:Vector,aspect:number,close
  // only the camera; texture longitude/orientation remains an illustrative choice.
  const side=new T.Vector3(0,0,1).cross(sunward).normalize()
  const view=sunward.multiplyScalar(.72).addScaledVector(side,.7).add(new T.Vector3(0,0,.3)).normalize()
+ if(id==='saturn'){
+  // Match the existing illustrative ring plane, without rotating source geometry.
+  const normal=new T.Vector3(0,-Math.sin(.48),Math.cos(.48)),opening=view.dot(normal)
+  if(Math.abs(opening)<.45)view.addScaledVector(normal,-opening).normalize().multiplyScalar(Math.sqrt(1-.45*.45)).addScaledVector(normal,opening<0?-.45:.45)
+ }
  let distance=radii[id]*(close?3.5:5.1)/Math.min(1,Math.max(.52,aspect))
  const limit=frame.maxGlobeRadius*(close?1:.82)
  if(Number.isFinite(limit))distance=Math.max(distance,visualRadius(radii,id)*Math.sqrt(1+(height/(2*Math.tan(21*Math.PI/180)*limit))**2))

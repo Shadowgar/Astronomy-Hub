@@ -32,31 +32,53 @@ const surfaceFragmentHeader=`
 #include <common>
 #include <logdepthbuf_pars_fragment>
 `
-export function sunMaterial(){return new T.ShaderMaterial({vertexShader:surfaceVertex,
- fragmentShader:`${surfaceFragmentHeader}varying vec3 vLocal;varying vec3 vNormal;varying vec3 vEye;${noise}
+export function sunMaterial(){
+ const material=new T.ShaderMaterial({name:'SolarPhotosphere',uniforms:{photosphereColor:{value:new T.Vector3(1,.93,.78)},photosphereLuminance:{value:2.8}},vertexShader:surfaceVertex,
+ fragmentShader:`${surfaceFragmentHeader}uniform vec3 photosphereColor;uniform float photosphereLuminance;varying vec3 vLocal;varying vec3 vNormal;varying vec3 vEye;${noise}
+ float filteredCell(vec3 p){
+  float footprint=max(length(dFdx(p)),length(dFdy(p)));
+  return mix(noise(p),.5,smoothstep(.35,1.2,footprint));
+ }
+ float photosphereLimb(float mu){
+  return .24+.76*pow(clamp(mu,0.,1.),.7);
+ }
  void main(){
  #include <logdepthbuf_fragment>
  vec3 p=normalize(vLocal);float mu=max(0.,dot(normalize(vNormal),normalize(vEye)));
- float cells=fbm(p*34.);float footprint=max(length(dFdx(p*130.)),length(dFdy(p*130.)));float grain=mix(noise(p*130.),.5,smoothstep(.4,1.3,footprint));float network=smoothstep(.22,.72,cells*.65+grain*.35);
- vec3 color=mix(vec3(.95,.18,.025),vec3(3.2,1.25,.22),network);
- color*=.4+.6*pow(mu,.4);gl_FragColor=vec4(color,1.);
+ // Static optical granulation, explicitly illustrative: no activity or weather
+ // clock. Three bounded noise samples, filtered before they become subpixel.
+ float cells=filteredCell(p*92.)*.65+filteredCell(p*210.)*.25+filteredCell(p*22.)*.1;
+ float granulation=.28+.94*smoothstep(.25,.72,cells);
+ vec3 tint=mix(vec3(1.,.69,.38),photosphereColor,pow(mu,.35));
+ vec3 color=tint*(photosphereLuminance*granulation*photosphereLimb(mu));
+ gl_FragColor=vec4(color,1.);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
  }`
-})}
-export function coronaMaterial(){return new T.ShaderMaterial({transparent:true,depthWrite:false,blending:T.AdditiveBlending,
+ });material.userData.calibration='illustrative static granulation and limb darkening; not solar observations';return material
+}
+export function coronaMaterial(){return new T.ShaderMaterial({name:'SolarCompactCorona',transparent:true,depthWrite:false,blending:T.AdditiveBlending,
+ uniforms:{diskRadius:{value:2/7},outerRadius:{value:2.3}},
  vertexShader:`
  #include <common>
  #include <logdepthbuf_pars_vertex>
  varying vec2 vUv;void main(){vUv=uv;vec4 mvPosition=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*mvPosition;
  #include <logdepthbuf_vertex>
  }`,
- fragmentShader:`${surfaceFragmentHeader}varying vec2 vUv;${noise}void main(){
+ fragmentShader:`${surfaceFragmentHeader}uniform float diskRadius,outerRadius;varying vec2 vUv;${noise}void main(){
  #include <logdepthbuf_fragment>
- vec2 p=(vUv-.5)*2.;float r=length(p),a=atan(p.y,p.x),d=max(0.,r-.286);
- float stream=fbm(vec3(cos(a)*12.,sin(a)*12.,r*3.));float narrow=exp(-d*62.)*.65;
- float veil=exp(-d*(12.+stream*14.))*(.18+stream*.7);float outer=exp(-d*5.)*.12;
- float alpha=(narrow+veil+outer)*smoothstep(.275,.29,r)*(1.-smoothstep(.8,1.,r));gl_FragColor=vec4(mix(vec3(1.,.34,.065),vec3(1.,.7,.32),exp(-d*24.)),alpha);
+ vec2 p=(vUv-.5)*2.;float radius=length(p)/diskRadius,height=max(0.,radius-1.);
+ float footprint=max(length(dFdx(p)),length(dFdy(p)))/diskRadius;
+ float angle=atan(p.y,p.x),resolved=smoothstep(2.,14.,1./max(footprint,.0001));
+ float stream=noise(vec3(cos(angle)*11.,sin(angle)*11.,height*2.));
+ stream=mix(.5,stream,resolved);
+ // A compact, neutral inner corona. No broad flat orange disk; streamers and
+ // extent are authored optical illustration, not a measured solar corona.
+ float inner=exp(-height*32.)*.08;
+ float rays=exp(-height*9.)*(.015+.04*stream);
+ float veil=exp(-height*8.)*.012;
+ float alpha=(inner+rays+veil)*smoothstep(1.-footprint,1.+footprint,radius)*(1.-smoothstep(outerRadius-.4,outerRadius,radius));
+ gl_FragColor=vec4(vec3(1.8,1.45,.93),alpha);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
  }`
@@ -121,30 +143,47 @@ export function starsMaterial(pixelRatio:number){return new T.ShaderMaterial({tr
 /** Source UV textures when available, bounded procedural fallback otherwise.
  * Orientation, optical coefficients and missing-data detail remain illustrative. */
 export function planetMaterial(id:string){
- const palettes:Record<string,[string,string,number]>={mercury:['#756b60','#bbb4a5',0],venus:['#a97c45','#f3d7a0',1],jupiter:['#81563d','#ead4af',2],saturn:['#9b8155','#e9d6a3',3],uranus:['#53aeb8','#b5e1df',4],neptune:['#183f9a','#4b7cca',5]}
+ const palettes:Record<string,[string,string,number]>={mercury:['#756b60','#bbb4a5',0],mars:['#7c3e29','#c18763',0],venus:['#a97c45','#f3d7a0',1],jupiter:['#81563d','#ead4af',2],saturn:['#9b8155','#e9d6a3',3],uranus:['#53aeb8','#b5e1df',4],neptune:['#183f9a','#4b7cca',5]}
  const [dark,light,kind]=palettes[id]||palettes.mercury
- const material=new T.ShaderMaterial({name:`SolarPlanet:${id}`,defines:id==='saturn'?{SATURN_RINGS:1}:{},uniforms:{...lightUniforms(),...(id==='saturn'?ringUniforms():{}),ringNormal:{value:new T.Vector3(0,-Math.sin(.48),Math.cos(.48))},map:{value:null},hasMap:{value:false},dark:{value:new T.Color(dark)},light:{value:new T.Color(light)},kind:{value:kind}},vertexShader:surfaceVertex,
- fragmentShader:`${surfaceFragmentHeader}uniform sampler2D map;uniform bool hasMap;uniform vec3 dark,light,sunDirection,ringNormal;uniform float kind;varying vec2 vUv;varying vec3 vLocal,vNormal,vEye,vSun,vRadial;${noise}
+ // Authored disk-response coefficients, not fitted photometry or measured
+ // weather. Original texture geography and source UVs remain unchanged.
+ const rocky=kind===0,particulate=rocky?.35:.08,limbExponent=rocky?0:id==='jupiter'?.16:.1
+ const sourceContrast=id==='jupiter'?1.065:id==='mars'?1.04:1.02
+ const material=new T.ShaderMaterial({name:`SolarPlanet:${id}`,defines:id==='saturn'?{SATURN_RINGS:1}:{},uniforms:{...lightUniforms(),...(id==='saturn'?ringUniforms():{}),ringNormal:{value:new T.Vector3(0,-Math.sin(.48),Math.cos(.48))},map:{value:null},hasMap:{value:false},dark:{value:new T.Color(dark)},light:{value:new T.Color(light)},kind:{value:kind},particulate:{value:particulate},limbExponent:{value:limbExponent},sourceContrast:{value:sourceContrast}},vertexShader:surfaceVertex,
+ fragmentShader:`${surfaceFragmentHeader}uniform sampler2D map;uniform bool hasMap;uniform vec3 dark,light,sunDirection,ringNormal;uniform float kind,particulate,limbExponent,sourceContrast;varying vec2 vUv;varying vec3 vLocal,vNormal,vEye,vSun,vRadial;${noise}
  #ifdef SATURN_RINGS
  ${ringShadowGlsl}
  #endif
+ float planetDiskResponse(float incidence,float emission,float particulate,float limbExponent){
+  float day=max(0.,incidence),mu=max(.001,emission);
+  return mix(day,day/max(.001,day+mu),particulate)*pow(mu,limbExponent);
+ }
  void main(){
  #include <logdepthbuf_fragment>
- vec3 p=normalize(vLocal);float rough=fbm(p*22.);float latitude=p.y;
- float bands=.5+.5*sin(latitude*65.+fbm(p*5.)*2.);float value=rough;
- if(kind>1.5&&kind<3.5)value=mix(rough,bands,.7);
- if(kind>.5&&kind<1.5)value=.55+fbm(p*7.)*.35;
- if(kind>3.5)value=.65+sin(latitude*25.)*.035+rough*.06;
- vec3 albedo=hasMap?texture2D(map,vUv).rgb:mix(dark,light,value);
- vec3 n=normalize(vNormal),l=normalize(vSun),eye=normalize(vEye);float day=max(0.,dot(n,l)),mu=max(.001,dot(n,eye)),shadow=1.;
+ vec3 albedo;
+ if(hasMap)albedo=texture2D(map,vUv).rgb;
+ else{
+  vec3 p=normalize(vLocal);float rough=fbm(p*22.),latitude=p.y,value=rough;
+  if(kind>1.5&&kind<3.5)value=mix(rough,.5+.5*sin(latitude*65.+fbm(p*5.)*2.),.7);
+  if(kind>.5&&kind<1.5)value=.55+fbm(p*7.)*.35;
+  if(kind>3.5)value=.65+sin(latitude*25.)*.035+rough*.06;
+  albedo=mix(dark,light,value);
+ }
+ // A bounded contrast curve on linear source color; never synthesize cloud
+ // bands, bumps, weather or terrain over a source map. SRGB textures already
+ // decode in Three's sampler; no second input or output color transform.
+ if(hasMap)albedo=.22*pow(max(albedo,vec3(0.))/.22,vec3(sourceContrast));
+ vec3 n=normalize(vNormal),l=normalize(vSun),eye=normalize(vEye);float shadow=1.;
  #ifdef SATURN_RINGS
  shadow=ringShadow(normalize(vRadial),normalize(sunDirection),normalize(ringNormal));
  #endif
- // Mixed Lambert / Lommel-Seeliger disk response, not calibrated photometry.
- float diffuse=kind<.5?mix(day,day/max(.001,day+mu),.35):pow(day,.9)*(.65+.35*sqrt(mu));
- vec3 color=albedo*(.008+1.85*diffuse*shadow);gl_FragColor=vec4(color,1.);
+ // Source Sun drives the actual terminator. Rocky particulate response and
+ // cloud-layer limb attenuation are distinct, bounded visual models.
+ float diffuse=planetDiskResponse(dot(n,l),dot(n,eye),particulate,limbExponent);
+ vec3 color=albedo*(.006+1.85*diffuse*shadow);gl_FragColor=vec4(color,1.);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
  }`})
+ material.userData.calibration='illustrative disk response; original source texture geography'
  return id==='saturn'?ownRingProfile(material):material
 }

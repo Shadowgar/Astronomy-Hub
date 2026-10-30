@@ -80,8 +80,9 @@ describe('Saturn radial optical profile',()=>{
  })
 })
 describe('HDR policy',()=>{
- it('retains a direct path without HDR support and never blooms the efficient tier',()=>{
-  expect(solarPipelinePolicy('detailed',false,true).mode).toBe('direct')
+ it('retains linear LDR composition without float support and never blooms the efficient tier',()=>{
+  expect(solarPipelinePolicy('detailed',false,true).mode).toBe('linear-ldr')
+  expect(solarPipelinePolicy('efficient',true,true).mode).toBe('linear-hdr')
   expect(solarPipelinePolicy('efficient',true,true).bloom).toBe(false)
   const rich=solarPipelinePolicy('detailed',true,true)
   expect(rich.mode).toBe('linear-hdr')

@@ -9,7 +9,7 @@ it('releases the previous giant-planet minimum distance during an asteroid appro
  const camera=new T.PerspectiveCamera(42,1,.001,2000),controller=new SolarCameraController(camera,new Canvas() as unknown as HTMLCanvasElement,()=>[],()=>{},()=>{})
  controller.move({position:[0,0,.01],target:[0,0,0]},.000001,.001,true)
  controller.move({position:[0,0,.0000003],target:[0,0,0]},1e-9,6e-8)
- controller.tick(performance.now()+1900)
+ controller.tick(performance.now()+5000)
  expect(camera.position.length()).toBeCloseTo(.0000003,12)
  expect(controller.animating).toBe(false)
  controller.dispose();vi.unstubAllGlobals()
