@@ -25,6 +25,7 @@ tasks:
     - docs/validation/solar-system-2/PLAN.md
     - docs/validation/solar-system-2.1/PLAN.md
     - docs/validation/solar-system-2.1.1/PLAN.md
+    - docs/validation/solar-system-2.2/PLAN.md
 
   docs_change:
     load:

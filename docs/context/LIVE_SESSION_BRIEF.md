@@ -1,5 +1,18 @@
 # LIVE SESSION BRIEF
 
+## Solar System 2.2 — owner-authorized cinematic completion, 2026-10-30
+
+The owner authorizes autonomous private-preview restoration and substantial Solar
+rendering, source-texture streaming, Sun/lighting, composition and exploration
+improvements from66fff05108ca7ed7ee0ee1d5137b4b2619c28373 on existing recovery/PR107.
+This explicitly supersedes the2.1.1 no2.2 stop only for the attached scope. Prior
+visuals remain unaccepted. Preserve JPL/time/source identities, corrected Takram,
+existing native engines/regional terrain, data/settings and rollback. No merge,
+production deployment, public tunnel, source publication or destructive cleanup.
+Actual Windows visual/performance proof and independent review are required.
+[Current scoped plan](../validation/solar-system-2.2/PLAN.md).
+
+
 ## Solar System 2.1.1 — owner-rejected defect correction, 2026-10-29
 
 The owner rejected Earth concentric bands and the isolated Apollo17 rectangular
