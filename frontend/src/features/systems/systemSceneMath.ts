@@ -6,11 +6,11 @@ export const sceneVector=(km:Vec3):Vec3=>km.map(v=>v/1000) as Vec3
 export function displayRadius(radiusKm:number,distanceKm:number,height:number,fov:number,mode:'cinematic'|'physical',pixels:number){
  return mode==='physical'?radiusKm:Math.max(radiusKm,pixels*2*distanceKm*Math.tan(fov*Math.PI/360)/Math.max(1,height))
 }
-export function systemDiskBudgets(disks:{x:number;y:number;desired:number;physical:number}[],width:number,height:number,hud:ScreenRect[]):number[]{
+export function systemDiskBudgets(disks:{x:number;y:number;desired:number;physical:number;envelopeFactor?:number}[],width:number,height:number,hud:ScreenRect[]):number[]{
  return disks.map((d,i)=>{
   const edge=Math.min(d.x,width-d.x,d.y,height-d.y,...hud.map(r=>Math.hypot(Math.max(r.left-d.x,0,d.x-r.right),Math.max(r.top-d.y,0,d.y-r.bottom))))-6
-  const desired=Math.max(d.desired,d.physical)
-  return Math.max(d.physical,diskBudget(desired,disks.filter((_,j)=>j!==i).map(n=>({distance:Math.hypot(n.x-d.x,n.y-d.y),desired:Math.max(n.desired,n.physical)})),edge))
+  const factor=d.envelopeFactor??1,desired=Math.max(d.desired,d.physical)*factor
+  return Math.max(d.physical,diskBudget(desired,disks.filter((_,j)=>j!==i).map(n=>({distance:Math.hypot(n.x-d.x,n.y-d.y),desired:Math.max(n.desired,n.physical)*(n.envelopeFactor??1)})),edge)/factor)
  })
 }
 /** Choose the largest empty rectangle, so wide views use the whole horizontal strip. */

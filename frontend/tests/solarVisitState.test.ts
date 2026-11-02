@@ -7,3 +7,15 @@ it('preserves admitted exploration choices and rejects corrupt restored controls
  expect(readSolarVisitState(s,s.epoch)).toEqual(s)
  for(const patch of [{navigation:'warp'},{asteroids:'yes'},{rate:Infinity},{rate:1e9}])expect(readSolarVisitState({...s,preferences:{...s.preferences,...patch}},s.epoch)).toBe(null)
 })
+
+import {rebaseSolarVisitState} from '../src/features/planet/solarVisitState'
+it('preserves the selected-body camera offset when returning at an advanced epoch',()=>{
+ const view={camera:[5,2,3],target:[4,0,0],anchor:{id:'jupiter',position:[4,0,0]}} as any
+ const next=rebaseSolarVisitState(view,[{source_id:'jupiter',position_au:[4.1,.2,.3]}] as any)
+ expect(next.camera).toEqual([5.1,2.2,3.3]);expect(next.target).toEqual([4.1,.2,.3]);expect(view.camera).toEqual([5,2,3])
+ expect(rebaseSolarVisitState({...view,anchor:undefined},[])).toEqual({...view,anchor:undefined})
+})
+it('keeps a free camera absolute even when an older return state contains a selected-body anchor',()=>{
+ const state={camera:[5,2,3],target:[4,0,0],preferences:{navigation:'free'},anchor:{id:'jupiter',position:[4,0,0]}} as any
+ expect(rebaseSolarVisitState(state,[{source_id:'jupiter',position_au:[9,8,7]}])).toBe(state)
+})

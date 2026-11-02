@@ -48,3 +48,5 @@ data/runtime-packs/planetary-systems/
 # Shared presentation source imported by the Hub build.
 !runtimes/shared/
 !runtimes/shared/glass.css
+# Solar 2.3 bounded satellite coefficients remain a read-only runtime pack.
+data/runtime-packs/planetary-systems-spk/

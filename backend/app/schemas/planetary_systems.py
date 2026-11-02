@@ -79,6 +79,42 @@ class SourceSeries(BaseModel):
     source_url: str
 
 
+class SourceKernel(BaseModel):
+    id: str
+    file: str
+    url: str
+    sha256: str
+    bytes: conint(gt=0)
+
+
+class OrientationSource(BaseModel):
+    id: str
+    url: str
+    sha256: str
+
+
+class OrientationSample(BaseModel):
+    epoch: str
+    jd_tdb: confloat(allow_inf_nan=False)
+    quaternion: conlist(confloat(allow_inf_nan=False), min_items=4, max_items=4)
+
+
+class BodyOrientation(BaseModel):
+    body_id: str
+    naif_id: str
+    from_frame: Literal['body-fixed']
+    to_frame: Literal['ICRF']
+    body_fixed_frame: str
+    model_id: str | None = None
+    quaternion_order: Literal['xyzw']
+    interpolation: Literal['shortest-slerp']
+    model: str
+    source: OrientationSource
+    max_sampled_interpolation_error_arcsec: confloat(ge=0,lt=1,allow_inf_nan=False)
+    accuracy: str
+    samples: conlist(OrientationSample,min_items=2,max_items=5000)
+
+
 class Source(BaseModel):
     id: str
     release: str
@@ -88,6 +124,7 @@ class Source(BaseModel):
     coverage_end_jd_tdb: float | None = None
     series: list[SourceSeries] = Field(default_factory=list)
     transition: str | None = None
+    kernels: list[SourceKernel] = Field(default_factory=list)
 
 
 class Sampling(BaseModel):
@@ -117,3 +154,4 @@ class SystemSnapshot(BaseModel):
     sun_track: Track
     state: dict[str,State]
     sampling: Sampling
+    orientations: dict[str,BodyOrientation] = Field(default_factory=dict)

@@ -19,7 +19,7 @@ export async function loadSolarDetail(id:string,maxSize:number,owner:SolarResour
  map.minFilter=T.LinearMipmapLinearFilter;map.magFilter=T.LinearFilter
  return{map,maxSize:Math.max(map.image.width,map.image.height),source:asset.source,mapping:asset.mapping as SolarDetailPayload['mapping']}
 }
-type Options={budget:SolarTextureBudget;maxTextureSize?:number;load?:(id:string,maxSize:number,owner:SolarResourceOwner)=>Promise<SolarDetailPayload>;apply:(id:string,payload:SolarDetailPayload|null)=>void;requestFrame:()=>void;onError?:(id:string,error:unknown)=>void}
+type Options={budget:SolarTextureBudget;maxTextureSize?:number;select?:typeof solarDetailAsset;load?:(id:string,maxSize:number,owner:SolarResourceOwner)=>Promise<SolarDetailPayload>;apply:(id:string,payload:SolarDetailPayload|null)=>void;requestFrame:()=>void;onError?:(id:string,error:unknown)=>void}
 type Generation={id:string;size:number;owner:SolarResourceOwner;generation:number;finished?:Promise<void>}
 
 /** One selected-body detail demand; the scene retains ownership of its overview.
@@ -60,9 +60,9 @@ export class SolarTextureStreamer{
   this.options.budget.setLimit(solarTextureQuality(this.quality).totalBytes)
   if(!this.target)return
   const size=Math.min(solarTextureQuality(this.quality).detailMaxSize,this.options.maxTextureSize??Infinity)
-  const selected=solarDetailAsset(this.target,size)
+  const selected=(this.options.select??solarDetailAsset)(this.target,size)
   // Test/integration loaders may admit other source-backed bodies explicitly.
-  if(!selected&&!this.options.load)return
+  if(!selected&&(this.options.select||!this.options.load))return
   const actual=selected?Math.min(size,Math.max(selected.image.width,selected.image.height)):size
   if(this.current?.id===this.target&&this.current.size===actual)return
   const next:Generation={id:this.target,size:actual,owner:new SolarResourceOwner(this.options.budget),generation:++this.generation}

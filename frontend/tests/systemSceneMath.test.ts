@@ -37,3 +37,11 @@ describe('parent-centered scene geometry',()=>{
   expect(Math.abs(view.rectangleOffsetX)).toBeLessThan(1)
  })
 })
+
+it('budgets the full Saturn ring envelope against screen edges, controls and neighboring moons',()=>{
+ const disks=[{x:110,y:180,desired:90,physical:4,envelopeFactor:2.5},{x:230,y:180,desired:38,physical:2}]
+ const radii=systemDiskBudgets(disks,844,390,[{left:12,right:832,top:325,bottom:380}])
+ expect(radii[0]*2.5).toBeLessThanOrEqual(104)
+ expect(radii[0]*2.5+radii[1]).toBeLessThanOrEqual(120)
+ expect(radii[0]).toBeGreaterThanOrEqual(4)
+})

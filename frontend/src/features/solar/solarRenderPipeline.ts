@@ -1,4 +1,5 @@
 import * as T from 'three'
+import {prepareSolarShaders} from './solarShaderPreparation'
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js'
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js'
 import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js'
@@ -49,6 +50,22 @@ export function createSolarRenderPipeline(renderer:any,scene:any,camera:any){
  }
  ensure()
  return{
+  prepare(signal:AbortSignal){
+   // Prepare actual linear-target scene and composer variants. Fullscreen
+   // materials otherwise stall at first-use program validation after the scene
+   // is ready. Shader checks remain enabled. Temporary geometry is never drawn.
+   const target=renderer.getRenderTarget(),warm=new T.Scene(),screen=new T.Scene(),geometry=new T.BufferGeometry()
+   geometry.setAttribute('position',new T.Float32BufferAttribute([-1,-1,0,3,-1,0,-1,3,0],3))
+   geometry.setAttribute('uv',new T.Float32BufferAttribute([0,0,2,0,0,2],2))
+   // OutputPass derives these same defines on its first render; the pipeline
+   // fixes ACES + sRGB, and FXAA follows it in a linear-valued render target.
+   output.material.defines={SRGB_TRANSFER:'',ACES_FILMIC_TONE_MAPPING:''}
+   for(const material of [bloom.materialHighPassFilter,...bloom.separableBlurMaterials,bloom.compositeMaterial,bloom.blendMaterial,output.material])warm.add(new T.Mesh(geometry,material))
+   screen.add(new T.Mesh(geometry,antialias.material))
+   renderer.setRenderTarget(composer.readBuffer)
+   try{const quadCamera=new T.OrthographicCamera(-1,1,1,-1,0,1),jobs=[prepareSolarShaders(renderer,scene,camera,signal),prepareSolarShaders(renderer,warm,quadCamera,signal)];renderer.setRenderTarget(null);jobs.push(prepareSolarShaders(renderer,screen,quadCamera,signal));return Promise.all(jobs).then(results=>({state:results.some(r=>r.state==='aborted')?'aborted':'ready',supported:results.every(r=>r.supported),materials:results.reduce((n,r)=>n+r.materials,0),milliseconds:Math.max(...results.map(r=>r.milliseconds))})).finally(()=>{warm.clear();screen.clear();geometry.dispose()})}
+   finally{renderer.setRenderTarget(target)}
+  },
   render(){
    if(disposed)return
    renderer.info.reset()

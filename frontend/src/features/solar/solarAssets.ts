@@ -25,6 +25,7 @@ export class SolarResourceOwner{
  private disposed=false
  private requests=0
  private decodes:{kind:string;milliseconds:number}[]=[]
+ private fetches:{url:string;bytes:number;milliseconds:number}[]=[]
  private budget:SolarTextureBudget
  constructor(textureBudget:number|SolarTextureBudget=192*1024*1024){this.budget=typeof textureBudget==='number'?new SolarTextureBudget(textureBudget):textureBudget}
  get signal(){return this.controller.signal}
@@ -40,13 +41,14 @@ export class SolarResourceOwner{
  private pendingDecode(bytes:number,count=1){this.decodingBytes+=bytes;this.decodingAllocations+=count}
  private finishDecode(bytes:number,count=1,release=false){this.decodingBytes-=bytes;this.decodingAllocations-=count;if(release){this.textureBytes-=bytes;this.textureAllocations-=count;this.budget.release(bytes,count)}}
  async bytes(url:string,fetcher:typeof fetch=fetch){
-  this.signal.throwIfAborted();this.requests++
+  this.signal.throwIfAborted();this.requests++;const started=performance.now()
   try{
    const response=await fetcher(url,{signal:this.signal})
    if(!response.ok)throw Error('Solar asset unavailable.')
    if(Number(response.headers.get('content-length'))>16*1024*1024)throw Error('Solar asset network budget exceeded.')
    const data=await response.arrayBuffer();this.signal.throwIfAborted()
    if(data.byteLength>16*1024*1024)throw Error('Solar asset network budget exceeded.')
+   this.fetches.push({url,bytes:data.byteLength,milliseconds:performance.now()-started});if(this.fetches.length>64)this.fetches.shift()
    return data
   }finally{this.requests--}
  }
@@ -103,6 +105,6 @@ export class SolarResourceOwner{
    this.decodes.push({kind:'model',milliseconds:performance.now()-start});return gltf
   }catch(e){this.finishDecode(reserved,reservedCount,true);closeLoaded();throw e}
  }
- diagnostics(){return{resources:this.resources.size,textureBytes:this.textureBytes,textureAllocations:this.textureAllocations,decodingBytes:this.decodingBytes,textureBudget:this.budget.diagnostics().textureBudget,shared:this.budget.diagnostics(),requests:this.requests,decodeSamples:this.decodes,disposed:this.disposed}}
+ diagnostics(){return{resources:this.resources.size,textureBytes:this.textureBytes,textureAllocations:this.textureAllocations,decodingBytes:this.decodingBytes,textureBudget:this.budget.diagnostics().textureBudget,shared:this.budget.diagnostics(),requests:this.requests,decodeSamples:this.decodes,fetchSamples:this.fetches,disposed:this.disposed}}
  dispose(){if(this.disposed)return;this.disposed=true;this.controller.abort();for(const resource of this.resources)resource.dispose();this.resources.clear();this.budget.release(this.textureBytes-this.decodingBytes,this.textureAllocations-this.decodingAllocations);this.textureBytes=this.decodingBytes;this.textureAllocations=this.decodingAllocations}
 }

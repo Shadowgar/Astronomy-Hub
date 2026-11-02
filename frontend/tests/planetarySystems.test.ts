@@ -23,3 +23,9 @@ describe('Horizons physical-center source admission',()=>{
  const outer=()=>{const s=structuredClone(systemFixture());s.system_id='mars';s.parent={...s.parent,id:'mars',name:'Mars',naif_id:'499'};s.origin='Mars center (499)';s.satellites=[{...s.satellites[0],id:'phobos',name:'Phobos',naif_id:'401',surface:{available:false,destination:null}}];s.tracks[0].id='phobos';s.source={...s.source,id:'jpl_horizons_local',transition:'Separate physical-center source domain.',series:[{target_id:'499',center_id:'10',source_sha256:'b'.repeat(64),source_url:'https://ssd.jpl.nasa.gov/'},{target_id:'401',center_id:'499',source_sha256:'c'.repeat(64),source_url:'https://ssd.jpl.nasa.gov/'}]};return s}
  it('requires a consistent physical parent and moon source domain',()=>{expect(validateSystemSnapshot(outer(),'mars',epoch).source.series?.length).toBe(2);for(const mutate of [(s:SystemSnapshot)=>{s.source.series![0].target_id='4'},(s:SystemSnapshot)=>{s.source.series![1].center_id='4'},(s:SystemSnapshot)=>{s.source.series=[]},(s:SystemSnapshot)=>{s.source.transition=''},(s:SystemSnapshot)=>{s.source.id='jpl_de442s_local'},(s:SystemSnapshot)=>{s.corrections='apparent'}]){const s=outer();mutate(s);expect(()=>validateSystemSnapshot(s,'mars',epoch)).toThrow()}})
 })
+it('preserves admitted system graphics/navigation preferences and accepts legacy return state',()=>{
+ const state={schema:'oras.system-return.v1',system:'earth',epoch:'2026-10-27T04:00:00.000Z',camera:{position:[0,0,1000000],target:[0,0,0],up:[0,1,0],focus:null},sizeMode:'physical',orbits:true}
+ expect(readSystemVisit(state,'earth',state.epoch)).toEqual(state)
+ expect(readSystemVisit({...state,quality:'efficient',navigation:'free'},'earth',state.epoch)?.navigation).toBe('free')
+ for(const patch of [{quality:'ultra'},{navigation:'warp'},{quality:12},{navigation:null}])expect(readSystemVisit({...state,...patch},'earth',state.epoch)).toBeNull()
+})

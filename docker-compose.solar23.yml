@@ -1,0 +1,14 @@
+# Opt-in source activation after bounded acquisition and qualification. This
+# override does not start/recreate services and creates no missing host path.
+# docker compose -f docker-compose.yml -f docker-compose.solar23.yml config
+services:
+  backend:
+    environment:
+      ORAS_PLANETARY_SYSTEMS_SPK_DIR: /runtime/planetary-systems-spk
+    volumes:
+      - type: bind
+        source: ${ORAS_PLANETARY_SYSTEMS_SPK_HOST_DIR:-./data/runtime-packs/planetary-systems-spk/release-2025-2030-v3}
+        target: /runtime/planetary-systems-spk
+        read_only: true
+        bind:
+          create_host_path: false

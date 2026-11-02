@@ -194,3 +194,9 @@ def test_browser_safe_published_bounds_round_trip_and_strict_exclusion(monkeypat
             assert _request('/api/v1/planetary-systems/mars',{'epoch':(bound+delta).isoformat()}).status_code==422
     assert snap['source']['coverage_start_jd_tdb']==service.FIRST
     assert snap['source']['coverage_end_jd_tdb']==service.LAST
+
+
+@pytest.fixture(autouse=True)
+def retain_legacy_source_domain(monkeypatch,tmp_path):
+    """These regression tests specifically qualify the retained PS1/PS2 paths."""
+    monkeypatch.setenv("ORAS_PLANETARY_SYSTEMS_SPK_DIR",str(tmp_path/"no-spk-release"))

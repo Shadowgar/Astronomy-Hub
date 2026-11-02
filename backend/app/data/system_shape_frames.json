@@ -1,0 +1,99 @@
+{
+  "frames": {
+    "deimos": {
+      "accuracy": "Legacy source-label frame, not modern pck00011. TDB days from J2000 follow IAU/SPICE convention; the label does not spell out the time scale. Preserves source morphology and registration; no modern spin-pole or surface accuracy claim.",
+      "frame": "PDS_THOMAS_DEIMOS",
+      "longitude_convention": {
+        "basis": "PDS planetocentric longitude increases eastward in a right-handed frame; source label explicitly says planetocentric.",
+        "url": "https://pds.nasa.gov/data/pds4/documents/document_pds3_standards/psdd_rev_E_20020828.pdf"
+      },
+      "model": "PDS Thomas Deimos legacy source-label pole RA=316.65 deg, Dec=53.53 deg J2000; W=79.41+285.1618970*d deg",
+      "model_id": "pds-thomas-deimos-label-v1",
+      "naif_id": "402",
+      "source": {
+        "id": "PDS Thomas Deimos source-label pole and prime meridian",
+        "sha256": "74b4c557e6827940430b2d670ec972d9a5d5dc63ef0a95b2b6ebd141ab78f634",
+        "url": "https://sbnarchive.psi.edu/pds4/non_mission/ast-sat.thomas.shape-models_V1_0/data/m2deimos.xml"
+      },
+      "variables": {
+        "BODY402_PM": [
+          79.41,
+          285.161897,
+          0
+        ],
+        "BODY402_POLE_DEC": [
+          53.53,
+          0,
+          0
+        ],
+        "BODY402_POLE_RA": [
+          316.65,
+          0,
+          0
+        ]
+      }
+    },
+    "phobos": {
+      "accuracy": "The mesh explicitly uses pck00006. This preserves its legacy coordinate registration; it is not a modern pck00011 orientation or physical accuracy claim.",
+      "frame": "IAU_PHOBOS",
+      "model": "PDS Gaskell Phobos shape reference: legacy NAIF pck00006 IAU_PHOBOS",
+      "model_id": "pds-gaskell-phobos-pck00006",
+      "naif_id": "401",
+      "registration": {
+        "sha256": "364b44bb0921c1ed20068791404ddb68d3acc35ca8bfcca0885d752f971b04ee",
+        "url": "https://sbnarchive.psi.edu/pds4/non_mission/gaskell.phobos.shape-model/document/bundle_description.txt"
+      },
+      "source": {
+        "id": "NAIF pck00006 for PDS Gaskell Phobos mesh",
+        "sha256": "8aacb5dff544bed1f7cf0659296a1ca75896128a0a729447be0a4deb4de4ecb4",
+        "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/a_old_versions/pck00006.tpc"
+      },
+      "variables": {
+        "BODY401_NUT_PREC_DEC": [
+          -1.08,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "BODY401_NUT_PREC_PM": [
+          -1.42,
+          -0.78,
+          0.0,
+          0.0
+        ],
+        "BODY401_NUT_PREC_RA": [
+          1.79,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "BODY401_PM": [
+          35.06,
+          1128.844585,
+          6.644300993056522e-09
+        ],
+        "BODY401_POLE_DEC": [
+          52.9,
+          -0.061,
+          0.0
+        ],
+        "BODY401_POLE_RA": [
+          317.68,
+          -0.108,
+          0.0
+        ],
+        "BODY4_NUT_PREC_ANGLES": [
+          169.51,
+          -15916.2801,
+          192.93,
+          41215163.19675,
+          53.47,
+          -662.965275,
+          36.53,
+          662.965275
+        ]
+      }
+    }
+  },
+  "schema": "oras.pds-shape-frames.v1"
+}

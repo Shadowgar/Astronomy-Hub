@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 
 from backend.app.services import planetary_ephemeris_service as ephemeris
-from backend.app.services import horizons_systems
+from backend.app.services import horizons_systems, satellite_spk_systems, system_body_orientation
 from backend.app.services.solar_exploration import BODIES
 
 COVERAGE_START = datetime(1900, 1, 1, tzinfo=timezone.utc)
@@ -49,7 +49,13 @@ def base_catalog():
 
 
 def system_catalog():
-    return horizons_systems.qualify_catalog(base_catalog())
+    catalog=base_catalog()
+    if satellite_spk_systems.source_present():
+        try:
+            return satellite_spk_systems.qualify_catalog(catalog)
+        except ephemeris.EphemerisUnavailableError:
+            return catalog
+    return horizons_systems.qualify_catalog(catalog)
 
 
 def _window(runtime, epoch, start, end):
@@ -109,6 +115,8 @@ def system_snapshot(system_id, epoch):
     if system is None:
         raise KeyError(system_id)
     if system_id in horizons_systems.PARENTS:
+        if satellite_spk_systems.source_present():
+            return satellite_spk_systems.spk_snapshot(system_id, epoch, system)
         return horizons_systems.horizons_snapshot(system_id, epoch, system)
     if system['status'] != 'qualified':
         raise ephemeris.EphemerisUnavailableError(UNAVAILABLE)
@@ -140,6 +148,7 @@ def system_snapshot(system_id, epoch):
             coverage=dict(start=_iso(start), end=_iso(end)), sampled_coverage=dict(start=_iso(stamps[0]),end=_iso(stamps[-1])),
             source=dict(id=ephemeris.SOURCE_KEY, release=runtime.manifest['release_version'], sha256=runtime.manifest['sha256'], url=runtime.manifest['source_url']),
             tracks=[dict(id='moon',samples=moon)], sun_track=dict(id='sun',samples=sun), state=state,
+            orientations=system_body_orientation.earth_moon_orientations(stamps[0],stamps[-1],runtime.timescale),
             sampling=dict(step_seconds=STEP_SECONDS, interpolation='cubic-hermite', max_position_error_km=max(moon_error,sun_error),
                 qualification_points_per_segment=3, time_fraction='UTC; TDB endpoint duration; leap transitions clipped',
                 qualification='Every segment checked at quarter, half and three-quarter times against direct DE442s for Moon and parent-to-Sun; measured sampled error, not an all-times accuracy guarantee. Playback stops at sampled coverage. Future UTC uses installed Skyfield leap-second table.'))

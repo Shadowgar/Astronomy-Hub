@@ -75,3 +75,9 @@ it('defers replacement admission and a smaller budget until uncancellable bitmap
   expect(budget.diagnostics().textureBytes).toBe(0)
  }finally{stream.dispose();vi.unstubAllGlobals()}
 })
+it('admits native moon LODs without upscaling or refetching a capped source',async()=>{
+ const load=vi.fn(async()=>({map:{} as any,maxSize:1024,source:'source',mapping:'source-uv' as const})),select=vi.fn(()=>({asset:{} as any,image:{width:1024,height:512} as any}))
+ const stream=new SolarTextureStreamer('balanced',{budget:new SolarTextureBudget(192*1024*1024),select,load,apply:vi.fn(),requestFrame:vi.fn()})
+ stream.setTarget('miranda');await flush();expect(load.mock.calls[0][1]).toBe(1024)
+ stream.setQuality('detailed');expect(load).toHaveBeenCalledTimes(1);expect(stream.diagnostics().current?.maxSize).toBe(1024);stream.dispose()
+})

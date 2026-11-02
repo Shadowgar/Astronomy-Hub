@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "existingContainerIdsRetained": 145,
+  "existingVolumeNamesRetained": 90,
+  "newContainerIds": [
+    "eb54c3d2ddf6"
+  ],
+  "note": "IDs/names preserved. Two existing task-preview services were started after inspected exit255. One new task-only read-only backend remains; no production/container-volume migration."
+}

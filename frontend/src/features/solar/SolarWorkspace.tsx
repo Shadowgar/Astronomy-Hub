@@ -2,7 +2,7 @@ import PlanetSelector from '../systems/PlanetSelector'
 import {parentCenters,systemPath} from '../systems/systemContracts'
 import '../systems/systems.css'
 import {createPlanetChannel} from '../planet/planetContracts'
-import {readSolarVisitState} from '../planet/solarVisitState'
+import {readSolarVisitState,rebaseSolarVisitState} from '../planet/solarVisitState'
 import '../planet/planet.css'
 import React,{useEffect,useRef,useState}from'react'
 import{useLocation,useNavigate}from'react-router-dom'
@@ -85,11 +85,12 @@ export default function SolarWorkspace(){
    currentSnapshot.current=data;clock.current.seek(data.epoch);approvedEpoch.current=data.epoch;setSimulationEpoch(data.epoch);useRuntimeProductState.setState({requestedTime:data.epoch})
    if(!engine.current){
     const scene=mountSolarScene(host.current,data,reduced,id=>latestPick.current(id),setCameraView,setNavigation);engine.current=scene;window.orasSolarDiagnostics=scene.diagnostics
-    scene.setAtmosphereMethod(atmosphereMethod);scene.setAnimation(runFrame);scene.setOrbits(preferences.current.orbits);scene.setEffects(preferences.current.effects);scene.setQuality(preferences.current.quality);scene.setBelt(preferences.current.belt,preferences.current.beltDensity);scene.setSizeMode(preferences.current.sizeMode);scene.setOverview(preferences.current.overview);scene.focus(latestBody.current);if(restore||restored)scene.restoreView((restore||restored)!);scene.setAsteroids(controlsState.current.asteroids);if(restore||restored)scene.setNavigation(controlsState.current.navigation,true)
+    scene.setAtmosphereMethod(atmosphereMethod);scene.setAnimation(runFrame);scene.setOrbits(preferences.current.orbits);scene.setEffects(preferences.current.effects);scene.setQuality(preferences.current.quality);scene.setBelt(preferences.current.belt,preferences.current.beltDensity);scene.setSizeMode(preferences.current.sizeMode);scene.setOverview(preferences.current.overview);scene.focus(latestBody.current);if(restore||restored)scene.restoreView(rebaseSolarVisitState((restore||restored)!,data.bodies));scene.setAsteroids(controlsState.current.asteroids);if(restore||restored)scene.setNavigation(controlsState.current.navigation,true)
    }else engine.current.updateSnapshot(data)
+   const preparedScene=engine.current;await preparedScene?.ready;if(abort.signal.aborted||version!==seekVersion.current||!preparedScene||engine.current!==preparedScene)return
    setSnapshot(data);setStatus('Solar System ready')
    try{const window=await loadSolarMotion(loadEpoch,abort.signal);if(!abort.signal.aborted&&version===seekVersion.current){acceptMotion(window);const evaluated=evaluateSolarMotion(window,Date.parse(loadEpoch));engine.current?.updateSnapshot(data,evaluated.jd_tdb,evaluated.icrfToItrs);if(liveAfterSeek.current){liveAfterSeek.current=false;playback(1)}}}catch(e){if(!abort.signal.aborted)setNotice(e instanceof Error?e.message:'Playback source unavailable.')}
-  }catch(e){if(!abort.signal.aborted){setError(e instanceof Error?e.message:'Solar System unavailable.');setStatus('')}}})()
+  }catch(e){if(!abort.signal.aborted){engine.current?.dispose();engine.current=null;setError(e instanceof Error?e.message:'Solar System unavailable.');setStatus('')}}})()
   return()=>abort.abort()
  },[epoch,retry])
  function playback(nextRate=rate){
@@ -101,7 +102,7 @@ export default function SolarWorkspace(){
  function cameraMode(mode:NavigationMode){setNavigation(mode);engine.current?.setNavigation(mode)}
  useEffect(()=>{engine.current?.focus(bodyId);setNotice('');setExpanded(false)},[bodyId])
  function selectBody(id:SolarObjectId|null){if(id===bodyId)engine.current?.focus(id);const p=new URLSearchParams(location.search);p.set('date',epoch);p.delete('solarSatellite');if(id)p.set('solarBody',id);else p.delete('solarBody');navigate('/solar-system?'+p,{state:{...location.state,r4SolarView:undefined}})}
- function enterSystem(id:string,satellite:string|null=null){pause();const d=engine.current?.diagnostics() as Record<string,unknown>|undefined;if(!d||!snapshot)return;const saved={schema:'oras.solar-return.v1',epoch:approvedEpoch.current,camera:d.camera,target:d.target,cameraUp:d.cameraUp,cameraView:d.cameraView,closeView:d.closeView,near:d.near,preferences:preferences.current};const departureState={...location.state,r4SolarView:saved},returnQuery=new URLSearchParams(location.search);returnQuery.delete('solarSatellite');returnQuery.set('date',approvedEpoch.current);const departurePath=location.pathname+'?'+returnQuery;navigate(departurePath,{replace:true,state:departureState});navigate(systemPath(id,approvedEpoch.current,satellite),{state:{systemReturn:{path:departurePath,state:departureState}}})}
+ function enterSystem(id:string,satellite:string|null=null){pause();const d=engine.current?.diagnostics() as Record<string,unknown>|undefined;if(!d||!snapshot)return;const anchor=bodyId&&controlsState.current.navigation!=='free'?currentSnapshot.current?.bodies.find(b=>b.source_id===bodyId):null;const saved={schema:'oras.solar-return.v1',epoch:approvedEpoch.current,anchor:anchor?{id:anchor.source_id,position:anchor.position_au}:undefined,camera:d.camera,target:d.target,cameraUp:d.cameraUp,cameraView:d.cameraView,closeView:d.closeView,near:d.near,preferences:preferences.current};const departureState={...location.state,r4SolarView:saved},returnQuery=new URLSearchParams(location.search);returnQuery.delete('solarSatellite');returnQuery.set('date',approvedEpoch.current);const departurePath=location.pathname+'?'+returnQuery;navigate(departurePath,{replace:true,state:departureState});navigate(systemPath(id,approvedEpoch.current,satellite),{state:{systemReturn:{path:departurePath,state:departureState}}})}
  // Preserve historical satellite bookmarks by resolving them into their parent system.
  useEffect(()=>{if(moonContext&&snapshot&&engine.current)enterSystem('earth','moon')},[moonContext,snapshot])
  function applyPreset(preset:SolarPreset){setOverview(preset);engine.current?.setOverview(preset);selectBody(null)}

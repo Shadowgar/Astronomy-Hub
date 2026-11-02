@@ -112,3 +112,9 @@ def test_fractional_epoch_immediately_before_leap_is_in_sampled_coverage():
     end = datetime.fromisoformat(snap['sampled_coverage']['end'].replace('Z','+00:00'))
     assert epoch <= end < datetime(2017,1,1,tzinfo=timezone.utc)
     assert snap['sampling']['max_position_error_km'] < 1
+
+
+@pytest.fixture(autouse=True)
+def retain_legacy_source_domain(monkeypatch,tmp_path):
+    """These regression tests specifically qualify the retained PS1/PS2 paths."""
+    monkeypatch.setenv("ORAS_PLANETARY_SYSTEMS_SPK_DIR",str(tmp_path/"no-spk-release"))

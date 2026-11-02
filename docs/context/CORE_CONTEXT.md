@@ -1,5 +1,23 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Solar System 2.3 — owner-authorized planetary reconstruction, 2026-11-02
+
+The owner explicitly authorizes Planetary Systems2.0 within Solar2.3 from
+`767ec130faa60606e689a889f7ed4c3c58ee74fc`, existing recovery branch / draftPR107.
+This supersedes the2.2 stop only for shared celestial rendering, qualified moon
+assets/frames and bounded ephemeris expansion, local-system exploration and proof.
+Preserve Solar2.2, nativeSky/Earth/Moon/Apollo17, scientific centers/time, protected
+data and rollback. No merge/deploy/publicsource/tunnel/protecteddeletion.
+Implemented candidate: shared Solar/system bodies, rings/HDR/streaming/cameras,
+qualified2025–2030 satellite SPKs and source-frame models,12 NASA moon assets and
+2 measured PDS shapes.647 frontend tests,115 Docker science tests (34 upstream
+warnings),55 captures,27 journey groups,4 lifecycle checks,6 Solar streaming cases
+and28 measured Windows GPU cases. Cold max166.6ms remains; not hitch-free.
+Independent source/asset/renderer reviews complete in scoped reports. Owner visual
+acceptance, physicaliPhone and matching/public source-release gates remain open.
+Stop product expansion for owner review; keep PR107 draft/unmerged. Final SHA and
+hosted checks are recorded in PR107. [Evidence and limits](../validation/solar-system-2.3/README.md).
+
 ## Solar System 2.2 — implemented candidate, owner acceptance pending, 2026-10-30
 
 Existing recovery branch / draft PR107. Application39f73b2ff0162d491fcf65b41a0bc038dd608b65
