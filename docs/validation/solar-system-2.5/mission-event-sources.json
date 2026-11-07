@@ -1,0 +1,205 @@
+{
+  "schema": "astronomy-hub.mission-event-sources.v1",
+  "documents": [
+    {
+      "id": "nasa-media-terms",
+      "url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "file": "nasa-media-terms.html",
+      "bytes": 313757,
+      "sha256": "fd89b1beb574a8712a4b34981917f6f435a98be4fe7d158ab156823be531310f",
+      "acquiredUtc": "2026-11-07T09:27:34.630812+00:00"
+    },
+    {
+      "id": "voyager-dimensions",
+      "url": "https://science.nasa.gov/mission/voyager/spacecraft/",
+      "file": "voyager-dimensions.html",
+      "bytes": 310840,
+      "sha256": "9c3764381dd05637cf8d1ca4ca9dbf71ff60c7e3943b89a97717a17b0d1f6029",
+      "acquiredUtc": "2026-11-07T09:27:35.747078+00:00"
+    },
+    {
+      "id": "cassini-dimensions",
+      "url": "https://solarsystem.nasa.gov/system/downloadable_items/1944_humanspacecraft.pdf",
+      "file": "cassini-dimensions.pdf",
+      "bytes": 311362,
+      "sha256": "60d4d90f571ab227a41a6d616569da750bca06ae437353f7f972fdfa3a118963",
+      "acquiredUtc": "2026-11-07T09:27:36.616910+00:00"
+    },
+    {
+      "id": "new-horizons-dimensions",
+      "url": "https://www.nasa.gov/image-article/new-horizons-approaches-pluto/",
+      "file": "new-horizons-dimensions.html",
+      "bytes": 267252,
+      "sha256": "185add9ab9048be614d0a0e3008445d7c4febd0a30fb39e118356b81a8918f73",
+      "acquiredUtc": "2026-11-07T09:27:37.660529+00:00"
+    },
+    {
+      "id": "voyager-1-events",
+      "url": "https://science.nasa.gov/mission/voyager/voyager-1/",
+      "file": "voyager-1-events.html",
+      "bytes": 319709,
+      "sha256": "4e33ab0697b136ef1ba85926bfe0904a563104d6850cb1dfb4aceee50f198b09",
+      "acquiredUtc": "2026-11-07T09:27:38.969141+00:00"
+    },
+    {
+      "id": "voyager-2-events",
+      "url": "https://science.nasa.gov/mission/voyager/voyager-2/",
+      "file": "voyager-2-events.html",
+      "bytes": 328628,
+      "sha256": "ead5f3886e60063ac19577bcad07a4e28aec062874913bf5dd3d36ba5b06d885",
+      "acquiredUtc": "2026-11-07T09:27:40.211313+00:00"
+    },
+    {
+      "id": "voyager-fast-facts",
+      "url": "https://science.nasa.gov/mission/voyager/fast-facts/",
+      "file": "voyager-fast-facts.html",
+      "bytes": 278993,
+      "sha256": "45c656d4ad1062521fab7800c08645dfe48c3e8e238231e642bed7e6f373387a",
+      "acquiredUtc": "2026-11-07T09:27:41.256719+00:00"
+    },
+    {
+      "id": "voyager-planetary-voyage",
+      "url": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+      "file": "voyager-planetary-voyage.html",
+      "bytes": 311070,
+      "sha256": "d188bd3af05f1d90f54ee96a6b894d68c060c6d7ba60281ccc13b9f0c0ea0c3b",
+      "acquiredUtc": "2026-11-07T09:27:42.307615+00:00"
+    },
+    {
+      "id": "cassini-events",
+      "url": "https://science.nasa.gov/mission/cassini-huygens/",
+      "file": "cassini-events.html",
+      "bytes": 296831,
+      "sha256": "10ef21fc05d8e7b6f533fccea96fdb542a483a3088b38be27379f3e4fd5a811b",
+      "acquiredUtc": "2026-11-07T09:27:43.492511+00:00"
+    },
+    {
+      "id": "new-horizons-events",
+      "url": "https://science.nasa.gov/mission/new-horizons/",
+      "file": "new-horizons-events.html",
+      "bytes": 322617,
+      "sha256": "07275c648e10e10565d3923cda18ec8fe48c377edbfa45bf13f0ead853b4dc4b",
+      "acquiredUtc": "2026-11-07T09:27:44.613510+00:00"
+    },
+    {
+      "id": "voyager-periapse",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/voyager-periapse.html",
+      "file": "voyager-periapse.html",
+      "bytes": 2277,
+      "sha256": "cb16dc2a84c839c494ebb2190fe3e8a47678e2a6257762b170c3d7bfefdee892",
+      "acquiredUtc": "2026-11-07T09:32:10.959936+00:00"
+    },
+    {
+      "id": "cassini-titan-a",
+      "url": "https://science.nasa.gov/missions/cassini/titan-flyby-a-t-a-oct-26-2004/",
+      "file": "cassini-titan-a.html",
+      "bytes": 275651,
+      "sha256": "ce34a73ce178e9ca3acd46603249a3e9879d1e0b2e7eae66ab34b3e700b3cd47",
+      "acquiredUtc": "2026-11-07T09:32:12.234995+00:00"
+    },
+    {
+      "id": "cassini-enceladus-e21",
+      "url": "https://science.nasa.gov/missions/cassini/enceladus-flyby-21-e-21-deepest-dive-through-the-plume/",
+      "file": "cassini-enceladus-e21.html",
+      "bytes": 283945,
+      "sha256": "f3dc0c49769eba4776c436c19af2940dc2dce7ae234be996e788512efc486126",
+      "acquiredUtc": "2026-11-07T09:32:13.627302+00:00"
+    },
+    {
+      "id": "cassini-grand-finale",
+      "url": "https://science.nasa.gov/mission/cassini/grand-finale/grand-finale-orbit-guide/",
+      "file": "cassini-grand-finale.html",
+      "bytes": 340010,
+      "sha256": "af6c5489b95b02e57050123ddf03fb2751be035ec45b5853770533cd4f573f11",
+      "acquiredUtc": "2026-11-07T09:32:14.820821+00:00"
+    },
+    {
+      "id": "new-horizons-arrokoth",
+      "url": "https://science.nasa.gov/resource/new-horizons-arrokoth-2014-mu69-approach/",
+      "file": "new-horizons-arrokoth.html",
+      "bytes": 268228,
+      "sha256": "c0627bbc961d7fd68b91b58e5f11f35ce797e0c505816568db0688c237d5e12b",
+      "acquiredUtc": "2026-11-07T09:32:16.182250+00:00"
+    },
+    {
+      "id": "cassini-end-confirmed",
+      "url": "https://www.nasa.gov/news-release/nasas-cassini-spacecraft-ends-its-historic-exploration-of-saturn/",
+      "file": "cassini-end-confirmed.html",
+      "bytes": 277126,
+      "sha256": "97b8409312e9a68b7fe70e1b4b98b3a1e427dc9d3a8dcd32c88724828faa44ba",
+      "acquiredUtc": "2026-11-07T09:32:47.537056+00:00"
+    },
+    {
+      "id": "juno-launch",
+      "url": "https://science.nasa.gov/mission/juno/",
+      "file": "juno-launch.html",
+      "bytes": 495296,
+      "sha256": "35d80bba9c5fa3c774da366d27b16ae787c4aeaee7cac3ccfa94c5dfcb546557",
+      "acquiredUtc": "2026-11-07T09:45:35.821353+00:00"
+    },
+    {
+      "id": "juno-orbits",
+      "url": "https://science.nasa.gov/mission/juno/juno-orbits/",
+      "file": "juno-orbits.html",
+      "bytes": 290352,
+      "sha256": "e47774dcad2920115ecb68d5f38ea09a7643068de06bc06245b422ff359e662c",
+      "acquiredUtc": "2026-11-07T09:45:37.007224+00:00"
+    },
+    {
+      "id": "dawn-quick-facts",
+      "url": "https://science.nasa.gov/mission/dawn/toolkit/quick-facts/",
+      "file": "dawn-quick-facts.html",
+      "bytes": 272677,
+      "sha256": "360fc13221e3c3091adc144240f0282e8e4f10950982825730306e62dc52da34",
+      "acquiredUtc": "2026-11-07T09:45:38.162230+00:00"
+    },
+    {
+      "id": "dawn-mission-status",
+      "url": "https://science.nasa.gov/mission/dawn/mission-status/",
+      "file": "dawn-mission-status.html",
+      "bytes": 594023,
+      "sha256": "dfff8ba4ea870e5256d17ad27b11ea15b4be423396be9facb0b50d745a7b7386",
+      "acquiredUtc": "2026-11-07T09:45:40.082366+00:00"
+    },
+    {
+      "id": "near-events",
+      "url": "https://science.nasa.gov/mission/near-shoemaker/",
+      "file": "near-events.html",
+      "bytes": 288459,
+      "sha256": "6b972a48c955e067853b37769bf78a518633c664d6333a93c40a2b26b1d4157a",
+      "acquiredUtc": "2026-11-07T09:45:41.276626+00:00"
+    },
+    {
+      "id": "rosetta-operations",
+      "url": "https://www.esa.int/Enabling_Support/Operations/Rosetta_operations",
+      "file": "rosetta-operations.html",
+      "bytes": 256664,
+      "sha256": "605c4cbc4880799a5018306b6f3c90f792fc7928c0f1499d97672f8484b29e02",
+      "acquiredUtc": "2026-11-07T09:45:43.553839+00:00"
+    },
+    {
+      "id": "pioneer10-events",
+      "url": "https://science.nasa.gov/mission/pioneer-10/",
+      "file": "pioneer10-events.html",
+      "bytes": 289495,
+      "sha256": "9d9907d2aa0278b0e990d1217864aeb7dcfa7b452b604652948ac4ad0d255744",
+      "acquiredUtc": "2026-11-07T09:45:44.917304+00:00"
+    },
+    {
+      "id": "pioneer11-events",
+      "url": "https://science.nasa.gov/mission/pioneer-11/",
+      "file": "pioneer11-events.html",
+      "bytes": 294809,
+      "sha256": "e186532cc03e1c520ef6bd46872bf9a2028559c50e2664d8cd8d86e814b52e37",
+      "acquiredUtc": "2026-11-07T09:45:46.039126+00:00"
+    },
+    {
+      "id": "pioneer10-nssdca",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-012A",
+      "file": "pioneer10-nssdca.xml",
+      "bytes": 17601,
+      "sha256": "f769829584ff67ac981d775d04ff923c587721d374715dfd8b813adb6a973863",
+      "acquiredUtc": "2026-11-07T09:48:15.461918+00:00"
+    }
+  ]
+}

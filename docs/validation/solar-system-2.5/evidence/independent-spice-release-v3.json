@@ -1,0 +1,532 @@
+{
+  "release": "release-v3",
+  "manifest_sha256": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94",
+  "method": "Independent CSPICE spkezr J2000/NONE/Sun 10 and independent Hermite derivative, four non-quarter fractions in up to nine distributed cells per source-backed segment/body; not an exhaustive error bound.",
+  "cspice": "CSPICE_N0067",
+  "checks": [
+    {
+      "mission": "newhorizons",
+      "segment": "jupiter",
+      "body": "craft",
+      "kernels": [
+        "nh_recon_e2j_v1.bsp",
+        "nh-jup260-2007.bsp",
+        "nh-de413-2007.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.04109602167345547,
+      "max_velocity_error_km_s": 1.3215622427372443e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "newhorizons",
+      "segment": "jupiter",
+      "body": "jupiter",
+      "kernels": [
+        "nh_recon_e2j_v1.bsp",
+        "nh-jup260-2007.bsp",
+        "nh-de413-2007.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.0258183554661831,
+      "max_velocity_error_km_s": 4.193054828372964e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "jupiter-encounter-0",
+      "body": "craft",
+      "kernels": [
+        "vgr1_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.00011053716728141568,
+      "max_velocity_error_km_s": 1.711889863030558e-08,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "jupiter-encounter-0",
+      "body": "jupiter",
+      "kernels": [
+        "vgr1_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.02906373267688612,
+      "max_velocity_error_km_s": 4.5325382188976175e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "jupiter-encounter-1",
+      "body": "craft",
+      "kernels": [
+        "vgr1_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.0011679767388803055,
+      "max_velocity_error_km_s": 1.818053192829053e-07,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "jupiter-encounter-1",
+      "body": "jupiter",
+      "kernels": [
+        "vgr1_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.030625898622103583,
+      "max_velocity_error_km_s": 4.7685161767037925e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "jupiter-encounter-2",
+      "body": "craft",
+      "kernels": [
+        "vgr1_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.021390876112154202,
+      "max_velocity_error_km_s": 3.6949471870972744e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "jupiter-encounter-2",
+      "body": "jupiter",
+      "kernels": [
+        "vgr1_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.02691749245586028,
+      "max_velocity_error_km_s": 4.184599047065816e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "saturn-encounter-0",
+      "body": "craft",
+      "kernels": [
+        "vgr1_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.0001775014282763367,
+      "max_velocity_error_km_s": 1.328440749613816e-08,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "saturn-encounter-0",
+      "body": "saturn",
+      "kernels": [
+        "vgr1_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.013866259388292036,
+      "max_velocity_error_km_s": 1.1265006405844114e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "saturn-encounter-1",
+      "body": "craft",
+      "kernels": [
+        "vgr1_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.023092597854546197,
+      "max_velocity_error_km_s": 2.1070768072160872e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager1",
+      "segment": "saturn-encounter-1",
+      "body": "saturn",
+      "kernels": [
+        "vgr1_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.013184469139516673,
+      "max_velocity_error_km_s": 1.0962477745863654e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "jupiter-encounter-0",
+      "body": "craft",
+      "kernels": [
+        "vgr2_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.001263110417446198,
+      "max_velocity_error_km_s": 1.9740053886738212e-07,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "jupiter-encounter-0",
+      "body": "jupiter",
+      "kernels": [
+        "vgr2_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.02990810833551499,
+      "max_velocity_error_km_s": 4.6732766960825865e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "jupiter-encounter-1",
+      "body": "craft",
+      "kernels": [
+        "vgr2_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.025674603203637642,
+      "max_velocity_error_km_s": 1.746246909363479e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "jupiter-encounter-1",
+      "body": "jupiter",
+      "kernels": [
+        "vgr2_jup230.bsp",
+        "jup230-1979.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.02790664766097277,
+      "max_velocity_error_km_s": 4.360375053368652e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "saturn-encounter-0",
+      "body": "craft",
+      "kernels": [
+        "vgr2_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 2.7169513422273677e-05,
+      "max_velocity_error_km_s": 7.317513357752754e-09,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "saturn-encounter-0",
+      "body": "saturn",
+      "kernels": [
+        "vgr2_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.011143798237532436,
+      "max_velocity_error_km_s": 9.201897351442292e-07,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "saturn-encounter-1",
+      "body": "craft",
+      "kernels": [
+        "vgr2_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.014912560084077644,
+      "max_velocity_error_km_s": 1.879989106888431e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "saturn-encounter-1",
+      "body": "saturn",
+      "kernels": [
+        "vgr2_sat337.bsp",
+        "sat337.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.011335998658213869,
+      "max_velocity_error_km_s": 8.871612560116751e-07,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "uranus-encounter-0",
+      "body": "craft",
+      "kernels": [
+        "vgr2.ura182.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.01817452734760032,
+      "max_velocity_error_km_s": 1.6307586446159614e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "uranus-encounter-0",
+      "body": "uranus",
+      "kernels": [
+        "vgr2.ura182.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.022097651740543206,
+      "max_velocity_error_km_s": 1.8964717281930616e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "uranus-encounter-1",
+      "body": "craft",
+      "kernels": [
+        "vgr2.ura182.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.03937903501533171,
+      "max_velocity_error_km_s": 1.1586282948687001e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "uranus-encounter-1",
+      "body": "uranus",
+      "kernels": [
+        "vgr2.ura182.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.02813027757034965,
+      "max_velocity_error_km_s": 2.472759700051662e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "uranus-encounter-2",
+      "body": "craft",
+      "kernels": [
+        "vgr2.ura182.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.03512506188041531,
+      "max_velocity_error_km_s": 4.710412483158254e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "uranus-encounter-2",
+      "body": "uranus",
+      "kernels": [
+        "vgr2.ura182.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.02034554084924768,
+      "max_velocity_error_km_s": 1.6177299347013523e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-0",
+      "body": "craft",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 1.0115243642614567e-06,
+      "max_velocity_error_km_s": 2.657345108144356e-08,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-0",
+      "body": "neptune",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.017496770196539755,
+      "max_velocity_error_km_s": 1.3860748576903635e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-1",
+      "body": "craft",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.01071044862899267,
+      "max_velocity_error_km_s": 1.3139604731393e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-1",
+      "body": "neptune",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.014208969264523225,
+      "max_velocity_error_km_s": 1.1063628367347591e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-2",
+      "body": "craft",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.0002880938326789401,
+      "max_velocity_error_km_s": 2.2393618092328602e-08,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-2",
+      "body": "neptune",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.014975884263279832,
+      "max_velocity_error_km_s": 1.1830243944960798e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-3",
+      "body": "craft",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.004610003219577239,
+      "max_velocity_error_km_s": 2.23322510432427e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-3",
+      "body": "neptune",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 3.2098083538618707e-06,
+      "max_velocity_error_km_s": 6.264604673857481e-08,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-4",
+      "body": "craft",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.02991820888311774,
+      "max_velocity_error_km_s": 1.997958356458467e-05,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-4",
+      "body": "neptune",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.014115727109522098,
+      "max_velocity_error_km_s": 1.097717509970322e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-5",
+      "body": "craft",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.00014039823151534343,
+      "max_velocity_error_km_s": 1.52271192739281e-08,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    },
+    {
+      "mission": "voyager2",
+      "segment": "neptune-encounter-5",
+      "body": "neptune",
+      "kernels": [
+        "vgr2_nep097.bsp"
+      ],
+      "samples": 36,
+      "max_position_error_km": 0.01426120956970701,
+      "max_velocity_error_km_s": 1.1087846716173935e-06,
+      "position_limit_km": 0.05,
+      "velocity_limit_km_s": 5e-05
+    }
+  ],
+  "failures": [],
+  "exact_prior_failure_recheck": {
+    "jd_tdb": 2446467.3089999096,
+    "mission": "voyager2",
+    "segment": "uranus-encounter-2",
+    "position_error_km": 0.01412963474996044,
+    "threshold_km": 0.05
+  }
+}

@@ -71,3 +71,5 @@
 
 /* Open mode choices must stay above the destination disclosure beneath them. */
 .ws-shell[data-workspace-mode=solar] .solar-header:has(.cin-brand[data-cinematic-open=true]){z-index:12}
+
+.solar-mission-entry{border-block:1px solid var(--solar-border);padding:6px 0;margin:8px 0}.solar-mission-entry button{width:100%;text-align:left;color:var(--solar-blue);font-size:13px}.solar-mission-entry small{display:block;font-size:10px;color:var(--solar-muted);margin-top:6px}

@@ -1,0 +1,115 @@
+{
+  "reviewed_head": "ea4d384af3aead949de7bec1947e8aff41465bca",
+  "correction_base": "ea4d384af3aead949de7bec1947e8aff41465bca",
+  "correction_input": {
+    "path": "frontend/src/features/solar/SolarScene.ts",
+    "sha256": "5b4914752187034bb7bbd11f4d64d88e0927f9cc8dc5ef360b8cfa90891ca5eb"
+  },
+  "review_scope": "Independent final Solar 2.4 integration and expired-path correction; not whole PR or owner acceptance",
+  "gpu": {
+    "vendor": "Google Inc. (NVIDIA)",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "status": "PASS",
+  "before": {
+    "status": "DEFECT_REPRODUCED",
+    "same_renderer": true,
+    "available": [],
+    "actual_line_draws": [
+      {
+        "mode": 3,
+        "first": 0,
+        "count": 577
+      },
+      {
+        "mode": 3,
+        "first": 0,
+        "count": 577
+      },
+      {
+        "mode": 3,
+        "first": 0,
+        "count": 577
+      },
+      {
+        "mode": 3,
+        "first": 0,
+        "count": 577
+      }
+    ],
+    "marker_visible": true
+  },
+  "after": {
+    "cycles": [
+      {
+        "expired_lines": [],
+        "expired_marker_visible": false,
+        "restored_line_count": [
+          577
+        ],
+        "restored_marker_visible": true,
+        "geometries": 19,
+        "live_buffers": 67,
+        "same_renderer": true
+      },
+      {
+        "expired_lines": [],
+        "expired_marker_visible": false,
+        "restored_line_count": [
+          577
+        ],
+        "restored_marker_visible": true,
+        "geometries": 19,
+        "live_buffers": 67,
+        "same_renderer": true
+      },
+      {
+        "expired_lines": [],
+        "expired_marker_visible": false,
+        "restored_line_count": [
+          577
+        ],
+        "restored_marker_visible": true,
+        "geometries": 19,
+        "live_buffers": 67,
+        "same_renderer": true
+      }
+    ],
+    "failed_refresh": {
+      "status_injected": 503,
+      "actual_line_draws": [],
+      "marker_visible": false
+    },
+    "recovered_line_count": [
+      577
+    ],
+    "errors": []
+  },
+  "harness": "scripts/validation/verify_solar25_review24.mjs",
+  "local_artifacts": {
+    "output/playwright/solar-system-2.5/review24/expired-path.json": {
+      "bytes": 109833,
+      "sha256": "c3a17ee17480e529d53a8ae3738b56974622205bba12c2e743fb59fc54b0fc38"
+    },
+    "output/playwright/solar-system-2.5/review24/fixed-expired-path.json": {
+      "bytes": 520737,
+      "sha256": "5badc351a341a4fa8c1eeb60feee7233418d0a02d14f0d371de29ddcfcaa0da8"
+    },
+    "output/playwright/solar-system-2.5/review24/2026-source-path.png": {
+      "bytes": 114182,
+      "sha256": "63173318b56e583ffc39f1951a1a72c51bbcd23e3ec2e30dd6e84dfb4a2cab6f"
+    },
+    "output/playwright/solar-system-2.5/review24/2035-expired-path.png": {
+      "bytes": 125932,
+      "sha256": "49277a70b694a0384c6bd2f2f19b6d84ffe11992448fc8b593af77e1947236ff"
+    },
+    "output/playwright/solar-system-2.5/review24/fixed-2026-source-path.png": {
+      "bytes": 114718,
+      "sha256": "a53ff23995e76ea13c6cb8b7a029ad13942cdd27b8197c565ce1045a214fb3f3"
+    },
+    "output/playwright/solar-system-2.5/review24/fixed-2035-no-expired-path.png": {
+      "bytes": 125782,
+      "sha256": "9bf8aa2802bcac05978d7ad02794d98c092a80f9a2c517a56dfbcf84ad21787c"
+    }
+  }
+}

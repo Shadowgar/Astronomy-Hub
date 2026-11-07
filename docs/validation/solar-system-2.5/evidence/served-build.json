@@ -1,0 +1,136 @@
+{
+  "status": "PASS",
+  "base": "http://localhost:4231",
+  "image": "sha256:6ccc615a62e2fda3bcae3c9eb1c4e1a73eff6fb386e9feaefccf762e3109290e",
+  "buildCommand": "docker build --target build -f frontend/Dockerfile.production -t astronomy-hub-solar25-handoff-proof:latest .",
+  "served": {
+    "assets/CelestialBody-BFpc1LhK.js": {
+      "bytes": 175693,
+      "sha256": "c925a421f1b89404a7e84bf6783eda5a42053ace7306d36406594bdcd16084f1"
+    },
+    "assets/MissionWorkspace-DCQDQKPe.js": {
+      "bytes": 34333,
+      "sha256": "113cc2041709ef9d8ac4dc039dd894a081c004046ba85346be41d384f401e427"
+    },
+    "assets/MissionWorkspace-DX5NNEww.css": {
+      "bytes": 6807,
+      "sha256": "9032cdc53b30295e921520656d813ea8cbd85723abc96d874387b1f41d9982ef"
+    },
+    "assets/PlanetWorkspace-BMQtNLdI.js": {
+      "bytes": 10426,
+      "sha256": "ff2269ed19d7c5070799b34f5fab09d5f863fb92cc5e821425fb3a64ea3899f2"
+    },
+    "assets/SolarWorkspace-BPNbOQj-.css": {
+      "bytes": 15028,
+      "sha256": "2b57d2f47f71ee6ea95b11144e7d75e4fb94ed291b208a143f235f9994fa056d"
+    },
+    "assets/SolarWorkspace-DOt5gePu.js": {
+      "bytes": 105592,
+      "sha256": "0e6a6fca79b530e1cd0bb603b2880f43803974a9af3554cae9583320ada9c156"
+    },
+    "assets/SystemWorkspace-DnN2K2U1.js": {
+      "bytes": 37524,
+      "sha256": "6868e361406a50372c000acd4b8b86542876fd3524f8b30a8187dfeee824b609"
+    },
+    "assets/TerrainWorkspace-CNAzXc6W.js": {
+      "bytes": 92064,
+      "sha256": "621b98e564da0af6953b22c30c5bdf7e7e118f8e0d85456628e5f0a3dc77992e"
+    },
+    "assets/TerrainWorkspace-gvXcDv0j.css": {
+      "bytes": 9276,
+      "sha256": "f262c3ec1dd1cfa714116153660b25af8b89f3f606815b7ecd46ba8b70bc4193"
+    },
+    "assets/index-CwsSK4Ok.js": {
+      "bytes": 195853,
+      "sha256": "3c06c0b56ad1f40f5366a888f8f24b26199521edd2d98ff194995a61e9aabe3f"
+    },
+    "assets/index-DW8EKZre.css": {
+      "bytes": 98149,
+      "sha256": "1689ca6410a6bf656257879e514677f5d75183f33674078b1e8240e3e2bf9665"
+    },
+    "assets/missionContracts-DpI4O4B8.js": {
+      "bytes": 8018,
+      "sha256": "26c0c9ef8ca9dacd7e0edaad2fd52a8f88698d7928a60c93526dddd48a1d4569"
+    },
+    "assets/planet-BuCp3OQB.css": {
+      "bytes": 4425,
+      "sha256": "a4ec8fefab42ba5d3dc6e7f4cedd63d94e2e7fbb571719ed6d29a23c7132c190"
+    },
+    "assets/solar-BI6sLzaX.js": {
+      "bytes": 14226,
+      "sha256": "f1278af4f9e83e0813082967235e2acb3032f2faba66b3cc6c538c1044de930b"
+    },
+    "assets/solar-BfOxeaE7.css": {
+      "bytes": 18244,
+      "sha256": "d06687948581a49787c2ceb0073255f32c514ab83cea44dfe608ace5f20b62f3"
+    },
+    "assets/solarGpuTiming-DobPRtkt.js": {
+      "bytes": 590672,
+      "sha256": "5113c8e0f65f0518452009cb8dbb189e9a2dcc54421bf0ce0a5b11e0cedb34c9"
+    },
+    "assets/solarNavigation-oWZGWzJp.js": {
+      "bytes": 3740,
+      "sha256": "49cee7dfaf611503f94ccfed0d5afca59f99f1aa1762522cbe00813c6f8b7b2c"
+    },
+    "assets/solarTakram-CAT2MH8h.js": {
+      "bytes": 155516,
+      "sha256": "84896f3d331a9e99e00e31f347304e6b742f236197f50a82b1aec3661296fb19"
+    },
+    "assets/solarTakram-oA8PGlhv.css": {
+      "bytes": 8551,
+      "sha256": "30a4085b47601697656022382b9dc1e2a4cea6f78d5b4a6ec92d08148db69ec7"
+    },
+    "assets/systemSceneMath-BzFVZ9l7.js": {
+      "bytes": 1609,
+      "sha256": "d31a2bb28531cafeb53d369218f64ee1159bd74bfe039ef882aecabb8745c7b3"
+    },
+    "assets/workspace-C6jRXc2S.css": {
+      "bytes": 25107,
+      "sha256": "a1a051239bc7f7913c876f5510a200eaf18453cba45a15536e5258ae773ebf38"
+    },
+    "assets/workspace-Cm4BEhZ5.js": {
+      "bytes": 171761,
+      "sha256": "5af39d86a248cf780108dff7f957988d2a0c1ccd4e511e1d45538a706773d13b"
+    },
+    "index.html": {
+      "bytes": 568,
+      "sha256": "968f3d58b4b4ea9ec3585451c987e24407ef8d1a5df38be7356d1bd4267a71c8"
+    },
+    "mission-assets/v2.5/cassini.glb": {
+      "bytes": 5852640,
+      "sha256": "cacdca3279b28e64280ff8e823f572311f67a83bde2d0435b26f515a1b7926be"
+    },
+    "mission-assets/v2.5/manifest.json": {
+      "bytes": 19060,
+      "sha256": "f39b5edaa4f16f6b9499120da4c2c39c71c512e8962171f446e4393b5cad40c0"
+    },
+    "mission-assets/v2.5/new-horizons.glb": {
+      "bytes": 3293532,
+      "sha256": "cf152d8cea17c4a83711041cb0d29ca1d980bfafa084ada2656569ea92cdd73f"
+    },
+    "mission-assets/v2.5/voyager.glb": {
+      "bytes": 3128204,
+      "sha256": "5338241f2e89e9cfe3ebb82f519b4cad64c97e66883cccba6fdda98667aec731"
+    }
+  },
+  "reviewedSourceInputs": {
+    "backend/app/data/mission_events.json": "0851694c61c8498a82968c8c6025ac764fa0be5535b9a49739159564c51a97b6",
+    "backend/app/main.py": "1a785bfa6c5555f8370cc5b5f6e1c3ea86d6153330efc06bb9f5e30fe8ab9d7e",
+    "backend/app/routes/mission_exploration.py": "e1b763ca41f26e9bfc1801c989ff973c189aeb9f4488e74d4512d3c7880fcfb0",
+    "backend/app/schemas/mission_exploration.py": "434c56e849f84d5a830f10cb301e9c900ebe50f6eb2fd62c736cd90544fc0ff3",
+    "backend/app/services/mission_exploration.py": "e979e48e06a0f7f7d4ee703fa9cd32b30c40c372557ea0b6705d9de10ba1a082",
+    "docker-compose.solar25.yml": "61298fd9e3e4f3ed2b01dd7bcb37b9b03a27c3232e18a057f4c45685434199f2",
+    "frontend/Dockerfile.production": "1b25e7f921744e4a0a82d63174c68fe2bebfbbda847c5280b9d09f256ff16b37",
+    "frontend/src/features/missions/MissionScene.ts": "b827a065475716b3b809db27cdfb04cc71cee5c33adf540a3dd482c5eb468e25",
+    "frontend/src/features/missions/MissionWorkspace.tsx": "57c61290a8e47794f3c034ecb7591ce2fd1adea08f63f60f5048cae6a7dcd3ba",
+    "frontend/src/features/missions/missionContracts.ts": "b8ca58b796aaf454b7ab185f7fae368c1b1b106b1c5da6ae57255240559a4513",
+    "frontend/src/features/missions/missions.css": "d42b3482d7877dc6553ae4caf6efc2616b750459b565c25b10bcf56d5da14f50",
+    "frontend/src/features/solar/SolarScene.ts": "5b4914752187034bb7bbd11f4d64d88e0927f9cc8dc5ef360b8cfa90891ca5eb",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "a6ca34ccf1a286f176ef19da66d164a1cf9d40c9804637177994f7cef52a4323",
+    "frontend/src/features/solar/solarExplorer.css": "427f896c02df4df5268663d28c2db0e052c5b0760ae16fd41ca632b4137e3df2",
+    "frontend/src/routes/AppRouter.tsx": "771162c4f72df599aee4ee5cc5f1df5285603a9402531fa06a6aa456370ad837",
+    "frontend/vite.config.mjs": "679f9e946ac7e833a68e9926cad370bae7da3e0f85e25742e60ad78bb52b5255"
+  },
+  "sourceManifestSha256": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94",
+  "note": "Source input hashes bind the reviewed runtime to the final commit. Hashes verify delivery identity, not public corresponding-source release completeness."
+}

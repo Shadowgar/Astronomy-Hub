@@ -1,5 +1,28 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Solar System 2.5 — implemented and independently qualified, owner acceptance pending
+
+Four model-supported flagship missions and six bounded trajectory-only missions
+are implemented on the existing recovery branch / draft PR107. Historical ICRF
+sources preserve compatible target solutions, one clock, independent Voyager paths
+and explicit source gaps/quality. NASA spacecraft scale is approximate; attitude
+and epoch-dependent configuration remain illustrative.
+
+The Solar2.4 missing integration review is closed with a reproduced and corrected
+expired-path/marker defect. Solar2.5 source, asset and application reviews corrected
+identity, precision, lifecycle, path-restoration and boundary-notice defects.
+697frontend tests,64Docker backend tests (31 inherited warnings),8asset tests,
+2,376acquisition references and1,368independent CSPICE comparisons pass. Four actual
+Windows RTX3060 journeys and12GPU cases are documented; cold loading can still
+stall507ms. Exact final SHA/hosted checks are recorded on PR107.
+
+See [Solar2.5 handoff](../validation/solar-system-2.5/README.md) and its actual private
+preview/gallery. Owner visual acceptance, physical iPhone and matching/public
+corresponding-source release gates remain open. Existing source packs, containers,
+volumes and rollback are preserved. No merge, production deploy, tunnel, source
+publication or protected deletion. Stop product expansion for owner acceptance;
+this does not authorize Solar2.6.
+
 ## Solar System 2.4 — implemented candidate, acceptance pending
 
 The owner-authorized expansion from `fc1a7142` is implemented on the existing
@@ -14,8 +37,8 @@ failure/native lifecycle tests and 19 GPU cases are recorded in the
 236 ms; no hitch-free or physical-phone claim. Final SHA/hosted checks are on PR107.
 
 Scoped independent science/asset/population reviews are complete. Final application
-integration re-review remains outstanding because the reviewer service returned a
-usage limit. Owner visual acceptance, physical iPhone, map/rotation source limits
+integration re-review was outstanding after a reviewer service usage limit; the
+Solar2.5 independent review above now closes that specific gap. Owner visual acceptance, physical iPhone, map/rotation source limits
 and matching/public corresponding-source release qualifications remain open.
 Stop product expansion for owner inspection and remaining review. No merge,
 production deployment, public source archive, tunnel or protected deletion.

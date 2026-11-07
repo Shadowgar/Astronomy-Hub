@@ -1,0 +1,206 @@
+{
+  "schema": "astronomy-hub.browser-journey-review.v1",
+  "status": "PASS_BOUNDED_SCOPE",
+  "evidence_class": "actual-api-production-preview-headed-windows-edge-nvidia",
+  "owner_accepted": false,
+  "physical_iphone_tested": false,
+  "source_release": "solar-missions-v3",
+  "manifest_sha256": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94",
+  "journeys": [
+    {
+      "mission": "voyager1",
+      "status": "PASS",
+      "receipt": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/journeys.json",
+      "video": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/video/ffcd90a2ec43007f74ad1594e55b2dd3.webm",
+      "captures": [
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-default-encounter.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-voyager1-jupiter.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-voyager1-saturn.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-voyager1-heliopause.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-inspection-desktop.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-inspection-portrait.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-inspection-landscape.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-bounded-trajectory.png",
+        "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-selected-trajectory-range.png"
+      ],
+      "return_solar": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-return-solar.png",
+      "unsupported_epoch": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-unsupported-epoch.png",
+      "gpu": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      },
+      "source_file_sha256": "f058c3f01b43d4ee04addb23b5d0546d783e2d7feee82681cb84b5d6b556114d",
+      "served_scripts": [
+        {
+          "url": "http://localhost:4231/assets/index-DX_ZwtFF.js",
+          "status": 200,
+          "sha256": "03eba1e4831b021019df6486a0028c6b3644f89e19030d2e0728e1e47ec2cb78"
+        }
+      ]
+    },
+    {
+      "mission": "voyager2",
+      "status": "PASS",
+      "receipt": "output/playwright/solar-system-2.5/journeys-qualified/journeys.json",
+      "video": "output/playwright/solar-system-2.5/journeys-qualified/video/9b2b93a00fe822beaa0cc76cf097447f.webm",
+      "captures": [
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-default-encounter.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-jupiter.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-saturn.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-uranus.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-neptune.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-heliopause.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-inspection-desktop.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-inspection-portrait.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-inspection-landscape.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-bounded-trajectory.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/voyager2-selected-trajectory-range.png"
+      ],
+      "return_solar": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-return-solar.png",
+      "unsupported_epoch": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-unsupported-epoch.png",
+      "gpu": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      },
+      "source_file_sha256": "38f2662b2c178cab5b112cb19e7f35dcf1144789067978e6637fead1a2fae94b",
+      "served_scripts": [
+        {
+          "url": "http://localhost:4231/assets/index-JEjxJjQx.js",
+          "status": 200,
+          "sha256": "6afae4a89fd5f7c39257deebaffe9f1def45c8d3407dcc159446d9ee794fc782"
+        }
+      ]
+    },
+    {
+      "mission": "cassini",
+      "status": "PASS",
+      "receipt": "output/playwright/solar-system-2.5/journeys-qualified/journeys.json",
+      "video": "output/playwright/solar-system-2.5/journeys-qualified/video/be9bdd05c065922c926013e7122cb34a.webm",
+      "captures": [
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-default-encounter.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-jupiter.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-saturn-arrival.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-titan-a.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-enceladus-e21.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-grand-finale.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-end.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-inspection-desktop.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-inspection-portrait.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-inspection-landscape.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-bounded-trajectory.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/cassini-selected-trajectory-range.png"
+      ],
+      "return_solar": "output/playwright/solar-system-2.5/journeys-qualified/cassini-return-solar.png",
+      "unsupported_epoch": "output/playwright/solar-system-2.5/journeys-qualified/cassini-unsupported-epoch.png",
+      "gpu": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      },
+      "source_file_sha256": "ced7dd4ad0acba2ff5d81315fa3c1563985f2f6558993dfde9e00f55b0c26fa0",
+      "served_scripts": [
+        {
+          "url": "http://localhost:4231/assets/index-JEjxJjQx.js",
+          "status": 200,
+          "sha256": "6afae4a89fd5f7c39257deebaffe9f1def45c8d3407dcc159446d9ee794fc782"
+        }
+      ]
+    },
+    {
+      "mission": "newhorizons",
+      "status": "PASS",
+      "receipt": "output/playwright/solar-system-2.5/journeys-qualified/journeys.json",
+      "video": "output/playwright/solar-system-2.5/journeys-qualified/video/c7ef00836830d12e93df630e6889f8e1.webm",
+      "captures": [
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-default-encounter.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-newhorizons-jupiter.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-newhorizons-pluto.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-pluto-encounter-charon.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-newhorizons-arrokoth.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-inspection-desktop.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-inspection-portrait.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-inspection-landscape.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-bounded-trajectory.png",
+        "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-selected-trajectory-range.png"
+      ],
+      "return_solar": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-return-solar.png",
+      "unsupported_epoch": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-unsupported-epoch.png",
+      "gpu": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      },
+      "source_file_sha256": "5742b8c32dcc21ed7c3bccb41415645f7c7ca08d9d25ed80ba4fd4e49d7cc85c",
+      "served_scripts": [
+        {
+          "url": "http://localhost:4231/assets/index-JEjxJjQx.js",
+          "status": 200,
+          "sha256": "6afae4a89fd5f7c39257deebaffe9f1def45c8d3407dcc159446d9ee794fc782"
+        }
+      ]
+    }
+  ],
+  "lifecycle_receipt": "output/playwright/solar-system-2.5/lifecycle-edges-fixed/lifecycle-edges.json",
+  "lifecycle_checks_passed": 4,
+  "camera_view_captures": 42,
+  "retired_renderer_checks": 42,
+  "page_errors": [],
+  "reused_source_identity": "All mission-file and per-segment hashes are identical between the complete three-mission run and the final Voyager 1 run. Only workspace stop-notice handling changed.",
+  "limits": [
+    "Windows viewport emulation is not physical iPhone evidence.",
+    "Owner visual acceptance is pending.",
+    "Videos are not a performance benchmark."
+  ],
+  "quality_recovery": {
+    "status": "PASS",
+    "receipt": "output/playwright/solar-system-2.5/quality-recovery-qualified/quality-recovery.json",
+    "checks_passed": 4,
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "served_scripts": [
+      {
+        "url": "http://localhost:4231/assets/index-CwsSK4Ok.js",
+        "sha256": "3c06c0b56ad1f40f5366a888f8f24b26199521edd2d98ff194995a61e9aabe3f"
+      }
+    ],
+    "captures": [
+      "output/playwright/solar-system-2.5/quality-recovery-qualified/pluto-source-coverage-disclosure.png",
+      "output/playwright/solar-system-2.5/quality-recovery-qualified/pluto-source-panel.png",
+      "output/playwright/solar-system-2.5/quality-recovery-qualified/voyager1-context-lost.png",
+      "output/playwright/solar-system-2.5/quality-recovery-qualified/voyager1-context-recovered.png",
+      "output/playwright/solar-system-2.5/quality-recovery-qualified/voyager1-quality-balanced.png",
+      "output/playwright/solar-system-2.5/quality-recovery-qualified/voyager1-quality-detailed.png",
+      "output/playwright/solar-system-2.5/quality-recovery-qualified/voyager1-quality-efficient.png"
+    ],
+    "css_viewport": [
+      1280,
+      800
+    ],
+    "emulated_dpr": 2,
+    "quality_buffers": [
+      {
+        "quality": "efficient",
+        "width": 1280,
+        "height": 800,
+        "bloom": false
+      },
+      {
+        "quality": "balanced",
+        "width": 1920,
+        "height": 1200,
+        "bloom": true
+      },
+      {
+        "quality": "detailed",
+        "width": 2560,
+        "height": 1600,
+        "bloom": true
+      },
+      {
+        "quality": "balanced",
+        "width": 1920,
+        "height": 1200,
+        "bloom": true
+      }
+    ],
+    "page_errors": [],
+    "console_errors": []
+  }
+}

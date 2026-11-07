@@ -1,0 +1,21 @@
+{
+  "status": "PASS_SCOPED_ADDITIVE_EVENT_REVIEW",
+  "events": 32,
+  "new_events": 11,
+  "new_source_documents": 9,
+  "hashes": {
+    "docs/validation/solar-system-2.5/mission-events.json": "0851694c61c8498a82968c8c6025ac764fa0be5535b9a49739159564c51a97b6",
+    "docs/validation/solar-system-2.5/mission-event-sources.json": "b86f810fde6ecf071b7a955331bfde1590b13b415f1c2650cf1a2a849887696d",
+    "docs/validation/solar-system-2.5/ASSETS.md": "e3385dbfe5742fc73873705478fe44a487bfb89d38f8c51bd08315244dc56c71",
+    "scripts/planetdata/test_solar25_assets.py": "021c31ce00c5df036ae32a0f421b355d3dee5385355eab567b5303bb36d4ef59"
+  },
+  "tests": {
+    "command": "python3 scripts/planetdata/test_solar25_assets.py",
+    "passed": 8,
+    "seconds": 1.531
+  },
+  "limitations": [
+    "Event source review does not qualify trajectory availability or browser presentation.",
+    "Date-only event noon remains representative, not exact."
+  ]
+}

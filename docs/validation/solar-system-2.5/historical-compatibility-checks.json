@@ -1,0 +1,99 @@
+{
+  "method": "Compare craft@Sun minus direct target@Sun against craft@target. Runtime uses native craft@Sun minus craft@target for compatible target placement; modern target not substituted.",
+  "checks": [
+    {
+      "mission": "cassini",
+      "jd_tdb": [
+        2454272.5,
+        2454273.0
+      ],
+      "modern_direct_target_minus_native_chain_position_delta_km": [
+        0.8599315069923824,
+        0.8601929329112074
+      ],
+      "velocity_delta_km_s": [
+        9.71324224505834e-09,
+        1.1015776538860723e-08
+      ],
+      "sources": [
+        {
+          "file": "cassini--82-10-probe.json",
+          "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=-82&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=500%4010&TLIST=%272454272.5+2454273.0%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+          "sha256": "310ba09cb2a25a5cab65e07803182beb09997c133fdad014d8a268302b66c1cc",
+          "bytes": 10048,
+          "headers": [
+            "Target body name: Cassini (spacecraft) (-82)      {source: cassini_merge}",
+            "Center body name: Sun (10)                        {source: cassini_merge}"
+          ]
+        },
+        {
+          "file": "cassini-699-10-probe.json",
+          "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=699&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=500%4010&TLIST=%272454272.5+2454273.0%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+          "sha256": "afbdbc8b3b300c80e612204f03b41867403f8f79bb03e9b66f552dad396f0a76",
+          "bytes": 6778,
+          "headers": [
+            "Target body name: Saturn (699)                    {source: sat441l}",
+            "Center body name: Sun (10)                        {source: DE441}"
+          ]
+        },
+        {
+          "file": "cassini--82-699-probe.json",
+          "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=-82&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=500%40699&TLIST=%272454272.5+2454273.0%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+          "sha256": "324f77b0e299ef63e0e27daa8fb4badd047637b207d793ffb32a94eab2482bfc",
+          "bytes": 10048,
+          "headers": [
+            "Target body name: Cassini (spacecraft) (-82)      {source: cassini_merge}",
+            "Center body name: Saturn (699)                    {source: cassini_merge}"
+          ]
+        }
+      ]
+    },
+    {
+      "mission": "newhorizons",
+      "jd_tdb": [
+        2457217.5,
+        2457218.0
+      ],
+      "modern_direct_target_minus_native_chain_position_delta_km": [
+        4.201335519991355e-07,
+        7.612164052551398e-07
+      ],
+      "velocity_delta_km_s": [
+        4.163336342344337e-16,
+        5.450561893065681e-15
+      ],
+      "sources": [
+        {
+          "file": "newhorizons--98-10-probe.json",
+          "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=-98&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=500%4010&TLIST=%272457217.5+2457218.0%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+          "sha256": "a46a20ab2fd21445b59a4f1ea7fea9d901e083adc26d1c626fd25768de3e752d",
+          "bytes": 8175,
+          "headers": [
+            "Target body name: New Horizons (spacecraft) (-98) {source: NH_merged}",
+            "Center body name: Sun (10)                        {source: NH_merged}"
+          ]
+        },
+        {
+          "file": "newhorizons-999-10-probe.json",
+          "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=999&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=500%4010&TLIST=%272457217.5+2457218.0%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+          "sha256": "b34f0b101b31802e3daf6e5aa792df12382b80021d9a89ffc350ef3b3a976474",
+          "bytes": 6621,
+          "headers": [
+            "Target body name: Pluto (999)                     {source: plu060_merged}",
+            "Center body name: Sun (10)                        {source: plu060_merged}"
+          ]
+        },
+        {
+          "file": "newhorizons--98-999-probe.json",
+          "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=-98&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=500%40999&TLIST=%272457217.5+2457218.0%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+          "sha256": "1ecd4cd7c14a71fd62a78f211da51a23fb869a374c555d75a060678bd301cf2b",
+          "bytes": 8175,
+          "headers": [
+            "Target body name: New Horizons (spacecraft) (-98) {source: NH_merged}",
+            "Center body name: Pluto (999)                     {source: NH_merged}"
+          ]
+        }
+      ]
+    }
+  ]
+}

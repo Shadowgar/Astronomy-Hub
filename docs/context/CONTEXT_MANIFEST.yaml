@@ -30,6 +30,7 @@ tasks:
     - docs/validation/solar-system-2.3/PLAN.md
     - docs/validation/solar-system-2.3/README.md
     - docs/validation/solar-system-2.4/PLAN.md
+    - docs/validation/solar-system-2.5/PLAN.md
     - docs/validation/planetary-systems/README.md
     - docs/validation/planetary-systems/ps3/README.md
 

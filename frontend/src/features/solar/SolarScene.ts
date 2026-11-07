@@ -7,7 +7,7 @@ import {SolarTextureStreamer,solarTextureQuality} from './solarTextureStreaming'
 import {createCelestialBody,type CelestialBody} from '../celestial/CelestialBody'
 import {celestialAppearance,celestialDetailAsset,loadCelestialDetail} from '../celestial/celestialAssets'
 import {systemSurfaceFrame} from '../systems/systemPresentation'
-import {evaluateSolarDestinations,type DestinationId,type SolarDestinations,type EvaluatedDestinations} from './solarDestinations'
+import {evaluateSolarDestinations,isDestinationId,type DestinationId,type SolarDestinations,type EvaluatedDestinations} from './solarDestinations'
 import {relativeVector,pointOccluded} from './solarPrecision'
 import {createSolarTakram} from './solarTakram'
 import {earthSurfaceQuaternion} from './solarEarthFrame'
@@ -134,6 +134,16 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
    const leader=document.createElementNS('http://www.w3.org/2000/svg','line');leader.setAttribute('stroke','#cfbea5');leaders.append(leader)
    const object={id:b.id,body:shared,mesh:symbol,label,anchor,leader,extras:shared?.extras??[]};objects.push(object);scene.add(symbol);for(const extra of object.extras)scene.add(extra)
   }
+  // An unavailable response intentionally omits tracks. Retire the previous
+  // geometry instead of leaving a historical path attached to the new epoch.
+  const admittedTracks=new Set(pack.tracks.map(track=>track.id))
+  for(let i=paths.length-1;i>=0;i--){
+   const path=paths[i]
+   if(isDestinationId(path.userData.id)&&!admittedTracks.has(path.userData.id)){
+    scene.remove(path);path.geometry.dispose();path.material.dispose()
+    resources.delete(path.geometry);resources.delete(path.material);paths.splice(i,1)
+   }
+  }
   for(const track of pack.tracks){
    let path=paths.find(p=>p.userData.id===track.id)
    if(!path){path=new T.Line(keep(new T.BufferGeometry()),keep(new T.LineBasicMaterial({color:'#bda889',transparent:true,opacity:.38})));path.userData.id=track.id;path.frustumCulled=false;scene.add(path);paths.push(path)}
@@ -182,7 +192,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
    for(const extra of object.extras){extra.position.copy(object.mesh.position);setSolarMaterialLight(extra.material,source,sun)}
   }
   for(let i=0;i<paths.length;i++){
-   paths[i].visible=trajectoryMode?paths[i].userData.id===selected:orbitsVisible&&!selected
+   paths[i].visible=!!sourcePosition(paths[i].userData.id)&&(trajectoryMode?paths[i].userData.id===selected:orbitsVisible&&!selected)
    const values=paths[i].userData.source as Vector[]|undefined
    if(values){const a=paths[i].geometry.attributes.position;for(let j=0;j<values.length;j++)a.setXYZ(j,...relativeVector(values[j],origin));a.needsUpdate=true}
   }
@@ -215,7 +225,7 @@ export function mountSolarScene(host:HTMLElement,snapshot:SolarSnapshot,reduced:
   for(const {o,v,x,y,radius} of [...projected].sort((a,b)=>Number(b.o.id===selected)-Number(a.o.id===selected)||b.o.mesh.position.lengthSq()-a.o.mesh.position.lengthSq())){
    const r=glyphRadius[o.id]*o.mesh.scale.x,edge=o.mesh.position.clone().add(new T.Vector3(r,0,0).applyQuaternion(camera.quaternion)).project(viewCamera)
    const pixelRadius=Math.abs(edge.x-v.x)*rect.width/2
-   if(o.id===selected&&v.z>-1&&v.z<1){const size=pixelRadius*2+22;marker.hidden=false;Object.assign(marker.style,{left:`${(v.x+1)*rect.width/2-size/2}px`,top:`${(1-v.y)*rect.height/2-size/2}px`,width:`${size}px`,height:`${size}px`})}
+   if(o.id===selected&&o.mesh.visible&&v.z>-1&&v.z<1){const size=pixelRadius*2+22;marker.hidden=false;Object.assign(marker.style,{left:`${(v.x+1)*rect.width/2-size/2}px`,top:`${(1-v.y)*rect.height/2-size/2}px`,width:`${size}px`,height:`${size}px`})}
    const visible=o.mesh.visible&&!occluded(o)&&v.z>-1&&v.z<1&&Math.abs(v.x)<.95&&Math.abs(v.y)<.88
    o.label.hidden=!visible;o.anchor.hidden=!visible||pixelRadius>=3;o.leader.style.display='none';if(!visible)continue
    Object.assign(o.anchor.style,{left:`${x}px`,top:`${y}px`})

@@ -1,0 +1,328 @@
+{
+  "ownerAcceptance": false,
+  "physicalIPhone": false,
+  "evidence": "Original headed Windows Edge NVIDIA RTX 3060 captures",
+  "note": "The earlier aggregate FAIL receipt is preserved. Its three passing mission rows are combined with the later passing Voyager 1 run. Final text-only Pluto coverage disclosure is captured separately; scene and source pack are unchanged.",
+  "artifacts": [
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/video/ffcd90a2ec43007f74ad1594e55b2dd3.webm",
+      "bytes": 3252604,
+      "sha256": "5fb79cdee9ffedc6e8ec2ee9ce5e46790d61af45d38eb3a67088e8167688ae4e"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-bounded-trajectory.png",
+      "bytes": 135011,
+      "sha256": "b404b3b77fe34a2047ead01f934d758424d664141752f3fe4e7b755aaa695569"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-default-encounter.png",
+      "bytes": 136300,
+      "sha256": "91be5b0f85b159aafd624951bc324fb0ac2ffdd2b70639a844a91bf75c328b70"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-inspection-desktop.png",
+      "bytes": 267176,
+      "sha256": "efcd12d1aecb3de60a5e6869f66373bec18580ab4a77347dac2119199f4fee88"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-inspection-landscape.png",
+      "bytes": 131695,
+      "sha256": "f460ee2bca78ca735144d387a19fb1af47a7aa1802cc5a9e999b31e6fc392870"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-inspection-portrait.png",
+      "bytes": 107079,
+      "sha256": "61dff0b9458d5e20f745456ffd9512c0c6539ad8e85509ea80e0d0fde3e96aec"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-return-solar.png",
+      "bytes": 233732,
+      "sha256": "b0ed74e7f3749f561c05f0d53b608ae121648e0757cc08fdea1567f79e75635c"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-selected-trajectory-range.png",
+      "bytes": 175988,
+      "sha256": "3ca3588dd873cfe069a5ca93b34e5f2e4aee0645f211cfbf25d1f2940bacc1e7"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-unsupported-epoch.png",
+      "bytes": 146475,
+      "sha256": "203b8db369b44e3f52af81546b15ce83885510b3732b96cb01506cc9bc72b7b1"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-voyager1-heliopause.png",
+      "bytes": 111071,
+      "sha256": "abe3c6397d6ac7fd41fc610210d5f8b692535df155abb80a52f98a8c387119a6"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-voyager1-jupiter.png",
+      "bytes": 421980,
+      "sha256": "313b2990c899a6889ce90e54f4cea2b80095454866712470e7266f2862f42f22"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/voyager1-voyager1-saturn.png",
+      "bytes": 187951,
+      "sha256": "08375ed9a3d3d8d3a30f45a5ca0a46860c2ac27a98b971834d1cd2bfb9091d1e"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/video/9b2b93a00fe822beaa0cc76cf097447f.webm",
+      "bytes": 2928462,
+      "sha256": "48225b3b6da6704e516c73a5f412c6fb5006023a90f644a01440816f5146f2d6"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-bounded-trajectory.png",
+      "bytes": 132737,
+      "sha256": "3f6fc11e57fce8821d554731218d9ce60c158be8776df70b01b171407a209119"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-default-encounter.png",
+      "bytes": 117794,
+      "sha256": "1928f0474d74d84f08497fb45860a613d1551698305eff96e71fa19196b6ca9d"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-inspection-desktop.png",
+      "bytes": 244045,
+      "sha256": "6114080b2b9d997989c4379bded270c9cfc297fdd91e76a0bf34921161fa8bed"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-inspection-landscape.png",
+      "bytes": 127632,
+      "sha256": "58eea28f83873119b4fe52ec843c663b937ab5020a9d2896c59538380dfb74e3"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-inspection-portrait.png",
+      "bytes": 106767,
+      "sha256": "4d1e75a44eb5d2f133210142cff99213243f2f78ba62241e2a1441b934660173"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-return-solar.png",
+      "bytes": 395227,
+      "sha256": "86615a462d19478d98ede1c0bc49d9e420146e0cd19dfce6ec1fe84f149b45cd"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-selected-trajectory-range.png",
+      "bytes": 130314,
+      "sha256": "808949d532ecb03b61a5b378383ff754f67763e412f239b0869b5f48c48ebf7c"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-unsupported-epoch.png",
+      "bytes": 142360,
+      "sha256": "0c37276a51ab58c85d205d41d58d7d367f1188217e2387531ffa5186cd63f47c"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-heliopause.png",
+      "bytes": 107316,
+      "sha256": "134a4ddf2999fdb455a84ecf29590f743e01777c46b879447839333bd25ee6f5"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-jupiter.png",
+      "bytes": 386055,
+      "sha256": "705201b25705c2d6e1ec06b7daaa28ea766491135e201f480f8b95aa98ba287c"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-neptune.png",
+      "bytes": 244044,
+      "sha256": "19de1fc87bfda26e7c2ecf47118649f2ed74a28f879e728aac9eb264056e6be4"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-saturn.png",
+      "bytes": 174402,
+      "sha256": "a570f4c56f20013f94a01b77e23e0ab3171e5681e57d9874b2e774b3cc80134a"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/voyager2-voyager2-uranus.png",
+      "bytes": 192809,
+      "sha256": "85bd3698713d85a6241992d85f6be6a664cef8e1536d58cbe1b51eea5da52aab"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/video/be9bdd05c065922c926013e7122cb34a.webm",
+      "bytes": 3950766,
+      "sha256": "2f9708d83dbe7b4a5c9c2b36b66aa959bba328755337c4b79804e9fdd0087298"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-bounded-trajectory.png",
+      "bytes": 131219,
+      "sha256": "2ea3300dacdc965f3890b8e92a0a0ce1bec260fbb56e55fdba8dca0dffecb3b2"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-enceladus-e21.png",
+      "bytes": 328780,
+      "sha256": "678571264b0a0ede66b16b326721b9dbbcf5cb8e7726966cc69bf049e878c235"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-end.png",
+      "bytes": 158207,
+      "sha256": "01d49fc0b21dddc31812771d7bda018e7eb2f0e8410076eb311571501d775ce7"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-grand-finale.png",
+      "bytes": 156286,
+      "sha256": "992642c7e299b67668f98ec7a48d8e543fd0d96c5bda509fb20d157ab4122f0c"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-jupiter.png",
+      "bytes": 105928,
+      "sha256": "363b388306698fb7d2765796404928871f0f9e3cf28a639190d0fc5454041df8"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-saturn-arrival.png",
+      "bytes": 312153,
+      "sha256": "34c1846b791f1d62c8c9878a25e0657b9b9e5b63765d6971e81c801795addf69"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-cassini-titan-a.png",
+      "bytes": 327424,
+      "sha256": "271cdc2423c4555473ce4b192cfbeb3a1c4ae5fe48b9f0e2cb01f37a14c34256"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-default-encounter.png",
+      "bytes": 130685,
+      "sha256": "8d7705c248a0d442af18b1b25c55a4d90ddc3b9be55ba6a5ab89f7c45ae18365"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-inspection-desktop.png",
+      "bytes": 297577,
+      "sha256": "2b98a87b9f4daa12d2314b225f5999adbf92909db3ccd00f6d7b90524a8f531a"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-inspection-landscape.png",
+      "bytes": 146724,
+      "sha256": "af008f15df0d247ef07a0136b800d9f82b6b8ee051fa8aaf983a4f57a31b2eae"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-inspection-portrait.png",
+      "bytes": 127556,
+      "sha256": "16c0396276f4f3002f400d19529ac69a9d5fcf13324049335aa3d19207f02857"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-return-solar.png",
+      "bytes": 223040,
+      "sha256": "4c4abc761bb9b116fdceda1d7c35e04d535274fdafec95a9195ecdcf14718770"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-selected-trajectory-range.png",
+      "bytes": 131871,
+      "sha256": "cb5ffb07493f0b01becf0f82acaff65e3e6ef73c22ed39828bcc43024f4bdb25"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/cassini-unsupported-epoch.png",
+      "bytes": 141610,
+      "sha256": "82e3b74d11f94abaf09e415b4ad0016d7362df8b33392a56928d09a9ea3282d4"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/video/c7ef00836830d12e93df630e6889f8e1.webm",
+      "bytes": 3053462,
+      "sha256": "45a84a5889bc9e36493b14512c74f0bb32f123f54fa50dd498d6b6ea7aeeb560"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-bounded-trajectory.png",
+      "bytes": 137796,
+      "sha256": "28c1b5a4fcffac00b9e6865443ed1d9e5ea3df67abb3a3f960c4474462910555"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-default-encounter.png",
+      "bytes": 120695,
+      "sha256": "6e410322157c0ee40270538d1e7cd5dc725753a2852d82e35acbfdd5634e3cf9"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-inspection-desktop.png",
+      "bytes": 173767,
+      "sha256": "d834667f01e3a05ad5f827038d3e1cbb8ec9acbf624a2b2215f8d540310849be"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-inspection-landscape.png",
+      "bytes": 92443,
+      "sha256": "09cdea35fd149988002e9d78ac0a5cd84a089c2dfdd7f39131ac231e45298049"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-inspection-portrait.png",
+      "bytes": 90901,
+      "sha256": "80abcd9ced470657daf379189f7df74cef4d6612b04c27ace7e05858d1899c62"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-jupiter-source-uncertainty.png",
+      "bytes": 444564,
+      "sha256": "9b7b88b4226203320d33612a4abe0ab3ebc0dc146284780d252b4793c2745e70"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-newhorizons-arrokoth.png",
+      "bytes": 153929,
+      "sha256": "13f7486a002432e6505bcc5a596cc5a2f3aee5e93c2626139814e7bc37396530"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-newhorizons-jupiter.png",
+      "bytes": 327447,
+      "sha256": "19d0b65f490e98ef0c90faa88164a87d5f0cb2747a9077245572bd5d408210c1"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-newhorizons-pluto.png",
+      "bytes": 174506,
+      "sha256": "70bfc63624674acef6acb4170acf86c251bd9a003b1a2e6d42d655ab02a48dbf"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-pluto-encounter-charon.png",
+      "bytes": 188963,
+      "sha256": "a9c90896f5041ee885a6a48bf1ff52769b32060b52c9546b2f247d2aaa03ec71"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-return-solar.png",
+      "bytes": 254378,
+      "sha256": "09274c9d07fb9042dd00b68987b3fd6c88cabe314ba9a3ebec6e81d5c06d2b53"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-selected-trajectory-range.png",
+      "bytes": 137704,
+      "sha256": "fac0b80e273d3647c7edcaa4ae94e62c2c121a5c5a101a13ef6b7beef6937874"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/newhorizons-unsupported-epoch.png",
+      "bytes": 146861,
+      "sha256": "1c75ab7b9fc21bec3c039435025e020f77cc04a3397093c2142e03afb53544fc"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/review24/2035-expired-path.png",
+      "bytes": 125932,
+      "sha256": "49277a70b694a0384c6bd2f2f19b6d84ffe11992448fc8b593af77e1947236ff"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/review24/fixed-2035-no-expired-path.png",
+      "bytes": 125782,
+      "sha256": "9bf8aa2802bcac05978d7ad02794d98c092a80f9a2c517a56dfbcf84ad21787c"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/performance/newhorizons-coverage-disclosure.png",
+      "bytes": 178341,
+      "sha256": "a55e12b41e95bcb9f571ada7c91fa32bfb5fade7fe4946c2a46a24210d050510"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-qualified/journeys.json",
+      "bytes": 988900,
+      "sha256": "e8be1bedc47a21b2505025826707a391fe477d801b9bb5f486cad1fec3c832d5"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/journeys.json",
+      "bytes": 320465,
+      "sha256": "af6b0908845863f56d5ea58881fe79bc8f439960a673403d8a0d8730f206a4b3"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/lifecycle-edges-before3/lifecycle-edges.json",
+      "bytes": 23398,
+      "sha256": "330bf29f1eb292044ccd0e054a23f5ad8ca4efd8757dce5a5868a140106f27ea"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/lifecycle-edges-fixed/lifecycle-edges.json",
+      "bytes": 37563,
+      "sha256": "77f77e95d1b0ed2e715813d8f6bb470c3decf04f9a0fe1498a1280709139dcf8"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/performance/performance.json",
+      "bytes": 129217,
+      "sha256": "4a70b82a32f7a3ce78977e460b5eddb6d302944534daa6526337cf68f72a0311"
+    },
+    {
+      "path": "output/playwright/solar-system-2.5/quality-recovery-qualified/quality-recovery.json",
+      "bytes": 60966,
+      "sha256": "459e389e976901224b848eb8893c559cf71f3f8abed73a62eaa508ac053d8061"
+    }
+  ]
+}

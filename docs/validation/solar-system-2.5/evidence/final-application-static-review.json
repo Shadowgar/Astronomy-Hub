@@ -1,0 +1,68 @@
+{
+  "status": "PASS_SCOPED_INDEPENDENT_APPLICATION_REVIEW",
+  "reviewer_authored_implementation": false,
+  "reviewer_authored_tests": [
+    "frontend/tests/missionPrecision.test.ts"
+  ],
+  "base_sha": "ea4d384af3aead949de7bec1947e8aff41465bca",
+  "inputs": {
+    "frontend/src/features/missions/MissionScene.ts": {
+      "sha256": "b827a065475716b3b809db27cdfb04cc71cee5c33adf540a3dd482c5eb468e25",
+      "bytes": 20259
+    },
+    "frontend/src/features/missions/MissionWorkspace.tsx": {
+      "sha256": "57c61290a8e47794f3c034ecb7591ce2fd1adea08f63f60f5048cae6a7dcd3ba",
+      "bytes": 25641
+    },
+    "frontend/src/features/missions/missionContracts.ts": {
+      "sha256": "b8ca58b796aaf454b7ab185f7fae368c1b1b106b1c5da6ae57255240559a4513",
+      "bytes": 12286
+    },
+    "frontend/src/features/solar/SolarWorkspace.tsx": {
+      "sha256": "a6ca34ccf1a286f176ef19da66d164a1cf9d40c9804637177994f7cef52a4323",
+      "bytes": 48551
+    },
+    "frontend/src/routes/AppRouter.tsx": {
+      "sha256": "771162c4f72df599aee4ee5cc5f1df5285603a9402531fa06a6aa456370ad837",
+      "bytes": 2797
+    },
+    "frontend/vite.config.mjs": {
+      "sha256": "679f9e946ac7e833a68e9926cad370bae7da3e0f85e25742e60ad78bb52b5255",
+      "bytes": 12310
+    },
+    "frontend/tests/missionPrecision.test.ts": {
+      "sha256": "2ea0a7606acf71ff332b14d3a753622bd927a6cf3ddc30ddf9ca8e0ab3fc011d",
+      "bytes": 6087
+    },
+    "frontend/tests/missionContracts.test.ts": {
+      "sha256": "ad59d26a69bfc477aad999aa066d71d05e9e5064934b1dbfb5affb23a2a0aa0e",
+      "bytes": 4487
+    },
+    "frontend/tests/missionReview.test.ts": {
+      "sha256": "63e9628e36cfcaf69e19e3148f87e192ad35747d4f42a49b74695a4109712c57",
+      "bytes": 3487
+    }
+  },
+  "confirmed_findings": "APP01 through APP07 corrected and independently reviewed. Four lifecycle checks and four complete source-backed journeys pass through the combined independent receipts.",
+  "limitations": [
+    "Static review does not substitute for the independent real GPU journey and corrected lifecycle rechecks.",
+    "Owner visual acceptance and physical iPhone qualification remain unverified."
+  ],
+  "independent_gpu_evidence": {
+    "lifecycle": "output/playwright/solar-system-2.5/lifecycle-edges-fixed/lifecycle-edges.json",
+    "lifecycle_checks_passed": 4,
+    "complete_journeys": "output/playwright/solar-system-2.5/journeys-qualified/journeys.json",
+    "qualified_complete_journeys": [
+      "voyager1",
+      "voyager2",
+      "cassini",
+      "newhorizons"
+    ],
+    "do_not_treat_aggregate_journey_receipt_as_green": true,
+    "voyager1_final": "output/playwright/solar-system-2.5/journeys-voyager1-fixed/journeys.json",
+    "consolidated_report": "docs/validation/solar-system-2.5/BROWSER-JOURNEYS.md",
+    "consolidated_receipt": "docs/validation/solar-system-2.5/evidence/browser-journeys.json",
+    "status": "PASS_BOUNDED_SCOPE"
+  },
+  "final_text_delta": "After the final Voyager1 green run, only an explicit Pluto/Charon unobserved-map/illustrative-longitude disclosure was added; independently checked against Solar2.4 ASSETS.md. No rendering/scientific source change."
+}
