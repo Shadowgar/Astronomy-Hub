@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Optional destination/catalog HTTP 503 retains original Jupiter and base-planet playback",
+    "SPA departure retires optional worker, pending queries and source assets",
+    "Precise Eros in 2028 remains available beyond legacy 2026 catalog window",
+    "Context loss retires worker and retry restores one renderer at the same precise epoch"
+  ],
+  "errors": []
+}

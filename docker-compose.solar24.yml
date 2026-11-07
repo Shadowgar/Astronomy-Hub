@@ -1,0 +1,21 @@
+# Opt-in Solar 2.4 sources. Use together with docker-compose.solar23.yml to
+# retain the separately qualified planetary satellite SPKs. No service is
+# started by this file; acquire and verify these bounded packs first.
+services:
+  backend:
+    environment:
+      ORAS_SOLAR_DESTINATIONS_DIR: /runtime/solar-destinations
+      ORAS_SOLAR_POPULATIONS_DIR: /runtime/solar-populations
+    volumes:
+      - type: bind
+        source: ${ORAS_SOLAR_DESTINATIONS_HOST_DIR:-./data/runtime-packs/solar-destinations/release-2025-2030-v1}
+        target: /runtime/solar-destinations
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ORAS_SOLAR_POPULATIONS_HOST_DIR:-./data/runtime-packs/solar-populations/release-20261103}
+        target: /runtime/solar-populations
+        read_only: true
+        bind:
+          create_host_path: false

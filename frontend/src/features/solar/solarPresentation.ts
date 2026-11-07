@@ -2,7 +2,7 @@ import * as T from 'three'
 import type {BodyId,Vector,SolarSnapshot} from './solarContracts'
 
 export type BodyRadii=Record<string,number>
-export type SolarPreset='full'|'inner'|'outer'
+export type SolarPreset='full'|'inner'|'outer'|'belt'|'kuiper'
 export type SolarCameraView=SolarPreset|'body'|'custom'
 export type SolarSizeMode='cinematic'|'physical'
 /** Allocate adjacent disks proportionally, keeping their real projected centers. */
@@ -20,9 +20,11 @@ export function physicalRadii(snapshot:SolarSnapshot):BodyRadii{
 }
 // Ring extent/orientation and optical atmosphere remain disclosed illustrations.
 export const visualRadius=(radii:BodyRadii,id:string)=>radii[id]*(id==='saturn'?140180/58232:1.03)
-type Anchor={source_id:BodyId;position_au:Vector}
+type Anchor={source_id:string;position_au:Vector}
 export function presetAnchors<A extends Anchor>(bodies:A[],preset:SolarPreset):A[]{
- const inner=new Set<BodyId>(['sun','mercury','venus','earth','mars'])
+ const inner=new Set<string>(['sun','mercury','venus','earth','mars'])
+ if(preset==='belt')return bodies.filter(b=>['sun','mars','jupiter','ceres','vesta','eros'].includes(b.source_id))
+ if(preset==='kuiper')return bodies.filter(b=>['sun','neptune','pluto','eris'].includes(b.source_id))
  return bodies.filter(b=>preset==='full'||(preset==='inner'?inner.has(b.source_id):!inner.has(b.source_id)))
 }
 export type CameraPose={position:Vector;target:Vector}
@@ -65,7 +67,7 @@ export function overviewPose(radii:BodyRadii,bodies:Anchor[],aspect:number,heigh
 }
 /** Screen budgets describe an illustration, never body dimensions or positions. */
 export function cinematicRadius(id:string,width:number,height:number){
- const fraction:Record<string,number>={sun:.25,mercury:.026,venus:.075,earth:.12,mars:.10,jupiter:.14,saturn:.12,uranus:.075,neptune:.075}
+ const fraction:Record<string,number>={sun:.25,mercury:.026,venus:.075,earth:.12,mars:.10,jupiter:.14,saturn:.12,uranus:.075,neptune:.075,pluto:.07,ceres:.06,vesta:.04,eris:.045}
  return Math.min(width*.24,height*(fraction[id]??.018),id==='mercury'?24:Infinity)
 }
 /** Pick a readable source-derived view, rather than rearranging the planets.

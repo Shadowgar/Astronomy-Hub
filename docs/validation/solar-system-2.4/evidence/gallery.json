@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "layouts": [
+    {
+      "width": 1440,
+      "height": 900,
+      "decodedImages": 69,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "decodedImages": 69,
+      "horizontalOverflow": false
+    }
+  ],
+  "videos": [
+    {
+      "source": "video/pluto-charon.webm",
+      "duration": 19.4,
+      "width": 1440,
+      "height": 900,
+      "currentTime": 9.7,
+      "readyState": 4
+    },
+    {
+      "source": "video/ceres-asteroids.webm",
+      "duration": 26.24,
+      "width": 1440,
+      "height": 900,
+      "currentTime": 13.12,
+      "readyState": 4
+    },
+    {
+      "source": "video/kuiper-eris.webm",
+      "duration": 18.64,
+      "width": 844,
+      "height": 390,
+      "currentTime": 9.32,
+      "readyState": 4
+    },
+    {
+      "source": "video/comet-trajectories.webm",
+      "duration": 33.2,
+      "width": 390,
+      "height": 844,
+      "currentTime": 16.6,
+      "readyState": 4
+    }
+  ],
+  "errors": []
+}

@@ -3,6 +3,25 @@ import * as T from 'three'
 import {adoptCelestialGeometry,createCelestialBody,setCelestialRingFrame} from '../src/features/celestial/CelestialBody'
 
 const defer=()=>{let resolve!:(x:any)=>void;const promise=new Promise<any>(r=>{resolve=r});return{promise,resolve}}
+it('preserves the axis ratios of a source visualization when only its reference scale is known',()=>{
+ const geometry=new T.SphereGeometry(3,24,16);geometry.scale(1,.8,.7)
+ const node=new T.Mesh(geometry,new T.MeshStandardMaterial());node.updateMatrixWorld(true)
+ const adopted=adoptCelestialGeometry(node,1,'visualization-shape');adopted.computeBoundingBox()
+ const size=adopted.boundingBox!.getSize(new T.Vector3())
+ expect(size.y/size.x).toBeCloseTo(.8,6);expect(size.z/size.x).toBeCloseTo(.7,6)
+ expect(adopted.userData.physicalEnvelopeAU).toBeCloseTo(1,6)
+})
+it('preserves cartographic longitude axes and kilometre reference radius without claiming measured relief',()=>{
+ const geometry=new T.SphereGeometry(1188.3,12,8),node=new T.Mesh(geometry,new T.MeshStandardMaterial());node.updateMatrixWorld(true)
+ const adopted=adoptCelestialGeometry(node,1,'cartographic-sphere-km',100)
+ expect(adopted.userData.physicalEnvelopeAU).toBeCloseTo(11.883,5)
+ expect(Array.from(adopted.attributes.uv.array)).toEqual(Array.from(geometry.attributes.uv.array))
+})
+it('finishes an explicitly unmapped reference body without claiming an imagery load',()=>{
+ const body=createCelestialBody({id:'eris',radiusAU:1,assets:{signal:new AbortController().signal} as any,keep:(r:any)=>r,request:()=>{},sourceIdentity:{target:'20136199',origin:'10',frame:'ICRF'}})
+ expect(body.overviewReady).toBe(true);expect(body.mesh.material.uniforms.hasMap.value).toBe(false)
+ expect((body.diagnostics() as any).appearanceSource).toBeNull()
+})
 function original(){const geometry=new T.SphereGeometry(3,12,8),map=new T.Texture(),node=new T.Mesh(geometry,new T.MeshStandardMaterial({map})),scene=new T.Group();node.position.set(2,0,0);scene.add(node);scene.updateMatrixWorld(true);return{node,map,scene}}
 it('retains source UV/index and original geometry while normalizing a visualization sphere',()=>{
  const {node}=original(),uv=Array.from(node.geometry.attributes.uv.array),indices=Array.from(node.geometry.index!.array),positions=Array.from(node.geometry.attributes.position.array)

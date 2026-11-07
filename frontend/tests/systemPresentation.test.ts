@@ -3,6 +3,12 @@ import {systemOverviewPose,systemSurfaceFrame,systemToAU,systemToKm} from '../sr
 import {celestialAppearance} from '../src/features/celestial/celestialAssets'
 
 describe('source-preserving system presentation',()=>{
+ it('uses nominal PCK spin for a cartographic XYZ grid without claiming exact map meridian registration',()=>{
+  const q:[number,number,number,number]=[0,0,Math.SQRT1_2,Math.SQRT1_2]
+  const frame=systemSurfaceFrame('pluto',q,{body_fixed_frame:'IAU_PLUTO'},celestialAppearance('pluto'))
+  expect(frame.quaternion).toEqual(q);expect(frame.qualified).toBe(false);expect(frame.classification).toMatch(/longitude offset unqualified/)
+  expect(systemSurfaceFrame('pluto',q,{body_fixed_frame:'IAU_CHARON'},celestialAppearance('pluto')).quaternion).toBeNull()
+ })
  it('converts only units and fits the current distribution without moving centers',()=>{
   const points=[[0,0,0],[1e6,0,0],[-2e6,3e5,1e5]] as [number,number,number][]
   const original=JSON.stringify(points),pose=systemOverviewPose(points.map(systemToAU),[0,0,1],[1,0,0],390,500,40)

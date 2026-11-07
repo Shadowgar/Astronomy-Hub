@@ -34,6 +34,14 @@ export function systemOverviewPose(points:Vec3[],pole:Vec3,sun:Vec3,width:number
 export function systemSurfaceFrame(id:string,q:SystemQuaternion|undefined,track:{body_fixed_frame:string;model_id?:string|null}|undefined,asset:CelestialAppearance|null){
  const fallback={quaternion:null as SystemQuaternion|null,qualified:false,classification:asset?.orientation??'illustrative-source-registration'}
  if(!q||!track)return fallback
+ if(asset?.geometryKind==='cartographic-sphere-km'){
+  // These archived grids specify +X=0E, +Y=90E, +Z=north. Use the matching
+  // body's nominal pole/spin instead of the legacy visualization's arbitrary
+  // 90-degree rotation. Historical New Horizons meridian realization remains
+  // uncertain; this is explicitly not qualified geodetic alignment.
+  if(track.body_fixed_frame!=='IAU_'+id.toUpperCase())return fallback
+  return{quaternion:q,qualified:false,classification:'PCK pole/spin; historical map longitude offset unqualified'}
+ }
  if(asset?.geometryKind==='measured-shape-km'){
   if(track.body_fixed_frame!==asset.expectedOrientationFrame||track.model_id!==asset.expectedOrientationModelId)return fallback
   return{quaternion:q,qualified:true,classification:track.body_fixed_frame}

@@ -76,7 +76,8 @@ def test_catalog_uses_sourced_metadata_and_honest_unavailability(monkeypatch, tm
     assert response.status_code == 200
     catalog = response.json()
     rows = {s['id']: s for s in catalog['systems']}
-    assert set(rows) == {'earth','mars','jupiter','saturn','uranus','neptune'}
+    assert set(rows) == {'earth','mars','jupiter','saturn','uranus','neptune','pluto'}
+    assert rows.pop('pluto')['status']=='unavailable'
     assert rows['earth']['satellites'][0]['radius_km'] == 1737.4
     assert rows['earth']['satellites'][0]['surface'] == {'available': True, 'destination': '/planet-view/moon'}
     assert [m['name'] for m in rows['mars']['satellites']] == ['Phobos','Deimos']
@@ -118,3 +119,4 @@ def test_fractional_epoch_immediately_before_leap_is_in_sampled_coverage():
 def retain_legacy_source_domain(monkeypatch,tmp_path):
     """These regression tests specifically qualify the retained PS1/PS2 paths."""
     monkeypatch.setenv("ORAS_PLANETARY_SYSTEMS_SPK_DIR",str(tmp_path/"no-spk-release"))
+    monkeypatch.setenv("ORAS_SOLAR_DESTINATIONS_DIR",str(tmp_path/"no-destination-release"))

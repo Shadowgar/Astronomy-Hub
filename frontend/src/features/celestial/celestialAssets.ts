@@ -1,11 +1,12 @@
 import moonManifest from '../../../public/planetary-assets/v2.3/manifest.json'
+import destinationManifest from '../../../public/solar-assets/v2.4/manifest.json'
 import {solarOverviewAssets,type SolarOverviewAsset} from '../solar/solarVisualAssets'
 import {SolarResourceOwner} from '../solar/solarAssets'
 import * as T from 'three'
 
 export const KM_PER_AU=149597870.7
 export type CelestialAppearance=SolarOverviewAsset&{
- geometryKind?:'visualization-sphere'|'measured-shape-km'
+ geometryKind?:'visualization-sphere'|'visualization-shape'|'measured-shape-km'|'cartographic-sphere-km'
  expectedOrientationFrame?:string
  expectedOrientationModelId?:string
  envelopeKm?:number
@@ -13,8 +14,14 @@ export type CelestialAppearance=SolarOverviewAsset&{
  disclosure?:string
 }
 const moons=moonManifest.assets as Record<string,any>
+const destinations=destinationManifest.assets as Record<string,any>
 /** Appearance IDs do not change the scene's separate ephemeris target/center. */
 export function celestialAppearance(id:string):CelestialAppearance|null{
+ if(Object.hasOwn(destinations,id)){
+  const m=destinations[id]
+  if(m.runtimeAllowed===false)return null
+  return{mapping:m.mapping,source:m.source.url,modelUrl:m.modelUrl,overview:m.overview,detail:m.detail,geometryKind:m.kind==='cartographic-sphere'?'cartographic-sphere-km':m.kind==='measured-shape'?'measured-shape-km':'visualization-shape',envelopeKm:m.geometry.maxBoundingRadiusKm,expectedOrientationFrame:m.geometry.expectedOrientationFrame,expectedOrientationModelId:m.geometry.expectedOrientationModelId,orientation:m.source.orientationClassification,disclosure:m.source.disclosure}
+ }
  if(Object.hasOwn(solarOverviewAssets,id))return solarOverviewAssets[id]
  if(id==='moon')return{mapping:'equirectangular',source:'NASA/ASU LROC WAC; existing qualified native Moon source',mapUrl:'/planet-data/moon-wac.png',overview:{width:2880,height:1440,bytes:4256691,sha256:'218ddb0ed75af907dd0d8c6a1e5a41a6628a9654803a0b88fa352b17ca90c3d8'},detail:[{url:'/planet-data/moon-wac.png',width:2880,height:1440,bytes:4256691,sha256:'218ddb0ed75af907dd0d8c6a1e5a41a6628a9654803a0b88fa352b17ca90c3d8'}],orientation:'MOON_ME_DE440_ME421',disclosure:'Historical LROC WAC imagery; native Moon frame. No new terrain.'}
  if(!Object.hasOwn(moons,id))return null

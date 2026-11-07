@@ -1,0 +1,19 @@
+.solar-population-explorer{max-width:360px;font-size:.82rem;color:#e3edf3}
+.solar-population-explorer>summary{cursor:pointer;padding:.65rem .8rem;font-weight:600}
+.solar-population-explorer>summary>span{font-size:.7rem;font-weight:400;opacity:.75;margin-left:.5rem}
+.solar-population-content{padding:0 .8rem .8rem;max-height:min(65vh,640px);overflow:auto;overscroll-behavior:contain}
+.solar-population-content p{line-height:1.45;margin:.65rem 0}
+.solar-population-content label{display:grid;gap:.3rem;margin:.7rem 0}
+.solar-population-content input,.solar-population-content select{box-sizing:border-box;width:100%;min-height:38px;background:#101c29;color:#edf5fb;border:1px solid #41546a;border-radius:5px;padding:.4rem .5rem}
+.solar-population-results{list-style:none;margin:.5rem 0;padding:0;max-height:210px;overflow:auto}
+.solar-population-results li{margin:.25rem 0}
+.solar-population-results button{display:grid;gap:.2rem;text-align:left;width:100%;min-height:44px;padding:.45rem .55rem;border:1px solid #384b5c;border-radius:5px;background:#11202d;color:#edf5fb;cursor:pointer}
+.solar-population-results button[aria-pressed=true]{border-color:#94cbe7;background:#1d394c}
+.solar-population-results small,.solar-population-source-note,.solar-population-source-time{font-size:.72rem;line-height:1.45;opacity:.83}
+.solar-population-details{border-top:1px solid #41546a;margin-top:.8rem;padding-top:.2rem}
+.solar-population-details h3{font-size:1rem;margin:.65rem 0}
+.solar-population-details dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:.35rem .6rem;font-size:.75rem}
+.solar-population-details dt{color:#adbecc}.solar-population-details dd{margin:0;overflow-wrap:anywhere}
+.solar-population-details>button{min-height:44px;padding:.5rem .7rem;border:1px solid #7ba7bf;border-radius:5px;background:#173c50;color:#eef8ff;cursor:pointer}
+.solar-population-content :focus-visible{outline:2px solid #9ed8fb;outline-offset:2px}
+@media(max-width:600px){.solar-population-explorer{max-width:calc(100vw - 24px)}.solar-population-content{max-height:55vh}}

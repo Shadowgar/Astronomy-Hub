@@ -12,6 +12,7 @@ import numpy as np
 
 from backend.app.services import planetary_ephemeris_service as ephemeris
 from backend.app.services import horizons_systems, satellite_spk_systems, system_body_orientation
+from backend.app.services import solar_destinations
 from backend.app.services.solar_exploration import BODIES
 
 COVERAGE_START = datetime(1900, 1, 1, tzinfo=timezone.utc)
@@ -45,11 +46,17 @@ def base_catalog():
             status='qualified' if identity == 'earth' else 'unavailable',
             reason=None if identity == 'earth' else ('No natural satellites.' if not satellites else UNAVAILABLE),
             satellites=satellites))
+    systems.append(solar_destinations.pluto_catalog())
     return dict(schema='oras.planetary-systems.v1', systems=systems)
 
 
 def system_catalog():
     catalog=base_catalog()
+    try:
+        solar_destinations.load_runtime()
+        catalog['systems'][-1]=solar_destinations.pluto_catalog(True)
+    except ephemeris.EphemerisUnavailableError:
+        pass
     if satellite_spk_systems.source_present():
         try:
             return satellite_spk_systems.qualify_catalog(catalog)
@@ -111,6 +118,8 @@ def _sample_track(runtime, target, stamps, times):
 
 
 def system_snapshot(system_id, epoch):
+    if system_id == 'pluto':
+        return solar_destinations.pluto_snapshot(epoch)
     system = next((s for s in base_catalog()['systems'] if s['id'] == system_id), None)
     if system is None:
         raise KeyError(system_id)

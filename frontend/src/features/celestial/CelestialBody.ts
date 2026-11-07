@@ -13,17 +13,18 @@ export type CelestialBody={id:string;mesh:any;extras:any[];sourceIdentity:Celest
 
 /** Copy source geometry; a measured COM-centred shape is never recentered or
  * projected onto a mean sphere. The conservative envelope is about the COM. */
-export function adoptCelestialGeometry(node:any,radiusAU:number,mode:'visualization-sphere'|'measured-shape-km',kmPerAU=KM_PER_AU){
+export function adoptCelestialGeometry(node:any,radiusAU:number,mode:NonNullable<CelestialAppearance['geometryKind']>,kmPerAU=KM_PER_AU){
  if(!node?.geometry?.attributes.position||!Number.isFinite(radiusAU)||radiusAU<=0||!Number.isFinite(kmPerAU)||kmPerAU<=0)throw Error('Invalid celestial geometry')
  const geometry=node.geometry.clone();try{geometry.applyMatrix4(node.matrixWorld)
- if(mode==='measured-shape-km')geometry.scale(1/kmPerAU,1/kmPerAU,1/kmPerAU)
+ if(mode==='measured-shape-km'||mode==='cartographic-sphere-km')geometry.scale(1/kmPerAU,1/kmPerAU,1/kmPerAU)
  else{
   if(!geometry.attributes.uv)throw Error('Source texture geometry lacks UV registration')
   geometry.computeBoundingSphere();const sphere=geometry.boundingSphere
   if(!sphere||!Number.isFinite(sphere.radius)||sphere.radius<=0)throw Error('Invalid source model bounds')
   geometry.translate(-sphere.center.x,-sphere.center.y,-sphere.center.z)
   const positions=geometry.attributes.position
-  for(let i=0;i<positions.count;i++){const v=new T.Vector3().fromBufferAttribute(positions,i);if(!Number.isFinite(v.lengthSq())||v.lengthSq()===0)throw Error('Invalid source model vertex');v.normalize().multiplyScalar(radiusAU);positions.setXYZ(i,v.x,v.y,v.z)}
+  if(mode==='visualization-shape')geometry.scale(radiusAU/sphere.radius,radiusAU/sphere.radius,radiusAU/sphere.radius)
+  else for(let i=0;i<positions.count;i++){const v=new T.Vector3().fromBufferAttribute(positions,i);if(!Number.isFinite(v.lengthSq())||v.lengthSq()===0)throw Error('Invalid source model vertex');v.normalize().multiplyScalar(radiusAU);positions.setXYZ(i,v.x,v.y,v.z)}
   positions.needsUpdate=true
  }
  geometry.computeVertexNormals();geometry.computeBoundingSphere()
@@ -66,7 +67,7 @@ export function createCelestialBody(options:Options):CelestialBody{
   }).catch(()=>failed(`${id} source model`))
  }else if(appearance?.mapUrl){
   void assets.texture(appearance.mapUrl,1024,true,appearance.overview).then(map=>{if(assets.signal.aborted)return;map.wrapS=T.RepeatWrapping;mesh.userData.visualSource=appearance.source;ready(map)}).catch(()=>failed(`${id} overview imagery`))
- }
+ }else if(!appearance)ready(null)
  if(appearanceId==='earth'){
   const clouds=new T.Mesh(keep(new T.SphereGeometry(radius*1.008,256,128)),keep(cloudsMaterial()));clouds.rotation.copy(mesh.rotation);clouds.userData.clouds=true;extras.push(clouds)
   void assets.texture(cloudUrl,2048,false).then(map=>{if(assets.signal.aborted)return;clouds.material.uniforms.map.value=map;material.uniforms.cloudMap.value=map;body.cloudsReady=true;options.onCloud?.(map);request()}).catch(()=>failed('Earth cloud imagery'))

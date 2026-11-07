@@ -6,8 +6,19 @@ from backend.app.services.solar_small_bodies import small_body_pack
 from fastapi.responses import JSONResponse
 from backend.app.services.solar_exploration import solar_snapshot
 from backend.app.services.planetary_ephemeris_service import EphemerisUnavailableError
+from backend.app.schemas.solar_destinations import Destinations
+from backend.app.services.solar_destinations import destinations_snapshot
 
 router = APIRouter()
+
+@router.get('/solar-system/destinations', response_model=Destinations)
+def get_solar_destinations(epoch: str = Query(..., min_length=20, max_length=40)):
+    try:
+        return destinations_snapshot(datetime.fromisoformat(epoch.replace('Z','+00:00')))
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail='Use an explicit millisecond UTC epoch.') from exc
+    except EphemerisUnavailableError as exc:
+        raise HTTPException(status_code=503, detail='Local destination source unavailable.') from exc
 
 @router.get('/solar-system/small-bodies')
 def get_small_bodies():

@@ -39,7 +39,9 @@ def body_to_icrf(variables, naif_id, jd_tdb):
     days=np.asarray(jd_tdb,dtype=float)-2451545.0
     centuries=days/36525.0
     prefix=f'BODY{naif_id}_'
-    system=f'BODY{int(naif_id)//100}_'
+    # NAIF asteroid PCK phase angles belong to the body itself. Satellite
+    # phase angles belong to their planet system (e.g. BODY5 for Jupiter).
+    system=prefix if int(naif_id)>=1000000 else f'BODY{int(naif_id)//100}_'
     degree=int(variables.get(system+'MAX_PHASE_DEGREE',1))
     coefficients=np.asarray(variables.get(system+'NUT_PREC_ANGLES',[]),dtype=float).reshape(-1,degree+1)
     phases=np.array([np.polynomial.polynomial.polyval(centuries,row) for row in coefficients])

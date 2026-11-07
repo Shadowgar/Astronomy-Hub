@@ -44,6 +44,16 @@ const spkFixture=():SystemSnapshot=>{
  return s
 }
 describe('extended SPK source admission',()=>{
+ it('admits Pluto physical center and source-sized minor moons without inventing their chaotic orientations',()=>{
+  const s=spkFixture();s.system_id='pluto';s.parent={...s.parent,id:'pluto',name:'Pluto',naif_id:'999'};s.origin='Pluto center (999)';s.source.id='jpl_plu060_local'
+  s.satellites[0]={...s.satellites[0],id:'charon',name:'Charon',naif_id:'901'};s.tracks[0].id='charon'
+  s.satellites.push({...s.satellites[0],id:'nix',name:'Nix',naif_id:'902'});s.tracks.push({...structuredClone(s.tracks[0]),id:'nix'})
+  s.source.series=['999','901','902'].map(target_id=>({target_id,center_id:target_id==='999'?'10':'999',source_sha256:'b'.repeat(64),source_url:'https://example.test/'}))
+  const original=s.orientations!.mars;s.orientations={pluto:{...original,body_id:'pluto',naif_id:'999',body_fixed_frame:'IAU_PLUTO'},charon:{...original,body_id:'charon',naif_id:'901',body_fixed_frame:'IAU_CHARON'}}
+  expect(validateSystemSnapshot(s,'pluto',s.epoch).parent.naif_id).toBe('999')
+  const b=structuredClone(s);b.parent.naif_id='9';expect(()=>validateSystemSnapshot(b,'pluto',b.epoch)).toThrow()
+  delete s.orientations.charon;expect(()=>validateSystemSnapshot(s,'pluto',s.epoch)).toThrow()
+ })
  it('admits a complete physical-center kernel and frame contract',()=>{const s=spkFixture();expect(validateSystemSnapshot(s,'mars',s.epoch).source.id).toBe('jpl_satellite_spk_local')})
  it('rejects missing provenance, mismatched kernel hashes and source coverage',()=>{
   const changes:Array<(s:SystemSnapshot)=>void>=[s=>{s.source.kernels=[]},s=>{s.source.kernels![0].sha256='c'.repeat(64)},s=>{s.source.kernels![0].bytes=Infinity},s=>{s.source.kernels![0].file='../source.bsp'},s=>{s.source.kernels!.push(s.source.kernels![0])},s=>{s.source.coverage_start_jd_tdb=NaN},s=>{s.source.coverage_end_jd_tdb=s.time.jd_tdb-1},s=>{delete s.orientations},s=>{delete s.orientations!.phobos},s=>{s.sun_track.samples[1].jd_tdb+=3}]

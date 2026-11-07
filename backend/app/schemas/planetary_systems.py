@@ -27,6 +27,9 @@ class Satellite(BaseModel):
     status: Literal['qualified','unavailable']
     reason: str | None
     surface: Surface
+    representation: Literal['reference-sphere'] | None = None
+    radius_uncertainty_km: confloat(gt=0) | None = None
+    orientation_status: str | None = None
 
 
 class System(BaseModel):

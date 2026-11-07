@@ -1,0 +1,172 @@
+[
+  {
+    "endpoint": "solar-system",
+    "status": 200,
+    "bytes": 120622,
+    "schema": "oras.solar.v1",
+    "epoch": "2026-10-27T04:00:00Z",
+    "source": {
+      "id": "jpl_de442s_local",
+      "release": "de442s-2025-02-06",
+      "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+    },
+    "identities": [
+      "sun",
+      "mercury",
+      "venus",
+      "earth",
+      "mars",
+      "jupiter",
+      "saturn",
+      "uranus",
+      "neptune"
+    ],
+    "bodyCount": 9
+  },
+  {
+    "endpoint": "solar-system/destinations",
+    "status": 200,
+    "bytes": 530476,
+    "schema": "oras.solar-destinations.v1",
+    "epoch": "2026-10-27T04:00:00.000000Z",
+    "source": {
+      "id": "jpl_solar_destinations_local",
+      "release": "solar24-2025-2030-v1",
+      "sha256": "69c3a97875a081d38112f491f14a253af369262c31ad10521480406704d3baf9",
+      "url": "https://ssd.jpl.nasa.gov/horizons/"
+    },
+    "identities": [
+      "pluto",
+      "ceres",
+      "vesta",
+      "eros",
+      "eris",
+      "halley",
+      "67p",
+      "borisov"
+    ],
+    "bodyCount": 8
+  },
+  {
+    "endpoint": "planetary-systems/pluto",
+    "status": 200,
+    "bytes": 951624,
+    "schema": "oras.planetary-system.v1",
+    "epoch": "2026-10-27T04:00:00.000000Z",
+    "source": {
+      "id": "jpl_plu060_local",
+      "release": "solar24-2025-2030-v1",
+      "sha256": "69c3a97875a081d38112f491f14a253af369262c31ad10521480406704d3baf9",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp",
+      "coverage_start_jd_tdb": 2460676.5,
+      "coverage_end_jd_tdb": 2462502.5,
+      "series": [
+        {
+          "target_id": "999",
+          "center_id": "10",
+          "target_header": "Pluto physical center (999)",
+          "center_header": "Sun (10)",
+          "source_sha256": "0f5f425b946fd2217e4fd37e147474ed3359cb517d92542eb9d449b486bcffec",
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp"
+        },
+        {
+          "target_id": "901",
+          "center_id": "999",
+          "target_header": "Charon (901)",
+          "center_header": "Pluto physical center (999)",
+          "source_sha256": "0f5f425b946fd2217e4fd37e147474ed3359cb517d92542eb9d449b486bcffec",
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp"
+        },
+        {
+          "target_id": "902",
+          "center_id": "999",
+          "target_header": "Nix (902)",
+          "center_header": "Pluto physical center (999)",
+          "source_sha256": "0f5f425b946fd2217e4fd37e147474ed3359cb517d92542eb9d449b486bcffec",
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp"
+        },
+        {
+          "target_id": "903",
+          "center_id": "999",
+          "target_header": "Hydra (903)",
+          "center_header": "Pluto physical center (999)",
+          "source_sha256": "0f5f425b946fd2217e4fd37e147474ed3359cb517d92542eb9d449b486bcffec",
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp"
+        },
+        {
+          "target_id": "904",
+          "center_id": "999",
+          "target_header": "Kerberos (904)",
+          "center_header": "Pluto physical center (999)",
+          "source_sha256": "0f5f425b946fd2217e4fd37e147474ed3359cb517d92542eb9d449b486bcffec",
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp"
+        },
+        {
+          "target_id": "905",
+          "center_id": "999",
+          "target_header": "Styx (905)",
+          "center_header": "Pluto physical center (999)",
+          "source_sha256": "0f5f425b946fd2217e4fd37e147474ed3359cb517d92542eb9d449b486bcffec",
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp"
+        }
+      ],
+      "transition": "Both centers use original PLU060 barycentric offsets. Moons minus Pluto; Sun uses same-kernel Sun minus Pluto barycenter minus physical-center offset.",
+      "kernels": [
+        {
+          "id": "pluto",
+          "file": "plu060-2025-2030.bsp",
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp",
+          "sha256": "0f5f425b946fd2217e4fd37e147474ed3359cb517d92542eb9d449b486bcffec",
+          "bytes": 1572968
+        }
+      ]
+    },
+    "parent": {
+      "id": "pluto",
+      "name": "Pluto",
+      "naif_id": "999",
+      "radius_km": 1188.3,
+      "radius_source": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "material": "pluto"
+    },
+    "satelliteCount": 5,
+    "identities": [
+      "901",
+      "902",
+      "903",
+      "904",
+      "905"
+    ]
+  },
+  {
+    "endpoint": "solar-populations",
+    "status": 200,
+    "bytes": 20932987,
+    "schema": "oras.solar-populations.v1",
+    "epoch": null,
+    "source": null,
+    "identities": [
+      "20000004",
+      "20000001",
+      "20000002",
+      "20000003",
+      "20000015",
+      "20000006",
+      "20000010",
+      "20000007",
+      "20000532",
+      "20000029",
+      "20000039",
+      "20000349",
+      "20000354",
+      "20000009",
+      "20000016",
+      "20000471",
+      "20000704",
+      "20000018",
+      "20000089",
+      "20000511"
+    ],
+    "bodyCount": 25338
+  }
+]

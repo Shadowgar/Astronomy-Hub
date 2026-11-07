@@ -1,6 +1,15 @@
 .solar-search-label{display:grid;gap:7px;padding:10px 12px;font-size:11px;letter-spacing:.05em;color:#b7c3d3}
 .solar-search-label input{width:100%;min-height:40px;box-sizing:border-box;border:1px solid #ffffff24;border-radius:12px;background:#05091199;color:#eff5ff;padding:8px 12px;font:inherit;font-size:13px}
 .solar-search-results{display:grid;max-height:220px;overflow:auto;padding:4px 10px}
+.solar-new-destinations{padding:0 12px 12px;display:grid;gap:12px}
+.solar-new-destinations section{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.solar-new-destinations h3{grid-column:1/-1;margin:3px 0;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#abb8c9}
+.solar-new-destinations button{min-height:46px;border:1px solid #ffffff1c;border-radius:10px;background:#1a233269;color:#edf4ff;padding:8px 10px;text-align:left;cursor:pointer;font:inherit;font-size:12px}
+.solar-new-destinations button span{display:block;color:#aebbcf;font-size:10px;margin-top:4px}
+.solar-source-status{font-size:11px;padding:0 12px;color:#c9b79e}
+.solar-destination-status{font-size:11px;line-height:1.5;color:#b1becf;margin:9px 0}
+.solar-object-heading>div{min-width:0}.solar-object-heading h2{overflow-wrap:anywhere}
+.solar-mini-pluto,.solar-mini-charon,.solar-mini-ceres,.solar-mini-vesta,.solar-mini-eros,.solar-mini-67p,.solar-mini-halley,.solar-mini-eris{background:radial-gradient(circle at 30% 28%,#d1c5b2,#685c52 45%,#17181f 76%)}
 .solar-search-results button,.solar-eros-destination,.solar-system-entry{border:1px solid #ffffff1c;border-radius:12px;background:#1a233269;color:#edf4ff;padding:10px 14px;text-align:left;cursor:pointer}
 .solar-eros-destination{margin:5px 12px 12px;width:calc(100% - 24px)}
 .solar-eros-destination span{display:block;font-size:11px;color:#b2bdcc;margin-top:3px}

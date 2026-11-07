@@ -1,5 +1,25 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Solar System 2.4 — implemented candidate, acceptance pending
+
+The owner-authorized expansion from `fc1a7142` is implemented on the existing
+recovery branch and draft PR107: Pluto/Charon, Ceres/Vesta/Eros, source asteroid/TNO
+populations, Eris and bounded Halley/67P/Borisov exploration. Shared graphics,
+physical centers, one clock and native engine ownership are preserved.
+
+673 frontend tests, typecheck, Docker build and 134 Docker science tests pass
+(34 inherited warnings). Actual Windows RTX3060 captures, source-window journeys,
+failure/native lifecycle tests and 19 GPU cases are recorded in the
+[Solar 2.4 report](../validation/solar-system-2.4/README.md). Worst cold frame is
+236 ms; no hitch-free or physical-phone claim. Final SHA/hosted checks are on PR107.
+
+Scoped independent science/asset/population reviews are complete. Final application
+integration re-review remains outstanding because the reviewer service returned a
+usage limit. Owner visual acceptance, physical iPhone, map/rotation source limits
+and matching/public corresponding-source release qualifications remain open.
+Stop product expansion for owner inspection and remaining review. No merge,
+production deployment, public source archive, tunnel or protected deletion.
+
 ## Solar System 2.3 — owner-authorized planetary reconstruction, 2026-11-02
 
 The owner explicitly authorizes Planetary Systems2.0 within Solar2.3 from

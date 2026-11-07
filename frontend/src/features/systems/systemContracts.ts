@@ -1,7 +1,7 @@
 import {interpolateOrientation,validateSystemOrientations} from './systemOrientation'
 import type {EvaluatedSystem,SystemCamera,SystemCatalog,SystemEntry,SystemParent,SystemSatellite,SystemSnapshot,SystemTrack,SystemVisitState,Vec3} from './systemTypes'
-export const systemIds=['earth','mars','jupiter','saturn','uranus','neptune'] as const
-export const parentCenters:Record<string,string>={earth:'399',mars:'499',jupiter:'599',saturn:'699',uranus:'799',neptune:'899'}
+export const systemIds=['earth','mars','jupiter','saturn','uranus','neptune','pluto'] as const
+export const parentCenters:Record<string,string>={earth:'399',mars:'499',jupiter:'599',saturn:'699',uranus:'799',neptune:'899',pluto:'999'}
 const finite=(n:unknown):n is number=>typeof n==='number'&&Number.isFinite(n)
 const vector=(v:unknown):v is Vec3=>Array.isArray(v)&&v.length===3&&v.every(finite)
 const timestamp=(s:unknown):number=>typeof s==='string'&&/Z$|[+-]\d\d:\d\d$/.test(s)?Date.parse(s):NaN
@@ -13,30 +13,30 @@ function satellites(list:SystemSatellite[],id:string){
  for(const s of list){if(!s||!validId(s.id)||ids.has(s.id)||!s.name||typeof s.naif_id!=='string'||!/^\d+$/.test(s.naif_id)||targets.has(s.naif_id)||s.naif_id===parentCenters[id]||!(s.naif_id.startsWith(parentCenters[id][0]))||!['qualified','unavailable'].includes(s.status)||!s.surface||typeof s.surface.available!=='boolean')fail();if(s.status==='qualified'&&(!finite(s.radius_km)||s.radius_km<=0||!s.radius_source))fail();if(s.surface.available&&(s.id!=='moon'||s.naif_id!=='301'||s.surface.destination!=='/planet-view/moon'))fail();if(s.surface.destination!==null&&s.surface.destination!=='/planet-view/moon')fail();if(id==='earth'&&(s.id!=='moon'||s.naif_id!=='301'))fail();ids.add(s.id);targets.add(s.naif_id)}
 }
 export function validateSystemCatalog(raw:unknown):SystemCatalog{
- const c=raw as SystemCatalog;if(!c||c.schema!=='oras.planetary-systems.v1'||!Array.isArray(c.systems)||c.systems.length>6)fail();const ids=new Set<string>()
+ const c=raw as SystemCatalog;if(!c||c.schema!=='oras.planetary-systems.v1'||!Array.isArray(c.systems)||c.systems.length>7)fail();const ids=new Set<string>()
  for(const s of c.systems){if(!s||!parentCenters[s.id]||ids.has(s.id)||!s.name||!['qualified','unavailable'].includes(s.status))fail();parent(s.parent,s.id);satellites(s.satellites,s.id);ids.add(s.id)}return c
 }
 export function validateSystemSnapshot(raw:unknown,id:string,epoch:string):SystemSnapshot{
- const s=raw as SystemSnapshot;if(!s||s.schema!=='oras.planetary-system.v1'||s.system_id!==id||!parentCenters[id]||timestamp(s.epoch)!==timestamp(epoch)||!Number.isFinite(timestamp(epoch))||s.frame!=='ICRF'||s.units!=='km'||s.origin!==`${s.parent?.name} center (${parentCenters[id]})`||s.time?.input_scale!=='UTC'||s.time.evaluation_scale!=='TDB'||!finite(s.time.jd_tdb)||!s.source||!/^[a-f0-9]{64}$/.test(s.source.sha256)||!s.source.url?.startsWith('https://')||s.sampling?.interpolation!=='cubic-hermite'||!finite(s.sampling.step_seconds)||s.sampling.step_seconds<=0||s.sampling.step_seconds>3600||!finite(s.sampling.max_position_error_km)||s.sampling.max_position_error_km<0||s.sampling.max_position_error_km>1||(s.source.id==='jpl_satellite_spk_local'&&s.sampling.max_position_error_km>=.1)||!s.sampling.qualification)fail()
+ const s=raw as SystemSnapshot;if(!s||s.schema!=='oras.planetary-system.v1'||s.system_id!==id||!parentCenters[id]||timestamp(s.epoch)!==timestamp(epoch)||!Number.isFinite(timestamp(epoch))||s.frame!=='ICRF'||s.units!=='km'||s.origin!==`${s.parent?.name} center (${parentCenters[id]})`||s.time?.input_scale!=='UTC'||s.time.evaluation_scale!=='TDB'||!finite(s.time.jd_tdb)||!s.source||!/^[a-f0-9]{64}$/.test(s.source.sha256)||!s.source.url?.startsWith('https://')||s.sampling?.interpolation!=='cubic-hermite'||!finite(s.sampling.step_seconds)||s.sampling.step_seconds<=0||s.sampling.step_seconds>3600||!finite(s.sampling.max_position_error_km)||s.sampling.max_position_error_km<0||s.sampling.max_position_error_km>1||(['jpl_satellite_spk_local','jpl_plu060_local'].includes(s.source.id)&&s.sampling.max_position_error_km>=.1)||!s.sampling.qualification)fail()
  parent(s.parent,id);satellites(s.satellites,id)
  if(id!=='earth'){
   const rows=s.source.series||[],qualified=s.satellites.filter(m=>m.status==='qualified')
-  if(!['jpl_horizons_local','jpl_satellite_spk_local'].includes(s.source.id)||!s.source.transition||s.corrections!=='geometric; no light-time or aberration'||!Array.isArray(rows)||rows.length!==qualified.length+1)fail()
+  if(!['jpl_horizons_local','jpl_satellite_spk_local','jpl_plu060_local'].includes(s.source.id)||(s.source.id==='jpl_plu060_local')!==(id==='pluto')||!s.source.transition||s.corrections!=='geometric; no light-time or aberration'||!Array.isArray(rows)||rows.length!==qualified.length+1)fail()
   const targets=new Set<string>();for(const row of rows){if(!row||targets.has(row.target_id)||!(/^[a-f0-9]{64}$/.test(row.source_sha256))||!row.source_url?.startsWith('https://'))fail();targets.add(row.target_id)}
   if(!rows.some(r=>r.target_id===parentCenters[id]&&r.center_id==='10')||qualified.some(m=>!rows.some(r=>r.target_id===m.naif_id&&r.center_id===parentCenters[id])))fail()
  }
- if(s.source.id==='jpl_satellite_spk_local'){
+ if(['jpl_satellite_spk_local','jpl_plu060_local'].includes(s.source.id)){
   const kernels=s.source.kernels||[],first=s.source.coverage_start_jd_tdb,last=s.source.coverage_end_jd_tdb
   if(!finite(first)||!finite(last)||first>=last||s.time.jd_tdb<first||s.time.jd_tdb>last||!Array.isArray(kernels)||kernels.length<1||kernels.length>8||!s.orientations)fail()
   const keys=new Set<string>(),hashes=new Set<string>();let bytes=0
   for(const kernel of kernels){if(!kernel||!validId(kernel.id)||keys.has(kernel.id)||!/^[-a-zA-Z0-9_.]+\.bsp$/.test(kernel.file)||!kernel.url?.startsWith('https://')||!/^[a-f0-9]{64}$/.test(kernel.sha256)||!Number.isSafeInteger(kernel.bytes)||kernel.bytes<=0)fail();keys.add(kernel.id);hashes.add(kernel.sha256);bytes+=kernel.bytes}
-  if(bytes>64*1024*1024||(s.source.series||[]).some(row=>!hashes.has(row.source_sha256))||![s.system_id,...s.satellites.filter(m=>m.status==='qualified').map(m=>m.id)].every(body=>Object.hasOwn(s.orientations!,body)))fail()
+  if(bytes>64*1024*1024||(s.source.series||[]).some(row=>!hashes.has(row.source_sha256))||!(id==='pluto'?['pluto','charon']:[s.system_id,...s.satellites.filter(m=>m.status==='qualified').map(m=>m.id)]).every(body=>Object.hasOwn(s.orientations!,body)))fail()
  }
  const start=timestamp(s.sampled_coverage?.start),end=timestamp(s.sampled_coverage?.end),fullStart=timestamp(s.coverage?.start),fullEnd=timestamp(s.coverage?.end),now=timestamp(s.epoch)
  if(![start,end,fullStart,fullEnd].every(Number.isFinite)||start>=end||start<fullStart||end>fullEnd||now<start||now>end)fail()
  if(!Array.isArray(s.tracks)||s.tracks.length!==s.satellites.filter(m=>m.status==='qualified').length||!s.sun_track||s.sun_track.id!=='sun')fail()
  const seen=new Set<string>();for(const track of [...s.tracks,s.sun_track]){if(!track||seen.has(track.id)||(track.id!=='sun'&&!s.satellites.some(m=>m.id===track.id&&m.status==='qualified'))||!Array.isArray(track.samples)||track.samples.length<2||track.samples.length>10000)fail();let last=-Infinity,lastJd=-Infinity
- for(const p of track.samples){const t=timestamp(p.epoch);if(s.source.id==='jpl_satellite_spk_local'&&(p.jd_tdb<s.source.coverage_start_jd_tdb!||p.jd_tdb>s.source.coverage_end_jd_tdb!))fail();if(!Number.isFinite(t)||t<=last||!finite(p.jd_tdb)||p.jd_tdb<=lastJd||!vector(p.position_km)||!vector(p.velocity_km_s)||Math.max(...p.position_km.map(Math.abs))>1e11)fail();if(Math.abs((p.jd_tdb-s.time.jd_tdb)*86400000-(t-now))>3||(Number.isFinite(last)&&(t-last>s.sampling.step_seconds*1000+1||Math.abs((p.jd_tdb-lastJd)*86400000-(t-last))>2.5)))fail();last=t;lastJd=p.jd_tdb}
+ for(const p of track.samples){const t=timestamp(p.epoch);if(['jpl_satellite_spk_local','jpl_plu060_local'].includes(s.source.id)&&(p.jd_tdb<s.source.coverage_start_jd_tdb!||p.jd_tdb>s.source.coverage_end_jd_tdb!))fail();if(!Number.isFinite(t)||t<=last||!finite(p.jd_tdb)||p.jd_tdb<=lastJd||!vector(p.position_km)||!vector(p.velocity_km_s)||Math.max(...p.position_km.map(Math.abs))>1e11)fail();if(Math.abs((p.jd_tdb-s.time.jd_tdb)*86400000-(t-now))>3||(Number.isFinite(last)&&(t-last>s.sampling.step_seconds*1000+1||Math.abs((p.jd_tdb-lastJd)*86400000-(t-last))>2.5)))fail();last=t;lastJd=p.jd_tdb}
  if(timestamp(track.samples[0].epoch)>start||last<end)fail();seen.add(track.id)}
  validateSystemOrientations(s)
  return s

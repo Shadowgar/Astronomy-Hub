@@ -1,0 +1,654 @@
+{
+  "schema": "oras.solar.visual-assets.v2.4",
+  "assets": {
+    "pluto": {
+      "bodyId": "pluto",
+      "naifId": "999",
+      "runtimeAllowed": true,
+      "kind": "cartographic-sphere",
+      "mapping": "source-uv",
+      "modelUrl": "/solar-assets/v2.4/pluto-cartographic.glb",
+      "overview": {
+        "file": "pluto-cartographic.glb",
+        "url": "/solar-assets/v2.4/pluto-cartographic.glb",
+        "bytes": 611900,
+        "sha256": "711f1af78c2fca312ee89b92e7896eb0e7706c29aee8c7ebb3aaeb8b18041f14",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "pluto-2048.jpg",
+          "url": "/solar-assets/v2.4/pluto-2048.jpg",
+          "bytes": 535318,
+          "sha256": "ddbadc55d8a5a7f7127e832e5ca52fa039b7ab9c315bdfefd0da6d71f700e5e4",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "pluto-4096.jpg",
+          "url": "/solar-assets/v2.4/pluto-4096.jpg",
+          "bytes": 1837438,
+          "sha256": "632f8e672ca85c0a6ddc76f1485d584ef92e19868ce77ffcc5bcfd236161043c",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 8385,
+        "triangleCount": 16128,
+        "boundsKm": [
+          [
+            -1188.3,
+            -1188.3,
+            -1188.3
+          ],
+          [
+            1188.3,
+            1188.3,
+            1188.3
+          ]
+        ],
+        "maxBoundingRadiusKm": 1188.3000000000002,
+        "sourceVolumeKm3": 7021515096.162486,
+        "closedManifold": false,
+        "eulerCharacteristic": 1,
+        "consistentWinding": false,
+        "origin": "source body origin retained; no recentering or radius normalization",
+        "referenceRadiusKm": 1188.3,
+        "topology": "generated reference sphere; no measured relief",
+        "axes": "+X longitude 0; +Y longitude 90 east; +Z north",
+        "geodeticRegistrationQualified": false,
+        "cartographicGridQualified": true,
+        "frame": "PDS New Horizons map grid; exact IAU prime-meridian realization not stated in source label",
+        "orientationAtEpochQualified": false,
+        "cartographicGrid": {
+          "radiusKm": 1188.3,
+          "width": 24888,
+          "height": 12444,
+          "centerLongitudeDegrees": 180.0,
+          "upperLeftMeters": [
+            -3733200,
+            1866600
+          ]
+        }
+      },
+      "source": {
+        "file": "pluto-pds-mosaic.jpg",
+        "download": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived-v4.0/plutosystem_geophysics/browse/nh_pluto_mosaic.jpg",
+        "bytes": 65903048,
+        "sha256": "f7c7512d99d0053fabf72ed60fa02040dd8eac98fc52fa08a62d9cabcf07edf4",
+        "acquiredUTC": "2026-11-03T14:08:15.386167+00:00",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived datasets are public domain; retain dataset and author attribution.",
+        "orientationClassification": "source-frame-retained-epoch-registration-unqualified",
+        "organization": "NASA New Horizons / JHUAPL / SwRI / PDS Small Bodies Node",
+        "url": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+        "doi": "10.26007/qc8b-6p65",
+        "sourceResolution": [
+          24888,
+          12444
+        ],
+        "sourcePostingMeters": 300,
+        "projection": "Equirectangular, planetocentric; center longitude 180.0 degrees",
+        "longitudeConvention": "planetocentric, positive east; Pluto 0 to 360 degrees, Charon -180 to 180 degrees",
+        "datum": "New Horizons reference sphere radius 1188.3 km",
+        "coverage": "partial; south of about 30 degrees south unobserved; original black gaps retained",
+        "version": "PDS4 nh_derived v4.0, plutosystem_geophysics collection 1.0; 2015 encounter",
+        "appearanceClass": "observational-monochrome-mosaic-on-reference-sphere",
+        "labelUrl": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived-v4.0/plutosystem_geophysics/mosaic/nh_pluto_mosaic.lblx",
+        "disclosure": "New Horizons monochrome LORRI/MVIC mosaic; source resolution varies greatly across the body. Black southern areas are unobserved, not dark terrain. A reference sphere carries the imagery; no relief is invented. Map grid is preserved; precise epoch meridian registration remains unqualified because this edition does not document whether the historical 1.45-degree frame offset was corrected.",
+        "frameUncertaintySource": "https://repository.hou.usra.edu/bitstream/handle/20.500.11753/1798/2021je006964-sup-0001-supporting%20information%20si-s01.pdf?isAllowed=y&sequence=2",
+        "labelSha256": "53e27d51084faa3861cccc5581b34b74f00fbee6dc533f2d96389279b8259bb3",
+        "sourceColorSpace": "8-bit panchromatic relative brightness; rendered as sRGB display imagery, not quantitative reflectance",
+        "sourcePixelAcquisition": "New Horizons LORRI/MVIC July 2015 encounter; no new observation at application epoch"
+      }
+    },
+    "charon": {
+      "bodyId": "charon",
+      "naifId": "901",
+      "runtimeAllowed": true,
+      "kind": "cartographic-sphere",
+      "mapping": "source-uv",
+      "modelUrl": "/solar-assets/v2.4/charon-cartographic.glb",
+      "overview": {
+        "file": "charon-cartographic.glb",
+        "url": "/solar-assets/v2.4/charon-cartographic.glb",
+        "bytes": 596768,
+        "sha256": "04bdce1a16bafd287e0664db1ed410db9803b9d72ec22ec8b24a00d62ee861df",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "charon-2048.jpg",
+          "url": "/solar-assets/v2.4/charon-2048.jpg",
+          "bytes": 470282,
+          "sha256": "f5951a6c9d95d93473676100f6b2195768b4eae9310524706ffb921ca0986123",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "charon-4096.jpg",
+          "url": "/solar-assets/v2.4/charon-4096.jpg",
+          "bytes": 1575104,
+          "sha256": "e44b37afda20365acaee609311d3fdabeb1bbcdff6773988093dd9f95b4156be",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 8385,
+        "triangleCount": 16128,
+        "boundsKm": [
+          [
+            -606.0,
+            -606.0,
+            -606.0
+          ],
+          [
+            606.0,
+            606.0,
+            606.0
+          ]
+        ],
+        "maxBoundingRadiusKm": 606.0000000000001,
+        "sourceVolumeKm3": 931258854.3887222,
+        "closedManifold": false,
+        "eulerCharacteristic": 1,
+        "consistentWinding": false,
+        "origin": "source body origin retained; no recentering or radius normalization",
+        "referenceRadiusKm": 606.0,
+        "topology": "generated reference sphere; no measured relief",
+        "axes": "+X longitude 0; +Y longitude 90 east; +Z north",
+        "geodeticRegistrationQualified": false,
+        "cartographicGridQualified": true,
+        "frame": "PDS New Horizons map grid; exact IAU prime-meridian realization not stated in source label",
+        "orientationAtEpochQualified": false,
+        "cartographicGrid": {
+          "radiusKm": 606.0,
+          "width": 12693,
+          "height": 6347,
+          "centerLongitudeDegrees": 0.0,
+          "upperLeftMeters": [
+            -1904100,
+            952200
+          ]
+        }
+      },
+      "source": {
+        "file": "charon-pds-mosaic.jpg",
+        "download": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived-v4.0/plutosystem_geophysics/browse/nh_charon_mosaic.jpg",
+        "bytes": 17422962,
+        "sha256": "d14c636ac2c618a33a2b6d24223113f4383320bdc460da3c6bf2f64bcd7998b2",
+        "acquiredUTC": "2026-11-03T14:08:17.611050+00:00",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived datasets are public domain; retain dataset and author attribution.",
+        "orientationClassification": "source-frame-retained-epoch-registration-unqualified",
+        "organization": "NASA New Horizons / JHUAPL / SwRI / PDS Small Bodies Node",
+        "url": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+        "doi": "10.26007/qc8b-6p65",
+        "sourceResolution": [
+          12693,
+          6347
+        ],
+        "sourcePostingMeters": 300,
+        "projection": "Equirectangular, planetocentric; center longitude 0.0 degrees",
+        "longitudeConvention": "planetocentric, positive east; Pluto 0 to 360 degrees, Charon -180 to 180 degrees",
+        "datum": "New Horizons reference sphere radius 606.0 km",
+        "coverage": "partial; south of about 30 degrees south unobserved; original black gaps retained",
+        "version": "PDS4 nh_derived v4.0, plutosystem_geophysics collection 1.0; 2015 encounter",
+        "appearanceClass": "observational-monochrome-mosaic-on-reference-sphere",
+        "labelUrl": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived-v4.0/plutosystem_geophysics/mosaic/nh_charon_mosaic.lblx",
+        "disclosure": "New Horizons monochrome LORRI/MVIC mosaic; source resolution varies greatly across the body. Black southern areas are unobserved, not dark terrain. A reference sphere carries the imagery; no relief is invented. Map grid is preserved; precise epoch meridian registration remains unqualified because this edition does not document whether the historical 1.45-degree frame offset was corrected.",
+        "frameUncertaintySource": "https://repository.hou.usra.edu/bitstream/handle/20.500.11753/1798/2021je006964-sup-0001-supporting%20information%20si-s01.pdf?isAllowed=y&sequence=2",
+        "labelSha256": "012d05955fb10f2d6bb9b2d6675594a07daa31b5ed30caae7db9af2781b44a3b",
+        "sourceColorSpace": "8-bit panchromatic relative brightness; rendered as sRGB display imagery, not quantitative reflectance",
+        "sourcePixelAcquisition": "New Horizons LORRI/MVIC July 2015 encounter; no new observation at application epoch"
+      }
+    },
+    "67p": {
+      "bodyId": "67p",
+      "naifId": "1000012",
+      "runtimeAllowed": true,
+      "kind": "measured-shape",
+      "mapping": "none",
+      "modelUrl": "/solar-assets/v2.4/67p-measured.glb",
+      "overview": {
+        "file": "67p-measured.glb",
+        "url": "/solar-assets/v2.4/67p-measured.glb",
+        "bytes": 2400600,
+        "sha256": "62505f9db4f229f07ac8c1d4efdbf169f1a928f9516bd809e973a10e9979f173"
+      },
+      "detail": [],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 49993,
+        "triangleCount": 99990,
+        "boundsKm": [
+          [
+            -2.44694,
+            -1.75808,
+            -1.39376
+          ],
+          [
+            2.62749,
+            1.95889,
+            1.65215
+          ]
+        ],
+        "maxBoundingRadiusKm": 2.6504380760789337,
+        "sourceVolumeKm3": 17.853912064418726,
+        "closedManifold": true,
+        "eulerCharacteristic": -2,
+        "consistentWinding": true,
+        "origin": "source body origin retained; no recentering or radius normalization",
+        "frame": "CHEOPS_REF_FRAME_V1",
+        "orientationAtEpochQualified": false,
+        "sourceDataSha256": "d37a7db508d369a2df71d2801c777c9662c7ea9f6a7e1765655e48cab1711728"
+      },
+      "source": {
+        "file": "67p-shap4s-100k.wrl",
+        "download": "https://archives.esac.esa.int/psa/ftp/INTERNATIONAL-ROSETTA-MISSION/SHAPE/RO-C-MULTI-5-67P-SHAPE-V2.0/DATA/TRIPLATE/SPG_DLR/SHAP4S/CG_DLR_SPG_SHAP4S_100K.WRL",
+        "bytes": 9001560,
+        "sha256": "d37a7db508d369a2df71d2801c777c9662c7ea9f6a7e1765655e48cab1711728",
+        "acquiredUTC": "2026-11-03T14:08:26.735926+00:00",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived datasets are public domain; retain dataset and author attribution.",
+        "orientationClassification": "source-frame-retained-epoch-registration-unqualified",
+        "organization": "NASA PDS / ESA PSA / DLR / F. Preusker and F. Scholten",
+        "url": "https://archives.esac.esa.int/psa/ftp/INTERNATIONAL-ROSETTA-MISSION/SHAPE/RO-C-MULTI-5-67P-SHAPE-V2.0/DATA/TRIPLATE/SPG_DLR/SHAP4S/CG_DLR_SPG_SHAP4S_100K.WRL",
+        "projection": "none; original Cartesian vertices and triangle facets",
+        "datum": "original body-centered coordinates in kilometers",
+        "coverage": "global shape with uneven observational constraints",
+        "sourceResolution": {
+          "vertices": 49993,
+          "triangles": 99990
+        },
+        "appearanceClass": "measured-irregular-shape-neutral-material",
+        "version": "DLR SPG SHAP4S 100K; RO-C-MULTI-5-67P-SHAPE-V2.0",
+        "orientationFrame": "CHEOPS_REF_FRAME_V1",
+        "disclosure": "Rosetta OSIRIS measured SHAP4S nucleus, 2014 northern-hemisphere observations; southern geometry is less constrained. Original CHEOPS frame and kilometers preserved. Neutral material; rotational phase at the selected epoch is unqualified."
+      }
+    },
+    "eros": {
+      "bodyId": "eros",
+      "naifId": "20000433",
+      "runtimeAllowed": true,
+      "kind": "measured-shape",
+      "mapping": "none",
+      "modelUrl": "/solar-assets/v2.4/eros-measured.glb",
+      "overview": {
+        "file": "eros-measured.glb",
+        "url": "/solar-assets/v2.4/eros-measured.glb",
+        "bytes": 1199112,
+        "sha256": "ff49aa6d2b4c964b8632cae0c3a2e17a0fe642d4e256455cd742e35fceebf63a"
+      },
+      "detail": [],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 25350,
+        "triangleCount": 49152,
+        "boundsKm": [
+          [
+            -17.56503,
+            -8.28302,
+            -6.07243
+          ],
+          [
+            15.09339,
+            8.60042,
+            5.8865
+          ]
+        ],
+        "maxBoundingRadiusKm": 17.629185527976045,
+        "sourceVolumeKm3": 2506.386406303765,
+        "closedManifold": true,
+        "eulerCharacteristic": 2,
+        "consistentWinding": true,
+        "origin": "source body origin retained; no recentering or radius normalization",
+        "frame": "Eros source eros_alex.tpc body frame",
+        "expectedOrientationFrame": "PDS_GASKELL_EROS",
+        "expectedOrientationModelId": "pds-gaskell-eros-alex",
+        "orientationModelSha256": "0b410adcbd14bc6f678781524050b979714c7f64acd8693786f35acaa1363673",
+        "sourceFrameEvaluationQualified": true,
+        "contemporaryMeridianObservationallyQualified": false,
+        "sourceDataSha256": "de97008ff2c865039a51aa29ec13441ac3c87bd5cb27879091cb488c74fcb6dd"
+      },
+      "source": {
+        "file": "eros-ver64q.tab",
+        "download": "https://sbnarchive.psi.edu/pds4/non_mission/gaskell.ast-eros.shape-model/data/vertex/ver64q.tab",
+        "bytes": 4246671,
+        "sha256": "de97008ff2c865039a51aa29ec13441ac3c87bd5cb27879091cb488c74fcb6dd",
+        "acquiredUTC": "2026-11-03T14:08:27.697502+00:00",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived datasets are public domain; retain dataset and author attribution.",
+        "orientationClassification": "qualified-source-body-frame",
+        "organization": "NASA PDS / R. Gaskell / NEAR MSI",
+        "url": "https://sbnarchive.psi.edu/pds4/non_mission/gaskell.ast-eros.shape-model/data/vertex/ver64q.tab",
+        "projection": "none; original Cartesian vertices and triangle facets",
+        "datum": "original body-centered coordinates in kilometers",
+        "coverage": "global shape with uneven observational constraints",
+        "sourceResolution": {
+          "vertices": 25350,
+          "triangles": 49152
+        },
+        "appearanceClass": "measured-irregular-shape-neutral-material",
+        "version": "Gaskell 2008 Q64; PDS4 V1.0",
+        "orientationFrame": "PDS_GASKELL_EROS",
+        "disclosure": "NEAR-derived PDS measured Eros shape in original kilometers; neutral material. Original NASA visualization remains preserved separately. Source orientation uses the legacy eros_alex model.",
+        "orientationModelId": "pds-gaskell-eros-alex",
+        "orientationQualification": "Companion source coefficients independently compared against CSPICE N0067; modern observational accuracy remains unqualified.",
+        "orientationReferenceFixture": "backend/tests/fixtures/solar_destinations_frames.json"
+      }
+    },
+    "vesta": {
+      "bodyId": "vesta",
+      "naifId": "20000004",
+      "runtimeAllowed": true,
+      "kind": "measured-shape",
+      "mapping": "none",
+      "modelUrl": "/solar-assets/v2.4/vesta-measured.glb",
+      "overview": {
+        "file": "vesta-measured.glb",
+        "url": "/solar-assets/v2.4/vesta-measured.glb",
+        "bytes": 4756508,
+        "sha256": "aec8a1617c2bfb042885ef08d3470b0e569d1c2ea8fdf6c2736a472b6513218b"
+      },
+      "detail": [],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 99846,
+        "triangleCount": 196608,
+        "boundsKm": [
+          [
+            -283.68924,
+            -280.53829,
+            -232.88912
+          ],
+          [
+            291.53028,
+            274.72093,
+            230.39769
+          ]
+        ],
+        "maxBoundingRadiusKm": 292.21262074759625,
+        "sourceVolumeKm3": 74868896.82103029,
+        "closedManifold": true,
+        "eulerCharacteristic": 2,
+        "consistentWinding": true,
+        "origin": "source body origin retained; no recentering or radius normalization",
+        "frame": "IAU_VESTA",
+        "frameCode": 10099,
+        "sourceCenterId": 2000004,
+        "sourceSurfaceId": 20101,
+        "expectedOrientationFrame": "IAU_VESTA",
+        "expectedOrientationModelId": "dawn-vesta-grv221108-v1",
+        "orientationModelSha256": "bb17489f6d933124b502a3a9a5e3491a0d94ab34bb06a7addfa760bd8c681278",
+        "sourceFrameEvaluationQualified": true,
+        "contemporaryMeridianObservationallyQualified": false,
+        "sourceDataSha256": "c7f75ea3d2ea671e76ff5e523b5f648c1e12360b5a37912d2a7522e0273fe4ad"
+      },
+      "source": {
+        "file": "dawn_vesta_grv_icq0128_v1.bds",
+        "download": "https://naif.jpl.nasa.gov/pub/naif/DAWN/kernels/dsk/dawn_vesta_grv_icq0128_v1.bds",
+        "bytes": 9038848,
+        "sha256": "c7f75ea3d2ea671e76ff5e523b5f648c1e12360b5a37912d2a7522e0273fe4ad",
+        "acquiredUTC": "2026-11-03T14:11:27.108538+00:00",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived datasets are public domain; retain dataset and author attribution.",
+        "orientationClassification": "qualified-source-body-frame",
+        "organization": "NASA PDS NAIF / Dawn Gravity Team JPL",
+        "url": "https://naif.jpl.nasa.gov/pub/naif/DAWN/kernels/dsk/dawn_vesta_grv_icq0128_v1.bds",
+        "projection": "none; original Cartesian vertices and triangle facets",
+        "datum": "original body-centered coordinates in kilometers",
+        "coverage": "global shape with uneven observational constraints",
+        "sourceResolution": {
+          "vertices": 99846,
+          "triangles": 196608
+        },
+        "appearanceClass": "measured-irregular-shape-neutral-material",
+        "version": "Dawn GRV ICQ0128 v1, 2022 delivery/2025 archive",
+        "orientationFrame": "IAU_VESTA",
+        "disclosure": "Dawn measured Vesta shape in original kilometers with its companion GRV221108 rotation model. Neutral material; no texture-to-shape registration is claimed. Source rotation is extrapolated, not independently observed at the application epoch.",
+        "orientationModelId": "dawn-vesta-grv221108-v1",
+        "orientationQualification": "Companion source coefficients independently compared against CSPICE N0067; modern observational accuracy remains unqualified.",
+        "orientationReferenceFixture": "backend/tests/fixtures/solar_destinations_frames.json"
+      }
+    },
+    "ceres": {
+      "bodyId": "ceres",
+      "naifId": "20000001",
+      "runtimeAllowed": true,
+      "kind": "nasa-source-shape",
+      "mapping": "source-uv",
+      "modelUrl": "/solar-assets/v2.4/ceres-overview.glb",
+      "overview": {
+        "file": "ceres-overview.glb",
+        "url": "/solar-assets/v2.4/ceres-overview.glb",
+        "bytes": 811216,
+        "sha256": "b435760a291abf1aa3c57e9e30cfcae9bfb3d0b7132576904c65918cef9c24a4",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "ceres-2048.jpg",
+          "url": "/solar-assets/v2.4/ceres-2048.jpg",
+          "bytes": 736325,
+          "sha256": "6827a9c03c563bcf2c852888aaf48aa660ebfed271ea655af3ea1e65b335839e",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "ceres-4096.jpg",
+          "url": "/solar-assets/v2.4/ceres-4096.jpg",
+          "bytes": 2055350,
+          "sha256": "2b82c430a98f9af6cdf666a98c81f501b8729a47742adfd8644bf188ac1437b5",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false,
+        "adoption": "uniform-reference-scale-preserving-shape",
+        "sourceBounds": [
+          [
+            -472.99810791015625,
+            -436.7261962890625,
+            -473.0009460449219
+          ],
+          [
+            473.00189208984375,
+            436.745849609375,
+            472.9990539550781
+          ]
+        ]
+      },
+      "source": {
+        "file": "ceres-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/c/Ceres_1_1000.glb",
+        "bytes": 9529028,
+        "sha256": "c43ec43aa8fb90aa8cf30660c2f2853cfac408d38149d1dc470490f4f4aa9899",
+        "acquiredUTC": "2026-11-03T14:05:56.795928+00:00",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; NASA VTAD credit, no third-party restriction stated on product.",
+        "orientationClassification": "illustrative-source-registration",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/ceres-3d-model/",
+        "sourceResolution": [
+          4096,
+          2048
+        ],
+        "sourceImageSha256": "04b130cd06ad9e5fd5923db20828940a96c60907b46145154d482c82ae8afbf8",
+        "projection": "Original NASA GLB mesh UVs; no reprojection",
+        "datum": "not published by NASA VTAD",
+        "longitudeConvention": "not published by NASA VTAD",
+        "coverage": "NASA visualization map; per-pixel observational coverage not documented",
+        "appearanceClass": "NASA-mapped-oblate-visualization",
+        "version": "NASA downloadable GLB, 2023-09",
+        "disclosure": "NASA Ceres mapped visualization with original UVs and oblate shape preserved. Uniform reference scaling is illustrative; VTAD does not publish source units or prime-meridian registration. This is not a measured terrain model."
+      }
+    },
+    "halley": {
+      "bodyId": "halley",
+      "naifId": "1000036",
+      "runtimeAllowed": true,
+      "kind": "measured-shape",
+      "mapping": "none",
+      "modelUrl": "/solar-assets/v2.4/halley-measured.glb",
+      "overview": {
+        "file": "halley-measured.glb",
+        "url": "/solar-assets/v2.4/halley-measured.glb",
+        "bytes": 121952,
+        "sha256": "7c672008eaf10377c1ab13d15c97dd1b52e85d1d354025d237c8b469c16a3aed"
+      },
+      "detail": [],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 2522,
+        "triangleCount": 5040,
+        "boundsKm": [
+          [
+            -4.104503570224401,
+            -4.022347074980668,
+            -8.875108527246342
+          ],
+          [
+            3.4285059574742944,
+            3.5625918021082423,
+            6.269579193282465
+          ]
+        ],
+        "maxBoundingRadiusKm": 8.90901,
+        "sourceVolumeKm3": 402.1784951869004,
+        "closedManifold": true,
+        "eulerCharacteristic": 2,
+        "consistentWinding": true,
+        "origin": "source body origin retained; no recentering or radius normalization",
+        "frame": "Stooke/Abergel Halley long-axis reference frame; north toward big end",
+        "orientationAtEpochQualified": false,
+        "topology": "derived triangulation of original 5-degree radius grid; no interpolated radius",
+        "boundaryTreatment": "redundant poles/seam share longitude-zero radius; maximum source rounding discrepancy 0.000001 km",
+        "absoluteUncertaintyKm": [
+          0.5,
+          1.0
+        ],
+        "sourceDataSha256": "e9437ac850060a4c527d1045e028ac28f58bfe0386fc1da0bf50405b8128b824"
+      },
+      "source": {
+        "file": "halley-stooke.tab",
+        "download": "https://sbnarchive.psi.edu/pds4/non_mission/small_bodies.stooke.shape-models/data/1682q1halley.tab",
+        "bytes": 70226,
+        "sha256": "e9437ac850060a4c527d1045e028ac28f58bfe0386fc1da0bf50405b8128b824",
+        "acquiredUTC": "2026-11-07T04:48:13.670546+00:00",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived datasets are public domain; retain dataset and author attribution.",
+        "orientationClassification": "source-frame-retained-epoch-registration-unqualified",
+        "organization": "NASA PDS / Philip Stooke and Alain Abergel / Giotto and Vega imagery",
+        "url": "https://sbnarchive.psi.edu/pds4/non_mission/small_bodies.stooke.shape-models/data/1682q1halley.tab",
+        "projection": "planetocentric 5-degree longitude/latitude/radius grid; east-positive",
+        "datum": "original body-centered coordinates in kilometers",
+        "coverage": "global reconstruction with large 0.5-1 km absolute uncertainty",
+        "sourceResolution": {
+          "latitudeSamples": 37,
+          "longitudeSamples": 73,
+          "gridSpacingDegrees": 5
+        },
+        "appearanceClass": "uncertain-historical-nucleus-reconstruction",
+        "version": "Stooke PDS4 V1.0; migrated from PDS3 V2.0, east-positive revision",
+        "orientationFrame": "Stooke/Abergel Halley long-axis reference frame; north toward big end",
+        "disclosure": "Historical Giotto/Vega nucleus reconstruction by Stooke and Abergel on a 5-degree radius grid. Source warns of 0.5-1 km absolute uncertainty and possible exaggerated depressions. Neutral material; rotational phase at the selected epoch is unqualified.",
+        "labelUrl": "https://sbnarchive.psi.edu/pds4/non_mission/small_bodies.stooke.shape-models/data/1682q1halley.xml",
+        "labelSha256": "3f8d349a7328bb6683d94ddc6d0df80c798bae89b8d009797c1fb83c60bca9a7"
+      }
+    }
+  },
+  "delivery": {
+    "networkBytes": 17707873,
+    "rawSourceBytes": 127851397,
+    "sourceDocumentBytes": 82498,
+    "caps": {
+      "singleSourceBytes": 67108864,
+      "rawSourceBytes": 268435456,
+      "runtimePackBytes": 100663296
+    },
+    "gpuTextureCompression": "none; JPEG transfer with bounded RGBA8 GPU textures; no KTX2 claim",
+    "maxDetailDimensions": [
+      4096,
+      2048
+    ]
+  },
+  "sourceDocuments": [
+    {
+      "file": "nh-pluto-label.html",
+      "download": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived-v4.0/plutosystem_geophysics/mosaic/nh_pluto_mosaic.lblx",
+      "bytes": 11248,
+      "sha256": "53e27d51084faa3861cccc5581b34b74f00fbee6dc533f2d96389279b8259bb3",
+      "acquiredUTC": "2026-11-03T14:07:51.862493+00:00"
+    },
+    {
+      "file": "nh-charon-label.html",
+      "download": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived-v4.0/plutosystem_geophysics/mosaic/nh_charon_mosaic.lblx",
+      "bytes": 11214,
+      "sha256": "012d05955fb10f2d6bb9b2d6675594a07daa31b5ed30caae7db9af2781b44a3b",
+      "acquiredUTC": "2026-11-03T14:08:28.002558+00:00"
+    },
+    {
+      "file": "eros-units.html",
+      "download": "https://sbnarchive.psi.edu/pds3/near/NEAR_A_MSI_5_EROSSHAPE_V1_0/data/vertex/ver64q.lbl",
+      "bytes": 9920,
+      "sha256": "7dd889cd67019738d2bcfa15eb36b64f61269ab154a450fd7ce4c2bd2544ddd9",
+      "acquiredUTC": "2026-11-03T14:09:44.962858+00:00"
+    },
+    {
+      "file": "eros_alex.tpc.txt",
+      "download": "https://sbnarchive.psi.edu/pds4/non_mission/gaskell.ast-eros.shape-model/document/eros_alex.tpc.txt",
+      "bytes": 1353,
+      "sha256": "0b410adcbd14bc6f678781524050b979714c7f64acd8693786f35acaa1363673",
+      "acquiredUTC": "2026-11-03T14:08:27.892558+00:00"
+    },
+    {
+      "file": "67p-label.html",
+      "download": "https://archives.esac.esa.int/psa/ftp/INTERNATIONAL-ROSETTA-MISSION/SHAPE/RO-C-MULTI-5-67P-SHAPE-V2.0/DATA/TRIPLATE/SPG_DLR/SHAP4S/CG_DLR_SPG_SHAP4S_100K.LBL",
+      "bytes": 12080,
+      "sha256": "1e4980049f492f28609968ae7d99d90755e6975a311e5914916196bbcdd644a7",
+      "acquiredUTC": "2026-11-03T14:07:38.422477+00:00"
+    },
+    {
+      "file": "nh-overview.docx",
+      "download": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived-v4.0/plutosystem_geophysics/overview.docx",
+      "bytes": 22058,
+      "sha256": "078038a20cf3c18555ed7edf07fd37cce838b144dae40e8d56fd7ca8a0e60ec8",
+      "acquiredUTC": "2026-11-03T14:10:35.292975+00:00"
+    },
+    {
+      "file": "halley-stooke.xml",
+      "download": "https://sbnarchive.psi.edu/pds4/non_mission/small_bodies.stooke.shape-models/data/1682q1halley.xml",
+      "bytes": 9520,
+      "sha256": "3f8d349a7328bb6683d94ddc6d0df80c798bae89b8d009797c1fb83c60bca9a7",
+      "acquiredUTC": "2026-11-07T04:48:13.967231+00:00"
+    },
+    {
+      "file": "halley-description.txt",
+      "download": "https://sbnarchive.psi.edu/pds4/non_mission/small_bodies.stooke.shape-models/document/bundle_description.txt",
+      "bytes": 5105,
+      "sha256": "edb4b13a8da09a0dbe1321c7cae338e3ed1c5909ebe627fba996407c4adf50f2",
+      "acquiredUTC": "2026-11-07T04:48:14.407035+00:00"
+    }
+  ],
+  "generator": "scripts/planetdata/build_solar24_assets.py; Pillow 11.3.0; spiceypy 8.0.0, CSPICE N0067 for DSK; NumPy 2.5.4"
+}
