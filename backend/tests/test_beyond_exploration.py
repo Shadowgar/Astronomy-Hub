@@ -126,6 +126,38 @@ def test_products_preserve_missing_bins_and_variability_not_uncertainty(source):
     assert series.data.minimum[0] == 2. and series.data.maximum[0] == 4.
 
 
+@pytest.mark.parametrize('identity', [
+    '../manifest', '../../etc/passwd', '/etc/passwd', r'..\manifest',
+    '%2e%2e%2fmanifest', 'ibex-ena-map/../manifest', 'ibex-ena-map.json',
+    'ibex-ena-map\x00', 'IBEX-ENA-MAP', '', 'unknown',
+])
+def test_untrusted_product_identity_rejected_before_filesystem_work(monkeypatch, identity):
+    def forbidden(*args, **kwargs):
+        pytest.fail('Rejected identity must not reach filesystem or cache lookup')
+    monkeypatch.setattr(service, 'release_dir', forbidden)
+    monkeypatch.setattr(service, '_fingerprint', forbidden)
+    monkeypatch.setattr(service, '_read', forbidden)
+    monkeypatch.setattr(service, '_product', forbidden)
+    with pytest.raises(KeyError, match='Unknown observation product'):
+        service.observation_product(identity)
+
+
+@pytest.mark.parametrize('identity', ['ibex-ena-map', 'imap-magnetic-field'])
+def test_accepted_request_selects_literal_path_components(source, monkeypatch, identity):
+    class RequestText(str):
+        def __add__(self, other):
+            pytest.fail('Raw request text must not be concatenated into a path')
+    expected = service.observation_product(identity)
+    original = service._product
+    def inspect(directory, product_id, filename, *fingerprints):
+        assert type(product_id) is str and type(filename) is str
+        assert product_id == identity and filename == identity + '.json'
+        return original(directory, product_id, filename, *fingerprints)
+    with monkeypatch.context() as patch:
+        patch.setattr(service, '_product', inspect)
+        assert service.observation_product(RequestText(identity)) == expected
+
+
 @pytest.mark.parametrize('mutation', ['mask', 'shape', 'centers', 'nonfinite'])
 def test_invalid_angular_data_rejected(products, mutation):
     data = deepcopy(products[0]['data'])

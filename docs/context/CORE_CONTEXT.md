@@ -10,7 +10,7 @@ observations. Heliosphere geometry is explicitly conceptual and scientific model
 reproduction remains unqualified. Oort points/ranges are theoretical, not catalog
 objects. Native engines and prior source packs are preserved.
 
-Scoped validation:726frontend tests,39Docker backend tests(4inherited warnings),
+Scoped validation:726frontend tests,52Docker backend tests(4inherited warnings),
 10acquisition tests, independent source/physics/application reviews, actual Windows
 Edge/RTX3060 A–E journeys in four recordings, three viewport sizes, lifecycle and
 performance checks. First-render mission shader stalls are corrected, while

@@ -63,5 +63,27 @@
   "public_root": "output/playwright/owner-acceptance/hub-solar26-release",
   "backend": "pr107-solar26-backend",
   "backend_code_mount": "read-only worktree bind",
-  "observation_manifest_sha256": "7157a049597f164fa0b4df34d72c483401d0f7aaac5f217f3c084cec0b28f037"
+  "observation_manifest_sha256": "7157a049597f164fa0b4df34d72c483401d0f7aaac5f217f3c084cec0b28f037",
+  "backend_source_files": [
+    {
+      "path": "backend/app/main.py",
+      "sha256": "ba0a7343e0b4e7d430297aaabcee05138f01c699de51d15aa911ed543db8f83b"
+    },
+    {
+      "path": "backend/app/services/beyond_exploration.py",
+      "sha256": "307503a46e549e28613fa55d29fbc1a33444cfd718c2ebe7008a5552193ad03d"
+    },
+    {
+      "path": "backend/app/routes/beyond_exploration.py",
+      "sha256": "ed79e7c6304fd30e70f3c9b34c66f6273bb7c235e72dbb19dc41fa6a847fd1ee"
+    },
+    {
+      "path": "backend/app/schemas/beyond_exploration.py",
+      "sha256": "1bbe51951f9f43c39691a05b6cb32883da89de55636d9a2868062ff856233d67"
+    },
+    {
+      "path": "backend/app/data/beyond_context.json",
+      "sha256": "450a2bf20795c8780d5bb5f18f175a0ed9c6d4c0c026cb7d3c234d5654fbd279"
+    }
+  ]
 }

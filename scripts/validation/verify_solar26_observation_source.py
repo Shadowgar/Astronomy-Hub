@@ -75,7 +75,7 @@ def main():
                   result='pass; scope is source normalization and numerical semantics, not UI or owner acceptance')
     output = ROOT / 'docs/validation/solar-system-2.6/observations-independent-numerics.json'
     output.write_text(json.dumps(report, indent=2) + '\n')
-    print(json.dumps(report, indent=2))
+    print(f'PASS: {flux.size} IBEX cells; 1440 IMAP bins; {len(checks)} UTC reference checks.')
 
 
 if __name__ == '__main__':

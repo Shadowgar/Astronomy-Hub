@@ -79,7 +79,7 @@ independent approval of the entire consolidated PR.
     six cases / 1,200 frames: GPU median 0.367–1.186 ms, p95 ≤1.219 ms; RAF p95 ≤7 ms.
     **Cold 632–650 ms tasks remain.** Native graphics startup still causes stalls;
     no hitch-free or device-wide guarantee is claimed. [Exact metrics](PERFORMANCE.md).
-14. **Tests/build:** 726 frontend tests / 97 files; TypeScript; 39 Docker backend tests
+14. **Tests/build:** 726 frontend tests / 97 files; TypeScript; 52 Docker backend tests
     with 4 inherited deprecation warnings; 10 acquisition tests; independent source,
     real-controls and browser checks. Docker source/served bundle bindings are
     recorded. [Exact commands, results and failed-attempt accounting](VALIDATION.md).
@@ -93,7 +93,9 @@ independent approval of the entire consolidated PR.
     navigation/layout receipts give precise evidence and qualification limits.
 16. **Hosted/security:** final-SHA hosted checks are external and recorded on
     PR107 after push. Before this milestone: 28 open PR-ref CodeQL findings and
-    204 visible Dependabot alerts. No dependency lockfile changed, no inherited
+    204 visible Dependabot alerts. Three new CodeQL alerts at the initial milestone head were corrected with
+    literal request-to-file mapping and narrowed validator output, separately
+    reviewed and Docker-tested; [triage and proof](CODEQL.md). No dependency lockfile changed, no inherited
     alert was dismissed, and neutral/incomplete scans are not approval.
 17. **Remaining science:** no uniquely measured heliosphere shape or qualified
     time-varying MHD surface; no empirical Oort shell, individual Oort catalog,

@@ -1,0 +1,36 @@
+{
+  "reviewer": "solar26_observations; independent of service/verifier author",
+  "baseline": "97c7ba61025b8a251d30331d5e92eb01b3462ec6",
+  "status": "PASS - local independent verification; hosted CodeQL remains separate",
+  "reviewed_sha256": {
+    "backend/app/services/beyond_exploration.py": "307503a46e549e28613fa55d29fbc1a33444cfd718c2ebe7008a5552193ad03d",
+    "backend/tests/test_beyond_exploration.py": "e3975e8004ec792cacc5020c434aece2e9b71ad1630440881315d0ad87471607",
+    "scripts/validation/verify_solar26_observation_source.py": "7af770ed50ed6241c9f5734833b760d73f590a200d8c8c9259b188d8ed4166dc"
+  },
+  "tests": {
+    "backend": 35,
+    "invalid_HTTP_id_cases_without_filesystem_work": 5,
+    "ibex_cells": 1800,
+    "imap_bins": 1440,
+    "UTC_checks": 3
+  },
+  "findings": [
+    {
+      "alerts": [
+        85,
+        86
+      ],
+      "disposition": "No original allowlist traversal bypass demonstrated. Explicit literal canonical ID/filename branches now terminate raw-request path flow; integrity controls preserved."
+    },
+    {
+      "alerts": [
+        84
+      ],
+      "disposition": "Public IBEX solar-ecliptic peak-bin coordinates were classified as private. Broad console serialization removed; counts only; scientific evidence file unchanged."
+    }
+  ],
+  "evidence_json_sha256": "4eb026a87200ba0bed24748c0ed0a839b154feca741b00e4fd1a56d040ae82e0",
+  "actual_pinned_response_equivalence": "Both HTTP200 product bodies independently byte-compared against base service imported in memory",
+  "reviewer_repository_writes": false,
+  "alerts_dismissed": false
+}

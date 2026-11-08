@@ -22,7 +22,7 @@ docker build --target build -f frontend/Dockerfile.production \
 docker start -a pr107-solar26-tests
 # Container command: python -m pytest -q -p no:cacheprovider \
 #   backend/tests/test_beyond_exploration.py backend/tests/test_mission_exploration.py
-# 39 passed, 4 inherited deprecation warnings.
+# 52 passed, 4 inherited deprecation warnings.
 
 python3 scripts/skydata/test_solar26_observations.py -v
 # 10 passed; bounded offline acquisition/normalization negatives.
@@ -125,3 +125,17 @@ CodeQL/dependency findings and incomplete neutral scans remain release concerns.
 Owner visual acceptance, physical iPhone access/testing and a matching qualified
 public corresponding-source release remain open. No merge, production deployment,
 public tunnel, archive publication or protected-resource deletion is authorized.
+
+## Hosted CodeQL correction follow-up
+
+Initial97c7ba61 passed hosted Repository integrity and Playwright but introduced
+CodeQL alerts84–86. `CODEQL.md` records exact traces and dispositions. The bounded
+correction has35focused tests plus the full52-test Docker Beyond/mission run,
+with the same4inherited warnings. An independent reviewer repeated the tests,
+five negative HTTP cases, source comparisons and unchanged-evidence checks.
+`codeql-independent-review.json` binds those reviewed bytes. Actual private Docker
+context/IBEX/IMAP responses are byte-identical before and after; see
+`codeql-docker-api-equivalence.json`. Frontend, data packs and rendering did not
+change, so the final actual browser recordings and GPU evidence remain applicable.
+Hosted reanalysis and automatic alert closure are reported on PR107 at the final
+pushed SHA. No alert suppression or manual dismissal was used.

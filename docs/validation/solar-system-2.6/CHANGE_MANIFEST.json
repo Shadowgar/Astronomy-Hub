@@ -24,13 +24,13 @@
     },
     {
       "path": "backend/app/services/beyond_exploration.py",
-      "bytes": 5902,
-      "sha256": "352d10911ab74e9e3729e4ba06a70afa02713e423a813610400c2c579f57f6f6"
+      "bytes": 6240,
+      "sha256": "307503a46e549e28613fa55d29fbc1a33444cfd718c2ebe7008a5552193ad03d"
     },
     {
       "path": "backend/tests/test_beyond_exploration.py",
-      "bytes": 10189,
-      "sha256": "39ac5e092e0dc76fd9a057ef6564a3eda0fada80065b0c5a0eb01dec23f64df0"
+      "bytes": 11832,
+      "sha256": "e3975e8004ec792cacc5020c434aece2e9b71ad1630440881315d0ad87471607"
     },
     {
       "path": "docker-compose.solar26.yml",
@@ -45,12 +45,17 @@
     {
       "path": "docs/context/CORE_CONTEXT.md",
       "bytes": 36202,
-      "sha256": "ed1c552654b3b0cad3e0a9a5716485e9c38a5426dd7f41b45323b904f86592e5"
+      "sha256": "e497ca3bec3c001fa2c4c007e4b42c7b4c820350315e76797621040458457550"
     },
     {
       "path": "docs/context/LIVE_SESSION_BRIEF.md",
       "bytes": 91381,
-      "sha256": "a05e6fb84cd8a954702039ece94e6290800343ef7e39e37f358f9cfd1b867893"
+      "sha256": "d996ffa91c413d7253f050107fd80c2da9a8c23dacc98f66edb1a2e4bbe76403"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/CODEQL.md",
+      "bytes": 5201,
+      "sha256": "7518db75d308e8c91d7ac62ff2c66c9b9729aa57184939ab801380dfdfce1524"
     },
     {
       "path": "docs/validation/solar-system-2.6/FRONTEND.md",
@@ -94,8 +99,8 @@
     },
     {
       "path": "docs/validation/solar-system-2.6/README.md",
-      "bytes": 9016,
-      "sha256": "2d1fe00f691b149272964b48c0fbbd807ca5cfdbf0871de14ee7937d86b84422"
+      "bytes": 9231,
+      "sha256": "0d780dd7158bdfd0ee8f4ff409afc5b44ddace5ef709253dba731cedecc31c81"
     },
     {
       "path": "docs/validation/solar-system-2.6/SCIENCE.md",
@@ -104,8 +109,8 @@
     },
     {
       "path": "docs/validation/solar-system-2.6/VALIDATION.md",
-      "bytes": 6836,
-      "sha256": "29ba927313ea5a125c8a3bfd16a37549b3c8501bd07df959fbc15d084270355c"
+      "bytes": 7734,
+      "sha256": "6c16763b0d21262f16ef589e864dff32b645a1e13e5ff47d459bbdbf1cbcb51e"
     },
     {
       "path": "docs/validation/solar-system-2.6/backend-independent-review.json",
@@ -114,8 +119,23 @@
     },
     {
       "path": "docs/validation/solar-system-2.6/build-binding.json",
-      "bytes": 2689,
-      "sha256": "de797186e86a2470523592b04323d6ca84bcbb7a04f536d43f9e54a2c9bd3509"
+      "bytes": 3469,
+      "sha256": "f485dbad63e49360b80b463cae25f2a36c7b91c81ce35db9e96d1e42b39bbc43"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/codeql-docker-api-equivalence.json",
+      "bytes": 687,
+      "sha256": "a0ab9e0e4c107573f554fa1a79882261d33e4ffdcce9ac0c0d04c7dfec82a2e1"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/codeql-independent-review.json",
+      "bytes": 1587,
+      "sha256": "e6ed145554c47fb1fb9946b1fbc67b6d0a76102fe727b0b913d38c66c8d58a53"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/codeql-response-equivalence.json",
+      "bytes": 493,
+      "sha256": "a7e0a76e21568d13127bf794e9f53a534bcae502356ce6df0cfa75b5bfdac8ee"
     },
     {
       "path": "docs/validation/solar-system-2.6/context-reference-checks.json",
@@ -574,8 +594,8 @@
     },
     {
       "path": "scripts/validation/verify_solar26_observation_source.py",
-      "bytes": 4607,
-      "sha256": "91931bf1a00eab7785ce5f2ea9c0c134cb639309bf474bfcc2faffd5446069b3"
+      "bytes": 4663,
+      "sha256": "7af770ed50ed6241c9f5734833b760d73f590a200d8c8c9259b188d8ed4166dc"
     },
     {
       "path": "scripts/validation/verify_solar26_prepared_programs.mjs",

@@ -62,12 +62,12 @@ def _manifest(directory, fingerprint):
 
 
 @lru_cache(maxsize=4)
-def _product(directory, identity, manifest_fingerprint, product_fingerprint):
+def _product(directory, identity, filename, manifest_fingerprint, product_fingerprint):
     doc = _manifest(directory, manifest_fingerprint)
     entry = doc['products'][identity]
-    if entry['file'] != identity + '.json' or not 0 < entry['bytes'] <= MAX_PRODUCT_BYTES:
+    if entry['file'] != filename or not 0 < entry['bytes'] <= MAX_PRODUCT_BYTES:
         raise ValueError('Unqualified observation file')
-    raw = _read(Path(directory) / (identity + '.json'), entry['bytes'])
+    raw = _read(Path(directory) / filename, entry['bytes'])
     if len(raw) != entry['bytes'] or _digest(raw) != entry['sha256']:
         raise ValueError('Changed observation product')
     product = ObservationProduct.parse_raw(raw)
@@ -77,11 +77,17 @@ def _product(directory, identity, manifest_fingerprint, product_fingerprint):
 
 
 def observation_product(identity, directory=None):
-    if identity not in PRODUCT_IDS:
+    # Request text only selects trusted constants; neither filesystem sink
+    # receives a path component derived from the original request string.
+    if identity == 'ibex-ena-map':
+        product_id, filename = 'ibex-ena-map', 'ibex-ena-map.json'
+    elif identity == 'imap-magnetic-field':
+        product_id, filename = 'imap-magnetic-field', 'imap-magnetic-field.json'
+    else:
         raise KeyError('Unknown observation product')
     path = Path(directory) if directory is not None else release_dir()
     try:
-        return _product(str(path), identity, _fingerprint(path / 'manifest.json'), _fingerprint(path / (identity + '.json'))).dict(by_alias=True)
+        return _product(str(path), product_id, filename, _fingerprint(path / 'manifest.json'), _fingerprint(path / filename)).dict(by_alias=True)
     except (OSError, ValueError, KeyError, TypeError, OverflowError) as exc:
         raise ObservationUnavailableError('Local qualified observation unavailable') from exc
 
