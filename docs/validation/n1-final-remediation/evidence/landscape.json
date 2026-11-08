@@ -1,0 +1,1594 @@
+{
+  "status": "PASS",
+  "head": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7",
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/manifest.json": "88c9cd7ba095d28e7e74b83a46e9346f0c49824802afa771c4b0fe57c081f410",
+    "integrations/renderers.lock.json": "4a0da651561b0e1bc0107c10262d6f1a4169dda2f7c7a20254b62a5255d22c71",
+    "frontend/public/runtime-versions.json": "a03c695521ded3d57955c62c4fc1d2fdef5f7a9d48efb60e0900f0d25bbbc621",
+    "scripts/validation/verify_n1_pennsylvania.mjs": "a811eb341234e595159d9aadf31541bf555b93bbf68f05a17dffb44937cd53a1"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "pageErrors": [],
+      "landscapeFailures": [],
+      "scenes": [
+        {
+          "name": "day-yaw-0",
+          "file": "day-yaw-0-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-90",
+          "file": "day-yaw-90-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 1.570796326795,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-180",
+          "file": "day-yaw-180-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 3.14159265359,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-270",
+          "file": "day-yaw-270-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-359",
+          "file": "day-yaw-359-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.26573201466,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-0b",
+          "file": "day-yaw-0b-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-1",
+          "file": "day-yaw-1-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0.01745329252,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-360",
+          "file": "day-yaw-360-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-landscape-off",
+          "file": "day-landscape-off-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": false,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": false
+              }
+            }
+          }
+        },
+        {
+          "name": "day-landscape-on",
+          "file": "day-landscape-on-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-atmosphere-off",
+          "file": "day-atmosphere-off-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": false,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-night-mode-on",
+          "file": "day-night-mode-on-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": true,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-0",
+          "file": "night-yaw-0-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-90",
+          "file": "night-yaw-90-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 1.570796326795,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-180",
+          "file": "night-yaw-180-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 3.14159265359,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-270",
+          "file": "night-yaw-270-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-landscape-off",
+          "file": "night-landscape-off-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": false,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": false
+              }
+            }
+          }
+        },
+        {
+          "name": "night-landscape-on",
+          "file": "night-landscape-on-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-atmosphere-off",
+          "file": "night-atmosphere-off-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": false,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-mode-on",
+          "file": "night-mode-on-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": true,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-mode-off",
+          "file": "night-mode-off-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "embedded-restored",
+          "file": "embedded-restored-1440.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        }
+      ],
+      "dayGround": {
+        "uniqueColors": 4070,
+        "min": 3,
+        "max": 152.66666666666666
+      },
+      "released": {
+        "id": "guereins",
+        "active": true,
+        "zeroExists": false,
+        "zeroActive": false,
+        "visible": true,
+        "atmosphere": true,
+        "night": false,
+        "view": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-14T02:10:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 1.570796326795,
+            "yawRad": 4.712388980385,
+            "pitchRad": 0,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "standalone": {
+        "id": "guereins",
+        "visible": true
+      }
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "pageErrors": [],
+      "landscapeFailures": [],
+      "scenes": [
+        {
+          "name": "day-yaw-0",
+          "file": "day-yaw-0-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-90",
+          "file": "day-yaw-90-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 1.570796326795,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-180",
+          "file": "day-yaw-180-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 3.14159265359,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-270",
+          "file": "day-yaw-270-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-359",
+          "file": "day-yaw-359-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.26573201466,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-0b",
+          "file": "day-yaw-0b-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-1",
+          "file": "day-yaw-1-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0.01745329252,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-yaw-360",
+          "file": "day-yaw-360-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-landscape-off",
+          "file": "day-landscape-off-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": false,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": false
+              }
+            }
+          }
+        },
+        {
+          "name": "day-landscape-on",
+          "file": "day-landscape-on-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-atmosphere-off",
+          "file": "day-atmosphere-off-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": false,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "day-night-mode-on",
+          "file": "day-night-mode-on-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": true,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 6.28318530718,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-0",
+          "file": "night-yaw-0-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-90",
+          "file": "night-yaw-90-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 1.570796326795,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-180",
+          "file": "night-yaw-180-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 3.14159265359,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-yaw-270",
+          "file": "night-yaw-270-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-landscape-off",
+          "file": "night-landscape-off-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": false,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": false
+              }
+            }
+          }
+        },
+        {
+          "name": "night-landscape-on",
+          "file": "night-landscape-on-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-atmosphere-off",
+          "file": "night-atmosphere-off-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": false,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-mode-on",
+          "file": "night-mode-on-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": true,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "night-mode-off",
+          "file": "night-mode-off-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "name": "embedded-restored",
+          "file": "embedded-restored-390.png",
+          "state": {
+            "id": "pennsylvania-woodland-v1",
+            "active": true,
+            "zeroExists": false,
+            "zeroActive": false,
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 4.712388980385,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        }
+      ],
+      "dayGround": {
+        "uniqueColors": 1190,
+        "min": 30.333333333333332,
+        "max": 182.33333333333334
+      },
+      "released": {
+        "id": "guereins",
+        "active": true,
+        "zeroExists": false,
+        "zeroActive": false,
+        "visible": true,
+        "atmosphere": true,
+        "night": false,
+        "view": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-14T02:10:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 1.570796326795,
+            "yawRad": 4.712388980385,
+            "pitchRad": 0,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "standalone": {
+        "id": "guereins",
+        "visible": true
+      }
+    }
+  ],
+  "assetResponses": [
+    {
+      "path": "properties",
+      "status": 200,
+      "sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
+    },
+    {
+      "path": "description.en.utf8",
+      "status": 200,
+      "sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff"
+    },
+    {
+      "path": "Norder0/Allsky.png",
+      "status": 200,
+      "sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481"
+    },
+    {
+      "path": "Norder0/Dir0/Npix0.png",
+      "status": 200,
+      "sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245"
+    },
+    {
+      "path": "Norder0/Dir0/Npix1.png",
+      "status": 200,
+      "sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56"
+    },
+    {
+      "path": "Norder0/Dir0/Npix2.png",
+      "status": 200,
+      "sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3"
+    },
+    {
+      "path": "Norder0/Dir0/Npix3.png",
+      "status": 200,
+      "sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef"
+    },
+    {
+      "path": "Norder0/Dir0/Npix4.png",
+      "status": 200,
+      "sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862"
+    },
+    {
+      "path": "Norder0/Dir0/Npix5.png",
+      "status": 200,
+      "sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf"
+    },
+    {
+      "path": "Norder0/Dir0/Npix6.png",
+      "status": 200,
+      "sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af"
+    },
+    {
+      "path": "Norder0/Dir0/Npix7.png",
+      "status": 200,
+      "sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33"
+    },
+    {
+      "path": "Norder0/Dir0/Npix8.png",
+      "status": 200,
+      "sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35"
+    },
+    {
+      "path": "Norder0/Dir0/Npix9.png",
+      "status": 200,
+      "sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4"
+    },
+    {
+      "path": "Norder0/Dir0/Npix10.png",
+      "status": 200,
+      "sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836"
+    },
+    {
+      "path": "Norder0/Dir0/Npix11.png",
+      "status": 200,
+      "sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff"
+    }
+  ],
+  "limitations": [
+    "Chromium desktop and emulated mobile/touch, software rendering; no physical-device or owner visual acceptance.",
+    "Illustrative scenery; artistic ridges are never measured scientific horizon data."
+  ],
+  "started": "2026-10-16T05:39:57.339Z",
+  "finished": "2026-10-16T05:42:52.347Z"
+}

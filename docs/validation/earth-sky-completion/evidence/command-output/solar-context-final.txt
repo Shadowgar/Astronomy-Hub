@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: native Moon identity is validated through existing JPL API without changing native selection or time
+ok 1 - native Moon identity is validated through existing JPL API without changing native selection or time
+  ---
+  duration_ms: 4.509674
+  type: 'test'
+  ...
+# Subtest: changed selection, observing context and disposal reject late responses
+ok 2 - changed selection, observing context and disposal reject late responses
+  ---
+  duration_ms: 4.075675
+  type: 'test'
+  ...
+# Subtest: incorrect API identity is not promoted as selected scientific context
+ok 3 - incorrect API identity is not promoted as selected scientific context
+  ---
+  duration_ms: 1.045358
+  type: 'test'
+  ...
+# Subtest: a ten-second controlled epoch edit invalidates prior coordinates; live links omit sampled coordinates
+ok 4 - a ten-second controlled epoch edit invalidates prior coordinates; live links omit sampled coordinates
+  ---
+  duration_ms: 1.582004
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 64.504882

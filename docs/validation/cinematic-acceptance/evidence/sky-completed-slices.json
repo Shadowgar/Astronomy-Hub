@@ -1,0 +1,278 @@
+{
+  "status": "SIX_COMPLETED_SCENE_SLICES",
+  "sceneCount": 6,
+  "screenshots": 30,
+  "focusedJourneyStatus": "PASS",
+  "focusedGroups": 5,
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "98dcab7a1f411350d3df4fca6cec3d7df565600dd5d53c787f0fe571b8116a16",
+    "frontend/src/features/workspace/skyCinematic.css": "40bfbc330dba164920e3d0e3327cfa8fdabd8ba6bb695dc50f83c81515578b2a",
+    "frontend/public/oras-sky-engine/oras-runtime-build.json": "a1c6f7ca86e8194fa77c5b084b852d277ffbda755a233086370dce8add7ff688",
+    "scripts/validation/verify_cinematic_sky_acceptance.mjs": "69002cffa4a8ad2750bd1d47a55dfcf5b8ce9c2a8c396ed08656cab6540642b8"
+  },
+  "servedArtifact": "b1dbd0f039ccf4ed4c0a669baf5bd7288b1ea07c9db98e199c04949431a644fb",
+  "retainedFailedAttempts": [
+    "output/cinematic-acceptance/sky/proof.json",
+    "output/cinematic-acceptance/sky/green-scenes/proof.json",
+    "output/cinematic-acceptance/sky/green-final-scenes/proof.json"
+  ],
+  "notes": [
+    "The earlier green-scenes enclosing attempt remains FAILED; only its independently completed desktop/mobile slices are reused.",
+    "The interrupted broad rerun is not passing evidence.",
+    "Short-screen final attempt uses independent contexts per epoch; retained-context pointer/persistence behavior is qualified in separate focused journey."
+  ],
+  "scenes": [
+    {
+      "width": 1440,
+      "height": 900,
+      "epoch": "2026-02-28T00:00:00Z",
+      "target": "Sirius",
+      "supportingProof": "output/cinematic-acceptance/sky/green-scenes/proof.json",
+      "enclosingAttemptStatus": "FAILED",
+      "completedSceneAssertions": "PASS",
+      "darkness": {
+        "state": "nautical_twilight",
+        "sun_altitude_deg": -10.751397029267986,
+        "in_astronomical_darkness": false,
+        "source": "jpl_de442s_local"
+      },
+      "screens": [
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-historical-initial.png",
+          "sha256": "39d4cbb4cc94eb0c5407296a44796c9094b858487a48af59538127ce5ce3179c",
+          "bytes": 572178
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-historical-settled.png",
+          "sha256": "72830ff3598e8e2efd0a26e3744631a75e282fdf41952bff1de36fb1c30cf0b1",
+          "bytes": 674768
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-historical-selected-collapsed.png",
+          "sha256": "6485d7e6fc28c76f010899770014418bc943e7d5dc4fcd3058429d647f258393",
+          "bytes": 609170
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-historical-selected-expanded.png",
+          "sha256": "7b9887bb723e6aff474988750c2fbe9b34f866376478bbaf7b08e25f475b9c8d",
+          "bytes": 653213
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-historical-constellations.png",
+          "sha256": "9438ade6a7a8227710818d0b5738d587c7316015fbefa170e649430566459506",
+          "bytes": 710585
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "epoch": "2026-08-13T04:00:00Z",
+      "target": "Deneb",
+      "supportingProof": "output/cinematic-acceptance/sky/green-scenes/proof.json",
+      "enclosingAttemptStatus": "FAILED",
+      "completedSceneAssertions": "PASS",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "screens": [
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-astronomical-night-initial.png",
+          "sha256": "91ec2eb700943fc232d16f72493a79406668010ae5944e01cb25a8e68ac8f75b",
+          "bytes": 256279
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-astronomical-night-settled.png",
+          "sha256": "84c1c134b8c9123e0b5d5f6b902cbc5f56d50efda91c0b446b1990b3ab90bf54",
+          "bytes": 363686
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-astronomical-night-selected-collapsed.png",
+          "sha256": "b35ec8ee0230cb2e627777f9b617e87dcb4ce87e1710c795f4056947db11129d",
+          "bytes": 492075
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-astronomical-night-selected-expanded.png",
+          "sha256": "635117a4b6b17e77a338bb95d91e1d41d8aecde4c09d5d29b9b4a8c21a32173a",
+          "bytes": 514837
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/1440x900-astronomical-night-constellations.png",
+          "sha256": "c7153d9059abc8f4d183210f0024307580d83a4e48220fb7fe6ca3bf9df71301",
+          "bytes": 622091
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "epoch": "2026-02-28T00:00:00Z",
+      "target": "Sirius",
+      "supportingProof": "output/cinematic-acceptance/sky/green-scenes/proof.json",
+      "enclosingAttemptStatus": "FAILED",
+      "completedSceneAssertions": "PASS",
+      "darkness": {
+        "state": "nautical_twilight",
+        "sun_altitude_deg": -10.751397029267986,
+        "in_astronomical_darkness": false,
+        "source": "jpl_de442s_local"
+      },
+      "screens": [
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-historical-initial.png",
+          "sha256": "16f8f7bb92df3b296d1149b062887c004be88233a035937b88d673308820f737",
+          "bytes": 264750
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-historical-settled.png",
+          "sha256": "0083436b87b854ceec6667a251397fcdd2343ed54ba8804dde3e4f90e5a20afa",
+          "bytes": 281985
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-historical-selected-collapsed.png",
+          "sha256": "e4328b88c7234f5ba820922d122b91a15a55a241748c5230a9f3e0c6be1ebcb0",
+          "bytes": 255142
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-historical-selected-expanded.png",
+          "sha256": "40aeb41319f3f2f660aaba28900191c1130ef96892febbdffb6489a8bab1f477",
+          "bytes": 207829
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-historical-constellations.png",
+          "sha256": "e9e8492231b6af4c4b0fa704c97797c887454a8fbb8007165f01b276828c4bc7",
+          "bytes": 292886
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "epoch": "2026-08-13T04:00:00Z",
+      "target": "Deneb",
+      "supportingProof": "output/cinematic-acceptance/sky/green-scenes/proof.json",
+      "enclosingAttemptStatus": "FAILED",
+      "completedSceneAssertions": "PASS",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "screens": [
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-astronomical-night-initial.png",
+          "sha256": "2a1bd915619ba2a1e175be84d7969b4f23a39782e971746e702458c6e7640de8",
+          "bytes": 137926
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-astronomical-night-settled.png",
+          "sha256": "6cf5b6b8f26abe7bee8486c3b21191a716cd254e10f1739bf0eed89c5db791e2",
+          "bytes": 158320
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-astronomical-night-selected-collapsed.png",
+          "sha256": "2897f556efcc282937418db949847cfc4cfdbd1873c715949d44647971e930e9",
+          "bytes": 187455
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-astronomical-night-selected-expanded.png",
+          "sha256": "c3e85abbe45f0293a1c873f70b4aa4e917d1f8e728111998af7338f577820ca1",
+          "bytes": 171708
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-scenes/390x900-astronomical-night-constellations.png",
+          "sha256": "ecb5a898b3107cf4cd65b24c178be1f4367607eb970da5e33dca53dd10d9b92d",
+          "bytes": 235449
+        }
+      ]
+    },
+    {
+      "width": 667,
+      "height": 390,
+      "epoch": "2026-02-28T00:00:00Z",
+      "target": "Sirius",
+      "supportingProof": "output/cinematic-acceptance/sky/green-short-scenes/proof.json",
+      "enclosingAttemptStatus": "AUDIT_COMPLETE",
+      "completedSceneAssertions": "PASS",
+      "darkness": {
+        "state": "nautical_twilight",
+        "sun_altitude_deg": -10.751397029267986,
+        "in_astronomical_darkness": false,
+        "source": "jpl_de442s_local"
+      },
+      "screens": [
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-historical-initial.png",
+          "sha256": "caf381469a4c31d54d7aa21f82e8317bb30a60a592ee0fed61f397d65a7618e8",
+          "bytes": 152408
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-historical-settled.png",
+          "sha256": "529eeb35999a03fc8252cdc38d2cac5ff4a3d34b613e9de57a8335ae72b189c8",
+          "bytes": 165991
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-historical-selected-collapsed.png",
+          "sha256": "a8f304841d9507a90c6bec82792c08bcdfecb08600987c71b68a1601775f0751",
+          "bytes": 134903
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-historical-selected-expanded.png",
+          "sha256": "f7810f5733d6c8108334bd767b6e7c5ddb499cf1d7581ecd59b32708c4c2f573",
+          "bytes": 101538
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-historical-constellations.png",
+          "sha256": "3725efb8964d43e700399915d4564303fcb02678331ee6a4fe3b04a218af8ef2",
+          "bytes": 177431
+        }
+      ]
+    },
+    {
+      "width": 667,
+      "height": 390,
+      "epoch": "2026-08-13T04:00:00Z",
+      "target": "Deneb",
+      "supportingProof": "output/cinematic-acceptance/sky/green-short-scenes/proof.json",
+      "enclosingAttemptStatus": "AUDIT_COMPLETE",
+      "completedSceneAssertions": "PASS",
+      "darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -30.78849304150138,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "screens": [
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-astronomical-night-initial.png",
+          "sha256": "8dc2f37743fa332ceff0f77fb14b150add6f67f34250d4909d4eed18afa640f8",
+          "bytes": 88059
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-astronomical-night-settled.png",
+          "sha256": "3ac0b47d8da297555304cf5d17f38ab1f72c7ff61c11ddbd38e73c9635d3ed94",
+          "bytes": 102574
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-astronomical-night-selected-collapsed.png",
+          "sha256": "0a7b4891cc6dab6183237e463f7c71e3ee089eacf7f716fa85554baac00c0002",
+          "bytes": 115473
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-astronomical-night-selected-expanded.png",
+          "sha256": "e2214b5660469fe4375d5908b0d57a43d9c135bd1347c111eb03b8daad181e32",
+          "bytes": 88214
+        },
+        {
+          "path": "output/cinematic-acceptance/sky/green-short-scenes/667x390-astronomical-night-constellations.png",
+          "sha256": "c42352a8d613541aa32f9fb78e8e6e5b21c33e003e3afead318521d3b8de1b10",
+          "bytes": 166136
+        }
+      ]
+    }
+  ]
+}

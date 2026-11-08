@@ -1,5 +1,7 @@
 # ADR 0005: Cesium is the planetary surface direction
 
+> 2026-10-21 supersession: bounded R3-A is active under current PROJECT_STATE; R4 evaluates Earth/Mars/Moon before selecting one initial body. Earlier Mars-first/ISS-first execution examples below are historical; ownership/controlled handoff principles remain. No R4 surface implementation or merge is authorized.
+
 > Current-status addendum (2026-10-08): This is the dated 2026-10-02 decision
 > record; its original text below is preserved.
 > [ADR0009](0009-owned-earth-feature-reuse.md) and

@@ -1,0 +1,388 @@
+{
+  "packs": [
+    "frontend_change",
+    "docs_change",
+    "validation",
+    "review"
+  ],
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "0b505729bdd230d68b8bbff4e96ad78c70249b37470ed14837eefda432e72f74",
+      "bytes": 38085,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/context/CORE_CONTEXT.md",
+      "sha256": "87173be9ffbfbbdad0ef2ce6c86d713afa2c584025bef716d0b13243a02c6408",
+      "bytes": 9632,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/context/LIVE_SESSION_BRIEF.md",
+      "sha256": "cfc50a414c40032ae867f8185ea64472753da9466029441c671175cbb21b1143",
+      "bytes": 42362,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/context/CONTEXT_MANIFEST.yaml",
+      "sha256": "4adc2fa75d68843b13647ce88ff4f8550ed5ac8a7458d8f18bf38410321640de",
+      "bytes": 17917,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/product/PRODUCT_VISION.md",
+      "sha256": "bb8cfdeaa0123a139eab343bbd8622037cb8ab2945d6ae59f77e35a72ff63af5",
+      "bytes": 12008,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md",
+      "sha256": "79bf937939859128e803e0b3404d58e9d97afd17d69c201a331d4442ae607e2b",
+      "bytes": 53927,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/design/adaptive-explorer-r1a/README.md",
+      "sha256": "4d70f126bc1ed046e71099a391238a0c27e0a4f600a362f81c4fdf53146cb8d6",
+      "bytes": 17385,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/SYSTEM_VALIDATION_SPEC.md",
+      "sha256": "e89b88846dc8aa53b6476160ec800141613073904d6d2b44c8290c64fac38ce7",
+      "bytes": 8717,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/ASTRONOMY_HUB_DIAGRAM.md",
+      "sha256": "99e4f6f5fcdcb0fca86ac3e7e6549ecb7d5967f14ebcbf40fbb989ea9893b6e5",
+      "bytes": 3304,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md",
+      "sha256": "4f4993cfd931c80eeaa53100c353a00e62ca6d6cfbf4bc06560d476130702991",
+      "bytes": 12896,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md",
+      "sha256": "d901bff35768636b2f5d2df61f4c91d9a7310068fcdadaec1b1e7f8cdc241e22",
+      "bytes": 72143,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md",
+      "sha256": "2918ec4dcfd2297e3db2a8dbf537b73afb066ed5b8d0d2959bd343bda4c706b8",
+      "bytes": 20993,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md",
+      "sha256": "d02ffd0bd6070483ce750833e9f0701f4795a9bcd400c077f9e4afd11899f6a8",
+      "bytes": 34008,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "sha256": "1d5b205e45bf53d2517b1ea223a9d971d4c4934e5a56a8a48780e5424935e810",
+      "bytes": 60057,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/EARTH_HD_MAPPING_EVIDENCE.md",
+      "sha256": "f78edcd73f54b1f073ab364325a39a334e7a05c0a389fd343fc6d974249c6980",
+      "bytes": 30183,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md",
+      "sha256": "d5ae9bc77ddcbfd7cb7555c151c89dd091173feba4706d99a27648d0e9b5f9ce",
+      "bytes": 145918,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE_OVERVIEW.md",
+      "sha256": "0b3739c702a32f105bc04df620206ddd99b726ca97aa243bcd4fcfdf3d1f2a22",
+      "bytes": 6503,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/ENGINE_SPEC.md",
+      "sha256": "17cbc8da31a3012c0b58cc93921a5d5c8dac846d501d90869cfcfd76472b9a49",
+      "bytes": 7649,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/ENGINE_CATALOG.md",
+      "sha256": "e1e30367a5397554018f90502e3b1f9fc88535aedb86ad2d817fd46ff94a5c11",
+      "bytes": 9081,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/OBJECT_MODEL.md",
+      "sha256": "4f3554df30166abb154750fe7ce061de8769fb3454d9e002a7a07ea9a08c5082",
+      "bytes": 4125,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/DATA_CONTRACTS.md",
+      "sha256": "5449411a2f9d1ea92b4b50e58fef9f933f7db6a9a35997f90e17baa5fd0dff63",
+      "bytes": 4415,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/TONIGHT_CONTRACT.md",
+      "sha256": "63b10129bcd52d5e0571b1381bb52587278d303a294c4b22ba48377fff6fe9b0",
+      "bytes": 6530,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/STACK_OVERVIEW.md",
+      "sha256": "e48e38da2d2a9b1e0355596f0d8ce7dbac25c06dfa44fd519bb746f4ff610ef9",
+      "bytes": 9189,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/execution/PROJECT_STATE.md",
+      "sha256": "c0310a720214493aab555baf5197c64a07fee6b55ed1b987dfb71cbdf3432c9a",
+      "bytes": 38620,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/execution/MASTER_PLAN.md",
+      "sha256": "0869b08c3c19d6519fe2171c7af96d30385dd4042e64a71df5db4209c1f60ba7",
+      "bytes": 12704,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/features/FEATURE_EXECUTION_MODEL.md",
+      "sha256": "cb194d45af7fb046482da40a7bd7bf2aa886118d28a10bb1c273de2a3bd328d5",
+      "bytes": 3225,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/features/FEATURE_CATALOG.md",
+      "sha256": "8cd5c5dba86d0ee7ee8656caedcfc0ec22034e53c9f6f41c2e3a37228c0efa32",
+      "bytes": 5304,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/features/FEATURE_ACCEPTANCE.md",
+      "sha256": "2db851b8fe28769105746188a2bd1f4deb8f9cf87596f1a841f30b48a885cbdb",
+      "bytes": 4474,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/features/FEATURE_TRACKER.md",
+      "sha256": "4421dba6d741dfca38761fbfe06d3aab746f6a60808d7954450d6be516637c13",
+      "bytes": 21256,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/execution/EARTH_CAPABILITY_PLAN.md",
+      "sha256": "ea3fed3e12c61837fcf929a6805837a3b89b2e645f56ecae26fd5ba338c84a75",
+      "bytes": 140899,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md",
+      "sha256": "bac2169cd9a4200593c8be3cb01262a15de55205b9f017790aeff48788a9d3dc",
+      "bytes": 19355,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/execution/C6_GLOBAL_MAPPING_SPEC.md",
+      "sha256": "a899b6dad765007c8bcba07953aef59c28754c90f2bbea52d79d67f4c4353484",
+      "bytes": 49065,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0009-owned-earth-feature-reuse.md",
+      "sha256": "24e9e0b6402cda573cf83e412cb177b99f00626d008c1e152d5a4ecd0dd25c41",
+      "bytes": 4270,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md",
+      "sha256": "de2167240a4b4301f64cd19246fe72188c0ddb32ccf9eb53910468b88b7a6962",
+      "bytes": 193439,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md",
+      "sha256": "dcd166902aa4e961401bfb4209057fde374020f320ec9997b7ec0ac0ec4dea98",
+      "bytes": 70803,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md",
+      "sha256": "a4d9eeb0875bdc754182e777ceb3583fbad577fcd3cdddd172c79da28ebb55a1",
+      "bytes": 12657,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/DOCUMENT_INDEX.md",
+      "sha256": "1592f98b0886cf5895231da12a5ffc8e7bb6b7b17c53766c880628b1610810fa",
+      "bytes": 17272,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/DOC_INVENTORY.md",
+      "sha256": "85e8c441b1fcdbd68b1eeeeb95bedfca7bb25392b236ff00e5fd05dcd22804b5",
+      "bytes": 11070,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/INGESTION_STRATEGY.md",
+      "sha256": "b6724bba3b117ee4afe3710053a6b878811799ef1b10c6ac86d32837d9aa85d6",
+      "bytes": 3080,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md",
+      "sha256": "51c5f7cca44ce1d415d2e5487d92653a413aefea15d8785453588da303a998b0",
+      "bytes": 27270,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "a5137a8b5c7b5362f535a16a437c4088171c447e295a95aa9b57866814e949ac",
+      "bytes": 5423,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/MASTER_PLAN.md",
+      "sha256": "13761fb5e914636ce8b8d47f055d8a755904ecad5968457e0e52a737c7096a30",
+      "bytes": 7643,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0001-universal-application-state.md",
+      "sha256": "e2b9ad734c7c10f0b91979783360d3fcfcd04a324a277e5439871240c92747b1",
+      "bytes": 1384,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0002-swe-sky-renderer.md",
+      "sha256": "28e82b0122f528cd4163219f91c91d1f6a731bd00853be1475a3ef3d837a1bc2",
+      "bytes": 1359,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0003-gods-eye-earth-runtime.md",
+      "sha256": "d880148b2d4fe804a8f4e62fd6ed805383a04f1430136e7ef4b18880818961c9",
+      "bytes": 1709,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0004-additive-earth-extensions.md",
+      "sha256": "d6348dc7882892c1e9916cc621a226cac29dcb2edeacafec6be6da52088a4811",
+      "bytes": 1341,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0005-cesium-planetary-direction.md",
+      "sha256": "a66b93a289ed943bde040c512f1622a7cea120e0c51e13813d772b4e5a1ed9e3",
+      "bytes": 1310,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0006-controlled-renderer-handoffs.md",
+      "sha256": "353422b3ccecc4c972aaff9f2847388ef49679ff34627b3ba69be32e2c1b755d",
+      "bytes": 1644,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0007-immutable-upstream-source.md",
+      "sha256": "a3bac9c2a94efe07b37f2a3e7e0b830ad4935d075a97366872fbdfbbf152703f",
+      "bytes": 1737,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/architecture/decisions/0008-provider-licensing-boundaries.md",
+      "sha256": "959ade437b10832c53c45107013012ff27388dbeee93a0a4871252c5bbc17d81",
+      "bytes": 1445,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/EARTH_CAPABILITY_RECONCILIATION_INPUT_2026-10-05.md",
+      "sha256": "41a443d02b23c3f4452277f2a5defb51c40422e56c5e898db79444d027b3e8d6",
+      "bytes": 207151,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md",
+      "sha256": "459311f7d3ab0f8e84ef6ff264889b0866ab3ba78bd70234a5ef305aadc7c53a",
+      "bytes": 1908679,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PUBLIC_EXPORT_AUDIT_2026-10-05.md",
+      "sha256": "ff2a15587c46fd7c717d6e01e959e1f373b5dde9ea6714f41c5e762dff3a8f99",
+      "bytes": 66098,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md",
+      "sha256": "928d105a5a17b07b63a6d9a62a8d23cd5c567d924f04d150e06761155fba20bc",
+      "bytes": 196778,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md",
+      "sha256": "e450148005e82990d9827355dbee00a5404494ccf41b276761710c68fd2c60a7",
+      "bytes": 17931,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md",
+      "sha256": "32d32448f86f64c34de181496ac9f962997bc088ce5592257fe16c21d59913b0",
+      "bytes": 20407,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md",
+      "sha256": "adb795e9f39727d6058e42ceefe17e167dcb66a9588abd09d1b7428560268d1f",
+      "bytes": 159520,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md",
+      "sha256": "57bfae11ec71c6520abb19d5463267be4fb5b30066e302b5b29f68f3c3d8d169",
+      "bytes": 30007,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md",
+      "sha256": "7fd57268a5158e7fe71d7b2148cdd654e8eed582c206a7d0353d4107836dc8e8",
+      "bytes": 27323,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md",
+      "sha256": "9fefd707b0e797b6958ec148b384d6e2e5414da8f7472813ab0eb011a900ca1d",
+      "bytes": 8228,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md",
+      "sha256": "08aa5732cbe257ed16097c42622678ebe161ddaf52c04e2cba05b7339e0a0aa9",
+      "bytes": 21247,
+      "authority": "manifest/AGENTS"
+    },
+    {
+      "path": "docs/validation/n1-final-remediation/README.md",
+      "sha256": "1e488d1413bb3335e5ad226176168a63263d8005bf24d7098625f8b0a1438de6",
+      "bytes": 24666,
+      "authority": "owner-requested evidence"
+    },
+    {
+      "path": "docs/validation/n1-satellite-zoom-reveal/README.md",
+      "sha256": "834f2e5e5b09dfa6ed735a7834de2fc0a0102c72177137154ade7d198d99ef50",
+      "bytes": 16631,
+      "authority": "owner-requested evidence"
+    }
+  ]
+}

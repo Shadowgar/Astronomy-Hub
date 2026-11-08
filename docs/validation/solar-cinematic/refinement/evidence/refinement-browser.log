@@ -1,0 +1,16 @@
+1440 Three original NASA assets loaded locally; timing and bytes recorded
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '2026-02-28T00:00:00Z'
+- '2026-02-28T00:00:00.000Z'
+                      ^
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_solar_refinement.mjs:13:247 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '2026-02-28T00:00:00Z',
+  expected: '2026-02-28T00:00:00.000Z',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

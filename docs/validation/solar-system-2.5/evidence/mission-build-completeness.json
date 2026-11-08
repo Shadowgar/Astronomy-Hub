@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "artifact": "pr107-solar25-handoff-artifact",
+  "files": [
+    {
+      "file": "cassini.glb",
+      "bytes": 5852640,
+      "sha256": "cacdca3279b28e64280ff8e823f572311f67a83bde2d0435b26f515a1b7926be"
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 19060,
+      "sha256": "f39b5edaa4f16f6b9499120da4c2c39c71c512e8962171f446e4393b5cad40c0"
+    },
+    {
+      "file": "new-horizons.glb",
+      "bytes": 3293532,
+      "sha256": "cf152d8cea17c4a83711041cb0d29ca1d980bfafa084ada2656569ea92cdd73f"
+    },
+    {
+      "file": "voyager.glb",
+      "bytes": 3128204,
+      "sha256": "5338241f2e89e9cfe3ebb82f519b4cad64c97e66883cccba6fdda98667aec731"
+    }
+  ],
+  "source": "docker cp stream inspection; no container started or changed",
+  "expected_model_missions": {
+    "voyager1": "voyager",
+    "voyager2": "voyager",
+    "cassini": "cassini",
+    "newhorizons": "new-horizons"
+  },
+  "schema_validation": {
+    "runtime": "pr107-solar25-final-backend",
+    "catalogs": 1,
+    "missions": 10,
+    "states": 100,
+    "trajectory_envelopes": 10,
+    "trajectory_segments": 90,
+    "catalog_events": 32,
+    "release_id": "solar-missions-v3",
+    "method": "Actual service output parsed by production Pydantic schemas; ten defaults and one midpoint in each of90qualifiedsegments, with expected segment identity."
+  },
+  "missing_mission_source_files": [],
+  "missing_flagship_models": [],
+  "intentional_model_limits": "Six secondary entries explicitly trajectory-only; Voyager1 and2share the same qualified NASA spacecraft design model but retain independent trajectory identities."
+}

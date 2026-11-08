@@ -1,0 +1,12 @@
+1440x900-earth-baseline.png
+1440x900-sky-baseline.png
+1440x900-earth-candidate.png
+1440x900-sky-candidate.png
+390x900-earth-baseline.png
+390x900-sky-baseline.png
+390x900-earth-candidate.png
+390x900-sky-candidate.png
+667x390-earth-baseline.png
+667x390-sky-baseline.png
+667x390-earth-candidate.png
+667x390-sky-candidate.png

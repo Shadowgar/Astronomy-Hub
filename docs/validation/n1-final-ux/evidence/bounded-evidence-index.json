@@ -1,0 +1,146 @@
+{
+  "status": "PARTIAL",
+  "fullQualificationPassed": false,
+  "records": [
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/additional-identities.json",
+      "originalSha256": "fd36f1cd851781f9881125b8701239d533604bf7fb7f6c370f6caca031a4705c",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-additional-identities.json",
+      "copySha256": "fd36f1cd851781f9881125b8701239d533604bf7fb7f6c370f6caca031a4705c",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/architecture-docs-run.txt",
+      "originalSha256": "c3990f4c47e48bea9234f1c4629dfa4ee8cc990e88e6dccc933ba4b16dbbaeb7",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-architecture-docs-run.txt",
+      "copySha256": "c3990f4c47e48bea9234f1c4629dfa4ee8cc990e88e6dccc933ba4b16dbbaeb7",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/attempts.json",
+      "originalSha256": "fdcdf186968e2ac7e6a44534e1cda1ce934f160bb18afcd95d0e257b4a6cf22f",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-attempts.json",
+      "copySha256": "fdcdf186968e2ac7e6a44534e1cda1ce934f160bb18afcd95d0e257b4a6cf22f",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/build-identity-run.txt",
+      "originalSha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-build-identity-run.txt",
+      "copySha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/journeys-desktop-run.txt",
+      "originalSha256": "c628a6d9c12935de3b087798b9cf2506c9c80876b64a62b827e94654c385b94d",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-desktop-run.txt",
+      "copySha256": "6825c51d02f66406349aa5a267269dd8127816fe8218100118a90c0b39f97722",
+      "byteIdentical": false
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/harness-source-inspection.json",
+      "originalSha256": "e67194e1063019f6c4e0ce3bbde21511e8f95ea5f13105a854df86c5489d8232",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-harness-source-inspection.json",
+      "copySha256": "e67194e1063019f6c4e0ce3bbde21511e8f95ea5f13105a854df86c5489d8232",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/inputs-before.json",
+      "originalSha256": "47d6fe2f8393970c025d4cdecaa9f50aa7a224e51e1dd984d5664725bc4e0464",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-inputs-before.json",
+      "copySha256": "47d6fe2f8393970c025d4cdecaa9f50aa7a224e51e1dd984d5664725bc4e0464",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile-run.txt",
+      "originalSha256": "7a4956ad8553af659d7a76613f3c34303feeaf5fdaf42f07dc6acdad5cc7f5cc",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-mobile-run.txt",
+      "copySha256": "7a4956ad8553af659d7a76613f3c34303feeaf5fdaf42f07dc6acdad5cc7f5cc",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/mounts-after.json",
+      "originalSha256": "41ee2014be946c146a76776fb04100e6883f0694b6c4bf50ed256f1be9d36ab1",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-mounts-after.json",
+      "copySha256": "41ee2014be946c146a76776fb04100e6883f0694b6c4bf50ed256f1be9d36ab1",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/outer-budget-run.txt",
+      "originalSha256": "d0b830ce94fad13733dd70d8791ceb169d0cd031819c85ae5190362dca59602e",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-outer-budget-run.txt",
+      "copySha256": "d0b830ce94fad13733dd70d8791ceb169d0cd031819c85ae5190362dca59602e",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/outer-budget-stops.json",
+      "originalSha256": "4cc7898fe52a9bd4ac3617ac2a5fc0a2f8a88c4e086b14d4f04a27c81132a58e",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-outer-budget-stops.json",
+      "copySha256": "4cc7898fe52a9bd4ac3617ac2a5fc0a2f8a88c4e086b14d4f04a27c81132a58e",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/qualification-handoff.json",
+      "originalSha256": "42c041a8d105c294319aa829de387bee9144e5010213bf0159933386e9d730b2",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-qualification-handoff.json",
+      "copySha256": "42c041a8d105c294319aa829de387bee9144e5010213bf0159933386e9d730b2",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/reconciliation-docs-run.txt",
+      "originalSha256": "ac55cc921072000956473230a8a7bfb5e1d818aec0388a966f17fd0a177f17f8",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-reconciliation-docs-run.txt",
+      "copySha256": "ac55cc921072000956473230a8a7bfb5e1d818aec0388a966f17fd0a177f17f8",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/remote-head.txt",
+      "originalSha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-remote-head.txt",
+      "copySha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/reuse-verification.json",
+      "originalSha256": "337bbc2a4bf3c0407909de0feeb4e66ce3c908b40dabc98b39c511f1c85b0f32",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-reuse-verification.json",
+      "copySha256": "337bbc2a4bf3c0407909de0feeb4e66ce3c908b40dabc98b39c511f1c85b0f32",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/review-current-summary.json",
+      "originalSha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-review-end.json",
+      "copySha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/runner.txt",
+      "originalSha256": "ad813b5966105ba277fd4bc4e2ef473386e6abf3159306b16d0634552f7f9901",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-runner.txt",
+      "copySha256": "ad813b5966105ba277fd4bc4e2ef473386e6abf3159306b16d0634552f7f9901",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/runtime-state.txt",
+      "originalSha256": "005c5b7066c120a6dc719b2464bd8f77c9aaf167a6dd5006da143d339bd8ca72",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-runtime-state.txt",
+      "copySha256": "005c5b7066c120a6dc719b2464bd8f77c9aaf167a6dd5006da143d339bd8ca72",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/served-working-run.txt",
+      "originalSha256": "7c982c284e5d11f1987745e0d632ebd115e00a434efc6fd82b3ffd1ae5da4797",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-served-working-run.txt",
+      "copySha256": "7c982c284e5d11f1987745e0d632ebd115e00a434efc6fd82b3ffd1ae5da4797",
+      "byteIdentical": true
+    },
+    {
+      "original": "output/n1/final-ux/bounded-delivery-20261016/served-working.json",
+      "originalSha256": "448f94f34a8c5fca218537ad28883857b4e2ab68864f830f88e71eba50620537",
+      "copy": "docs/validation/n1-final-ux/evidence/bounded-served-working.json",
+      "copySha256": "448f94f34a8c5fca218537ad28883857b4e2ab68864f830f88e71eba50620537",
+      "byteIdentical": true
+    }
+  ]
+}

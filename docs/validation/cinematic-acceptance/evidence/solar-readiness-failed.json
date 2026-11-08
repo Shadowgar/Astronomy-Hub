@@ -1,0 +1,17 @@
+{
+  "status": "ERROR",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "checks": [],
+      "errors": [],
+      "screens": []
+    }
+  ],
+  "failures": [],
+  "limitations": [
+    "Software Chromium rendering; no physical GPU/device or owner visual acceptance."
+  ],
+  "error": "page.waitForFunction: Timeout 15000ms exceeded.\n    at ready (/home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_solar_acceptance.mjs:12:36)\n    at /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_solar_acceptance.mjs:23:57"
+}

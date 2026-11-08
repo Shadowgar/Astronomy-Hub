@@ -1,0 +1,63 @@
+{
+  "status": "DETERMINISTIC_SEARCH_QUALIFIED; LIVE_UNAVAILABLE; NO_MERGE",
+  "head": "dae2a806087d3f85c00c35613e916c5a74b20ff4",
+  "baseline": "e5239e01ada05e058e4249ddf60981806881fe0e",
+  "productionPathsUnchanged": [
+    "backend",
+    "frontend",
+    "runtimes",
+    "packages",
+    "vendor",
+    "integrations",
+    "data",
+    "package.json",
+    "package-lock.json"
+  ],
+  "deterministic": [
+    {
+      "suite": "desktop",
+      "status": "PASS",
+      "groups": 16,
+      "proofSha256": "5ca83f1cfb03e84059dd1828e86430a0d69650cd376bf6658ac113b5b6dd1695",
+      "startedHead": "dae2a806087d3f85c00c35613e916c5a74b20ff4",
+      "cacheEntriesObserved": 213
+    },
+    {
+      "suite": "mobile",
+      "status": "PASS",
+      "groups": 16,
+      "proofSha256": "4d7945c18a5c9a3743dec0fd98d450be2d101cf6e7888675d58b414d543fbf07",
+      "startedHead": "dae2a806087d3f85c00c35613e916c5a74b20ff4",
+      "cacheEntriesObserved": 166
+    }
+  ],
+  "livePhoton": "UNAVAILABLE",
+  "liveAppResponse": {
+    "status": 503,
+    "elapsedMs": 7304,
+    "body": {
+      "detail": "Place search is unavailable. Coordinates still work."
+    }
+  },
+  "liveSmokeProofSha256": "cb64f3eb2a4b02f2f1fe1406233044dd5833a2178666a0975945d02a05f7e011",
+  "recordingSha256": "466515b1c87c217f909c9740981360a8ac3b77bd1a4fc7bbd5dd12738e3b517f",
+  "preserved": {
+    "earthArtifact": "e0a904a201b11b7c6202cc1467b2cd3c80c02beed58bb0956eab2372c37ac0bf",
+    "skyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
+    "originalContainersAndMountsIntact": 103,
+    "volumesIntact": 90,
+    "settingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+    "originalN1Artifact": "662e617078a4448d8235a2c9925c339ea7126cd430ec38cca5426fe8b60345b5"
+  },
+  "externalContainerStateDifferences": {
+    "count": 8,
+    "cause": "unknown; historical observation not attributed"
+  },
+  "priorSuccessfulSuitesRerun": false,
+  "limitations": [
+    "Recorded normalized service seam does not qualify live Photon transport/normalization/reliability or production rate admission",
+    "Prior genuine imagery/cache and suite evidence retained by exact source/artifact identity, not called fresh",
+    "PEMA rights/public redistribution, complete aerial detail, scientific terrain/elevation and physical hardware acceptance unchanged"
+  ],
+  "receiptPhase": "working handoff before docs-only final commit; final SHA served separately"
+}

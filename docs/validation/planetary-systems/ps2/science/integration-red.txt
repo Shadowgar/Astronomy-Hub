@@ -1,0 +1,16 @@
+
+==================================== ERRORS ====================================
+___________ ERROR collecting backend/tests/test_horizons_systems.py ____________
+ImportError while importing test module '/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/backend/tests/test_horizons_systems.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/tests/test_horizons_systems.py:14: in <module>
+    from backend.app.services import horizons_systems as service
+E   ImportError: cannot import name 'horizons_systems' from 'backend.app.services' (unknown location)
+=========================== short test summary info ============================
+ERROR backend/tests/test_horizons_systems.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.30s

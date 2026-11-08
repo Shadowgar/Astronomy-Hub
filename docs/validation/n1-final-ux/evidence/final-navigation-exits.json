@@ -1,0 +1,34 @@
+[
+  {
+    "name": "journeys-desktop",
+    "exitCode": 1,
+    "command": [
+      "env",
+      "N1_WIDTHS=1440",
+      "N1_EVIDENCE_DIR=output/n1/final-ux/journeys-desktop",
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=15s",
+      "12m",
+      "node",
+      "scripts/validation/verify_n1_navigation.mjs"
+    ],
+    "finished": "2026-10-16T17:24:29.651056+00:00"
+  },
+  {
+    "name": "journeys-mobile",
+    "exitCode": 1,
+    "command": [
+      "env",
+      "N1_WIDTHS=390",
+      "N1_EVIDENCE_DIR=output/n1/final-ux/journeys-mobile",
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=15s",
+      "12m",
+      "node",
+      "scripts/validation/verify_n1_navigation.mjs"
+    ],
+    "finished": "2026-10-16T17:30:05.974168+00:00"
+  }
+]

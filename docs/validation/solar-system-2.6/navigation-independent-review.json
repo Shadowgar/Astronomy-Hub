@@ -1,0 +1,91 @@
+{
+  "reviewer": "solar26_observations; non-author of reviewed navigation/workspace changes",
+  "review_date": "2026-11-08",
+  "scope_sha256": {
+    "frontend/src/features/beyond/BeyondWorkspace.tsx": "0f9c1b7a8d068c634ab3de0bb82cec4f23ad1fa53c99bbb84a49b499707a0b9f",
+    "frontend/src/features/beyond/beyondNavigation.ts": "13005837cd79b92e82c3f78eb35d4d12c532d1ce2e1e8d3b2e2a30e9d4d0c6d5",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "21de1163cfe7a493050cf3a26462fd689e838cf32a8116d90498a1a968f58b89",
+    "frontend/src/features/missions/MissionWorkspace.tsx": "096aa996a059dc0cad3c6253b8a68b75af5a26dbae158a504c48c705e4aee9f5",
+    "frontend/src/routes/AppRouter.tsx": "4e6a48baebbe9c9f0e9ea671ee0851383cc9ffeed205226416727aabb6a3ee2e",
+    "frontend/tests/beyondContracts.test.ts": "538f4084469800d1fc8c0efd03eee61429b5a0c8b0a58b66f57ac0341c0ebe7b",
+    "frontend/src/features/beyond/beyondContracts.ts": "4a129a7643137ca8cddc65b5540629a4f93d1109fa1cb94207113735a34c11b0"
+  },
+  "findings": [
+    {
+      "priority": "P1",
+      "file": "frontend/src/features/missions/MissionWorkspace.tsx",
+      "line": 71,
+      "cause": "Direct encounter entry inherited mission UTC while selecting a fixed historical crossing view.",
+      "reproduction": "1979 Voyager1 encounter -> Explore heliopause crossings produced2012 anchor under1979 sceneUTC.",
+      "correction": "beyondEpoch canonicalizes Voyager1/2 crossing UTC; BeyondWorkspace also canonicalizes direct event URLs; saved comparison returns preserve their original contextUTC.",
+      "status": "Correction independently source reviewed; actual Windows Edge/NVIDIA qualified journeys A/B/C/D PASS for the affected path."
+    },
+    {
+      "priority": "P2",
+      "file": "frontend/src/features/beyond/BeyondWorkspace.tsx",
+      "line": 28,
+      "cause": "The previous observation state could remain during the render preceding tab-change effect cleanup, mismatching the new instrument title.",
+      "correction": "Rendering and diagnostics now admit only the selected product ID; async success checks abort status.",
+      "status": "Correction independently source reviewed; actual Windows Edge/NVIDIA qualified journeys A/B/C/D PASS for the affected path."
+    },
+    {
+      "priority": "P1",
+      "file": "frontend/src/features/beyond/beyondContracts.ts",
+      "line": 17,
+      "cause": "Backend Python geometry UTC uses six fractional digits, while existing mission URL parser admits at most milliseconds; opening the actual crossing mission failed.",
+      "reported_by": "Root actual browser A",
+      "correction": "Admission now removes only trailing zero microsecond padding and uses parseSceneDate; nonzero submillisecond precision is rejected, not rounded.",
+      "status": "Correction independently source reviewed; actual Windows Edge/NVIDIA qualified journeys A/B/C/D PASS for the affected path."
+    },
+    {
+      "priority": "P2",
+      "file": "frontend/src/features/missions/MissionWorkspace.tsx",
+      "line": 67,
+      "cause": "Choosing another mission dropped beyondReturn and lost originating Beyond camera/view/context.",
+      "reported_by": "Independent physics review",
+      "correction": "chooseMission copies beyondReturn alongside missionReturn. Journey A now selects Voyager2 then Voyager1 and verifies original Beyond state.",
+      "status": "Correction independently source reviewed; actual Windows Edge/NVIDIA qualified journeys A/B/C/D PASS for the affected path."
+    }
+  ],
+  "validation": [
+    "14 focused beyondContracts and ObservationViews tests pass",
+    "safe return permits local /beyond only; Solar return rejects unrelated paths",
+    "observed dates and predicted vectors remain separate; shared clock is paused, originalobserverstore retained",
+    "camera restore requires validated schema, epoch, view and boundedvectors",
+    "explicit exits dispose scene; asynchronous initialize completion checks abort, instanceownership, disposed andready"
+  ],
+  "limitations": [
+    "Not independentapproval of own ObservationViews; physicsreviewer separatelychecks thosefiles",
+    "Not wholePR107 approval or owneracceptance",
+    "Browser evidence is desktop Windows Edge/NVIDIA with responsive viewports; physical iPhone and owner acceptance remain unverified. Existing native Sky dense-star tile404s remain separate from this bounded Beyond navigation review."
+  ],
+  "runtime_evidence": {
+    "receipt": "output/playwright/solar-system-2.6/qualified-journeys/journeys.json",
+    "sha256": "f4d66d63a4d9d28204a5630dc104fb3c26f27e0066ffaddbb0298b62402268ef",
+    "started_utc": "2026-11-08T06:13:49.244Z",
+    "finished_utc": "2026-11-08T06:15:02.868Z",
+    "status": "PASS",
+    "journeys": {
+      "A": "PASS",
+      "B": "PASS",
+      "C": "PASS",
+      "D": "PASS"
+    },
+    "harness_sha256": "5c65d6854b19a2b47fffd6e020609706f841b5ad94a7a9e78ebfe1c9868d2c04",
+    "application_sources_changed_during_run": [],
+    "uncaught_browser_errors": [],
+    "observer_tolerances": {
+      "lat": 1e-09,
+      "lng": 1e-09,
+      "elev": 0.0001
+    },
+    "observer_max_abs_delta": {
+      "lat": 3.133493464702042e-12,
+      "lng": 2.8265390028536785e-11,
+      "elev": 0
+    },
+    "observer_sample_count": 15,
+    "utc": "Exact UTC timestamp preserved in all observer checks",
+    "http_failures": "Two deliberate negative responses (503 missing observation and422 unsupported planetary epoch) and58 existing native dense-star tile404s in D; no unexpected Beyond observation failure. This review does not qualify those pre-existing Sky tiles."
+  }
+}

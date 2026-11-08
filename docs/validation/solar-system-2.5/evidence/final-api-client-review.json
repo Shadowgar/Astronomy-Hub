@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "release": "release-v3",
+  "manifest_sha256": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94",
+  "catalog_endpoints_pass": 180,
+  "cases": [
+    {
+      "mission": "voyager1",
+      "default": "1979-03-05T12:05:26.000000Z",
+      "segment": "jupiter-encounter-2",
+      "anchor_difference_m": 0.00007427636465316391,
+      "trajectory_segments": 11
+    },
+    {
+      "mission": "voyager2",
+      "default": "1979-07-09T22:29:51.000000Z",
+      "segment": "jupiter-encounter-1",
+      "anchor_difference_m": 0.00007427636465316391,
+      "trajectory_segments": 19
+    },
+    {
+      "mission": "cassini",
+      "default": "2004-07-01T12:00:00.000000Z",
+      "segment": "arrival-2",
+      "anchor_difference_m": 0,
+      "trajectory_segments": 15
+    },
+    {
+      "mission": "newhorizons",
+      "default": "2015-07-14T11:49:00.000000Z",
+      "segment": "pluto",
+      "anchor_difference_m": 0.00026573920077765933,
+      "trajectory_segments": 16
+    },
+    {
+      "mission": "pioneer10",
+      "default": "1972-03-04T00:00:00.001000Z",
+      "segment": "historical-cruise-0",
+      "anchor_difference_m": 0,
+      "trajectory_segments": 6
+    },
+    {
+      "mission": "pioneer11",
+      "default": "1973-04-07T00:00:00.001000Z",
+      "segment": "historical-cruise-0",
+      "anchor_difference_m": 0,
+      "trajectory_segments": 9
+    },
+    {
+      "mission": "juno",
+      "default": "2016-07-05T12:00:00.000000Z",
+      "segment": "jupiter-arrival-2",
+      "anchor_difference_m": 0,
+      "trajectory_segments": 3
+    },
+    {
+      "mission": "dawn",
+      "default": "2011-07-16T12:00:00.000000Z",
+      "segment": "vesta",
+      "anchor_difference_m": 0,
+      "trajectory_segments": 2
+    },
+    {
+      "mission": "near",
+      "default": "2000-02-14T15:33:00.000000Z",
+      "segment": "eros-1",
+      "anchor_difference_m": 0.000037138182326581956,
+      "trajectory_segments": 4
+    },
+    {
+      "mission": "rosetta",
+      "default": "2014-08-06T12:00:00.000000Z",
+      "segment": "67p-4",
+      "anchor_difference_m": 0,
+      "trajectory_segments": 5
+    }
+  ]
+}

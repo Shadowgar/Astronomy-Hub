@@ -1,0 +1,12 @@
+..........ss.....                                                        [100%]
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/testclient.py:29
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:29: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    [], typing.ContextManager[anyio.abc.BlockingPortal]
+
+backend/tests/test_solar_exploration.py::test_route_validates_epoch_and_uses_no_fallback_when_kernel_missing
+  /usr/local/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+15 passed, 2 skipped, 2 warnings in 0.98s

@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,subprocess,hashlib,urllib.request,sys
+root=Path.cwd();base='b68e2b40b2d94719f9afe5c3c37cc30ae36432d7';sha=lambda b:hashlib.sha256(b).hexdigest();git=lambda *a:subprocess.check_output(['git',*a],cwd=root)
+protected=['frontend/public/oras-sky-engine','docs/design/cinematic-references-2026-10-21','frontend/src/features/solar/assets/earth-blue-marble.png','frontend/src/features/solar/assets/mars-nasa.glb','frontend/src/features/solar/assets/earth-clouds-2002.jpg','integrations/renderers.lock.json','frontend/public/runtime-versions.json','runtimes','packages/runtime-protocol','scripts/skydata']
+for p in protected:assert not git('diff',base,'--',p).strip(),p
+for p in git('ls-tree','-r','--name-only',base).decode().splitlines():
+ if 'rollback'in p.lower():assert git('show',base+':'+p)==(root/p).read_bytes(),p
+baseline=json.loads((root.parent/'cinematic-foundation-1/output/cinematic-hub/preservation.json').read_text());settings=Path('/home/rocco/Astronomy-Hub/.vscode/settings.json');assert sha(settings.read_bytes())==baseline['ownerSettingsSha256']
+kernel=Path('/home/rocco/Astronomy-Hub/data/runtime-packs/planetary-ephemeris/release/de442s.bsp');assert sha(kernel.read_bytes())=='54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c'
+lock=json.loads((root/'integrations/renderers.lock.json').read_text());pin=Path('/var/tmp/oras-cesium/gods-eye');assert subprocess.check_output(['git','-C',str(pin),'rev-parse','HEAD'],text=True).strip()==lock['earth']['sha'];assert not subprocess.check_output(['git','-C',str(pin),'status','--porcelain']).strip()
+print(json.dumps({'status':'PASS','head':git('rev-parse','HEAD').decode().strip(),'protectedPaths':protected,'settingsSha256':sha(settings.read_bytes()),'kernelSha256':sha(kernel.read_bytes()),'nativeEarthArtifact':lock['earth']['artifact_sha256'],'nativeSkyArtifact':lock['sky']['artifact_sha256'],'upstreamPin':lock['earth']['sha']},indent=2))

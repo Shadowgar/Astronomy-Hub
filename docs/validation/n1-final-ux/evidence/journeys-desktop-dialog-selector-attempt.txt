@@ -1,0 +1,23 @@
+1440 initial ORAS Sky and served source identity 2534ms
+1440 native Landscape toggle and Sky Night Mode ON 9488ms
+1440 Explore dismissal and focus return 756ms
+1440 arrival and short outward overshoot stay in Sky 1982ms
+1440 reverse input leaves boundary hysteresis 926ms
+1440 ORAS Sky → Earth by deliberate wheel 15980ms
+1440 Earth → ORAS Sky through accessible Explore 12069ms
+1440 native desktop drag explores Earth 28054ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Error: strict mode violation: locator('dialog') resolved to 2 elements:
+    1) <dialog open="" class="as-dialog ws-panel" aria-labelledby="earth-explore-title">…</dialog> aka getByRole('dialog', { name: 'Explore' })
+    2) <dialog class="ws-about ws-panel" aria-labelledby="ws-about-title">…</dialog> aka getByLabel('About & Licenses', { exact: true })
+
+Call log:
+[2m  - waiting for locator('dialog') to be hidden[22m
+
+    at location (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:43:296)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:75:3
+
+Node.js v22.22.0

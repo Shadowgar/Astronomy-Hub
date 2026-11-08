@@ -1,0 +1,1705 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "system": "mars",
+      "width": 1440,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1204.2000000003727,
+      "frames": 59,
+      "observedHz": 48.33736144678723,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:03:39.360Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 61,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -51456.53335132383,
+          137702.5544368288
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -51456.53335132383,
+            137702.5544368288
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": [
+          27708861.063295987,
+          -213870118.09026065,
+          -98844576.858851
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 6240.520777867813,
+            "screenRadius": 49.76578599510042,
+            "screen": [
+              719.9789870260728,
+              484.4521673109506
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -4984.7986271215905,
+              -7937.460750013373,
+              -1367.3959603953062
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2267.0211807851088,
+            "screenRadius": 18.2270694449479,
+            "screen": [
+              679.8178586524378,
+              548.2122370724554
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              10656.155287754043,
+              -15962.715312871544,
+              -13496.58996046721
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 3175.6577286809006,
+            "screenRadius": 23.91397861446989,
+            "screen": [
+              801.0666656712652,
+              634.1831446618007
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 61,
+          "median": 0.5,
+          "p95": 0.7999999998137355
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "mars"
+      }
+    },
+    {
+      "system": "jupiter",
+      "width": 1440,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1204.5000000003724,
+      "frames": 59,
+      "observedHz": 48.335991812883044,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:03:39.360Z",
+        "frame": "ICRF",
+        "origin": "Jupiter center (599)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 60,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          -13202.985529938478,
+          -4132434.9783716807,
+          11052885.85227735
+        ],
+        "target": [
+          -13202.985529938478,
+          -2244.277534043533,
+          -1271.001894669782
+        ],
+        "cameraState": {
+          "position": [
+            -13202.985529938478,
+            -4132434.9783716807,
+            11052885.85227735
+          ],
+          "target": [
+            -13202.985529938478,
+            -2244.277534043533,
+            -1271.001894669782
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "jupiter",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 69911,
+            "displayRadiusKm": 284227.5086431793,
+            "screenRadius": 28.236688669544446,
+            "screen": [
+              721.3116564112402,
+              484.24694958236495
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "io",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -302792.70854175626,
+              268304.70125838224,
+              123237.14407443226
+            ],
+            "radiusKm": 1821.49,
+            "displayRadiusKm": 104803.31247984935,
+            "screenRadius": 10.424304921076663,
+            "screen": [
+              691.1779801471722,
+              454.9390112034388
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "europa",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              236629.15997218853,
+              568985.558725533,
+              272557.14976201544
+            ],
+            "radiusKm": 1560.8,
+            "displayRadiusKm": 166916.60399101442,
+            "screenRadius": 16.63397300982875,
+            "screen": [
+              744.938400203494,
+              421.51925343753175
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "ganymede",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -661885.0683252957,
+              765201.9066703373,
+              356357.81881378114
+            ],
+            "radiusKm": 2631.2,
+            "displayRadiusKm": 241195.73361378576,
+            "screenRadius": 23.99791191784545,
+            "screen": [
+              655.1939367581707,
+              400.1733570873763
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "callisto",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              1868943.3338266562,
+              -33688.64373525317,
+              11911.918320846693
+            ],
+            "radiusKm": 2410.3,
+            "displayRadiusKm": 244191.60844160354,
+            "screenRadius": 24.00196840723537,
+            "screen": [
+              907.3470168714271,
+              486.9726966485223
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 9,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 60,
+          "median": 0.5,
+          "p95": 0.7999999998137355
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "jupiter"
+      }
+    },
+    {
+      "system": "saturn",
+      "width": 1440,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1205.9999999996276,
+      "frames": 72,
+      "observedHz": 59.174852521265436,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:05:48.960Z",
+        "frame": "ICRF",
+        "origin": "Saturn center (699)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 73,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          -34303.55580667104,
+          -2672808.364465469,
+          7175014.899399365
+        ],
+        "target": [
+          -34303.55580667104,
+          7051.396543604555,
+          2563.966475046356
+        ],
+        "cameraState": {
+          "position": [
+            -34303.55580667104,
+            -2672808.364465469,
+            7175014.899399365
+          ],
+          "target": [
+            -34303.55580667104,
+            7051.396543604555,
+            2563.966475046356
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "saturn",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 58232,
+            "displayRadiusKm": 147022.57318669863,
+            "screenRadius": 22.509936676451094,
+            "screen": [
+              725.2521117850163,
+              485.64872782450357
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "enceladus",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -36279.66090968074,
+              -234748.41392428178,
+              20387.43559508072
+            ],
+            "radiusKm": 252.1,
+            "displayRadiusKm": 53589.13238444642,
+            "screenRadius": 8.311299460129051,
+            "screen": [
+              719.6933896990695,
+              518.6764925784477
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "titan",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -1237898.3236659337,
+              -166614.95002844508,
+              120865.80777684785
+            ],
+            "radiusKm": 2574.76,
+            "displayRadiusKm": 155293.35593527582,
+            "screenRadius": 24.009841775114385,
+            "screen": [
+              531.4982144769499,
+              503.4937601483237
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 73,
+          "median": 0.40000000037252903,
+          "p95": 0.7000000001862645
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "saturn"
+      }
+    },
+    {
+      "system": "uranus",
+      "width": 1440,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1208,
+      "frames": 62,
+      "observedHz": 50.83756979748312,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:07:58.560Z",
+        "frame": "ICRF",
+        "origin": "Uranus center (799)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 63,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          -1117.9037004354177,
+          -1279957.5359301437,
+          3426360.7704821615
+        ],
+        "target": [
+          -1117.9037004354177,
+          298.3714683323924,
+          -151.62057835632004
+        ],
+        "cameraState": {
+          "position": [
+            -1117.9037004354177,
+            -1279957.5359301437,
+            3426360.7704821615
+          ],
+          "target": [
+            -1117.9037004354177,
+            298.3714683323924,
+            -151.62057835632004
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "uranus",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 25362,
+            "displayRadiusKm": 55938.46149313608,
+            "screenRadius": 17.928588729810336,
+            "screen": [
+              720.3582943850114,
+              484.572572779739
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "ariel",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -185731.12832155035,
+              43669.20085424306,
+              -6890.159432847318
+            ],
+            "radiusKm": 578.9,
+            "displayRadiusKm": 27485.224321672402,
+            "screenRadius": 8.7456469955299,
+            "screen": [
+              661.1800175041019,
+              472.3069995352059
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "umbriel",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              73762.5453330832,
+              53307.335381532816,
+              -250927.40994672093
+            ],
+            "radiusKm": 584.7,
+            "displayRadiusKm": 22080.97627809065,
+            "screenRadius": 6.616486983891228,
+            "screen": [
+              742.4428401156913,
+              495.9237792715316
+            ],
+            "inView": true,
+            "labelVisible": false,
+            "markerVisible": false
+          },
+          {
+            "id": "titania",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              314514.5372397255,
+              12602.459713644052,
+              -300870.38800659095
+            ],
+            "radiusKm": 788.9,
+            "displayRadiusKm": 41293.8893673043,
+            "screenRadius": 12.231764962286569,
+            "screen": [
+              813.8195138315103,
+              512.3593076028212
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "oberon",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              304649.9093456017,
+              -193696.741186783,
+              457338.99164518877
+            ],
+            "radiusKm": 761.4,
+            "displayRadiusKm": 33143.69825584335,
+            "screenRadius": 12.232683795549036,
+            "screen": [
+              833.3820875924692,
+              492.51068672614707
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "miranda",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -122778.32591102459,
+              30090.901039381803,
+              29354.39192172764
+            ],
+            "radiusKm": 235.8,
+            "displayRadiusKm": 27191.1932912038,
+            "screenRadius": 8.75017542733452,
+            "screen": [
+              680.8254434577074,
+              472.18828154540216
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 11,
+        "geometries": 11,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 63,
+          "median": 0.5,
+          "p95": 0.900000000372529
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "uranus"
+      }
+    },
+    {
+      "system": "neptune",
+      "width": 1440,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1205.4000000003725,
+      "frames": 71,
+      "observedHz": 58.33819484957079,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:06:23.520Z",
+        "frame": "ICRF",
+        "origin": "Neptune center (899)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 72,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          38.16019078739919,
+          -778169.2641910593,
+          2082646.5176114875
+        ],
+        "target": [
+          38.16019078739919,
+          0.9471857683383857,
+          -69.80201489035971
+        ],
+        "cameraState": {
+          "position": [
+            38.16019078739919,
+            -778169.2641910593,
+            2082646.5176114875
+          ],
+          "target": [
+            38.16019078739919,
+            0.9471857683383857,
+            -69.80201489035971
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "neptune",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 24622,
+            "displayRadiusKm": 123274.14167342022,
+            "screenRadius": 65,
+            "screen": [
+              719.979878891323,
+              484.48758601861414
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "triton",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              293880.33478805854,
+              198659.9916038049,
+              -4641.197822273999
+            ],
+            "radiusKm": 1352.6,
+            "displayRadiusKm": 47466.99210158953,
+            "screenRadius": 23.95180104740405,
+            "screen": [
+              869.9542081955254,
+              390.3486975688496
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 3,
+        "geometries": 3,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 72,
+          "median": 0.39999999944120646,
+          "p95": 0.7999999998137355
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "neptune"
+      }
+    },
+    {
+      "system": "mars",
+      "width": 390,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1205.8000000001862,
+      "frames": 65,
+      "observedHz": 53.333333333333336,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:05:40.320Z",
+        "frame": "ICRF",
+        "origin": "Mars center (499)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 67,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 1,
+        "camera": [
+          2.634980994374928,
+          -74546.31911216443,
+          199500.6969482133
+        ],
+        "target": [
+          2.634980994374928,
+          -4.6703273503535465,
+          -4.637676849615673
+        ],
+        "cameraState": {
+          "position": [
+            2.634980994374928,
+            -74546.31911216443,
+            199500.6969482133
+          ],
+          "target": [
+            2.634980994374928,
+            -4.6703273503535465,
+            -4.637676849615673
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 350,
+          "clearHeight": 456,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": 10
+        },
+        "standardLightPositionKm": [
+          27711660.77706675,
+          -213870005.72614625,
+          -98844600.82906996
+        ],
+        "bodies": [
+          {
+            "id": "mars",
+            "appearance": "nasa-original-model",
+            "modelStatus": "ready",
+            "textureStatus": "ready",
+            "modelReady": true,
+            "textureReady": true,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 3389.5,
+            "displayRadiusKm": 6218.427294543609,
+            "screenRadius": 34.22868586636912,
+            "screen": [
+              194.98549602134253,
+              439.966984002193
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "phobos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -4793.679259639949,
+              -8024.8360203333905,
+              -1513.5049589790428
+            ],
+            "radiusKm": 11.08,
+            "displayRadiusKm": 2270.459331595984,
+            "screenRadius": 12.56736560188644,
+            "screen": [
+              168.4256317418615,
+              484.55176509967214
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "deimos",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              10785.631656179288,
+              -15863.958035527048,
+              -13510.171360423745
+            ],
+            "radiusKm": 6.2,
+            "displayRadiusKm": 4517.197860921148,
+            "screenRadius": 23.938722116089778,
+            "screen": [
+              252.43815864946873,
+              544.3140766091362
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 6,
+        "textures": 1,
+        "renderCpuMs": {
+          "samples": 67,
+          "median": 0.5,
+          "p95": 0.900000000372529
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "mars"
+      }
+    },
+    {
+      "system": "jupiter",
+      "width": 390,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1207.5,
+      "frames": 65,
+      "observedHz": 53.33777814817901,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:07:49.920Z",
+        "frame": "ICRF",
+        "origin": "Jupiter center (599)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 66,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          -13202.985529938478,
+          -5985919.241698018,
+          16013602.501364164
+        ],
+        "target": [
+          -13202.985529938478,
+          -2244.277534043533,
+          -1271.001894669782
+        ],
+        "cameraState": {
+          "position": [
+            -13202.985529938478,
+            -5985919.241698018,
+            16013602.501364164
+          ],
+          "target": [
+            -13202.985529938478,
+            -2244.277534043533,
+            -1271.001894669782
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 350,
+          "clearHeight": 456,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": 10
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "jupiter",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 69911,
+            "displayRadiusKm": 284071.9557840432,
+            "screenRadius": 19.47931397408928,
+            "screen": [
+              195.90535223505353,
+              439.82533553816097
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "io",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -305810.3462294805,
+              265518.50320979155,
+              121859.61958194319
+            ],
+            "radiusKm": 1821.49,
+            "displayRadiusKm": 104777.91300051968,
+            "screenRadius": 7.191616270965042,
+            "screen": [
+              174.91045556746278,
+              419.82016740085146
+            ],
+            "inView": true,
+            "labelVisible": false,
+            "markerVisible": false
+          },
+          {
+            "id": "europa",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              233406.09531275823,
+              570071.5786784608,
+              272995.6574226199
+            ],
+            "radiusKm": 1560.8,
+            "displayRadiusKm": 166759.91037911497,
+            "screenRadius": 11.463656599576531,
+            "screen": [
+              211.96620138968058,
+              396.5121196853943
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "ganymede",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -664026.0225505071,
+              763701.8673206493,
+              355603.500881634
+            ],
+            "radiusKm": 2631.2,
+            "displayRadiusKm": 266108.7891169559,
+            "screenRadius": 18.282391770349143,
+            "screen": [
+              150.19943089081033,
+              382.011481664643
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "callisto",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              1868967.1941855717,
+              -31816.392931629187,
+              12794.614195291453
+            ],
+            "radiusKm": 2410.3,
+            "displayRadiusKm": 351662.9214263384,
+            "screenRadius": 24.0013747443339,
+            "screen": [
+              324.2385493895129,
+              441.564091690386
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 9,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 66,
+          "median": 0.5,
+          "p95": 1.099999999627471
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "jupiter"
+      }
+    },
+    {
+      "system": "saturn",
+      "width": 390,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1208.900000000186,
+      "frames": 73,
+      "observedHz": 60.000000000000014,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:08:59.040Z",
+        "frame": "ICRF",
+        "origin": "Saturn center (699)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 74,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          -34303.55580667104,
+          -3875435.1327511156,
+          10393758.51115545
+        ],
+        "target": [
+          -34303.55580667104,
+          7051.396543604555,
+          2563.966475046356
+        ],
+        "cameraState": {
+          "position": [
+            -34303.55580667104,
+            -3875435.1327511156,
+            10393758.51115545
+          ],
+          "target": [
+            -34303.55580667104,
+            7051.396543604555,
+            2563.966475046356
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 350,
+          "clearHeight": 456,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": 10
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "saturn",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 58232,
+            "displayRadiusKm": 146401.71202851876,
+            "screenRadius": 15.471760979954405,
+            "screen": [
+              198.62522451404416,
+              440.79289939738817
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "enceladus",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -33915.47889360583,
+              -235106.14704785586,
+              20210.519912698393
+            ],
+            "radiusKm": 252.1,
+            "displayRadiusKm": 53572.764849414685,
+            "screenRadius": 5.712594215695887,
+            "screen": [
+              195.0413899235452,
+              463.53475631792185
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "titan",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -1237745.335516515,
+              -167633.03843267632,
+              120920.54070916463
+            ],
+            "radiusKm": 2574.76,
+            "displayRadiusKm": 225010.29971606718,
+            "screenRadius": 24.006829084326775,
+            "screen": [
+              65.81699638236508,
+              453.1186712365663
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 74,
+          "median": 0.40000000037252903,
+          "p95": 0.7000000001862645
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "saturn"
+      }
+    },
+    {
+      "system": "uranus",
+      "width": 390,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1223.8000000000002,
+      "frames": 72,
+      "observedHz": 58.35936215683051,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:31:26.880Z",
+        "frame": "ICRF",
+        "origin": "Uranus center (799)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 73,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          -1117.9037004354177,
+          -1854491.3406071048,
+          4964058.967719235
+        ],
+        "target": [
+          -1117.9037004354177,
+          298.3714683323924,
+          -151.62057835632004
+        ],
+        "cameraState": {
+          "position": [
+            -1117.9037004354177,
+            -1854491.3406071048,
+            4964058.967719235
+          ],
+          "target": [
+            -1117.9037004354177,
+            298.3714683323924,
+            -151.62057835632004
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 350,
+          "clearHeight": 456,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": 10
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "uranus",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 25362,
+            "displayRadiusKm": 57162.53645992499,
+            "screenRadius": 12.645620237354358,
+            "screen": [
+              195.24730508582348,
+              440.0500918191092
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "ariel",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -186308.90438922998,
+              41717.176423883604,
+              596.1481192728443
+            ],
+            "radiusKm": 578.9,
+            "displayRadiusKm": 27628.840691312365,
+            "screenRadius": 6.092094157433022,
+            "screen": [
+              154.13992218958478,
+              431.3817292229325
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "umbriel",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              67599.0058500736,
+              55062.575031834705,
+              -252280.72125887775
+            ],
+            "radiusKm": 584.7,
+            "displayRadiusKm": 22111.146393969593,
+            "screenRadius": 4.665939629632606,
+            "screen": [
+              209.50221395581593,
+              447.7969438763448
+            ],
+            "inView": true,
+            "labelVisible": false,
+            "markerVisible": false
+          },
+          {
+            "id": "titania",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              311101.64369912515,
+              14324.423360733363,
+              -304309.8974605932
+            ],
+            "radiusKm": 788.9,
+            "displayRadiusKm": 35547.38763746969,
+            "screenRadius": 7.443103248235101,
+            "screen": [
+              260.4852239233747,
+              459.5722905670888
+            ],
+            "inView": true,
+            "labelVisible": false,
+            "markerVisible": false
+          },
+          {
+            "id": "oberon",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              308309.2533797777,
+              -193823.87197902074,
+              454820.1422270053
+            ],
+            "radiusKm": 761.4,
+            "displayRadiusKm": 30580.862237898447,
+            "screenRadius": 7.44499553740744,
+            "screen": [
+              270.48774798104535,
+              445.514424502754
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "miranda",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              -121023.33105769596,
+              27172.31061110468,
+              38128.73101390171
+            ],
+            "radiusKm": 235.8,
+            "displayRadiusKm": 27428.327550559483,
+            "screenRadius": 6.09617221162708,
+            "screen": [
+              168.34242673762404,
+              431.42454736620635
+            ],
+            "inView": true,
+            "labelVisible": false,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 11,
+        "geometries": 11,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 73,
+          "median": 0.5,
+          "p95": 0.900000000372529
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "uranus"
+      }
+    },
+    {
+      "system": "neptune",
+      "width": 390,
+      "idleAdditionalFrames": 0,
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      },
+      "elapsedMs": 1201.6000000003723,
+      "frames": 67,
+      "observedHz": 55.00916819469913,
+      "diagnostics": {
+        "epoch": "2026-10-24T06:00:46.560Z",
+        "frame": "ICRF",
+        "origin": "Neptune center (899)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsRequested": true,
+        "orbitsVisible": true,
+        "renderCount": 68,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 0,
+        "camera": [
+          38.16019078739919,
+          -1127384.6746765275,
+          3017296.320250755
+        ],
+        "target": [
+          38.16019078739919,
+          0.9471857683383857,
+          -69.80201489035971
+        ],
+        "cameraState": {
+          "position": [
+            38.16019078739919,
+            -1127384.6746765275,
+            3017296.320250755
+          ],
+          "target": [
+            38.16019078739919,
+            0.9471857683383857,
+            -69.80201489035971
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 350,
+          "clearHeight": 456,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": 10
+        },
+        "standardLightPositionKm": null,
+        "bodies": [
+          {
+            "id": "neptune",
+            "appearance": "illustrative-material",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 24622,
+            "displayRadiusKm": 178596.87421649604,
+            "screenRadius": 64.99999999999999,
+            "screen": [
+              194.98611166957818,
+              439.9914314127466
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "triton",
+            "appearance": "neutral-reference-sphere",
+            "modelStatus": "not-requested",
+            "textureStatus": "not-requested",
+            "modelReady": false,
+            "textureReady": false,
+            "assetError": null,
+            "position": [
+              293600.3280475974,
+              199100.70641211973,
+              -3257.1843453097417
+            ],
+            "radiusKm": 1352.6,
+            "displayRadiusKm": 67709.03412970556,
+            "screenRadius": 23.965614841734887,
+            "screen": [
+              299.48202476494674,
+              374.01727126089213
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 3,
+        "geometries": 3,
+        "textures": 0,
+        "renderCpuMs": {
+          "samples": 68,
+          "median": 0.39999999944120646,
+          "p95": 0.7999999998137355
+        },
+        "playing": true,
+        "speed": 86400,
+        "system": "neptune"
+      }
+    }
+  ],
+  "source_sha256": {
+    "SystemScene.ts": "6f2ac031be2ddafb52d9005c616e48952ed3b9963f7c2f1216e89d6072aab852",
+    "SystemWorkspace.tsx": "904c3eb71226ca554a27bf63517a42527c65a128d584d2dade5437177f2aa5c1",
+    "systemMaterials.ts": "7a25139498ff211e4b6ea12d785508197636676e4e1023b1341694c0348ecd30"
+  },
+  "limits": [
+    "Actual Chromium software renderer; emulated mobile viewport.",
+    "Frame rate is observed browser presentation cadence. renderCpuMs measures CPU submission, not GPU execution.",
+    "No physical GPU/device benchmark or owner acceptance."
+  ]
+}

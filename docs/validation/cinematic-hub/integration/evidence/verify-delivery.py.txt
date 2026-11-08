@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,hashlib,urllib.request,subprocess
+root=Path.cwd();out=root/'output/cinematic-hub';sha=lambda b:hashlib.sha256(b).hexdigest()
+def tree(p):return{str(f.relative_to(p)):sha(f.read_bytes())for f in sorted(p.rglob('*'))if f.is_file()}
+a=tree(out/'hub');assert a==tree(out/'hub-second')==tree(out/'hub-docker'),'Build outputs differ'
+for p,h in a.items():assert sha(urllib.request.urlopen('http://127.0.0.1:4216/'+p,timeout=15).read())==h,p
+earth=root.parent/'r2-earth-ux-performance-1/output/r2-earth-ux/earth-first';e=tree(earth)
+for p,h in e.items():assert sha(urllib.request.urlopen('http://127.0.0.1:4216/earth-runtime/'+p,timeout=15).read())==h,p
+lock=json.loads((root/'integrations/renderers.lock.json').read_text())
+for f in lock['sky']['artifact_files']:assert sha((root/'frontend/public/oras-sky-engine'/f['path']).read_bytes())==f['sha256']
+proof=json.loads((out/'navigation/proof.json').read_text());assert proof['status']=='PASS'
+for p,h in proof['sourceHashes'].items():assert sha((root/p).read_bytes())==h,p
+preservation=json.loads(subprocess.check_output(['python3',str(out/'verify-preservation.py')],text=True))
+r={'status':'PASS_SOURCE_BUILD_SERVED_AND_PRESERVATION','head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'hubArtifact':sha(json.dumps(a,sort_keys=True,separators=(',',':')).encode()),'builds':3,'hubFiles':len(a),'earthFiles':len(e),'sourceHashCount':len(proof['sourceHashes']),'navigationGroups':{str(x['width']):len(x['steps'])for x in proof['runs']},'preservation':preservation,'ownerVisualAcceptance':'PENDING','physicalGpuMobile':'UNQUALIFIED'}
+(out/'delivery.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))

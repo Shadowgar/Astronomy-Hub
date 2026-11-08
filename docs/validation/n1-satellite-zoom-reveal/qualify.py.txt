@@ -1,0 +1,29 @@
+import hashlib,json,subprocess,os
+from pathlib import Path
+r=Path('output/n1/satellite-zoom-reveal');sha=lambda b:hashlib.sha256(b).hexdigest();head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();committed=os.environ.get('N1_COMMITTED')=='1';rows=[]
+for name in ['browser','symbol-pixels','native-regressions','journeys-desktop','journeys-mobile','observer-history']:
+ p=r/name/'proof.json';d=json.loads(p.read_text());assert d['status']=='PASS',(name,d.get('error'));assert all(x['status']=='PASS' and not x.get('pageErrors') for x in d['runs']),name
+ for f,h in d['sourceHashes'].items():
+  assert sha(Path(f).read_bytes())==h,(name,f,'working source')
+  if committed:assert sha(subprocess.check_output(['git','show',head+':'+f]))==h,(name,f,'committed source')
+ rows.append({'name':name,'proofSha256':sha(p.read_bytes()),'runs':len(d['runs']),'groups':sum(len(x.get('steps',x.get('groups',[]))) for x in d['runs']),'scenes':sum(len(x.get('scenes',[])) for x in d['runs']),'resourceFailures':sum(len(x['resourceFailures']) for x in d['runs']) if all('resourceFailures' in x for x in d['runs']) else None,'pageErrors':sum(len(x.get('pageErrors',[])) for x in d['runs'])})
+browser=json.loads((r/'browser/proof.json').read_text());pixelRuns=[]
+for run in browser['runs']:
+ scenes={x['name']:x for x in run['scenes']};close=scenes['automatic-close'];away=scenes['outward-hidden'];returned=scenes['automatic-return']
+ assert close['pixels']['green']>=20 and close['state']['selected'] is None and close['state']['locked'] is None and close['state']['fov']<=5
+ assert run['pointDifference']>0 and scenes['native-point']['state']['hints'] is False
+ assert away['pixels']['green']==0 and away['state']['hints'] is False and away['state']['offset']==2
+ assert returned['pixels']['green']>=20 and returned['state']['selected'] is None
+ assert all(abs(g['fov']-g['reactiveFov'])<1e-6 and g['selected'] is None for g in run['groups'])
+ assert all(i['trusted'] for i in run['inputs'])
+ if run['method']=='pinch':assert any(i['type']=='touchmove' and i.get('touches')==2 for i in run['inputs'])
+ else:assert any(i['type']=='wheel' for i in run['inputs'])
+ pixelRuns.append({'width':run['width'],'method':run['method'],'norad':run['id'],'closeFov':close['state']['fov'],'pointDifference':run['pointDifference'],'automaticIdentificationPixels':close['pixels']['green'],'outwardIdentificationPixels':away['pixels']['green'],'returnIdentificationPixels':returned['pixels']['green'],'trustedInputEvents':len(run['inputs'])})
+icons=json.loads((r/'symbol-pixels/proof.json').read_text());assert icons['journeySha256']==sha((r/'browser/proof.json').read_bytes())
+for run in icons['runs']:
+ for scene in run['scenes']:assert scene['sha256']==sha((r/'browser'/scene['file']).read_bytes())
+ row=next(x for x in pixelRuns if x['width']==run['width'] and x['method']==run['method'] and x['norad']==run['id']);row['centralIconPixels']={x['name']:x['pixels']['icon'] for x in run['scenes']}
+base=json.loads((r/'preservation-before.json').read_text());protected=base['protectedFiles']
+for f,h in protected.items():assert sha(Path(f).read_bytes())==h,('protected',f)
+mounts=json.loads(subprocess.check_output(['docker','inspect','oras-n1-owner-preview','--format','{{json .Mounts}}'],text=True));old=json.loads((r/'mounts-before.json').read_text());assert sorted(mounts,key=lambda x:x['Destination'])==sorted(old,key=lambda x:x['Destination'])
+(r/'mounts-after.json').write_text(json.dumps(mounts,indent=2)+'\n');result={'status':'PASS','head':head,'committedSources':committed,'proofs':rows,'actualInputPixels':pixelRuns,'protectedFilesUnchanged':len(protected),'mountsUnchanged':len(mounts),'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(r/('committed-certificate.json' if committed else 'qualification.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

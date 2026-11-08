@@ -1,0 +1,17 @@
+from pathlib import Path
+import subprocess,json,datetime,os,hashlib
+root=Path('output/n1/final-ux/bounded-delivery-20261016');receipt=root/'attempts.json'
+assert not receipt.exists(),'Do not repeat the owner-authorized one-attempt run'
+rows=[];receipt.write_text('[]\n')
+for name,width in [('journeys-desktop',1440),('journeys-mobile',390)]:
+ out=root/name;env=os.environ.copy();env.update(N1_WIDTHS=str(width),N1_EVIDENCE_DIR=str(out))
+ command=['timeout','--signal=TERM','--kill-after=15s','12m','node','scripts/validation/verify_n1_navigation.mjs']
+ row={'suite':name,'width':width,'command':command,'environment':{'N1_WIDTHS':str(width),'N1_EVIDENCE_DIR':str(out)},'started':datetime.datetime.now(datetime.timezone.utc).isoformat(),'status':'RUNNING'};rows.append(row);receipt.write_text(json.dumps(rows,indent=2)+'\n')
+ with (root/(name+'-run.txt')).open('w') as log:result=subprocess.run(command,env=env,stdout=log,stderr=subprocess.STDOUT)
+ row.update(exitCode=result.returncode,finished=datetime.datetime.now(datetime.timezone.utc).isoformat())
+ p=out/'proof.json'
+ if p.exists():
+  proof=json.loads(p.read_text());row.update(proofStatus=proof['status'],proofSha256=hashlib.sha256(p.read_bytes()).hexdigest(),error=proof.get('error'),steps=sum(len(r.get('steps',[]))for r in proof['runs']))
+ row['status']='PASS' if result.returncode==0 and row.get('proofStatus')=='PASS' else 'FAIL'
+ receipt.write_text(json.dumps(rows,indent=2)+'\n');print(name,row['status'],'exit',result.returncode,flush=True)
+print('One bounded attempt per suite finished; no automatic retries.',flush=True)

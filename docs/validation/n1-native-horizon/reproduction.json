@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "sourceInputs": 546,
+  "frontendArtifacts": 95,
+  "sourceInputSha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+  "nativeOutputSha256": {
+    "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+    "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+  },
+  "patchSha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+  "attestationSha256": "576b128baa880ea48c6a1d8e18dcbe9b54ea9b8d0e71840bed53c425d36b9ab7",
+  "nativeAndFrontendBytesIdentical": true
+}

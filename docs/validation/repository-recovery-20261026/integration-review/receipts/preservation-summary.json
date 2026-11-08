@@ -1,0 +1,6 @@
+{
+  "containers_identical": 143,
+  "volumes_identical": 90,
+  "task_containers_removed": true,
+  "task_network_removed": true
+}

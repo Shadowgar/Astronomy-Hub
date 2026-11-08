@@ -1,0 +1,972 @@
+TAP version 13
+# Subtest: unknown altitude, invalid coords/identity and stale source epoch are not displayed as flights
+ok 1 - unknown altitude, invalid coords/identity and stale source epoch are not displayed as flights
+  ---
+  duration_ms: 1.717883
+  type: 'test'
+  ...
+# Subtest: upstream Number(null) coercion cannot manufacture weather temperature or epoch
+ok 2 - upstream Number(null) coercion cannot manufacture weather temperature or epoch
+  ---
+  duration_ms: 0.729204
+  type: 'test'
+  ...
+# Subtest: TLE catalog rejects checksum corruption and cross-object line pairs
+ok 3 - TLE catalog rejects checksum corruption and cross-object line pairs
+  ---
+  duration_ms: 0.797435
+  type: 'test'
+  ...
+# Subtest: configured assets require explicit provider qualification and browser-token attestation
+ok 4 - configured assets require explicit provider qualification and browser-token attestation
+  ---
+  duration_ms: 1.507591
+  type: 'test'
+  ...
+# Subtest: disabled deployment configuration cannot publish credentials or unknown fields
+ok 5 - disabled deployment configuration cannot publish credentials or unknown fields
+  ---
+  duration_ms: 0.312924
+  type: 'test'
+  ...
+# Subtest: public imagery selection is a closed credential-free enum with legacy fallback
+ok 6 - public imagery selection is a closed credential-free enum with legacy fallback
+  ---
+  duration_ms: 0.363728
+  type: 'test'
+  ...
+# Subtest: regional imagery Focus uses a bounded coverage range; events retain ordinary focus and no tracking
+ok 7 - regional imagery Focus uses a bounded coverage range; events retain ordinary focus and no tracking
+  ---
+  duration_ms: 15.235231
+  type: 'test'
+  ...
+# Subtest: event DTO preserves exact IDs/source times and accepts empty snapshot
+ok 8 - event DTO preserves exact IDs/source times and accepts empty snapshot
+  ---
+  duration_ms: 2.521972
+  type: 'test'
+  ...
+# Subtest: event contract rejects raw blobs, invalid coordinates, duplicate IDs and cap excess
+ok 9 - event contract rejects raw blobs, invalid coordinates, duplicate IDs and cap excess
+  ---
+  duration_ms: 1.754932
+  type: 'test'
+  ...
+# Subtest: fire DTO only accepts bounded closed polygons and truthful perimeter semantics
+ok 10 - fire DTO only accepts bounded closed polygons and truthful perimeter semantics
+  ---
+  duration_ms: 0.563728
+  type: 'test'
+  ...
+# Subtest: radar contract pins explicit source time and CONUS coverage without accepting provider blobs
+ok 11 - radar contract pins explicit source time and CONUS coverage without accepting provider blobs
+  ---
+  duration_ms: 0.358151
+  type: 'test'
+  ...
+# Subtest: recent-event contract rejects events outside its past-day recency window
+ok 12 - recent-event contract rejects events outside its past-day recency window
+  ---
+  duration_ms: 0.334359
+  type: 'test'
+  ...
+# Subtest: earthquakes: activation, exact selection metadata/time, unavailable, retry, disable and cleanup
+ok 13 - earthquakes: activation, exact selection metadata/time, unavailable, retry, disable and cleanup
+  ---
+  duration_ms: 72.787326
+  type: 'test'
+  ...
+# Subtest: fire-perimeters: activation, exact selection metadata/time, unavailable, retry, disable and cleanup
+ok 14 - fire-perimeters: activation, exact selection metadata/time, unavailable, retry, disable and cleanup
+  ---
+  duration_ms: 4.749405
+  type: 'test'
+  ...
+# Subtest: weather-radar: activation, exact selection metadata/time, unavailable, retry, disable and cleanup
+ok 15 - weather-radar: activation, exact selection metadata/time, unavailable, retry, disable and cleanup
+  ---
+  duration_ms: 5.531865
+  type: 'test'
+  ...
+# Subtest: fire renderer preserves polygon holes rather than substituting points for perimeters
+ok 16 - fire renderer preserves polygon holes rather than substituting points for perimeters
+  ---
+  duration_ms: 2.52977
+  type: 'test'
+  ...
+# Subtest: event selection identity survives a same-ID refresh
+ok 17 - event selection identity survives a same-ID refresh
+  ---
+  duration_ms: 2.654461
+  type: 'test'
+  ...
+# Subtest: same-ID earthquake revisions refresh marker facts and appearance; selected=false
+ok 18 - same-ID earthquake revisions refresh marker facts and appearance; selected=false
+  ---
+  duration_ms: 3.654411
+  type: 'test'
+  ...
+# Subtest: same-ID earthquake revisions refresh marker facts and appearance; selected=true
+ok 19 - same-ID earthquake revisions refresh marker facts and appearance; selected=true
+  ---
+  duration_ms: 12.353826
+  type: 'test'
+  ...
+# Subtest: perimeter polygon resolves to stable event selection and deselect restores magnitude scale
+ok 20 - perimeter polygon resolves to stable event selection and deselect restores magnitude scale
+  ---
+  duration_ms: 3.087775
+  type: 'test'
+  ...
+# Subtest: actual LEFT_CLICK handler resolves a picked fire polygon before marker proximity
+ok 21 - actual LEFT_CLICK handler resolves a picked fire polygon before marker proximity
+  ---
+  duration_ms: 1.692436
+  type: 'test'
+  ...
+# Subtest: generated release declares every directly imported qualified upstream surface
+ok 22 - generated release declares every directly imported qualified upstream surface
+  ---
+  duration_ms: 160.168037
+  type: 'test'
+  ...
+# Subtest: CONUS envelope, native tile cap, credits and retry keep radar above imagery
+ok 23 - CONUS envelope, native tile cap, credits and retry keep radar above imagery
+  ---
+  duration_ms: 12.372148
+  type: 'test'
+  ...
+# Subtest: provider failure removes only that imagery, retains truthful fallback, does not retry or lose overlay
+ok 24 - provider failure removes only that imagery, retains truthful fallback, does not retry or lose overlay
+  ---
+  duration_ms: 1.95282
+  type: 'test'
+  ...
+# Subtest: late fallback completion cannot overwrite the HD source, and retries coalesce
+ok 25 - late fallback completion cannot overwrite the HD source, and retries coalesce
+  ---
+  duration_ms: 1.743513
+  type: 'test'
+  ...
+# Subtest: navigation during pending imagery initialization never attaches late layers
+ok 26 - navigation during pending imagery initialization never attaches late layers
+  ---
+  duration_ms: 1.744975
+  type: 'test'
+  ...
+# Subtest: legacy and disabled imagery configuration retain global sources without contacting USGS
+ok 27 - legacy and disabled imagery configuration retain global sources without contacting USGS
+  ---
+  duration_ms: 3.950376
+  type: 'test'
+  ...
+# Subtest: global view does not fetch or show a rectangular CONUS patch; regional view fades it in
+ok 28 - global view does not fetch or show a rectangular CONUS patch; regional view fades it in
+  ---
+  duration_ms: 1.859353
+  type: 'test'
+  ...
+# Subtest: close views outside CONUS stay on fallback, then resume HD when coverage enters view
+ok 29 - close views outside CONUS stay on fallback, then resume HD when coverage enters view
+  ---
+  duration_ms: 1.966084
+  type: 'test'
+  ...
+# Subtest: tile concurrency is bounded; Cesium scheduler throttling does not consume a slot
+ok 30 - tile concurrency is bounded; Cesium scheduler throttling does not consume a slot
+  ---
+  duration_ms: 4.290231
+  type: 'test'
+  ...
+# Subtest: stalled tile times out and cancels its Cesium request without retry
+ok 31 - stalled tile times out and cancels its Cesium request without retry
+  ---
+  duration_ms: 15.812747
+  type: 'test'
+  ...
+# Subtest: teardown cancels active tiles; late resolution cannot call loaded hook
+ok 32 - teardown cancels active tiles; late resolution cannot call loaded hook
+  ---
+  duration_ms: 0.655277
+  type: 'test'
+  ...
+# Subtest: Cesium cancellation rejects without a value and must not become a loaded tile
+ok 33 - Cesium cancellation rejects without a value and must not become a loaded tile
+  ---
+  duration_ms: 0.3751
+  type: 'test'
+  ...
+# Subtest: timeout reports provider failure even when cancellation suppresses Cesium error events
+ok 34 - timeout reports provider failure even when cancellation suppresses Cesium error events
+  ---
+  duration_ms: 10.024334
+  type: 'test'
+  ...
+# Subtest: disable while lazy import is pending never initializes the cancelled layer
+ok 35 - disable while lazy import is pending never initializes the cancelled layer
+  ---
+  duration_ms: 2.646508
+  type: 'test'
+  ...
+# Subtest: failure is retryable and loaded instance is destroyed once
+ok 36 - failure is retryable and loaded instance is destroyed once
+  ---
+  duration_ms: 10.557031
+  type: 'test'
+  ...
+# Subtest: polling disable aborts request, discards late response and clears resources
+ok 37 - polling disable aborts request, discards late response and clears resources
+  ---
+  duration_ms: 2.285144
+  type: 'test'
+  ...
+# Subtest: provider failure clears stale entities, reports unavailable and owns no periodic request after disable
+ok 38 - provider failure clears stale entities, reports unavailable and owns no periodic request after disable
+  ---
+  duration_ms: 0.602696
+  type: 'test'
+  ...
+# Subtest: destroy aborts and releases Viewer even if a layer cleanup throws
+ok 39 - destroy aborts and releases Viewer even if a layer cleanup throws
+  ---
+  duration_ms: 0.535951
+  type: 'test'
+  ...
+# Subtest: successful polling updates do not clear selected/tracked entity resources
+ok 40 - successful polling updates do not clear selected/tracked entity resources
+  ---
+  duration_ms: 0.619581
+  type: 'test'
+  ...
+# Subtest: only verified ORAS location reuses its elevation; exploring New York has identified zero fallback
+ok 41 - only verified ORAS location reuses its elevation; exploring New York has identified zero fallback
+  ---
+  duration_ms: 3.372347
+  type: 'test'
+  ...
+# Subtest: a known provided height survives picking at the same target, never at a new location
+ok 42 - a known provided height survives picking at the same target, never at a new location
+  ---
+  duration_ms: 0.753115
+  type: 'test'
+  ...
+# Subtest: explicit provided elevation at ORAS coordinates is not overwritten by site elevation
+ok 43 - explicit provided elevation at ORAS coordinates is not overwritten by site elevation
+  ---
+  duration_ms: 0.240204
+  type: 'test'
+  ...
+# Subtest: snapshot and repeated pre-departure cancellation preserve native tracking and flight
+ok 44 - snapshot and repeated pre-departure cancellation preserve native tracking and flight
+  ---
+  duration_ms: 10.354373
+  type: 'test'
+  ...
+# Subtest: snapshot and cancelled handoff preserve the accepted ongoing wheel animation
+ok 45 - snapshot and cancelled handoff preserve the accepted ongoing wheel animation
+  ---
+  duration_ms: 5.027944
+  type: 'test'
+  ...
+# Subtest: inspection preserves pending native flight completion, and committed destruction drains cancellation
+ok 46 - inspection preserves pending native flight completion, and committed destruction drains cancellation
+  ---
+  duration_ms: 4.834688
+  type: 'test'
+  ...
+# (node:266171) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: observer refresh aborts old poll, clears old entities, waits for new result and rejects stale generation
+ok 47 - observer refresh aborts old poll, clears old entities, waits for new result and rejects stale generation
+  ---
+  duration_ms: 8.302269
+  type: 'test'
+  ...
+# Subtest: failed new observer source clears old entities and acknowledges unavailable
+ok 48 - failed new observer source clears old entities and acknowledges unavailable
+  ---
+  duration_ms: 0.877245
+  type: 'test'
+  ...
+# Subtest: disabled and observer-independent layers do not reacquire
+ok 49 - disabled and observer-independent layers do not reacquire
+  ---
+  duration_ms: 0.591096
+  type: 'test'
+  ...
+# Subtest: refresh schedules exactly one ordinary future poll
+ok 50 - refresh schedules exactly one ordinary future poll
+  ---
+  duration_ms: 2.026815
+  type: 'test'
+  ...
+# Subtest: registry waits for refresh even while the first enabled poll is loading
+ok 51 - registry waits for refresh even while the first enabled poll is loading
+  ---
+  duration_ms: 1.556908
+  type: 'test'
+  ...
+# Subtest: EarthRuntime observer changes immediately but success waits for all refreshed sources
+ok 52 - EarthRuntime observer changes immediately but success waits for all refreshed sources
+  ---
+  duration_ms: 2.709421
+  type: 'test'
+  ...
+# Subtest: observer acknowledgement waits for a lazy enabled layer to acquire its first new-observer result
+ok 53 - observer acknowledgement waits for a lazy enabled layer to acquire its first new-observer result
+  ---
+  duration_ms: 2.479842
+  type: 'test'
+  ...
+# Subtest: persisted pagehide preserves Viewer and bridge; repeated pageshow does not duplicate startup
+ok 54 - persisted pagehide preserves Viewer and bridge; repeated pageshow does not duplicate startup
+  ---
+  duration_ms: 11.176338
+  type: 'test'
+  ...
+# Subtest: persisted restoration of a disposed runtime coalesces repeated startup into one new Viewer/bridge
+ok 55 - persisted restoration of a disposed runtime coalesces repeated startup into one new Viewer/bridge
+  ---
+  duration_ms: 3.07665
+  type: 'test'
+  ...
+# Subtest: genuine departure during startup creates no late Viewer/bridge and an absent runtime can restore
+ok 56 - genuine departure during startup creates no late Viewer/bridge and an absent runtime can restore
+  ---
+  duration_ms: 3.81102
+  type: 'test'
+  ...
+# Subtest: bfcache departure cancels motion while preserving the Viewer for restoration
+ok 57 - bfcache departure cancels motion while preserving the Viewer for restoration
+  ---
+  duration_ms: 2.017477
+  type: 'test'
+  ...
+# Subtest: empty picking preserves selected identity; explicit layer clearing still clears it
+ok 58 - empty picking preserves selected identity; explicit layer clearing still clears it
+  ---
+  duration_ms: 3.043644
+  type: 'test'
+  ...
+# Subtest: one wheel event moves only on frames and supplies many monotonic intermediate positions
+ok 59 - one wheel event moves only on frames and supplies many monotonic intermediate positions
+  ---
+  duration_ms: 9.416158
+  type: 'test'
+  ...
+# Subtest: equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+ok 60 - equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+  ---
+  duration_ms: 13.662831
+  type: 'test'
+  ...
+# Subtest: scroll accumulates and decelerates to actual rest without idle rendering
+ok 61 - scroll accumulates and decelerates to actual rest without idle rendering
+  ---
+  duration_ms: 12.823307
+  type: 'test'
+  ...
+# Subtest: opposite input reverses the next frame, discarding unconsumed inward motion
+ok 62 - opposite input reverses the next frame, discarding unconsumed inward motion
+  ---
+  duration_ms: 1.946797
+  type: 'test'
+  ...
+# Subtest: small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+ok 63 - small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+  ---
+  duration_ms: 45.35158
+  type: 'test'
+  ...
+# Subtest: pointer, keyboard and all camera navigation actions cancel residual zoom
+ok 64 - pointer, keyboard and all camera navigation actions cancel residual zoom
+  ---
+  duration_ms: 28.768161
+  type: 'test'
+  ...
+# Subtest: bounds preserve the center target and orientation even on oblique approach
+ok 65 - bounds preserve the center target and orientation even on oblique approach
+  ---
+  duration_ms: 170.411756
+  type: 'test'
+  ...
+# Subtest: missing intersection and teardown leave no callbacks or corrupted position
+ok 66 - missing intersection and teardown leave no callbacks or corrupted position
+  ---
+  duration_ms: 2.029811
+  type: 'test'
+  ...
+# Subtest: animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+ok 67 - animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+  ---
+  duration_ms: 1.911821
+  type: 'test'
+  ...
+# Subtest: bridge wheel interaction does not cancel the animation it just started
+ok 68 - bridge wheel interaction does not cancel the animation it just started
+  ---
+  duration_ms: 3.189332
+  type: 'test'
+  ...
+# Subtest: arrival shows boundary guidance without crediting animation as deliberate input
+ok 69 - arrival shows boundary guidance without crediting animation as deliberate input
+  ---
+  duration_ms: 2.083383
+  type: 'test'
+  ...
+# Subtest: standalone Earth can keep zooming and reverse after sustained surface input
+ok 70 - standalone Earth can keep zooming and reverse after sustained surface input
+  ---
+  duration_ms: 2.757338
+  type: 'test'
+  ...
+# Subtest: altitude gain is continuous across orbital, regional and near-surface scales
+ok 71 - altitude gain is continuous across orbital, regional and near-surface scales
+  ---
+  duration_ms: 97.627247
+  type: 'test'
+  ...
+# Subtest: equivalent pixel, line and page deltas give equivalent movement
+ok 72 - equivalent pixel, line and page deltas give equivalent movement
+  ---
+  duration_ms: 4.406865
+  type: 'test'
+  ...
+# Subtest: native inputs have exclusive ownership after pointer cancellation, with settings restored
+ok 73 - native inputs have exclusive ownership after pointer cancellation, with settings restored
+  ---
+  duration_ms: 2.048837
+  type: 'test'
+  ...
+# Subtest: constellation toggle updates native lines AND names; art stays independent
+ok 74 - constellation toggle updates native lines AND names; art stays independent
+  ---
+  duration_ms: 2.188864
+  type: 'test'
+  ...
+# Subtest: observing controls address original SWE paths including distinct of-date and J2000 grids
+ok 75 - observing controls address original SWE paths including distinct of-date and J2000 grids
+  ---
+  duration_ms: 0.637809
+  type: 'test'
+  ...
+# Subtest: Night Mode reuses BottomBar and Fullscreen is an action
+ok 76 - Night Mode reuses BottomBar and Fullscreen is an action
+  ---
+  duration_ms: 1.246651
+  type: 'test'
+  ...
+# Subtest: dismissal restores the connected immediate tool launcher and clears stale ownership
+ok 77 - dismissal restores the connected immediate tool launcher and clears stale ownership
+  ---
+  duration_ms: 0.292468
+  type: 'test'
+  ...
+# Subtest: standalone native interface remains untouched
+ok 78 - standalone native interface remains untouched
+  ---
+  duration_ms: 0.18517
+  type: 'test'
+  ...
+# Subtest: embedded fullscreen targets the whole Hub and retains native state synchronization
+ok 79 - embedded fullscreen targets the whole Hub and retains native state synchronization
+  ---
+  duration_ms: 0.46249
+  type: 'test'
+  ...
+# Subtest: Vue receives explicit true/false ARIA strings, never false attributes that it removes
+ok 80 - Vue receives explicit true/false ARIA strings, never false attributes that it removes
+  ---
+  duration_ms: 0.569154
+  type: 'test'
+  ...
+# Subtest: renderer disposal removes its listener from the parent document
+ok 81 - renderer disposal removes its listener from the parent document
+  ---
+  duration_ms: 0.455641
+  type: 'test'
+  ...
+# Subtest: mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+ok 82 - mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+  ---
+  duration_ms: 0.613399
+  type: 'test'
+  ...
+# Subtest: cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+ok 83 - cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+  ---
+  duration_ms: 22.668676
+  type: 'test'
+  ...
+# Subtest: repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+ok 84 - repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+  ---
+  duration_ms: 0.888385
+  type: 'test'
+  ...
+# Subtest: explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+ok 85 - explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+  ---
+  duration_ms: 0.707597
+  type: 'test'
+  ...
+# Subtest: bootstrap abort removes listeners and never creates a channel
+ok 86 - bootstrap abort removes listeners and never creates a channel
+  ---
+  duration_ms: 2.6946
+  type: 'test'
+  ...
+# Subtest: negotiated channel hydrates, ignores stale responses, and rejects pending requests on teardown
+ok 87 - negotiated channel hydrates, ignores stale responses, and rejects pending requests on teardown
+  ---
+  duration_ms: 47.37543
+  type: 'test'
+  ...
+# Subtest: old generation responses cannot settle a new channel request
+ok 88 - old generation responses cannot settle a new channel request
+  ---
+  duration_ms: 4.139219
+  type: 'test'
+  ...
+# Subtest: runtime command failures return controlled results
+ok 89 - runtime command failures return controlled results
+  ---
+  duration_ms: 3.764553
+  type: 'test'
+  ...
+# Subtest: late same-session hello preserves the negotiated channel
+ok 90 - late same-session hello preserves the negotiated channel
+  ---
+  duration_ms: 1.518689
+  type: 'test'
+  ...
+# Subtest: continuous outward input works without pausing at the boundary
+ok 91 - continuous outward input works without pausing at the boundary
+  ---
+  duration_ms: 1.766429
+  type: 'test'
+  ...
+# Subtest: slow notches and irregular cadence retain deliberate progress
+ok 92 - slow notches and irregular cadence retain deliberate progress
+  ---
+  duration_ms: 0.404268
+  type: 'test'
+  ...
+# Subtest: small trackpad input can continue directly from ordinary zoom
+ok 93 - small trackpad input can continue directly from ordinary zoom
+  ---
+  duration_ms: 1.939746
+  type: 'test'
+  ...
+# Subtest: arrival, short overshoot, a single huge event and decaying inertia do not transition
+ok 94 - arrival, short overshoot, a single huge event and decaying inertia do not transition
+  ---
+  duration_ms: 0.64543
+  type: 'test'
+  ...
+# Subtest: reversal, pan, cooldown and departure from hysteresis discard intent
+ok 95 - reversal, pan, cooldown and departure from hysteresis discard intent
+  ---
+  duration_ms: 0.25944
+  type: 'test'
+  ...
+# Subtest: abandoned progress expires, without requiring a second pause to restart
+ok 96 - abandoned progress expires, without requiring a second pause to restart
+  ---
+  duration_ms: 0.266297
+  type: 'test'
+  ...
+# Subtest: coalesced decaying trackpad packets after arrival cannot satisfy continued intent
+ok 97 - coalesced decaying trackpad packets after arrival cannot satisfy continued intent
+  ---
+  duration_ms: 0.353407
+  type: 'test'
+  ...
+# Subtest: variable small trackpad input still accumulates continuation
+ok 98 - variable small trackpad input still accumulates continuation
+  ---
+  duration_ms: 0.441478
+  type: 'test'
+  ...
+# Subtest: artifact equal is rejected before SSH
+ok 99 - artifact equal is rejected before SSH
+  ---
+  duration_ms: 58.167149
+  type: 'test'
+  ...
+# Subtest: artifact child is rejected before SSH
+ok 100 - artifact child is rejected before SSH
+  ---
+  duration_ms: 34.577551
+  type: 'test'
+  ...
+# Subtest: artifact trailing slashes is rejected before SSH
+ok 101 - artifact trailing slashes is rejected before SSH
+  ---
+  duration_ms: 75.588765
+  type: 'test'
+  ...
+# Subtest: artifact dot and dot-dot is rejected before SSH
+ok 102 - artifact dot and dot-dot is rejected before SSH
+  ---
+  duration_ms: 26.772726
+  type: 'test'
+  ...
+# Subtest: artifact normalized destination is rejected before SSH
+ok 103 - artifact normalized destination is rejected before SSH
+  ---
+  duration_ms: 22.860607
+  type: 'test'
+  ...
+# Subtest: sibling /home/rocco/astronomy-hub-artifacts/earth passes containment guard
+ok 104 - sibling /home/rocco/astronomy-hub-artifacts/earth passes containment guard
+  ---
+  duration_ms: 23.080069
+  type: 'test'
+  ...
+# Subtest: sibling /home/rocco/astronomy-hub-artifacts/./data/../earth/ passes containment guard
+ok 105 - sibling /home/rocco/astronomy-hub-artifacts/./data/../earth/ passes containment guard
+  ---
+  duration_ms: 19.309742
+  type: 'test'
+  ...
+# Subtest: navigation state carries explicit camera units and observer/time without renderer objects
+ok 106 - navigation state carries explicit camera units and observer/time without renderer objects
+  ---
+  duration_ms: 2.584762
+  type: 'test'
+  ...
+# Subtest: navigation intent events reject stale sessions, unknown fields and invalid progress
+ok 107 - navigation intent events reject stale sessions, unknown fields and invalid progress
+  ---
+  duration_ms: 1.918192
+  type: 'test'
+  ...
+# Subtest: Earth navigation has a surface observer separate from camera height and permits only bounded restores
+ok 108 - Earth navigation has a surface observer separate from camera height and permits only bounded restores
+  ---
+  duration_ms: 0.758543
+  type: 'test'
+  ...
+# Subtest: optional observer provenance accepts honest zero/provided intents and rejects malformed wire claims
+ok 109 - optional observer provenance accepts honest zero/provided intents and rejects malformed wire claims
+  ---
+  duration_ms: 0.712483
+  type: 'test'
+  ...
+# Subtest: provenance follows actual observer and never trusts inconsistent URL claims
+ok 110 - provenance follows actual observer and never trusts inconsistent URL claims
+  ---
+  duration_ms: 1.248668
+  type: 'test'
+  ...
+# Subtest: validates authenticated bootstrap; rejects each session boundary independently
+ok 111 - validates authenticated bootstrap; rejects each session boundary independently
+  ---
+  duration_ms: 1.601261
+  type: 'test'
+  ...
+# Subtest: rejects malformed channel commands and stale generation
+ok 112 - rejects malformed channel commands and stale generation
+  ---
+  duration_ms: 1.01802
+  type: 'test'
+  ...
+# Subtest: ordinary FOV keeps photometric satellites enabled without artificial hints
+ok 113 - ordinary FOV keeps photometric satellites enabled without artificial hints
+  ---
+  duration_ms: 3.329643
+  type: 'test'
+  ...
+# Subtest: identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+ok 114 - identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+  ---
+  duration_ms: 0.793752
+  type: 'test'
+  ...
+# Subtest: wide selected satellite stays isolated; close identification and widening preserve native defaults
+ok 115 - wide selected satellite stays isolated; close identification and widening preserve native defaults
+  ---
+  duration_ms: 0.521721
+  type: 'test'
+  ...
+# Subtest: upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+ok 116 - upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+  ---
+  duration_ms: 1.306338
+  type: 'test'
+  ...
+# Subtest: native user-disabled hints are retained after release and no scene API is replaced
+ok 117 - native user-disabled hints are retained after release and no scene API is replaced
+  ---
+  duration_ms: 0.218594
+  type: 'test'
+  ...
+# Subtest: native JSON FOV precision does not miss threshold boundaries
+ok 118 - native JSON FOV precision does not miss threshold boundaries
+  ---
+  duration_ms: 0.181945
+  type: 'test'
+  ...
+# Subtest: unselected close views admit native point-only satellites through a bounded hint offset
+ok 119 - unselected close views admit native point-only satellites through a bounded hint offset
+  ---
+  duration_ms: 0.267809
+  type: 'test'
+  ...
+# Subtest: own close overrides do not replace original offset across selection, widening and release
+ok 120 - own close overrides do not replace original offset across selection, widening and release
+  ---
+  duration_ms: 0.226415
+  type: 'test'
+  ...
+# Subtest: native custom offsets and asynchronous initialization survive close presentation
+ok 121 - native custom offsets and asynchronous initialization survive close presentation
+  ---
+  duration_ms: 0.533108
+  type: 'test'
+  ...
+# Subtest: Sky marker and public admission digest bind every qualified application file
+ok 122 - Sky marker and public admission digest bind every qualified application file
+  ---
+  duration_ms: 93.649602
+  type: 'test'
+  ...
+# Subtest: FOV report accepts only exact finite native angle and current authenticated Sky session
+ok 123 - FOV report accepts only exact finite native angle and current authenticated Sky session
+  ---
+  duration_ms: 2.376683
+  type: 'test'
+  ...
+# Subtest: native reactive reports coalesce at 10Hz, require hello, recover cached pages and release all listeners/timers
+ok 124 - native reactive reports coalesce at 10Hz, require hello, recover cached pages and release all listeners/timers
+  ---
+  duration_ms: 1.875779
+  type: 'test'
+  ...
+# Subtest: a silent native zoomTo change is sampled without requiring a reactive change event
+ok 125 - a silent native zoomTo change is sampled without requiring a reactive change event
+  ---
+  duration_ms: 0.713265
+  type: 'test'
+  ...
+# Subtest: the bounded native sampler pauses while hidden and releases its visibility listener on stop
+ok 126 - the bounded native sampler pauses while hidden and releases its visibility listener on stop
+  ---
+  duration_ms: 1.485533
+  type: 'test'
+  ...
+# Subtest: standalone keeps native landscape selection and visibility toggles
+ok 127 - standalone keeps native landscape selection and visibility toggles
+  ---
+  duration_ms: 5.229192
+  type: 'test'
+  ...
+# Subtest: embedded landscape selects the illustrative panorama and releases native choices
+ok 128 - embedded landscape selects the illustrative panorama and releases native choices
+  ---
+  duration_ms: 2.642556
+  type: 'test'
+  ...
+# Subtest: panorama never recolors or reactivates the original zero circle
+ok 129 - panorama never recolors or reactivates the original zero circle
+  ---
+  duration_ms: 2.0446
+  type: 'test'
+  ...
+# Subtest: native Sky navigation rejects false elevation provenance and keeps provided zero
+ok 130 - native Sky navigation rejects false elevation provenance and keeps provided zero
+  ---
+  duration_ms: 7.026232
+  type: 'test'
+  ...
+# Subtest: native satellite point selection retains source-backed NORAD details and Focus availability
+ok 131 - native satellite point selection retains source-backed NORAD details and Focus availability
+  ---
+  duration_ms: 3.355084
+  type: 'test'
+  ...
+# Subtest: absent or blank URL coordinates do not identify a native zero observer as a missing-height fallback
+ok 132 - absent or blank URL coordinates do not identify a native zero observer as a missing-height fallback
+  ---
+  duration_ms: 3.438744
+  type: 'test'
+  ...
+# Subtest: embedded reduced-motion satellite Focus retains native locking without a visible animation
+ok 133 - embedded reduced-motion satellite Focus retains native locking without a visible animation
+  ---
+  duration_ms: 4.164212
+  type: 'test'
+  ...
+# Subtest: native search retains normal Tab and Escape handling
+ok 134 - native search retains normal Tab and Escape handling
+  ---
+  duration_ms: 3.977186
+  type: 'test'
+  ...
+# Subtest: native toolbar retains Tab but forwards Escape recovery; native panels keep Escape
+ok 135 - native toolbar retains Tab but forwards Escape recovery; native panels keep Escape
+  ---
+  duration_ms: 2.804469
+  type: 'test'
+  ...
+# Subtest: focusing native controls keeps Hub chrome available and leaving restores exploration
+ok 136 - focusing native controls keeps Hub chrome available and leaving restores exploration
+  ---
+  duration_ms: 1.363991
+  type: 'test'
+  ...
+# Subtest: embedded canvas PageUp/PageDown use native zoom, while native controls and standalone retain their keys
+ok 137 - embedded canvas PageUp/PageDown use native zoom, while native controls and standalone retain their keys
+  ---
+  duration_ms: 2.369036
+  type: 'test'
+  ...
+# Subtest: modified PageUp/PageDown shortcuts are preserved for the browser
+ok 138 - modified PageUp/PageDown shortcuts are preserved for the browser
+  ---
+  duration_ms: 1.177493
+  type: 'test'
+  ...
+# Subtest: Sky panel reports accept only current origin, frame, session and boolean visibility
+ok 139 - Sky panel reports accept only current origin, frame, session and boolean visibility
+  ---
+  duration_ms: 1.376832
+  type: 'test'
+  ...
+# Subtest: panel reports require a qualified parent hello, survive persisted pagehide and stop on disposal
+ok 140 - panel reports require a qualified parent hello, survive persisted pagehide and stop on disposal
+  ---
+  duration_ms: 3.490509
+  type: 'test'
+  ...
+# Subtest: night reports validate exact origin/frame/session/type/boolean payload before the Hub reflects them
+ok 141 - night reports validate exact origin/frame/session/type/boolean payload before the Hub reflects them
+  ---
+  duration_ms: 1.466891
+  type: 'test'
+  ...
+# Subtest: engine-ready replay and native changes publish actual SWE state, not event or host toggle state
+ok 142 - engine-ready replay and native changes publish actual SWE state, not event or host toggle state
+  ---
+  duration_ms: 3.58653
+  type: 'test'
+  ...
+# Subtest: hello replays already-restored native state; persisted pages survive, disposal releases all listeners
+ok 143 - hello replays already-restored native state; persisted pages survive, disposal releases all listeners
+  ---
+  duration_ms: 0.894819
+  type: 'test'
+  ...
+# Subtest: cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+ok 144 - cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+  ---
+  duration_ms: 6.076358
+  type: 'test'
+  ...
+# Subtest: genuine Sky departure closes the endpoint
+ok 145 - genuine Sky departure closes the endpoint
+  ---
+  duration_ms: 1.13355
+  type: 'test'
+  ...
+# Subtest: interaction timers are cleared on every cached departure
+ok 146 - interaction timers are cleared on every cached departure
+  ---
+  duration_ms: 1.391186
+  type: 'test'
+  ...
+# Subtest: cached departure resets active interaction and restored page can interact normally
+ok 147 - cached departure resets active interaction and restored page can interact normally
+  ---
+  duration_ms: 1.224126
+  type: 'test'
+  ...
+# Subtest: every cached cycle resets interaction without accumulating timers or endpoints
+ok 148 - every cached cycle resets interaction without accumulating timers or endpoints
+  ---
+  duration_ms: 0.862108
+  type: 'test'
+  ...
+# Subtest: departure before canvas readiness still explicitly resets interaction and closes once
+ok 149 - departure before canvas readiness still explicitly resets interaction and closes once
+  ---
+  duration_ms: 0.708339
+  type: 'test'
+  ...
+# Subtest: entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+ok 150 - entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+  ---
+  duration_ms: 2.383825
+  type: 'test'
+  ...
+# Subtest: explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+ok 151 - explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+  ---
+  duration_ms: 1.63629
+  type: 'test'
+  ...
+# Subtest: entry owns the real FOV reporter through cached restoration and explicit destruction
+ok 152 - entry owns the real FOV reporter through cached restoration and explicit destruction
+  ---
+  duration_ms: 1.690743
+  type: 'test'
+  ...
+# Subtest: standard wheel reaches native SWE zoom with cursor coordinates and cancels page scrolling
+ok 153 - standard wheel reaches native SWE zoom with cursor coordinates and cancels page scrolling
+  ---
+  duration_ms: 5.310521
+  type: 'test'
+  ...
+# Subtest: qualified FOV clamp ignores arrival then accepts sustained continuation; removal releases input
+ok 154 - qualified FOV clamp ignores arrival then accepts sustained continuation; removal releases input
+  ---
+  duration_ms: 2.645632
+  type: 'test'
+  ...
+# Subtest: rendering stalls cannot turn continuously timestamped wheel input into a second gesture
+ok 155 - rendering stalls cannot turn continuously timestamped wheel input into a second gesture
+  ---
+  duration_ms: 2.263585
+  type: 'test'
+  ...
+# Subtest: line/page wheel modes are bounded and zero or invalid delta does not zoom
+ok 156 - line/page wheel modes are bounded and zero or invalid delta does not zoom
+  ---
+  duration_ms: 0.588889
+  type: 'test'
+  ...
+# Subtest: legacy wheelDelta quantization cannot turn a decaying standard trackpad tail into deliberate input
+ok 157 - legacy wheelDelta quantization cannot turn a decaying standard trackpad tail into deliberate input
+  ---
+  duration_ms: 2.246512
+  type: 'test'
+  ...
+# Subtest: admits only qualified workspace commands with bounded canonical string identity
+ok 158 - admits only qualified workspace commands with bounded canonical string identity
+  ---
+  duration_ms: 1.767917
+  type: 'test'
+  ...
+# Subtest: workspace snapshots are bounded DTOs and stale channel events cannot mutate state
+ok 159 - workspace snapshots are bounded DTOs and stale channel events cannot mutate state
+  ---
+  duration_ms: 0.57112
+  type: 'test'
+  ...
+# Subtest: admits exactly the three qualified new layers with bounded event semantics and preserves old DTOs
+ok 160 - admits exactly the three qualified new layers with bounded event semantics and preserves old DTOs
+  ---
+  duration_ms: 2.545071
+  type: 'test'
+  ...
+1..160
+# tests 160
+# suites 0
+# pass 160
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 791.035647

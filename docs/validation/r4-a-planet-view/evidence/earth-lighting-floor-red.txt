@@ -1,0 +1,20 @@
+{
+  "subsolar": {
+    "width": 240,
+    "height": 240,
+    "mean_rgb": 45.76053819444444,
+    "maximum_channel": 202
+  },
+  "antisolar": {
+    "width": 240,
+    "height": 240,
+    "mean_rgb": 24.836909722222224,
+    "maximum_channel": 71
+  },
+  "interpretation": "Geometric source-backed Sun direction with a Lambert sphere mask; no ambient Earth illumination or Earthshine. Mosaic is not calibrated reflectance and retains historic acquisition shadows."
+}
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/scripts/validation/measure_r4_illumination.py", line 47, in <module>
+    assert report['antisolar']['maximum_channel'] <= 1, 'Earth-oriented native shading floor lights the fully unilluminated hemisphere'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Earth-oriented native shading floor lights the fully unilluminated hemisphere

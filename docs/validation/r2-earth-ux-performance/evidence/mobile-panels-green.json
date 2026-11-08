@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "steps": [
+    "Expanded sheet pointer Close reaches real button; direct search and prior results recover"
+  ],
+  "contextReachable": true,
+  "hit": {
+    "close": {
+      "x": 337,
+      "y": 485,
+      "width": 44,
+      "height": 44
+    },
+    "target": "Close sheet",
+    "reachable": true
+  }
+}

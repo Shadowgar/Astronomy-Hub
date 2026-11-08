@@ -1,0 +1,98 @@
+TAP version 13
+# Subtest: one wheel event moves only on frames and supplies many monotonic intermediate positions
+ok 1 - one wheel event moves only on frames and supplies many monotonic intermediate positions
+  ---
+  duration_ms: 6.741634
+  type: 'test'
+  ...
+# Subtest: equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+ok 2 - equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+  ---
+  duration_ms: 11.333347
+  type: 'test'
+  ...
+# Subtest: scroll accumulates and decelerates to actual rest without idle rendering
+ok 3 - scroll accumulates and decelerates to actual rest without idle rendering
+  ---
+  duration_ms: 6.87747
+  type: 'test'
+  ...
+# Subtest: opposite input reverses the next frame, discarding unconsumed inward motion
+ok 4 - opposite input reverses the next frame, discarding unconsumed inward motion
+  ---
+  duration_ms: 3.084501
+  type: 'test'
+  ...
+# Subtest: small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+ok 5 - small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+  ---
+  duration_ms: 30.783977
+  type: 'test'
+  ...
+# Subtest: pointer, keyboard and all camera navigation actions cancel residual zoom
+ok 6 - pointer, keyboard and all camera navigation actions cancel residual zoom
+  ---
+  duration_ms: 18.080229
+  type: 'test'
+  ...
+# Subtest: bounds preserve the center target and orientation even on oblique approach
+ok 7 - bounds preserve the center target and orientation even on oblique approach
+  ---
+  duration_ms: 83.24258
+  type: 'test'
+  ...
+# Subtest: missing intersection and teardown leave no callbacks or corrupted position
+ok 8 - missing intersection and teardown leave no callbacks or corrupted position
+  ---
+  duration_ms: 1.976836
+  type: 'test'
+  ...
+# Subtest: animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+ok 9 - animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+  ---
+  duration_ms: 3.52634
+  type: 'test'
+  ...
+# Subtest: bridge wheel interaction does not cancel the animation it just started
+ok 10 - bridge wheel interaction does not cancel the animation it just started
+  ---
+  duration_ms: 3.191852
+  type: 'test'
+  ...
+# Subtest: arrival shows boundary guidance without crediting animation as deliberate input
+ok 11 - arrival shows boundary guidance without crediting animation as deliberate input
+  ---
+  duration_ms: 1.875691
+  type: 'test'
+  ...
+# Subtest: standalone Earth can keep zooming and reverse after sustained surface input
+not ok 12 - standalone Earth can keep zooming and reverse after sustained surface input
+  ---
+  duration_ms: 1.262214
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:52:1'
+  failureType: 'testCodeFailure'
+  error: 'standalone outward wheel must remain usable'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/smooth-camera.test.mjs:55:83)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 275.399591

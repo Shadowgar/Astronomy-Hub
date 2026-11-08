@@ -1,0 +1,80 @@
+{
+  "normalization": "Trailing whitespace/empty EOF lines stripped from published text copies only. Original raw logs retained in output/r2-earth-ux; outcomes/content unchanged.",
+  "files": [
+    {
+      "file": "direct-search-red.txt",
+      "originalSha256": "ed657dfcfae9181da9023a3379193518fbc4f37280cfebefa02c5ca0e81a4872",
+      "publishedSha256": "16203904b9187a78afeb5e124be439f14d77c050f737fe8e17762bb86f0e585f"
+    },
+    {
+      "file": "frontend-delivery-tests.txt",
+      "originalSha256": "ee12dc5f48098520ac5591f2b4ad177a4ec4b3e3954f1d6009b1d85094c8bc05",
+      "publishedSha256": "a8b9d4de56e9db0e1fadae87ba7a018c1b8ad14277fd0dd5f98789c3f892336c"
+    },
+    {
+      "file": "typecheck-final.txt",
+      "originalSha256": "eaf8519de1a7c341ec55d8ac83722fe2065100ebfbcb6936cb60b1b30be155d3",
+      "publishedSha256": "42b32de2d71dc9ec5cb42ba208886d0727efa8688428f75591aabbd700224fcd"
+    },
+    {
+      "file": "selection-red.txt",
+      "originalSha256": "f11009a1263a103c2a1e330868c19ea4aba62f908a389c024bd35cceaad36137",
+      "publishedSha256": "d59deb7fb7554fc97ec59a0f67e87804fb159c70fffb7361fcfc26aeaeea8cb5"
+    },
+    {
+      "file": "explore-duplicate-red.txt",
+      "originalSha256": "478cd628635862a748a2a8587ff6e7a69662597819e88a8c6048e5d70c93a228",
+      "publishedSha256": "f5383cc86ef7802a5c181a643366219efe2e3655cf4ec8c6e0aa4cba071c8c73"
+    },
+    {
+      "file": "direct-search-green.txt",
+      "originalSha256": "a8e0e77c404ced4b894ed15212cc25fdcb44d488cd564f5881d0e94e7ac77796",
+      "publishedSha256": "3bf94b5076c18248b8e6733530f20622ebc644674738175f6692457dc46ecd64"
+    },
+    {
+      "file": "frontend-final-tests.txt",
+      "originalSha256": "7a85441b41af2a406d129c14de19dd100fa7960daadadd2ed6c2e5ffaaa740dc",
+      "publishedSha256": "70f60aa9d94bab0c6e524cbfc5e3cd61cde348ba3dd5887477ec405a919450dc"
+    },
+    {
+      "file": "earth-final-second-build.txt",
+      "originalSha256": "0d8634a7861d9e1bc92fba62a110f6856cb8cf1fdb2881720d6abd93f87749e8",
+      "publishedSha256": "bf9433fdc02e43096b1b7ce8735334bf5018605af9366f8fbca29c5c0b189318"
+    },
+    {
+      "file": "typecheck-delivery.txt",
+      "originalSha256": "eaf8519de1a7c341ec55d8ac83722fe2065100ebfbcb6936cb60b1b30be155d3",
+      "publishedSha256": "42b32de2d71dc9ec5cb42ba208886d0727efa8688428f75591aabbd700224fcd"
+    },
+    {
+      "file": "label-scale-red.txt",
+      "originalSha256": "5c87f32c9cb197a08075c009a0401efeb4261cdc8db7f13c967926c3b4f1b09c",
+      "publishedSha256": "d6ffdb350eaf845e42e4174322996799f43c189619e3c0639dee3bae9fa925f5"
+    },
+    {
+      "file": "hub-touch-second-build.txt",
+      "originalSha256": "1a86d3dff93db98112b0eba0f314c642e2ca1d5cd64911207980f400b1e31c89",
+      "publishedSha256": "3cad5a60a347b80736a2ac973661d0639663db36535b959541224142ece8c2a3"
+    },
+    {
+      "file": "earth-baseline-build.txt",
+      "originalSha256": "b3405f9da384c1e95023e43799ab2a7ac959ef6d3b461f267702857d004e44e9",
+      "publishedSha256": "f5c8d5ae845c169e447c8f34a24699fb79f2b50645bf0f288c93b62559280259"
+    },
+    {
+      "file": "earth-final-first-build.txt",
+      "originalSha256": "fb35fe49ce5858b471474e839a2f2049462ddc1b7a6886c0acc12c20a37a025f",
+      "publishedSha256": "30227ed3288af98d623c428e4b463e52407fa1179fb0ca182bad6ec52f1bf1f1"
+    },
+    {
+      "file": "map-controls-red.txt",
+      "originalSha256": "d0fcce432c34246b7b367f36d8638c5d2b4329c3bb1cc370154e54f6c5985437",
+      "publishedSha256": "0d1fb530de9f56cd329e78c60c0df85a9cb7ffbb1e7c72b0f40530aa829e3619"
+    },
+    {
+      "file": "hub-touch-first-build.txt",
+      "originalSha256": "c7a101fa2b472f7f6e7261e325f4afed77a43e3179678a83d36961e75d1af3e0",
+      "publishedSha256": "92b8a0992a2ee4348cd2b0dc0d450338df18af09e4be10ef1e6f375f8f0cb744"
+    }
+  ]
+}

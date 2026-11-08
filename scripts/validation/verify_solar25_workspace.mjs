@@ -1,0 +1,37 @@
+// Focused browser regression with real React navigation, explicitly stubbed
+// science responses and scene. Not graphics, historical-source or owner proof.
+import {chromium} from '../../node_modules/playwright/index.mjs'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import assert from 'node:assert/strict'
+import {createHash} from 'node:crypto'
+
+const base=process.argv[2]||'http://127.0.0.1:4265',output=path.resolve(process.argv[3]||'output/playwright/solar-system-2.5/workspace-review')
+await fs.mkdir(output,{recursive:true})
+const browser=await chromium.launch({headless:true})
+const receipt={evidenceClass:'real-browser-react-workspace-with-explicit-science-and-scene-fixtures',sourceHashes:{},checks:[],errors:[]}
+for(const file of ['frontend/src/features/missions/MissionWorkspace.tsx','frontend/src/features/missions/missionContracts.ts'])receipt.sourceHashes[file]=createHash('sha256').update(await fs.readFile(file)).digest('hex')
+const names={voyager1:'Voyager 1',cassini:'Cassini–Huygens',rosetta:'Rosetta'},naif={voyager1:'-31',cassini:'-82',rosetta:'-226'}
+const epochs={voyager1:'1979-03-05T12:05:26.000Z',cassini:'2017-09-15T10:29:59.000Z'}
+const segments=id=>[{id:id+'-test',start:id==='cassini'?'2017-09-14T00:00:00.000Z':'1979-03-04T00:00:00.000Z',end:id==='cassini'?'2017-09-15T10:30:00.000Z':'1979-03-06T00:00:00.000Z',quality:'reconstructed',label:'Test historical segment',target_ids:['jupiter']}]
+function catalog(){return{schema:'oras.mission-catalog.v1',release_id:'browser-regression-fixture',missions:Object.keys(names).map(id=>({id,name:names[id],naif_id:naif[id],summary:'Explicit browser regression fixture',status:id==='rosetta'?'unavailable':'qualified',representation:id==='rosetta'?'catalogued':'flagship',default_epoch:epochs[id]||null,segments:id==='rosetta'?[]:segments(id),targets:[{id:'jupiter',naif_id:'599',appearance_id:'jupiter'}],limitations:['Fixture only: no science qualification.'],events:id==='cassini'?[{id:'cassini-end',label:'End of mission at Saturn',epoch:'2017-09-15T12:00:00Z',precision:'day',view_epoch:epochs.cassini,view_epoch_label:'Last qualified pre-entry view, not destruction instant',available:true,target_id:'699',source_url:'https://www.nasa.gov/'}]:[]}))}}
+function state(id,epoch){const coverage=segments(id),start=coverage[0].start,end=coverage[0].end;const jd=utc=>Date.parse(utc)/86400000+2440587.5+69.184/86400;const samples=[start,end].map(t=>({epoch:t,jd_tdb:jd(t),position:[1,2,3],velocity:[0,0,0]}));return{schema:'oras.mission-state.v1',mission_id:id,epoch,jd_tdb:jd(epoch),frame:'ICRF',origin:'sun',position_units:'AU',velocity_units:'AU/s',segment_id:coverage[0].id,quality:'reconstructed',source_label:'Browser fixture',craft:{id,naif_id:naif[id],position:[1,2,3],velocity:[0,0,0]},bodies:[{id:'jupiter',name:'Jupiter',naif_id:'599',appearance_id:'jupiter',radius_km:71492,position:[5,0,0],velocity:[0,0,0]}],tracks:[],coverage,interpolation:{method:'cubic-hermite',max_sampled_position_error_km:1,max_sampled_velocity_error_km_s:.01,physical_uncertainty:'Fixture'},attitude:{status:'unavailable',description:'Illustrative'},samples:{start,end,step_seconds:null,craft:samples,bodies:[{id:'jupiter',samples:samples.map(k=>({...k,position:[5,0,0]}))}]}}}
+const scene=`export function mountMissionScene(host,state,model,reduced,onPick,onCamera){let animation=null,raf=0,disposed=false;const tick=now=>{if(!disposed&&animation?.(now)!==false)raf=requestAnimationFrame(tick)};return{ready:Promise.resolve(),setQuality(){},setPaths(){},setNavigation(){},update(){},updateSource(){},restoreCamera(){return false},select(){},overview(){},trajectory(){},zoom(){},diagnostics(){return{fixture:true,mission:state.mission_id}},setAnimation(fn){cancelAnimationFrame(raf);animation=fn;if(fn)raf=requestAnimationFrame(tick)},dispose(){disposed=true;cancelAnimationFrame(raf)}}}`
+async function run(name,check,{initial='/missions/voyager1',catalogFailure=false}={}){
+ const context=await browser.newContext(),page=await context.newPage(),errors=[];let catalogs=0
+ page.on('pageerror',error=>errors.push(String(error)))
+ await page.route('**/src/features/missions/MissionScene.ts*',r=>r.fulfill({contentType:'text/javascript',body:scene}))
+ await page.route('**/mission-assets/v2.5/manifest.json',r=>r.fulfill({json:{schema:'astronomy-hub.mission-assets.v1',missions:{},models:{}}}))
+ await page.route('**/api/v1/solar/missions**',async route=>{const url=new URL(route.request().url());if(url.pathname==='/api/v1/solar/missions'){catalogs++;await route.fulfill(catalogFailure&&catalogs===1?{status:503,body:'Injected catalog outage'}:{json:catalog()});return}const id=url.pathname.split('/').at(-1);await route.fulfill({json:state(id,url.searchParams.get('epoch'))})})
+ try{await page.goto(base+'/tests/mission-workspace-review.html?'+new URLSearchParams({route:initial}));await check(page,()=>catalogs);assert.deepEqual(errors,[]);receipt.checks.push({name,pass:true,catalogRequests:catalogs})}catch(error){receipt.checks.push({name,pass:false,error:String(error),catalogRequests:catalogs,body:await page.locator('body').innerText()});receipt.errors.push(...errors)}finally{await context.close()}
+}
+const ready=page=>page.locator('[data-mission-status="ready"]').waitFor({timeout:10000})
+try{
+ await run('nullable unavailable catalog entries do not reject qualified missions',async page=>{await ready(page);assert.equal(await page.locator('[data-mission]').getAttribute('data-mission'),'voyager1')})
+ await run('visibility pause preserves the active mission after a mission switch',async page=>{await ready(page);await page.getByText('Spacecraft & Missions',{exact:true}).click();await page.getByRole('button',{name:/Cassini–Huygens/}).click();await page.locator('[data-mission="cassini"][data-mission-status="ready"]').waitFor({timeout:10000});await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:true});document.dispatchEvent(new Event('visibilitychange'))});await page.waitForTimeout(100);assert.match(await page.getByTestId('location').innerText(),/^\/missions\/cassini\?/);assert.equal(await page.locator('[data-mission]').getAttribute('data-mission'),'cassini')})
+ await run('catalog outage can recover through the visible Retry action',async(page,count)=>{await page.getByRole('alert').waitFor({timeout:10000});await page.getByRole('button',{name:'Retry mission',exact:true}).click();await ready(page);assert(count()>=2)}, {catalogFailure:true})
+ await run('unknown mission fails explicitly instead of an endless loader',async page=>{await page.getByRole('alert').waitFor({timeout:10000});assert.match(await page.getByRole('alert').innerText(),/valid mission|unknown mission|unavailable/i)},{initial:'/missions/not-a-mission'})
+ await run('date-only mission-end event uses its separately qualified view epoch',async page=>{await ready(page);const event=page.getByRole('button',{name:/End of mission at Saturn/});assert.equal(await event.isEnabled(),true);await event.click();await ready(page);const location=await page.getByTestId('location').innerText();assert.equal(new URL(location,'http://local').searchParams.get('date'),epochs.cassini)},{initial:'/missions/cassini'})
+ receipt.pass=receipt.checks.every(row=>row.pass)&&!receipt.errors.length
+}finally{await browser.close();await fs.writeFile(path.join(output,'results.json'),JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2))}
+if(!receipt.pass)process.exitCode=1

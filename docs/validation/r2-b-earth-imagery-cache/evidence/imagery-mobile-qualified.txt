@@ -1,0 +1,8 @@
+390 paris-cold eox-2016 ready 2743ms settled
+390 paris-warm eox-2016 ready 2762ms settled
+390 paris-restart eox-2016 partial 2358ms settled
+390 oras-local-detail usgs-naip partial 26961ms settled
+390 qualified-us-aerial eox-2016 ready 4531ms settled
+390 us-outside-admitted-aerial eox-2016 ready 7ms settled
+390 rapid boundaries/latest native camera/one safety base PASS
+390 product-owned cache confirmation/cancel/clear/unrelated work PASS

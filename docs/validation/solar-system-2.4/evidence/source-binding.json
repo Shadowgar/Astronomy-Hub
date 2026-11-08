@@ -1,0 +1,1889 @@
+{
+  "baseline": "fc1a7142b35ca791ffeddef810c93a244ad32769",
+  "branch": "recovery/reconcile-20261026",
+  "buildImage": "sha256:085f32041cb88ff2f4af63512fe29cb348b7d26e12ae975b074e09ccfc22c72d",
+  "buildInputs": [
+    {
+      "path": "backend/app/main.py",
+      "sha256": "3e0e15f2f295ce2e27646cffbb451841683e2118dffca819d38f85b4d3a298ba"
+    },
+    {
+      "path": "backend/app/routes/solar_exploration.py",
+      "sha256": "ffcf4f6cfd839493f4c74ea67343b34ca2a5f85d7222dc74c12254a15c3c7b32"
+    },
+    {
+      "path": "backend/app/routes/solar_populations.py",
+      "sha256": "778d67cc6253bfc8df505449199d531489d573836f1ae301d95a12410cca36b2"
+    },
+    {
+      "path": "backend/app/schemas/planetary_systems.py",
+      "sha256": "0f86134960c118e2858ddf48df65031018336bca2c0131917774430d09eae0df"
+    },
+    {
+      "path": "backend/app/schemas/solar_destinations.py",
+      "sha256": "5fcd64665e9b64b3820051b3bec182598618cd3757542804130df9d31613068d"
+    },
+    {
+      "path": "backend/app/schemas/solar_populations.py",
+      "sha256": "b9e704d3230aea86ed51f73f9970a5a0a1c79951a51d3769c78d2f78f7fd85a2"
+    },
+    {
+      "path": "backend/app/services/planetary_systems.py",
+      "sha256": "1c9c968c3bedb17171092db4df20eea3241295c96262748bf65a7f35f4e54be4"
+    },
+    {
+      "path": "backend/app/services/solar_destinations.py",
+      "sha256": "11c9fb6bc6371f838e9899f91928daf0301a92ce7dd95894f4672b0bc360d984"
+    },
+    {
+      "path": "backend/app/services/solar_populations.py",
+      "sha256": "1b278219a0df6b0ba75187362a5931fbd8fec5f6d7d1fb56483b772b94ae2020"
+    },
+    {
+      "path": "backend/app/services/system_body_orientation.py",
+      "sha256": "124fc59eea6e5d3f7e8e99c3a0c8949cd5851bc9f9312ead829aa12321c6662e"
+    },
+    {
+      "path": "backend/tests/fixtures/solar_destinations_frames.json",
+      "sha256": "dcd4128d7a6f39b300a9180d1bae27da0b4d6c99c69f3cbcaa3b3d90a82e360d"
+    },
+    {
+      "path": "backend/tests/fixtures/solar_destinations_vectors.json",
+      "sha256": "e82f18a3e7d47895cfabea4e4b8d2132bc7fe32713b456edd83c156c073b851d"
+    },
+    {
+      "path": "backend/tests/fixtures/solar_populations_reference.json",
+      "sha256": "909edc48a04a92c83bc9b3758dc132d32e4295fbbd8e616976134a3d3ba33536"
+    },
+    {
+      "path": "backend/tests/test_planetary_systems.py",
+      "sha256": "3a39ede8a85a9d64694f8b902fbe669f882e0cff33bdfdfd1aa5db2f91b0583d"
+    },
+    {
+      "path": "backend/tests/test_solar24_acquisition.py",
+      "sha256": "6c8f93624a1eab8d1da4718f457c693d6e1036202043ccb8e3d7f95d7cde5f0c"
+    },
+    {
+      "path": "backend/tests/test_solar_destinations.py",
+      "sha256": "10e8eaaf4c0a0adf0249b27a423fec86dc01409da5b57bb072dc7eec122129da"
+    },
+    {
+      "path": "backend/tests/test_solar_populations.py",
+      "sha256": "2d6129dc4f3658299f4c0521bfe7ca580ef665a48c5f2f54f9541255ba4cf513"
+    },
+    {
+      "path": "docker-compose.solar24.yml",
+      "sha256": "c70ac2205ccedc2aa0076030c3e6c9c8f51469aa4b961c3823c82891830e16e0"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/67p-measured.glb",
+      "sha256": "62505f9db4f229f07ac8c1d4efdbf169f1a928f9516bd809e973a10e9979f173"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/ceres-2048.jpg",
+      "sha256": "6827a9c03c563bcf2c852888aaf48aa660ebfed271ea655af3ea1e65b335839e"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/ceres-4096.jpg",
+      "sha256": "2b82c430a98f9af6cdf666a98c81f501b8729a47742adfd8644bf188ac1437b5"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/ceres-overview.glb",
+      "sha256": "b435760a291abf1aa3c57e9e30cfcae9bfb3d0b7132576904c65918cef9c24a4"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/charon-2048.jpg",
+      "sha256": "f5951a6c9d95d93473676100f6b2195768b4eae9310524706ffb921ca0986123"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/charon-4096.jpg",
+      "sha256": "e44b37afda20365acaee609311d3fdabeb1bbcdff6773988093dd9f95b4156be"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/charon-cartographic.glb",
+      "sha256": "04bdce1a16bafd287e0664db1ed410db9803b9d72ec22ec8b24a00d62ee861df"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/eros-measured.glb",
+      "sha256": "ff49aa6d2b4c964b8632cae0c3a2e17a0fe642d4e256455cd742e35fceebf63a"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/halley-measured.glb",
+      "sha256": "7c672008eaf10377c1ab13d15c97dd1b52e85d1d354025d237c8b469c16a3aed"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/manifest.json",
+      "sha256": "31ba7b99d746428a4b124d336a9496951b611baab8e90876fda94b894cd8e3e9"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/pluto-2048.jpg",
+      "sha256": "ddbadc55d8a5a7f7127e832e5ca52fa039b7ab9c315bdfefd0da6d71f700e5e4"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/pluto-4096.jpg",
+      "sha256": "632f8e672ca85c0a6ddc76f1485d584ef92e19868ce77ffcc5bcfd236161043c"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/pluto-cartographic.glb",
+      "sha256": "711f1af78c2fca312ee89b92e7896eb0e7706c29aee8c7ebb3aaeb8b18041f14"
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/vesta-measured.glb",
+      "sha256": "aec8a1617c2bfb042885ef08d3470b0e569d1c2ea8fdf6c2736a472b6513218b"
+    },
+    {
+      "path": "frontend/src/features/celestial/CelestialBody.ts",
+      "sha256": "9a9ab56945eee41fc8ba89c5c3653ef95ef99321bd4635cf0903d2cba4f2e475"
+    },
+    {
+      "path": "frontend/src/features/celestial/celestialAssets.ts",
+      "sha256": "57964fc80bced3273527dfa7a3a5b28321a1e634acde086f7352f1995c8d33e9"
+    },
+    {
+      "path": "frontend/src/features/planet/solarVisitState.ts",
+      "sha256": "ae901e1db317ffa1ed8b5aba59dcd108e14305b35f04a37c73c26a089790a711"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarDestinationCard.tsx",
+      "sha256": "9eebed5c3b22bc91d9cef51d14fb8d5d770d1c1d111fdcbeacebc3609e42f2f5"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarPopulationExplorer.css",
+      "sha256": "8bbb65a96488c024330d90811686e557296b828251989d1599d75ebe9cef9303"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarPopulationExplorer.tsx",
+      "sha256": "332f2de17828704c57e987ad337cfa5f1367ee5d76aed116b230ad61021cf342"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarPopulationLayer.ts",
+      "sha256": "7d795320e4bb1a557cf5ffdecc664d1265ab3f6f6ff80543ec343bcaeb979d98"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarScene.ts",
+      "sha256": "516826c1ca15f2b5961071830f678797aebe5aef1214967a843aa7b2ab4bcb39"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarWorkspace.tsx",
+      "sha256": "01ec8a57ce5e4e06b1e4764400682eb744673214797b1687d64fe3b5a32bde01"
+    },
+    {
+      "path": "frontend/src/features/solar/solarDestinations.ts",
+      "sha256": "1322efc67987449e616e1e11675dd251bdcd3fe3709f63868da6d224bbc978a9"
+    },
+    {
+      "path": "frontend/src/features/solar/solarExplorer.css",
+      "sha256": "4ea4668b6255bb6ec1cebc4f12e4c9567eda9c09f403038a8f90b4f4eaac0fe7"
+    },
+    {
+      "path": "frontend/src/features/solar/solarPopulation.worker.ts",
+      "sha256": "8aac73c42bb8a1b5cafc65aa22f0ea5b806073cf9c8725a574f77f2258b6676f"
+    },
+    {
+      "path": "frontend/src/features/solar/solarPopulations.ts",
+      "sha256": "3c2dd4c72e6bee68666c7c79a815bd7c7bbf36f22296d686637c5128804435e4"
+    },
+    {
+      "path": "frontend/src/features/solar/solarPresentation.ts",
+      "sha256": "6714b6ef65a638027965e172c4d005103a3e9a1d6ac76e744cbe208e5a6de5da"
+    },
+    {
+      "path": "frontend/src/features/systems/SystemWorkspace.tsx",
+      "sha256": "72fbc30e32c963338e295ba47e44ae0001dbe404083da647571f2a114c085eae"
+    },
+    {
+      "path": "frontend/src/features/systems/systemContracts.ts",
+      "sha256": "23906f587d9390050f6c80ff87b5b7c4951e70749a668612df1a0bb5dfde17fc"
+    },
+    {
+      "path": "frontend/src/features/systems/systemPresentation.ts",
+      "sha256": "909e3a76e864135d58cffe5bb4b83e6cb6d9ac887d93dfbfde16acec999f540b"
+    },
+    {
+      "path": "frontend/tests/celestialBody.test.ts",
+      "sha256": "b0c7fb6ab1310a3061d5adbb2cf3c1debb5ed2c15929ffb20c3f35ff9f344494"
+    },
+    {
+      "path": "frontend/tests/solarDestinations.test.ts",
+      "sha256": "4d33d2bf933831b2e71bff6d3b8d64c484556145f714b85b4384fd319580c8fa"
+    },
+    {
+      "path": "frontend/tests/solarPopulationExplorer.test.ts",
+      "sha256": "35c1e47ea2d57fed1f90ad31dfea69235a39f0c35a86ce3419faa9654b91eebb"
+    },
+    {
+      "path": "frontend/tests/solarPopulationLayer.test.ts",
+      "sha256": "e5001c68cabe89b738cd0c084b9da648daa3e2d9c041c273c5e0af2fec2378ba"
+    },
+    {
+      "path": "frontend/tests/solarPopulations.test.ts",
+      "sha256": "2669c6ffc3f8c2912a28d99039a3cd526f06534b9ae6b258ac1148396aa5b05e"
+    },
+    {
+      "path": "frontend/tests/systemOrientation.test.ts",
+      "sha256": "692d5d8235654ae6e82ad00fc813ccd3122aa6d1210a45338aeffddd87a9f0a5"
+    },
+    {
+      "path": "frontend/tests/systemPresentation.test.ts",
+      "sha256": "dc7607cd86fdbe76b17395aabb72dce09e37b6552a542cfa2bb7a5e90905184f"
+    },
+    {
+      "path": "frontend/vite.config.mjs",
+      "sha256": "245b02380612797da6ddfd690d0160ad8f74a93c24b489902d006deca1a68433"
+    },
+    {
+      "path": "scripts/planetdata/build_solar24_assets.py",
+      "sha256": "080de04ae907806d2965a07680445e38c1b5fca2c0a9715f8f5d3a910f2092d8"
+    },
+    {
+      "path": "scripts/planetdata/test_solar24_assets.py",
+      "sha256": "abda4d0ef8668b50ab4efcff53a9797aff28f3a40c722471cb356ce4f0844178"
+    },
+    {
+      "path": "scripts/skydata/acquire_solar24_destinations.py",
+      "sha256": "93e3cb7338ab8306ca76b1f077a00fb4f42d94a819622e80e5626e1b968c33d3"
+    },
+    {
+      "path": "scripts/skydata/acquire_solar24_populations.py",
+      "sha256": "4649365416121495756f82912a4f0d63632b149f5076867d85bad601d2a65f7b"
+    }
+  ],
+  "frontendBuildFiles": [
+    {
+      "path": "assets/PlanetWorkspace-BMQtNLdI.js",
+      "bytes": 10426,
+      "sha256": "ff2269ed19d7c5070799b34f5fab09d5f863fb92cc5e821425fb3a64ea3899f2"
+    },
+    {
+      "path": "assets/SolarWorkspace-C-ADOENW.js",
+      "bytes": 105630,
+      "sha256": "c7863d2533b540c4b34cb445b57047d2f07ac1bf01969ac8a9dc2d7d538e7e45"
+    },
+    {
+      "path": "assets/SolarWorkspace-l2tKXCD6.css",
+      "bytes": 14747,
+      "sha256": "8ad3278b3acbd2c18d58156f0c0ef82e6b5743116bc7073c069d430d05298837"
+    },
+    {
+      "path": "assets/SystemWorkspace-BCxlv1cw.js",
+      "bytes": 38984,
+      "sha256": "bd7ab2d07b3312b204115393c8c4da0c1989e9ec23166f064a98a958e87aa1df"
+    },
+    {
+      "path": "assets/TerrainWorkspace-Cl2mzPz5.js",
+      "bytes": 92064,
+      "sha256": "59c79201905c8cae563df4b3875c53f121da0880ee2716f81eb1a15c230d5a87"
+    },
+    {
+      "path": "assets/TerrainWorkspace-gvXcDv0j.css",
+      "bytes": 9276,
+      "sha256": "f262c3ec1dd1cfa714116153660b25af8b89f3f606815b7ecd46ba8b70bc4193"
+    },
+    {
+      "path": "assets/earth-clouds-2002-Daoe7Ck3.jpg",
+      "bytes": 829367,
+      "sha256": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793"
+    },
+    {
+      "path": "assets/index-DW8EKZre.css",
+      "bytes": 98149,
+      "sha256": "1689ca6410a6bf656257879e514677f5d75183f33674078b1e8240e3e2bf9665"
+    },
+    {
+      "path": "assets/index-SMdBeRFd.js",
+      "bytes": 195380,
+      "sha256": "e5ec31d463bb847292c0c8116c8f9759252559d69c82b550d6e710b79678e6ca"
+    },
+    {
+      "path": "assets/moon-context-kWeCfZHb.png",
+      "bytes": 173954,
+      "sha256": "1d83e67c2340369af3413005bd61cd3b05b1d2634fa404d10769f4339299fb9f"
+    },
+    {
+      "path": "assets/planet-BuCp3OQB.css",
+      "bytes": 4425,
+      "sha256": "a4ec8fefab42ba5d3dc6e7f4cedd63d94e2e7fbb571719ed6d29a23c7132c190"
+    },
+    {
+      "path": "assets/plex-0-BTB9ndPq.ttf",
+      "bytes": 205252,
+      "sha256": "6dbe082463cf749cfa057d45c3048c90f4df031496498e5b5bdfd0b6babb9d16"
+    },
+    {
+      "path": "assets/plex-1-DPg3uh6f.ttf",
+      "bytes": 205292,
+      "sha256": "6f7a8c4219e021ff7c9131bc5f1f7af97bcd1436a59578d444a8cb92e9791742"
+    },
+    {
+      "path": "assets/plex-2-DzahmYX0.ttf",
+      "bytes": 205284,
+      "sha256": "5311c66fd6d04ae45671236f7eae667b671c06c1dc7e88d52c206e5fadd0fb21"
+    },
+    {
+      "path": "assets/solar/takram-0.19.1/irradiance.bin",
+      "bytes": 8192,
+      "sha256": "126bd4ff0419e04c877639caf9e3cd64a139ae511cf315a23a0c989fc47b51a5"
+    },
+    {
+      "path": "assets/solar/takram-0.19.1/scattering.bin",
+      "bytes": 8388608,
+      "sha256": "82c505fe6e3b7f1995c650cc8a1478f42bd510029bf63845e9485c078aef6617"
+    },
+    {
+      "path": "assets/solar/takram-0.19.1/transmittance.bin",
+      "bytes": 131072,
+      "sha256": "a2a0dd1464048d92e7bfdf385a9108e8d9c3e2748684f1f64523587d5894180a"
+    },
+    {
+      "path": "assets/solar-BI6sLzaX.js",
+      "bytes": 14226,
+      "sha256": "f1278af4f9e83e0813082967235e2acb3032f2faba66b3cc6c538c1044de930b"
+    },
+    {
+      "path": "assets/solar-BfOxeaE7.css",
+      "bytes": 18244,
+      "sha256": "d06687948581a49787c2ceb0073255f32c514ab83cea44dfe608ace5f20b62f3"
+    },
+    {
+      "path": "assets/solarGpuTiming-DobPRtkt.js",
+      "bytes": 590672,
+      "sha256": "5113c8e0f65f0518452009cb8dbb189e9a2dcc54421bf0ce0a5b11e0cedb34c9"
+    },
+    {
+      "path": "assets/solarNavigation-BD4WHWdw.js",
+      "bytes": 3740,
+      "sha256": "7083fefd8a0c39313952cb19f18547f6c03d0a3c73ee8b00dac2517fcefb29b4"
+    },
+    {
+      "path": "assets/solarPopulation.worker-lyvCaGyL.js",
+      "bytes": 8090,
+      "sha256": "1bc9149774c994085c928f4307fa5dbd612a892d9114ff46d3e8f028aa2b5ecf"
+    },
+    {
+      "path": "assets/solarRenderPipeline-B7MBl25L.js",
+      "bytes": 331066,
+      "sha256": "857346a0c3c283b0e3fc4c14b81b9251192151f951dd1814e1fe96f542145ffa"
+    },
+    {
+      "path": "assets/solarRenderPipeline-oA8PGlhv.css",
+      "bytes": 8551,
+      "sha256": "30a4085b47601697656022382b9dc1e2a4cea6f78d5b4a6ec92d08148db69ec7"
+    },
+    {
+      "path": "assets/workspace-C6jRXc2S.css",
+      "bytes": 25107,
+      "sha256": "a1a051239bc7f7913c876f5510a200eaf18453cba45a15536e5258ae773ebf38"
+    },
+    {
+      "path": "assets/workspace-Cm4BEhZ5.js",
+      "bytes": 171761,
+      "sha256": "5af39d86a248cf780108dff7f957988d2a0c1ccd4e511e1d45538a706773d13b"
+    },
+    {
+      "path": "index.html",
+      "bytes": 568,
+      "sha256": "1068c15118c4efa877f0c726056855da526204604bdcd1f44b24bbd4340c6d48"
+    },
+    {
+      "path": "licenses/README.txt",
+      "bytes": 649,
+      "sha256": "2ae8ff39dc4a2dfb4049eee94a0dc8fa0d4000684ea63e1b102f60fbe88f717b"
+    },
+    {
+      "path": "licenses/astronomy-hub-MIT.txt",
+      "bytes": 1066,
+      "sha256": "a2367ef2863678029c0132dd5b0ea059a62b7b88e95f0f624a9be0bf407994fb"
+    },
+    {
+      "path": "licenses/bruneton-atmosphere-BSD.txt",
+      "bytes": 3183,
+      "sha256": "f5dd0ba32938bbaa761d7915b4314ad730ea6fe9d68c67e9f7e09b01ae536c19"
+    },
+    {
+      "path": "licenses/cesium-license.txt",
+      "bytes": 60927,
+      "sha256": "5974ceb674dd305415efc34d999ea38a2535b55368475065dd7bfabb23ad026d"
+    },
+    {
+      "path": "licenses/gods-eye-search-MIT.txt",
+      "bytes": 3281,
+      "sha256": "b231bb38e2d4eab741643126087cbe9df2b58e2f2e5abf27ad613d05f52b01ca"
+    },
+    {
+      "path": "licenses/nasa-3d-tiles-renderer-Apache-2.0.txt",
+      "bytes": 11364,
+      "sha256": "12ab00e5637ce70e16be1f6693dfa5f9b7a4fe0f5f976a0329477d0c32d53e86"
+    },
+    {
+      "path": "licenses/postprocessing-zlib.txt",
+      "bytes": 858,
+      "sha256": "b7650918449bd5fb011ce30ce0e5bcda27aa9639db1fb3aef8c67c32945237f2"
+    },
+    {
+      "path": "licenses/sky-data-credits.html",
+      "bytes": 7209,
+      "sha256": "8eb154626533ffa0c6b8301a0a8826d3c39bc09b86c19c3ee5ef8128e4fdf2d2"
+    },
+    {
+      "path": "licenses/solar-wanderer-MIT.txt",
+      "bytes": 1063,
+      "sha256": "b3cc3c1e67c31a211e6f4e38e5494f56443d3412526cd2956547d2e9e3437c34"
+    },
+    {
+      "path": "licenses/source-offer.html",
+      "bytes": 3369,
+      "sha256": "b65b0855325a7cebd126dbff7be32f95374be401e46ca99fcff59420b136edaa"
+    },
+    {
+      "path": "licenses/stellarium-web-engine-AGPL-3.0.txt",
+      "bytes": 34523,
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "path": "licenses/takram-three-geospatial-MIT.txt",
+      "bytes": 1081,
+      "sha256": "00846a358b3d0c38070523fc09e8bb2996d4515ca83b4cc18612e8a362398ffb"
+    },
+    {
+      "path": "licenses/three-MIT.txt",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "oras-sky-engine/css/app.5cc285cd.css",
+      "bytes": 7503,
+      "sha256": "0c2df0a94ec307c457b30b21bd025c704df291eaf4d71dcafeecaa73d7799c2f"
+    },
+    {
+      "path": "oras-sky-engine/css/chunk-vendors.11c203ce.css",
+      "bytes": 654200,
+      "sha256": "c190ae569a8bbacd73b194d3e1b14d7ac0412ad1187d1907a5dddcbff5239c4b"
+    },
+    {
+      "path": "oras-sky-engine/favicon.ico",
+      "bytes": 2166,
+      "sha256": "acdf5baef765f0dec63123f2ba7ba8e769176e4585d20683c9fda79930d80b8e"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Black.313a6563.woff",
+      "bytes": 86508,
+      "sha256": "968f400b30a7ecfd42c3c42396ef8f961bbea8d5b553823e1d461c8ea871156e"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Black.59eb3601.woff2",
+      "bytes": 64960,
+      "sha256": "41e55c257815e19c8e2384b6d1d5180590599a56f23f3eab417c5fc7aa553511"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-BlackItalic.cc2fadc3.woff",
+      "bytes": 94048,
+      "sha256": "181c2d282d0022a73f27b858c3a33f7f0f643c733f106de9c7429ffcf6253b7a"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-BlackItalic.f75569f8.woff2",
+      "bytes": 72088,
+      "sha256": "0aea9779e22ba00a30321dc6274376ddf02b97b35bc2b94c98fdfa6cdfcfcacc"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Bold.50d75e48.woff",
+      "bytes": 86184,
+      "sha256": "b1767a0c3e5dfb3a5009efee4445ff15d6362e9285461e17bded186f1e9456f0"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Bold.b52fac2b.woff2",
+      "bytes": 64740,
+      "sha256": "8e44376b735dcc9027acbcc8a0df64c3f886a23529eff27b022f344d719e90f2"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Bold.ttf",
+      "bytes": 170760,
+      "sha256": "7d0b991ee3e0be7af01ad7ea8cd2beea6c00a25e679a0226b6737f079aafff86"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-BoldItalic.4fe0f73c.woff",
+      "bytes": 91968,
+      "sha256": "bc9285e19eca8d21b97742361b5fd8f7ef01cec47cc96029e0cba44f9b20a495"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-BoldItalic.94008e69.woff2",
+      "bytes": 70360,
+      "sha256": "c9d5a0e6287ab6c0d3e7c80ebdeb26427680849215882e3db0061efcf64c2575"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Light.c73eb1ce.woff",
+      "bytes": 85692,
+      "sha256": "18827349c7febd4b8d01aa907c67ea9b8011242078326b24703978454fdf351a"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Light.d26871e8.woff2",
+      "bytes": 64320,
+      "sha256": "1d8f5280afb7f4fa0db5cdfcb751e180788b0f0da1488309c4243ebff11a9591"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-LightItalic.13efe6cb.woff",
+      "bytes": 92864,
+      "sha256": "909df596b261a65deaae0f14f7149d2fb8f1e4d438d5e91c4f87f106a9f402c5"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-LightItalic.e8eaae90.woff2",
+      "bytes": 70760,
+      "sha256": "9934fa0f5b4d5d3e5d75d97b072bf83e2b1e62387c512892cc5daa0217f793a0"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Medium.1d659482.woff",
+      "bytes": 86444,
+      "sha256": "4112fbc996a10ba2f5be2077f92be5eb143e24061a24f7c99825066ecc5b8a51"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Medium.90d16760.woff2",
+      "bytes": 65484,
+      "sha256": "96025fe9db6578d8bc7f4b8be739750b1490e07221c2b1f16acde2ea7669cedf"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-MediumItalic.13ec0eb5.woff2",
+      "bytes": 71284,
+      "sha256": "160a7cf46e44a941b5c09deb7986e96eacd0b70ef583f6e13e11caad086bec0a"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-MediumItalic.83e114c3.woff",
+      "bytes": 93228,
+      "sha256": "9a73a4b65c6483ab7e67cefed1cc57cef32a81fcec8b833b3c60c14b5cd6f9dd"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Regular.35b07eb2.woff",
+      "bytes": 85876,
+      "sha256": "9ae9d6545d7d7d823f8a94010db77c1a0ff71e371e8bb158df1cb98395162507"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Regular.73f0a88b.woff2",
+      "bytes": 64632,
+      "sha256": "47107401d0adb375ab9aa167f9d62489a849d510e740a307b5a4db60e5db3562"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Regular.ttf",
+      "bytes": 171676,
+      "sha256": "79e851404657dac2106b3d22ad256d47824a9a5765458edb72c9102a45816d95"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-RegularItalic.4357beb8.woff2",
+      "bytes": 70280,
+      "sha256": "884e654cef00224110fc62cdf8f1561ff08dcaa1f359e5c5f49dab62abfe79e8"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-RegularItalic.f5902d5e.woff",
+      "bytes": 91728,
+      "sha256": "e1b2181ca3a817d49d830fce920478488170e6921fce6126d71e2eb2e7031805"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Thin.ad538a69.woff2",
+      "bytes": 63048,
+      "sha256": "61b96427944966fbdac416e7ef6d343606758ea2b3fb2cad0f725f82f32ed18f"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-Thin.d3b47375.woff",
+      "bytes": 84224,
+      "sha256": "59918a4300c02b67fe3cc4c20a545ba09da3a8303c3995000732e7118a71945a"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-ThinItalic.5b4a33e1.woff2",
+      "bytes": 68328,
+      "sha256": "c5ace2628b6daf1cf6c80abc6170f276423624a028443eb42db1032d8960c8bc"
+    },
+    {
+      "path": "oras-sky-engine/fonts/Roboto-ThinItalic.8a96edbb.woff",
+      "bytes": 90784,
+      "sha256": "ae88cc5714577e7fd00821628ce3f188d4bc3160333edeba5d2683d28b466e90"
+    },
+    {
+      "path": "oras-sky-engine/fonts/materialdesignicons-webfont.541e65fb.eot",
+      "bytes": 663148,
+      "sha256": "ae12237ab3d7179d270ee8c63bf833f4e2681acccb9fb4718153518da12ee02d"
+    },
+    {
+      "path": "oras-sky-engine/fonts/materialdesignicons-webfont.c61b9c12.woff2",
+      "bytes": 224348,
+      "sha256": "950f6fe06869da2cad3bdd64bc88bc9ed6746335ceaf0c0f6d4e7f5b85f01731"
+    },
+    {
+      "path": "oras-sky-engine/fonts/materialdesignicons-webfont.fc03f7f1.ttf",
+      "bytes": 662928,
+      "sha256": "47565fd205a7350006563292ffdf1f3d5d2b02a9072c31a11a1802ca31f5e46f"
+    },
+    {
+      "path": "oras-sky-engine/fonts/materialdesignicons-webfont.ff13d121.woff",
+      "bytes": 319308,
+      "sha256": "44d065ca99c58a6e80f55a158f7944aea70891558652391d0e096bbf97582597"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/artificial_satellite.svg",
+      "bytes": 973,
+      "sha256": "31854a0d0141294a634205054d2d7e3e9b91ede839b5aa4b30dd2582f6f6cdaf"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/bright_emission_nebula.svg",
+      "bytes": 335,
+      "sha256": "e239ba625e0a9680cfa0b9753a19c3d4fd85c6f79916820f2cf71a3d8fd88d8d"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/comet.svg",
+      "bytes": 740,
+      "sha256": "52334787e1ad721fd44fe4704aa14b4755e95cd002de8ef973569a80941805fc"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/conjunction.svg",
+      "bytes": 623,
+      "sha256": "3d8354d7eb4fffb816bd6da91eaec2a7a3abd7e49f03b56639a3532748cae4ea"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/constellation.svg",
+      "bytes": 1373,
+      "sha256": "9cea497b1bafe699d079f9b22782f0cc8996ae1d5c2f4e0aa25adf131221f2f5"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/deep_sky.svg",
+      "bytes": 1060,
+      "sha256": "a425ab66d53ae3ddb4d4fc18f01c7dc60e12a7047ef724c17f4071a9b996c116"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/double_star.svg",
+      "bytes": 510,
+      "sha256": "ddb72eddbb29e9892c02b320c0d307d4899d9d2813f341fd8eff66b0e27ab63e"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/galaxy.svg",
+      "bytes": 1943,
+      "sha256": "85c6d0665d06c2a5792587680860cd8062301a380590db9a67b1861142fd938a"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/globular_cluster.svg",
+      "bytes": 8387,
+      "sha256": "c0f3e074119d54b485c7fd7f2617f32454b9fb8da2648405ed9254e4f290ce69"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/globular_star_cluster.svg",
+      "bytes": 470,
+      "sha256": "e1efed03bc77702ff2efa99a516aa3a710d43c2414ba9fff3b0c0f5042b4ad4c"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/group_of_galaxies.svg",
+      "bytes": 6986,
+      "sha256": "27d2452b96cb7118d04a9d6b65399c0cf1e506559026f27962514123f43858ad"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/group_of_stars.svg",
+      "bytes": 984,
+      "sha256": "ab63dc44c605b7c819288b3fcf06a16ce2da492d3838010e90a5b92e35d235f3"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/interacting_galaxy.svg",
+      "bytes": 1885,
+      "sha256": "d6b95a3d9a5609db4f71f2ea403af72e5c1fc8e8e2fdac36584de12f58a4944d"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/interstellar_matter.svg",
+      "bytes": 1517,
+      "sha256": "833198ca859ec542cd1f7b626834e5f4650cadd682a3896140c266e401ac23ea"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/minor_planet.svg",
+      "bytes": 13792,
+      "sha256": "0dfdaecd8998951f99ce8c292db26951274b9e37ff4233a2126d7c6da5985392"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/moon.svg",
+      "bytes": 2042,
+      "sha256": "8b5e80af0c238e414104995314ea759bf9ba26b0c8ad6b500987735a959f044b"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/moon_eclipse.svg",
+      "bytes": 381,
+      "sha256": "835912918b8235511d125aae7cdd64aef792a2a0148c0336175daec652ec1764"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/moon_first_quarter.svg",
+      "bytes": 467,
+      "sha256": "10121990c376df1a20b3cd6d8051f80bea5426d9697c7883e77f6cca7d5d65d1"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/moon_full.svg",
+      "bytes": 312,
+      "sha256": "1f4b5dddcda2fb189b36c47c0f919d21388eae5916aba81921166bac81d59928"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/moon_last_quarter.svg",
+      "bytes": 445,
+      "sha256": "dbfbc05e8f3a713dbac8215895666846ca15ebf1cd072bb0d878fa8ce8be65c1"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/moon_new.svg",
+      "bytes": 312,
+      "sha256": "d7403673d8a634e3c8100c650ce2d97793a44bda2c8f2b6842191828a85c0aa3"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/multiple_objects.svg",
+      "bytes": 1740,
+      "sha256": "2bb5c3c8c65b463b32989b41782f41a3f656287c80ce48caaab525a29588f3ae"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/nebula_cluster.svg",
+      "bytes": 1281,
+      "sha256": "b8c2e6d69dfbe9e1b74316cf7a0596bb4ae6df06a1c4e3804d1e4fbe7438f698"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/nebula_default.svg",
+      "bytes": 310,
+      "sha256": "1a82a4437da4a49541f4abb76875f96ebf6e5195c046c5b5677093b5499bf4bc"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/open_galactic_cluster.svg",
+      "bytes": 1875,
+      "sha256": "91ebac293a2ae9f73fe7bad0642962b806cbae5c9ed48958bc946242aae9b78e"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/open_star_cluster.svg",
+      "bytes": 1557,
+      "sha256": "765d63cf989b7cf47ba23cd14bd1e6509022ab9ecf941bf695d41f1d19d115ec"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/pair_of_galaxies.svg",
+      "bytes": 3610,
+      "sha256": "d8eaafe4851184eb9ab30f1e64eacd5b04f661b2c8e91bf09e4ac7b23b165bd0"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/part_of_galaxy.svg",
+      "bytes": 6950,
+      "sha256": "b8662016b72fba9d6627df6462486a579df3ef4fdfd5b6059a2f9faee25d656a"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/planet.svg",
+      "bytes": 509,
+      "sha256": "d6fc0d5f8c11ad03574b8c67b808f724ac3221244f8e0582b34dab4fd375a010"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/planetary_nebula.svg",
+      "bytes": 803,
+      "sha256": "abc130c0b0505281c03d5b0a8d7b4faf639936afc93cd198cd84e4129856ffbe"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/quasar.svg",
+      "bytes": 1375,
+      "sha256": "16b83cd926c5f6fb257b33d231554c7733953a79d01aa1a1834d83726c82dba5"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/region_defined_in_the_sky.svg",
+      "bytes": 1682,
+      "sha256": "d268c5f93d5a6e51b6ec73c37d5f2442f17228d4ba341f42ec106b2ec1823d6f"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/shooting_star.svg",
+      "bytes": 710,
+      "sha256": "d3b41987bee02eec3a4031ac73fbe629b82412cc0dca593a4fbc0584aef7b267"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/star.svg",
+      "bytes": 237,
+      "sha256": "f6db7c2f0470e8e39a1c000570f020925fe6436aedbc0c55d1ca81315ce9a9b2"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/sun.svg",
+      "bytes": 1131,
+      "sha256": "81cd36dc4cfd69f5c083c7445edf7615bc3b3dd7ab249f8c6203453317e0e85e"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/sun_eclipse.svg",
+      "bytes": 1273,
+      "sha256": "9c32a48af9a5d322bb625e091cbd6e526e2032c660cc62d6290cefdbe90d455e"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/sun_inf_conjunction.svg",
+      "bytes": 611,
+      "sha256": "824e87d32f36fd0ab1b77feba4c6557fe9bfc834ca4707cfaaa9f933f2865294"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/sun_opposition.svg",
+      "bytes": 611,
+      "sha256": "28d088607bc2c9399de01d1da0cebb8ecba02c4478b7cd934eb8b4facc340c25"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/sun_sup_conjunction.svg",
+      "bytes": 581,
+      "sha256": "61593144e60847267e84ed5ab463e0516b0b602f2afc178c7e8e162ab36343f3"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/transit.svg",
+      "bytes": 371,
+      "sha256": "23b620c39b911651fd9bcd8a19bc2ef02b99c01179271c01c466c6f02d4e0671"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/unknown.svg",
+      "bytes": 1016,
+      "sha256": "d5a27d4b519aa62e5b65b1602c5aacfc91da9f5e7c5bf284622ea9a5595b8880"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/variable_star.svg",
+      "bytes": 446,
+      "sha256": "5f8415dca9a8d373f5c5b0eb6a9c5a832b9fa24bd2ae2394644df0884456afc2"
+    },
+    {
+      "path": "oras-sky-engine/images/svg/target_types/vertical_alignment.svg",
+      "bytes": 508,
+      "sha256": "8c2891400411cb65f47852812cb0619111521a09182a73660d0a3d4497e6fece"
+    },
+    {
+      "path": "oras-sky-engine/img/add_circle_outline.24a5986c.svg",
+      "bytes": 377,
+      "sha256": "9a0dbc03953a30d6b38abd1fe6ab4dd42aafe6903fe343c0def1aca431a33907"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-atmosphere.26bed3a1.svg",
+      "bytes": 840,
+      "sha256": "f69d965fa9384763e0c47c56909ae91ee84df12a2788e6c7b6e93388dde7e5b5"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-azimuthal-grid.bd02effc.svg",
+      "bytes": 1477,
+      "sha256": "c5fe52a13ba22d35106b1aab71cc74628d5d8b2a2c4f2dc28f33d2e843df8a22"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-cst-art.e7785b5a.svg",
+      "bytes": 745,
+      "sha256": "16c5e195ab0ab016cbe68fcd69bb60b3d35d31a48c88a06ae0ab8049d29bb836"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-cst-lines.1844e97d.svg",
+      "bytes": 1373,
+      "sha256": "9cea497b1bafe699d079f9b22782f0cc8996ae1d5c2f4e0aa25adf131221f2f5"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-equatorial-grid.37de933f.svg",
+      "bytes": 1018,
+      "sha256": "85bbec3123c60d715a6151a15243aa976a2c3da1e25923b9f8d1414acc84fe2f"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-landscape.8fc552f5.svg",
+      "bytes": 786,
+      "sha256": "72c34118640021bf899c94512cf9e6b6963c4620c0f73f9bccc209745f7ca436"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-nebulae.923eae18.svg",
+      "bytes": 1060,
+      "sha256": "a425ab66d53ae3ddb4d4fc18f01c7dc60e12a7047ef724c17f4071a9b996c116"
+    },
+    {
+      "path": "oras-sky-engine/img/btn-night-mode.bc3006ed.svg",
+      "bytes": 493,
+      "sha256": "335795046bd8352da621b33b74141ccd030f14fdb89411527628fea47d831e5e"
+    },
+    {
+      "path": "oras-sky-engine/img/fullscreen.ddcd813e.svg",
+      "bytes": 301,
+      "sha256": "8aee00a13ed154ed550ca92a1adb1ae880a60db0980a1fef68f0e68e1ab4d5f5"
+    },
+    {
+      "path": "oras-sky-engine/img/fullscreen_exit.c223388f.svg",
+      "bytes": 299,
+      "sha256": "8a3c02f37ea31e7d08dd158059c4c67ff03ed90b041a433504c31ff413ab7fd8"
+    },
+    {
+      "path": "oras-sky-engine/img/header.f792b4d9.png",
+      "bytes": 11069,
+      "sha256": "cdc71e64ef47d7021f721991b84c49f60b9e9feebfd9a735812707b0e60b7fa5"
+    },
+    {
+      "path": "oras-sky-engine/img/point_to.4133dbcc.svg",
+      "bytes": 888,
+      "sha256": "01558f6e339a7d6c3e2172569f69692dd933b786d72697904f8cee02ade1bad8"
+    },
+    {
+      "path": "oras-sky-engine/img/remove_circle_outline.558922b2.svg",
+      "bytes": 358,
+      "sha256": "1bf95d5fb5943b918e88d96ac0ede5ee5d5e64e1d8b6057e58782410ac25208d"
+    },
+    {
+      "path": "oras-sky-engine/index.html",
+      "bytes": 1960,
+      "sha256": "f177f1a30e74dc1be90fec35f2b903a857d04324fdb35a60ab365c4a11d4ab8d"
+    },
+    {
+      "path": "oras-sky-engine/js/app.1f71b7b1.js",
+      "bytes": 615421,
+      "sha256": "d2fe9b1da7cd2d070a2902de15e7313ac484daf26e39ae1feaf21124ea9ef427"
+    },
+    {
+      "path": "oras-sky-engine/js/chunk-2d2253ec.81e41965.js",
+      "bytes": 249,
+      "sha256": "d3f803f08754c11aaeb96cbc5f1ed46b05fdbc6164ba9a91eabc6a64cbe4716c"
+    },
+    {
+      "path": "oras-sky-engine/js/chunk-vendors.c8723c79.js",
+      "bytes": 2975037,
+      "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260"
+    },
+    {
+      "path": "oras-sky-engine/js/stellarium-web-engine.a41e078b.wasm",
+      "bytes": 1200963,
+      "sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Allsky.png",
+      "bytes": 284565,
+      "sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix0.png",
+      "bytes": 20555,
+      "sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix1.png",
+      "bytes": 7308,
+      "sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix10.png",
+      "bytes": 553591,
+      "sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix11.png",
+      "bytes": 577286,
+      "sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix2.png",
+      "bytes": 7419,
+      "sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix3.png",
+      "bytes": 12461,
+      "sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix4.png",
+      "bytes": 392640,
+      "sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix5.png",
+      "bytes": 328225,
+      "sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix6.png",
+      "bytes": 231251,
+      "sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix7.png",
+      "bytes": 261540,
+      "sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix8.png",
+      "bytes": 578107,
+      "sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix9.png",
+      "bytes": 576406,
+      "sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/description.en.utf8",
+      "bytes": 371,
+      "sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff"
+    },
+    {
+      "path": "oras-sky-engine/landscapes/pennsylvania-woodland-v1/properties",
+      "bytes": 240,
+      "sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
+    },
+    {
+      "path": "oras-sky-engine/oras-runtime-build.json",
+      "bytes": 2426,
+      "sha256": "8814dfab7031ef6b9e5d5ccf194ff81b92ec3f301432abc57bfd09e3172ea2ad"
+    },
+    {
+      "path": "packages/runtime-protocol/continued-input.mjs",
+      "bytes": 2256,
+      "sha256": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e"
+    },
+    {
+      "path": "packages/runtime-protocol/endpoint.mjs",
+      "bytes": 2542,
+      "sha256": "ac411c29a99c63d3a212bf28393a3a62915f9865c432103295b19c4b695843af"
+    },
+    {
+      "path": "packages/runtime-protocol/index.mjs",
+      "bytes": 4863,
+      "sha256": "68942038408a0854940d5154b094ba18246ddb05fe561b1eb90cc3f8ac991b84"
+    },
+    {
+      "path": "packages/runtime-protocol/navigation.mjs",
+      "bytes": 2587,
+      "sha256": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768"
+    },
+    {
+      "path": "packages/runtime-protocol/workspace.mjs",
+      "bytes": 4736,
+      "sha256": "45cabb50f00cd2b9f06e8569d295e84e9a89e4c25861b567d238f947d17d8a6a"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/manifest.json",
+      "bytes": 36862,
+      "sha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/sources/NAC_DTM_APOLLO17_CONF.IMG.lbl",
+      "bytes": 4708,
+      "sha256": "d396ec5981069889b87a855ea62e76ff881522d5f629397821bba45aee4f3e76"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/sources/NAC_DTM_APOLLO17_E203N0308.IMG.lbl",
+      "bytes": 4751,
+      "sha256": "e4a9c030c9e24661f4333c2befdde96427df0e73cef347755f8102195f7e18d8"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/sources/NAC_DTM_APOLLO17_MOSAIC_5M.IMG.lbl",
+      "bytes": 4777,
+      "sha256": "589de29ff134914d69d5f28369617fd4b59a0ef2248af169fa9ac19124b8e230"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/0/0/0.glb",
+      "bytes": 561592,
+      "sha256": "337a409e0d87a94491c5e23c861ff5f30b22f2727a55b4e6a4dedfd022d2ef5e"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/1/0/0.glb",
+      "bytes": 561040,
+      "sha256": "ed73b68e403939092ce3e4123fbe44cfbead58ec8481fef1dce81042d8ba8c07"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/1/0/1.glb",
+      "bytes": 561156,
+      "sha256": "59acf2c1fdad5cbc155878764048089ff84cd12e98247b44495670ec3dcd3074"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/1/1/0.glb",
+      "bytes": 560256,
+      "sha256": "566b7988f36d8fa883a7cb11803f0bef01d391280a328c955248f85c58d0a4e3"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/1/1/1.glb",
+      "bytes": 560660,
+      "sha256": "2925862177663f78aed7870c9646de9ca059bbc321221d9dc6961ede751a8bd3"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/0/0.glb",
+      "bytes": 560672,
+      "sha256": "8d0c49b301d9eb505779a40e6bcf8b1be470c698036f4a586b679fa9e9e91040"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/0/1.glb",
+      "bytes": 561416,
+      "sha256": "ef9bf978ec69a6078b2ece14caa08828824860e1a8e072d7dd5191202f94bfa2"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/0/2.glb",
+      "bytes": 561552,
+      "sha256": "d91332229a94795977424d1fe84bd71ae95b6ce4509fd7125eaefdb75dbd756e"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/0/3.glb",
+      "bytes": 560440,
+      "sha256": "081bb1db3269c6e6c71944648c44139a886e90b2cda6b5c0e785f441b2446d7c"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/1/0.glb",
+      "bytes": 560188,
+      "sha256": "be1e3d0b1f806ab968dfa68c6a4e44d3cfe05d7a10f213c3b09c1b4f97a586da"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/1/1.glb",
+      "bytes": 559924,
+      "sha256": "3ee7b9382ff080925d791f63c0e9fc51b3403740e410dc31b55a085f3aca1fd3"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/1/2.glb",
+      "bytes": 560188,
+      "sha256": "1831148ddb41a61c7160ec5d0ba4aac5edf60f8a23e8589d3f6a00fd3be51b95"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/1/3.glb",
+      "bytes": 560008,
+      "sha256": "0b34e91d500afcdd58724357ef0f96deabf3ab5874ee6c837fdb15c550d263b3"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/2/0.glb",
+      "bytes": 560028,
+      "sha256": "7328e690424e4a52ec7d3f64831330d81681f4c353f0ec5a1554eeb99747730b"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/2/1.glb",
+      "bytes": 560340,
+      "sha256": "e7a9bc640c80be0459384316c1e0adf10caabdfd9dcd44af781933088aef377b"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/2/2.glb",
+      "bytes": 560528,
+      "sha256": "0d965453e93c902ba1a4d4c2d75a84f9ecaed6f9db1287c514525bcc7e77cccd"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/2/3.glb",
+      "bytes": 560672,
+      "sha256": "999b1584e03c5fa53c908aca3368b05e0aa20877b047ab86ece5e0c0a0ea4d49"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/3/0.glb",
+      "bytes": 560340,
+      "sha256": "ea5994fd33881bb649a7f52c67981f60189bf56db2a38686d560e9adb3b11ee2"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/3/1.glb",
+      "bytes": 560060,
+      "sha256": "5a2ff4b65c28fe2c5d6ab8333eea0b9818d3215df1e93cc64d4fae0a7e6c9bda"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/3/2.glb",
+      "bytes": 560580,
+      "sha256": "8feb0cd19e69627029fd7d4f49b613166fd6725a375b5120cabcc3e10b45ff78"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/2/3/3.glb",
+      "bytes": 560428,
+      "sha256": "da7d561ac86eef1b8ca7517d13adcac4c3a58907860e5022def6ceaeff8542b5"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/0.glb",
+      "bytes": 559496,
+      "sha256": "6411e69e67e714e7ac30f14205b01451c63d02fa00bf707bb1f94f9094056f85"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/1.glb",
+      "bytes": 561268,
+      "sha256": "8e0a5094a6490503648656dc9c4cf8cd227d16d44b8e0d34219b87a3d1e7c693"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/2.glb",
+      "bytes": 561688,
+      "sha256": "ddbbb82f5824ba2d8f38de260bc860e703eb2dc9d95c83fdd4b0c6eacdfa5c1b"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/3.glb",
+      "bytes": 560628,
+      "sha256": "5546d676bd983f5c33d1283fe879edc1250e1a9ad8d2c0a2033dcae3adbfb5fc"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/4.glb",
+      "bytes": 560324,
+      "sha256": "a521d6bd45bd5e022beaf68e28a147d31a1d731f16a59934cd96efd0160f74c9"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/5.glb",
+      "bytes": 561044,
+      "sha256": "83f11f87eda6e0134c49ae1c94afc949e4b6b4ecb23e613a0d032bd8a803f33c"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/6.glb",
+      "bytes": 560260,
+      "sha256": "533093f91076b0afdd0eb23ce8b435207bf1cbffc8f8384bab4f3c2b29393734"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/0/7.glb",
+      "bytes": 559472,
+      "sha256": "6e793326f35062420c28561426bfd5dd4493b8e75fc12ac342cd89f86ea63a29"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/0.glb",
+      "bytes": 559540,
+      "sha256": "0ed8a3500cc038c55404e0ac6b77040ea07a9cbcd503e846aacd1af845623aaa"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/1.glb",
+      "bytes": 560452,
+      "sha256": "e6c950c63dc0b47ee7e81de61f261e9e541119bf6e39b35d36c242fb9204ac68"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/2.glb",
+      "bytes": 560108,
+      "sha256": "930e78b51d5a3c4de08a4561bf0a75ab255f1d6f058b5e1bdbd126ac0115b678"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/3.glb",
+      "bytes": 560088,
+      "sha256": "8efe534efbfbb1a19e00250fa399fa4e3a3a147f231d139764d1af5f22729aec"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/4.glb",
+      "bytes": 560552,
+      "sha256": "45d226bf5f90d6b8d7da865d72c75b61492c4ea1e54b67c607f0ef242a98ea4a"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/5.glb",
+      "bytes": 561044,
+      "sha256": "3c656f46915b6b683a00ca58c31a0db15997d578315c4c221489eba25090894a"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/6.glb",
+      "bytes": 559892,
+      "sha256": "2137fb6c07c3bdd3b736417e9adc8458ae2365030bd24868cbd9ab5574e3407e"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/1/7.glb",
+      "bytes": 559208,
+      "sha256": "7135daf9b91e626569e3f036e5c8727d0738837ecabae24b904792530f8c86ef"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/0.glb",
+      "bytes": 560032,
+      "sha256": "c22d634baf0c3e3c309754d6af625dc4a426d56c1ad45bd317683ebaecb4e20a"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/1.glb",
+      "bytes": 560032,
+      "sha256": "4256a9aabd8e2d0e03fe2344102a64f6012bb112f9596b163072f89383656ea3"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/2.glb",
+      "bytes": 560144,
+      "sha256": "06b7333340f57b45682e80ad74e3ea8f5cf7dab723843a4b2c32fc0a9993f4ae"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/3.glb",
+      "bytes": 559092,
+      "sha256": "9ad5b4cd9befe9b0c74bad6f9b64a8229ab684a0721ebc82ca9096e650330bc6"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/4.glb",
+      "bytes": 559476,
+      "sha256": "f24f1b5a892d7157569e38207a12bf63a024aa1622e735dd7025ae3bf72bd070"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/5.glb",
+      "bytes": 559896,
+      "sha256": "a8961c54f8c3998ea3ffce51d084e929135fdc12269a5a52749443cf5bd3e8ba"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/6.glb",
+      "bytes": 558744,
+      "sha256": "b8f7558ba2e44a35a5b9422e31e8c7537b710c71ef9d9448e66aea654f05f7d0"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/2/7.glb",
+      "bytes": 559000,
+      "sha256": "12c2bdbf671df14e6172c41c048c8788fee876fdf2f6bfd9f815bb7462fc9b8f"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/0.glb",
+      "bytes": 559852,
+      "sha256": "463b4252c968de57a5f8b069d1c0aab3305d61eecb97f8a6e913db3db766fccc"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/1.glb",
+      "bytes": 559536,
+      "sha256": "2b6d70376d0e696453f5f9c8a9671ee396ba83520842af55c93d9ce46a9d1646"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/2.glb",
+      "bytes": 559568,
+      "sha256": "ccbe5fc0bed843d931de8f414252c73f8b9d7d0ed80c31ed5b2a20bc89fb607a"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/3.glb",
+      "bytes": 559784,
+      "sha256": "255f6e9b9fea84457e1c64faf4fdf089d540ca39bfb5f76531d369f37ae18c67"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/4.glb",
+      "bytes": 559768,
+      "sha256": "90836c6acf6789dc5a0bfde5c02b5d68bf000804867c5cc3f9c810ed4834cda9"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/5.glb",
+      "bytes": 560728,
+      "sha256": "6f6077cb4982fba648b61ef00433e7472ae0564e9c476ac3f6eed18b978fa8ff"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/6.glb",
+      "bytes": 561144,
+      "sha256": "84e65a039e430500e4d06a892abb7e54abbee5047cd02b668c272e7c74edc79e"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/3/7.glb",
+      "bytes": 559716,
+      "sha256": "d3dda415c5de01fe4726f54272e4ded990837bab778744b7e525260d169890fc"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/0.glb",
+      "bytes": 560004,
+      "sha256": "fb277f84e4253728e487e1e3742818672fb9e7ab5324bfbb1dc2ac187217bb0e"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/1.glb",
+      "bytes": 559712,
+      "sha256": "641e21c0b5a478408b6e1ad27dbf4013f6691cd8d6fd24b779080d1eafcdca25"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/2.glb",
+      "bytes": 559844,
+      "sha256": "a8f4d25c846d3a625553444154dfa18b88491fd45b51e4062bf488b71f549a66"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/3.glb",
+      "bytes": 560280,
+      "sha256": "76fd71716f92b724ffa3d24def943ab68448d85fbd66369749fd8feaef49fe2d"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/4.glb",
+      "bytes": 560204,
+      "sha256": "26a77eb7b1332307276d3f461dc1cf8b689be3fa5f33d90433581bf65db93223"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/5.glb",
+      "bytes": 560428,
+      "sha256": "cac103bf057336b045015beb3429b5f04c37612f1a7503a2827024e74d1e36b5"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/6.glb",
+      "bytes": 560824,
+      "sha256": "29902b1e82d9738867fc729fbd4b4dd46b75d93a8da716844aaafbb29eb427bc"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/4/7.glb",
+      "bytes": 560212,
+      "sha256": "67d72c6a88aaba4f7ce61372aaaa92cde42d50c458c53675c30c9c53dc48e470"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/0.glb",
+      "bytes": 560180,
+      "sha256": "2f187d80bae74335deebfffeec0c6c60fe6ef38c0c183949d5986a644e47758b"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/1.glb",
+      "bytes": 559892,
+      "sha256": "66ccb224fc5b024a6bccaf2f62ff7726113dfd0e0118a59d9b97549d0ba71b92"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/2.glb",
+      "bytes": 560412,
+      "sha256": "70f9585ac4a4f574a249e2091f362989cdbf7851b5d82021d2f9d411c3d9ec4f"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/3.glb",
+      "bytes": 560136,
+      "sha256": "c6b09294f9bf0bae247d4ad26e2d19803a41df565c2d3d64746b5150854e4488"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/4.glb",
+      "bytes": 560280,
+      "sha256": "60806ecba79a231a6ef44a955bec9f157fa49985a0afded6faf317059cca8eae"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/5.glb",
+      "bytes": 560656,
+      "sha256": "ec15b2751965b193bbd7293857877836401986fc9d7e3e45d803056c1cd38094"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/6.glb",
+      "bytes": 560500,
+      "sha256": "70463e32205cbf9cc326297ac80c3bd762c59b486c03220e74be69c64889b81e"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/5/7.glb",
+      "bytes": 560616,
+      "sha256": "6e099f47035350ef2213ebdac01c6b6c109965e738c41f38ecf52bbd8cbc0b4b"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/0.glb",
+      "bytes": 559944,
+      "sha256": "ffd54a52fd639ab1d4da0da38a6c165807c0f1a9ab0b68833022e655d0f97020"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/1.glb",
+      "bytes": 559952,
+      "sha256": "ad3c202ff5a2c0ce36e073bdd3b9b7774578ed596e2110d658ca5260d4ff3dec"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/2.glb",
+      "bytes": 559696,
+      "sha256": "25d92c0179e3b17ecacff4edcb457e9a57e8ebf6b3dda29ae8de9d4af34b7d2d"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/3.glb",
+      "bytes": 560192,
+      "sha256": "3c10dd85adf70605e2afb37f7a2f7928f5dadc39bc93f1d660dd23a717857ebf"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/4.glb",
+      "bytes": 560500,
+      "sha256": "e8e2a066e7f33d3bc075d612a09e250109e2bc5e7b8c49ca17ecaed5e4706b79"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/5.glb",
+      "bytes": 560668,
+      "sha256": "ac4b6479a142eff9b623e859f94fa53bbdb9c0c2a435dddc7683c7599f85db96"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/6.glb",
+      "bytes": 560316,
+      "sha256": "26e3af2c27563b8be5901f797068718ce017e3d801c690968f3aacdf5d9ba9bc"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/6/7.glb",
+      "bytes": 559980,
+      "sha256": "a90d2f2b67228843675ec12cab514c8d5e292f81c4096ba499578d35298c53be"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/0.glb",
+      "bytes": 560824,
+      "sha256": "163963db76f25a679c55fb03a5cb17f6cde6eb5fd7382bb85ee3a613b5af2792"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/1.glb",
+      "bytes": 559552,
+      "sha256": "7425d5ad83f0378f58dd29099691c3e839425bd4f2a31794748fb49b2a7351cc"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/2.glb",
+      "bytes": 559636,
+      "sha256": "11bc6e71ad4dd0658d4c6d2e58090e311bcc686aa6a58a66c74ba2f23ea22f83"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/3.glb",
+      "bytes": 560408,
+      "sha256": "73961e1e6116ac7570edb1b9b4178e5c6ae0d958eed17a3023d3a1f4c6465eae"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/4.glb",
+      "bytes": 560244,
+      "sha256": "644f17d4cd89c44912902ec77fc9a8a0b6aaa97d72581191fdac7eabd0e64977"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/5.glb",
+      "bytes": 560216,
+      "sha256": "77f743d94d14166ba5e7d80471b8612dde7b3ce02deb4edf3db0c133498f2d84"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/6.glb",
+      "bytes": 560076,
+      "sha256": "b374807c33cc7c228255c1858a67add129db4965759da974bca8160f657922ad"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tiles/3/7/7.glb",
+      "bytes": 560792,
+      "sha256": "033fb632abf5121bd04f2718ee75dea656e7f1de9d73a869fb6dcaf9fc4bde63"
+    },
+    {
+      "path": "planet-terrain/apollo17-nac-v1/tileset.json",
+      "bytes": 56952,
+      "sha256": "d3cd622a56af62a3ec7643586e273136cb982d5792c2ba7629df68e3d1400d39"
+    },
+    {
+      "path": "planetary-assets/v2.3/ariel-2048.jpg",
+      "bytes": 250894,
+      "sha256": "e650f863c84d48841e6e4a9109f979e66123e7570fa8750868d1fbf6e54aabd2"
+    },
+    {
+      "path": "planetary-assets/v2.3/ariel-overview.glb",
+      "bytes": 559856,
+      "sha256": "3d399f5a7a415ed6457bb3ff04c8f42f8226a2884b47a5cf0c172de47f413d35"
+    },
+    {
+      "path": "planetary-assets/v2.3/callisto-2048.jpg",
+      "bytes": 797156,
+      "sha256": "3b0da9925b4dd43e80fbf3d3d83c15f031b5e38584d1c2bedf2acf4513d508ef"
+    },
+    {
+      "path": "planetary-assets/v2.3/callisto-overview.glb",
+      "bytes": 743492,
+      "sha256": "16b92072e445917b19f41b3f2c905c916e6d84af8fb988b69f7788f90e350e92"
+    },
+    {
+      "path": "planetary-assets/v2.3/deimos-pds-shape.glb",
+      "bytes": 122048,
+      "sha256": "0f8a93211fd07cd6c4370e65a9313abbbad2162f135c872fbc00e1a7011d8da4"
+    },
+    {
+      "path": "planetary-assets/v2.3/enceladus-2048.jpg",
+      "bytes": 1325699,
+      "sha256": "2816e87fe8a65c08ce32c3d5aa9f528fc3d0f765b654f8a4decb1f8621f2f2fb"
+    },
+    {
+      "path": "planetary-assets/v2.3/enceladus-4096.jpg",
+      "bytes": 4485523,
+      "sha256": "321dae5b8ac44dcca06d3274c6ce44d488a6f1f11e9f99791cbde7724a617cf0"
+    },
+    {
+      "path": "planetary-assets/v2.3/enceladus-overview.glb",
+      "bytes": 766172,
+      "sha256": "1942299ca561dec3f27b58a916d8ce4333f075ef578c28f0051f6d4e81185cdf"
+    },
+    {
+      "path": "planetary-assets/v2.3/europa-2048.jpg",
+      "bytes": 698890,
+      "sha256": "0496951466f97bc0624e15eaaa336177099b6281ca0d579241506e4cf6176bd3"
+    },
+    {
+      "path": "planetary-assets/v2.3/europa-4096.jpg",
+      "bytes": 1424640,
+      "sha256": "06944548eb0759ca752027ee246dbcdf0c34fd15807ba993dcfa03f7f831d1c1"
+    },
+    {
+      "path": "planetary-assets/v2.3/europa-overview.glb",
+      "bytes": 672000,
+      "sha256": "9a10c31c03c63d09c04b127ad9483f0631330e71d40e80c7e3e74793323c27ed"
+    },
+    {
+      "path": "planetary-assets/v2.3/ganymede-2048.jpg",
+      "bytes": 678913,
+      "sha256": "9ca17e7d7011e044c164fee37c6b95391bf877074f80f399696a2cc61e9eca72"
+    },
+    {
+      "path": "planetary-assets/v2.3/ganymede-overview.glb",
+      "bytes": 702344,
+      "sha256": "a9d9289d909f3efb747049420ea0e49e660007f45a078b08a9af9a6485b0544c"
+    },
+    {
+      "path": "planetary-assets/v2.3/io-2048.jpg",
+      "bytes": 797004,
+      "sha256": "0390f525ebaa102ca60762c2733893e218fc409c538111105f858b220fa3442a"
+    },
+    {
+      "path": "planetary-assets/v2.3/io-4096.jpg",
+      "bytes": 2082996,
+      "sha256": "26081deb0234006d626b792cceecaaad084ab202c26b6f5874920e2ee2a7d025"
+    },
+    {
+      "path": "planetary-assets/v2.3/io-overview.glb",
+      "bytes": 705280,
+      "sha256": "4ecda86f593d2099ebd89a602a7d3fcc56295afa1dca6052a85ea09f80591223"
+    },
+    {
+      "path": "planetary-assets/v2.3/manifest.json",
+      "bytes": 43316,
+      "sha256": "a1870b8ddfc10e2778499fa2bcf2b5d233a85abd676bc48e4c8de07ed0843674"
+    },
+    {
+      "path": "planetary-assets/v2.3/miranda-overview.glb",
+      "bytes": 555988,
+      "sha256": "0dc1714b749e98fb29d9aa77a5e1a783fe5ba0e7c2d0777ee6e20f3bfc581178"
+    },
+    {
+      "path": "planetary-assets/v2.3/oberon-2048.jpg",
+      "bytes": 165426,
+      "sha256": "46f8fc3cc6bfc91fdb4ec6e86167552d1497b8c8fab253e1dca7545148869bdb"
+    },
+    {
+      "path": "planetary-assets/v2.3/oberon-overview.glb",
+      "bytes": 535268,
+      "sha256": "9fc24dc876a2264a6a2077219724dba98775674b12ea58756e867cf39f6ebfe1"
+    },
+    {
+      "path": "planetary-assets/v2.3/phobos-pds-shape.glb",
+      "bytes": 1199216,
+      "sha256": "c1d03de87679c287e734a7e3e61533b149789a7ec8a254e979de75727bc1ad7d"
+    },
+    {
+      "path": "planetary-assets/v2.3/titan-2048.jpg",
+      "bytes": 50569,
+      "sha256": "e17bd027d60a311823c81a5c649ebc1bc8cd73bfcab177f3d63cf377e0656a93"
+    },
+    {
+      "path": "planetary-assets/v2.3/titan-4096.jpg",
+      "bytes": 126326,
+      "sha256": "83cde217f9134d3d683dcaf76772417b06b4aabc6797d35454ce1dfc09c3bc4a"
+    },
+    {
+      "path": "planetary-assets/v2.3/titan-overview.glb",
+      "bytes": 481688,
+      "sha256": "252499dbe8927d9868bf217a8f68fec987c6d7b3679c97c362d60ddc2eb0e0c4"
+    },
+    {
+      "path": "planetary-assets/v2.3/titania-2048.jpg",
+      "bytes": 267557,
+      "sha256": "a46dc09e50b35e8519d81be711c96e5b0bcde77dbf89453aeb28ddcdcc1eb191"
+    },
+    {
+      "path": "planetary-assets/v2.3/titania-overview.glb",
+      "bytes": 566556,
+      "sha256": "126fb0bcf567bf82e1ded2ff772c4d138c5c6406207003460a0e2fbe52ea7aec"
+    },
+    {
+      "path": "planetary-assets/v2.3/triton-2048.jpg",
+      "bytes": 435820,
+      "sha256": "44f0f593d5cc53d57691ac0370162ce880ba69c86b5d060dca8736a388216992"
+    },
+    {
+      "path": "planetary-assets/v2.3/triton-4096.jpg",
+      "bytes": 1174186,
+      "sha256": "0efc1762caacce9e228b1cab2a9dd3e5540c3bae291d7f59ba8d136ed8b5fefc"
+    },
+    {
+      "path": "planetary-assets/v2.3/triton-overview.glb",
+      "bytes": 595140,
+      "sha256": "d4ecda4a51ec7b9931b2eaa2b89c561dc920f620328985a125f1554f033692f3"
+    },
+    {
+      "path": "planetary-assets/v2.3/umbriel-overview.glb",
+      "bytes": 514072,
+      "sha256": "5f09d1a8d576b3d0fb8d41a0304518e6abaa224c765f190a082aaa4dfecf70c7"
+    },
+    {
+      "path": "runtime-bridge/sky/entry.mjs",
+      "bytes": 5492,
+      "sha256": "02f48b1a30746e1de33fbefdd59a3fa5638b891591618f1f25b390992df679d2"
+    },
+    {
+      "path": "runtime-bridge/sky/native-panels.mjs",
+      "bytes": 5767,
+      "sha256": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c"
+    },
+    {
+      "path": "runtime-versions.json",
+      "bytes": 4412,
+      "sha256": "41e9c83071b6a71672fbea06feb5e1c79b510734d409fcbfe8a729692c95f541"
+    },
+    {
+      "path": "solar-assets/v2/eros-nasa.glb",
+      "bytes": 2392188,
+      "sha256": "4e4eab5ebf3553f78713b48db7dde601634094e85363caa5b48fbd869933b7b2"
+    },
+    {
+      "path": "solar-assets/v2/jupiter-nasa.glb",
+      "bytes": 11479456,
+      "sha256": "8edc4e9b88b73ca1b125a258f0ecaef7fc6494a7cadda37704af459a119f4870"
+    },
+    {
+      "path": "solar-assets/v2/manifest.json",
+      "bytes": 24162,
+      "sha256": "b1cbc28996fa981f9f49d056a8df3da72991b843af610648f5102b078819d2f5"
+    },
+    {
+      "path": "solar-assets/v2/mercury-nasa.glb",
+      "bytes": 3048920,
+      "sha256": "0222fa976a5bb3ae3222eeddaaa7150656837a97c515f065eb855e0b1dd2ab94"
+    },
+    {
+      "path": "solar-assets/v2/neptune-nasa.glb",
+      "bytes": 585104,
+      "sha256": "2fc3af08d56ed429b9cc56b95d151102aa5807ea958e7cb8806a42e12a699ba8"
+    },
+    {
+      "path": "solar-assets/v2/saturn-nasa.glb",
+      "bytes": 5476584,
+      "sha256": "8dbfde533b13e938408d8aded1d1ce48a084806233f67775371d83013dba7d38"
+    },
+    {
+      "path": "solar-assets/v2/saturn-rings-nasa.png",
+      "bytes": 9615,
+      "sha256": "d4ddbcd796869bd3f8508252da4fd284c4195cd0f06c02294f6c918b568ba1c7"
+    },
+    {
+      "path": "solar-assets/v2/uranus-nasa.glb",
+      "bytes": 172652,
+      "sha256": "9c56f96bbfa82d923479c3dd83a00c35238a36addcfbcc61916f1377fe586bd5"
+    },
+    {
+      "path": "solar-assets/v2/venus-nasa.glb",
+      "bytes": 298748,
+      "sha256": "6aa26809feeb74fee371c43e9904112a76ebb3df15696e6e75297c0fce063bf9"
+    },
+    {
+      "path": "solar-assets/v2.2/earth-1024.jpg",
+      "bytes": 211736,
+      "sha256": "72071ab04ea6db199f59163f3e185f82ce5b773f599152f1ede2c0f096bce71d"
+    },
+    {
+      "path": "solar-assets/v2.2/earth-2048.jpg",
+      "bytes": 724150,
+      "sha256": "ea06741de2a5d9ce7ba04cb9e0ccae554019f55a9eb71c13febe9588d13041ed"
+    },
+    {
+      "path": "solar-assets/v2.2/earth-4096.jpg",
+      "bytes": 2549285,
+      "sha256": "283fcd9b3cf8a8abebae61af03b4b265ac4c41131e2f58beddc5bd0c9e81bede"
+    },
+    {
+      "path": "solar-assets/v2.2/earth-8192.jpg",
+      "bytes": 8872855,
+      "sha256": "c0bd43e6b99a0681fd564658fcd56c949b3ffda8789efc5cc551d79610656e03"
+    },
+    {
+      "path": "solar-assets/v2.2/earth-clouds-1024.jpg",
+      "bytes": 279311,
+      "sha256": "3a12f2663576d8ad78bd82778d794d0f05a663352dfe936d73a05ba62230f966"
+    },
+    {
+      "path": "solar-assets/v2.2/eros-1024.jpg",
+      "bytes": 333093,
+      "sha256": "4efca5649d794c1970918b2dd49e2b40e3de98ed54adffddaeacdc91d61d1fec"
+    },
+    {
+      "path": "solar-assets/v2.2/eros-overview.glb",
+      "bytes": 623272,
+      "sha256": "06092d39bb7ef2eee231229cf5a5200cdfb91b50b0710ffc84d7df1613a2fc92"
+    },
+    {
+      "path": "solar-assets/v2.2/jupiter-2048.jpg",
+      "bytes": 722210,
+      "sha256": "526e76df5357797eaecc9b0df16e18dab01159488f5f3a25f322de0bb711287c"
+    },
+    {
+      "path": "solar-assets/v2.2/jupiter-4096.jpg",
+      "bytes": 1977325,
+      "sha256": "a95ed6cc1f232f2f926323c665098ee1bfae16ef6b2a8fac264ed78826ca4510"
+    },
+    {
+      "path": "solar-assets/v2.2/jupiter-overview.glb",
+      "bytes": 266920,
+      "sha256": "43e6fe7c864ded5265beb10822ea3435bbd6c6441ee146b4b5dc7fe325b6c39c"
+    },
+    {
+      "path": "solar-assets/v2.2/manifest.json",
+      "bytes": 36837,
+      "sha256": "5d678ea576e0d5f1a2a837de1e667c6c75e3e816b374af59d0a594f9caf7084b"
+    },
+    {
+      "path": "solar-assets/v2.2/mars-1024.jpg",
+      "bytes": 281955,
+      "sha256": "2a74558bd0218f38b5ed8a3046facf4a704abf19fee13769c064ea832ae6184d"
+    },
+    {
+      "path": "solar-assets/v2.2/mars-2048.jpg",
+      "bytes": 1135627,
+      "sha256": "96129de5fc6ed29915f4d5cb0db3aa0cb0697563eacd09d4c29dfa35658caeb6"
+    },
+    {
+      "path": "solar-assets/v2.2/mars-4096.jpg",
+      "bytes": 4223475,
+      "sha256": "460436630ccc7433d2d95b294db651ced16b1685b8d1a29583fe85109910388f"
+    },
+    {
+      "path": "solar-assets/v2.2/mercury-2048.jpg",
+      "bytes": 1103063,
+      "sha256": "3dad8eb21db59165889af5d960de54e63bd3eb6c894f4d18f7a73974e0b64ab8"
+    },
+    {
+      "path": "solar-assets/v2.2/mercury-overview.glb",
+      "bytes": 333380,
+      "sha256": "5ebe402400e85c7ad495c58d7b131a0554d3a0de69973a751945da4f0af5c523"
+    },
+    {
+      "path": "solar-assets/v2.2/neptune-1024.jpg",
+      "bytes": 82998,
+      "sha256": "be9fa13c678ce4df4947dad382d092528dfe6925866669bb6f90289df06f82c6"
+    },
+    {
+      "path": "solar-assets/v2.2/neptune-overview.glb",
+      "bytes": 224844,
+      "sha256": "a298f6beda148d924f29b0436be1682b99090e76ea3c7522442430371f77b482"
+    },
+    {
+      "path": "solar-assets/v2.2/saturn-2048.jpg",
+      "bytes": 381918,
+      "sha256": "3a1a1167d294b55ab21b80d13abd4910d59d4ae21ec70155ad3b421dc1189e31"
+    },
+    {
+      "path": "solar-assets/v2.2/saturn-4096.jpg",
+      "bytes": 900798,
+      "sha256": "72db55d8c971006ea7870b573266e816f9dc6871a4ebb370472173cfec8fd4af"
+    },
+    {
+      "path": "solar-assets/v2.2/saturn-overview.glb",
+      "bytes": 204532,
+      "sha256": "fd6dd5f7f53baef72e856a0c5fdebde722d052c7e812287b528a339f67fac572"
+    },
+    {
+      "path": "solar-assets/v2.2/uranus-1024.jpg",
+      "bytes": 14077,
+      "sha256": "6d244192c8e7c5dcf2b220202db6cad29b9315b26398e50554327b54c5e8163c"
+    },
+    {
+      "path": "solar-assets/v2.2/uranus-overview.glb",
+      "bytes": 155924,
+      "sha256": "cd328fb82fcafb2366349eacf8b16a232d9a3e134b41df171aa22091aeb2e8ce"
+    },
+    {
+      "path": "solar-assets/v2.2/venus-1440.jpg",
+      "bytes": 66502,
+      "sha256": "f3f7f47e95c2418968d226aab9887354274cc696d420df778d9cca33805492a3"
+    },
+    {
+      "path": "solar-assets/v2.2/venus-overview.glb",
+      "bytes": 186700,
+      "sha256": "8b62e105a27ee6b93491ec752742605d1c1ef5b3ba3ba52ec828786399b0160d"
+    },
+    {
+      "path": "solar-assets/v2.4/67p-measured.glb",
+      "bytes": 2400600,
+      "sha256": "62505f9db4f229f07ac8c1d4efdbf169f1a928f9516bd809e973a10e9979f173"
+    },
+    {
+      "path": "solar-assets/v2.4/ceres-2048.jpg",
+      "bytes": 736325,
+      "sha256": "6827a9c03c563bcf2c852888aaf48aa660ebfed271ea655af3ea1e65b335839e"
+    },
+    {
+      "path": "solar-assets/v2.4/ceres-4096.jpg",
+      "bytes": 2055350,
+      "sha256": "2b82c430a98f9af6cdf666a98c81f501b8729a47742adfd8644bf188ac1437b5"
+    },
+    {
+      "path": "solar-assets/v2.4/ceres-overview.glb",
+      "bytes": 811216,
+      "sha256": "b435760a291abf1aa3c57e9e30cfcae9bfb3d0b7132576904c65918cef9c24a4"
+    },
+    {
+      "path": "solar-assets/v2.4/charon-2048.jpg",
+      "bytes": 470282,
+      "sha256": "f5951a6c9d95d93473676100f6b2195768b4eae9310524706ffb921ca0986123"
+    },
+    {
+      "path": "solar-assets/v2.4/charon-4096.jpg",
+      "bytes": 1575104,
+      "sha256": "e44b37afda20365acaee609311d3fdabeb1bbcdff6773988093dd9f95b4156be"
+    },
+    {
+      "path": "solar-assets/v2.4/charon-cartographic.glb",
+      "bytes": 596768,
+      "sha256": "04bdce1a16bafd287e0664db1ed410db9803b9d72ec22ec8b24a00d62ee861df"
+    },
+    {
+      "path": "solar-assets/v2.4/eros-measured.glb",
+      "bytes": 1199112,
+      "sha256": "ff49aa6d2b4c964b8632cae0c3a2e17a0fe642d4e256455cd742e35fceebf63a"
+    },
+    {
+      "path": "solar-assets/v2.4/halley-measured.glb",
+      "bytes": 121952,
+      "sha256": "7c672008eaf10377c1ab13d15c97dd1b52e85d1d354025d237c8b469c16a3aed"
+    },
+    {
+      "path": "solar-assets/v2.4/manifest.json",
+      "bytes": 30468,
+      "sha256": "31ba7b99d746428a4b124d336a9496951b611baab8e90876fda94b894cd8e3e9"
+    },
+    {
+      "path": "solar-assets/v2.4/pluto-2048.jpg",
+      "bytes": 535318,
+      "sha256": "ddbadc55d8a5a7f7127e832e5ca52fa039b7ab9c315bdfefd0da6d71f700e5e4"
+    },
+    {
+      "path": "solar-assets/v2.4/pluto-4096.jpg",
+      "bytes": 1837438,
+      "sha256": "632f8e672ca85c0a6ddc76f1485d584ef92e19868ce77ffcc5bcfd236161043c"
+    },
+    {
+      "path": "solar-assets/v2.4/pluto-cartographic.glb",
+      "bytes": 611900,
+      "sha256": "711f1af78c2fca312ee89b92e7896eb0e7706c29aee8c7ebb3aaeb8b18041f14"
+    },
+    {
+      "path": "solar-assets/v2.4/vesta-measured.glb",
+      "bytes": 4756508,
+      "sha256": "aec8a1617c2bfb042885ef08d3470b0e569d1c2ea8fdf6c2736a472b6513218b"
+    }
+  ],
+  "note": "Build-stage /app/dist copied without modification and every file compared to private localhost HTTP; final Git commit named in PR107."
+}

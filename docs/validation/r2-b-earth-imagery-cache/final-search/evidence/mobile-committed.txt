@@ -1,0 +1,16 @@
+390 Earth ready; exactly one owned renderer
+390 Ambiguous recorded city: explicit second candidate; native destination matches
+390 Real zoom/pan; center anchoring preserved
+390 Recorded named place: native camera and contextual details
+390 Same-runtime Back/Forward restores actual panned/search camera bookmarks
+390 Reload restores search destination through qualified host/native bookmark
+390 Invalid coordinates declined without navigation
+390 Reviewed hemisphere-letter city name reaches recorded backend provider seam and native destination
+390 Offline coordinate search reaches genuine zero latitude/longitude
+390 Recorded street address: provider details and actual Cesium destination
+390 Declared no-result, unavailable and busy cases remain distinct and usable
+390 Explicit recorded search recovers after backend empty/unavailable/busy errors
+390 Unchanged automatic native imagery and owned-cache worker are active during search journey
+390 Sky return uses actual searched surface observer/time; accepted panorama unchanged
+390 Back from Sky restores searched Earth camera; one active renderer
+390 Existing manual Explore coordinates and canonical ORAS context preserved

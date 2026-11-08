@@ -1,0 +1,5 @@
+{
+  "status": "PASS",
+  "urlAfterBack": "http://127.0.0.1:4210/earth?date=2026-02-28T00%3A00%3A00Z&earthLat=41&earthLon=-79",
+  "finalUrl": "http://127.0.0.1:4210/earth?date=2026-02-28T00%3A00%3A00Z&earthLat=41&earthLon=-79"
+}

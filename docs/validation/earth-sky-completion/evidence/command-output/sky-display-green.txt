@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: constellation toggle updates native lines AND names; art stays independent
+ok 1 - constellation toggle updates native lines AND names; art stays independent
+  ---
+  duration_ms: 2.091624
+  type: 'test'
+  ...
+# Subtest: observing controls address original SWE paths including distinct of-date and J2000 grids
+ok 2 - observing controls address original SWE paths including distinct of-date and J2000 grids
+  ---
+  duration_ms: 0.792307
+  type: 'test'
+  ...
+# Subtest: Night Mode reuses BottomBar and Fullscreen is an action
+ok 3 - Night Mode reuses BottomBar and Fullscreen is an action
+  ---
+  duration_ms: 1.214304
+  type: 'test'
+  ...
+# Subtest: dismissal restores the connected immediate tool launcher and clears stale ownership
+ok 4 - dismissal restores the connected immediate tool launcher and clears stale ownership
+  ---
+  duration_ms: 0.254612
+  type: 'test'
+  ...
+# Subtest: standalone native interface remains untouched
+ok 5 - standalone native interface remains untouched
+  ---
+  duration_ms: 0.151338
+  type: 'test'
+  ...
+# Subtest: embedded fullscreen targets the whole Hub and retains native state synchronization
+ok 6 - embedded fullscreen targets the whole Hub and retains native state synchronization
+  ---
+  duration_ms: 0.356939
+  type: 'test'
+  ...
+# Subtest: Vue receives explicit true/false ARIA strings, never false attributes that it removes
+ok 7 - Vue receives explicit true/false ARIA strings, never false attributes that it removes
+  ---
+  duration_ms: 0.371581
+  type: 'test'
+  ...
+# Subtest: renderer disposal removes its listener from the parent document
+ok 8 - renderer disposal removes its listener from the parent document
+  ---
+  duration_ms: 1.157539
+  type: 'test'
+  ...
+# Subtest: mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+ok 9 - mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+  ---
+  duration_ms: 0.722245
+  type: 'test'
+  ...
+# Subtest: cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+ok 10 - cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+  ---
+  duration_ms: 1.059475
+  type: 'test'
+  ...
+# Subtest: repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+ok 11 - repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+  ---
+  duration_ms: 0.408049
+  type: 'test'
+  ...
+# Subtest: explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+ok 12 - explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+  ---
+  duration_ms: 0.197237
+  type: 'test'
+  ...
+# Subtest: fresh embedded Sky defaults atmosphere off without touching other settings
+ok 13 - fresh embedded Sky defaults atmosphere off without touching other settings
+  ---
+  duration_ms: 3.102035
+  type: 'test'
+  ...
+# Subtest: explicit native atmosphere on survives renderer recreation and repeat presentation
+ok 14 - explicit native atmosphere on survives renderer recreation and repeat presentation
+  ---
+  duration_ms: 1.758355
+  type: 'test'
+  ...
+# Subtest: explicit native atmosphere off survives renderer recreation
+ok 15 - explicit native atmosphere off survives renderer recreation
+  ---
+  duration_ms: 1.428476
+  type: 'test'
+  ...
+# Subtest: invalid or blocked preference storage keeps the approved safe default and usable toggle
+ok 16 - invalid or blocked preference storage keeps the approved safe default and usable toggle
+  ---
+  duration_ms: 2.022387
+  type: 'test'
+  ...
+# Subtest: standalone state is preserved until embedded presentation and disposal removes watcher
+ok 17 - standalone state is preserved until embedded presentation and disposal removes watcher
+  ---
+  duration_ms: 0.885405
+  type: 'test'
+  ...
+# Subtest: cinematic display uses native brightness only and does not change astronomy
+ok 18 - cinematic display uses native brightness only and does not change astronomy
+  ---
+  duration_ms: 1.910535
+  type: 'test'
+  ...
+# Subtest: native display choices persist without replacing atmosphere or catalog preferences
+ok 19 - native display choices persist without replacing atmosphere or catalog preferences
+  ---
+  duration_ms: 0.985082
+  type: 'test'
+  ...
+# Subtest: invalid storage is ignored; standalone restore and watcher disposal are bounded
+ok 20 - invalid storage is ignored; standalone restore and watcher disposal are bounded
+  ---
+  duration_ms: 0.548473
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 71.87229

@@ -1,0 +1,312 @@
+{
+  "status": "MEASURED_HISTORICAL_COMPARISON",
+  "at_utc": "2026-10-24T08:18:20.101064+00:00",
+  "native_proof_sha256": "1f931641761a63cfcaada4661dd85332771dcd320081840b1df08369ad43bd0d",
+  "exact_mounted_feed_sha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436",
+  "rows": [
+    {
+      "norad_id": "43689",
+      "name": "Metop C",
+      "utc": "2026-06-04T02:58:00.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "tle": [
+        "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+        "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+      ],
+      "tle_sha256": "6d9bfced23359648ea8cae9a0cfdff91d1d9111f8a30257fac18719860b03f5b",
+      "tle_epoch": "2026-06-03T21:44:03Z",
+      "tle_age_days_at_scene": 0.21802423089120374,
+      "native_icrf_apparent": {
+        "ra_deg": 177.2614352484577,
+        "dec_deg": -3.9019387141274935
+      },
+      "skyfield_icrf_geometric": {
+        "ra_deg": 177.2667440427223,
+        "dec_deg": -3.9010520344947186
+      },
+      "skyfield_alt_deg_geometric": 31.886652979690833,
+      "skyfield_az_deg": 228.8761710578042,
+      "skyfield_range_km": 1379.6252663482044,
+      "native_range_km": 1379.7249354165185,
+      "native_vs_skyfield_geometric_arcsec": 19.332710363708422,
+      "native_vs_skyfield_lighttime_corrected_arcsec": 21.559716365243958,
+      "native_vs_skyfield_range_km": 0.09966906831436972,
+      "backend_service_ra_deg": 177.26674404272234,
+      "backend_service_dec_deg": -3.9010520344947186,
+      "backend_tle_age_days": 0.218,
+      "geometric_above_horizon": true,
+      "native_magnitude": 5.439655776566,
+      "native_vector_km": [
+        -1374.9546279951826,
+        65.7687590809359,
+        -93.8889700321563
+      ],
+      "skyfield_vector_km": [
+        -1374.8628421046853,
+        65.63668853610463,
+        -93.86088676437326
+      ]
+    },
+    {
+      "norad_id": "28096",
+      "name": "NOSS 3-2 r",
+      "utc": "2026-06-04T02:58:00.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "tle": [
+        "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+        "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+      ],
+      "tle_sha256": "40b6e6c8f91ed4b94a639fe84d30373b6efaa1cbd5424ad668d4ef81c1382f83",
+      "tle_epoch": "2026-06-02T19:52:46Z",
+      "tle_age_days_at_scene": 1.2952952010532408,
+      "native_icrf_apparent": {
+        "ra_deg": 253.1453852615595,
+        "dec_deg": 26.162958363526425
+      },
+      "skyfield_icrf_geometric": {
+        "ra_deg": 253.15306800734135,
+        "dec_deg": 26.160127896833263
+      },
+      "skyfield_alt_deg_geometric": 56.78777568786429,
+      "skyfield_az_deg": 105.8348043669157,
+      "skyfield_range_km": 1233.0267034331541,
+      "native_range_km": 1232.9454486889192,
+      "native_vs_skyfield_geometric_arcsec": 26.83436884851901,
+      "native_vs_skyfield_lighttime_corrected_arcsec": 24.48650382666003,
+      "native_vs_skyfield_range_km": -0.08125474423195556,
+      "backend_service_ra_deg": 253.15306800734132,
+      "backend_service_dec_deg": 26.16012789683326,
+      "backend_tle_age_days": 1.295,
+      "geometric_above_horizon": true,
+      "native_magnitude": 2.605776334588,
+      "native_vector_km": [
+        -320.8587098603256,
+        -1059.0857551120557,
+        543.6373157429637
+      ],
+      "skyfield_vector_km": [
+        -320.7456146576202,
+        -1059.2242729987827,
+        543.618470572266
+      ]
+    },
+    {
+      "norad_id": "43689",
+      "name": "Metop C",
+      "utc": "2026-06-04T02:58:04.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "tle": [
+        "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+        "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+      ],
+      "tle_sha256": "6d9bfced23359648ea8cae9a0cfdff91d1d9111f8a30257fac18719860b03f5b",
+      "tle_epoch": "2026-06-03T21:44:03Z",
+      "tle_age_days_at_scene": 0.21807052718750003,
+      "native_icrf_apparent": {
+        "ra_deg": 176.6562025845683,
+        "dec_deg": -2.9293268049235204
+      },
+      "skyfield_icrf_geometric": {
+        "ra_deg": 176.6614933642542,
+        "dec_deg": -2.9283787822328953
+      },
+      "skyfield_alt_deg_geometric": 32.329261790565305,
+      "skyfield_az_deg": 230.13427563365966,
+      "skyfield_range_km": 1367.6670816656183,
+      "native_range_km": 1367.7673737953774,
+      "native_vs_skyfield_geometric_arcsec": 19.32566867220016,
+      "native_vs_skyfield_lighttime_corrected_arcsec": 21.53602431699072,
+      "native_vs_skyfield_range_km": 0.10029212975905466,
+      "backend_service_ra_deg": 176.6614933642542,
+      "backend_service_dec_deg": -2.928378782232895,
+      "backend_tle_age_days": 0.218,
+      "geometric_above_horizon": true,
+      "native_magnitude": 5.434155725015,
+      "native_vector_km": [
+        -1363.6546032339875,
+        79.6737315646302,
+        -69.8985578994801
+      ],
+      "skyfield_vector_km": [
+        -1363.563117831496,
+        79.54204373733138,
+        -69.8708325375295
+      ]
+    },
+    {
+      "norad_id": "28096",
+      "name": "NOSS 3-2 r",
+      "utc": "2026-06-04T02:58:04.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "tle": [
+        "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+        "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+      ],
+      "tle_sha256": "40b6e6c8f91ed4b94a639fe84d30373b6efaa1cbd5424ad668d4ef81c1382f83",
+      "tle_epoch": "2026-06-02T19:52:46Z",
+      "tle_age_days_at_scene": 1.2953414973495372,
+      "native_icrf_apparent": {
+        "ra_deg": 253.44886770369675,
+        "dec_deg": 24.97357041361882
+      },
+      "skyfield_icrf_geometric": {
+        "ra_deg": 253.4564217335485,
+        "dec_deg": 24.97082022565816
+      },
+      "skyfield_alt_deg_geometric": 55.862244816619736,
+      "skyfield_az_deg": 107.26027890123987,
+      "skyfield_range_km": 1243.8953270816,
+      "native_range_km": 1243.8123036905324,
+      "native_vs_skyfield_geometric_arcsec": 26.566008342602462,
+      "native_vs_skyfield_lighttime_corrected_arcsec": 24.270536437087298,
+      "native_vs_skyfield_range_km": -0.08302339106467116,
+      "backend_service_ra_deg": 253.45642173354847,
+      "backend_service_dec_deg": 24.97082022565816,
+      "backend_tle_age_days": 1.295,
+      "geometric_above_horizon": true,
+      "native_magnitude": 2.614888606815,
+      "native_vector_km": [
+        -321.19739943959036,
+        -1080.8013820228675,
+        525.1377438564602
+      ],
+      "skyfield_vector_km": [
+        -321.0835085489405,
+        -1080.9400289681691,
+        525.1186713949803
+      ]
+    },
+    {
+      "norad_id": "43689",
+      "name": "Metop C",
+      "utc": "2026-06-04T02:58:08.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "tle": [
+        "1 43689U 18087A   26154.90558688  .00000126  00000-0  77220-4 0  9992",
+        "2 43689  98.6649 214.7514 0001240 143.9095 216.2167 14.21508383392943"
+      ],
+      "tle_sha256": "6d9bfced23359648ea8cae9a0cfdff91d1d9111f8a30257fac18719860b03f5b",
+      "tle_epoch": "2026-06-03T21:44:03Z",
+      "tle_age_days_at_scene": 0.21811682348379632,
+      "native_icrf_apparent": {
+        "ra_deg": 176.03933825558533,
+        "dec_deg": -1.942743878868916
+      },
+      "skyfield_icrf_geometric": {
+        "ra_deg": 176.0446130702943,
+        "dec_deg": -1.9417263725345637
+      },
+      "skyfield_alt_deg_geometric": 32.76284070581034,
+      "skyfield_az_deg": 231.42631337630786,
+      "skyfield_range_km": 1356.182416228519,
+      "native_range_km": 1356.28309036278,
+      "native_vs_skyfield_geometric_arcsec": 19.32869112942533,
+      "native_vs_skyfield_lighttime_corrected_arcsec": 21.51586073470918,
+      "native_vs_skyfield_range_km": 0.10067413426054372,
+      "backend_service_ra_deg": 176.04461307029433,
+      "backend_service_dec_deg": -1.9417263725345633,
+      "backend_tle_age_days": 0.218,
+      "geometric_above_horizon": true,
+      "native_magnitude": 5.429756220456,
+      "native_vector_km": [
+        -1352.2661661312086,
+        93.62672496481919,
+        -45.979055157515695
+      ],
+      "skyfield_vector_km": [
+        -1352.1752176572409,
+        93.49534686990938,
+        -45.951571841381266
+      ]
+    },
+    {
+      "norad_id": "28096",
+      "name": "NOSS 3-2 r",
+      "utc": "2026-06-04T02:58:08.000Z",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "tle": [
+        "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+        "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+      ],
+      "tle_sha256": "40b6e6c8f91ed4b94a639fe84d30373b6efaa1cbd5424ad668d4ef81c1382f83",
+      "tle_epoch": "2026-06-02T19:52:46Z",
+      "tle_age_days_at_scene": 1.2953877936458333,
+      "native_icrf_apparent": {
+        "ra_deg": 253.7434985852056,
+        "dec_deg": 23.80306612893121
+      },
+      "skyfield_icrf_geometric": {
+        "ra_deg": 253.75092594960716,
+        "dec_deg": 23.800395592516075
+      },
+      "skyfield_alt_deg_geometric": 54.93564825271542,
+      "skyfield_az_deg": 108.59601039605442,
+      "skyfield_range_km": 1255.2183556899615,
+      "native_range_km": 1255.1336104516465,
+      "native_vs_skyfield_geometric_arcsec": 26.285572202734254,
+      "native_vs_skyfield_lighttime_corrected_arcsec": 24.041354859755796,
+      "native_vs_skyfield_range_km": -0.0847452383120526,
+      "backend_service_ra_deg": 253.7509259496072,
+      "backend_service_dec_deg": 23.800395592516075,
+      "backend_tle_age_days": 1.295,
+      "geometric_above_horizon": true,
+      "native_magnitude": 2.625065215696,
+      "native_vector_km": [
+        -321.4722107280663,
+        -1102.455524208822,
+        506.56471941544316
+      ],
+      "skyfield_vector_km": [
+        -321.3575970721593,
+        -1102.594295405189,
+        506.5453928375478
+      ]
+    }
+  ],
+  "motion": [
+    {
+      "norad_id": "43689",
+      "elapsed_seconds": 8,
+      "native_angular_displacement_deg": 2.3082324551248257,
+      "skyfield_angular_displacement_deg": 2.308361984571597
+    },
+    {
+      "norad_id": "28096",
+      "elapsed_seconds": 8,
+      "native_angular_displacement_deg": 2.4213526264364136,
+      "skyfield_angular_displacement_deg": 2.42114766046601
+    }
+  ],
+  "max_geometric_residual_arcsec": 26.83436884851901,
+  "max_lighttime_corrected_residual_arcsec": 24.48650382666003,
+  "limits": [
+    "Historical June4 simulation only; actual mounted elements are140\u2013161daysold in currentOctober24UTC.",
+    "Native vectors are apparent ICRF with native true-equator-to-J2000 conversion and relative lighttime/aberration correction; standard Skyfield output is geometric ICRF. Both comparisons are reported, without declaring their definitions identical.",
+    "Independent propagation comparison does not establish optical point pixels or actual current orbital accuracy.",
+    "No scientific source, native orbital math, magnitude or provider changed."
+  ]
+}

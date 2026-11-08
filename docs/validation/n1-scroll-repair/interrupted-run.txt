@@ -1,0 +1,6 @@
+1440 initial ORAS Sky and served source identity 2121ms
+1440 native Landscape toggle and Sky Night Mode ON 7730ms
+1440 Explore dismissal and focus return 592ms
+1440 arrival and short outward overshoot stay in Sky 1917ms
+1440 reverse input leaves boundary hysteresis 910ms
+1440 ORAS Sky → Earth by deliberate wheel 12935ms

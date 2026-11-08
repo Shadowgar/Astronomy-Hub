@@ -1,0 +1,217 @@
+{
+  "scope": "Private Windows engineering evidence; not owner acceptance",
+  "app": "PASS",
+  "solar": [
+    "PASS",
+    "PASS",
+    "PASS"
+  ],
+  "terrainLayouts": "Three verified layout journeys reused; separately corrected native exits verified in final handoff receipt",
+  "handoff": true,
+  "files": [
+    {
+      "path": "atmosphere/day-custom.png",
+      "source": "output/playwright/solar-system-2.1/application-final/day-custom.png",
+      "bytes": 996575,
+      "sha256": "b2d0dfc7f7babdb7207b54bb886794f2b942b38546b1a3c2db0416516f3bafdf"
+    },
+    {
+      "path": "atmosphere/day-takram.png",
+      "source": "output/playwright/solar-system-2.1/application-final/day-takram.png",
+      "bytes": 1249320,
+      "sha256": "6e61d134ce243c5648697ab029fb10e172df575b8ec7682eddad46b8a324746c"
+    },
+    {
+      "path": "atmosphere/limb-custom.png",
+      "source": "output/playwright/solar-system-2.1/application-final/limb-custom.png",
+      "bytes": 706725,
+      "sha256": "82523ecd03c50210884e28ef27d65b4c4decdb01cd19585add8f0a677745dc4b"
+    },
+    {
+      "path": "atmosphere/limb-takram.png",
+      "source": "output/playwright/solar-system-2.1/application-final/limb-takram.png",
+      "bytes": 806253,
+      "sha256": "2032adcedcf71530073fdbb422187db9cd2baee5e62f20a6c0cc6905d87341e6"
+    },
+    {
+      "path": "atmosphere/crescent-custom.png",
+      "source": "output/playwright/solar-system-2.1/application-final/crescent-custom.png",
+      "bytes": 291523,
+      "sha256": "edf1968ba10050867fcce9ea9a3db9aa0acfee534fe926da87757269661317be"
+    },
+    {
+      "path": "atmosphere/crescent-takram.png",
+      "source": "output/playwright/solar-system-2.1/application-final/crescent-takram.png",
+      "bytes": 314039,
+      "sha256": "459b8dfe2ca6d6d17a0c71e814d07f1a929e42a64e17c37089c2e06745cbd4f4"
+    },
+    {
+      "path": "atmosphere/backlit-custom.png",
+      "source": "output/playwright/solar-system-2.1/application-final/backlit-custom.png",
+      "bytes": 207070,
+      "sha256": "eda3e646de376f5817b644f71bbe4ae1c487aba956d3d09e4c753ddb93f3fa54"
+    },
+    {
+      "path": "atmosphere/backlit-takram.png",
+      "source": "output/playwright/solar-system-2.1/application-final/backlit-takram.png",
+      "bytes": 231341,
+      "sha256": "ee00bad1718be6e048f910ca4d27e374571036b51355a3946c5b88fdfbe02964"
+    },
+    {
+      "path": "atmosphere/near-horizon-custom.png",
+      "source": "output/playwright/solar-system-2.1/application-final/near-horizon-custom.png",
+      "bytes": 154865,
+      "sha256": "98be15fd3b3eece9867ee80e8f0636063118a743cc6f87045961fedf1ecc9bc1"
+    },
+    {
+      "path": "atmosphere/near-horizon-takram.png",
+      "source": "output/playwright/solar-system-2.1/application-final/near-horizon-takram.png",
+      "bytes": 187015,
+      "sha256": "589f7fd9287e9a30200cd925fb4351e3a5b80947eca412b074d80e80fbbfe930"
+    },
+    {
+      "path": "terrain/1440x900-native-moon.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/1440x900-native-moon.png",
+      "bytes": 153965,
+      "sha256": "9d5881e72677618b895fdac4b347105beddd7aac44a2b2b2f256e0076905e064"
+    },
+    {
+      "path": "terrain/1440x900-overview.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/1440x900-overview.png",
+      "bytes": 553635,
+      "sha256": "1d956650a664141b7f264c7713eef65fe1423e49028bc94337b742d8052ae156"
+    },
+    {
+      "path": "terrain/1440x900-detail.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/1440x900-detail.png",
+      "bytes": 965110,
+      "sha256": "398dc56c962d339cdfa1c41e757d5746fb018431681f36ae41a412fd433b666f"
+    },
+    {
+      "path": "terrain/1440x900-relief.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/1440x900-relief.png",
+      "bytes": 298632,
+      "sha256": "c9fe22416b97bee5d1af258f5242f38b824081e96324efd6bb48f31c167fc025"
+    },
+    {
+      "path": "terrain/390x844-native-moon.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/390x844-native-moon.png",
+      "bytes": 79743,
+      "sha256": "4169eb05def4611fb33025d625d7a4223b13edb6d8975995f434a3b82241263a"
+    },
+    {
+      "path": "terrain/390x844-overview.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/390x844-overview.png",
+      "bytes": 139526,
+      "sha256": "110fdcf4e75279ab283a09a5b5109b827f647fcc261dfde0b445a2359a0aae26"
+    },
+    {
+      "path": "terrain/390x844-detail.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/390x844-detail.png",
+      "bytes": 289142,
+      "sha256": "023b98fe7cc29f100606294d25f728eb9c4025cfc714da57a76ac8de6a5751a1"
+    },
+    {
+      "path": "terrain/390x844-relief.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/390x844-relief.png",
+      "bytes": 111706,
+      "sha256": "2f1a5c6626799acb5854ad6d0ea23c13664288c985a7751adbffc6740cb7cb26"
+    },
+    {
+      "path": "terrain/844x390-native-moon.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/844x390-native-moon.png",
+      "bytes": 81422,
+      "sha256": "e792733c1ed627cc0c469c0a9511be71f4dca875cc413a773e8960bcac29c33d"
+    },
+    {
+      "path": "terrain/844x390-overview.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/844x390-overview.png",
+      "bytes": 143736,
+      "sha256": "8a06cc1b3c3d192782b6ef3d45a3ca515c08495383720f4bd98e9e470e6b7373"
+    },
+    {
+      "path": "terrain/844x390-detail.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/844x390-detail.png",
+      "bytes": 307127,
+      "sha256": "9520949e273e213024751b8320d41f6477e14b29653b4a6daa51a9c50587df6d"
+    },
+    {
+      "path": "terrain/844x390-relief.png",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/844x390-relief.png",
+      "bytes": 116061,
+      "sha256": "3d8a716c1040c57c0775176c44af9b184da0bba2f775bee2dd82265c976ed714"
+    },
+    {
+      "path": "exploration/desktop-overview.png",
+      "source": "output/playwright/solar-system-2.1/solar-regressions/desktop-overview.png",
+      "bytes": 559822,
+      "sha256": "cdbfc605dde647807f8ccc0d11984ae6ef74bfc12a49842162a7e3a59a6de65a"
+    },
+    {
+      "path": "exploration/desktop-saturn-oblique.png",
+      "source": "output/playwright/solar-system-2.1/solar-regressions/desktop-saturn-oblique.png",
+      "bytes": 397382,
+      "sha256": "43d9c417afa7019675fad0395555178c8997e3aad13e74b86404e74ed75dacdd"
+    },
+    {
+      "path": "exploration/desktop-saturn-backlit.png",
+      "source": "output/playwright/solar-system-2.1/solar-regressions/desktop-saturn-backlit.png",
+      "bytes": 281121,
+      "sha256": "3135b34cfb6d9fec248e00ea7cd212c52035f136a629164509b8ac366c038680"
+    },
+    {
+      "path": "exploration/desktop-eros.png",
+      "source": "output/playwright/solar-system-2.1/solar-regressions/desktop-eros.png",
+      "bytes": 262369,
+      "sha256": "c6a85e519dd4af1bf56d90d6a0d184d47157c6bc1898313f400ce2c35ee0a6c2"
+    },
+    {
+      "path": "video/solar-desktop.webm",
+      "source": "output/playwright/solar-system-2.1/solar-regressions/video/583b16a01dc876bb4d4c6536e7e2e9f0.webm",
+      "bytes": 2939239,
+      "sha256": "69579e3246e0679a69c415df0e8d9ecb1d80fb614458df9442920a95e2c7d15d"
+    },
+    {
+      "path": "video/solar-portrait.webm",
+      "source": "output/playwright/solar-system-2.1/solar-regressions/video/3af3f83c0e4b74b988aea25fd4f02429.webm",
+      "bytes": 1664190,
+      "sha256": "a6c950b52409c645fb52b6d940126e1a22e7bd12da874980418daff7245973df"
+    },
+    {
+      "path": "video/solar-landscape.webm",
+      "source": "output/playwright/solar-system-2.1/solar-regressions/video/864eecdab7127d0d6a2fd7895711c1cc.webm",
+      "bytes": 2258910,
+      "sha256": "c0de117f3e29f1500a74d9c5338c3e7add298da8345b3d15640b4fc2deb4018b"
+    },
+    {
+      "path": "video/terrain-portrait.webm",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/video/166fb76f916c25781ae6b2b56b399df3.webm",
+      "bytes": 434904,
+      "sha256": "c9f98c6bd78c5e578d88baa4ee5e3d8d89423a901bec5a2e0a47ee0c3372f64e"
+    },
+    {
+      "path": "video/terrain-desktop.webm",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/video/5e36cf87c3c292a57f139d9eceaf0c1d.webm",
+      "bytes": 994971,
+      "sha256": "b4143d2b457b2efdf491c71aa17f44fe9dfd328e321e1e6da877b4aa0002c3ba"
+    },
+    {
+      "path": "video/terrain-landscape.webm",
+      "source": "output/playwright/solar-system-2.1/terrain-windows-final/video/fd26e4b4a07e65b81e8387914c466e28.webm",
+      "bytes": 437850,
+      "sha256": "d4f089c18831751953723a53982adf76d8c5e76a4308de7e3b9d6b06b98d8279"
+    },
+    {
+      "path": "reference/solar-primary-cinematic.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-primary-cinematic.png",
+      "bytes": 2260404,
+      "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab"
+    },
+    {
+      "path": "reference/solar-adaptive-explorer.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-adaptive-explorer.png",
+      "bytes": 2047493,
+      "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7"
+    }
+  ]
+}

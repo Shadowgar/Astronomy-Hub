@@ -1,0 +1,146 @@
+{
+  "schema": "astronomy-hub.mission-source-records.v1",
+  "models": [
+    {
+      "id": "voyager",
+      "file": "voyager-nasa-original.glb",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/v/Voyager.glb",
+      "bytes": 3128204,
+      "sha256": "5338241f2e89e9cfe3ebb82f519b4cad64c97e66883cccba6fdda98667aec731",
+      "acquiredUtc": "2026-11-07T09:24:01.897855+00:00",
+      "pageUrl": "https://science.nasa.gov/resource/voyager-3d-model/",
+      "pageSha256": "b936ee81fdf4f1fe1d2c3418a881480c0ca43da90b0b5b7b772b847b8063b232",
+      "pageBytes": 254687
+    },
+    {
+      "id": "cassini",
+      "file": "cassini-nasa-original.glb",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/c/Cassini.glb",
+      "bytes": 5852640,
+      "sha256": "cacdca3279b28e64280ff8e823f572311f67a83bde2d0435b26f515a1b7926be",
+      "acquiredUtc": "2026-11-07T09:24:03.368100+00:00",
+      "pageUrl": "https://science.nasa.gov/resource/cassini-3d-model/",
+      "pageSha256": "e88e57afbf701f54160ca9eace5fe47005181d75b64f99e6aa428b37329fc83b",
+      "pageBytes": 254747
+    },
+    {
+      "id": "new-horizons",
+      "file": "new-horizons-nasa-original.glb",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/n/New_Horizons.glb",
+      "bytes": 3293532,
+      "sha256": "cf152d8cea17c4a83711041cb0d29ca1d980bfafa084ada2656569ea92cdd73f",
+      "acquiredUtc": "2026-11-07T09:24:04.731727+00:00",
+      "pageUrl": "https://science.nasa.gov/resource/new-horizons-3d-model/",
+      "pageSha256": "e4f7ec11592fd4601316f9ac4b0d4f19f47638bb4666a33c7091bb9f8781bf5e",
+      "pageBytes": 255217
+    }
+  ],
+  "documents": [
+    {
+      "id": "nasa-media-terms",
+      "url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "file": "nasa-media-terms.html",
+      "bytes": 313757,
+      "sha256": "fd89b1beb574a8712a4b34981917f6f435a98be4fe7d158ab156823be531310f",
+      "acquiredUtc": "2026-11-07T09:27:34.630812+00:00"
+    },
+    {
+      "id": "voyager-dimensions",
+      "url": "https://science.nasa.gov/mission/voyager/spacecraft/",
+      "file": "voyager-dimensions.html",
+      "bytes": 310840,
+      "sha256": "9c3764381dd05637cf8d1ca4ca9dbf71ff60c7e3943b89a97717a17b0d1f6029",
+      "acquiredUtc": "2026-11-07T09:27:35.747078+00:00"
+    },
+    {
+      "id": "cassini-dimensions",
+      "url": "https://solarsystem.nasa.gov/system/downloadable_items/1944_humanspacecraft.pdf",
+      "file": "cassini-dimensions.pdf",
+      "bytes": 311362,
+      "sha256": "60d4d90f571ab227a41a6d616569da750bca06ae437353f7f972fdfa3a118963",
+      "acquiredUtc": "2026-11-07T09:27:36.616910+00:00"
+    },
+    {
+      "id": "new-horizons-dimensions",
+      "url": "https://www.nasa.gov/image-article/new-horizons-approaches-pluto/",
+      "file": "new-horizons-dimensions.html",
+      "bytes": 267252,
+      "sha256": "185add9ab9048be614d0a0e3008445d7c4febd0a30fb39e118356b81a8918f73",
+      "acquiredUtc": "2026-11-07T09:27:37.660529+00:00"
+    },
+    {
+      "id": "voyager-1-events",
+      "url": "https://science.nasa.gov/mission/voyager/voyager-1/",
+      "file": "voyager-1-events.html",
+      "bytes": 319709,
+      "sha256": "4e33ab0697b136ef1ba85926bfe0904a563104d6850cb1dfb4aceee50f198b09",
+      "acquiredUtc": "2026-11-07T09:27:38.969141+00:00"
+    },
+    {
+      "id": "voyager-2-events",
+      "url": "https://science.nasa.gov/mission/voyager/voyager-2/",
+      "file": "voyager-2-events.html",
+      "bytes": 328628,
+      "sha256": "ead5f3886e60063ac19577bcad07a4e28aec062874913bf5dd3d36ba5b06d885",
+      "acquiredUtc": "2026-11-07T09:27:40.211313+00:00"
+    },
+    {
+      "id": "voyager-fast-facts",
+      "url": "https://science.nasa.gov/mission/voyager/fast-facts/",
+      "file": "voyager-fast-facts.html",
+      "bytes": 278993,
+      "sha256": "45c656d4ad1062521fab7800c08645dfe48c3e8e238231e642bed7e6f373387a",
+      "acquiredUtc": "2026-11-07T09:27:41.256719+00:00"
+    },
+    {
+      "id": "voyager-planetary-voyage",
+      "url": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+      "file": "voyager-planetary-voyage.html",
+      "bytes": 311070,
+      "sha256": "d188bd3af05f1d90f54ee96a6b894d68c060c6d7ba60281ccc13b9f0c0ea0c3b",
+      "acquiredUtc": "2026-11-07T09:27:42.307615+00:00"
+    },
+    {
+      "id": "cassini-events",
+      "url": "https://science.nasa.gov/mission/cassini-huygens/",
+      "file": "cassini-events.html",
+      "bytes": 296831,
+      "sha256": "10ef21fc05d8e7b6f533fccea96fdb542a483a3088b38be27379f3e4fd5a811b",
+      "acquiredUtc": "2026-11-07T09:27:43.492511+00:00"
+    },
+    {
+      "id": "new-horizons-events",
+      "url": "https://science.nasa.gov/mission/new-horizons/",
+      "file": "new-horizons-events.html",
+      "bytes": 322617,
+      "sha256": "07275c648e10e10565d3923cda18ec8fe48c377edbfa45bf13f0ead853b4dc4b",
+      "acquiredUtc": "2026-11-07T09:27:44.613510+00:00"
+    },
+    {
+      "id": "voyager-source",
+      "url": "https://science.nasa.gov/resource/voyager-3d-model/",
+      "file": "voyager-source.html",
+      "bytes": 254687,
+      "sha256": "b936ee81fdf4f1fe1d2c3418a881480c0ca43da90b0b5b7b772b847b8063b232",
+      "acquiredUtc": "2026-11-07T09:24:01.897855+00:00"
+    },
+    {
+      "id": "cassini-source",
+      "url": "https://science.nasa.gov/resource/cassini-3d-model/",
+      "file": "cassini-source.html",
+      "bytes": 254747,
+      "sha256": "e88e57afbf701f54160ca9eace5fe47005181d75b64f99e6aa428b37329fc83b",
+      "acquiredUtc": "2026-11-07T09:24:03.368100+00:00"
+    },
+    {
+      "id": "new-horizons-source",
+      "url": "https://science.nasa.gov/resource/new-horizons-3d-model/",
+      "file": "new-horizons-source.html",
+      "bytes": 255217,
+      "sha256": "e4f7ec11592fd4601316f9ac4b0d4f19f47638bb4666a33c7091bb9f8781bf5e",
+      "acquiredUtc": "2026-11-07T09:24:04.731727+00:00"
+    }
+  ],
+  "rawModelBytes": 12274376,
+  "documentBytes": 3825710
+}

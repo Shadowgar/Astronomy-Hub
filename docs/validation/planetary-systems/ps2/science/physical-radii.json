@@ -1,0 +1,120 @@
+{
+  "source_url": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+  "sha256": "9a9c004d950923ea368a8c4815d813c9c232c332d1586402a23b15d9581370d1",
+  "radius_definition": "radius of an equal-volume sphere; not local topography or triaxial extent",
+  "reference_1": "Archinal et al. 2018 Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015",
+  "bodies": [
+    {
+      "parent_name": "Mars",
+      "name": "Phobos",
+      "naif_id": "401",
+      "mean_radius_km": 11.08,
+      "mean_radius_sigma_km": 0.04,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Mars",
+      "name": "Deimos",
+      "naif_id": "402",
+      "mean_radius_km": 6.2,
+      "mean_radius_sigma_km": 0.24,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Jupiter",
+      "name": "Io",
+      "naif_id": "501",
+      "mean_radius_km": 1821.49,
+      "mean_radius_sigma_km": 0.5,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Jupiter",
+      "name": "Europa",
+      "naif_id": "502",
+      "mean_radius_km": 1560.8,
+      "mean_radius_sigma_km": 0.3,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Jupiter",
+      "name": "Ganymede",
+      "naif_id": "503",
+      "mean_radius_km": 2631.2,
+      "mean_radius_sigma_km": 1.7,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Jupiter",
+      "name": "Callisto",
+      "naif_id": "504",
+      "mean_radius_km": 2410.3,
+      "mean_radius_sigma_km": 1.5,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Saturn",
+      "name": "Enceladus",
+      "naif_id": "602",
+      "mean_radius_km": 252.1,
+      "mean_radius_sigma_km": 0.2,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Saturn",
+      "name": "Titan",
+      "naif_id": "606",
+      "mean_radius_km": 2574.76,
+      "mean_radius_sigma_km": 0.02,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Uranus",
+      "name": "Ariel",
+      "naif_id": "701",
+      "mean_radius_km": 578.9,
+      "mean_radius_sigma_km": 0.6,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Uranus",
+      "name": "Umbriel",
+      "naif_id": "702",
+      "mean_radius_km": 584.7,
+      "mean_radius_sigma_km": 2.8,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Uranus",
+      "name": "Titania",
+      "naif_id": "703",
+      "mean_radius_km": 788.9,
+      "mean_radius_sigma_km": 1.8,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Uranus",
+      "name": "Oberon",
+      "naif_id": "704",
+      "mean_radius_km": 761.4,
+      "mean_radius_sigma_km": 2.6,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Uranus",
+      "name": "Miranda",
+      "naif_id": "705",
+      "mean_radius_km": 235.8,
+      "mean_radius_sigma_km": 0.7,
+      "radius_reference": "1"
+    },
+    {
+      "parent_name": "Neptune",
+      "name": "Triton",
+      "naif_id": "801",
+      "mean_radius_km": 1352.6,
+      "mean_radius_sigma_km": 2.4,
+      "radius_reference": "1"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+global nasa slow
+regional eox-2016 slow
+paris-close eox-2016 slow
+PASS

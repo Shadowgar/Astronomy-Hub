@@ -1,0 +1,251 @@
+{
+  "schema": "oras.beyond-reference-qualification.v1",
+  "generated_at": "2026-11-08T05:44:21.592722+00:00",
+  "mission_manifest_sha256": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94",
+  "frame": "ICRF",
+  "origin": "Sun (NAIF 10)",
+  "corrections": "NONE",
+  "units": "km, km/s",
+  "time_scale": "TDB",
+  "comparisons": [
+    {
+      "mission_id": "voyager1",
+      "naif_id": "-31",
+      "epoch": "2012-08-25T00:00:00.000000Z",
+      "jd_tdb": 2456164.5007775784,
+      "position_au": [
+        -26.002414697963566,
+        -115.9909375882501,
+        25.63484369833887
+      ],
+      "velocity_au_s": [
+        -1.4009571232895745e-08,
+        -1.1037299940349983e-07,
+        2.4302064226891574e-08
+      ],
+      "source_radius_au": 121.60250155389264,
+      "observed_approximate_radius_au": 121.6,
+      "quality": "predicted",
+      "source_label": "Outward prediction from tracking through 1992",
+      "position_error_km": 0.00677189090155041,
+      "velocity_error_km_s": 2.5822623720138102e-08,
+      "utc_tdb_difference_seconds": 4.279613494873047e-05,
+      "reference_headers": {
+        "craft": {
+          "target": "Voyager 1 (spacecraft) (-31)    {source: Voyager_1_ST+refit2022_m}",
+          "center": "Sun (10)                        {source: Voyager_1_ST+refit2022_m}"
+        }
+      }
+    },
+    {
+      "mission_id": "voyager1",
+      "naif_id": "-31",
+      "epoch": "2012-08-25T12:00:00.000000Z",
+      "jd_tdb": 2456165.000777578,
+      "position_au": [
+        -26.003019911716255,
+        -115.99570570058903,
+        25.63589354651999
+      ],
+      "velocity_au_s": [
+        -1.4009583972908343e-08,
+        -1.103729424463288e-07,
+        2.4302018263231705e-08
+      ],
+      "source_radius_au": 121.60740036459656,
+      "observed_approximate_radius_au": 121.6,
+      "quality": "predicted",
+      "source_label": "Outward prediction from tracking through 1992",
+      "position_error_km": 0.007882358918896831,
+      "velocity_error_km_s": 1.2296203656772671e-08,
+      "utc_tdb_difference_seconds": 1.1622905731201172e-05,
+      "reference_headers": {
+        "craft": {
+          "target": "Voyager 1 (spacecraft) (-31)    {source: Voyager_1_ST+refit2022_m}",
+          "center": "Sun (10)                        {source: Voyager_1_ST+refit2022_m}"
+        }
+      }
+    },
+    {
+      "mission_id": "voyager1",
+      "naif_id": "-31",
+      "epoch": "2012-08-25T23:59:59.000000Z",
+      "jd_tdb": 2456165.500766004,
+      "position_au": [
+        -26.003625112005523,
+        -116.00047370010304,
+        25.636943368412748
+      ],
+      "velocity_au_s": [
+        -1.400959648918669e-08,
+        -1.1037288565208314e-07,
+        2.4301972213826015e-08
+      ],
+      "source_radius_au": 121.61229906094705,
+      "observed_approximate_radius_au": 121.6,
+      "quality": "predicted",
+      "source_label": "Outward prediction from tracking through 1992",
+      "position_error_km": 0.008638195864222119,
+      "velocity_error_km_s": 4.811069901102376e-09,
+      "utc_tdb_difference_seconds": 2.6047229766845703e-05,
+      "reference_headers": {
+        "craft": {
+          "target": "Voyager 1 (spacecraft) (-31)    {source: Voyager_1_ST+refit2022_m}",
+          "center": "Sun (10)                        {source: Voyager_1_ST+refit2022_m}"
+        }
+      }
+    },
+    {
+      "mission_id": "voyager2",
+      "naif_id": "-32",
+      "epoch": "2018-11-05T00:00:00.000000Z",
+      "jd_tdb": 2458427.500800724,
+      "position_au": [
+        32.844065453726074,
+        -54.28543580378129,
+        -100.69506854500206
+      ],
+      "velocity_au_s": [
+        2.841978111616435e-08,
+        -2.744718351618923e-08,
+        -9.473510310089831e-08
+      ],
+      "source_radius_au": 119.01738530659192,
+      "observed_approximate_radius_au": 119.0,
+      "quality": "predicted",
+      "source_label": "Outward prediction from tracking through 1992",
+      "position_error_km": 0.0008640673504639049,
+      "velocity_error_km_s": 2.3507188930855484e-09,
+      "utc_tdb_difference_seconds": 5.960464477539062e-07,
+      "reference_headers": {
+        "craft": {
+          "target": "Voyager 2 (spacecraft) (-32)    {source: Voyager_2_ST+refit2022_m}",
+          "center": "Sun (10)                        {source: Voyager_2_ST+refit2022_m}"
+        }
+      }
+    },
+    {
+      "mission_id": "voyager2",
+      "naif_id": "-32",
+      "epoch": "2018-11-05T12:00:00.000000Z",
+      "jd_tdb": 2458428.000800724,
+      "position_au": [
+        32.845293187855965,
+        -54.28662151998384,
+        -100.69916109886283
+      ],
+      "velocity_au_s": [
+        2.841976193925312e-08,
+        -2.7447085138237274e-08,
+        -9.473498305532143e-08
+      ],
+      "source_radius_au": 119.02172745622927,
+      "observed_approximate_radius_au": 119.0,
+      "quality": "predicted",
+      "source_label": "Outward prediction from tracking through 1992",
+      "position_error_km": 0.0003362374880922495,
+      "velocity_error_km_s": 2.5613461409098224e-09,
+      "utc_tdb_difference_seconds": 7.867813110351562e-06,
+      "reference_headers": {
+        "craft": {
+          "target": "Voyager 2 (spacecraft) (-32)    {source: Voyager_2_ST+refit2022_m}",
+          "center": "Sun (10)                        {source: Voyager_2_ST+refit2022_m}"
+        }
+      }
+    },
+    {
+      "mission_id": "voyager2",
+      "naif_id": "-32",
+      "epoch": "2018-11-05T23:59:59.000000Z",
+      "jd_tdb": 2458428.50078915,
+      "position_au": [
+        32.84652089273847,
+        -54.28780720449197,
+        -100.70325355280447
+      ],
+      "velocity_au_s": [
+        2.8419742792651175e-08,
+        -2.744698687163178e-08,
+        -9.4734863067022e-08
+      ],
+      "source_radius_au": 119.02606950559034,
+      "observed_approximate_radius_au": 119.0,
+      "quality": "predicted",
+      "source_label": "Outward prediction from tracking through 1992",
+      "position_error_km": 0.0006296540335078856,
+      "velocity_error_km_s": 2.2765666057427054e-09,
+      "utc_tdb_difference_seconds": 9.894371032714844e-06,
+      "reference_headers": {
+        "craft": {
+          "target": "Voyager 2 (spacecraft) (-32)    {source: Voyager_2_ST+refit2022_m}",
+          "center": "Sun (10)                        {source: Voyager_2_ST+refit2022_m}"
+        }
+      }
+    }
+  ],
+  "thresholds": {
+    "position_km": 0.01,
+    "velocity_km_s": 1e-07,
+    "utc_tdb_seconds": 5e-05
+  },
+  "ecliptic_direction_reference": {
+    "toolkit": "CSPICE_N0067",
+    "from_frame": "ECLIPJ2000",
+    "to_frame": "J2000",
+    "et": 0.0,
+    "matrix_rows": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.9174820620691818,
+        -0.3977771559319137
+      ],
+      [
+        0.0,
+        0.3977771559319137,
+        0.9174820620691818
+      ]
+    ],
+    "obliquity_arcsec": 84381.448,
+    "max_element_difference": 0.0,
+    "interpretation": "Angular directions only; no IBEX distance inversion. J2000/ICRF nomenclature follows NAIF."
+  },
+  "leap_seconds_reference": {
+    "file": "naif0012.tls",
+    "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+    "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+  },
+  "source_bytes": 10936,
+  "source_budget_bytes": 33554432,
+  "source_receipts": {
+    "44495777164bc836767ee5d5c9b511dc0696b95791df62a35618003896fb5073.json": {
+      "bytes": 5468,
+      "file": "44495777164bc836767ee5d5c9b511dc0696b95791df62a35618003896fb5073.json",
+      "publisher": "NASA/JPL",
+      "request_file": "44495777164bc836767ee5d5c9b511dc0696b95791df62a35618003896fb5073.json.request.txt",
+      "request_sha256": "e9fe05bd0f2a1bdac2ebf29d26435dd063c9e235913cd98117ef02e9e4060373",
+      "sha256": "a773270b9993da320aff6f0c048db1672c358c12d0066099e7f83b3067c5fffb",
+      "terms": "https://ssd.jpl.nasa.gov/disclaimer.html",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons_file.api"
+    },
+    "582950b4c4a7f52f80249f6cf83c3990e479391a7e91973e2e9b1b9a85e23184.json": {
+      "bytes": 5468,
+      "file": "582950b4c4a7f52f80249f6cf83c3990e479391a7e91973e2e9b1b9a85e23184.json",
+      "publisher": "NASA/JPL",
+      "request_file": "582950b4c4a7f52f80249f6cf83c3990e479391a7e91973e2e9b1b9a85e23184.json.request.txt",
+      "request_sha256": "62297f42580e702b7a68e1f00ba4fbb67067e1886df4c7da2e287c47c936fecd",
+      "sha256": "bf9cce6aace8e8e7e3bc4a0af46a0eb78452310b1d39a95b4fb67a76422d4384",
+      "terms": "https://ssd.jpl.nasa.gov/disclaimer.html",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons_file.api"
+    }
+  },
+  "limitations": [
+    "Fresh Horizons responses verify interpolation against the same mission-native prediction, not against new spacecraft tracking or an independent physical orbit solution.",
+    "Noon represents a day-precision crossing date; it is not a measured crossing instant.",
+    "Published approximate radii are retained as observations, never used to rescale the source vectors."
+  ]
+}

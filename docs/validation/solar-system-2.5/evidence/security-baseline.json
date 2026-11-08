@@ -1,0 +1,14 @@
+{
+  "checkedBeforeSolar25Push": true,
+  "prHead": "ea4d384af3aead949de7bec1947e8aff41465bca",
+  "codeqlPRRef": "refs/pull/107/head",
+  "codeqlPRAlerts": 28,
+  "defaultBranchCodeQLAlerts": 31,
+  "defaultBranchDependabot": {
+    "medium": 82,
+    "high": 81,
+    "low": 24,
+    "critical": 17
+  },
+  "note": "Inherited liabilities, not release approval. Exact final-SHA analyses and alert delta will be checked after push and recorded on PR107."
+}

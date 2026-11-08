@@ -1,0 +1,21 @@
+{
+  "status": "FAIL",
+  "base": "http://172.26.23.204:4218",
+  "sourceHashes": {
+    "SolarScene.ts": "500d80932d570ece57abda466e3d9454560c39fc4b35b3e7f176cfca72dd4cea",
+    "SolarWorkspace.tsx": "62970cd62fa682c32b40e4e781955845d4bd50cca83a19cc6398a97ba8ba6252",
+    "solarPresentation.ts": "17ff186ec1ccdd1f429d0145cc22d4d21f5c86bd7056825b1ea60b71acdf6612",
+    "solar.css": "3c9ce8f496d3300859f1abd4d795217e822965f85632f6e3c4db1b21aa75a8c6",
+    "solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "epoch": "2026-02-28T00:00:00Z",
+      "checks": [],
+      "states": []
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Physical radius must match API: sun\n    at file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_solar_scientific_controls.mjs:21:96"
+}

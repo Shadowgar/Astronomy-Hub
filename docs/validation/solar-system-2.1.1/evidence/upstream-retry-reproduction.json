@@ -1,0 +1,9 @@
+{
+  "status": "REPRODUCED_UNCHANGED_UPSTREAM_FAILURE",
+  "package": "3d-tiles-renderer",
+  "version": "0.5.3",
+  "sourceSha256": "385e262e51fef02594380ef42c00470c0ed8822092d3630a58dd4d44a331a998",
+  "fixture": "processed failed root; deferred child has no internal object",
+  "observed": "TypeError: Cannot read properties of undefined (reading 'loadingState')",
+  "limitation": "Original-library fixture only; corrected application recovery requires actual browser evidence."
+}

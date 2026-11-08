@@ -1,0 +1,28 @@
+default PASS [
+  'initial screenshot',
+  'landscape',
+  'night on',
+  'close display',
+  'Explore'
+] 16504
+fov-without-blur PASS [
+  'initial screenshot',
+  'landscape',
+  'night on',
+  'close display',
+  'Explore'
+] 20679
+default PASS [
+  'initial screenshot',
+  'landscape',
+  'night on',
+  'close display',
+  'Explore'
+] 14073
+fov-without-blur PASS [
+  'initial screenshot',
+  'landscape',
+  'night on',
+  'close display',
+  'Explore'
+] 15469

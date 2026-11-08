@@ -1,0 +1,4 @@
+1440 fixed night/day/live and wheel/trackpad/keyboard/minimum FOV PASS
+1440 selection/time/illumination, native FOV, product menus/licenses/history PASS
+390 fixed night/day/live and wheel/trackpad/keyboard/minimum FOV PASS
+390 selection/time/illumination, native FOV, product menus/licenses/history PASS

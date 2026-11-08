@@ -1,0 +1,101 @@
+[
+  {
+    "file": "captures/desktop-sky.png",
+    "captured_application_commit": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "sha256": "f254ad47857d5e16aecd9055aed823782caeae0fa86eacb3c005925c11b049b4",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/desktop-earth.png",
+    "captured_application_commit": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "sha256": "a3705e00fe86f58ba0c39634a661f0de2c59a43a1d8cf58ec6987308487514a2",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/desktop-solar.png",
+    "captured_application_commit": "3e4459f79e654925d3b74542cca84be5789dbcad",
+    "sha256": "614fbd250e19caba896882788fa0d7f33422462bad7e8713197f6208cbbea4b4",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/desktop-moon.png",
+    "captured_application_commit": "3e4459f79e654925d3b74542cca84be5789dbcad",
+    "sha256": "d7a3bd705cfd57b47eef9329cae0424dbc72bc584162284b0f0ec7b9c1fc1fc9",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/portrait-sky.png",
+    "captured_application_commit": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "sha256": "154bd7e48cb86074e0c3e986cd7368ceb85bfd69cb3429ed9237509a5330ca2d",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/portrait-earth.png",
+    "captured_application_commit": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "sha256": "0fcd430f1858907473c24ee370299a066844a82f2341dd71416e09861345478f",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/portrait-solar.png",
+    "captured_application_commit": "3e4459f79e654925d3b74542cca84be5789dbcad",
+    "sha256": "98a8197e542c4cb4c3e216f3d697c8fda5a913ca23bf9e46f067012fe2ff1eaf",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/portrait-moon.png",
+    "captured_application_commit": "3e4459f79e654925d3b74542cca84be5789dbcad",
+    "sha256": "20e932b8eec55d08b22981d38795eb57af1c81718246f91f10bb6de97602c838",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/landscape-sky.png",
+    "captured_application_commit": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "sha256": "4d10eeb2d41caeb2183174f9737b38d94590d464af6a51fd9e1c7f4473c0689a",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/landscape-earth.png",
+    "captured_application_commit": "47fcc14c93693149ad16bcf2e078893db655f20d",
+    "sha256": "f09c150aab7e2c860571281a6981d2c1f7008d15b9cc6576d4528ae21af32d74",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/landscape-solar.png",
+    "captured_application_commit": "3e4459f79e654925d3b74542cca84be5789dbcad",
+    "sha256": "2bb6f0467bb491233de3bb796995b588370b7d0b9807bf2f08801fd72c3da83c",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "captures/landscape-moon.png",
+    "captured_application_commit": "3e4459f79e654925d3b74542cca84be5789dbcad",
+    "sha256": "52a2b96d2a919d120ab7b97a48d4bdffa7557f6768c71634196b491a9e61a450",
+    "browser": "Windows Edge 156.0.4314.42 / NVIDIA RTX3060 D3D11",
+    "physical_iPhone": false
+  },
+  {
+    "file": "desktop-interaction.webm",
+    "storage": "private owner preview /owner-review/",
+    "sha256": "0113ba1bdff2d40eb5163a7b2579d9c00855d512cf5f319a56016afccd238c0f"
+  },
+  {
+    "file": "portrait-interaction.webm",
+    "storage": "private owner preview /owner-review/",
+    "sha256": "d6e1edff33cf1c62911e5237dd9eccd2b563b80cddb97658776ea8142abc7554"
+  },
+  {
+    "file": "landscape-interaction.webm",
+    "storage": "private owner preview /owner-review/",
+    "sha256": "3f61787fe612bbeac0394353a886da12179c42c045d8556c641e6d1a70d56f0c"
+  }
+]

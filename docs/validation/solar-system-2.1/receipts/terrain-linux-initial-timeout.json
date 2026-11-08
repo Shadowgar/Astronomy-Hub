@@ -1,0 +1,9 @@
+{
+  "base": "http://127.0.0.1:4235",
+  "started": "2026-10-28T07:18:42.448Z",
+  "environment": "Linux headless supporting evidence",
+  "checks": [],
+  "errors": [],
+  "pass": false,
+  "failure": "TimeoutError: page.waitForFunction: Timeout 30000ms exceeded."
+}

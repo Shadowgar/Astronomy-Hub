@@ -1,0 +1,40 @@
+{
+  "status": "PASS_SCOPED_SOURCE_REVIEW",
+  "source_manifest_sha256": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94",
+  "reviewer_authored_implementation": false,
+  "reviewed_inputs": {
+    "backend/app/schemas/mission_exploration.py": {
+      "sha256": "434c56e849f84d5a830f10cb301e9c900ebe50f6eb2fd62c736cd90544fc0ff3",
+      "bytes": 3076
+    },
+    "backend/app/routes/mission_exploration.py": {
+      "sha256": "e1b763ca41f26e9bfc1801c989ff973c189aeb9f4488e74d4512d3c7880fcfb0",
+      "bytes": 1531
+    },
+    "backend/app/services/mission_exploration.py": {
+      "sha256": "e979e48e06a0f7f7d4ee703fa9cd32b30c40c372557ea0b6705d9de10ba1a082",
+      "bytes": 17748
+    },
+    "backend/tests/test_mission_exploration.py": {
+      "sha256": "91d04e5ebe98c00e04093357b7254d020cfe8a354e2bff95f1c6b65fb410674b",
+      "bytes": 12060
+    },
+    "backend/tests/fixtures/mission_interpolation.json": {
+      "sha256": "4ed53e0c90cabd86de36bfe3787eb48a490d0c77c0d57b9245adab147566199e",
+      "bytes": 3329
+    },
+    "scripts/skydata/acquire_solar25_missions.py": {
+      "sha256": "bbfbc37a84c5b890bb2893f46ac1c139d3a2ce7011c12ba74f3b61e3fcf11c60",
+      "bytes": 38091
+    }
+  },
+  "focused_backend_tests": 17,
+  "independent_cspice_comparisons": 1368,
+  "catalog_endpoint_checks": 180,
+  "default_client_roundtrips": 10,
+  "source_file_hashes": 667,
+  "limits": [
+    "Sampled numerical checks are not continuous error bounds or physical navigation uncertainty.",
+    "No integrated application or owner acceptance approval."
+  ]
+}

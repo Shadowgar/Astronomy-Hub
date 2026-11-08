@@ -1,0 +1,293 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "before": {
+        "utc": 61339.743215972194,
+        "speed": 1,
+        "selection": 25544,
+        "lock": null,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:13.860Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "tracked": {
+        "utc": 61339.74321975692,
+        "speed": 1,
+        "selection": 25544,
+        "lock": 25544,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:14.187Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -0.01136057625,
+            "pitchRad": 0.510015926085,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "stopHit": {
+        "bounds": {
+          "x": 1112.40625,
+          "y": 133,
+          "width": 101.875,
+          "height": 44,
+          "top": 133,
+          "right": 1214.28125,
+          "bottom": 177,
+          "left": 1112.40625
+        },
+        "hit": "<button aria-pressed=\"true\">Stop tracking</button>",
+        "reachable": true
+      },
+      "stopped": {
+        "utc": 61339.7432608796,
+        "speed": 1,
+        "selection": 25544,
+        "lock": null,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:17.740Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -0.71798976272,
+            "pitchRad": -0.546425307275,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "before": {
+        "utc": 61339.74330502313,
+        "speed": 1,
+        "selection": 25544,
+        "lock": null,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:21.554Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "tracked": {
+        "utc": 61339.743307662015,
+        "speed": 1,
+        "selection": 25544,
+        "lock": 25544,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:21.782Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -0.001872331752,
+            "pitchRad": 0.52140748634,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "stopHit": {
+        "bounds": {
+          "x": 86.40625,
+          "y": 816,
+          "width": 101.875,
+          "height": 44,
+          "top": 816,
+          "right": 188.28125,
+          "bottom": 860,
+          "left": 86.40625
+        },
+        "hit": "<button aria-pressed=\"true\">Stop tracking</button>",
+        "reachable": true
+      },
+      "stopped": {
+        "utc": 61339.7433323148,
+        "speed": 1,
+        "selection": 25544,
+        "lock": null,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:23.912Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -0.723790508462,
+            "pitchRad": -0.5442215202,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 390
+      },
+      "before": {
+        "utc": 61339.74336962963,
+        "speed": 1,
+        "selection": 25544,
+        "lock": null,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:27.136Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "tracked": {
+        "utc": 61339.74337355324,
+        "speed": 1,
+        "selection": 25544,
+        "lock": 25544,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:27.475Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -0.003149005504,
+            "pitchRad": 0.519945122958,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "stopHit": {
+        "bounds": {
+          "x": 86.40625,
+          "y": 255,
+          "width": 101.875,
+          "height": 44,
+          "top": 255,
+          "right": 188.28125,
+          "bottom": 299,
+          "left": 86.40625
+        },
+        "hit": "<button aria-pressed=\"true\">Stop tracking</button>",
+        "reachable": true
+      },
+      "stopped": {
+        "utc": 61339.74340152777,
+        "speed": 1,
+        "selection": 25544,
+        "lock": null,
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:29.892Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": -0.729387754088,
+            "pitchRad": -0.5421099015,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        }
+      },
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "method": "Skyfield observer.at(t).observe(body).apparent().altaz(); no refraction requested; geometric horizon",
+  "kernel": "/home/rocco/Astronomy-Hub/data/runtime-packs/planetary-ephemeris/release/de442s.bsp",
+  "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+  "observer": {
+    "lat": 41.321903,
+    "lon": -79.585394,
+    "elevationM": 432.816
+  },
+  "conditions_claim": "Computed astronomical darkness only. Site weather, seeing, light pollution and terrain not measured.",
+  "epochs": [
+    {
+      "utc": "2026-02-28T00:00:00+00:00",
+      "sun": {
+        "altitudeDeg": -10.751397029267986,
+        "azimuthDeg": 268.6963736587274
+      },
+      "moon": {
+        "altitudeDeg": 52.685545077493444,
+        "azimuthDeg": 104.36032377219912
+      }
+    },
+    {
+      "utc": "2026-08-13T04:00:00+00:00",
+      "sun": {
+        "altitudeDeg": -30.78849304150138,
+        "azimuthDeg": 336.4053631612837
+      },
+      "moon": {
+        "altitudeDeg": -31.170197533969652,
+        "azimuthDeg": 329.67667110448286
+      }
+    }
+  ]
+}

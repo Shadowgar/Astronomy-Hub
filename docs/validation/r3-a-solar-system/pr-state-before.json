@@ -1,0 +1,102 @@
+[
+  {
+    "baseRefName": "main",
+    "headRefName": "c6-1a-global-imagery-adoption-1",
+    "headRefOid": "35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e",
+    "isDraft": false,
+    "mergeCommit": null,
+    "number": 71,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "title": "C6-1A: automatic best-available Earth imagery",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/71"
+  },
+  {
+    "baseRefName": "main",
+    "headRefName": "r0-adaptive-explorer-authority-1",
+    "headRefOid": "d047d16ec7dfd27145716dd5130b46bfaaa6b7e0",
+    "isDraft": false,
+    "mergeCommit": {
+      "oid": "17f94289a8568f33c7287983ef46a5c5cc5427d4"
+    },
+    "number": 72,
+    "reviewDecision": "",
+    "state": "MERGED",
+    "title": "docs: establish Adaptive Explorer R0 product authority",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/72"
+  },
+  {
+    "baseRefName": "main",
+    "headRefName": "r1-a-adaptive-explorer-design-1",
+    "headRefOid": "b151d45787cf0e450aa0b187acd3eee142fa1fef",
+    "isDraft": false,
+    "mergeCommit": null,
+    "number": 73,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "title": "design: Adaptive Explorer R1-A visual references for owner review",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/73"
+  },
+  {
+    "baseRefName": "r1-a-adaptive-explorer-design-1",
+    "headRefName": "r1-b-adaptive-sky-implementation-1",
+    "headRefOid": "d1e3a75c4fa3b48a41fc5167786b3147bf763e71",
+    "isDraft": false,
+    "mergeCommit": null,
+    "number": 74,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "title": "R1-B: implement Adaptive Explorer Sky with native Stellarium controls",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/74"
+  },
+  {
+    "baseRefName": "r1-b-adaptive-sky-implementation-1",
+    "headRefName": "n1-sky-earth-navigation-1",
+    "headRefOid": "def33b9890608489078bc6e05912a5451b8ea57f",
+    "isDraft": false,
+    "mergeCommit": {
+      "oid": "d1e3a75c4fa3b48a41fc5167786b3147bf763e71"
+    },
+    "number": 75,
+    "reviewDecision": "",
+    "state": "MERGED",
+    "title": "N1: smooth Sky/Earth navigation, Pennsylvania horizon and native satellites",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75"
+  },
+  {
+    "baseRefName": "r1-b-adaptive-sky-implementation-1",
+    "headRefName": "r2-a-earth-search-1",
+    "headRefOid": "27f34a94198f2061c0a5083a68beebd567c7d87f",
+    "isDraft": true,
+    "mergeCommit": null,
+    "number": 78,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "title": "R2-A: Earth address, place and coordinate exploration",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/78"
+  },
+  {
+    "baseRefName": "r2-a-earth-search-1",
+    "headRefName": "r2-b-earth-imagery-cache-1",
+    "headRefOid": "158a77053ea18e4d0aed8725f715ca373930fd13",
+    "isDraft": true,
+    "mergeCommit": null,
+    "number": 79,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "title": "R2-B: native Earth imagery and persistent cache (partial qualification)",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/79"
+  },
+  {
+    "baseRefName": "r2-b-earth-imagery-cache-1",
+    "headRefName": "r2-earth-ux-performance-1",
+    "headRefOid": "23f5c41f830fad7eb66b67fec297962c2599428e",
+    "isDraft": true,
+    "mergeCommit": null,
+    "number": 80,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "title": "R2 Earth: direct search, restrained map controls and measured imagery latency",
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/80"
+  }
+]

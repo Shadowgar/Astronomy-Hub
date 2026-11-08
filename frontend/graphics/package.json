@@ -1,0 +1,13 @@
+{
+  "name": "astronomy-hub-vanilla-graphics",
+  "private": true,
+  "dependencies": {
+    "three": "0.180.0",
+    "@takram/three-atmosphere": "0.19.1",
+    "@takram/three-geospatial": "0.9.1",
+    "postprocessing": "6.39.5",
+    "3d-tiles-renderer": "0.5.3"
+  },
+  "version": "0.1.0",
+  "description": "Isolated vanilla renderer dependencies; unused upstream React peers are installed but not bundled."
+}

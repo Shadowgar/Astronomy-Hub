@@ -1,0 +1,21 @@
+# Dependency and source-build qualification
+
+The Hub remains React18.3.1. Its existing resolved dependency versions are unchanged from `b4005ce4`; only Three's manifest range is now exact0.180.0. The separate `frontend/graphics` lock pins Takram atmosphere0.19.1, geospatial0.9.1, postprocessing6.39.5 and NASA TilesRenderer0.5.3. Standard npm install/ci succeeds without force, legacy-peer-deps or peer omission. Direct installation beside HubReact18 failed its React>=19 optional-peer check; that red result is retained in `output/solar21-peer-check/result.log`.
+
+The isolated graph contains unused React19.3.1/R3F9.8.2 peers required by geospatial. This is not a Hub migration: independent production bundle inspection found195 modules,12 graphics modules, **zero isolated React19/R3F/react-merge-refs modules**, and only HubReact18. All Three imports resolve the root0.180.0 instance. See `graphics-bundle-independent-review.json`; actual browser diagnostics identify revision180 with real package instances. No R3F provider, second React root or second animation scheduler is introduced.
+
+Docker copies both package manifests before npm ci. Development, canonical production and compatibility production recipes also copy the already-required shared glass source. The source reconstruction runner explicitly installs the third locked graph with scripts disabled; it does not depend on a hidden postinstall or workstation cache. Source-package contract tests pass. This **does not renew the historical f7cb702c source archive**: a matching final source distribution, public anonymous offer and combined-work source/legal qualification remain release gates. No archive was published.
+
+## Current advisory triage
+
+Fresh registry audits are retained in `frontend-audit.json` and `graphics-audit.json`. The new isolated graphics graph reports **zero advisories**. The unchanged Hub graph reports12 affected package entries (1critical,5high,6moderate); these are not12 newly introduced vulnerabilities. `dependency-baseline.json` proves zero existing resolved-version changes.
+
+- Build/test tooling: Vite, Vitest/mocker, PostCSS, Browserslist, baseline-browser-mapping, source-map-js and nanoid advisories concern development servers, test mock registration or build-time parsing/generators. The qualified private preview serves built files through nginx, not a Vite development server. These remain maintenance debt; this task does not certify publicly exposed developer services.
+- DOMPurify and protobufjs arrive through the unused Hub Cesium dependency. `CesiumFoundation.jsx` is unreferenced by the current route graph; current native Earth/Moon use their separate pinned runtimes. No Hub Cesium/DOMPurify/protobuf parser is newly bundled by this integration. The critical [DOMPurify template/shadow-root advisory](https://github.com/advisories/GHSA-cg2g-xh64-v4q7) is not a demonstrated exploit path in these new renderers. This is not a fresh audit of unchanged external native artifacts.
+- React Router's [SSR constructor issue](https://github.com/advisories/GHSA-337j-9hxr-rhxg) excludes declarative mode; this Hub uses BrowserRouter/Routes with client rendering, without that SSR hydration path. [Backslash navigation/open redirect](https://github.com/advisories/GHSA-wrjc-x8rr-h8h6) remains a library advisory. New terrain return paths are parsed with URL, restricted to same-origin exact `/planet-view/moon`, then serialized; other destinations are established contract builders. Existing navigation security tests and the new route/observer regressions remain required. No arbitrary remote target is admitted by the added terrain return contract.
+
+Do not report the entire dependency estate as clean or independently release-approved. Preserve this known baseline maintenance debt for a bounded dependency review before production release; no unrelated major-version migrations were mixed into the renderer work.
+
+## Notices
+
+Actual Takram MIT, upstream Bruneton BSD-3-Clause, postprocessing Zlib and NASA TilesRenderer Apache-2.0 notices are copied into the built legal assets. Source terrain terms and byte-range hash scopes are separately recorded in `TERRAIN_SOURCE.md` and independently checked in `REVIEW_TERRAIN.md`.

@@ -1,0 +1,28 @@
+1440 Source-backed three-body scene, actual draws, no inactive native renderer
+1440 Actual scene object positions equal Docker ephemeris vectors
+1440 Keyboard Earth selection moves actual camera target to source vector
+1440 Mars selection/focus and honest barycenter details
+1440 Back/Forward restores selected identity and actual camera focus
+1440 Explicit zoom/orbit controls move actual camera and support keyboard
+1440 Real pointer wheel/drag or emulated touch remains interactive
+1440 Unsupported R4 visit stays in usable Solar context
+1440 Controlled epoch recalculates source positions; selection retained
+1440 Reload restores epoch/body from canonical URL
+1440 Out-of-coverage API rejection destroys stale scene; Back recovers
+1440 Existing coordinate search actual Cesium destination; Earth→Solar→Earth preserves observer/epoch/camera and single renderer
+1440 Native Sky/Pennsylvania/time/observer survive Earth return and Solar round trip
+1440 Cross-mode history disposes/recreates one heavy renderer
+390 Source-backed three-body scene, actual draws, no inactive native renderer
+390 Actual scene object positions equal Docker ephemeris vectors
+390 Keyboard Earth selection moves actual camera target to source vector
+390 Mars selection/focus and honest barycenter details
+390 Back/Forward restores selected identity and actual camera focus
+390 Explicit zoom/orbit controls move actual camera and support keyboard
+390 Real pointer wheel/drag or emulated touch remains interactive
+390 Unsupported R4 visit stays in usable Solar context
+390 Controlled epoch recalculates source positions; selection retained
+390 Reload restores epoch/body from canonical URL
+390 Out-of-coverage API rejection destroys stale scene; Back recovers
+390 Existing coordinate search actual Cesium destination; Earth→Solar→Earth preserves observer/epoch/camera and single renderer
+390 Native Sky/Pennsylvania/time/observer survive Earth return and Solar round trip
+390 Cross-mode history disposes/recreates one heavy renderer

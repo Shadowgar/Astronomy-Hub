@@ -1,0 +1,115 @@
+{
+  "kind": "Actual unedited browser PNG captures",
+  "images": [
+    {
+      "path": "images/390x501-compact.png",
+      "bytes": 89028,
+      "sha256": "13e2c061a5594b9dd5677c6ca4d4c169c1e05f5abc4a8cc2a4085c6d388e8e5c"
+    },
+    {
+      "path": "images/390x540-compact.png",
+      "bytes": 92547,
+      "sha256": "516e82b022adb3f5c31693d46a4d78a193d477437571c7c2d8eaec963ab1ef86"
+    },
+    {
+      "path": "images/context-image-unavailable.png",
+      "bytes": 136966,
+      "sha256": "44f57a72afe8bdc954879aaaf651fef2db596f6548b4eef24d0c1a49937a78e5"
+    },
+    {
+      "path": "images/earth-after.png",
+      "bytes": 588907,
+      "sha256": "4415b181f62d89b69dc2226bd55c5a978f5954fcc083e3030dc382a296e52833"
+    },
+    {
+      "path": "images/earth-backlit.png",
+      "bytes": 210696,
+      "sha256": "f5eda09ac98a6bb31f483614680ee7de12adbbdef38503dbaec575522adf7fd0"
+    },
+    {
+      "path": "images/earth-before.png",
+      "bytes": 606401,
+      "sha256": "97f23bfd010716427f20eda788580789f3aebc837a07598fe445f1aa175ea237"
+    },
+    {
+      "path": "images/earth-crescent.png",
+      "bytes": 288818,
+      "sha256": "d4e8f28c5cfe7429913b2ebda13f86d23138f92c11a25ee0bc09b4f7d95b468e"
+    },
+    {
+      "path": "images/earth-day-before.png",
+      "bytes": 1249313,
+      "sha256": "ccee649522a61992d63349660f618f73229a4f24c437b81089417a88616a1901"
+    },
+    {
+      "path": "images/earth-day.png",
+      "bytes": 1158288,
+      "sha256": "fa9387ac002f6e1222f5eb0794d7b41964d7f1fe5e6e7d245093340e2ac3402d"
+    },
+    {
+      "path": "images/earth-landscape.png",
+      "bytes": 316165,
+      "sha256": "9757f93bca30a4aaebc9bec39561cf5ca5cde2615f536a4e057fd3573aad2efa"
+    },
+    {
+      "path": "images/earth-limb.png",
+      "bytes": 751669,
+      "sha256": "ee7ba06945a834b6c641125938e0c0149505128a02cc564d08768daeb5ef293b"
+    },
+    {
+      "path": "images/earth-near-horizon.png",
+      "bytes": 186844,
+      "sha256": "ba1e7f90c4c7b7d51adc023d9f118becd874ef796958ce8e323deda4bc550a01"
+    },
+    {
+      "path": "images/earth-portrait.png",
+      "bytes": 427515,
+      "sha256": "b49a2da8cc278f70048d65800d7c9ff425efa91f83c7ad83140a09e3135969df"
+    },
+    {
+      "path": "images/terrain-1440x900-detail.png",
+      "bytes": 705149,
+      "sha256": "549ac99a12c7042478f090d91d2d6accd1b4ab263f9ad47c03dcdbeeef0234d7"
+    },
+    {
+      "path": "images/terrain-1440x900-overview.png",
+      "bytes": 284373,
+      "sha256": "4a1420ebe758a41857adfb7c63504fe9a3cb673fee08fadbe4daf85d40229a04"
+    },
+    {
+      "path": "images/terrain-390x844-detail.png",
+      "bytes": 213341,
+      "sha256": "15e87e9c91d325ab5bf9b14eff496b1ae46c03211e10ca980821c69adc2db710"
+    },
+    {
+      "path": "images/terrain-390x844-overview.png",
+      "bytes": 146950,
+      "sha256": "78b2ac91b086016f9e2ebf0bde2b808b23d61cf43a0c5a74cd352565ef10bf47"
+    },
+    {
+      "path": "images/terrain-844x390-detail.png",
+      "bytes": 170743,
+      "sha256": "f263aeedb2c5b6b98572e6a97ec536d1e1c3e60c19930d3a2d85768cca0d4b8a"
+    },
+    {
+      "path": "images/terrain-844x390-overview.png",
+      "bytes": 101716,
+      "sha256": "bcb656906897d28b80dcd1dc53056fefd53888feb9dbd0479cdd340a61d62253"
+    },
+    {
+      "path": "images/terrain-before-1440x900.png",
+      "bytes": 553635,
+      "sha256": "1d956650a664141b7f264c7713eef65fe1423e49028bc94337b742d8052ae156"
+    },
+    {
+      "path": "images/terrain-before-390x844.png",
+      "bytes": 139526,
+      "sha256": "110fdcf4e75279ab283a09a5b5109b827f647fcc261dfde0b445a2359a0aae26"
+    },
+    {
+      "path": "images/terrain-before-844x390.png",
+      "bytes": 143736,
+      "sha256": "8a06cc1b3c3d192782b6ef3d45a3ca515c08495383720f4bd98e9e470e6b7373"
+    }
+  ]
+}

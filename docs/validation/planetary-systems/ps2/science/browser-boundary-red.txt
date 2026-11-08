@@ -1,0 +1,36 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_browser_safe_published_bounds_round_trip_and_strict_exclusion ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7facbbcf9370>
+release = PosixPath('/home/rocco/Astronomy-Hub/.worktrees/ps2-major-moon-systems-1/data/runtime-packs/planetary-systems/release')
+
+    def test_browser_safe_published_bounds_round_trip_and_strict_exclusion(monkeypatch,release):
+        from datetime import timedelta
+        monkeypatch.setenv('ORAS_PLANETARY_SYSTEMS_DIR',str(release))
+        response=_request('/api/v1/planetary-systems/mars',{'epoch':NOW.isoformat()})
+        snap=response.json()
+        ts=service._timescale(str(release))
+        first=ts.tdb_jd(service.FIRST).utc_datetime()
+        last=ts.tdb_jd(service.LAST).utc_datetime()
+        expected_start=first.replace(microsecond=first.microsecond//1000*1000)
+        if first.microsecond%1000:expected_start+=timedelta(milliseconds=1)
+        expected_end=last.replace(microsecond=last.microsecond//1000*1000)
+>       assert snap['coverage']==snap['sampled_coverage']=={
+            'start':expected_start.isoformat(timespec='milliseconds').replace('+00:00','Z'),
+            'end':expected_end.isoformat(timespec='milliseconds').replace('+00:00','Z')}
+E       AssertionError: assert {'end': '2026...8:50.817628Z'} == {'end': '2026...3:58:50.818Z'}
+E         
+E         Differing items:
+E         {'end': '2026-10-31T23:58:50.817465Z'} != {'end': '2026-10-31T23:58:50.817Z'}
+E         {'start': '2026-09-30T23:58:50.817628Z'} != {'start': '2026-09-30T23:58:50.818Z'}
+E         Use -v to get more diff
+
+backend/tests/test_horizons_systems.py:184: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T05:31:00.000086+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "6cca1635-6fc3-447e-bb66-12e597011de6", "route": "/api/v1/planetary-systems/mars", "method": "GET"}
+{"timestamp": "2026-10-24T05:31:00.672961+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "6cca1635-6fc3-447e-bb66-12e597011de6", "route": "/api/v1/planetary-systems/mars", "method": "GET", "status_code": 200, "duration_ms": 672}
+{"timestamp": "2026-10-24T05:31:00.673702+00:00", "level": "info", "event": "HTTP Request: GET http://test/api/v1/planetary-systems/mars?epoch=2026-10-23T12%3A00%3A00%2B00%3A00 \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+=========================== short test summary info ============================
+FAILED backend/tests/test_horizons_systems.py::test_browser_safe_published_bounds_round_trip_and_strict_exclusion
+1 failed, 17 deselected in 1.79s

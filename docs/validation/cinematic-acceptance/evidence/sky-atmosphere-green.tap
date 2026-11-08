@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: fresh embedded Sky defaults atmosphere off without touching other settings
+ok 1 - fresh embedded Sky defaults atmosphere off without touching other settings
+  ---
+  duration_ms: 3.993153
+  type: 'test'
+  ...
+# Subtest: explicit native atmosphere on survives renderer recreation and repeat presentation
+ok 2 - explicit native atmosphere on survives renderer recreation and repeat presentation
+  ---
+  duration_ms: 1.884469
+  type: 'test'
+  ...
+# Subtest: explicit native atmosphere off survives renderer recreation
+ok 3 - explicit native atmosphere off survives renderer recreation
+  ---
+  duration_ms: 1.280765
+  type: 'test'
+  ...
+# Subtest: invalid or blocked preference storage keeps the approved safe default and usable toggle
+ok 4 - invalid or blocked preference storage keeps the approved safe default and usable toggle
+  ---
+  duration_ms: 1.085898
+  type: 'test'
+  ...
+# Subtest: standalone state is preserved until embedded presentation and disposal removes watcher
+ok 5 - standalone state is preserved until embedded presentation and disposal removes watcher
+  ---
+  duration_ms: 0.551616
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21.333018

@@ -1,0 +1,86 @@
+{
+  "head": "2811a511faa7daca42f1fce7a59a39bbeefed0eb",
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "c22f20434593f3605fb1cb21459f5e23b867d0f1584ade66f2a8a57574e39734",
+    "runtimes/sky-adapter/entry.mjs": "0f715ec3cfd8ec8becafefdb01d4a5bab365dd0d927c58c495e877569b05e18d",
+    "runtimes/sky-adapter/native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
+    "frontend/public/runtime-versions.json": "ab5df3a671d0d191743dfceaa3078dd0e3efa5b31e2bf4c2f578d9bb2d5d3363",
+    "scripts/validation/verify_sky_cached_fullscreen.mjs": "5b5112e47c07ae18e26ba3810657b0e4b370e7eddb5b4b0d6891a8716e796ae4"
+  },
+  "base": "http://127.0.0.1:4201",
+  "started": "2026-10-14T05:42:56.117Z",
+  "status": "NOT_SUPPORTED",
+  "runs": [
+    {
+      "width": 1440,
+      "status": "NOT_SUPPORTED",
+      "hostCache": {
+        "identity": "71c700b5-7eb8-4c35-8f64-e735a75d5c6c",
+        "restored": 0,
+        "hide": []
+      },
+      "nativeCache": {
+        "identity": "f5e21c9c-2ade-4035-8672-92fcec789590",
+        "restored": 0,
+        "hide": [
+          false
+        ]
+      },
+      "cacheFailures": [
+        {
+          "loaderId": "679509626633B5391B4FB0F477EA26CD",
+          "frameId": "13A54A0A7058522FC061921B5B4B8406",
+          "notRestoredExplanations": [
+            {
+              "type": "Circumstantial",
+              "reason": "MainResourceHasCacheControlNoStore"
+            },
+            {
+              "type": "Circumstantial",
+              "reason": "JsNetworkRequestReceivedCacheControlNoStoreResource"
+            },
+            {
+              "type": "Circumstantial",
+              "reason": "BrowsingInstanceNotSwapped"
+            }
+          ],
+          "notRestoredExplanationsTree": {
+            "url": "http://127.0.0.1:4201/sky-engine?date=2026-10-13T02%3A10%3A00Z",
+            "explanations": [
+              {
+                "type": "Circumstantial",
+                "reason": "MainResourceHasCacheControlNoStore"
+              },
+              {
+                "type": "Circumstantial",
+                "reason": "JsNetworkRequestReceivedCacheControlNoStoreResource"
+              },
+              {
+                "type": "Circumstantial",
+                "reason": "BrowsingInstanceNotSwapped"
+              }
+            ],
+            "children": [
+              {
+                "url": "http://127.0.0.1:4201/oras-sky-engine/?date=2026-10-13T02%3A10%3A00Z&orasEmbedded=1&orasNightMode=0",
+                "explanations": [
+                  {
+                    "type": "Circumstantial",
+                    "reason": "MainResourceHasCacheControlNoStore"
+                  },
+                  {
+                    "type": "Circumstantial",
+                    "reason": "JsNetworkRequestReceivedCacheControlNoStoreResource"
+                  }
+                ],
+                "children": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "error": "Error: Actual cached-page restoration was not available; no synthetic cache proof accepted\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r1-b-adaptive-sky-implementation-1/scripts/validation/verify_sky_cached_fullscreen.mjs:54:95",
+  "finished": "2026-10-14T05:43:03.900Z"
+}

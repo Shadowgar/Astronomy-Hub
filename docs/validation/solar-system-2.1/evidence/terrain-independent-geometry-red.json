@@ -1,0 +1,9 @@
+{
+  "reviewer": "independent atmosphere agent reviewing terrain conversion",
+  "pass": false,
+  "stage": "initial all-vertex comparison before float64 radial addition correction",
+  "firstFailingTile": "tiles/0/0/0.glb",
+  "maximumPositionErrorM": 0.06250363481822774,
+  "toleranceM": 0.001,
+  "cause": "Adding lunar radius to a float32 height array retained float32 before local rebasing, producing 0.125 metre radial steps. The source height uncertainty is larger, but this extra conversion quantization is avoidable."
+}

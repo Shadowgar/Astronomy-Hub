@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "platform": "linux/amd64",
+  "native": {
+    "base_image": "emscripten/emsdk@sha256:1e264934c11ffde8511441eaed6bdc44eaa30ec027e46d38be7ae67106aefdab",
+    "config_digest": "sha256:ebe9fb0f1f2b2c8bc6a4e2539fe9ab367c0d8af43dc4334646534a54b43e96b9",
+    "emscripten_version": "1.39.17",
+    "dockerfile": "Native.Dockerfile",
+    "build_command": "source /emsdk/emsdk_env.sh && make js-es6",
+    "expected_outputs": {
+      "build/stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+      "build/stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+    }
+  },
+  "node": {
+    "image": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+    "platform": "linux/amd64",
+    "install_command": "npm ci --no-audit --no-fund --cache /tmp/npm-cache",
+    "build_environment": {
+      "ORAS_RUNTIME_PUBLIC_PATH": "/oras-sky-engine/",
+      "ORAS_RUNTIME_COPY_SKYDATA": "0",
+      "NODE_OPTIONS": "--openssl-legacy-provider --max-old-space-size=4096"
+    }
+  },
+  "downloads": [
+    {
+      "filename": "scons.deb",
+      "url": "https://archive.debian.org/debian/pool/main/s/scons/scons_3.0.1-2_all.deb",
+      "sha256": "9c0c7be3025255466852cdc4a303b858fd4cd08f0401cf33046fb4502c25e068",
+      "bytes": 537980
+    }
+  ]
+}

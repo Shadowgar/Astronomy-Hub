@@ -1,0 +1,142 @@
+
+> stellarium-web@0.1.0 build
+> vue-cli-service build
+
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+
+-  Building for production...
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+ WARNING  Compiled with 3 warnings3:33:56 PM
+
+ warning  in ./src/plugins/orasRuntime/index.js
+
+Module Error (from ./node_modules/thread-loader/dist/cjs.js):
+
+/work/src/plugins/orasRuntime/index.js
+  84:54  error  Expected space(s) before "return"  keyword-spacing
+
+✖ 1 problem (1 error, 0 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+
+
+ @ ./src/plugins sync \.\/\w+\/index\.js$
+ @ ./src/main.js
+ @ multi ./src/main.js
+
+ warning
+
+asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+This can impact web performance.
+Assets:
+  fonts/materialdesignicons-webfont.ff13d121.woff (312 KiB)
+  fonts/materialdesignicons-webfont.541e65fb.eot (648 KiB)
+  fonts/materialdesignicons-webfont.fc03f7f1.ttf (647 KiB)
+  js/stellarium-web-engine.a41e078b.wasm (1.15 MiB)
+  js/app.1a6796d9.js (588 KiB)
+  css/chunk-vendors.11c203ce.css (639 KiB)
+  js/chunk-vendors.c8723c79.js (2.84 MiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Allsky.png (278 KiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix5.png (321 KiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix4.png (383 KiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix10.png (541 KiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix11.png (564 KiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix7.png (255 KiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix8.png (565 KiB)
+  landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix9.png (563 KiB)
+
+ warning
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+Entrypoints:
+  app (4.04 MiB)
+      css/chunk-vendors.11c203ce.css
+      js/chunk-vendors.c8723c79.js
+      css/app.e3189512.css
+      js/app.1a6796d9.js
+
+
+  File                                   Size              Gzipped
+
+  dist/js/chunk-vendors.c8723c79.js      2905.31 KiB       665.48 KiB
+  dist/js/app.1a6796d9.js                588.04 KiB        114.06 KiB
+  dist/js/chunk-2d2253ec.81e41965.js     0.24 KiB          0.19 KiB
+  dist/css/chunk-vendors.11c203ce.css    638.87 KiB        88.59 KiB
+  dist/css/app.e3189512.css              3.84 KiB          1.39 KiB
+
+  Images and other types of assets omitted.
+
+ DONE  Build complete. The dist directory is ready to be deployed.
+ INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html

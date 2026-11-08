@@ -1,0 +1,97 @@
+[
+  {
+    "name": "single wheel",
+    "beforeChanges": 1,
+    "afterChanges": 5,
+    "beforeDeliveredPackets": 1,
+    "afterDeliveredPackets": 1,
+    "beforeFrameMs": {
+      "count": 14,
+      "p50": 166.70000000000073,
+      "p95": 216.60000000000036,
+      "max": 216.60000000000036
+    },
+    "afterFrameMs": {
+      "count": 13,
+      "p50": 183.40000000000146,
+      "p95": 216.59999999999854,
+      "max": 216.59999999999854
+    }
+  },
+  {
+    "name": "rapid wheel accumulation",
+    "beforeChanges": 4,
+    "afterChanges": 9,
+    "beforeDeliveredPackets": 7,
+    "afterDeliveredPackets": 7,
+    "beforeFrameMs": {
+      "count": 22,
+      "p50": 166.70000000000073,
+      "p95": 216.70000000000073,
+      "max": 233.29999999999927
+    },
+    "afterFrameMs": {
+      "count": 21,
+      "p50": 183.29999999999927,
+      "p95": 200.10000000000218,
+      "max": 283.2999999999993
+    }
+  },
+  {
+    "name": "high frequency trackpad",
+    "beforeChanges": 16,
+    "afterChanges": 17,
+    "beforeDeliveredPackets": 21,
+    "afterDeliveredPackets": 20,
+    "beforeFrameMs": {
+      "count": 25,
+      "p50": 200,
+      "p95": 250,
+      "max": 266.6999999999971
+    },
+    "afterFrameMs": {
+      "count": 26,
+      "p50": 233.3000000000029,
+      "p95": 266.8000000000029,
+      "max": 299.90000000000146
+    }
+  },
+  {
+    "name": "direction reversal",
+    "beforeChanges": 2,
+    "afterChanges": 7,
+    "beforeDeliveredPackets": 2,
+    "afterDeliveredPackets": 2,
+    "beforeFrameMs": {
+      "count": 12,
+      "p50": 200,
+      "p95": 266.59999999999854,
+      "max": 266.59999999999854
+    },
+    "afterFrameMs": {
+      "count": 15,
+      "p50": 183.3000000000029,
+      "p95": 216.6999999999971,
+      "max": 216.6999999999971
+    }
+  },
+  {
+    "name": "pointer cancellation",
+    "beforeChanges": 1,
+    "afterChanges": 1,
+    "beforeDeliveredPackets": 1,
+    "afterDeliveredPackets": 1,
+    "beforeFrameMs": {
+      "count": 109,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "max": 183.3000000000029
+    },
+    "afterFrameMs": {
+      "count": 110,
+      "p50": 16.69999999999709,
+      "p95": 16.79999999998836,
+      "max": 150
+    }
+  }
+]

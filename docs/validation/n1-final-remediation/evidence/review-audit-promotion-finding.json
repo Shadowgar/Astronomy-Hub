@@ -1,0 +1,78 @@
+{
+  "deliveryHead": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621",
+  "state": "OPEN",
+  "base": "r1-b-adaptive-sky-implementation-1",
+  "codexStates": [
+    {
+      "code_review": {
+        "commit_sha": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621",
+        "has_any_findings": true,
+        "has_unresolved_findings": true,
+        "status": "completed"
+      },
+      "security_review": {
+        "commit_sha": null,
+        "has_any_findings": null,
+        "has_unresolved_findings": null,
+        "status": null
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "PRRT_kwDORt_rys6tGPIB",
+      "isResolved": false,
+      "isOutdated": false,
+      "comments": {
+        "pageInfo": {
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Preserve native-change flags during UI-only promotions**\n\nWhen a frontend-only build is promoted after the native horizon patch has been recorded, `native` is false while the lock already contains `native_horizon`; this branch copies that attestation but leaves the newly initialized `native_wasm_identical` and `native_vendor_chunks_identical` fields set to `true`. The committed marker now exhibits this contradiction while `runtime-versions.json` correctly reports the native WASM as changed, so consumers receive a false native-identity attestation. Carry the existing native-change status from the lock whenever preserving `native_horizon`, rather than resetting it for every UI-only promotion.\n\nAGENTS.md reference: [AGENTS.md:L11-L18](https://github.com/Shadowgar/Astronomy-Hub/blob/90f2a5bd6c19eb4d0f86a113c622aae5d34eb621/AGENTS.md#L11-L18)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291811964",
+            "commit": {
+              "oid": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621"
+            },
+            "author": {
+              "login": "chatgpt-codex-connector"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-16T07:02:32Z",
+        "conclusion": "NEUTRAL",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-16T07:02:29Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-16T07:02:30Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      }
+    ]
+  },
+  "chain": {
+    "p74": {
+      "state": "OPEN",
+      "headRefOid": "a57532796502a1db9ae1a7e4e4dc83e113db558f",
+      "baseRefName": "r1-a-adaptive-explorer-design-1"
+    },
+    "p73": {
+      "state": "OPEN",
+      "headRefOid": "b151d45787cf0e450aa0b187acd3eee142fa1fef",
+      "baseRefName": "main"
+    }
+  }
+}

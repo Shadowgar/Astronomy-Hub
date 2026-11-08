@@ -1,0 +1,38 @@
+{
+  "schema": "oras.solar-small-body-legacy-evidence.v1",
+  "acquisition_date_utc": "2026-10-28",
+  "exact_acquisition_times": "Not independently recorded; the superseded mtime-derived timestamp is not acquisition authority. These original bytes are preserved for the initial run evidence only.",
+  "superseded_acquired_utc_claim": "2026-10-28T04:27:39.825366Z",
+  "files": {
+    "horizons-1.json": {
+      "sha256": "f1c53b8ed7543da3b3c87e4c33aaf541026b138444069a69dc08fb6e1b3246f2",
+      "bytes": 7991,
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=1%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27"
+    },
+    "horizons-2.json": {
+      "sha256": "46cf99a757364755929b17ad0c56014edc1af550800727c33e58233677fddaa9",
+      "bytes": 7957,
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=2%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27"
+    },
+    "horizons-4.json": {
+      "sha256": "3d5be291189dc7c887a78d152895de76e50b5acebbd2b936c503414fa19ee75f",
+      "bytes": 7991,
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=4%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27"
+    },
+    "horizons-433.json": {
+      "sha256": "866aa26927d55eac80caa4c849ff8e902ceee2016c06546b7d79f9154dda1a53",
+      "bytes": 7987,
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=433%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27"
+    },
+    "sbdb-eros.json": {
+      "sha256": "8ee963fb80923cdcfbd8fbc6d6392dc2371a71c55e47a23e549ca0eca35afbac",
+      "bytes": 6533,
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=433&full-prec=true&phys-par=true"
+    },
+    "sbdb-main-belt.json": {
+      "sha256": "9dca1c3629cbe22b0f669eae500435a0494bdc4cf5ffb455b3b693aec071292c",
+      "bytes": 420217,
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?fields=spkid,full_name,pdes,epoch,e,a,i,om,w,ma,n,diameter&sb-class=MBA&sb-ns=n&full-prec=true&sort=-diameter&limit=2048"
+    }
+  }
+}

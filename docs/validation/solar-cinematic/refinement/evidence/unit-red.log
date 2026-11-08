@@ -1,0 +1,50 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/solarRefinement.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/frontend
+
+ ❯ tests/solarRefinement.test.ts (2 tests | 2 failed) 8ms
+     × frames the unchanged selected anchor above mobile details and clear of desktop cards 6ms
+     × reduces display cost explicitly with the same scientific glyphs and data 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/solarRefinement.test.ts > Selected composition and explicit display budgets > frames the unchanged selected anchor above mobile details and clear of desktop cards
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/solarRefinement.test.ts:6:45
+      4| describe('Selected composition and explicit display budgets',()=>{
+      5|  it('frames the unchanged selected anchor above mobile details and cle…
+      6|   expect(typeof presentation.focusViewport).toBe('function')
+       |                                             ^
+      7|   for(const [width,height] of [[1440,900],[390,900],[390,667],[320,568…
+      8|    const v=presentation.focusViewport(width,height),camera=new T.Persp…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/solarRefinement.test.ts > Selected composition and explicit display budgets > reduces display cost explicitly with the same scientific glyphs and data
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/solarRefinement.test.ts:17:45
+     15|  })
+     16|  it('reduces display cost explicitly with the same scientific glyphs a…
+     17|   expect(typeof presentation.qualityBudget).toBe('function')
+       |                                             ^
+     18|   const high=presentation.qualityBudget('detailed',3),low=presentation…
+     19|   expect(low.pixelRatio).toBeLessThan(balanced.pixelRatio);expect(bala…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  12:32:19
+   Duration  214ms (transform 38ms, setup 0ms, import 84ms, tests 8ms, environment 0ms)

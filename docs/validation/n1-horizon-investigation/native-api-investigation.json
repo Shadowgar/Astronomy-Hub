@@ -1,0 +1,140 @@
+{
+  "status": "BLOCKED_NATIVE_CONFIGURATION",
+  "before": {
+    "currentId": "zero",
+    "keys": [
+      "v",
+      "swe_",
+      "name",
+      "visible",
+      "color",
+      "active",
+      "description",
+      "url"
+    ],
+    "tree": {
+      "name": {
+        "swe_": 1,
+        "type": "string",
+        "v": "Zero Horizon"
+      },
+      "visible": {
+        "swe_": 1,
+        "type": "bool",
+        "v": true
+      },
+      "color": {
+        "swe_": 1,
+        "type": "color",
+        "v": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "active": {
+        "swe_": 1,
+        "type": "bool",
+        "v": true
+      },
+      "url": {
+        "swe_": 1,
+        "type": "string",
+        "v": ""
+      }
+    },
+    "listObjectCount": 0,
+    "navigation": {
+      "mode": "sky",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "utc": "2026-10-14T02:10:00.000Z",
+      "live": false,
+      "camera": {
+        "projection": 2,
+        "fovRad": 1.570796326795,
+        "yawRad": 0,
+        "pitchRad": 0,
+        "rollRad": 0,
+        "landscapeVisible": true
+      }
+    }
+  },
+  "attempted": {
+    "currentId": "zero",
+    "keys": [
+      "v",
+      "swe_",
+      "name",
+      "visible",
+      "color",
+      "active",
+      "description",
+      "url"
+    ],
+    "tree": {
+      "name": {
+        "swe_": 1,
+        "type": "string",
+        "v": "Zero Horizon"
+      },
+      "visible": {
+        "swe_": 1,
+        "type": "bool",
+        "v": true
+      },
+      "color": {
+        "swe_": 1,
+        "type": "color",
+        "v": [
+          0.02,
+          0.02,
+          0.02,
+          1
+        ]
+      },
+      "active": {
+        "swe_": 1,
+        "type": "bool",
+        "v": true
+      },
+      "url": {
+        "swe_": 1,
+        "type": "string",
+        "v": ""
+      }
+    },
+    "listObjectCount": 0,
+    "navigation": {
+      "mode": "sky",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "utc": "2026-10-14T02:10:00.000Z",
+      "live": false,
+      "camera": {
+        "projection": 2,
+        "fovRad": 1.570796326795,
+        "yawRad": 0,
+        "pitchRad": 0,
+        "rollRad": 0,
+        "landscapeVisible": true
+      }
+    }
+  },
+  "errors": [],
+  "publicColorRestored": [
+    1,
+    1,
+    1,
+    1
+  ]
+}

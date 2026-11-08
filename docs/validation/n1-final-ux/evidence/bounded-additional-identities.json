@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "servedFiles": [
+    {
+      "url": "/runtime-bridge/sky/entry.mjs",
+      "source": "runtimes/sky-adapter/entry.mjs",
+      "sha256": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+      "bytes": 4669
+    },
+    {
+      "url": "/runtime-bridge/sky/native-panels.mjs",
+      "source": "runtimes/sky-adapter/native-panels.mjs",
+      "sha256": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+      "bytes": 5767
+    },
+    {
+      "url": "/oras-sky-engine/js/stellarium-web-engine.a41e078b.wasm",
+      "source": "frontend/public/oras-sky-engine/js/stellarium-web-engine.a41e078b.wasm",
+      "sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942",
+      "bytes": 1200963
+    },
+    {
+      "url": "/licenses/stellarium-web-engine-AGPL-3.0.txt",
+      "source": "frontend/public/licenses/stellarium-web-engine-AGPL-3.0.txt",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    },
+    {
+      "url": "/licenses/cesium-license.txt",
+      "source": "frontend/public/licenses/cesium-license.txt",
+      "sha256": "5974ceb674dd305415efc34d999ea38a2535b55368475065dd7bfabb23ad026d",
+      "bytes": 60927
+    },
+    {
+      "url": "/licenses/sky-data-credits.html",
+      "source": "frontend/public/licenses/sky-data-credits.html",
+      "sha256": "8eb154626533ffa0c6b8301a0a8826d3c39bc09b86c19c3ee5ef8128e4fdf2d2",
+      "bytes": 7209
+    },
+    {
+      "url": "/licenses/README.txt",
+      "source": "frontend/public/licenses/README.txt",
+      "sha256": "e66c974bd462caf1451dda00cad7807a67a648c4f778733da8e5c813026f400b",
+      "bytes": 374
+    }
+  ],
+  "originalLicenseBytesUnchanged": true,
+  "rollbackTrackedFilesMatchBaseline": 113,
+  "baseline": "f3629f9a8e4b4ac7a158a1448912d75ca36574db"
+}

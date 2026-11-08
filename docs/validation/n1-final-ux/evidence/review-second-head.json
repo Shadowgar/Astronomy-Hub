@@ -1,0 +1,553 @@
+{
+  "data": {
+    "repository": {
+      "p75": {
+        "headRefOid": "42741d520b80f75a3e242ffa3dc48f1044c4cf42",
+        "state": "OPEN",
+        "baseRefName": "r1-b-adaptive-sky-implementation-1",
+        "comments": {
+          "pageInfo": {
+            "hasNextPage": false
+          },
+          "nodes": [
+            {
+              "body": "<!-- codex-pull-request-review-summary -->\n<!-- codex-review-state:v1 {\"code_review\":{\"commit_sha\":\"42741d520b80f75a3e242ffa3dc48f1044c4cf42\",\"has_any_findings\":true,\"has_unresolved_findings\":true,\"status\":\"completed\"},\"security_review\":{\"commit_sha\":null,\"has_any_findings\":null,\"has_unresolved_findings\":null,\"status\":null}} -->\n\n## Codex Review Summary\n\nThis comment shows the latest Codex review activity on this pull request.\n\n| Review | Status | Commit | Review trigger |\n| --- | --- | --- | --- |\n| \ud83d\udcdd **Code Review** | \u2705 **Completed** <relative-time datetime=\"2026-10-16T18:42:12.538704Z\">2026-10-16T18:42:12.538704Z</relative-time> | `42741d5` | New commits |\n\n\n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\" or \"@codex security review\".\n\nCodex reacts with \ud83d\udc40 while any review is running, comments if it has suggestions, and reacts with \ud83d\udc4d once all reviews finish with no findings.\n\n</details>",
+              "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6164997825",
+              "author": {
+                "login": "chatgpt-codex-connector"
+              },
+              "updatedAt": "2026-10-16T18:42:13Z"
+            },
+            {
+              "body": "<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- This is an auto-generated comment: skip review by coderabbit.ai -->\n\n> [!IMPORTANT]\n> ## Review skipped\n> \n> Auto reviews are disabled on base/target branches other than the default branch.\n> \n> \n> \n> Please check the settings in the CodeRabbit UI or the `.coderabbit.yaml` file in this repository. To trigger a single review, invoke the `@coderabbitai review` command.\n> \n> <details>\n> <summary><strong>\u2699\ufe0f Run configuration</strong></summary>\n> <dl>\n> <dd>\n> \n> - **Configuration used**: defaults\n> - **Review profile**: CHILL\n> - **Plan**: Advanced\n> - **Run ID**: `bd3f6bd8-8bcb-4274-923f-8738b9c375bc`\n> \n> </dd>\n> </dl>\n> </details>\n> \n> You can disable this status message by setting the `reviews.review_status` to `false` in the CodeRabbit configuration file.\n> \n> Use the checkbox below for a quick retry:\n> - [ ] <!-- {\"checkboxId\":\"e9bb8d72-00e8-4f67-9cb2-caf3b22574fe\"} --> \ud83d\udd0d Trigger review\n\n<!-- end of auto-generated comment: skip review by coderabbit.ai -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> \u00b7 Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=Shadowgar/Astronomy-Hub&utm_content=75)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>\u2764\ufe0f Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->",
+              "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6164997998",
+              "author": {
+                "login": "coderabbitai"
+              },
+              "updatedAt": "2026-10-16T18:36:30Z"
+            },
+            {
+              "body": "## Owner authorization \u2014 limited review-only delivery exception (2026-10-16)\n\nThe owner explicitly authorizes **committing and pushing the existing uncommitted N1 final-UX candidate to this same PR #75 for review only**, despite incomplete full navigation-suite qualification. This is a narrow exception to the **commit/push qualification gate**, **not** to N1 acceptance or the merge/deployment gates.\n\nRequired delivery wording: **PARTIALLY QUALIFIED \u2014 DO NOT MERGE**.\n\nEvidence/limits to retain without relabeling:\n- Reported focused qualification: 160 runtime/Earth tests, 266 frontend tests, typecheck, reproducible builds, and seven browser proof families across 84 source-matched scenes.\n- Incomplete navigation: desktop 5/22 groups, then screenshot capture stalled after Earth readiness; mobile 7/22 groups, then iframe-count query stalled during second outward handoff. Both reached the four-minute outer cap. Cause **unknown**; no functional assertion mismatch reproduced.\n- Preserve original timeout logs, exact commands, source/artifact evidence, protected files/mounts/rollback identities, and explicit residual risk. Historical proofs remain historical.\n- Commit/push the existing candidate without unrelated rewrites or another open-ended retry cycle; publish final SHA and exact source/artifact/served-byte identity; run exact-head code review, address genuine findings, and report any remaining blockers.\n- **No claim** that full desktop/mobile suites passed or that N1 is accepted. The owner must still test final UX behavior.\n\nDependency chain remains **#75 \u2192 #74 \u2192 #73**, all **OPEN/UNMERGED**. No auto-merge, manual merge, deployment, R2/R3, provider/catalog changes, or new spending. Stop for owner review after review-only delivery.",
+              "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6221730719",
+              "author": {
+                "login": "Shadowgar"
+              },
+              "updatedAt": "2026-10-16T18:06:40Z"
+            }
+          ]
+        },
+        "reviewThreads": {
+          "pageInfo": {
+            "hasNextPage": false
+          },
+          "nodes": [
+            {
+              "id": "PRRT_kwDORt_rys6sPsml",
+              "isResolved": true,
+              "isOutdated": true,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P1 Badge](https://img.shields.io/badge/P1-orange?style=flat)</sub></sub>  Remove the unauthorized Earth navigation changes**\n\nThis replaces the Earth runtime's native wheel handling and adds a new cross-renderer navigation package, but the active R1-B scope requires preserving Earth and rebuilding only the changed Sky UI artifact. The N1 authority text added by this same commit cannot override the repository operating rule, so these Earth/protocol changes need separate owner authorization rather than shipping in this package.\n\nAGENTS.md reference: [AGENTS.md:L11-L18](https://github.com/Shadowgar/Astronomy-Hub/blob/8fe05ca1a8505dc20449635fa47b615e4bd23a0c/AGENTS.md#L11-L18)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4268968568",
+                    "commit": {
+                      "oid": "f36e0ae1c71e7be57f8fab1ce30cc789c31aa8b5"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "The owner separately authorized N1 bidirectional Sky/Earth navigation and explicitly requested this PR #75 repair, preserving #75 \u2192 #74 \u2192 #73 and prohibiting N2/merge/deployment. The cited R1-B restriction is historical. AGENTS.md now marks that header historical and records the existing bounded N1 authorization; CORE/LIVE and the implementation evidence agree. This does not grant any additional renderer/provider/data scope.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279091065",
+                    "commit": {
+                      "oid": "f36e0ae1c71e7be57f8fab1ce30cc789c31aa8b5"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6sPsmw",
+              "isResolved": true,
+              "isOutdated": true,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P1 Badge](https://img.shields.io/badge/P1-orange?style=flat)</sub></sub>  Keep neutral-landscape enforcement out of standalone Sky**\n\nWhen `/oras-sky-engine/` is opened standalone without `orasEmbedded=1`, this code still switches the engine to the empty `zero` landscape and the watcher immediately reverses any later native landscape selection. That regresses the standalone Stellarium surface and makes its Landscape control unable to restore the bundled landscape; apply this policy only to the embedded handoff context while preserving native standalone controls.\n\nAGENTS.md reference: [AGENTS.md:L11-L13](https://github.com/Shadowgar/Astronomy-Hub/blob/8fe05ca1a8505dc20449635fa47b615e4bd23a0c/AGENTS.md#L11-L13)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4268968586",
+                    "commit": {
+                      "oid": "8fe05ca1a8505dc20449635fa47b615e4bd23a0c"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "Corrected the standalone landscape regression. Neutral horizon creation/enforcement now runs only in embedded exploration; standalone retains the native bundled landscape and Landscape OFF/ON. Real Chromium proof and the failed-before/passed-after context regression are in docs/validation/n1-scroll-repair/. Native WASM, science/data and panorama assets are preserved.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279090919",
+                    "commit": {
+                      "oid": "8fe05ca1a8505dc20449635fa47b615e4bd23a0c"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6sobg8",
+              "isResolved": true,
+              "isOutdated": false,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Clear Sky identity parameters before entering Earth**\n\nWhen the current Sky URL contains `catalog`, `source_id`, `model`, `ra`, or `dec`, this helper preserves them while building the Earth URL because it deletes only `focus`, `fov`, `az`, and `alt`. Reloading that Earth URL lets `productState.ingestSearch` restore the stale Sky selection, which can then unexpectedly reappear on a later Sky visit; it also contradicts the newly added test expecting `catalog` to be absent. Remove all canonical object parameters first, then add the current selection only when the target is Sky.\n\nAGENTS.md reference: [frontend/AGENTS.md:L92-L100](https://github.com/Shadowgar/Astronomy-Hub/blob/f36e0ae1c71e7be57f8fab1ce30cc789c31aa8b5/frontend/AGENTS.md#L92-L100)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279320866",
+                    "commit": {
+                      "oid": "42741d520b80f75a3e242ffa3dc48f1044c4cf42"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "The complete URL path already removes these fields. At accepted application source `301f9eb3`, `handoffPath()` returns `workspaceModePath(target, ...)`; the latter deletes `catalog`, `source_id`, `model`, `ra`, `dec` and `fov` whenever `mode === 'earth'`. The intermediate URLSearchParams in this helper are not the returned Earth URL.\n\nSource: https://github.com/Shadowgar/Astronomy-Hub/blob/301f9eb3ddfd21a22ad04378bf09ee45c59e8adc/frontend/src/features/workspace/workspaceNavigation.ts#L26-L30\n\nFocused regression evidence now covers all five canonical fields, Gaia IDs retained as strings, both null/current selection arguments, unchanged observer/time, and fresh-state `ingestSearch()` of the resulting Earth URL. Command: `npm --prefix frontend test -- tests/viewNavigation.test.ts tests/workspaceNavigation.test.ts tests/runtimeProductState.test.ts` \u2014 15 tests passed in 3 files, exit 0. Full frontend: 241/241. The two added regressions are being delivered on this same PR; no redundant production/navigation change is needed. This proof concerns identity introduced by the Earth URL, not deliberate session selection persistence.\n\nResolving this finding under the owner's explicit directive to evaluate the downstream builder and resolve with regression evidence. Dark horizon implementation remains blocked at the separately reported protected native-artifact boundary; this resolution does not imply full N1 acceptance.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280122131",
+                    "commit": {
+                      "oid": "42741d520b80f75a3e242ffa3dc48f1044c4cf42"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6sqlC0",
+              "isResolved": true,
+              "isOutdated": true,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Keep navigation snapshots non-mutating**\n\nWhen a satellite is being tracked, simply opening Earth Explore\u2014or starting and then cancelling a handoff\u2014calls `getNavigationState`; this invokes `CameraController.interrupt()`, which cancels active flights and calls `stopTracking()` before any departure occurs. Since cancellation only resets the navigation gate, it cannot restore that source state. Capture the state without interrupting, or defer interruption until departure is committed, so inspection and cancellation preserve tracking and camera motion.\n\nAGENTS.md reference: [AGENTS.md:L24-L27](https://github.com/Shadowgar/Astronomy-Hub/blob/f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1/AGENTS.md#L24-L27)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280215701",
+                    "commit": {
+                      "oid": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "Fixed in b7b5da90b34f33124084cf73e36ee7c2644575f0. Navigation snapshots now only read state; pre-departure cancellation resets the intent gate while preserving tracking, native flights and ongoing wheel motion. Ordinary explicit resets retain their existing behavior, and committed destruction still interrupts/drains resources.\n\nThe exact old bridge/controller fails all three focused regressions; corrected sources pass all three and the complete 150-test runtime/Earth suite. Real Docker-served Chromium at desktop/mobile preserves tracking through Explore and four cancellation cycles per width, drains late responses, and destroys the committed renderer before removal (peak one). These tracking runs use unchanged historical ISS elements through the real provider parser/SGP4/Cesium; the separate live CelesTrak attempts were unavailable and are not claimed qualified.\n\nSource-bound evidence, RED/GREEN logs and limitations: https://github.com/Shadowgar/Astronomy-Hub/blob/b7b5da90b34f33124084cf73e36ee7c2644575f0/docs/validation/n1-final-remediation/README.md.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291451670",
+                    "commit": {
+                      "oid": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6sqlC7",
+              "isResolved": true,
+              "isOutdated": true,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Validate elevation provenance before overriding runtime state**\n\nWhen a public Sky URL contains a syntactically valid but inconsistent `elevationSource`\u2014for example, `elevationSource=oras-site` at New York or `unavailable-zero` with a nonzero elevation\u2014this unconditionally replaces the runtime-derived provenance. The resulting handoff URL and status text can claim an ORAS measurement or a 0 m fallback while using different observer data. Only accept provenance when it is consistent with the observer coordinates/elevation; otherwise retain the runtime-derived value or return a controlled unavailable state.\n\nAGENTS.md reference: [AGENTS.md:L970-L974](https://github.com/Shadowgar/Astronomy-Hub/blob/f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1/AGENTS.md#L970-L974)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280215709",
+                    "commit": {
+                      "oid": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "Fixed in b7b5da90b34f33124084cf73e36ee7c2644575f0. The Hub no longer overrides runtime provenance with a URL enum. A shared actual-observer rule validates site coordinates plus height, explicit zero fallback and provided elevation; the contained Sky adapter binds provenance to its observer, and Earth retains known provided height at the same geographic target. Camera altitude is never used as observer elevation. Missing-height fallback and URL claims require an explicit matching URL location, so restored provided zero is preserved on bare URLs.\n\nThe original false-ORAS/nonzero-unavailable-zero behavior is retained as real-browser RED evidence. Final desktop/mobile Chromium matrices cover ten cases per width, including false/missing/malformed claims, provided zero, provided 123 m at ORAS coordinates, restored bare URLs, Sky/Earth return, reload and history, plus live time. Final suites pass 150 runtime/Earth and 248 frontend tests with typechecking.\n\nSource-bound proof and exact changes: https://github.com/Shadowgar/Astronomy-Hub/blob/b7b5da90b34f33124084cf73e36ee7c2644575f0/docs/validation/n1-final-remediation/README.md.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291451875",
+                    "commit": {
+                      "oid": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6srUXR",
+              "isResolved": true,
+              "isOutdated": true,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Honor the configured source repository during attestation**\n\nWhen `ORAS_SKY_SOURCE_REPO` points to any valid pinned checkout outside the default `/var/tmp` path, `build_sky_horizon.sh` uses that checkout through both native and frontend builds, but this attester then runs `git archive` against the hardcoded default path. The supported override therefore fails only after the expensive build\u2014or verifies a different checkout if the default also exists\u2014undermining the reproducible downstream-patch workflow; pass the selected source path into the attester or read the same environment variable here.\n\nAGENTS.md reference: [AGENTS.md:L5-L10](https://github.com/Shadowgar/Astronomy-Hub/blob/0c0718a0eea51f000878f7f8fb1ef4ec32197b79/AGENTS.md#L5-L10)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280522720",
+                    "commit": {
+                      "oid": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "Fixed in b7b5da90b34f33124084cf73e36ee7c2644575f0. Build and attester now share immutable source selection/preflight; ORAS_SKY_SOURCE_REPO is honored, the builder passes its resolved source explicitly, and native re-attestation uses the recorded checkout. Git root/HEAD must match 023e3b26babf7ffddf45f39293230b14cfe96993 before build output creation.\n\nBoth the default checkout and a genuine independent alternate checkout completed offline native/UI builds. Final UI refreshes/attestations match 564 input rows and 110 payload files, with byte-identical existing native JS/WASM and all 430 native compilation inputs unchanged. Missing/non-Git/wrong-HEAD/unapproved pin and modified native/unexpected UI source inputs fail closed; no fresh successful attestation is issued on failure. Three Python regressions and actual negative-input qualification pass. No new native renderer change or dependency was introduced.\n\nFull source/artifact identities, reproducibility records and negative evidence: https://github.com/Shadowgar/Astronomy-Hub/blob/b7b5da90b34f33124084cf73e36ee7c2644575f0/docs/validation/n1-final-remediation/README.md.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291452011",
+                    "commit": {
+                      "oid": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6tFj9X",
+              "isResolved": true,
+              "isOutdated": false,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Preserve provenance on same-route observer updates**\n\nApply `observerWithProvenance` to every observer synchronization, not only the initial mount. If browser history or client-side navigation changes the current Sky/Earth query to a different `lat`/`lng` with no `elev`, `RuntimeHost` remains mounted and `useWorkspaceRuntime` later sends the raw zero-valued observer without `elevationSource`; both adapters then classify it as `provided`, so the next handoff falsely reports a supplied 0 m elevation instead of `unavailable-zero`. Fresh evidence beyond the resolved provenance thread is this post-mount synchronization path, which bypasses the new validator.\n\nAGENTS.md reference: [AGENTS.md:L11-L13](https://github.com/Shadowgar/Astronomy-Hub/blob/ea802138447a83f3abf0ef92c06612c1106a0f41/AGENTS.md#L11-L13)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291532189",
+                    "commit": {
+                      "oid": "42741d520b80f75a3e242ffa3dc48f1044c4cf42"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "Fixed in 90f2a5bd6c19eb4d0f86a113c622aae5d34eb621. Post-mount observer synchronization now applies the same observerWithProvenance validator as initial RuntimeHost mounting. The acknowledgment key includes validated provenance, so identical numeric observers still synchronize provided-zero/fallback-zero changes; an inconsistent enum alone does not cause a false source change. Initial acknowledgment uses the latest query through a ref.\n\nReproduced before fixing: real same-frame native Sky changed coordinates and height correctly but returned provided instead of unavailable-zero; three hook regressions failed. All seven focused hook tests now pass. Actual Chromium covers desktop/mobile Sky and Earth (four variants): changed coordinates with absent height, source-only provided-zero/fallback-zero updates, actual Back/Forward and round trips. Iframe identity and native performance.timeOrigin stay unchanged during history synchronization. Fixed observing time and actual native observer/provenance are asserted. Controlled History API entries exercise the real router; no renderer results or positions are mocked.\n\nFresh full frontend 252/252, runtime/Earth150/150, source-selection3/3, typechecking, independent Hub build125 identical files, navigation44 groups and elevation20 cases pass. Post-commit proof-input hashes and Docker-served bytes are verified against this pushed head. No native artifacts, accepted camera math or Pennsylvania assets changed. Consolidated evidence: https://github.com/Shadowgar/Astronomy-Hub/blob/90f2a5bd6c19eb4d0f86a113c622aae5d34eb621/docs/validation/n1-final-remediation/README.md.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291778798",
+                    "commit": {
+                      "oid": "42741d520b80f75a3e242ffa3dc48f1044c4cf42"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6tGPIB",
+              "isResolved": true,
+              "isOutdated": true,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Preserve native-change flags during UI-only promotions**\n\nWhen a frontend-only build is promoted after the native horizon patch has been recorded, `native` is false while the lock already contains `native_horizon`; this branch copies that attestation but leaves the newly initialized `native_wasm_identical` and `native_vendor_chunks_identical` fields set to `true`. The committed marker now exhibits this contradiction while `runtime-versions.json` correctly reports the native WASM as changed, so consumers receive a false native-identity attestation. Carry the existing native-change status from the lock whenever preserving `native_horizon`, rather than resetting it for every UI-only promotion.\n\nAGENTS.md reference: [AGENTS.md:L11-L18](https://github.com/Shadowgar/Astronomy-Hub/blob/90f2a5bd6c19eb4d0f86a113c622aae5d34eb621/AGENTS.md#L11-L18)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291811964",
+                    "commit": {
+                      "oid": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  },
+                  {
+                    "body": "Fixed in 9cb158e35a1623be81263155c10839e14626c312. UI-only promotion now carries native WASM identity from the qualified lock and preserves an explicit native-vendor identity when available. Legacy horizon locks retain their known native-vendor change (false), consistent with the existing native-horizon promotion path. Original upstream-only promotions retain true/true. The native-change comparison is against upstream, distinct from the byte-identical binaries retained by this remediation.\n\nTwo real promotion regressions failed before the fix; all three pass afterward using the actual promotion subprocess in disposable repositories. The actual committed marker also reproduced the false identity claim. Qualified UI staging and the genuine independently built alternate source output now produce identical corrected metadata. Only the marker's two booleans and its lock admission row change. All rendering payloads, native JS/WASM, Hub JS and runtime-versions remain byte-identical; the strict metadata-equivalence certificate checks this against browser-qualified 90f2a5bd.\n\nFull frontend252/runtime150/source-selection3/promotion3 tests and typechecking pass, independent Hub builds match125 files, Docker serves the committed corrected marker, and fresh desktop/mobile Sky/Earth history/admission variants pass. Original eight browser proofs are retained unchanged with an explicit, narrowly checked metadata-delta certificate; their hashes are not rewritten or called fresh rendering runs. Final committed-input and served-byte guards pass for this pushed head. Report: https://github.com/Shadowgar/Astronomy-Hub/blob/9cb158e35a1623be81263155c10839e14626c312/docs/validation/n1-final-remediation/README.md.",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291868102",
+                    "commit": {
+                      "oid": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621"
+                    },
+                    "author": {
+                      "login": "Shadowgar"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6tU4Sd",
+              "isResolved": true,
+              "isOutdated": true,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Block Sky handoff while the coordinate flight is pending**\n\nWhen a user submits coordinates and clicks \u201cEnter Sky here\u201d before the approximately 0.9-second `navigateLocation` flight completes, this button remains enabled and starts `getNavigationState` concurrently. The snapshot therefore captures an intermediate camera center, and teardown cancels the remaining flight, opening Sky at the wrong location. Disable the handoff button while `pending`, or await the location flight before allowing the transition.\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4297945509",
+                    "commit": {
+                      "oid": "97eacd2d2954d21b92a749872066fa6b7f71d340"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "PRRT_kwDORt_rys6tVRl1",
+              "isResolved": false,
+              "isOutdated": false,
+              "comments": {
+                "pageInfo": {
+                  "hasNextPage": false
+                },
+                "nodes": [
+                  {
+                    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Persist elevation provenance with observer intent**\n\nWhen an observer with a missing elevation is restored from `oras.runtime.intent.v1` and the current URL has no `lat`/`lng`, this helper sees no URL binding and classifies the restored 0 m value as `provided`; `productState.ts` persists only `lat`/`lng`/`elev`, so a later handoff falsely reports an explicitly supplied elevation instead of `unavailable-zero`. Fresh evidence beyond the earlier URL and same-route provenance findings is this session-restoration path; persist the validated source with the observer intent or otherwise retain it when no URL observer supersedes the saved value.\n\nAGENTS.md reference: [AGENTS.md:L110-L116](https://github.com/Shadowgar/Astronomy-Hub/blob/42741d520b80f75a3e242ffa3dc48f1044c4cf42/AGENTS.md#L110-L116)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+                    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4298109809",
+                    "commit": {
+                      "oid": "42741d520b80f75a3e242ffa3dc48f1044c4cf42"
+                    },
+                    "author": {
+                      "login": "chatgpt-codex-connector"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "reviews": {
+          "pageInfo": {
+            "hasNextPage": false
+          },
+          "nodes": [
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-14T09:15:00Z",
+              "body": "Copilot was unable to review this pull request because the user who requested the review has reached their quota limit.",
+              "commit": {
+                "oid": "8fe05ca1a8505dc20449635fa47b615e4bd23a0c"
+              },
+              "author": {
+                "login": "copilot-pull-request-reviewer"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-14T09:21:20Z",
+              "body": "\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `8fe05ca1a8`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "8fe05ca1a8505dc20449635fa47b615e4bd23a0c"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-15T04:44:12Z",
+              "body": "",
+              "commit": {
+                "oid": "18e1ffd985e5bb86428e6343c6d5a488f379bbe1"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-15T04:44:14Z",
+              "body": "",
+              "commit": {
+                "oid": "18e1ffd985e5bb86428e6343c6d5a488f379bbe1"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-15T05:17:49Z",
+              "body": "\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `f36e0ae1c7`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "f36e0ae1c71e7be57f8fab1ce30cc789c31aa8b5"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-15T07:14:04Z",
+              "body": "",
+              "commit": {
+                "oid": "301f9eb3ddfd21a22ad04378bf09ee45c59e8adc"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-15T07:25:51Z",
+              "body": "\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `f9a56194c0`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-15T08:03:15Z",
+              "body": "\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `0c0718a0ee`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "0c0718a0eea51f000878f7f8fb1ef4ec32197b79"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T06:10:23Z",
+              "body": "",
+              "commit": {
+                "oid": "b7b5da90b34f33124084cf73e36ee7c2644575f0"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T06:10:25Z",
+              "body": "",
+              "commit": {
+                "oid": "b7b5da90b34f33124084cf73e36ee7c2644575f0"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T06:10:27Z",
+              "body": "",
+              "commit": {
+                "oid": "b7b5da90b34f33124084cf73e36ee7c2644575f0"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T06:23:40Z",
+              "body": "<!-- codex-review-receipt:v1 -->\n\n\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `ea80213844`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "ea802138447a83f3abf0ef92c06612c1106a0f41"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T07:02:28Z",
+              "body": "",
+              "commit": {
+                "oid": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T07:06:25Z",
+              "body": "<!-- codex-review-receipt:v1 -->\n\n\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `90f2a5bd6c`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "90f2a5bd6c19eb4d0f86a113c622aae5d34eb621"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T07:13:41Z",
+              "body": "",
+              "commit": {
+                "oid": "9cb158e35a1623be81263155c10839e14626c312"
+              },
+              "author": {
+                "login": "Shadowgar"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T18:22:40Z",
+              "body": "<!-- codex-review-receipt:v1 -->\n\n\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `97eacd2d29`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "97eacd2d2954d21b92a749872066fa6b7f71d340"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            },
+            {
+              "state": "COMMENTED",
+              "submittedAt": "2026-10-16T18:42:07Z",
+              "body": "<!-- codex-review-receipt:v1 -->\n\n\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `42741d520b`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+              "commit": {
+                "oid": "42741d520b80f75a3e242ffa3dc48f1044c4cf42"
+              },
+              "author": {
+                "login": "chatgpt-codex-connector"
+              }
+            }
+          ]
+        }
+      },
+      "p74": {
+        "state": "OPEN",
+        "headRefOid": "a57532796502a1db9ae1a7e4e4dc83e113db558f",
+        "baseRefName": "r1-a-adaptive-explorer-design-1"
+      },
+      "p73": {
+        "state": "OPEN",
+        "headRefOid": "b151d45787cf0e450aa0b187acd3eee142fa1fef",
+        "baseRefName": "main"
+      }
+    }
+  }
+}

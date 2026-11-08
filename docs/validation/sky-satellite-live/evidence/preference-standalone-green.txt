@@ -1,0 +1,172 @@
+TAP version 13
+# Subtest: ordinary FOV keeps photometric satellites enabled without artificial hints
+ok 1 - ordinary FOV keeps photometric satellites enabled without artificial hints
+  ---
+  duration_ms: 1.432688
+  type: 'test'
+  ...
+# Subtest: identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+ok 2 - identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+  ---
+  duration_ms: 1.042782
+  type: 'test'
+  ...
+# Subtest: wide selected satellite stays isolated; close identification and widening preserve native defaults
+ok 3 - wide selected satellite stays isolated; close identification and widening preserve native defaults
+  ---
+  duration_ms: 0.141866
+  type: 'test'
+  ...
+# Subtest: upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+ok 4 - upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+  ---
+  duration_ms: 0.590688
+  type: 'test'
+  ...
+# Subtest: native user-disabled hints are retained after release and no scene API is replaced
+ok 5 - native user-disabled hints are retained after release and no scene API is replaced
+  ---
+  duration_ms: 0.099365
+  type: 'test'
+  ...
+# Subtest: native JSON FOV precision does not miss threshold boundaries
+ok 6 - native JSON FOV precision does not miss threshold boundaries
+  ---
+  duration_ms: 0.135963
+  type: 'test'
+  ...
+# Subtest: unselected close views admit native point-only satellites through a bounded hint offset
+ok 7 - unselected close views admit native point-only satellites through a bounded hint offset
+  ---
+  duration_ms: 0.092269
+  type: 'test'
+  ...
+# Subtest: own close overrides do not replace original offset across selection, widening and release
+ok 8 - own close overrides do not replace original offset across selection, widening and release
+  ---
+  duration_ms: 0.106272
+  type: 'test'
+  ...
+# Subtest: native custom offsets and asynchronous initialization survive close presentation
+ok 9 - native custom offsets and asynchronous initialization survive close presentation
+  ---
+  duration_ms: 0.249645
+  type: 'test'
+  ...
+# Subtest: an explicit native disable after automatic close identification survives later zoom and release
+ok 10 - an explicit native disable after automatic close identification survives later zoom and release
+  ---
+  duration_ms: 0.253289
+  type: 'test'
+  ...
+# Subtest: native disable immediately before disposal survives without waiting for the reactive watcher
+ok 11 - native disable immediately before disposal survives without waiting for the reactive watcher
+  ---
+  duration_ms: 0.153479
+  type: 'test'
+  ...
+# Subtest: an external native offset immediately before widening or disposal remains the native preference
+ok 12 - an external native offset immediately before widening or disposal remains the native preference
+  ---
+  duration_ms: 0.098987
+  type: 'test'
+  ...
+# Subtest: tracking state comes from the native lock and stable identity rather than a separate flag
+ok 13 - tracking state comes from the native lock and stable identity rather than a separate flag
+  ---
+  duration_ms: 0.648934
+  type: 'test'
+  ...
+# Subtest: starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+ok 14 - starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+  ---
+  duration_ms: 0.681517
+  type: 'test'
+  ...
+# Subtest: reduced motion keeps the native satellite lock using the established sub-frame duration
+ok 15 - reduced motion keeps the native satellite lock using the established sub-frame duration
+  ---
+  duration_ms: 0.150394
+  type: 'test'
+  ...
+# Subtest: ending tracking releases only the native satellite lock and preserves selection and time mode
+ok 16 - ending tracking releases only the native satellite lock and preserves selection and time mode
+  ---
+  duration_ms: 0.809874
+  type: 'test'
+  ...
+# Subtest: missing or non-satellite selection cannot start satellite tracking
+ok 17 - missing or non-satellite selection cannot start satellite tracking
+  ---
+  duration_ms: 0.206417
+  type: 'test'
+  ...
+# Subtest: a new native selection cannot inherit the prior satellite tracking lock
+ok 18 - a new native selection cannot inherit the prior satellite tracking lock
+  ---
+  duration_ms: 0.118237
+  type: 'test'
+  ...
+# Subtest: same native object wrappers retain tracking and other native locks remain untouched
+ok 19 - same native object wrappers retain tracking and other native locks remain untouched
+  ---
+  duration_ms: 0.131009
+  type: 'test'
+  ...
+# Subtest: standalone keeps native landscape selection and visibility toggles
+ok 20 - standalone keeps native landscape selection and visibility toggles
+  ---
+  duration_ms: 3.772065
+  type: 'test'
+  ...
+# Subtest: embedded landscape selects the illustrative panorama and releases native choices
+ok 21 - embedded landscape selects the illustrative panorama and releases native choices
+  ---
+  duration_ms: 2.054101
+  type: 'test'
+  ...
+# Subtest: panorama never recolors or reactivates the original zero circle
+ok 22 - panorama never recolors or reactivates the original zero circle
+  ---
+  duration_ms: 0.893885
+  type: 'test'
+  ...
+# Subtest: native Sky navigation rejects false elevation provenance and keeps provided zero
+ok 23 - native Sky navigation rejects false elevation provenance and keeps provided zero
+  ---
+  duration_ms: 4.720757
+  type: 'test'
+  ...
+# Subtest: native satellite point selection retains source-backed NORAD details and Focus availability
+ok 24 - native satellite point selection retains source-backed NORAD details and Focus availability
+  ---
+  duration_ms: 1.438969
+  type: 'test'
+  ...
+# Subtest: absent or blank URL coordinates do not identify a native zero observer as a missing-height fallback
+ok 25 - absent or blank URL coordinates do not identify a native zero observer as a missing-height fallback
+  ---
+  duration_ms: 2.569302
+  type: 'test'
+  ...
+# Subtest: embedded reduced-motion satellite Focus retains native locking without a visible animation
+ok 26 - embedded reduced-motion satellite Focus retains native locking without a visible animation
+  ---
+  duration_ms: 3.165523
+  type: 'test'
+  ...
+# Subtest: satellite selection changes release embedded tracking without changing standalone native lock semantics
+ok 27 - satellite selection changes release embedded tracking without changing standalone native lock semantics
+  ---
+  duration_ms: 2.118094
+  type: 'test'
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 72.795933

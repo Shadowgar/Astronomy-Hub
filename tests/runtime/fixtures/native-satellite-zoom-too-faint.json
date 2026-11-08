@@ -1,0 +1,26 @@
+{
+  "types": [
+    "Asa"
+  ],
+  "model": "tle_satellite",
+  "model_data": {
+    "norad_number": 26045,
+    "tle": [
+      "1 26045U 99073D   26153.03687593  .00030438  62559-6  72466-3 0  9992",
+      "2 26045  62.3223 123.0313 7459327 205.9856  79.9518  2.10366699196830"
+    ],
+    "mag": 5.9,
+    "status": "Unknown",
+    "owner": "Commonwealth of Independent States (former USSR)",
+    "launch_site": "Plesetsk Missile and Space Complex, Russia",
+    "type": "Rocket second Stage",
+    "designation": "99073D"
+  },
+  "names": [
+    "NAME Cosmos 2368 Rk",
+    "NAME SL-6 R/B(2)",
+    "NORAD 26045",
+    "COSPAR 1999-073D"
+  ],
+  "short_name": "Cosmos 2368 Rk"
+}

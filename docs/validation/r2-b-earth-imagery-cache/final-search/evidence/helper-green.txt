@@ -1,0 +1,17 @@
+.........                                                                [100%]
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/testclient.py:29
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:29: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    [], typing.ContextManager[anyio.abc.BlockingPortal]
+
+tests/validation/test_recorded_earth_search.py::test_replay_preserves_each_exact_recorded_candidate_and_route_contract
+tests/validation/test_recorded_earth_search.py::test_replay_errors_use_real_backend_handlers_and_unknown_queries_fail_closed
+tests/validation/test_recorded_earth_search.py::test_production_failure_classes_remain_private_and_cached_without_retry[timeout]
+tests/validation/test_recorded_earth_search.py::test_production_failure_classes_remain_private_and_cached_without_retry[http429]
+tests/validation/test_recorded_earth_search.py::test_production_failure_classes_remain_private_and_cached_without_retry[invalid-shape]
+tests/validation/test_recorded_earth_search.py::test_production_failure_classes_remain_private_and_cached_without_retry[invalid-coordinates]
+  /usr/local/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+9 passed, 7 warnings in 1.25s

@@ -1,0 +1,49 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/aboutLicenses.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/aboutLicenses.test.tsx (2 tests | 1 failed) 17ms
+   × public diagnostics points to in-product acknowledgments rather than the standalone renderer 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/aboutLicenses.test.tsx > public diagnostics points to in-product acknowledgments rather than the standalone renderer
+AssertionError: expected '<section aria-label="Diagnostics"><di…' not to contain 'standalone renderer'
+
+- Expected
++ Received
+
+- standalone renderer
++ <section aria-label="Diagnostics"><div class="ws-panel-heading"><h2>Sources &amp; display quality</h2><button type="button" class="ws-icon-button" aria-label="Close panel" title="Close panel"><span class="ws-icon" aria-hidden="true"><svg
++   xmlns="http://www.w3.org/2000/svg"
++   width="24"
++   height="24"
++   viewBox="0 0 24 24"
++   fill="none"
++   stroke="currentColor"
++   stroke-width="2"
++   stroke-linecap="round"
++   stroke-linejoin="round"
++ >
++   <path d="M18 6 6 18" />
++   <path d="m6 6 12 12" />
++ </svg>
++ </span></button></div><p>Sky source details remain available in the standalone renderer.</p><details><summary>Diagnostics</summary><pre>{
++   &quot;version&quot;: &quot;test&quot;,
++   &quot;status&quot;: &quot;ready&quot;,
++   &quot;layers&quot;: []
++ }</pre><button>Copy diagnostics</button><a class="ws-link" href="/runtime-versions.json" target="_blank" rel="noreferrer">Artifact and source provenance</a></details></section>
+
+ ❯ tests/aboutLicenses.test.tsx:10:299
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  11:38:26
+   Duration  321ms (transform 101ms, setup 0ms, import 163ms, tests 17ms, environment 0ms)

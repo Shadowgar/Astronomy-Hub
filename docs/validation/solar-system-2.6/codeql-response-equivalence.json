@@ -1,0 +1,17 @@
+{
+  "baseline_sha": "97c7ba61025b8a251d30331d5e92eb01b3462ec6",
+  "actual_pinned_products": {
+    "ibex-ena-map": {
+      "status": 200,
+      "bytes": 66750,
+      "sha256": "4c1cab33346970c0bb131fd878c9c468583faa1d87682175ebbaf943e1936cd1",
+      "byte_identical_to_base": true
+    },
+    "imap-magnetic-field": {
+      "status": 200,
+      "bytes": 126182,
+      "sha256": "7389455cf74d3bffb4f1ded22a9b8aff6fdcc1e1da804a38d0f19ebdf27ee532",
+      "byte_identical_to_base": true
+    }
+  }
+}

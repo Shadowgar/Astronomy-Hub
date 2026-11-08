@@ -1,0 +1,7 @@
+test_actual_product_preserves_pixels_and_explicit_mask (test_prepare_moon_imagery.MoonImageryConversion.test_actual_product_preserves_pixels_and_explicit_mask) ... ok
+test_unpinned_source_is_rejected (test_prepare_moon_imagery.MoonImageryConversion.test_unpinned_source_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.179s
+
+OK

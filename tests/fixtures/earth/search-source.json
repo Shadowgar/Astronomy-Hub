@@ -1,0 +1,10 @@
+{
+  "purpose": "Test fixture only; never a production location catalog",
+  "provider": "Photon / OpenStreetMap",
+  "query": "Springfield",
+  "url": "https://photon.komoot.io/api/?q=Springfield&limit=5&lang=en",
+  "capturedDate": "2026-10-17",
+  "license": "ODbL 1.0; OpenStreetMap contributors",
+  "terms": "https://github.com/komoot/photon#demo-server",
+  "attribution": "https://www.openstreetmap.org/copyright"
+}

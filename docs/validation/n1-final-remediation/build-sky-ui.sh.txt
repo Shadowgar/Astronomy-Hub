@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+cd /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+for kind in default alternate; do
+ app="$PWD/output/n1/remediation/native-$kind/upstream/apps/web-frontend"
+ source_dir=/var/tmp/oras-phase-c/sky-reconstruction/upstream
+ if [ "$kind" = alternate ]; then source_dir=/tmp/n1-remediation-source-53ac7478; fi
+ python3 scripts/runtime/integrate_sky_bridge.py "$app"
+ docker run --rm --network none --user 1001:1001 -v "$app:/work" -v "$source_dir/apps/web-frontend/node_modules:/work/node_modules:ro" -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096' node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 npm run build > "output/n1/remediation/sky-final-$kind-build.txt" 2>&1
+ python3 scripts/runtime/attest_sky_horizon.py "output/n1/remediation/native-$kind/upstream" --source-repo "$source_dir" > "output/n1/remediation/attest-final-$kind.txt" 2>&1
+ done
+python3 scripts/runtime/record_sky_workspace.py output/n1/remediation/native-default/upstream/apps/web-frontend/dist > output/n1/remediation/promotion-final.txt 2>&1

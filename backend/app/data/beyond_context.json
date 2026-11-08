@@ -1,0 +1,96 @@
+{
+  "schema": "oras.beyond-context.v1",
+  "frame": "ICRF",
+  "origin": "sun",
+  "units": "AU",
+  "constants": {"au_km": 149597870.7, "light_speed_km_s": 299792.458, "julian_year_days": 365.25},
+  "comparison": {
+    "mode": "separate-historical-events",
+    "simultaneous": false,
+    "description": "Voyager 1 in August 2012 and Voyager 2 in November 2018 are separate historical observations, not simultaneous boundary samples. Their positions do not establish a global heliopause surface."
+  },
+  "crossings": [
+    {
+      "id": "voyager1-heliopause",
+      "mission_id": "voyager1",
+      "name": "Voyager 1 heliopause crossing",
+      "observed": {"date": "2012-08-25", "precision": "day", "distance_au": 121.6, "approximate": true, "evidence_class": "measured-observation", "source_ids": ["voyager-nasa", "voyager1-rankin"]},
+      "position_status": "unavailable",
+      "geometry": null,
+      "epoch_note": "12:00 UTC represents the published crossing date for navigation; it is not a measured crossing time. The plotted vector is the admitted mission prediction, not an observed 3-D coordinate or a vector rescaled to 121.6 AU.",
+      "interpretation": "A persistent rise in galactic cosmic rays and decrease in heliospheric particles marked the transition. Plasma-wave observations subsequently established the denser interstellar environment; Voyager 1's direct plasma instrument was no longer operating.",
+      "mission_url": "/missions/voyager1?date=2012-08-25T12%3A00%3A00Z"
+    },
+    {
+      "id": "voyager2-heliopause",
+      "mission_id": "voyager2",
+      "name": "Voyager 2 heliopause crossing",
+      "observed": {"date": "2018-11-05", "precision": "day", "distance_au": 119.0, "approximate": true, "evidence_class": "measured-observation", "source_ids": ["voyager-nasa", "voyager2-richardson"]},
+      "position_status": "unavailable",
+      "geometry": null,
+      "epoch_note": "12:00 UTC represents the published crossing date for navigation; it is not a measured crossing time. The plotted vector is the admitted mission prediction, not an observed 3-D coordinate or a vector rescaled to 119 AU.",
+      "interpretation": "The working plasma instrument measured the transition from hot, tenuous solar-wind plasma to colder, denser local interstellar plasma, supported by particle observations.",
+      "mission_url": "/missions/voyager2?date=2018-11-05T12%3A00%3A00Z"
+    }
+  ],
+  "heliosphere": {
+    "representation": "illustrative",
+    "scientific_model_status": "not-qualified",
+    "components": [
+      {"id": "solar-wind", "name": "Solar wind", "evidence_class": "illustrative", "description": "The Sun supplies a flowing plasma. Any visible particles illustrate the concept; they are not measured individual paths or visible-light emission."},
+      {"id": "termination-shock", "name": "Termination shock", "evidence_class": "illustrative", "description": "The supersonic solar wind slows to subsonic flow. Voyager encountered this shock at different dates and distances: about 94 AU in December 2004 and 84 AU in August 2007."},
+      {"id": "heliosheath", "name": "Heliosheath", "evidence_class": "illustrative", "description": "The region of slowed and heated solar-wind plasma between the termination shock and heliopause."},
+      {"id": "heliopause", "name": "Heliopause", "evidence_class": "illustrative", "description": "The transition between solar-wind plasma and local interstellar plasma. It is neither a visible solid wall nor the limit of the Sun's gravity."},
+      {"id": "interstellar-medium", "name": "Local interstellar medium", "evidence_class": "illustrative", "description": "Plasma, neutral atoms and magnetic fields surround the heliosphere. Interstellar space begins long before the theoretical outer extent of the gravitational Solar System."}
+    ],
+    "model_literature": [
+      {
+        "id": "opher-pickup-ions",
+        "title": "Opher et al. — pickup-ion MHD model (2020)",
+        "url": "https://doi.org/10.1038/s41550-020-1036-0",
+        "assumptions": "Treats pickup ions separately from thermal solar-wind ions; charge exchange with neutral hydrogen removes energy. The model uses an interstellar magnetic-field orientation constrained by the IBEX Ribbon and predicts a more compact, lobed heliosphere.",
+        "limitations": "A particular physical model, not a uniquely measured surface. This application has not qualified its numerical output grid, boundary conditions, solver reproduction or redistribution rights; no mesh here reproduces this model.",
+        "status": "literature-only"
+      },
+      {
+        "id": "heliosphere-model-review",
+        "title": "Kleimann et al. — large-scale heliosphere model comparison (2022)",
+        "url": "https://doi.org/10.1007/s11214-022-00902-6",
+        "assumptions": "Reviews analytical, MHD, multifluid and kinetic treatments. Solar-wind pressure and solar-cycle history, interstellar plasma and magnetic field, neutral-hydrogen exchange, and tail mixing affect the predicted boundaries and large-scale tail.",
+        "limitations": "Long-tailed and compact or lobed geometries differ with assumptions and treatment of the heliopause. ENA observations constrain models through an additional emission and transport calculation; angular brightness is not distance. The article's CC BY 4.0 license does not by itself qualify a numerical source grid.",
+        "status": "literature-only"
+      }
+    ],
+    "limitations": [
+      "Transparent layers are a conceptual teaching diagram. Their dimensions and shape are artistic parameters, not fitted global boundaries or a reproduced published model.",
+      "The historical Voyager vectors and observed crossing radii are separate anchors; they are never forced onto a modeled shell.",
+      "The heliosphere changes with solar-wind conditions and the surrounding medium. No qualified time-dependent boundary model is supplied, so the conceptual scene does not claim current-epoch boundary motion.",
+      "An exact published scientific heliosphere reconstruction remains incomplete. IBEX angular ENA maps do not uniquely determine a 3-D heliopause."
+    ]
+  },
+  "oort": {
+    "evidence_class": "theoretical",
+    "inner_extent_au": [2000, 5000],
+    "outer_extent_au": [10000, 100000],
+    "source_ids": ["oort-nasa"],
+    "limitations": [
+      "These broad NASA explanatory ranges describe uncertain theoretical extents, not measured inner or outer surfaces.",
+      "The Oort Cloud has not been directly observed as a complete population. Sparse markers illustrate a hypothesized reservoir; they have no catalog identities, measured positions or calibrated number density.",
+      "The heliopause marks a plasma transition, not the Sun's gravitational limit. The Oort Cloud is hypothesized far beyond it.",
+      "Long-period comet observations motivate the reservoir hypothesis. An observed comet orbit does not measure or map the entire source population."
+    ],
+    "comet_examples": [
+      {"name": "C/2012 S1 (ISON)", "source_url": "https://science.nasa.gov/solar-system/oort-cloud/facts/", "orbit_status": "not-admitted", "description": "NASA discusses ISON as an Oort Cloud comet; it disintegrated during its 2013 passage near the Sun. This context entry does not add an orbit or a measured reservoir location."},
+      {"name": "C/2013 A1 (Siding Spring)", "source_url": "https://science.nasa.gov/solar-system/oort-cloud/facts/", "orbit_status": "not-admitted", "description": "NASA identifies Siding Spring as an Oort Cloud example that passed Mars in 2014. No source-qualified orbit has been added for this example."}
+    ]
+  },
+  "sources": [
+    {"id": "voyager-nasa", "title": "Voyager — Interstellar Mission", "url": "https://science.nasa.gov/mission/voyager/interstellar-mission/", "publisher": "NASA/JPL", "rights": "Factual paraphrase with source attribution; no photographs, logos or promotional figures redistributed."},
+    {"id": "voyager1-rankin", "title": "Rankin — Nearly a Decade of Cosmic Ray Observations in the Very Local Interstellar Medium (2022)", "url": "https://doi.org/10.22323/1.395.0032", "publisher": "Proceedings of Science / ICRC2021", "rights": "Article is CC BY-NC-ND 4.0. Referenced for published event facts only; article text and figures are not redistributed or adapted."},
+    {"id": "voyager2-richardson", "title": "Richardson et al. — Voyager 2 plasma observations of the heliopause and interstellar medium (2019)", "url": "https://doi.org/10.1038/s41550-019-0929-2", "publisher": "Nature Astronomy", "rights": "Referenced for published scientific facts; no subscription article assets or figures redistributed."},
+    {"id": "oort-nasa", "title": "Oort Cloud Facts", "url": "https://science.nasa.gov/solar-system/oort-cloud/facts/", "publisher": "NASA", "rights": "Factual paraphrase with source attribution; no NASA media assets redistributed."},
+    {"id": "heliosphere-model-review", "title": "Kleimann et al. — The Structure of the Large-Scale Heliosphere as Seen by Current Models (2022)", "url": "https://doi.org/10.1007/s11214-022-00902-6", "publisher": "Space Science Reviews", "rights": "CC BY 4.0 article; factual summary only. No model grids or third-party figures admitted."},
+    {"id": "opher-pickup-ions", "title": "Opher et al. — A small and round heliosphere suggested by magnetohydrodynamic modelling of pick-up ions (2020)", "url": "https://doi.org/10.1038/s41550-020-1036-0", "publisher": "Nature Astronomy", "rights": "Literature reference only; no paper figures, solver output or numerical model assets redistributed."},
+    {"id": "mission-source", "title": "Solar 2.5 pinned mission-native JPL Horizons source", "url": "https://ssd.jpl.nasa.gov/horizons/", "publisher": "NASA/JPL Solar System Dynamics", "rights": "Existing qualified local mission release; JPL disclaimer and mission provenance remain applicable."}
+  ]
+}

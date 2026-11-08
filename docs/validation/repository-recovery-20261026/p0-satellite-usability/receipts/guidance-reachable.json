@@ -1,0 +1,41 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "box": {
+      "x": 577,
+      "y": 599,
+      "width": 286,
+      "height": 64
+    },
+    "status": "PASS"
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 900
+    },
+    "box": {
+      "x": 17,
+      "y": 801,
+      "width": 356,
+      "height": 64
+    },
+    "status": "PASS"
+  },
+  {
+    "viewport": {
+      "width": 667,
+      "height": 390
+    },
+    "box": {
+      "x": 17,
+      "y": 246,
+      "width": 633,
+      "height": 32
+    },
+    "status": "PASS"
+  }
+]

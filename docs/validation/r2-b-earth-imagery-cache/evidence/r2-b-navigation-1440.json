@@ -1,0 +1,243 @@
+{
+  "status": "PASS",
+  "width": 1440,
+  "steps": [
+    "Invalid coordinates rejected; genuine zero coordinates reach native camera",
+    "Accepted native wheel zoom preserves center anchor",
+    "Back/Forward restores actual coordinate and panned/zoomed bookmarks",
+    "Reload preserves coordinate destination and native time",
+    "Sky/Earth round trip 1: native observer/time/panorama and one renderer preserved",
+    "Sky/Earth round trip 2: native observer/time/panorama and one renderer preserved",
+    "Canonical ORAS context restored"
+  ],
+  "sourceHashes": {
+    "scripts/validation/verify_r2b_navigation.mjs": "74713f82a202e91b08e38e3a0a6c492542003e4f18a4013ecbd31d71aa086cb1",
+    "scripts/validation/verify_r2_earth_search.mjs": "e74c5bf26816d03fca58e0b6137d690a66ab67032b06a8f49507ad6da3eca016",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "17541ab399a6bb517c781ae16d874ff56ac7d5c6e4b6c41ab0f0cfc94e8d6284",
+    "frontend/src/features/workspace/EarthSearch.tsx": "9fbb191bd7f02a0285adb10309e9340d75fed2a2e0d74c78a2e307a1b372e9c5",
+    "frontend/src/features/workspace/earthSearch.ts": "38e68d4e164977e5a7b6b269fb7a16f5f596fb54eacbc4eac1d004239e1700fe",
+    "frontend/src/features/workspace/EarthExplore.tsx": "cfcda9e8ff6c717b182f323f43065b137355fad54804a9a21e5ce96a5447c0f3",
+    "frontend/src/features/workspace/earthLocationNavigation.ts": "069cf7d852dc973140d8992b05affe3a0112ba10257965a7ecd8de597fadab87",
+    "frontend/src/features/workspace/useEarthLocation.ts": "1d6c07cc4349ce61b30af9fdbdcec3bfe27ee057c608b2e25e62065d601d16b8",
+    "integrations/renderers.lock.json": "038cb08a93a266a61aa0f9ae60f18df59c33b3b3515da0c68dbc605a53f1c5d6",
+    "frontend/public/runtime-versions.json": "dc69424d167a4367164a59963d4fef4d350e4c48c93f2407e140a707a8419f9e"
+  },
+  "scenes": [
+    {
+      "file": "coordinate-earth.png",
+      "sha256": "824bb2ae47b6529a4e4ed8cc90de5a784acb94e1b9efc15e06dbca9dc83f866f"
+    }
+  ],
+  "scope": "Fresh coordinates/native camera/accepted wheel/history/reload/repeated Sky return. Does not replace unsuccessful fresh live place-provider journeys.",
+  "final": {
+    "owner": "Astronomy Hub",
+    "monotonicMs": 11752.200000000186,
+    "globeTilesLoaded": false,
+    "ready": true,
+    "disposed": false,
+    "viewerDestroyed": false,
+    "site": {
+      "lat": 41.321903,
+      "lon": -79.585394,
+      "elevationM": 432.816
+    },
+    "layers": [
+      {
+        "id": "oras-site",
+        "title": "ORAS site",
+        "category": "Site context",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "ORAS canonical site",
+        "status": "ready"
+      },
+      {
+        "id": "aircraft",
+        "title": "Aircraft near ORAS",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "adsb.lol · ODbL 1.0",
+        "status": "disabled"
+      },
+      {
+        "id": "satellites",
+        "title": "Satellites · stations",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "tracking",
+          "live-only"
+        ],
+        "attribution": "CelesTrak · satellite.js",
+        "status": "disabled"
+      },
+      {
+        "id": "weather",
+        "title": "Weather at ORAS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "Open-Meteo · CC BY 4.0",
+        "status": "disabled"
+      },
+      {
+        "id": "earthquakes",
+        "title": "Earthquakes · M2.5+ · past day",
+        "category": "Events",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "U.S. Geological Survey",
+        "status": "disabled"
+      },
+      {
+        "id": "fire-perimeters",
+        "title": "Fire perimeters · recent subset",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NIFC/WFIGS",
+        "status": "disabled"
+      },
+      {
+        "id": "weather-radar",
+        "title": "Radar reflectivity · CONUS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NOAA/NWS nowCOAST",
+        "status": "disabled"
+      }
+    ],
+    "providers": {
+      "satellites": {
+        "status": "loading",
+        "temporalMode": "LIVE_ONLY"
+      }
+    },
+    "entityCount": 1,
+    "timings": {
+      "moduleLoadedMs": 139,
+      "shellInteractiveMs": 182.5,
+      "viewerReadyMs": 184.70000000018626,
+      "firstImageryTileMs": 1418.8000000002794
+    },
+    "cameraMotion": {
+      "active": false
+    },
+    "cameraHeightM": 39999.999999965374,
+    "navigation": {
+      "mode": "earth",
+      "observer": {
+        "lat": 41.321903001007314,
+        "lon": -79.5853940000091,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "camera": {
+        "latitudeRad": 0.7212032605397223,
+        "longitudeRad": -1.38902716179694,
+        "heightM": 39999.999999965374,
+        "headingRad": 6.283185307179586,
+        "pitchRad": -1.570775528851808,
+        "rollRad": 0
+      },
+      "utc": "2026-06-05T17:00:00.000Z",
+      "live": false
+    },
+    "tracking": null,
+    "selection": null,
+    "quality": {
+      "imagery": "EOX · Global Satellite · partial · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+      "terrain": "Terrain unavailable · ellipsoid",
+      "buildings": "Not configured",
+      "photorealistic": "Not configured"
+    },
+    "imagery": {
+      "selected": "auto",
+      "actual": "eox-2016",
+      "status": "partial",
+      "fallbackReason": "",
+      "metadata": {
+        "label": "EOX · Global Satellite",
+        "product": "Sentinel-2 cloudless · 2016 mosaic",
+        "date": null,
+        "gsd": 10,
+        "coverage": "Web Mercator ±85.051°; capture dates vary",
+        "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+        "url": "https://maps.eox.at/",
+        "host": "tiles.maps.eox.at",
+        "cap": 14,
+        "coverageRasterName": null,
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "partial",
+        "reason": "",
+        "loadingNote": ""
+      },
+      "localAllocations": 1,
+      "controllersCreated": 1,
+      "managedLayers": 1,
+      "labelsLayers": 0,
+      "budget": {
+        "active": 13,
+        "requested": 76
+      },
+      "ionSessionRequests": 0,
+      "ionSessionLedgerAvailable": true,
+      "metadataRequests": 1,
+      "metadataPending": true,
+      "view": {
+        "height": 39999.999999965374,
+        "rect": [
+          -79.86208492397668,
+          41.20762586768488,
+          -79.30870307682399,
+          41.435515066381
+        ],
+        "point": [
+          -79.5853940000091,
+          41.321903001007364
+        ],
+        "naipCovered": false,
+        "verifiedOras": false
+      },
+      "sources": {
+        "nasa": {
+          "requested": 5,
+          "loaded": 5,
+          "failed": 0,
+          "cancelled": 0,
+          "active": 0,
+          "peak": 5,
+          "paused": false,
+          "partial": false,
+          "preparing": false
+        },
+        "eox-2016": {
+          "requested": 71,
+          "loaded": 58,
+          "failed": 0,
+          "cancelled": 0,
+          "active": 13,
+          "peak": 18,
+          "paused": false,
+          "partial": false,
+          "preparing": false
+        }
+      }
+    }
+  }
+}

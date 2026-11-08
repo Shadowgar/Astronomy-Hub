@@ -1,0 +1,78 @@
+{
+  "deliveryHead": "ea802138447a83f3abf0ef92c06612c1106a0f41",
+  "state": "OPEN",
+  "base": "r1-b-adaptive-sky-implementation-1",
+  "codexStates": [
+    {
+      "code_review": {
+        "commit_sha": "ea802138447a83f3abf0ef92c06612c1106a0f41",
+        "has_any_findings": true,
+        "has_unresolved_findings": true,
+        "status": "completed"
+      },
+      "security_review": {
+        "commit_sha": null,
+        "has_any_findings": null,
+        "has_unresolved_findings": null,
+        "status": null
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "PRRT_kwDORt_rys6tFj9X",
+      "isResolved": false,
+      "isOutdated": false,
+      "comments": {
+        "pageInfo": {
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Preserve provenance on same-route observer updates**\n\nApply `observerWithProvenance` to every observer synchronization, not only the initial mount. If browser history or client-side navigation changes the current Sky/Earth query to a different `lat`/`lng` with no `elev`, `RuntimeHost` remains mounted and `useWorkspaceRuntime` later sends the raw zero-valued observer without `elevationSource`; both adapters then classify it as `provided`, so the next handoff falsely reports a supplied 0 m elevation instead of `unavailable-zero`. Fresh evidence beyond the resolved provenance thread is this post-mount synchronization path, which bypasses the new validator.\n\nAGENTS.md reference: [AGENTS.md:L11-L13](https://github.com/Shadowgar/Astronomy-Hub/blob/ea802138447a83f3abf0ef92c06612c1106a0f41/AGENTS.md#L11-L13)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291532189",
+            "commit": {
+              "oid": "ea802138447a83f3abf0ef92c06612c1106a0f41"
+            },
+            "author": {
+              "login": "chatgpt-codex-connector"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-16T06:17:57Z",
+        "conclusion": "NEUTRAL",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-16T06:17:55Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-16T06:18:02Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      }
+    ]
+  },
+  "chain": {
+    "p74": {
+      "state": "OPEN",
+      "headRefOid": "a57532796502a1db9ae1a7e4e4dc83e113db558f",
+      "baseRefName": "r1-a-adaptive-explorer-design-1"
+    },
+    "p73": {
+      "state": "OPEN",
+      "headRefOid": "b151d45787cf0e450aa0b187acd3eee142fa1fef",
+      "baseRefName": "main"
+    }
+  }
+}

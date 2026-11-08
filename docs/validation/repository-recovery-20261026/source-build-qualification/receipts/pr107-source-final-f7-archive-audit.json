@@ -1,0 +1,30 @@
+{
+  "revision": "f7cb702c428980ce2b32539dbc74fc2b35082c12",
+  "archive_sha256": "7cf5cf444b35c02f05aeebd555e4a0142fc52c666161d14bea4981de9ebf3fde",
+  "bytes": 23639435,
+  "receipt_matches": true,
+  "members": 1564,
+  "files": 1563,
+  "duplicate_paths": 0,
+  "path_metadata_errors": [],
+  "manifest_file_differences": [],
+  "manifest_hash_size_mode_errors": [],
+  "old_attestation_inputs": 567,
+  "old_attestation_changed": [],
+  "old_attestation_absent": [
+    "stellarium/apps/web-frontend/src/assets/js/stellarium-web-engine.js",
+    "stellarium/apps/web-frontend/src/assets/js/stellarium-web-engine.wasm"
+  ],
+  "hub_committed_byte_mismatches": [],
+  "forbidden_inputs": [],
+  "pathset_delta_vs_f44": [],
+  "changed_inputs_vs_f44": [
+    "hub/scripts/source-distribution/README.md",
+    "hub/scripts/source-distribution/reconstruct.py",
+    "hub/tests/validation/test_source_package.py"
+  ],
+  "tree_sha256": {
+    "hub": "e4161e8355df5d5fa61ef06b94af6d3e86761d9a2c03d8b3ca1e82abccf51818",
+    "stellarium": "a080eaf20de77a8a01caef5631b9a1b5a645bb738716dfce944f4e5b06396d8c"
+  }
+}

@@ -18,3 +18,10 @@ test('public imagery selection is a closed credential-free enum with legacy fall
  for(const publicImagery of ['https://unapproved.example',null,{},'bing'])assert.equal(isPublicDisplayConfig({schema:1,qualified:false,publicImagery}),false);
  assert.equal(isPublicDisplayConfig({schema:1,qualified:false,publicImagery:'usgs-conus',publicToken:'not-admitted'}),false);
 });
+
+test('ion token and qualification alone cannot activate imagery; opt-in and bounded accounting are mandatory',async()=>{
+ const {admitIonImagery}=await import('../../runtimes/earth-runtime/core/displayConfig.mjs');
+ const base={schema:1,qualified:true,publicToken:'fixture-publishable-token',publicTokenAttested:true,imageryAsset:2};assert.equal(admitIonImagery(base),null);
+ const allowed={...base,ionImageryOptIn:true,zeroChargeProtectionAttested:true,ionSessionTileLimit:60};assert.equal(admitIonImagery(allowed),allowed);
+ for(const change of [{ionImageryOptIn:false},{zeroChargeProtectionAttested:false},{ionSessionTileLimit:121},{ionSessionTileLimit:0}])assert.equal(admitIonImagery({...allowed,...change}),null);
+});

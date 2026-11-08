@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "frontend/src/features/solar/solar.css": "13fecec8f19517698f0b58af79fdbc695828c4460f920a770fe6702de63b371a",
+    "scripts/validation/verify_cinematic_compact.mjs": "9ce5daa58ef76137498429dca929a99afa5cd6f829a0371e055779aa67e206ac"
+  },
+  "runs": [
+    {
+      "width": 667,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 844,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 540,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 480,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 667,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 560,
+      "height": 640,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Collapsed and expanded cards preserve body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "status": "INTERRUPTED",
+  "reason": "No progress after initial scene; owned Node inspector shows one pending Frame.evaluateExpression and no active timeout. No original cause established.",
+  "ownedPids": [
+    388492,
+    388537,
+    388541,
+    388547,
+    388562,
+    388566
+  ],
+  "timestamp": "2026-10-16T17:24:29.317630+00:00"
+}

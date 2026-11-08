@@ -1,0 +1,1601 @@
+{
+  "status": "RECORDED",
+  "cases": [
+    {
+      "scenario": "fixed-night",
+      "before": {
+        "native": {
+          "utc": "2026-06-04T02:58:00.000Z",
+          "timeSpeed": 0,
+          "lat": 0.72120326054,
+          "lon": -1.389027161797,
+          "elevation": 432.816,
+          "selection": null,
+          "lock": null,
+          "fov": 2.094395102393,
+          "yaw": 1.847221790196,
+          "pitch": 0.991322115361,
+          "roll": 0,
+          "atmosphere": true,
+          "night": false
+        },
+        "hub": {
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+          "requested": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816",
+          "sceneTime": "\n  \n  \n\nSet timeJun 3, 10:58 PM EDTChange time\n  \n\n",
+          "messages": [
+            {
+              "at": 480.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 1,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true
+              }
+            },
+            {
+              "at": 950.3999999994412,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 2,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-06-04T02:58:00.000Z",
+                "live": false
+              }
+            },
+            {
+              "at": 1113,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816,
+                "elevationSource": "oras-site"
+              }
+            },
+            {
+              "at": 1221.2999999998137,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 4,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 1221.5999999996275,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 5,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-06-04T02:58:00.000Z",
+                "live": false
+              }
+            },
+            {
+              "at": 1221.7000000001863,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 6,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true,
+                "creditsAtTop": false
+              }
+            },
+            {
+              "at": 2280.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 7,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 3272.2000000001863,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 4330.299999999814,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 9,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 5356,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 6408.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 7315.700000000186,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 8271.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 9308.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 14,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 10299.399999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 11285.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 12310.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 17,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 13304.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 18,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 14280.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 19,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 15298.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 20,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 16311.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 21,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 17284.200000000186,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 22,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 18278.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 23,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 19287.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 24,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 20368.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 25,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 21272.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 26,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 22283.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 27,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 23278.299999999814,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 28,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 24344,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 29,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 25288.299999999814,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 30,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 26308.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 31,
+              "command": "getWorkspaceState",
+              "payload": {}
+            }
+          ]
+        },
+        "illumination": {
+          "meanRgb": 29.094873958335192,
+          "bluePixels": 1465
+        }
+      },
+      "after": {
+        "native": {
+          "utc": "2026-06-04T02:58:00.000Z",
+          "timeSpeed": 0,
+          "lat": 0.72120326054,
+          "lon": -1.389027161797,
+          "elevation": 432.816,
+          "selection": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          },
+          "lock": null,
+          "fov": 2.094395102393,
+          "yaw": 1.847221790196,
+          "pitch": 0.991322115361,
+          "roll": 0,
+          "atmosphere": true,
+          "night": false
+        },
+        "hub": {
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00.000Z&catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "requested": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "sceneTime": "\n  \n  \n\nSet timeJun 3, 10:58 PM EDTChange time\n  \n\n",
+          "messages": [
+            {
+              "at": 480.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 1,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true
+              }
+            },
+            {
+              "at": 950.3999999994412,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 2,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-06-04T02:58:00.000Z",
+                "live": false
+              }
+            },
+            {
+              "at": 1113,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816,
+                "elevationSource": "oras-site"
+              }
+            },
+            {
+              "at": 1221.2999999998137,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 4,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 1221.5999999996275,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 5,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-06-04T02:58:00.000Z",
+                "live": false
+              }
+            },
+            {
+              "at": 1221.7000000001863,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 6,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true,
+                "creditsAtTop": false
+              }
+            },
+            {
+              "at": 2280.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 7,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 3272.2000000001863,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 4330.299999999814,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 9,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 5356,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 6408.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 7315.700000000186,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 8271.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 9308.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 14,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 10299.399999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 11285.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 12310.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 17,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 13304.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 18,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 14280.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 19,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 15298.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 20,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 16311.899999999441,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 21,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 17284.200000000186,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 22,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 18278.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 23,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 19287.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 24,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 20368.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 25,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 21272.599999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 26,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 22283.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 27,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 23278.299999999814,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 28,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 24344,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 29,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 25288.299999999814,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 30,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 26308.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 31,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 27325.39999999944,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 32,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 28337.799999999814,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 33,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 29323.39999999944,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 34,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 29565.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 35,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-06-04T02:58:00.000Z",
+                "live": false
+              }
+            },
+            {
+              "at": 30294.099999999627,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 36,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 31307.5,
+              "runtime": "sky",
+              "nonce": "6d62534eb690a2fe91d5df388762307c",
+              "generation": 1,
+              "type": "command",
+              "id": 37,
+              "command": "getWorkspaceState",
+              "payload": {}
+            }
+          ]
+        },
+        "illumination": {
+          "meanRgb": 29.33517083333559,
+          "bluePixels": 1472
+        }
+      },
+      "menu": "Tonight\nObserve\nSky view settings\nDiagnostics\nOpen standalone Sky",
+      "hasVisibleFov": 0
+    },
+    {
+      "scenario": "native-night-live-route",
+      "before": {
+        "native": {
+          "utc": "2026-06-04T02:58:00.000Z",
+          "timeSpeed": 0,
+          "lat": 0.72120326054,
+          "lon": -1.389027161797,
+          "elevation": 432.816,
+          "selection": null,
+          "lock": null,
+          "fov": 2.094395102393,
+          "yaw": 1.847221786288,
+          "pitch": 0.991322118072,
+          "roll": 0,
+          "atmosphere": true,
+          "night": false
+        },
+        "hub": {
+          "url": "http://127.0.0.1:4202/sky-engine",
+          "requested": "date=2026-10-16T14%3A09%3A10.731Z&lat=41.321903&lng=-79.585394&elev=432.816",
+          "sceneTime": "\n  \n  \n\nLiveOct 16, 10:09 AM EDTChange time\n  \n\n",
+          "messages": [
+            {
+              "at": 405.6000000005588,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 1,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true
+              }
+            },
+            {
+              "at": 925,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 2,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-10-16T14:09:10.731Z",
+                "live": true
+              }
+            },
+            {
+              "at": 1126.9000000003725,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816,
+                "elevationSource": "oras-site"
+              }
+            },
+            {
+              "at": 1365.9000000003725,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 4,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 1366.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 5,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-10-16T14:09:12.039Z",
+                "live": true
+              }
+            },
+            {
+              "at": 1366.4000000003725,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 6,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true,
+                "creditsAtTop": false
+              }
+            },
+            {
+              "at": 2430.100000000559,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 7,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 3430.800000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 4438.600000000559,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 9,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 5529.5,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 6586.5,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 7486.200000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 8435.900000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 9463.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 14,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 10426.700000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 11429.900000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 12445.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 17,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 13413.800000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 18,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 14432.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 19,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 15445.600000000559,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 20,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 16420.200000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 21,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 17425.5,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 22,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 18444.60000000056,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 23,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 19516.700000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 24,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 20442.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 25,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 21432.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 26,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 22472.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 27,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 23412.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 28,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 24495.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 29,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 25377.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 30,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 26421.200000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 31,
+              "command": "getWorkspaceState",
+              "payload": {}
+            }
+          ]
+        },
+        "illumination": {
+          "meanRgb": 29.094872916668525,
+          "bluePixels": 1465
+        }
+      },
+      "after": {
+        "native": {
+          "utc": "2026-10-16T14:09:41.592Z",
+          "timeSpeed": 1,
+          "lat": 0.72120326054,
+          "lon": -1.389027161797,
+          "elevation": 432.816,
+          "selection": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          },
+          "lock": null,
+          "fov": 2.094395102393,
+          "yaw": 1.847221786288,
+          "pitch": 0.991322118072,
+          "roll": 0,
+          "atmosphere": true,
+          "night": false
+        },
+        "hub": {
+          "url": "http://127.0.0.1:4202/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "requested": "date=2026-10-16T14%3A09%3A10.731Z&lat=41.321903&lng=-79.585394&elev=432.816&catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "sceneTime": "\n  \n  \n\nLiveOct 16, 10:09 AM EDTChange time\n  \n\n",
+          "messages": [
+            {
+              "at": 405.6000000005588,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 1,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true
+              }
+            },
+            {
+              "at": 925,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 2,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-10-16T14:09:10.731Z",
+                "live": true
+              }
+            },
+            {
+              "at": 1126.9000000003725,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 41.321903,
+                "lon": -79.585394,
+                "elevationM": 432.816,
+                "elevationSource": "oras-site"
+              }
+            },
+            {
+              "at": 1365.9000000003725,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 4,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 1366.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 5,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-10-16T14:09:12.039Z",
+                "live": true
+              }
+            },
+            {
+              "at": 1366.4000000003725,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 6,
+              "command": "setPresentation",
+              "payload": {
+                "embedded": true,
+                "creditsAtTop": false
+              }
+            },
+            {
+              "at": 2430.100000000559,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 7,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 3430.800000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 4438.600000000559,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 9,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 5529.5,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 10,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 6586.5,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 11,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 7486.200000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 12,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 8435.900000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 13,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 9463.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 14,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 10426.700000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 15,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 11429.900000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 16,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 12445.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 17,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 13413.800000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 18,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 14432.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 19,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 15445.600000000559,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 20,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 16420.200000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 21,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 17425.5,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 22,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 18444.60000000056,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 23,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 19516.700000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 24,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 20442.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 25,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 21432.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 26,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 22472.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 27,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 23412.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 28,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 24495.400000000373,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 29,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 25377.300000000745,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 30,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 26421.200000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 31,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 27427,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 32,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 28493.10000000056,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 33,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 28771.60000000056,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 34,
+              "command": "setTimeIntent",
+              "payload": {
+                "utc": "2026-10-16T14:09:39.444Z",
+                "live": true
+              }
+            },
+            {
+              "at": 29412.200000000186,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 35,
+              "command": "getWorkspaceState",
+              "payload": {}
+            },
+            {
+              "at": 30408.60000000056,
+              "runtime": "sky",
+              "nonce": "ea6330b89d120422fc2e845ac13c606c",
+              "generation": 1,
+              "type": "command",
+              "id": 36,
+              "command": "getWorkspaceState",
+              "payload": {}
+            }
+          ]
+        },
+        "illumination": {
+          "meanRgb": 217.60225208336533,
+          "bluePixels": 313164
+        }
+      },
+      "menu": "Tonight\nObserve\nSky view settings\nDiagnostics\nOpen standalone Sky",
+      "hasVisibleFov": 0
+    }
+  ]
+}

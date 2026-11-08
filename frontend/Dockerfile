@@ -5,10 +5,12 @@ WORKDIR /app
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 
 COPY frontend/package*.json ./
+COPY frontend/graphics/package*.json ./graphics/
 RUN npm ci --loglevel=error
 
 COPY frontend/ .
 COPY packages/ /packages/
+COPY runtimes/shared/ /runtimes/shared/
 COPY integrations/renderers.lock.json /integrations/renderers.lock.json
 
 EXPOSE 4173

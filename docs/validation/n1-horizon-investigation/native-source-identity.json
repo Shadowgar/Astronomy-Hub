@@ -1,0 +1,27 @@
+{
+  "src/modules/landscape.c": {
+    "vendoredSha256": "9dbc682aecc0ca3b76f205647e0d2479bd82f82906174a6b33790e9bc0cb5acc",
+    "buildSourceSha256": "9dbc682aecc0ca3b76f205647e0d2479bd82f82906174a6b33790e9bc0cb5acc",
+    "equal": true
+  },
+  "src/modules/circle.c": {
+    "vendoredSha256": "13f1bd33efb1bbf54c2431dcc092876d4664688d6e51f94127e63fe2e0476d77",
+    "buildSourceSha256": "13f1bd33efb1bbf54c2431dcc092876d4664688d6e51f94127e63fe2e0476d77",
+    "equal": true
+  },
+  "src/js/obj.js": {
+    "vendoredSha256": "d86b840432d05bf44479f98e4046a849b73047184e1c2dea4a3a89210967505d",
+    "buildSourceSha256": "d86b840432d05bf44479f98e4046a849b73047184e1c2dea4a3a89210967505d",
+    "equal": true
+  },
+  "src/module.c": {
+    "vendoredSha256": "aded464a8a7286c1f5f8277e7a2061c9c29cbc8e933bbb5d75e649c1224ff0df",
+    "buildSourceSha256": "aded464a8a7286c1f5f8277e7a2061c9c29cbc8e933bbb5d75e649c1224ff0df",
+    "equal": true
+  },
+  "src/obj.c": {
+    "vendoredSha256": "325867c59c495620804b6869bd2dde6f3157c0f99c9dc3d05cb6f499ad0c7e76",
+    "buildSourceSha256": "325867c59c495620804b6869bd2dde6f3157c0f99c9dc3d05cb6f499ad0c7e76",
+    "equal": true
+  }
+}

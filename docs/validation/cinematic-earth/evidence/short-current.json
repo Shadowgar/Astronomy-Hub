@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "width": 667,
+      "height": 390,
+      "steps": [
+        "Direct search, one actual native renderer and compact shared brand visible",
+        "Source coordinate result moves actual Cesium camera, independent selected-location summary",
+        "Collapsed/expanded source details with honest imagery/elevation limitations",
+        "Keyboard zoom moves actual camera and preserves scene time",
+        "Source availability remains accessible",
+        "Sky return retains actual observer and Pennsylvania native horizon"
+      ],
+      "errors": [],
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.321903000989934,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    "Software Chromium and emulated mobile, not physical GPU or owner visual acceptance."
+  ]
+}

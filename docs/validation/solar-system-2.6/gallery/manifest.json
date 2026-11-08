@@ -1,0 +1,135 @@
+{
+  "schema": "oras.solar26-gallery.v1",
+  "evidence_class": "actual-api-production-preview-headed-windows-edge-nvidia",
+  "physical_device": false,
+  "owner_accepted": false,
+  "source_hashes": {
+    "frontend/src/features/beyond/BeyondWorkspace.tsx": "7c5881347bb09778d5c95bcb9e056acd61deb089c074b10195e308c482f6a3ab",
+    "frontend/src/features/beyond/BeyondScene.ts": "aaa78da4bcd373f79c1cf0f2fce0ba066bf4ef1c64a492cf53b3e2015229ee1c",
+    "frontend/src/features/beyond/beyondContracts.ts": "4a129a7643137ca8cddc65b5540629a4f93d1109fa1cb94207113735a34c11b0",
+    "frontend/src/features/beyond/beyondNavigation.ts": "13005837cd79b92e82c3f78eb35d4d12c532d1ce2e1e8d3b2e2a30e9d4d0c6d5",
+    "frontend/src/features/beyond/beyondMath.ts": "00386bf7795a2224ce22b8eb415b77a5191365e3f8091bccd5bfe87845d78364",
+    "frontend/src/features/beyond/ObservationViews.tsx": "49f29ee14c70cbdf53c78ef1f5d952f1c235f5574a160a6a563822a65dca2e81",
+    "frontend/src/features/beyond/beyond.css": "0b86d8e8f009742abc4a54041eb802510cf0c6e5590fe08f39b30e3c82247e54",
+    "backend/app/services/beyond_exploration.py": "352d10911ab74e9e3729e4ba06a70afa02713e423a813610400c2c579f57f6f6",
+    "backend/app/data/beyond_context.json": "450a2bf20795c8780d5bb5f18f175a0ed9c6d4c0c026cb7d3c234d5654fbd279"
+  },
+  "journey_receipt_sha256": "c5cda89d77c564dd3670142761ff56d42d4cf5cb1928aee8f5af05b9accce720",
+  "images": [
+    {
+      "file": "A-voyager1-crossing.png",
+      "caption": "Voyager 1: observed event, predicted source geometry",
+      "sha256": "95c86001419f703be36c2bc39cf9cf7010b86cbfce0ed2d03d47b100e44cdee1",
+      "bytes": 198621
+    },
+    {
+      "file": "B-separate-historical-comparison.png",
+      "caption": "Voyager 1 and 2: explicitly different historical dates",
+      "sha256": "c0b5a92e6baf92ee8ccb9b714c45ca5af698c4fff640466ff5022cf64f3cab45",
+      "bytes": 199874
+    },
+    {
+      "file": "B-comparison-portrait.png",
+      "caption": "Historical comparison: portrait viewport",
+      "sha256": "e110347a4a5b10e8dd8c76909e18bb8f9136d7e7c48e8354afa958dbf03e09a3",
+      "bytes": 97333
+    },
+    {
+      "file": "C-illustrative-heliosphere.png",
+      "caption": "Conceptual heliosphere: no qualified MHD reconstruction",
+      "sha256": "1e60ac9c46ae1f186a31d01b13442dab5de7d88c5b269ad80e99571c6af79490",
+      "bytes": 208156
+    },
+    {
+      "file": "C-ibex-native-cell-selection.png",
+      "caption": "Actual IBEX DR18 angular flux and statistical uncertainty",
+      "sha256": "b3e1cdf75d824c948dfeec23c541b4481d9c47e4e234077219faffedcef3d6c1",
+      "bytes": 350474
+    },
+    {
+      "file": "C-imap-desktop.png",
+      "caption": "Actual IMAP MAG time series",
+      "sha256": "9d5423a5968007803778d603bf513d43da86f754b80183a1b487192eb007a428",
+      "bytes": 288305
+    },
+    {
+      "file": "C-imap-portrait.png",
+      "caption": "IMAP inspection: portrait viewport",
+      "sha256": "265af36f7044d22de880a806c3749b95a0c97895a032cfc78b1fdf6509819e5b",
+      "bytes": 137178
+    },
+    {
+      "file": "C-imap-landscape.png",
+      "caption": "IMAP inspection: landscape viewport",
+      "sha256": "12b78c88aad2a48d356da867caccde15307e71a96d5173aabf9c260d832e25b2",
+      "bytes": 104492
+    },
+    {
+      "file": "D-oort-100k-desktop.png",
+      "caption": "Theoretical Oort region: 100000 AU reference",
+      "sha256": "e7ab13234a7bcc42171ac2912388d60a2f973c2308fde6c2f8a9bcf733135d9a",
+      "bytes": 215319
+    },
+    {
+      "file": "D-oort-100k-portrait.png",
+      "caption": "Oort scale: portrait viewport",
+      "sha256": "2193a42c6ccef4734a4564942604e720bb1e73215db8adf6e4dd7e4aac85875e",
+      "bytes": 117851
+    },
+    {
+      "file": "D-oort-100k-landscape.png",
+      "caption": "Oort scale: landscape viewport",
+      "sha256": "6ce22bd63b021aa778836c1321433986e8573f739c88b004270134169e49436d",
+      "bytes": 105945
+    },
+    {
+      "file": "D-return-saturn-system.png",
+      "caption": "Returned to native planetary-system exploration",
+      "sha256": "fa29b501a7edbd1822f0cba2491f1947151b520f4339ffd7464e7c26cb30ad50",
+      "bytes": 143475
+    },
+    {
+      "file": "D-return-native-sky.png",
+      "caption": "Returned to native Stellarium Sky",
+      "sha256": "7273d6bebb67dafe2150416add45e3404f854c9b7de01257db597fb4badbd9d2",
+      "bytes": 723902
+    },
+    {
+      "file": "D-return-native-earth.png",
+      "caption": "Returned to native Cesium Earth",
+      "sha256": "90633a1f496272d8b0a00e816484adc5fd1bb9d4e12f2668e7b1b175156f73bb",
+      "bytes": 999068
+    }
+  ],
+  "videos": [
+    {
+      "journey": "A",
+      "file": "videos/A.webm",
+      "source_file": "0bcffc176488e6f4a28dc196d491f9a5.webm",
+      "sha256": "0c8c2ea76238829c6a64ad5ad9a8438856f4ffe168500135a88164f05272722e",
+      "bytes": 1353292
+    },
+    {
+      "journey": "B",
+      "file": "videos/B.webm",
+      "source_file": "c12fbaf3780dd0662d3bc574a47a663f.webm",
+      "sha256": "1a793e7825f71ca0f174692f55c88268f2c8e674991f949f6ed6189550f5e9d4",
+      "bytes": 978388
+    },
+    {
+      "journey": "C",
+      "file": "videos/C.webm",
+      "source_file": "7d9bd884e7d288d0f2b831a1fce98de0.webm",
+      "sha256": "df289198f411eb3f7da7528c9c8aef4b2935d988aae01f019b0a57c339da0481",
+      "bytes": 2827005
+    },
+    {
+      "journey": "D",
+      "file": "videos/D.webm",
+      "source_file": "4dbbeb4041eef7c3773941e480a6dc6a.webm",
+      "sha256": "8e92fa955282e74f9482495df22636b22aac0e521df666f7a5b787fc61dadde3",
+      "bytes": 2530690
+    }
+  ],
+  "videos_storage": "private loopback preview only; not committed scientific/runtime bulk"
+}

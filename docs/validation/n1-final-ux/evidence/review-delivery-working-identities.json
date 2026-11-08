@@ -1,0 +1,270 @@
+{
+  "status": "PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE",
+  "identityChecks": "PASS",
+  "fullNavigationQualified": false,
+  "historicalEvidenceNotRerun": true,
+  "originalLicenseByteIdentity": [
+    {
+      "original": "/var/tmp/oras-phase-c/sky-reconstruction/upstream/LICENSE-AGPL-3.0.txt",
+      "copy": "frontend/public/licenses/stellarium-web-engine-AGPL-3.0.txt",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "original": "frontend/node_modules/cesium/LICENSE.md",
+      "copy": "frontend/public/licenses/cesium-license.txt",
+      "sha256": "5974ceb674dd305415efc34d999ea38a2535b55368475065dd7bfabb23ad026d"
+    }
+  ],
+  "head": "f3629f9a8e4b4ac7a158a1448912d75ca36574db",
+  "committedSources": false,
+  "records": [
+    {
+      "name": "browser",
+      "sha256": "922db9ff2bcbedee986d002cd8200080649b7692d099d94853eb58bcaf0d25c5",
+      "runs": 2,
+      "steps": 18,
+      "scenes": 84,
+      "pageErrors": 0,
+      "resourceFailures": 477
+    },
+    {
+      "name": "satellite-recheck/browser",
+      "sha256": "3c653cab01396d6fbb20eabd5d841379280a773066499aa1bfcd6c1aba982726",
+      "runs": 7,
+      "steps": 0,
+      "scenes": 92,
+      "pageErrors": 0,
+      "resourceFailures": null
+    },
+    {
+      "name": "satellite-recheck/symbol-pixels",
+      "sha256": "4d648b74afe297fd3d3e39771f03940abd860dc2a195529559981e6be97b3ca3",
+      "runs": 7,
+      "steps": 0,
+      "scenes": 21,
+      "pageErrors": 0,
+      "resourceFailures": null
+    },
+    {
+      "name": "native-satellites",
+      "sha256": "67ad26e5a5767345f8cc0ac3e1a82b527f800037b5f31de04a528df4252331e1",
+      "runs": 2,
+      "steps": 0,
+      "scenes": 30,
+      "pageErrors": 0,
+      "resourceFailures": null
+    },
+    {
+      "name": "pennsylvania",
+      "sha256": "2ba8d69212b19379a12a4e6c6c7c2556098394db4995edad6b8dac27616f58d8",
+      "runs": 2,
+      "steps": 0,
+      "scenes": 44,
+      "pageErrors": 0,
+      "resourceFailures": null
+    },
+    {
+      "name": "journeys-desktop",
+      "sha256": "0e79a1cc6d7fcaabf0386ee60ae51a82f970cf8a30d6df64d66be9109a3dd94c",
+      "runs": 1,
+      "steps": 5,
+      "scenes": 0,
+      "pageErrors": 0,
+      "resourceFailures": 62
+    },
+    {
+      "name": "journeys-mobile",
+      "sha256": "e16b33cc65663ef34a565d2ea7cb1bf112763348754d17de17e88b12802df361",
+      "runs": 1,
+      "steps": 7,
+      "scenes": 0,
+      "pageErrors": 0,
+      "resourceFailures": 169
+    },
+    {
+      "name": "observer-history",
+      "sha256": "3b5cbb4a2ce1260170d70c8d9d043d0a17b06fae5df105dfe858fa29c50556fe",
+      "runs": 4,
+      "steps": 0,
+      "scenes": 0,
+      "pageErrors": 0,
+      "resourceFailures": null
+    },
+    {
+      "name": "product-paths",
+      "sha256": "59dab1922124b2149bfba3d67ec5bd21c83920ff1e207a6e4a6982073109e03a",
+      "runs": 2,
+      "steps": 6,
+      "scenes": 0,
+      "pageErrors": 0,
+      "resourceFailures": 271
+    }
+  ],
+  "uxMeasurements": [
+    {
+      "width": 1440,
+      "selections": [
+        [
+          "fixed-night",
+          "pointer"
+        ],
+        [
+          "repeated-night",
+          "pointer"
+        ],
+        [
+          "night-mode-on",
+          "pointer"
+        ],
+        [
+          "fixed-day",
+          "native-source-fixture"
+        ],
+        [
+          "live",
+          "native-source-fixture"
+        ],
+        [
+          "paused-native-night-live-url",
+          "pointer"
+        ]
+      ],
+      "fov": {
+        "fov-intermediate": {
+          "text": "FOV 19\u00b0",
+          "nativeDegrees": 18.792643768344156,
+          "roundingTolerance": 0.5000001
+        },
+        "fov-close": {
+          "text": "FOV 4.8\u00b0",
+          "nativeDegrees": 4.793883850419292,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-outward": {
+          "text": "FOV 8.6\u00b0",
+          "nativeDegrees": 8.609126638959708,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-trackpad": {
+          "text": "FOV 4.8\u00b0",
+          "nativeDegrees": 4.793883850419292,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-keyboard": {
+          "text": "FOV 4.3\u00b0",
+          "nativeDegrees": 4.34819396863272,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-one-arcsecond": {
+          "text": "FOV 0.00028\u00b0",
+          "nativeDegrees": 0.0002777777886012164,
+          "roundingTolerance": 5.0999999999999995e-06
+        }
+      },
+      "pausedNightBefore": "2026-06-04T02:58:00.000Z",
+      "pausedNightAfter": "2026-06-04T02:58:00.000Z"
+    },
+    {
+      "width": 390,
+      "selections": [
+        [
+          "fixed-night",
+          "pointer"
+        ],
+        [
+          "repeated-night",
+          "pointer"
+        ],
+        [
+          "night-mode-on",
+          "pointer"
+        ],
+        [
+          "fixed-day",
+          "native-source-fixture"
+        ],
+        [
+          "live",
+          "native-source-fixture"
+        ],
+        [
+          "paused-native-night-live-url",
+          "pointer"
+        ]
+      ],
+      "fov": {
+        "fov-intermediate": {
+          "text": "FOV 19\u00b0",
+          "nativeDegrees": 18.792643768344156,
+          "roundingTolerance": 0.5000001
+        },
+        "fov-close": {
+          "text": "FOV 4.8\u00b0",
+          "nativeDegrees": 4.793883850419292,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-outward": {
+          "text": "FOV 8.6\u00b0",
+          "nativeDegrees": 8.609126638959708,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-trackpad": {
+          "text": "FOV 4.8\u00b0",
+          "nativeDegrees": 4.793883850419292,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-keyboard": {
+          "text": "FOV 4.3\u00b0",
+          "nativeDegrees": 4.34819396863272,
+          "roundingTolerance": 0.050000100000000006
+        },
+        "fov-one-arcsecond": {
+          "text": "FOV 0.00028\u00b0",
+          "nativeDegrees": 0.0002777777886012164,
+          "roundingTolerance": 5.0999999999999995e-06
+        }
+      },
+      "pausedNightBefore": "2026-06-04T02:58:00.000Z",
+      "pausedNightAfter": "2026-06-04T02:58:00.000Z"
+    }
+  ],
+  "protectedFilesUnchanged": 73,
+  "mountsUnchanged": 7,
+  "servedExtensionsAndNotices": [
+    {
+      "url": "/oras-sky-engine/js/stellarium-web-engine.a41e078b.wasm",
+      "sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+    },
+    {
+      "url": "/runtime-bridge/sky/entry.mjs",
+      "source": "runtimes/sky-adapter/entry.mjs",
+      "sha256": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085"
+    },
+    {
+      "url": "/runtime-bridge/sky/native-panels.mjs",
+      "source": "runtimes/sky-adapter/native-panels.mjs",
+      "sha256": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c"
+    },
+    {
+      "url": "/licenses/stellarium-web-engine-AGPL-3.0.txt",
+      "source": "frontend/public/licenses/stellarium-web-engine-AGPL-3.0.txt",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "url": "/licenses/cesium-license.txt",
+      "source": "frontend/public/licenses/cesium-license.txt",
+      "sha256": "5974ceb674dd305415efc34d999ea38a2535b55368475065dd7bfabb23ad026d"
+    },
+    {
+      "url": "/licenses/sky-data-credits.html",
+      "source": "frontend/public/licenses/sky-data-credits.html",
+      "sha256": "8eb154626533ffa0c6b8301a0a8826d3c39bc09b86c19c3ee5ef8128e4fdf2d2"
+    },
+    {
+      "url": "/licenses/README.txt",
+      "source": "frontend/public/licenses/README.txt",
+      "sha256": "e66c974bd462caf1451dda00cad7807a67a648c4f778733da8e5c813026f400b"
+    }
+  ],
+  "skyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19"
+}

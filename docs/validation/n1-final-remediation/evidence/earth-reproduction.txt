@@ -1,0 +1,24 @@
+vite v6.4.3 building for production...
+transforming...
+✓ 1482 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /hub/runtimes/earth-runtime/layers/EventLayers.mjs is dynamically imported by /hub/runtimes/earth-runtime/core/EarthRuntime.mjs but also statically imported by /hub/runtimes/earth-runtime/core/EarthRuntime.mjs, dynamic import will not move module into another chunk.
+
+computing gzip size...
+../../../output/module-policy.json                               0.84 kB │ gzip:     0.31 kB
+../../../output/index.html                                       1.39 kB │ gzip:     0.70 kB
+../../../output/assets/index-CuYsBwff.css                       26.76 kB │ gzip:     6.14 kB
+../../../output/assets/entities-DcNeWfrL.js                      2.16 kB │ gzip:     1.13 kB
+../../../output/assets/GodsEyeWeatherAdapter-QbJfmQlI.js         2.42 kB │ gzip:     1.29 kB
+../../../output/assets/GodsEyeFlightsAdapter-DIKc7fVO.js         3.32 kB │ gzip:     1.56 kB
+../../../output/assets/GodsEyeSatellitesAdapter-C7HhFGsS.js     34.47 kB │ gzip:    14.98 kB
+../../../output/assets/index-DgNslkYt.js                     4,083.86 kB │ gzip: 1,117.38 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 20.91s
+OWNED_EARTH_ARTIFACT 834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c 512 files; Cesium 1.138.0
+EARTH_REPRODUCTION PASS 834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c 512

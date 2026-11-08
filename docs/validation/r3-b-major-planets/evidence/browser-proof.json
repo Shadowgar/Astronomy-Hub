@@ -1,0 +1,649 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "checks": [
+        "Nine real source-backed bodies, no marketing headline",
+        "Sun select/focus/approach exact source target, explicit center, unchanged time",
+        "Mercury select/focus/approach exact source target, explicit center, unchanged time",
+        "Venus select/focus/approach exact source target, explicit center, unchanged time",
+        "Earth select/focus/approach exact source target, explicit center, unchanged time",
+        "Mars select/focus/approach exact source target, explicit center, unchanged time",
+        "Jupiter select/focus/approach exact source target, explicit center, unchanged time",
+        "Saturn select/focus/approach exact source target, explicit center, unchanged time",
+        "Uranus select/focus/approach exact source target, explicit center, unchanged time",
+        "Neptune select/focus/approach exact source target, explicit center, unchanged time",
+        "Belt density/visibility/LOD controls change aggregate cost only",
+        "Keyboard orbit/zoom/refocus retains outer source anchor",
+        "All9 source vectors refresh at UTC epoch; selection and presentation preferences persist",
+        "WebGL context loss cleanup/retry retains outer selection and UTC",
+        "No idle animation, shader/browser errors; software GPU limitations recorded"
+      ],
+      "errors": [],
+      "screens": [
+        "1440x900-inner-system.png",
+        "1440x900-full-system.png",
+        "1440x900-sun.png",
+        "1440x900-mercury.png",
+        "1440x900-venus.png",
+        "1440x900-earth.png",
+        "1440x900-mars.png",
+        "1440x900-jupiter.png",
+        "1440x900-saturn.png",
+        "1440x900-saturn-expanded.png",
+        "1440x900-uranus.png",
+        "1440x900-neptune.png"
+      ],
+      "diagnostics": {
+        "overviewScope": "inner",
+        "epoch": "2026-03-01T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "neptune",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          28.680927970712272,
+          -0.3001873306869727,
+          0.16036070301510363
+        ],
+        "target": [
+          29.86672243807959,
+          0.9265423908546633,
+          -0.36428267247669777
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              1855.7070627061953,
+              -59.91182335382762
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.23324983271527747,
+              0.19955620297869084,
+              0.1307773684458807
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              1871.7198122547418,
+              -53.07411045859105
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7126199901948562,
+              0.1368990886032651,
+              0.016516238605945525
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              1868.9672321174173,
+              -60.568866938872404
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.93122863093717,
+              0.3102305324258698,
+              0.13448340640221867
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              1880.4117912758495,
+              -53.74770601335087
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.062279849696104,
+              -0.7977963757673064,
+              -0.3945816238217013
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              1788.9833385211066,
+              -79.04976531726314
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1139623789581803,
+              4.381244316529881,
+              1.9293781185832406
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              2245.2364286594857,
+              30.91700290791806
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474338965319955,
+              0.6915563049877463,
+              -0.1223466680710583
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1971.1422753693548,
+              -91.08790821323892
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.677470250735903,
+              15.535556926169807,
+              6.667152564786
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              8671.441771868958,
+              1402.67794498881
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.86672243807959,
+              0.9265423908546634,
+              -0.3642826724766978
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              604.8,
+              450
+            ]
+          }
+        ],
+        "drawCalls": 4,
+        "geometries": 23,
+        "textures": 0,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "detailed",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 6000,
+          "drawCount": 6000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 0.19999999995343387,
+          "p95": 0.30000000004656613
+        },
+        "pixelRatio": 1
+      },
+      "graphics": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      }
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "Nine real source-backed bodies, no marketing headline",
+        "Sun select/focus/approach exact source target, explicit center, unchanged time",
+        "Mercury select/focus/approach exact source target, explicit center, unchanged time",
+        "Venus select/focus/approach exact source target, explicit center, unchanged time",
+        "Earth select/focus/approach exact source target, explicit center, unchanged time",
+        "Mars select/focus/approach exact source target, explicit center, unchanged time",
+        "Jupiter select/focus/approach exact source target, explicit center, unchanged time",
+        "Saturn select/focus/approach exact source target, explicit center, unchanged time",
+        "Uranus select/focus/approach exact source target, explicit center, unchanged time",
+        "Neptune select/focus/approach exact source target, explicit center, unchanged time",
+        "Belt density/visibility/LOD controls change aggregate cost only",
+        "Keyboard orbit/zoom/refocus retains outer source anchor",
+        "All9 source vectors refresh at UTC epoch; selection and presentation preferences persist",
+        "WebGL context loss cleanup/retry retains outer selection and UTC",
+        "No idle animation, shader/browser errors; software GPU limitations recorded"
+      ],
+      "errors": [],
+      "screens": [
+        "390x900-inner-system.png",
+        "390x900-full-system.png",
+        "390x900-sun.png",
+        "390x900-mercury.png",
+        "390x900-venus.png",
+        "390x900-earth.png",
+        "390x900-mars.png",
+        "390x900-jupiter.png",
+        "390x900-saturn.png",
+        "390x900-saturn-expanded.png",
+        "390x900-uranus.png",
+        "390x900-neptune.png"
+      ],
+      "diagnostics": {
+        "overviewScope": "inner",
+        "epoch": "2026-03-01T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "neptune",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          27.586348462373206,
+          -1.4325532274946364,
+          0.6446468957767667
+        ],
+        "target": [
+          29.86672243807959,
+          0.9265423908546633,
+          -0.36428267247669777
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              192.9904734359443,
+              -1120.6105445821415
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.23324983271527747,
+              0.19955620297869084,
+              0.1307773684458807
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              206.53415133107404,
+              -1133.624491636145
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7126199901948562,
+              0.1368990886032651,
+              0.016516238605945525
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              197.79949163334098,
+              -1138.789632491457
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.93122863093717,
+              0.3102305324258698,
+              0.13448340640221867
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              209.4056300070904,
+              -1139.8260410844216
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.062279849696104,
+              -0.7977963757673064,
+              -0.3945816238217013
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              145.9714304025598,
+              -1062.7586816988517
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1139623789581803,
+              4.381244316529881,
+              1.9293781185832406
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              447.2757453480809,
+              -1489.1358122249133
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474338965319955,
+              0.6915563049877463,
+              -0.1223466680710583
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              209.73398984270494,
+              -1343.5429179529538
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.677470250735903,
+              15.535556926169807,
+              6.667152564786
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              7330.357314965531,
+              -12600.307821648874
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.86672243807959,
+              0.9265423908546634,
+              -0.3642826724766978
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              195.00000000000009,
+              360
+            ]
+          }
+        ],
+        "drawCalls": 4,
+        "geometries": 23,
+        "textures": 0,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "detailed",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 6000,
+          "drawCount": 6000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 0.30000000004656613,
+          "p95": 0.5
+        },
+        "pixelRatio": 1
+      },
+      "graphics": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      }
+    },
+    {
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "Nine real source-backed bodies, no marketing headline",
+        "Sun select/focus/approach exact source target, explicit center, unchanged time",
+        "Mercury select/focus/approach exact source target, explicit center, unchanged time",
+        "Venus select/focus/approach exact source target, explicit center, unchanged time",
+        "Earth select/focus/approach exact source target, explicit center, unchanged time",
+        "Mars select/focus/approach exact source target, explicit center, unchanged time",
+        "Jupiter select/focus/approach exact source target, explicit center, unchanged time",
+        "Saturn select/focus/approach exact source target, explicit center, unchanged time",
+        "Uranus select/focus/approach exact source target, explicit center, unchanged time",
+        "Neptune select/focus/approach exact source target, explicit center, unchanged time",
+        "Belt density/visibility/LOD controls change aggregate cost only",
+        "Keyboard orbit/zoom/refocus retains outer source anchor",
+        "All9 source vectors refresh at UTC epoch; selection and presentation preferences persist",
+        "WebGL context loss cleanup/retry retains outer selection and UTC",
+        "No idle animation, shader/browser errors; software GPU limitations recorded"
+      ],
+      "errors": [],
+      "screens": [
+        "540x390-inner-system.png",
+        "540x390-full-system.png",
+        "540x390-sun.png",
+        "540x390-mercury.png",
+        "540x390-venus.png",
+        "540x390-earth.png",
+        "540x390-mars.png",
+        "540x390-jupiter.png",
+        "540x390-saturn.png",
+        "540x390-saturn-expanded.png",
+        "540x390-uranus.png",
+        "540x390-neptune.png"
+      ],
+      "diagnostics": {
+        "overviewScope": "inner",
+        "epoch": "2026-03-01T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "neptune",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          25.49569101215111,
+          -3.5953830452487536,
+          1.5696382090832026
+        ],
+        "target": [
+          29.86672243807959,
+          0.9265423908546633,
+          -0.36428267247669777
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              997.6437004522971,
+              -173.61206424629736
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.23324983271527747,
+              0.19955620297869084,
+              0.1307773684458807
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              1006.2063610818911,
+              -169.33607102258998
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7126199901948562,
+              0.1368990886032651,
+              0.016516238605945525
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              1013.2071036820765,
+              -177.16472440304028
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.93122863093717,
+              0.3102305324258698,
+              0.13448340640221867
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              1006.1867570214008,
+              -167.72511918066937
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.062279849696104,
+              -0.7977963757673064,
+              -0.3945816238217013
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              962.3286828003152,
+              -186.30711085274078
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1139623789581803,
+              4.381244316529881,
+              1.9293781185832406
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              1243.7443377096592,
+              -125.76288304709149
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474338965319955,
+              0.6915563049877463,
+              -0.1223466680710583
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1256.3927950886032,
+              -267.6233626759618
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.677470250735903,
+              15.535556926169807,
+              6.667152564786
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              -10921.749759753448,
+              -1198.7561239837519
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.86672243807959,
+              0.9265423908546634,
+              -0.3642826724766978
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              270.0000000000005,
+              123
+            ]
+          }
+        ],
+        "drawCalls": 4,
+        "geometries": 23,
+        "textures": 0,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "detailed",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 6000,
+          "drawCount": 6000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 0.2999999998137355,
+          "p95": 0.30000000004656613
+        },
+        "pixelRatio": 1
+      },
+      "graphics": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpuTimerAvailable": false
+      }
+    }
+  ],
+  "sourceHashes": {
+    "frontend/src/features/solar/solarBelt.ts": "536b847379774913c3a9012a86374439a412b1e04b2aa28b995c7c5f9919fd30",
+    "backend/app/schemas/solar_exploration.py": "2c277b67e6cab20fb46e8ed7734d8794f7cdf54439d96a44b6fdc43fbac9a290",
+    "backend/app/services/solar_exploration.py": "38e7c4def28e80384c2e4c1b0f4ca67a9ba682a45c0135f2e74a7820465ab5f4",
+    "frontend/src/features/solar/SolarScene.ts": "9e2453c3d9185d04bbb4de36e9fe3be3f54d6bb5d06a7951d90259d82d57f373",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "3ab3e81e0b3ca414e6d240fa479ccd7fd16cf4e9ae245019586c3532f05f55b4",
+    "frontend/src/features/solar/assets/earth-blue-marble.png": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+    "frontend/src/features/solar/assets/earth-clouds-2002.jpg": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+    "frontend/src/features/solar/assets/mars-nasa.glb": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+    "frontend/src/features/solar/assets/provenance.json": "566ba89818af6aa2c65b24a673303930b67f273619ae0ee26006a637bfbb30c1",
+    "frontend/src/features/solar/solar.css": "bb49477b1b6e043b623e3ef263b58a1e3d738081c815f83817b54f72e05efb82",
+    "frontend/src/features/solar/solarContracts.ts": "b8727de348e6438c1fe70e0c86a57b4a0bae6c276f45c796c92e6e6652656c4a",
+    "frontend/src/features/solar/solarGpuTiming.ts": "6f7f4b2952c544968f30f3fb1f57c0d3377aee9caafbedcceee3815bd9ee6dce",
+    "frontend/src/features/solar/solarMaterials.ts": "01b070a87851830d0c3058c4ab087b617d53249ccc7346bfcc54f9d86e13a6f2",
+    "frontend/src/features/solar/solarPresentation.ts": "9ae010b1874461829eb61fee2b58dfb971fe71d90863a1e3cd6ae519815fcb1b",
+    "frontend/src/features/solar/threeBoundary.d.ts": "9791da33cb74455a017c4c4597391d1c1e624506e1c6ed0725d9b90b6acd06a5"
+  }
+}

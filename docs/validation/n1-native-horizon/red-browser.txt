@@ -1,0 +1,25 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: embedded native horizon fill is configurable and charcoal
++ actual - expected
+
++ undefined
+- [
+-   0.035,
+-   0.04,
+-   0.05,
+-   1
+- ]
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_horizon.mjs:29:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: [ 0.035, 0.04, 0.05, 1 ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

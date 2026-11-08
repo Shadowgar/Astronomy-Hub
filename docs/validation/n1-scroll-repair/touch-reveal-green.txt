@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/immersiveReveal.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  06:12:19
+   Duration  145ms (transform 32ms, setup 0ms, import 46ms, tests 4ms, environment 0ms)

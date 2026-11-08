@@ -1,0 +1,341 @@
+[
+  {
+    "phase": "before",
+    "width": 1440,
+    "height": 900,
+    "elements": [
+      {
+        "selector": "cin-brand",
+        "visible": true,
+        "width": 172.8625030517578,
+        "height": 77.5999984741211,
+        "area": 13414.12997304916,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0px 0px / auto padding-box border-box",
+        "blur": "none"
+      },
+      {
+        "selector": "solar-bodies solar-glass",
+        "visible": true,
+        "width": 76,
+        "height": 465.6000061035156,
+        "area": 35385.60046386719,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-camera solar-glass",
+        "visible": true,
+        "width": 310,
+        "height": 128.1999969482422,
+        "area": 39741.99905395508,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-time-bar solar-glass",
+        "visible": true,
+        "width": 343.2375183105469,
+        "height": 55.60000228881836,
+        "area": 19084.00680367474,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      }
+    ]
+  },
+  {
+    "phase": "before",
+    "width": 390,
+    "height": 844,
+    "elements": [
+      {
+        "selector": "cin-brand",
+        "visible": true,
+        "width": 148.41250610351562,
+        "height": 75.5999984741211,
+        "area": 11219.985234966269,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0px 0px / auto padding-box border-box",
+        "blur": "none"
+      },
+      {
+        "selector": "solar-bodies solar-glass",
+        "visible": true,
+        "width": 362.3999938964844,
+        "height": 86,
+        "area": 31166.399475097656,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-camera solar-glass",
+        "visible": true,
+        "width": 362.3999938964844,
+        "height": 128.1999969482422,
+        "area": 46459.678111572284,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-time-bar solar-glass",
+        "visible": true,
+        "width": 362.3999938964844,
+        "height": 53.60000228881836,
+        "area": 19424.640502319322,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      }
+    ]
+  },
+  {
+    "phase": "before",
+    "width": 844,
+    "height": 390,
+    "elements": [
+      {
+        "selector": "cin-brand",
+        "visible": true,
+        "width": 172.8625030517578,
+        "height": 77.5999984741211,
+        "area": 13414.12997304916,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0px 0px / auto padding-box border-box",
+        "blur": "none"
+      },
+      {
+        "selector": "solar-bodies solar-glass",
+        "visible": true,
+        "width": 156,
+        "height": 70,
+        "area": 10920,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-camera solar-glass",
+        "visible": true,
+        "width": 286,
+        "height": 128.1999969482422,
+        "area": 36665.199127197266,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-time-bar solar-glass",
+        "visible": true,
+        "width": 330,
+        "height": 55.60000228881836,
+        "area": 18348.00075531006,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      }
+    ]
+  },
+  {
+    "phase": "after",
+    "width": 1440,
+    "height": 900,
+    "elements": [
+      {
+        "selector": "cin-brand",
+        "visible": true,
+        "width": 273.4250183105469,
+        "height": 45.60000228881836,
+        "area": 12468.18146078114,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0px 0px / auto padding-box border-box",
+        "blur": "none"
+      },
+      {
+        "selector": "solar-destinations solar-glass",
+        "visible": true,
+        "width": 142.1999969482422,
+        "height": 61.60000228881836,
+        "area": 8759.520137481682,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-bodies solar-glass",
+        "visible": false,
+        "width": 284,
+        "height": 221.60000610351562,
+        "area": 62934.40173339844,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-camera solar-glass",
+        "visible": true,
+        "width": 306.9125061035156,
+        "height": 69.5999984741211,
+        "area": 21361.10995649337,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-time-bar solar-glass",
+        "visible": true,
+        "width": 343.2375183105469,
+        "height": 53.60000228881836,
+        "area": 18397.531767053646,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      }
+    ]
+  },
+  {
+    "phase": "after",
+    "width": 390,
+    "height": 844,
+    "elements": [
+      {
+        "selector": "cin-brand",
+        "visible": true,
+        "width": 201.28750610351562,
+        "height": 45.60000228881836,
+        "area": 9178.710739030852,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0px 0px / auto padding-box border-box",
+        "blur": "none"
+      },
+      {
+        "selector": "solar-destinations solar-glass",
+        "visible": true,
+        "width": 142.1999969482422,
+        "height": 61.60000228881836,
+        "area": 8759.520137481682,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-bodies solar-glass",
+        "visible": false,
+        "width": 284,
+        "height": 221.60000610351562,
+        "area": 62934.40173339844,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-camera solar-glass",
+        "visible": true,
+        "width": 298.9125061035156,
+        "height": 65.5999984741211,
+        "area": 19608.659944286337,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-time-bar solar-glass",
+        "visible": true,
+        "width": 362.3999938964844,
+        "height": 53.60000228881836,
+        "area": 19424.640502319322,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      }
+    ]
+  },
+  {
+    "phase": "after",
+    "width": 844,
+    "height": 390,
+    "elements": [
+      {
+        "selector": "cin-brand",
+        "visible": true,
+        "width": 273.4250183105469,
+        "height": 45.60000228881836,
+        "area": 12468.18146078114,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0px 0px / auto padding-box border-box",
+        "blur": "none"
+      },
+      {
+        "selector": "solar-destinations solar-glass",
+        "visible": true,
+        "width": 142.1999969482422,
+        "height": 61.60000228881836,
+        "area": 8759.520137481682,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-bodies solar-glass",
+        "visible": false,
+        "width": 284,
+        "height": 221.60000610351562,
+        "area": 62934.40173339844,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-camera solar-glass",
+        "visible": true,
+        "width": 306.9125061035156,
+        "height": 69.5999984741211,
+        "area": 21361.10995649337,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      },
+      {
+        "selector": "solar-time-bar solar-glass",
+        "visible": true,
+        "width": 343.2375183105469,
+        "height": 53.60000228881836,
+        "area": 18397.531767053646,
+        "font": "14px",
+        "text": "rgb(244, 248, 255)",
+        "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(88, 112, 139, 0.24), rgba(15, 24, 36, 0.43) 52%, rgba(7, 13, 23, 0.52)) repeat scroll 0% 0% / auto padding-box border-box",
+        "blur": "blur(16px) saturate(1.45)"
+      }
+    ]
+  }
+]

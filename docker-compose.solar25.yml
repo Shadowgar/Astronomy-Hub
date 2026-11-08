@@ -1,0 +1,14 @@
+# Opt-in, read-only spacecraft sources after acquisition and qualification.
+# Use with Solar2.3/2.4 overrides to retain their independent source releases.
+# This file does not start services or create missing source directories.
+services:
+  backend:
+    environment:
+      ORAS_SOLAR_MISSIONS_DIR: /runtime/solar-missions
+    volumes:
+      - type: bind
+        source: ${ORAS_SOLAR_MISSIONS_HOST_DIR:-./data/runtime-packs/solar-missions/release-v3}
+        target: /runtime/solar-missions
+        read_only: true
+        bind:
+          create_host_path: false

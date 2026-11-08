@@ -1,0 +1,9 @@
+source-503-fixture-retry PASS 
+invalid-epoch-not-a-date PASS 
+invalid-epoch-1800-01-01 PASS 
+invalid-epoch-2052-01-01 PASS 
+rapid-system-and-epoch PASS 
+camera-reduce PASS 
+camera-no-preference PASS 
+native-earth-ready PASS 
+native-sky-ready PASS 

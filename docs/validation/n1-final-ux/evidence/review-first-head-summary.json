@@ -1,0 +1,78 @@
+{
+  "deliveryHead": "97eacd2d2954d21b92a749872066fa6b7f71d340",
+  "state": "OPEN",
+  "base": "r1-b-adaptive-sky-implementation-1",
+  "codexStates": [
+    {
+      "code_review": {
+        "commit_sha": "97eacd2d2954d21b92a749872066fa6b7f71d340",
+        "has_any_findings": true,
+        "has_unresolved_findings": true,
+        "status": "completed"
+      },
+      "security_review": {
+        "commit_sha": null,
+        "has_any_findings": null,
+        "has_unresolved_findings": null,
+        "status": null
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "PRRT_kwDORt_rys6tU4Sd",
+      "isResolved": false,
+      "isOutdated": false,
+      "comments": {
+        "pageInfo": {
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Block Sky handoff while the coordinate flight is pending**\n\nWhen a user submits coordinates and clicks \u201cEnter Sky here\u201d before the approximately 0.9-second `navigateLocation` flight completes, this button remains enabled and starts `getNavigationState` concurrently. The snapshot therefore captures an intermediate camera center, and teardown cancels the remaining flight, opening Sky at the wrong location. Disable the handoff button while `pending`, or await the location flight before allowing the transition.\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4297945509",
+            "commit": {
+              "oid": "97eacd2d2954d21b92a749872066fa6b7f71d340"
+            },
+            "author": {
+              "login": "chatgpt-codex-connector"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-16T18:18:42Z",
+        "conclusion": "NEUTRAL",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-16T18:18:39Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-16T18:18:47Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      }
+    ]
+  },
+  "chain": {
+    "p74": {
+      "state": "OPEN",
+      "headRefOid": "a57532796502a1db9ae1a7e4e4dc83e113db558f",
+      "baseRefName": "r1-a-adaptive-explorer-design-1"
+    },
+    "p73": {
+      "state": "OPEN",
+      "headRefOid": "b151d45787cf0e450aa0b187acd3eee142fa1fef",
+      "baseRefName": "main"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "status": "PARTIAL - mandatory navigation qualification failed",
+  "committed": false,
+  "pushed": false,
+  "baseline": "f3629f9a8e4b4ac7a158a1448912d75ca36574db",
+  "attempts": [
+    {
+      "suite": "journeys-desktop",
+      "width": 1440,
+      "command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=15s",
+        "12m",
+        "node",
+        "scripts/validation/verify_n1_navigation.mjs"
+      ],
+      "environment": {
+        "N1_WIDTHS": "1440",
+        "N1_EVIDENCE_DIR": "output/n1/final-ux/bounded-delivery-20261016/journeys-desktop"
+      },
+      "started": "2026-10-16T17:45:29.146681+00:00",
+      "status": "FAIL",
+      "exitCode": 1,
+      "finished": "2026-10-16T17:49:29.328826+00:00",
+      "proofStatus": "FAIL",
+      "proofSha256": "0e79a1cc6d7fcaabf0386ee60ae51a82f970cf8a30d6df64d66be9109a3dd94c",
+      "error": "page.screenshot: Target crashed \nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\n    at shot (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:33:72)\n    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:74:140",
+      "steps": 5
+    },
+    {
+      "suite": "journeys-mobile",
+      "width": 390,
+      "command": [
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=15s",
+        "12m",
+        "node",
+        "scripts/validation/verify_n1_navigation.mjs"
+      ],
+      "environment": {
+        "N1_WIDTHS": "390",
+        "N1_EVIDENCE_DIR": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile"
+      },
+      "started": "2026-10-16T17:49:29.331607+00:00",
+      "status": "FAIL",
+      "exitCode": 1,
+      "finished": "2026-10-16T17:53:29.489654+00:00",
+      "proofStatus": "FAIL",
+      "proofSha256": "e16b33cc65663ef34a565d2ea7cb1bf112763348754d17de17e88b12802df361",
+      "error": "locator.count: Target page, context or browser has been closed\n    at ready (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:32:324)\n    at async outward (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:59:167)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:77:3",
+      "steps": 7
+    }
+  ],
+  "outerBudgetStops": [
+    {
+      "suite": "journeys-desktop",
+      "timeoutPid": 422545,
+      "elapsedSeconds": 240.000318,
+      "signal": "SIGTERM to owned timeout supervisor",
+      "reason": "Reduced overall ceiling240s; no stage timeout increased; run remains incomplete, never functional PASS",
+      "at": "2026-10-16T17:49:29.173096+00:00"
+    },
+    {
+      "suite": "journeys-mobile",
+      "timeoutPid": 428515,
+      "elapsedSeconds": 240.000847,
+      "signal": "SIGTERM to owned timeout supervisor",
+      "reason": "Reduced overall ceiling240s; no stage timeout increased; run remains incomplete, never functional PASS",
+      "at": "2026-10-16T17:53:29.360307+00:00"
+    }
+  ],
+  "classification": {
+    "functionalAssertionFailure": "Not reproduced in either new attempt; no assertion mismatch reported.",
+    "desktop": "Noncompleting page.screenshot in shot(oras-earth), verify_n1_navigation.mjs:33 called from:74. Earth readiness, observer/time and camera-height assertions precede capture. Target crashed is reported around the240s owned outer-budget intervention, not proof of an independent pre-stop crash.",
+    "mobile": "Noncompleting locator.count in ready(earth), verify_n1_navigation.mjs:32 called from outward:59 and the second outward stage:77. Seven groups passed including first Sky/Earth roundtrip. Target-closed error is reported around the240s owned intervention; no iframe-count mismatch was returned.",
+    "harness": "Earlier ambiguous-dialog selector was already fixed. Installed Playwright1.58.2 page.screenshot inherits the20s page default; locator.count forwards no timeout, and the driver has no independent per-call bound on either invocation. These source properties are confirmed; the precise internal cause of noncompletion is not established.",
+    "browserRenderer": "Browser/automation operations did not complete before outer cap. Desktop Target crashed and mobile target-closed errors were reported around the owned-stop intervention and do not establish an independent pre-stop crash cause.",
+    "environment": "Precise browser/renderer/driver/environment cause unknown. Historical low memory and baseline failures are not causal proof."
+  },
+  "remaining": "Both complete22-group navigation suites, including later geographic exploration, near-surface/reversal/repeat/cancel/history/lifecycle assertions; no qualification exception assumed.",
+  "reuse": "Seven original PASS browser families verified against unchanged source hashes; no fresh browser pass claimed for them.",
+  "limits": "Exactly one attempt per desktop/mobile; original20/90/30/5/15 second operation limits unchanged; external240-second cap reduced from existing12-minute maximum; no unrelated workloads/services/Docker resources changed."
+}

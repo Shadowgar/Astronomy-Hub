@@ -1,0 +1,20 @@
+1440 initial ORAS Sky and served source identity 2943ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('button', { name: 'Close Display', exact: true })[22m
+[2m    - locator resolved to <button type="button" aria-label="Close Display">×</button>[22m
+[2m  - attempting click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is visible, enabled and stable[22m
+[2m    - scrolling into view if needed[22m
+[2m    - done scrolling[22m
+
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:66:245 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

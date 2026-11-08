@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "freshCompiledFiles": 8,
+  "hashes": {
+    "module-policy.json": "13f4c852a25f97f1afb1ee473db21c0aed3ed52db5967859e97ecc64fac30681",
+    "index.html": "8a51c753a170822e562bd8ab0a1870aefe7882cc82905afefe4bba2bb124cb0a",
+    "assets/entities-DxzxOkRe.js": "69496c5ac1f347bb96dbd6cd400a86be70a9e5cbfb6f4051fbdeb8244aeb5c30",
+    "assets/GodsEyeSatellitesAdapter-AT405EHJ.js": "a26baf5a3fe7ac50d03a671ce0767c2eefa1e11e8f4276b61e40292356a6672d",
+    "assets/GodsEyeWeatherAdapter-BTtunQM_.js": "bfc3a0304a9798f1a796030dfad629c553e7c6495e5da1816b175d152bce3d7e",
+    "assets/index-CuYsBwff.css": "1cd247dc8a910312e740066132e7fab1abddbfe1e571b201792708a6861cc8c8",
+    "assets/GodsEyeFlightsAdapter-BwzBKtpO.js": "ba323abc9730dedfb9ed0f618e457b2f50c5b0d8cbd38f5aeff5a63ea5ca04d9",
+    "assets/index-Byyyvn91.js": "cf2201b7cc064c7271b8f9c4ac772e2ec6bad7071f6d3a32b58c21255ab68494"
+  },
+  "unchangedAssets": "Reused from retained prior artifact; fresh Vite entry/module builds are compared independently."
+}

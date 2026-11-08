@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "livePhoton": "PASS",
+  "startedHead": "158a77053ea18e4d0aed8725f715ca373930fd13",
+  "evidenceClass": "one live normal-preview search; no request interception",
+  "sourceHashes": {
+    "scripts/validation/verify_r2_earth_direct_live.mjs": "4d5a4374417a64d2aae2b24470c61c2d3f31dc565cb75d6fe94e3d3a974d2a51",
+    "backend/app/services/earth_search.py": "86f9a9d173ea870b4a7b8be00a8a175ecabddcd11070f8c5d17506d793278859",
+    "backend/app/routes/earth.py": "adea444c69d2db3f4bfe9a6da82a8e5c71681c9bb4b7b98cdb8996c9ebd73315",
+    "frontend/src/features/workspace/EarthSearch.tsx": "805c9f99dc1d53601ee8610b0ab3fc831e7f91869114e23ac2ef023733dcab1b",
+    "frontend/src/features/workspace/earthSearch.ts": "38e68d4e164977e5a7b6b269fb7a16f5f596fb54eacbc4eac1d004239e1700fe",
+    "integrations/renderers.lock.json": "a1905662b2844596c45bb8e4598df1fdfae82ee6c2779c8947a960eff098fbf6",
+    "frontend/public/runtime-versions.json": "1d7fd52de8185f0d926cc3c235675d69c40e549d0196c216b9c2de544d665d62"
+  },
+  "requests": [
+    "http://127.0.0.1:4206/api/earth/search?q=Springfield"
+  ],
+  "appResponse": {
+    "status": 200,
+    "elapsedMs": 12995,
+    "body": {
+      "results": [
+        {
+          "id": "osm:R:1181618",
+          "name": "Springfield",
+          "description": "Hampden, Massachusetts, United States",
+          "kind": "city",
+          "lat": 42.1018764,
+          "lon": -72.5886727
+        },
+        {
+          "id": "osm:R:126326",
+          "name": "Springfield",
+          "description": "Sangamon, Illinois, United States",
+          "kind": "city",
+          "lat": 39.7990175,
+          "lon": -89.6439575
+        },
+        {
+          "id": "osm:R:141244",
+          "name": "Springfield",
+          "description": "Greene, Missouri, United States",
+          "kind": "city",
+          "lat": 37.2081729,
+          "lon": -93.2922715
+        },
+        {
+          "id": "osm:R:182868",
+          "name": "Springfield",
+          "description": "Clark, Ohio, United States",
+          "kind": "city",
+          "lat": 39.9234046,
+          "lon": -83.810138
+        },
+        {
+          "id": "osm:R:186721",
+          "name": "Springfield",
+          "description": "Lane, Oregon, United States",
+          "kind": "city",
+          "lat": 44.0462362,
+          "lon": -123.0220289
+        }
+      ],
+      "source": "Photon / OpenStreetMap",
+      "attributionUrl": "https://www.openstreetmap.org/copyright"
+    }
+  },
+  "file": "live-provider-state.png",
+  "sha256": "ee1beab5a44a1a5a32ffffbf22131d7b7f15ddcf0e8e033634e2c5ab73ed7d1e",
+  "native": {
+    "mode": "earth",
+    "observer": {
+      "lat": 5.039813776064477e-19,
+      "lon": -1.4033418596616916e-14,
+      "elevationM": 0
+    },
+    "elevationSource": "unavailable-zero",
+    "camera": {
+      "latitudeRad": -1.393125044572056e-18,
+      "longitudeRad": -2.4492935982947064e-16,
+      "heightM": 40000,
+      "headingRad": 6.283185307179586,
+      "pitchRad": -1.5707963267948966,
+      "rollRad": 0
+    },
+    "utc": "2026-06-05T17:00:00.000Z",
+    "live": false
+  },
+  "coordinateNavigation": "PASS"
+}

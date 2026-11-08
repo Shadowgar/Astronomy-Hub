@@ -1,0 +1,51 @@
+{
+  "first": {
+    "status": "ok",
+    "data": {
+      "freshness_status": "stale",
+      "nearest_tle_epoch": "2026-06-05T23:36:57Z",
+      "nearest_tle_age_days": 140.351,
+      "newest_tle_epoch": "2026-06-05T23:36:57Z",
+      "newest_tle_age_days": 140.351,
+      "mounted": true,
+      "status": "degraded",
+      "reason": "Native satellite feed is mounted; release manifest is missing and source provenance is unavailable.",
+      "release_manifest_available": false,
+      "release_validated": false,
+      "provenance_status": "unavailable",
+      "record_count": 14281,
+      "malformed_count": 0,
+      "fresh_record_count": 0,
+      "stale_record_count": 14281,
+      "unknown_epoch_count": 0,
+      "as_of_utc": "2026-10-24T08:02:57Z",
+      "max_tle_age_days": 14.0,
+      "epoch_min": "2026-05-16T02:33:04Z",
+      "epoch_max": "2026-06-05T23:36:57Z",
+      "epoch_median": "2026-06-03T07:13:19Z",
+      "tle_age_days_min": 140.351,
+      "tle_age_days_max": 161.229,
+      "selected": {
+        "norad_id": "25544",
+        "tle_epoch": "2026-06-03T17:01:40Z",
+        "tle_age_days": 142.626,
+        "freshness_status": "stale",
+        "freshness_reference": "current_utc",
+        "as_of_utc": "2026-10-24T08:02:57Z"
+      }
+    },
+    "meta": {},
+    "error": null
+  },
+  "second_selected": {
+    "norad_id": "20580",
+    "tle_epoch": "2026-06-02T08:13:52Z",
+    "tle_age_days": 143.992,
+    "freshness_status": "stale",
+    "freshness_reference": "current_utc",
+    "as_of_utc": "2026-10-24T08:02:57Z"
+  },
+  "initial_elapsed_ms": 309.9778329997207,
+  "cached_elapsed_ms": 0.19465700097498484,
+  "cache_info": "CacheInfo(hits=1, misses=1, maxsize=4, currsize=1)"
+}

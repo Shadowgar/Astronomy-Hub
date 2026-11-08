@@ -1,0 +1,15 @@
+{
+  "subsolar": {
+    "width": 240,
+    "height": 240,
+    "mean_rgb": 44.82030092592593,
+    "maximum_channel": 194
+  },
+  "antisolar": {
+    "width": 240,
+    "height": 240,
+    "mean_rgb": 0.0,
+    "maximum_channel": 0
+  },
+  "interpretation": "Geometric source-backed Sun direction with a Lambert sphere mask; no ambient Earth illumination or Earthshine. Mosaic is not calibrated reflectance and retains historic acquisition shadows."
+}

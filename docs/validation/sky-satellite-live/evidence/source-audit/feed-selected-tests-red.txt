@@ -1,0 +1,154 @@
+.......FFFFF                                                             [100%]
+=================================== FAILURES ===================================
+________ test_native_feed_without_manifest_reports_actual_stale_catalog ________
+
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-14/test_native_feed_without_manif0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7efe1ac429c0>
+
+    def test_native_feed_without_manifest_reports_actual_stale_catalog(tmp_path: Path, monkeypatch) -> None:
+        release = tmp_path / "current"
+        _build_fixture_release(release)
+        (release / "manifest.json").unlink()
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+        monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+
+        data = client.get("/api/sky/satellite-feed?time=2026-10-24T07:55:00Z").json()["data"]
+
+>       assert data["mounted"] is True
+E       assert False is True
+
+backend/tests/test_satellite_feed_api.py:176: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T08:00:08.652616+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "ab9c1889-5b51-4ef3-8d70-c21ff4d7d419", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-24T08:00:08.653380+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "ab9c1889-5b51-4ef3-8d70-c21ff4d7d419", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 0}
+{"timestamp": "2026-10-24T08:00:08.654808+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-10-24T07:55:00Z \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-10-24T07:55:00Z "HTTP/1.1 200 OK"
+____________ test_single_fresh_epoch_does_not_qualify_mixed_catalog ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-14/test_single_fresh_epoch_does_n0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7efe1adff200>
+
+    def test_single_fresh_epoch_does_not_qualify_mixed_catalog(tmp_path: Path, monkeypatch) -> None:
+        release = tmp_path / "current"
+        _build_fixture_release(release)
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+        monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+        monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
+
+        # HST is over 14 days old at this time; ISS is under 14 days old.
+        data = client.get("/api/sky/satellite-feed?time=2026-06-17T00:00:00Z").json()["data"]
+
+>       assert data["status"] == "degraded"
+E       AssertionError: assert 'ready' == 'degraded'
+E
+E         - degraded
+E         + ready
+
+backend/tests/test_satellite_feed_api.py:201: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T08:00:08.713768+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "541c01bd-2558-46a7-9aea-41e87d1dccff", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-24T08:00:08.715046+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "541c01bd-2558-46a7-9aea-41e87d1dccff", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 1}
+{"timestamp": "2026-10-24T08:00:08.716520+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-17T00:00:00Z \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-17T00:00:00Z "HTTP/1.1 200 OK"
+___________ test_native_feed_unknown_epoch_does_not_qualify_as_fresh ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-14/test_native_feed_unknown_epoch0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7efe1adfeff0>
+
+    def test_native_feed_unknown_epoch_does_not_qualify_as_fresh(tmp_path: Path, monkeypatch) -> None:
+        import gzip
+        release = tmp_path / "current"
+        _build_fixture_release(release)
+        feed = release / "tle_satellite.jsonl.gz"
+        records = [json.loads(line) for line in gzip.decompress(gzip.decompress(feed.read_bytes())).splitlines()]
+        records[0]["model_data"]["tle"][0] = records[0]["model_data"]["tle"][0][:18] + "invalid epoch " + records[0]["model_data"]["tle"][0][32:]
+        feed.write_bytes(gzip.compress(gzip.compress(b"\n".join(json.dumps(r).encode() for r in records))))
+        (release / "manifest.json").unlink()
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(feed))
+        monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+
+        data = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z").json()["data"]
+
+>       assert data["mounted"] is True
+E       assert False is True
+
+backend/tests/test_satellite_feed_api.py:224: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T08:00:08.731735+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "8506750d-86bb-4dcd-a997-3e6130b8311d", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-24T08:00:08.732603+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "8506750d-86bb-4dcd-a997-3e6130b8311d", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 0}
+{"timestamp": "2026-10-24T08:00:08.733982+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z "HTTP/1.1 200 OK"
+__ test_selected_satellite_reports_current_tle_age_separately_from_scene_time __
+
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-14/test_selected_satellite_report0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7efe1adffd10>
+
+    def test_selected_satellite_reports_current_tle_age_separately_from_scene_time(tmp_path: Path, monkeypatch) -> None:
+        release = tmp_path / "current"
+        _build_fixture_release(release)
+        (release / "manifest.json").unlink()
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+        monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+
+        data = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z&norad=25544").json()["data"]
+
+>       assert data["freshness_status"] == "fresh"
+E       AssertionError: assert 'unavailable' == 'fresh'
+E
+E         - fresh
+E         + unavailable
+
+backend/tests/test_satellite_feed_api.py:241: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T08:00:08.748851+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "c7e32e4d-6da8-4bdf-8a43-7a9c26835efd", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-24T08:00:08.749696+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "c7e32e4d-6da8-4bdf-8a43-7a9c26835efd", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 0}
+{"timestamp": "2026-10-24T08:00:08.750827+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z&norad=25544 \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/sky/satellite-feed?time=2026-06-04T02:16:04Z&norad=25544 "HTTP/1.1 200 OK"
+______ test_selected_satellite_missing_and_invalid_identity_are_explicit _______
+
+tmp_path = PosixPath('/tmp/pytest-of-rocco/pytest-14/test_selected_satellite_missin0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7efe1ac43c50>
+
+    def test_selected_satellite_missing_and_invalid_identity_are_explicit(tmp_path: Path, monkeypatch) -> None:
+        release = tmp_path / "current"
+        _build_fixture_release(release)
+        monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+        monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+>       selected = client.get("/api/sky/satellite-feed?norad=99999").json()["data"]["selected"]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'selected'
+
+backend/tests/test_satellite_feed_api.py:255: KeyError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T08:00:08.766990+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "92edb183-1a36-4374-8fb9-4b1d50342c50", "route": "/api/sky/satellite-feed", "method": "GET"}
+{"timestamp": "2026-10-24T08:00:08.768102+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "92edb183-1a36-4374-8fb9-4b1d50342c50", "route": "/api/sky/satellite-feed", "method": "GET", "status_code": 200, "duration_ms": 1}
+{"timestamp": "2026-10-24T08:00:08.769232+00:00", "level": "info", "event": "HTTP Request: GET http://testserver/api/sky/satellite-feed?norad=99999 \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1038 HTTP Request: GET http://testserver/api/sky/satellite-feed?norad=99999 "HTTP/1.1 200 OK"
+=============================== warnings summary ===============================
+../../.venv/lib/python3.12/site-packages/httpx/_client.py:690
+  /home/rocco/Astronomy-Hub/.venv/lib/python3.12/site-packages/httpx/_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED backend/tests/test_satellite_feed_api.py::test_native_feed_without_manifest_reports_actual_stale_catalog
+FAILED backend/tests/test_satellite_feed_api.py::test_single_fresh_epoch_does_not_qualify_mixed_catalog
+FAILED backend/tests/test_satellite_feed_api.py::test_native_feed_unknown_epoch_does_not_qualify_as_fresh
+FAILED backend/tests/test_satellite_feed_api.py::test_selected_satellite_reports_current_tle_age_separately_from_scene_time
+FAILED backend/tests/test_satellite_feed_api.py::test_selected_satellite_missing_and_invalid_identity_are_explicit
+5 failed, 7 passed, 1 warning in 1.12s

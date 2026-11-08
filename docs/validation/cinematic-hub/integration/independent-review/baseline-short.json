@@ -1,0 +1,13 @@
+{
+  "source": "b68e2b40b2d94719f9afe5c3c37cc30ae36432d7 historical baseline freshly captured, not current qualification",
+  "runs": [
+    {
+      "mode": "earth",
+      "status": "CAPTURED"
+    },
+    {
+      "mode": "sky",
+      "status": "CAPTURED"
+    }
+  ]
+}

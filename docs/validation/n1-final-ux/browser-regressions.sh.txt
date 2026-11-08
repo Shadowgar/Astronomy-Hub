@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+while pgrep -f '^node scripts/validation/verify_n1_final_ux.mjs$' >/dev/null; do sleep 10; done
+python3 - <<'PY'
+import json
+assert json.load(open('output/n1/final-ux/browser/proof.json'))['status']=='PASS'
+PY
+N1_EVIDENCE_DIR=output/n1/final-ux/satellite-recheck/browser node scripts/validation/verify_n1_satellite_zoom.mjs > output/n1/final-ux/satellite-run.txt 2>&1
+N1_EVIDENCE_ROOT=output/n1/final-ux/satellite-recheck node scripts/validation/verify_n1_satellite_symbol_pixels.mjs > output/n1/final-ux/satellite-pixels-run.txt 2>&1
+N1_EVIDENCE_DIR=output/n1/final-ux/native-satellites node scripts/validation/verify_n1_satellites.mjs > output/n1/final-ux/native-satellites-run.txt 2>&1
+N1_EVIDENCE_DIR=output/n1/final-ux/pennsylvania node scripts/validation/verify_n1_pennsylvania.mjs > output/n1/final-ux/pennsylvania-run.txt 2>&1
+N1_BROWSER_CHANNEL=chrome N1_WIDTHS=1440 N1_EVIDENCE_DIR=output/n1/final-ux/journeys-desktop node scripts/validation/verify_n1_navigation.mjs > output/n1/final-ux/journeys-desktop-run.txt 2>&1
+N1_BROWSER_CHANNEL=chrome N1_WIDTHS=390 N1_EVIDENCE_DIR=output/n1/final-ux/journeys-mobile node scripts/validation/verify_n1_navigation.mjs > output/n1/final-ux/journeys-mobile-run.txt 2>&1
+N1_BROWSER_CHANNEL=chrome N1_EVIDENCE_DIR=output/n1/final-ux/observer-history node scripts/validation/verify_n1_observer_history.mjs > output/n1/final-ux/observer-history-run.txt 2>&1
+N1_BROWSER_CHANNEL=chrome N1_EVIDENCE_DIR=output/n1/final-ux/product-paths node scripts/validation/verify_n1_final_ux_product_paths.mjs > output/n1/final-ux/product-paths-run.txt 2>&1

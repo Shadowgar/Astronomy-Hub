@@ -1,0 +1,376 @@
+{
+  "status": "FAIL",
+  "scenes": [
+    {
+      "query": "Moon",
+      "result": "Moon\nMoon",
+      "wide": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 1.821426348364,
+            "pitchRad": 0.919543490789,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": {
+          "id": "Solar System (JPL):moon:moon",
+          "name": "Moon",
+          "kind": "moon",
+          "catalog": "Solar System (JPL)",
+          "source_id": "moon",
+          "model": "moon",
+          "ra": 118.37804569131626,
+          "dec": 24.344953644930914,
+          "facts": [
+            {
+              "label": "Catalog",
+              "value": "Solar System (JPL)"
+            },
+            {
+              "label": "Source ID",
+              "value": "moon"
+            },
+            {
+              "label": "Context epoch",
+              "value": "2026-02-28T00:00:00.000Z"
+            }
+          ],
+          "available": true,
+          "focusable": true,
+          "trackable": false,
+          "link": "/oras-sky-engine/skysource/Moon?catalog=Solar+System+%28JPL%29&source_id=moon&model=moon&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=118.37804569131626&dec=24.344953644930914"
+        },
+        "atmosphere": false
+      },
+      "close": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 1.821426348364,
+            "pitchRad": 0.919543490789,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": {
+          "id": "Solar System (JPL):moon:moon",
+          "name": "Moon",
+          "kind": "moon",
+          "catalog": "Solar System (JPL)",
+          "source_id": "moon",
+          "model": "moon",
+          "ra": 118.37804569131626,
+          "dec": 24.344953644930914,
+          "facts": [
+            {
+              "label": "Catalog",
+              "value": "Solar System (JPL)"
+            },
+            {
+              "label": "Source ID",
+              "value": "moon"
+            },
+            {
+              "label": "Context epoch",
+              "value": "2026-02-28T00:00:00.000Z"
+            }
+          ],
+          "available": true,
+          "focusable": true,
+          "trackable": false,
+          "link": "/oras-sky-engine/skysource/Moon?catalog=Solar+System+%28JPL%29&source_id=moon&model=moon&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=118.37804569131626&dec=24.344953644930914"
+        },
+        "atmosphere": false
+      }
+    }
+  ],
+  "errors": [],
+  "observability": {
+    "status": "ok",
+    "data": {
+      "objects": [
+        {
+          "id": "Bright Star Catalog (local):star-capella",
+          "catalog": "Bright Star Catalog (local)",
+          "source_id": "star-capella",
+          "model": "star",
+          "name": "Capella",
+          "type": "star",
+          "ra": 79.173,
+          "dec": 45.998,
+          "alt": 85.276,
+          "az": 7.869,
+          "magnitude": 0.08,
+          "is_visible": true,
+          "priority": 0.96861,
+          "reason": "Bright local star at 85.3 deg altitude.",
+          "sky_engine_url": "/oras-sky-engine/skysource/Capella?catalog=Bright+Star+Catalog+%28local%29&source_id=star-capella&model=star&ra=79.173&dec=45.998&fov=2&date=2026-02-28T00%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+          "above_geometric_horizon": true,
+          "observability": {
+            "above_geometric_horizon": true,
+            "altitude_deg": 85.276,
+            "azimuth_deg": 7.869,
+            "sky_state": "nautical_twilight",
+            "in_astronomical_darkness": false,
+            "moon_angular_separation_deg": 37.790719045589015,
+            "assessment": "above_horizon_nautical_twilight",
+            "limitations": [
+              "geometric_horizon_only",
+              "detectability_not_evaluated"
+            ]
+          }
+        },
+        {
+          "id": "Messier (local):M45",
+          "catalog": "Messier (local)",
+          "source_id": "M45",
+          "model": "dso",
+          "name": "Pleiades",
+          "type": "open_cluster",
+          "ra": 56.88,
+          "dec": 24.117,
+          "alt": 65.252,
+          "az": 232.58,
+          "magnitude": 1.6,
+          "is_visible": true,
+          "priority": 0.83944,
+          "reason": "Local Messier open cluster at 65.3 deg altitude.",
+          "sky_engine_url": "/oras-sky-engine/skysource/Pleiades?catalog=Messier+%28local%29&source_id=M45&model=dso&ra=56.88&dec=24.117&fov=3&date=2026-02-28T00%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+          "object_type_label": "Open Cluster",
+          "source_attribution": [
+            {
+              "name": "Messier local seed",
+              "source_key": "messier_local_seed"
+            }
+          ],
+          "data_sources": {
+            "identity": [
+              "Messier local seed"
+            ],
+            "position": [
+              "Messier local seed"
+            ],
+            "photometry": [
+              "Messier local seed"
+            ],
+            "aliases": [
+              "Messier local seed"
+            ]
+          },
+          "enrichment_status": {
+            "identity": "source_backed",
+            "aliases": "source_backed",
+            "description": "not_available"
+          },
+          "above_geometric_horizon": true,
+          "observability": {
+            "above_geometric_horizon": true,
+            "altitude_deg": 65.252,
+            "azimuth_deg": 232.58,
+            "sky_state": "nautical_twilight",
+            "in_astronomical_darkness": false,
+            "moon_angular_separation_deg": 55.20997201069264,
+            "assessment": "above_horizon_nautical_twilight",
+            "limitations": [
+              "geometric_horizon_only",
+              "detectability_not_evaluated"
+            ]
+          }
+        },
+        {
+          "id": "Solar System (JPL):uranus",
+          "catalog": "Solar System (JPL)",
+          "source_id": "uranus",
+          "model": "planet",
+          "name": "Uranus",
+          "type": "planet",
+          "ra": 55.48671342,
+          "dec": 19.47357453,
+          "alt": 60.815,
+          "az": 228.411,
+          "magnitude": null,
+          "is_visible": true,
+          "priority": 0.67172,
+          "reason": "JPL DE442s Uranus position at 60.8 deg altitude.",
+          "sky_engine_url": "/oras-sky-engine/skysource/Uranus?catalog=Solar+System+%28JPL%29&source_id=uranus&model=planet&ra=55.4867134206&dec=19.4735745332&fov=1&date=2026-02-28T00%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+          "ephemeris_source": "jpl_de442s_local",
+          "target_reference": "Uranus barycenter",
+          "distance_au": 19.656458211775817,
+          "above_geometric_horizon": true,
+          "observability": {
+            "above_geometric_horizon": true,
+            "altitude_deg": 60.815,
+            "azimuth_deg": 228.411,
+            "sky_state": "nautical_twilight",
+            "in_astronomical_darkness": false,
+            "moon_angular_separation_deg": 58.07307578949381,
+            "assessment": "above_horizon_nautical_twilight",
+            "limitations": [
+              "geometric_horizon_only",
+              "detectability_not_evaluated"
+            ]
+          }
+        }
+      ]
+    },
+    "meta": {
+      "contract_version": "above-me.v1",
+      "observer": {
+        "lat": 41.321903,
+        "lng": -79.585394,
+        "elev": 432.816
+      },
+      "time": "2026-02-28T00:00:00Z",
+      "limit": 3,
+      "total_candidates": 48,
+      "visible_candidates": 25,
+      "observability_context": {
+        "schema_version": "observability.v1",
+        "observer": {
+          "lat": 41.321903,
+          "lng": -79.585394,
+          "elev": 432.816
+        },
+        "horizon_model": "geometric",
+        "site_horizon_status": "not_modeled",
+        "sky_darkness": {
+          "state": "nautical_twilight",
+          "sun_altitude_deg": -10.751397029267986,
+          "in_astronomical_darkness": false,
+          "source": "jpl_de442s_local"
+        },
+        "moon": {
+          "altitude_deg": 52.685545077493444,
+          "azimuth_deg": 104.36032377219912,
+          "above_geometric_horizon": true,
+          "ra_deg": 118.37804569131626,
+          "dec_deg": 24.3449536449315,
+          "ra_icrf_deg": 117.97737187877505,
+          "dec_icrf_deg": 24.412504830698317,
+          "source": "jpl_de442s_local"
+        },
+        "weather": {
+          "status": "not_evaluated_for_selected_time",
+          "source": "open_meteo_current",
+          "last_updated": null
+        },
+        "limitations": [
+          "Actual site terrain, trees, and buildings are not modeled.",
+          "Equipment-specific detectability is not evaluated."
+        ]
+      },
+      "object_sources": {
+        "messier_local": {
+          "status": "included",
+          "reason": "Local Messier seed objects have stable identity and RA/Dec."
+        },
+        "openngc_local": {
+          "status": "included",
+          "reason": "Normalized OpenNGC local catalog provides bounded visible DSO discovery and exact NGC/IC identity links."
+        },
+        "bright_star_local": {
+          "status": "included",
+          "reason": "Local bright-star seed objects have stable identity and RA/Dec."
+        },
+        "hipparcos_tier2_local": {
+          "status": "included",
+          "reason": "Existing Hipparcos Tier 2 dataset provides stable string IDs, RA/Dec, and magnitude."
+        },
+        "gaia_dr2": {
+          "status": "lookup_only",
+          "reason": "Exact lookup exists, but broad indexed discovery/ranking is not implemented in this pass."
+        },
+        "planets": {
+          "status": "included",
+          "reason": "Local JPL DE442s is loaded; Horizons remains the controlled fallback.",
+          "ephemeris": {
+            "loaded": true,
+            "status": "loaded",
+            "source_key": "jpl_de442s_local",
+            "fallback_source": "jpl_horizons",
+            "object_count": 9,
+            "release_version": "de442s-2025-02-06",
+            "coverage_start": "1849-12-26T00:00:00Z",
+            "coverage_end": "2150-01-22T00:00:00Z",
+            "kernel_filename": "de442s.bsp",
+            "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+            "message": "Local JPL DE442s ephemeris is loaded."
+          }
+        },
+        "moon_sun": {
+          "status": "included",
+          "reason": "Local JPL DE442s is loaded; Horizons remains the controlled fallback.",
+          "ephemeris": {
+            "loaded": true,
+            "status": "loaded",
+            "source_key": "jpl_de442s_local",
+            "fallback_source": "jpl_horizons",
+            "object_count": 9,
+            "release_version": "de442s-2025-02-06",
+            "coverage_start": "1849-12-26T00:00:00Z",
+            "coverage_end": "2150-01-22T00:00:00Z",
+            "kernel_filename": "de442s.bsp",
+            "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+            "message": "Local JPL DE442s ephemeris is loaded."
+          }
+        },
+        "satellites": {
+          "status": "degraded",
+          "reason": "Local TLE feed is stale; visible satellite discovery is disabled until the feed is refreshed.",
+          "freshness_status": "stale",
+          "nearest_tle_epoch": "2026-05-16T02:33:04Z",
+          "nearest_tle_age_days": 77.106,
+          "newest_tle_epoch": "2026-06-05T23:36:57Z",
+          "newest_tle_age_days": 97.984
+        }
+      },
+      "curation": {
+        "policy": "balanced-v1",
+        "available_categories": [
+          "solar_system",
+          "dso",
+          "bright_star"
+        ],
+        "selected_category_counts": {
+          "solar_system": 1,
+          "dso": 1,
+          "bright_star": 1,
+          "satellite": 0
+        },
+        "missing_categories": [
+          "satellite"
+        ],
+        "reservation_satisfied": true
+      },
+      "cache": {
+        "status": "degraded",
+        "ttl_seconds": 30,
+        "key_version": "v3"
+      }
+    },
+    "error": null
+  },
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(scene.close.nav.camera.fovRad<scene.wide.nav.camera.fovRad)\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-sky-completion-1/scripts/validation/capture_sky_completion_scenes.mjs:1:1795"
+}

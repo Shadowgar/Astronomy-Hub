@@ -1,0 +1,112 @@
+{
+  "started": "2026-10-24T08:10:07.137Z",
+  "base": "http://127.0.0.1:4226",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "steps": [
+    {
+      "name": "review-track-A-25544",
+      "at": "2026-10-24T08:10:14.579Z",
+      "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=25544&model=tle_satellite",
+      "hubTime": "LIVE\nTRACKING\nSTALE DATA\nOct 24, 4:10 AM EDT\nChange time",
+      "hubBody": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nInternational Space Station\n\nsatellite · 25544\n\nFocus\nStop tracking\nDetails\nLIVE\nTRACKING\nSTALE DATA\nOct 24, 4:10 AM EDT\nChange time\nInternational Space Station, satellite, selected",
+      "native": {
+        "utc": "2026-10-24T08:10:14.604Z",
+        "speed": 1,
+        "selected": "25544",
+        "locked": "25544",
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):25544:tle_satellite",
+            "name": "International Space Station",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "25544",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "25544"
+              },
+              {
+                "label": "NORAD",
+                "value": "25544"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/International%20Space%20Station?catalog=Satellite+TLE+%28local%29&source_id=25544&model=tle_satellite&date=2026-10-24T08%3A10%3A14.604Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        }
+      }
+    },
+    {
+      "name": "review-select-B-lock-A",
+      "at": "2026-10-24T08:10:17.455Z",
+      "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite",
+      "hubTime": "LIVE\nTRACKING\nSTALE DATA\nOct 24, 4:10 AM EDT\nChange time",
+      "hubBody": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nHubble Space Telescope\n\nsatellite · 20580\n\nFocus\nStop tracking\nDetails\nLIVE\nTRACKING\nSTALE DATA\nOct 24, 4:10 AM EDT\nChange time\nHubble Space Telescope, satellite, selected",
+      "native": {
+        "utc": "2026-10-24T08:10:17.564Z",
+        "speed": 1,
+        "selected": "20580",
+        "locked": "25544",
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):20580:tle_satellite",
+            "name": "Hubble Space Telescope",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "20580",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "20580"
+              },
+              {
+                "label": "NORAD",
+                "value": "20580"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Hubble%20Space%20Telescope?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite&date=2026-10-24T08%3A10%3A17.564Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        }
+      }
+    }
+  ],
+  "pageErrors": [],
+  "limitations": [
+    "Canonical selection uses the existing public adapter.select API to isolate selection ownership; Track is an actual Hub button click. No focus call or time mutation is applied to B."
+  ],
+  "selectA": {
+    "ok": true
+  },
+  "selectB": {
+    "ok": true
+  },
+  "reproduced": true,
+  "status": "RED_REPRODUCED",
+  "clockContinued": true,
+  "finished": "2026-10-24T08:10:18.773Z"
+}

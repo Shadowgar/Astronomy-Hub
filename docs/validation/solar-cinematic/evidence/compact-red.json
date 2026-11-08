@@ -1,0 +1,11 @@
+{
+  "status": "FAIL",
+  "runs": [
+    {
+      "width": 667,
+      "height": 375,
+      "checks": []
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Visible control must receive pointer: null\n    at hit (file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_cinematic_compact.mjs:8:327)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_cinematic_compact.mjs:9:117"
+}

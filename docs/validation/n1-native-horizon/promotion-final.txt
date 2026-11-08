@@ -1,0 +1,2 @@
+ATTESTED /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/native-horizon-build/native-horizon-attestation.json native inputs 546 frontend files 95
+SKY WORKSPACE ARTIFACT 98263fecda9ed4a3b2daad74d72b142d36bb2aab97232084485e3ca14b366d45 attested native horizon patch 96 files

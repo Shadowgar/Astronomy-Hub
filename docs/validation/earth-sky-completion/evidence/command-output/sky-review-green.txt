@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: constellation lines, names and art address independent native settings
+ok 1 - constellation lines, names and art address independent native settings
+  ---
+  duration_ms: 1.36549
+  type: 'test'
+  ...
+# Subtest: observing controls address original SWE paths including distinct of-date and J2000 grids
+ok 2 - observing controls address original SWE paths including distinct of-date and J2000 grids
+  ---
+  duration_ms: 0.351642
+  type: 'test'
+  ...
+# Subtest: Night Mode reuses BottomBar and Fullscreen is an action
+ok 3 - Night Mode reuses BottomBar and Fullscreen is an action
+  ---
+  duration_ms: 0.738372
+  type: 'test'
+  ...
+# Subtest: dismissal restores the connected immediate tool launcher and clears stale ownership
+ok 4 - dismissal restores the connected immediate tool launcher and clears stale ownership
+  ---
+  duration_ms: 0.198947
+  type: 'test'
+  ...
+# Subtest: standalone native interface remains untouched
+ok 5 - standalone native interface remains untouched
+  ---
+  duration_ms: 0.147079
+  type: 'test'
+  ...
+# Subtest: embedded fullscreen targets the whole Hub and retains native state synchronization
+ok 6 - embedded fullscreen targets the whole Hub and retains native state synchronization
+  ---
+  duration_ms: 0.23944
+  type: 'test'
+  ...
+# Subtest: Vue receives explicit true/false ARIA strings, never false attributes that it removes
+ok 7 - Vue receives explicit true/false ARIA strings, never false attributes that it removes
+  ---
+  duration_ms: 0.286474
+  type: 'test'
+  ...
+# Subtest: renderer disposal removes its listener from the parent document
+ok 8 - renderer disposal removes its listener from the parent document
+  ---
+  duration_ms: 0.878091
+  type: 'test'
+  ...
+# Subtest: mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+ok 9 - mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+  ---
+  duration_ms: 0.334689
+  type: 'test'
+  ...
+# Subtest: cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+ok 10 - cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+  ---
+  duration_ms: 0.641654
+  type: 'test'
+  ...
+# Subtest: repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+ok 11 - repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+  ---
+  duration_ms: 0.256365
+  type: 'test'
+  ...
+# Subtest: explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+ok 12 - explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+  ---
+  duration_ms: 0.108838
+  type: 'test'
+  ...
+# Subtest: cinematic display uses native brightness only and does not change astronomy
+ok 13 - cinematic display uses native brightness only and does not change astronomy
+  ---
+  duration_ms: 2.192901
+  type: 'test'
+  ...
+# Subtest: native display choices persist without replacing atmosphere or catalog preferences
+ok 14 - native display choices persist without replacing atmosphere or catalog preferences
+  ---
+  duration_ms: 1.036653
+  type: 'test'
+  ...
+# Subtest: invalid storage is ignored; standalone restore and watcher disposal are bounded
+ok 15 - invalid storage is ignored; standalone restore and watcher disposal are bounded
+  ---
+  duration_ms: 0.596421
+  type: 'test'
+  ...
+# Subtest: standalone native changes survive repeated embedding and inactive presentation calls
+ok 16 - standalone native changes survive repeated embedding and inactive presentation calls
+  ---
+  duration_ms: 0.628176
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 57.052069

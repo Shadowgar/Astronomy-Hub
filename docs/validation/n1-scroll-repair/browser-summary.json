@@ -1,0 +1,166 @@
+{
+  "applicationHead": "746e5f8a8131a4bb4ebdadaa89784dfeb59923f5",
+  "status": "PASS",
+  "journeys": [
+    {
+      "width": 390,
+      "passedGroups": 22,
+      "pageErrors": [],
+      "peakIframes": 1,
+      "completedOverlayMs": {
+        "min": 686.6000000000931,
+        "max": 2082.0999999999767
+      },
+      "earthApproaches": [
+        {
+          "notches": 7,
+          "elapsedMs": 8204
+        },
+        {
+          "notches": 7,
+          "elapsedMs": 9019
+        },
+        {
+          "notches": 7,
+          "elapsedMs": 8171
+        },
+        {
+          "notches": 7,
+          "elapsedMs": 8889
+        }
+      ],
+      "resourceFailures": [
+        {
+          "kind": "404",
+          "pathPrefix": "/oras-sky-engine/skydata/dense-star-tiles",
+          "count": 635
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/oras-sky-engine/skydata/surveys",
+          "count": 62
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/oras-sky-engine/skydata/dense-star-tiles",
+          "count": 16
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/NORAD/elements/gp.php",
+          "count": 9
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/wms/epsg4326/best",
+          "count": 4
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/arcgis/rest/services",
+          "count": 4
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/earth-runtime/cesium/Assets",
+          "count": 3
+        },
+        {
+          "kind": "net::ERR_NETWORK_CHANGED",
+          "pathPrefix": "/NORAD/elements/gp.php",
+          "count": 1
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/earth-runtime/",
+          "count": 1
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/earth-runtime/release.json",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "passedGroups": 22,
+      "pageErrors": [],
+      "peakIframes": 1,
+      "completedOverlayMs": {
+        "min": 1363.1000000000931,
+        "max": 3237.8000000000466
+      },
+      "earthApproaches": [
+        {
+          "notches": 7,
+          "elapsedMs": 20964
+        },
+        {
+          "notches": 7,
+          "elapsedMs": 18510
+        },
+        {
+          "notches": 7,
+          "elapsedMs": 18828
+        },
+        {
+          "notches": 7,
+          "elapsedMs": 18294
+        }
+      ],
+      "resourceFailures": [
+        {
+          "kind": "404",
+          "pathPrefix": "/oras-sky-engine/skydata/dense-star-tiles",
+          "count": 441
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/oras-sky-engine/skydata/dense-star-tiles",
+          "count": 64
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/oras-sky-engine/skydata/surveys",
+          "count": 45
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/NORAD/elements/gp.php",
+          "count": 9
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/wms/epsg4326/best",
+          "count": 9
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/earth-runtime/cesium/Assets",
+          "count": 4
+        },
+        {
+          "kind": "net::ERR_NETWORK_CHANGED",
+          "pathPrefix": "/wms/epsg4326/best",
+          "count": 4
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/arcgis/rest/services",
+          "count": 3
+        },
+        {
+          "kind": "net::ERR_NETWORK_CHANGED",
+          "pathPrefix": "/NORAD/elements/gp.php",
+          "count": 1
+        },
+        {
+          "kind": "net::ERR_ABORTED",
+          "pathPrefix": "/earth-runtime/",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

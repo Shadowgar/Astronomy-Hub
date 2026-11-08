@@ -1,0 +1,77 @@
+{
+  "reviewer": "solar26_physics; non-author of all frontend implementation under review",
+  "reviewed_at": "2026-11-08T06:06:28.899115+00:00",
+  "scope_sha256": {
+    "frontend/src/features/beyond/beyondContracts.ts": "4a129a7643137ca8cddc65b5540629a4f93d1109fa1cb94207113735a34c11b0",
+    "frontend/src/features/beyond/beyondMath.ts": "00386bf7795a2224ce22b8eb415b77a5191365e3f8091bccd5bfe87845d78364",
+    "frontend/src/features/beyond/beyondNavigation.ts": "13005837cd79b92e82c3f78eb35d4d12c532d1ce2e1e8d3b2e2a30e9d4d0c6d5",
+    "frontend/src/features/beyond/BeyondWorkspace.tsx": "0f9c1b7a8d068c634ab3de0bb82cec4f23ad1fa53c99bbb84a49b499707a0b9f",
+    "frontend/src/features/beyond/BeyondScene.ts": "aaa78da4bcd373f79c1cf0f2fce0ba066bf4ef1c64a492cf53b3e2015229ee1c",
+    "frontend/src/features/beyond/ObservationViews.tsx": "49f29ee14c70cbdf53c78ef1f5d952f1c235f5574a160a6a563822a65dca2e81",
+    "frontend/src/features/solar/SolarCameraController.ts": "b744257cb084d45970a779870c33f574ed7b969663eb8bf1d49e5a74d15e25cb",
+    "frontend/src/features/solar/solarPrecision.ts": "68c878b5f162bce0a47eed187315d11ef3b3da107b0e8e34f1944bf5d8d855fc",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "21de1163cfe7a493050cf3a26462fd689e838cf32a8116d90498a1a968f58b89",
+    "frontend/src/features/missions/MissionWorkspace.tsx": "096aa996a059dc0cad3c6253b8a68b75af5a26dbae158a504c48c705e4aee9f5",
+    "frontend/src/features/missions/MissionScene.ts": "a05bbfdc87cf917e96017d66bb6f24e391083b3de75a1250be45b68683d207d5",
+    "frontend/src/routes/AppRouter.tsx": "4e6a48baebbe9c9f0e9ea671ee0851383cc9ffeed205226416727aabb6a3ee2e",
+    "frontend/tests/beyondContracts.test.ts": "538f4084469800d1fc8c0efd03eee61429b5a0c8b0a58b66f57ac0341c0ebe7b",
+    "frontend/tests/beyondMath.test.ts": "4c947a95cdbe986b5f0b98c2201f715d6e266c4c24c31643e8f317ef0226ae3b",
+    "frontend/tests/beyondObservationViews.test.tsx": "c19e1e0aef11bd589a2ae8ab8270495edb352c1ed2e614179d709301797d3a5c",
+    "frontend/tests/beyondScene.test.ts": "bf4b08454e29f8a4de37c7ebdb83ecb64cbc4e67fe55c87f1d509d83ac832dd4",
+    "frontend/tests/beyondCameraDomain.test.ts": "46bf46941560059fdfd389f9ab6e31f555bbb47ab21bef1e7b1f03e25c6e780a",
+    "frontend/tests/solarCameraController.test.ts": "2854d58178e5751591983259fe29ce8198ef3e8bcf7d77a04986294318509517",
+    "frontend/tests/solarFoundation.test.ts": "9e57eddb567a3e446929725f2abe19c546333ed117a81d902ce9edb9c03125bb"
+  },
+  "finding_status": {
+    "camera_domain": "corrected and independently verified; initial no-bound failure and 8/100 float64 boundary failures become 0/100 with inward margin; relative-distance guard verified",
+    "mission_selection_origin_context": "corrected in MissionWorkspace.tsx:67 by retaining beyondReturn; source independently reviewed; dedicated Windows mission-switch journey remains separate integration evidence",
+    "crossing_route_timestamp": "corrected in beyondContracts.ts:17,35; strip only trailing zero microsecond padding, reject nonzero microseconds, preserve source vectors/jd_tdb; independent actual-context route parsing passes both crossings"
+  },
+  "validation": [
+    {
+      "command": "frontend/node_modules/.bin/tsx output/solar26-camera-domain-review.mts",
+      "result": {
+        "cases": 100,
+        "failures": 0
+      }
+    },
+    {
+      "command": "cd frontend && npx vitest run tests/beyondContracts.test.ts tests/beyondMath.test.ts tests/beyondObservationViews.test.tsx tests/beyondScene.test.ts tests/beyondCameraDomain.test.ts tests/solarCameraController.test.ts tests/solarFoundation.test.ts",
+      "result": {
+        "files_passed": 7,
+        "tests_passed": 41
+      }
+    },
+    {
+      "reused_evidence": "output/playwright/solar-system-2.6/workspace-review-after/workspace-review.json",
+      "status": "PASS",
+      "checks": [
+        "IMAP pointer at actual plot start selects first UTC bin",
+        "Context loss during pending shader preparation cannot re-enable retired renderer controls"
+      ],
+      "hardware": "NVIDIA GeForce RTX 3060 Laptop GPU via Windows Edge ANGLE/D3D11",
+      "scope": "non-author performance reviewer ran browser; physics reviewer read exact receipt and reviewed correction source"
+    },
+    {
+      "command": "frontend/node_modules/.bin/tsx output/solar26-crossing-route-review.mts",
+      "result": {
+        "crossings": 2,
+        "valid_routes": 2,
+        "epoch_difference_milliseconds": 0,
+        "source_position_velocity_jd_tdb_manifest_preserved": true
+      }
+    }
+  ],
+  "scientific_limits": [
+    "Heliosphere scientific reconstruction remains not-qualified; transparent surfaces are explicitly artistic static schematics",
+    "Voyager predicted geometry is not an independent physical tracking solution; observed date/radius remain separate",
+    "IBEX is an angular ENA map, not a 3D surface; IMAP is a scalar time series, not live telemetry",
+    "Oort ranges are theoretical and illustrative samples have no catalog identities"
+  ],
+  "review_limits": [
+    "Does not approve own backend; separate non-author backend review receipt exists",
+    "Complete Windows journeys and layouts are reviewed separately by other agents",
+    "Not whole PR107 approval, owner visual acceptance, deployment or physical iPhone qualification"
+  ],
+  "source_review_status": "No confirmed unresolved P0/P1/P2 source issue within the listed reviewed bytes. This is not full integration or owner approval."
+}

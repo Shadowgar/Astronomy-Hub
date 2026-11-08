@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: standard wheel reaches native SWE zoom with cursor coordinates and cancels page scrolling
+ok 1 - standard wheel reaches native SWE zoom with cursor coordinates and cancels page scrolling
+  ---
+  duration_ms: 1.449539
+  type: 'test'
+  ...
+# Subtest: qualified FOV clamp ignores arrival then accepts sustained continuation; removal releases input
+ok 2 - qualified FOV clamp ignores arrival then accepts sustained continuation; removal releases input
+  ---
+  duration_ms: 1.461282
+  type: 'test'
+  ...
+# Subtest: rendering stalls cannot turn continuously timestamped wheel input into a second gesture
+ok 3 - rendering stalls cannot turn continuously timestamped wheel input into a second gesture
+  ---
+  duration_ms: 1.148388
+  type: 'test'
+  ...
+# Subtest: line/page wheel modes are bounded and zero or invalid delta does not zoom
+ok 4 - line/page wheel modes are bounded and zero or invalid delta does not zoom
+  ---
+  duration_ms: 0.273866
+  type: 'test'
+  ...
+# Subtest: legacy wheelDelta quantization cannot turn a decaying standard trackpad tail into deliberate input
+ok 5 - legacy wheelDelta quantization cannot turn a decaying standard trackpad tail into deliberate input
+  ---
+  duration_ms: 0.995794
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 52.086989

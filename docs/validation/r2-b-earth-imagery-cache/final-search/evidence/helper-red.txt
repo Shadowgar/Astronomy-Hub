@@ -1,0 +1,22 @@
+
+==================================== ERRORS ====================================
+_______ ERROR collecting tests/validation/test_recorded_earth_search.py ________
+ImportError while importing test module '/work/tests/validation/test_recorded_earth_search.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/local/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/validation/test_recorded_earth_search.py:10: in <module>
+    from scripts.validation.recorded_earth_search_app import RecordedSearch,require_qualification
+E   ModuleNotFoundError: No module named 'scripts.validation.recorded_earth_search_app'
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/starlette/testclient.py:29
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:29: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    [], typing.ContextManager[anyio.abc.BlockingPortal]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/validation/test_recorded_earth_search.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 warning, 1 error in 1.22s

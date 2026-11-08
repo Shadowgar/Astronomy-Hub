@@ -1,0 +1,34 @@
+[
+  {
+    "name": "product-paths",
+    "exitCode": 0,
+    "command": [
+      "env",
+      "N1_EVIDENCE_DIR=output/n1/final-ux/product-paths",
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=15s",
+      "8m",
+      "node",
+      "scripts/validation/verify_n1_final_ux_product_paths.mjs"
+    ],
+    "proofStatus": "PASS",
+    "runs": 2
+  },
+  {
+    "name": "observer-history",
+    "exitCode": 0,
+    "command": [
+      "env",
+      "N1_EVIDENCE_DIR=output/n1/final-ux/observer-history",
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=15s",
+      "8m",
+      "node",
+      "scripts/validation/verify_n1_observer_history.mjs"
+    ],
+    "proofStatus": "PASS",
+    "runs": 4
+  }
+]

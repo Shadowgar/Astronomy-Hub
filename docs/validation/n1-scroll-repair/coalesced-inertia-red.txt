@@ -1,0 +1,77 @@
+TAP version 13
+# Subtest: continuous outward input works without pausing at the boundary
+ok 1 - continuous outward input works without pausing at the boundary
+  ---
+  duration_ms: 0.891268
+  type: 'test'
+  ...
+# Subtest: slow notches and irregular cadence retain deliberate progress
+ok 2 - slow notches and irregular cadence retain deliberate progress
+  ---
+  duration_ms: 0.190562
+  type: 'test'
+  ...
+# Subtest: small trackpad input can continue directly from ordinary zoom
+ok 3 - small trackpad input can continue directly from ordinary zoom
+  ---
+  duration_ms: 0.750673
+  type: 'test'
+  ...
+# Subtest: arrival, short overshoot, a single huge event and decaying inertia do not transition
+ok 4 - arrival, short overshoot, a single huge event and decaying inertia do not transition
+  ---
+  duration_ms: 0.312579
+  type: 'test'
+  ...
+# Subtest: reversal, pan, cooldown and departure from hysteresis discard intent
+ok 5 - reversal, pan, cooldown and departure from hysteresis discard intent
+  ---
+  duration_ms: 0.140089
+  type: 'test'
+  ...
+# Subtest: abandoned progress expires, without requiring a second pause to restart
+ok 6 - abandoned progress expires, without requiring a second pause to restart
+  ---
+  duration_ms: 0.120052
+  type: 'test'
+  ...
+# Subtest: coalesced decaying trackpad packets after arrival cannot satisfy continued intent
+not ok 7 - coalesced decaying trackpad packets after arrival cannot satisfy continued intent
+  ---
+  duration_ms: 0.575567
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/runtime/continued-input.test.mjs:35:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected "actual" to be strictly unequal to:
+
+    'request'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'request'
+  actual: 'request'
+  operator: 'notStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/runtime/continued-input.test.mjs:37:43)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: variable small trackpad input still accumulates continuation
+ok 8 - variable small trackpad input still accumulates continuation
+  ---
+  duration_ms: 0.267007
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 7
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 52.373689

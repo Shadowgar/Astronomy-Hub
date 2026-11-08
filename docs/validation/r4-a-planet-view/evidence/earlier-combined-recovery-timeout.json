@@ -1,0 +1,58 @@
+{
+  "status": "FAIL",
+  "checks": [
+    "Real unsupported-body API404: controlled error, no native globe",
+    "Invalid epoch rejected before renderer creation",
+    "Controlled API503 has no substitute globe; retry uses real qualified API and image",
+    "Controlled imagery load failure destroys frame; source restoration/retry renders the real Moon",
+    "Actual WEBGL_lose_context extension: owned frame removed, controlled recovery recreates native Moon",
+    "Cancel during pending science request retains Solar; late response cannot create a globe",
+    "Cancel during pending native image load detaches its renderer and returns to Solar",
+    "sky → Solar → Moon → direct sky retains observer, native camera and UTC, serial native renderer"
+  ],
+  "limitations": [
+    "Fault injection is explicitly negative controlled-browser evidence, not a real provider outage.",
+    "Software Chromium, not owner physical GPU/device acceptance."
+  ],
+  "sky": {
+    "before": {
+      "mode": "sky",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "utc": "2026-10-23T01:05:00.000Z",
+      "live": false,
+      "camera": {
+        "projection": 2,
+        "fovRad": 1.899678097409,
+        "yawRad": 0,
+        "pitchRad": 0.523598775598,
+        "rollRad": 0,
+        "landscapeVisible": true
+      }
+    },
+    "after": {
+      "mode": "sky",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "utc": "2026-10-23T01:05:00.000Z",
+      "live": false,
+      "camera": {
+        "projection": 2,
+        "fovRad": 1.899678097409,
+        "yawRad": 0,
+        "pitchRad": 0.523598775598,
+        "rollRad": 0,
+        "landscapeVisible": true
+      }
+    }
+  },
+  "error": "locator.waitFor: Timeout 90000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-runtime-mode=earth][data-runtime-status=ready]') to be visible\u001b[22m\n\n    at ready (/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/scripts/validation/verify_r4_recovery.mjs:27:87)\n    at /home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/scripts/validation/verify_r4_recovery.mjs:27:118"
+}

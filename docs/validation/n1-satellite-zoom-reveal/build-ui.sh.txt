@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+source_default=/var/tmp/oras-phase-c/sky-reconstruction/upstream
+source_alternate=/tmp/n1-zoom-source
+pin=023e3b26babf7ffddf45f39293230b14cfe96993
+if [ ! -d "$source_alternate/.git" ]; then
+ git clone --shared --quiet --no-checkout "$source_default" "$source_alternate"
+ git -C "$source_alternate" checkout --quiet --detach "$pin"
+fi
+for kind in default alternate; do
+ tree="$PWD/output/n1/remediation/native-$kind/upstream"
+ app="$tree/apps/web-frontend"
+ selected_source="$source_default"
+ if [ "$kind" = alternate ]; then selected_source="$source_alternate"; fi
+ test "$(git -C "$selected_source" rev-parse HEAD)" = "$pin"
+ python3 scripts/runtime/integrate_sky_bridge.py "$app"
+ docker run --rm --network none --user 1001:1001 -v "$app:/work" -v "$source_default/apps/web-frontend/node_modules:/work/node_modules:ro" -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096' node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 npm run build > "output/n1/satellite-zoom-reveal/sky-$kind-build.txt" 2>&1
+ python3 scripts/runtime/attest_sky_horizon.py "$tree" --source-repo "$selected_source" > "output/n1/satellite-zoom-reveal/attest-$kind.txt" 2>&1
+ done
+python3 scripts/runtime/record_sky_workspace.py output/n1/remediation/native-default/upstream/apps/web-frontend/dist
+python3 scripts/runtime/record_runtime_versions.py output/n1/earth

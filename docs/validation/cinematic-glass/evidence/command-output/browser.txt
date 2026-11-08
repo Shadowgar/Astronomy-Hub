@@ -1,0 +1,11 @@
+1440 900 solar baseline PASS
+1440 900 solar candidate PASS
+1440 900 earth baseline PASS
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'blur(20px)'
+- 'blur(16px) saturate(1.45)'
+        ^
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/cinematic-glass-1/scripts/validation/verify_cinematic_glass.mjs:37:58

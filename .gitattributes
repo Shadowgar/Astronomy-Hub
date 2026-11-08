@@ -1,2 +1,34 @@
 # Preserve generator-owned bytes in the qualified Stellarium web shell.
 frontend/public/oras-sky-engine/js/*.js -whitespace
+# Unified diff context markers include a space for an unchanged empty line.
+integrations/sky-patches/0001-configurable-zero-horizon.patch whitespace=-blank-at-eol
+
+# Preserve raw captured diagnostics in the Pennsylvania qualification evidence.
+docs/validation/n1-pennsylvania/*.txt -whitespace
+docs/validation/n1-pennsylvania/attempts/*.txt -whitespace
+docs/validation/n1-pennsylvania/review/*.txt -whitespace
+
+# Preserve captured output bytes in the bounded N1 remediation evidence.
+docs/validation/n1-final-remediation/evidence/*.txt -whitespace
+
+# Preserve byte-exact official source captures and raw PS1 test/Windows receipts.
+docs/validation/planetary-systems/evidence/science/catalog-scope-red.txt -whitespace
+docs/validation/planetary-systems/evidence/science/destination-red.txt -whitespace
+docs/validation/planetary-systems/evidence/science/naif-satellite-spks.html -whitespace
+docs/validation/planetary-systems/evidence/science/satellite-physical-parameters.html -whitespace
+docs/validation/planetary-systems/evidence/windows-http.txt -whitespace
+
+# Preserve the raw PS2 source-boundary failing-test receipt.
+docs/validation/planetary-systems/ps2/science/browser-boundary-red.txt -whitespace
+
+# Preserve exact PS3 build/browser terminal receipts.
+docs/validation/planetary-systems/ps3/evidence/build-container-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/build-repeat-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/build-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/cross-system-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/frontend-reviewed.log.txt -whitespace
+docs/validation/planetary-systems/ps3/evidence/resilience-reviewed.log.txt -whitespace
+
+# Official PDS labels are original byte-range captures with CRLF records.
+# Keep the source hashes valid; do not normalize their bytes or whitespace.
+frontend/public/planet-terrain/apollo17-nac-v1/sources/*.IMG.lbl -text -whitespace

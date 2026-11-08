@@ -1,4 +1,621 @@
+## PR #75 — smooth camera repair, 2026-10-15
+
+Fresh proof: 132 runtime/Earth and 239 frontend tests, five motion scenarios,
+three real edge cases and 22 desktop + 22 touch/mobile journey groups pass.
+Zero page errors; one connected renderer. Physical/owner acceptance stays open.
+
+The owner rejected instantaneous Earth wheel movement. The active bounded repair
+replaces event-time camera jumps with elapsed-time, continuously animated,
+interruptible Earth zoom on the existing N1 branch/PR. The former 12–18-notch
+calibration target is superseded; qualify intermediate camera positions, velocity,
+frame timing, target stability and lifecycle through Docker/browser evidence.
+Preserve native Sky controls, deliberate boundary safeguards, observer/time,
+Night Mode/Landscape, history, accessible Explore and single-renderer ownership.
+PR #75 → #74 → #73 stays unmerged. Provider spending remains $0; no new provider,
+dependency, astronomy-data work, production deployment or N2. Technical proof is
+not owner acceptance. Stop for the owner's visual/interactive evaluation at
+<http://127.0.0.1:4202/sky-engine> after publishing the qualified repair.
+
+[Motion repair evidence](n1-smooth-camera/README.md) records exact
+source/artifact identities, commands, results, preservation and remaining limits.
+
+## Historical PR #75 near-surface correction — superseded, 2026-10-15
+
+N1 remains unaccepted. The owner rejected the previous fast near-surface profile.
+[New calibration evidence](n1-zoom-curve/README.md) supersedes prior Earth zoom
+measurements: 17 ordinary notches from 40 km to the 1.5 km entry band, versus
+seven before. Application source `fa29b01ce589afa689bf02ce1b196e3ab3cb33f7` changes
+only the Earth gain curve in production source. Ordinary, small-delta, rapid,
+reverse and deliberate Central Park Sky-entry browser checks pass. Other N1
+behavior is unchanged; earlier broad desktop/mobile proof remains historical.
+Stop for owner testing, with no merge, deployment or N2.
+
+## PR #75 repair — N1 NOT ACCEPTED, 2026-10-14
+
+The owner rejected N1 at `8fe05ca1a8505dc20449635fa47b615e4bd23a0c` after
+actual ChatGPT-browser scrolling failed to leave Sky and Earth approach required
+excessive input. The historical 40 automated checks below do not establish product
+acceptance. The active task repairs continued wheel intent, altitude-aware Earth
+zoom and standalone native landscape selection on the same PR/branch. Preserve
+#75 → #74 → #73, $0 providers, existing science/data/settings and renderer ownership.
+No merge, deploy or N2. Fresh representative Chromium desktop/touch qualification
+and owner testing are required; the exact owner browser cannot be automated here.
+
+[PR #75 scroll repair evidence](n1-scroll-repair/README.md) supersedes the old
+wheel qualification below. It retains rejected-head reproductions, corrected
+real Chromium input and zoom measurements, source/artifact identities, failed
+attempts, standalone landscape proof and final qualification status. N1 is still
+pending owner acceptance; old automated checks are not owner acceptance.
+
+
+## N1 — bidirectional Sky ↔ Earth navigation, 2026-10-14
+
+**REAL within the bounded local Docker/browser scope; owner acceptance is pending.**
+Branch `n1-sky-earth-navigation-1`, exact base PR #74
+`a57532796502a1db9ae1a7e4e4dc83e113db558f`; unmerged dependency chain is
+N1 → PR #74 → PR #73. No merge or deployment. Application source is committed at
+`fd078b7df28683d596ea6fb925470060959ee8f6`; the mobile-only runner timing correction
+is `d6eae34bbed6fad52e45a85195376f14fa5790ac`. Delivery commits after these heads add qualification evidence/control-document
+reconciliation and the explicitly documented fallback-caption CSS correction. Runtime file hashes in both ledgers bind the
+actual tested code and built application to the delivered source.
+
+Owner preview: <http://127.0.0.1:4202/sky-engine>. Use Explore in either view;
+Earth Explore accepts coordinates and provides **Enter Sky here**. Central Park
+qualification target is `40.7829, -73.9654`. The earlier owner preview remains
+<http://127.0.0.1:4201/sky-engine>. These are local loopback previews, not deployment.
+
+Default Mode. The [46-document load ledger](n1-navigation/loaded-documents.txt)
+is the manifest `frontend_change`/`validation` union; CORE/LIVE were read first.
+No extra governing project documents were loaded. The old no-scroll/FOV activation
+limit and legacy frontend BabylonJS port instructions were surfaced and superseded
+by the explicit N1 instruction/current contained-SWE architecture. One agent.
+The [implementation file ledger](n1-navigation/implementation-files.txt) lists the
+45 changed implementation/control/test/artifact files; subsequent evidence files
+are under this directory and this existing evidence document.
+
+### Implemented and tested conditions
+
+- Normal wheel input still executes native SWE zoom. Native source/browser agree
+  on the default stereographic outward clamp **185°**; its inward constant is
+  **one arcsecond**, despite the stale nearby native comment mentioning 0.5°.
+  Other projection UI maxima are source-bound constants, but the journey browser
+  qualification here is for the default stereographic projection.
+- Hysteresis latches at 185° and releases below 180°. Earth latches within
+  **1500 m of the actual view-center surface intersection**, releasing beyond
+  **2500 m**. The admitted default surface is explicitly the ellipsoid.
+- A sustained burst reaching the clamp cannot switch modes. Pause at least
+  **280 ms**, then continue in the same direction: at least **360 normalized
+  pixels**, **three processed wheel events** and **200 ms** of continued input.
+  Use event timestamps, not delayed handler execution times. Browser coalescing
+  can require more physical input; qualified runs used eight 120-pixel inputs
+  or thirty 24-pixel inputs for the continued gesture. Reversal/pan/cancellation
+  discards accumulated intent; restore/cancel blocks input for one second.
+- Sky → Earth uses Cesium's native look-at target and releases its temporary
+  transform. Earth appears from space centered on the current observer; it does
+  not claim an identical Sky/Earth projection. Nadir wheel zoom preserves native
+  world direction/up. Back restores the bounded native camera snapshot.
+- Earth → Sky picks the actual surface target. ORAS alone has qualified site
+  height `432.816 m`; native picking's approximately one-metre coordinate
+  precision envelope retains that height **without snapping coordinates**.
+  Elsewhere `0 m` is explicitly marked **elevation unavailable / fallback**.
+  Camera height is a separate value. No new terrain/provider/datum qualification.
+- Bridge **1.2**, optional `viewNavigation` capability: bounded per-renderer
+  camera DTOs, observer/UTC/live intent, geographic navigation and continuation
+  events. Existing session/origin/source/nonce/generation validation and serial
+  renderer lifetime remain. A connected destination client is required before
+  completion; the prior mode's transient `ready` status cannot close Cancel.
+- Native neutral **zero horizon** at all unqualified locations, per owner answer.
+  Installed panorama identifies Guéreins, not verified ORAS. Existing panorama
+  assets remain intact. Landscape is still a native toggle; no panorama system.
+- Native Night Mode remains Sky-only and survives mode cycles/reload. Saved ORAS
+  home definition is unchanged; exploration context is per session/history.
+
+### Actual browser proof and timing
+
+**20 desktop + 20 touch/mobile journey checks PASS; zero JavaScript page errors.**
+Chromium 145 on Linux, ANGLE/Vulkan **SwiftShader**. Desktop 1440×900; mobile
+390×844 with actual browser touch emulation and reduced motion. Native mouse drag,
+CDP real WheelEvents at source cadence, native touch drag, tap and keyboard paths
+are exercised. This is real application/Docker rendering, not a fixture scene or
+mocked scientific response; it is not physical trackpad/phone/GPU qualification.
+Only cancellation negative checks hold delivery of actual destination/snapshot
+bytes; neither engine state nor successful responses are fabricated.
+
+[Desktop subset ledger](n1-navigation/desktop-proof.json) ·
+[mobile ledger](n1-navigation/mobile-proof.json) ·
+[complete combined attempt](n1-navigation/combined-attempt.json).
+The complete combined attempt remains **FAIL** because its mobile Explore runner
+hit the pre-existing auto-hide timer; its desktop subset is explicitly **PASS**.
+The later mobile-only run settles native touch input before using Show controls
+and Explore and passes all 20 checks. Application/artifact hashes match across
+both journey proofs; only the driver settling delay changed. A subsequent single
+CSS height rule prevents the new third-line elevation caption from clipping.
+[Focused caption proof](n1-navigation/caption-proof.json) binds that changed CSS
+and proves all caption text fits on both viewports, with
+[desktop](n1-navigation/sky-caption-1440.png) and
+[mobile](n1-navigation/sky-caption-390.png) captures. Navigation code and renderer
+artifacts are unchanged by this final display correction. No failed run was relabeled.
+
+| Required journey | Desktop | Mobile |
+| --- | --- | --- |
+| ORAS Sky → Earth → ORAS Sky, time/height/timezone retained | PASS | PASS |
+| Earth drag → Central Park → native inward Sky entry → outward Earth at New York | PASS | PASS |
+| Three further full outward/inward cycles, ordinary input and reversal safeguards | PASS | PASS |
+| Cancel during loading; Back during pending snapshot; Escape; Back/Forward | PASS | PASS |
+| Fixed UTC and live time; Night ON/OFF and reload; neutral horizon and toggle | PASS | PASS |
+| Wheel/trackpad-sized input, native drag, Explore keyboard/tap and 44px targets | PASS | PASS |
+
+Measured successful cross-mode overlay lifetime: **desktop 1.16–3.73 s**,
+**mobile 0.68–1.44 s**. These include real source save/disposal and destination
+bootstrap/acknowledgement. Initial Sky ready: desktop **1.927 s**, mobile
+**1.499 s**. Whole journey steps include zooming, deliberate pause, input, dialog
+interaction and screenshot overhead; see the ledgers rather than treating those
+longer step times as pure handoff latency. Normal motion uses a 200 ms serial fade
+through loading; reduced motion removes the fade/flight animation. There is no
+projection morph or overlapping renderers. Desktop observed **20** frame removals,
+mobile **21**, with peak **one**; initialized Earth removals show disposed Viewer,
+and departed Sky frames show native disposal before removal.
+
+| Visible state | Desktop | Mobile |
+| --- | --- | --- |
+| ORAS Sky | [Sky](n1-navigation/oras-sky-1440.png) | [Sky](n1-navigation/oras-sky-390.png) |
+| Earth from ORAS | [Earth](n1-navigation/oras-earth-1440.png) | [Earth](n1-navigation/oras-earth-390.png) |
+| Central Park Earth approach | [Earth](n1-navigation/new-york-earth-1440.png) | [Earth](n1-navigation/new-york-earth-390.png) |
+| New York Sky / neutral horizon | [Sky](n1-navigation/new-york-sky-1440.png) | [Sky](n1-navigation/new-york-sky-390.png) |
+| Return Earth at New York | [Earth](n1-navigation/new-york-return-earth-1440.png) | [Earth](n1-navigation/new-york-return-earth-390.png) |
+| Cancel while destination loading | [Cancel](n1-navigation/cancel-loading-1440.png) | [Cancel](n1-navigation/cancel-loading-390.png) |
+| Touch Explore | — | [Explore](n1-navigation/mobile-explore-390.png) |
+
+An additional real **M31 exact-link Sky → Earth → Sky selection round trip passes**:
+[exact output](n1-navigation/selection-smoke.log),
+[visible selection](n1-navigation/selection-roundtrip.png). Canonical catalog/source
+identity and fixed UTC survive; native camera restoration remains in SWE.
+
+### Commands and results
+
+Exact final qualifying commands from the isolated worktree:
+
+```bash
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend test
+npm --prefix frontend run typecheck
+npm --prefix frontend run build
+python3 scripts/runtime/record_sky_workspace.py output/n1/sky-app/dist
+python3 scripts/runtime/record_owned_earth.py /var/tmp/oras-cesium/gods-eye output/n1/earth
+python3 scripts/runtime/record_runtime_versions.py output/n1/earth
+python3 scripts/runtime/earth_artifact.py verify --source output/n1/earth
+python3 scripts/validation/validate_architecture_docs.py
+git diff --check
+N1_EVIDENCE_DIR=output/n1/browser-final PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs node scripts/validation/verify_n1_navigation.mjs
+N1_WIDTHS=390 N1_EVIDENCE_DIR=output/n1/browser-mobile-final PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs node scripts/validation/verify_n1_navigation.mjs
+```
+
+[Runtime output](n1-navigation/runtime.tap): **110 passed / 0 failed**.
+[Frontend output](n1-navigation/frontend.log): **237 passed in 31 files**.
+[Typecheck](n1-navigation/typecheck.log): exit 0. Hub build exit 0.
+Architecture validation: **309 manifest path entries / 8 packs**, **57 checkpoint
+Markdown files**, **1516 references** including 16 registered private historical
+artifacts; PASS. Whitespace PASS. No backend/provider/data source changed; no broad
+backend or full standalone deep-link suite is claimed. Actual M31 and the new
+navigation paths provide bounded browser regression coverage. Genuine full-document
+bfcache remains the prior PR #74 **NOT_SUPPORTED** preview limit; tested Back/Forward
+here are actual application history transitions, not a cached-document claim.
+
+Sky build used the existing qualified frontend inputs and read-only dependencies:
+
+```bash
+docker run --rm --network none --user 1001:1001 -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/sky-app:/work -v /var/tmp/oras-phase-c/sky-reconstruction/upstream/apps/web-frontend/node_modules:/work/node_modules:ro -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096' node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 npm run build
+```
+
+Earth build uses the same immutable feature-code/toolchain pin and no network:
+
+```bash
+docker run --rm --network none --user 1001:1001 -v /var/tmp/oras-cesium/gods-eye:/source:ro -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1:/hub:ro -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/earth:/output -e GODS_EYE_SOURCE=/source -e ORAS_EARTH_OUT=/output node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 node /source/node_modules/vite/bin/vite.js build --configLoader native --config /hub/runtimes/earth-runtime/vite.config.mjs
+```
+
+Application runs in `oras-n1-owner-preview`, existing Nginx image, loopback 4202,
+existing read-only Skydata/catalog/dense-star mounts and the existing local preview
+backend/network. No Docker volume changes, new account/provider/graphics library,
+Google API use, subscription, astronomy-data replacement, merge or deployment.
+
+### Preserved failures, limits and rollback
+
+Ignored `output/n1/` retains all failed builds, red/green TAP, screenshots and browser
+attempts. Failures included wrong build UID (1000 versus actual 1001), unwanted Babel
+vendor helper/polyfill drift (repaired; native/vendor identity gate retained),
+geodetic-position versus actual view-center discrepancy, input-handler delay used
+as gesture time, the async coordinate seed race, native clamp rounding, the
+unnecessary 2.5-second pause expiry, event coalescing and the stale source-ready
+status that hid Cancel. The last defect has an actual [state audit](n1-navigation/cancel-state-audit.log)
+and [focused green restoration](n1-navigation/cancel-green.log). Temporary diagnostic
+code and the unnecessary state-carry experiment were removed before qualification.
+
+Known limits remain explicit: SwiftShader/emulated input is not owner hardware
+acceptance; photographic landscapes and terrain-derived horizons are not built;
+only ORAS has qualified observer height. Existing data/provider gaps remain:
+desktop observed **582** resource failures (149 unique status/URL pairs) and
+**1307** native HiPS iterator warnings; mobile **718** failures (130 unique pairs)
+and **5721** warnings. The majority are missing pre-existing dense-star tiles;
+other unavailable source/aborted cancellation requests are retained verbatim in
+the ledgers. They are not zero-console-error claims, and no dataset or provider
+was replaced to hide them. No JavaScript page error or persistent navigation loader
+was observed in the completed journeys. Owner must judge the visible transitions
+on their actual device. Physical Safari/iOS/Android/GPU speed is unqualified.
+
+[Preservation ledger](n1-navigation/preservation.json) confirms exact native WASM
+and vendor hashes, source pins, unchanged owner settings/home, read-only astronomy
+mounts and the original preview/artifacts. Only justified UI/camera/bridge artifacts
+were rebuilt: Sky `3077fe46d2b5df4d45482ebd1eb3073a3f9e8548b6ce1aba3060d2df1bd028c1`,
+Earth `7b90e515892f507bb3ff1388ade53469193652f22f9f197bb94392f950345319`.
+
+Rollback: stop only `oras-n1-owner-preview` and use the unchanged port 4201 preview
+or PR #74 base. Preserve this branch/evidence and all read-only data/artifacts.
+To resume the existing N1 preview, `docker start oras-n1-owner-preview`.
+Do not remove volumes, reset the owner checkout or merge dependent PRs.
+
+**STOP for owner acceptance of functioning N1.** Recommended next task is owner
+review of this preview/PR. N2 Three.js Solar System View, using existing JPL/Skyfield
+scientific data, remains separately authorized future work; it has not started.
+
+---
+
 # ORA-7 unified workspace implementation evidence
+
+
+## PR #74 final lifecycle corrections — 2026-10-14
+
+Owner authorizes only the two P2 corrections from reviewed head
+`a01dfcf7993b6c0aac6cd7d1fa60b05cba30c0d3`. Corrected source is
+`2811a511faa7daca42f1fce7a59a39bbeefed0eb`, on the same implementation branch.
+The three prior owner-approved corrections, native science, styling and Night
+persistence remain unchanged. No new milestone, merge or deployment.
+
+The fullscreen component retains its single document listener during persisted
+`pagehide`, and `pageshow` replays the actual document state through the original
+native store callback. Genuine departure, adapter disposal and Vue destruction
+remove the fullscreen, resume, departure and disposal listeners. Repeated cached
+cycles do not register additional listeners. The lifecycle VM now injects the
+**real** `installSkyNightReports`, while retaining all six existing lifecycle
+cases. Two additional integration cases prove native Night reports survive cached
+cycles and release every reporter-owned listener on genuine departure or explicit
+adapter destruction; late ready/change/hello events cannot emit stale reports.
+
+Fresh red/green evidence: the complete baseline suite had **37 PASS / 6 FAIL**,
+all six failures being the missing Night reporter binding. The added fullscreen
+regressions reproduced stale resume state and a missing listener (**10 PASS /
+2 FAIL**). After correction, focused tests are **20 PASS / 0 FAIL**. The mandatory
+complete suite is **48 PASS / 0 FAIL / 0 SKIP**, all 11 runtime test files:
+[exact TAP output](r1b-sky-corrections/runtime-suite-2026-10-14.tap).
+This supersedes the prior *selected* 23 runtime checks as suite coverage; the old
+counts below remain historical evidence for their recorded revision.
+
+Browser result: **NOT_SUPPORTED** for actual cached return in this preview.
+[Full Chromium proof](r1b-sky-corrections/cached-fullscreen-proof.json) binds source
+hashes, served Hub JS, served Sky bundle and artifact marker to the committed
+source above. Chromium launched and the initial real Fullscreen action/state/label
+assertions ran, but Back loaded a fresh document (`pageshow.persisted` remained
+false). CDP reported `MainResourceHasCacheControlNoStore`,
+`JsNetworkRequestReceivedCacheControlNoStoreResource`, and
+`BrowsingInstanceNotSwapped`. The first headless-shell attempt also reported
+`BackForwardCacheDisabledForDelegate`; both attempts and errors are preserved in
+local `output/r1b-cached-fullscreen/`. There is **no successful cached-browser
+qualification or new qualifying screenshot**. Mobile cached-return qualification
+was not reached. No synthetic browser events are presented as actual cache proof;
+repeated persisted lifecycle behavior and exact labels are proven by focused tests.
+Resume actual desktop/mobile cache qualification on a cache-eligible local server;
+preview cache headers and application runtime policies were not changed here.
+
+Commands actually run from the existing worktree:
+
+```bash
+node --test tests/runtime/*.test.mjs
+node --test tests/runtime/adaptive-sky-controls.test.mjs tests/runtime/sky-page-lifecycle.test.mjs
+node --check runtimes/sky-adapter/plugin.js
+node --check tests/runtime/sky-page-lifecycle.test.mjs
+node --check tests/runtime/adaptive-sky-controls.test.mjs
+node --check scripts/validation/verify_sky_cached_fullscreen.mjs
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+python3 scripts/runtime/integrate_sky_bridge.py output/r1b/sky-build/upstream/apps/web-frontend
+python3 scripts/runtime/record_sky_workspace.py output/r1b/sky-build/upstream/apps/web-frontend/dist
+npm --prefix frontend run build
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_EVIDENCE_DIR=output/r1b-cached-fullscreen/full-chromium node scripts/validation/verify_sky_cached_fullscreen.mjs
+```
+
+Syntax, manifest/document/reference and whitespace checks PASS. Frontend build
+PASS. The established offline pinned Node 20 container built the Sky UI twice;
+all **95 payload files** match across builds, with **96 attested files** including
+its marker. Both logs contain no `Syntax Error`, `Module Error`, `ERROR`, or
+`Module build failed` markers. Inherited bundle-size/Browserslist notices remain.
+Reattested Sky artifact:
+`3b630bc63f8d8cf89b607886f7964f76522b0bdced450abf2663300c0e27c813`.
+Native WASM/vendor chunks, SWE comparison anchor and Earth lock identity match the
+reviewed base. The `c95664c19df717c2f7087b0e22ffab28210fb1cee42a91969005697f79b2f7d5`
+Sky artifact remains a preserved Git rollback at `a01dfcf7993b6c0aac6cd7d1fa60b05cba30c0d3`.
+Root owner settings retain SHA-256
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+No data, dependency, source pin, native science, Earth payload, Docker volume,
+container configuration or production state changed.
+
+Owner application preview remains <http://127.0.0.1:4201/sky-engine>. PR #74 stays
+unmerged, dependent on unmerged PR #73. STOP for owner review; actual cached-page
+browser qualification remains outstanding. No cold-search or scroll/FOV work.
+
+## PR #74 Sky corrections — 2026-10-14
+
+Exactly three owner-authorized corrections continue branch
+`r1-b-adaptive-sky-implementation-1` from `4c1d58bb5cad2b6df56ee1586be55ed6db904bc7`.
+PR #73 remains the unmerged design dependency; no merge/deployment/later milestone.
+**Qualified source: `625376a0e24d26175e402077c27614bda67369d5`.**
+The older R1-B evidence below qualifies only its recorded source. New desktop and
+mobile ledgers bind these corrections to their exact source hashes and served
+application bytes: [desktop proof](r1b-sky-corrections/desktop-proof.json),
+[mobile proof](r1b-sky-corrections/mobile-proof.json). Access the exact JSON ledgers
+through this manifest-loaded document; no manifest routing change is needed.
+
+Native SWE remains the only Night Mode toggle owner. The original BottomBar method
+sets the native state and canvas overlay. A minimal `oras-sky-night.v1` report in
+the existing Sky presentation module reflects a boolean through the qualified
+parent hello, with origin/frame/nonce/generation, exact-field and monotonic-ID
+validation. Hub chrome uses Sky-only red tokens; native panels/search/credits use
+red UI rules. Neither the iframe nor the canvas receives another CSS filter.
+The native canvas overlay remains unchanged. Menus, dialogs, selected-object
+information, inputs, tooltips, focus and text selection use the red appearance.
+Disabling the native setting restores the approved normal styling.
+
+The reported native preference is stored under `oras.sky.night-mode.v1` in local
+storage, with an in-memory fallback if storage is blocked. The host reads it for
+its initial Sky style and the Sky-only `orasNightMode` bootstrap parameter; the
+new SWE instance restores it through the original native method before reporting
+ready. Native state is replayed at the qualified hello/engine-ready boundary.
+Earth receives neither the bootstrap setting nor the Sky red class. There is no
+second Hub toggle, iframe DOM scraping or shared Earth-protocol change.
+
+Coordinate drafts remain strings, including intermediate minus/decimal text.
+Submission alone parses decimal/scientific numeric syntax, checks finite values
+and the existing observer bounds, then sends numeric intent. Missing/invalid/
+out-of-range values display an error and send no intent. ORAS reset is preserved.
+Fullscreen mounts register the existing listener and immediately invoke the native
+callback with current browser state; remounted Sky shows Exit fullscreen whenever
+the whole Hub remains fullscreen. Disposal retains the existing listener cleanup.
+
+| Actual application state | Desktop 1440×900 | Mobile viewport 390×844 |
+| --- | --- | --- |
+| Night OFF | [Desktop OFF](r1b-sky-corrections/night-off-1440.png) | [Mobile OFF](r1b-sky-corrections/night-off-390.png) |
+| Night ON, same initial view | [Desktop ON](r1b-sky-corrections/night-on-1440.png) | [Mobile ON](r1b-sky-corrections/night-on-390.png) |
+| Native observing panel | [Desktop tools](r1b-sky-corrections/night-observing-1440.png) | [Mobile tools](r1b-sky-corrections/night-observing-390.png) |
+| Explore dialog | [Desktop dialog](r1b-sky-corrections/night-explore-1440.png) | [Mobile dialog](r1b-sky-corrections/night-explore-390.png) |
+| Native selection / Hub information | [Desktop selection](r1b-sky-corrections/night-selection-1440.png) | [Mobile selection](r1b-sky-corrections/night-selection-390.png) |
+| Signed input / red text selection | [Desktop location](r1b-sky-corrections/night-location-1440.png) | [Mobile location](r1b-sky-corrections/night-location-390.png) |
+
+Browser PASS on both viewports: native Night ON/OFF; external header/Explore,
+native search/tools, credits, menus, dialogs, selection, location and time styling;
+red text selection; no additional canvas filter; Night ON through two Earth/Sky
+round trips per viewport and reload; explicit OFF survives reload; Earth retains
+normal colors. Fullscreen persists through those four round trips, agrees with
+native state and labels on each remount, and exits correctly. One fullscreen
+listener exists in Sky and zero remain on Earth. Exactly one renderer iframe;
+canonical Vega identity is restored; keyboard/Escape focus and advanced 44px
+observing target are preserved. Zero JavaScript page errors.
+
+Sequential typing of `-33.875`, `-80.125` and `12.5` preserves the exact draft and
+sets those actual native observer values. Partial `-`, empty longitude, malformed
+`NaN`, and out-of-range latitude/longitude/elevation produce zero observer writes.
+The original ORAS reset, search, observing time and selection contracts survive.
+The existing bounded all-ten-controls desktop/mobile regression passed **2/2**,
+with zero JavaScript page errors: [control regression proof](r1b-sky-corrections/observing-regression-proof.json).
+Its screenshot filenames refer to the preserved local
+`output/r1b-corrections/observing-regression/` directory; the new Night Mode
+screenshots above are committed separately. No old screenshot is used as proof for these source changes.
+
+Commands actually used (from the existing worktree):
+
+```bash
+npm --prefix frontend run typecheck
+npm --prefix frontend run test
+node tests/runtime/adaptive-sky-controls.test.mjs
+node tests/runtime/sky-night-mode.test.mjs
+node tests/runtime/sky-native-controls.test.mjs
+node tests/runtime/sky-native-panels.test.mjs
+node tests/runtime/sky-wheel.test.mjs
+node tests/runtime/workspace-protocol.test.mjs
+node tests/runtime/sky-artifact.test.mjs
+node --check runtimes/sky-adapter/plugin.js
+node --check runtimes/sky-adapter/entry.mjs
+node --check runtimes/sky-adapter/native-panels.mjs
+node --check scripts/validation/verify_sky_corrections.mjs
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_WIDTHS=1440 R1B_EVIDENCE_DIR=output/r1b-corrections/final-desktop node scripts/validation/verify_sky_corrections.mjs
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_WIDTHS=390 R1B_EVIDENCE_DIR=output/r1b-corrections/final-mobile node scripts/validation/verify_sky_corrections.mjs
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_EVIDENCE_DIR=output/r1b-corrections/observing-regression node scripts/validation/verify_adaptive_sky.mjs
+```
+
+Static/type/whitespace checks PASS; frontend **234/234** (30 files); native/runtime
+**23/23** (9 control/lifetime, 3 Night reports, 3 keyboard, 2 panels, 2 wheel,
+3 shared protocol, 1 artifact). Document/manifest/reference checks PASS, including
+all new evidence paths. Night/typing/fullscreen browser correction runs **2/2 PASS**.
+Screenshots are software-rendered Chromium viewport evidence, not physical-device
+or owner acceptance. No new performance claim is made.
+
+Sky UI build/reattest used the same isolated staged app, pinned Node20 Docker
+image and read-only cached dependencies as the initial R1-B process below, with
+`--network none`, `ORAS_RUNTIME_COPY_SKYDATA=0`; the pinned legacy ESLint formatter
+was run on the isolated plugin copy before building. The final module build was
+checked for warning-only compilation failures, then `record_sky_workspace.py`,
+Sky-only public version synchronization and `npm --prefix frontend run build` ran.
+A second build reproduced all 95 application files byte-for-byte.
+New Sky artifact: `c95664c19df717c2f7087b0e22ffab28210fb1cee42a91969005697f79b2f7d5`.
+Rollback source/artifact: `4c1d58bb5cad2b6df56ee1586be55ed6db904bc7` /
+`06f92b7e2851ec975c055980068fdcea2cf158c2d4bc9e58115452529baeb456`.
+Native WASM/vendor chunks, comparison anchor, shared protocol, complete Earth lock,
+Earth assets, God's Eye pin, astronomy data, dependencies and owner settings remain
+unchanged. Existing preview containers were resumed; original mounts/volumes were
+not changed. Owner settings SHA256 remains
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+
+All three failures were reproduced against the old actual application first:
+minus sign lost, Hub identity `rgb(244,245,247)` in Night Mode, and remount action
+mislabeled Fullscreen. Red logs and the interrupted combined run (exit 143) remain
+under local `output/r1b-corrections/`. The interruption was not claimed as PASS;
+completed final independent runs supersede it. Chromium used normal permitted
+host execution; no approval or sandbox workaround was used.
+
+Working owner preview remains `http://127.0.0.1:4201/sky-engine`. Open Display to
+use the native Night Mode toggle. The 30.4-second cold catalog search and sparse
+existing tiles/media remain tracked; no optimization, provider, imagery, renderer,
+scroll/FOV handoff, later milestone, deployment or merge is included. PR #73/#74/
+#71 remain unmerged. STOP for owner review.
+
+
+## R1-B real Sky application — 2026-10-13
+
+Owner-approved visual source: PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef`.
+Implementation branch: `r1-b-adaptive-sky-implementation-1`, based on that exact
+unmerged head. Implementation PR depends on PR #73; neither may be silently merged.
+The owner separately authorized actual Sky implementation. No design revision or
+later milestone is activated. Working-application owner acceptance remains OPEN.
+
+**Browser-qualified source: `03baaeb8d762d8ba1def3e7e35cf3019152df0cc`.**
+The [exact proof ledger](r1b-sky/proof.json) records source SHA256s, committed head,
+served-entry byte comparison, viewport, native control results, renderer identity,
+startup timing, missing data requests and zero JavaScript page errors. Access this
+JSON through this manifest-loaded evidence document; do not substitute old R1-A
+screenshots. Later evidence-only commits preserve these tested source bytes.
+
+Actual application screenshots (not the R1-A prototype):
+
+| State | Desktop 1440×900 | Mobile viewport 390×844 |
+| --- | --- | --- |
+| Sky scene / minimal shell | [Desktop](r1b-sky/sky-1440.png) | [Mobile](r1b-sky/sky-390.png) |
+| Observing tools / advanced grid | [Desktop tools](r1b-sky/observing-1440.png) | [Mobile tools](r1b-sky/observing-390.png) |
+| Native Vega selection | [Desktop selection](r1b-sky/selection-1440.png) | [Mobile selection](r1b-sky/selection-390.png) |
+
+Live owner preview: `http://127.0.0.1:4201/sky-engine`.
+For matching night screenshots use
+`http://127.0.0.1:4201/sky-engine?date=2026-10-13T02%3A10%3A00Z`.
+This is built React plus contained real Stellarium in isolated local Docker,
+not the design preview at port 4200. New containers `oras-r1b-owner-preview` and
+`oras-r1b-backend` use network `oras-r1b-preview`, existing images, read-only source
+and astronomy mounts, and no owner datastore. The owner backend/datastore is not
+started or modified. An absent Gaia database is not replaced by fake data.
+If stopped, `docker start oras-r1b-backend oras-r1b-owner-preview` resumes this
+already-created preview. Existing containers, volumes and ports remain intact.
+
+Implemented: approved glass placement and compact Sky-specific rail; native
+TargetSearch and selection; acknowledged observing latitude/longitude/elevation
+and time; constellation lines + names, art, atmosphere, landscape, azimuthal grid,
+equatorial grid of date, DSOs, native Night Mode, Fullscreen, and advanced J2000.
+The native Vue plugin retains SWE property paths and BottomBar night-mode behavior;
+embedded fullscreen targets the whole Hub so Explore stays available, synchronizes
+the native state callback and removes its parent-document listener on disposal.
+Standalone native controls and additional native view settings remain available.
+Tonight, Observe, diagnostics and standalone links remain reachable in More Sky
+options. No permanent Earth navigation button was added to the Sky view.
+
+Reference differences: actual native celestial results/credits and science replace
+sample content; the existing date/time editor and canonical selection details are
+reused; location currently uses explicit coordinates plus ORAS reset rather than
+new place search; existing licensed Hub icons/native glyphs are used. Solar System
+and Moon are explicitly unavailable in Explore. Earth retains its existing UI.
+These differences and screenshots require owner acceptance, not a new design cycle.
+
+The browser suite toggled all eight scientific visibility properties and checked
+native results, verified native night-mode visibility and actual fullscreen
+entry/exit with Explore visible, selected Vega through real search, set observer
+42° / −80° / 400 m and +1h, exercised native wheel zoom, keyboard tool open/Escape/
+focus return and the 44px advanced disclosure, checked horizontal overflow and
+Explore cancellation, and completed two Earth/Sky return cycles per viewport.
+Each return retained canonical selection, exactly one iframe and one parent
+fullscreen listener; Earth disposal had zero retained Sky fullscreen listeners.
+The verified Earth route switch is **not** a continuous scale handoff.
+
+Missing transition dependency: protocol 1.1 provides time/observer/canonical
+selection intent, but no Sky FOV-boundary intent or Earth camera destination/pose
+contract. Native wheel input is owned by SWE; existing `globalView`/`returnToOras`
+actions do not define an observer-view-to-orbital camera conversion. This package
+preserves normal wheel zoom and does not infer a camera transform or introduce
+another renderer. Sky → Earth outward travel remains unimplemented.
+
+Validation commands from this worktree:
+
+```bash
+npm --prefix frontend run typecheck
+npm --prefix frontend run test
+node --check runtimes/sky-adapter/plugin.js
+node --check runtimes/sky-adapter/entry.mjs
+node --check scripts/validation/verify_adaptive_sky.mjs
+node tests/runtime/adaptive-sky-controls.test.mjs
+node tests/runtime/sky-native-controls.test.mjs
+node tests/runtime/sky-native-panels.test.mjs
+node tests/runtime/sky-wheel.test.mjs
+node tests/runtime/workspace-protocol.test.mjs
+node tests/runtime/sky-artifact.test.mjs
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_EVIDENCE_DIR=output/r1b/final-browser node scripts/validation/verify_adaptive_sky.mjs
+```
+
+Results: typecheck/syntax/whitespace PASS; frontend **229/229**, adaptive native
+controls **8/8**, native keyboard **3/3**, panel messages **2/2**, wheel **2/2**,
+workspace protocol **3/3**, artifact identity **1/1**. Browser **2/2 viewport runs**,
+all ten controls, four serial round trips, zero JavaScript page errors. Document/
+manifest/reference checks PASS; final link counts are recorded in the handoff.
+No physical-device or production qualification is claimed.
+
+Sky artifact: `06f92b7e2851ec975c055980068fdcea2cf158c2d4bc9e58115452529baeb456`.
+A second build reproduced all **95 application files** byte-for-byte; marker is
+file 96. Native WASM, vendor chunks, comparison anchor, shared bridge files,
+Earth lock/artifact, God's Eye pin, data/dependencies and original settings are
+unchanged. The 97%-similar generated app-chunk rename is the rebuilt UI overlay.
+Rollback remains the approved parent head, not an overwritten owner artifact.
+
+Build used `git archive 023e3b26babf7ffddf45f39293230b14cfe96993` from the existing
+qualified upstream checkout into `output/r1b/sky-build/upstream`, then:
+
+```bash
+python3 scripts/runtime/apply_sky_overlay.py output/r1b/sky-build/upstream
+python3 scripts/runtime/integrate_sky_bridge.py output/r1b/sky-build/upstream/apps/web-frontend
+# Existing qualified native JS/WASM copied into staged src/assets/js, never rebuilt or edited.
+docker run --rm --network none   -v "$PWD/output/r1b/sky-build/upstream/apps/web-frontend:/work"   -v /var/tmp/oras-phase-c/sky-reconstruction/upstream/apps/web-frontend/node_modules:/work/node_modules:ro   -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0   -e NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096'   node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 npm run build
+python3 scripts/runtime/record_sky_workspace.py output/r1b/sky-build/upstream/apps/web-frontend/dist
+npm --prefix frontend run build
+```
+
+The public runtime-versions Sky entry is copied from the resulting lock (excluding
+artifact_files/overlay/baseline_artifacts); Earth is not reattested or altered.
+The old build system reports module failures as warnings: final builds were
+explicitly checked for Syntax Error, Module Error, ERROR and Module build failed.
+Remaining warnings are inherited bundle-size/old Browserslist notices. Initial
+failed compilation, ARIA regression and cold-search attempts remain under local
+`output/r1b/`; they are not passing qualification. Chromium used normal approved
+host execution; no sandbox or approval-service workaround was used.
+
+Performance and limits: 1440px: 1.46s bridge-ready, 20 native FPS sample; 390px: 1.29s bridge-ready, 47 native FPS sample. These are bridge-ready times and native FPS
+samples on SwiftShader software rendering, not settled-data times, physical GPU
+measurements or an accepted device budget. The first existing catalog search took
+30.4 seconds in backend logs before warming its catalog cache. Existing sparse
+dense-star tile 404s and a missing object-media summary index are retained in the
+ledger; no data was invented, downloaded or changed to hide them. No claim of
+complete astronomy data coverage or full visible-scene settlement is made.
+
+Changed-file scope: `WorkspaceShell.tsx`, new `AdaptiveSkyChrome.tsx` and
+`adaptiveSky.css`; owned `runtimes/sky-adapter/plugin.js` and `entry.mjs`; generated
+Sky app/index/marker and Sky portions of both lock/version files; shell/native/
+browser verification; these evidence files; and narrow R1-B activation in AGENTS,
+CORE, LIVE, PROJECT_STATE, MASTER_PLAN, DOCUMENT_INDEX, docs README, design contract
+and SYSTEM_VALIDATION_SPEC. R1-A reference files, Earth code/artifacts, backend,
+packages, SWE native sources, owner settings and data remain unchanged.
+
+PR #71 stays open/unmerged at `35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e`;
+PR #67 stays closed/unmerged at `ebdad3124fe470e3a09e369d3a56e998f29740fb`.
+All historical science/provider/device gates remain. STOP for owner acceptance;
+no merge, deployment or subsequent package.
+
+## Historical ORA-7 qualification (unchanged scope)
 
 Qualification date: 2026-10-03. Single agent. Docker/Nginx on localhost:4181 is the
 runtime authority; local unit/type/build results are supporting evidence.

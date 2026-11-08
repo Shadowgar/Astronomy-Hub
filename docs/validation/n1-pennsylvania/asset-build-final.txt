@@ -1,0 +1,19 @@
+{"width":1774,"height":887,"transparent":766767,"opaque":155}
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(input.opaque>input.width*input.height*.25)
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/runtime/build_pennsylvania_landscape.mjs:16:67 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

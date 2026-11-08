@@ -1,0 +1,84 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "frontend/src/features/solar/SolarScene.ts": "2b3725aedb12713be776513ca28ddff9870b600596479797d86868ea75f77d2c",
+    "frontend/src/features/solar/solarPresentation.ts": "03ca508f291a96b31a9fb5c3618f161af7479e5f2b6354f3ec16b2bad0d99d6c",
+    "frontend/src/features/solar/solar.css": "13fecec8f19517698f0b58af79fdbc695828c4460f920a770fe6702de63b371a",
+    "scripts/validation/verify_solar_compact_focus.mjs": "39c4523f950fe69bf82c5c098931009e324d5bf64144f8103db3b97ffa3880cb"
+  },
+  "runs": [
+    {
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "Earth focus clear of HUD, exact target/time",
+        "Earth approach clear of HUD, exact target/time",
+        "Sun focus clear of HUD, exact target/time",
+        "Sun approach clear of HUD, exact target/time",
+        "Mars focus clear of HUD, exact target/time",
+        "Mars approach clear of HUD, exact target/time"
+      ]
+    },
+    {
+      "width": 480,
+      "height": 375,
+      "checks": [
+        "Earth focus clear of HUD, exact target/time",
+        "Earth approach clear of HUD, exact target/time",
+        "Sun focus clear of HUD, exact target/time",
+        "Sun approach clear of HUD, exact target/time",
+        "Mars focus clear of HUD, exact target/time",
+        "Mars approach clear of HUD, exact target/time"
+      ]
+    },
+    {
+      "width": 559,
+      "height": 560,
+      "checks": [
+        "Earth focus clear of HUD, exact target/time",
+        "Earth approach clear of HUD, exact target/time",
+        "Sun focus clear of HUD, exact target/time",
+        "Sun approach clear of HUD, exact target/time",
+        "Mars focus clear of HUD, exact target/time",
+        "Mars approach clear of HUD, exact target/time"
+      ]
+    },
+    {
+      "width": 390,
+      "height": 480,
+      "checks": [
+        "Earth focus clear of HUD, exact target/time",
+        "Earth approach clear of HUD, exact target/time",
+        "Sun focus clear of HUD, exact target/time",
+        "Sun approach clear of HUD, exact target/time",
+        "Mars focus clear of HUD, exact target/time",
+        "Mars approach clear of HUD, exact target/time"
+      ]
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "Earth focus clear of HUD, exact target/time",
+        "Earth approach clear of HUD, exact target/time",
+        "Sun focus clear of HUD, exact target/time",
+        "Sun approach clear of HUD, exact target/time",
+        "Mars focus clear of HUD, exact target/time",
+        "Mars approach clear of HUD, exact target/time"
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "checks": [
+        "Earth focus clear of HUD, exact target/time",
+        "Earth approach clear of HUD, exact target/time",
+        "Sun focus clear of HUD, exact target/time",
+        "Sun approach clear of HUD, exact target/time",
+        "Mars focus clear of HUD, exact target/time",
+        "Mars approach clear of HUD, exact target/time"
+      ]
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Resized compact focus marker clears header/card\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_solar_compact_focus.mjs:6:347"
+}

@@ -1,0 +1,14 @@
+1440 Earth ready; exactly one owned renderer
+1440 Ambiguous real city: explicit second candidate; native destination matches
+1440 Real zoom/pan; center anchoring preserved
+1440 Real named place: native camera and contextual details
+1440 Same-runtime Back/Forward restores actual panned/search camera bookmarks
+1440 Reload restores search destination through qualified host/native bookmark
+1440 Invalid coordinates declined without navigation
+1440 Reviewed hemisphere-letter city name reaches real provider and native destination
+1440 Offline coordinate search reaches genuine zero latitude/longitude
+1440 Real street address: provider details and actual Cesium destination
+1440 Declared no-result, unavailable and busy cases remain distinct and usable
+1440 Sky return uses actual searched surface observer/time; accepted panorama unchanged
+1440 Back from Sky restores searched Earth camera; one active renderer
+1440 Existing manual Explore coordinates and canonical ORAS context preserved

@@ -1,0 +1,23 @@
+F.F
+======================================================================
+FAIL: test_explicit_vendor_identity_is_preserved_independently (__main__.SkyPromotion.test_explicit_vendor_identity_is_preserved_independently)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/runtime/test_sky_promotion.py", line 24, in test_explicit_vendor_identity_is_preserved_independently
+    marker,_=self.promote(True,wasm=False,vendor=True);self.assertIs(marker['native_wasm_identical'],False);self.assertIs(marker['native_vendor_chunks_identical'],True)
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not False
+
+======================================================================
+FAIL: test_ui_promotion_preserves_existing_horizon_native_changes (__main__.SkyPromotion.test_ui_promotion_preserves_existing_horizon_native_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/runtime/test_sky_promotion.py", line 22, in test_ui_promotion_preserves_existing_horizon_native_changes
+    marker,lock=self.promote(True,wasm=False);self.assertEqual(marker['native_horizon'],lock['sky']['native_horizon']);self.assertIs(marker['native_wasm_identical'],False);self.assertIs(marker['native_vendor_chunks_identical'],False)
+                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not False
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.133s
+
+FAILED (failures=2)

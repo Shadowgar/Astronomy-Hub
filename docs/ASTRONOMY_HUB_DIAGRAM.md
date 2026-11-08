@@ -1,5 +1,11 @@
 # Astronomy Hub architecture diagram — current and planned
 
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 [Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md),
 [ADR0009](architecture/decisions/0009-owned-earth-feature-reuse.md),
 [current evidence](audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md) and

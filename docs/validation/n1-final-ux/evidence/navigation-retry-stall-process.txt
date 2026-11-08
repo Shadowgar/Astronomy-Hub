@@ -1,0 +1,2 @@
+    PID    PPID     ELAPSED %CPU COMMAND
+ 327415  327414       04:54  0.7 node scripts/validation/verify_n1_navigation.mjs

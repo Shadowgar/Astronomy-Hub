@@ -1,0 +1,25 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "frontend/src/features/workspace/EarthExplore.tsx": "a5a4c73fb6f4745dbd81aaba3e7cb65679a53e5e5f289717ae66eb1042cdd788",
+    "output/n1/final-ux/review-only/flight-browser.mjs": "8f58f8b849829a61f6ea5c74fb851d1945c2b334b77a7a844324e2b59faf201a"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "RUNNING",
+      "pageErrors": [],
+      "servedHub": {
+        "url": "/assets/index-DLslifxJ.js",
+        "sha256": "c59f4121a3fd85d5d5b97d5c35a88f32693968fdd5f65a0a195267257b8f4ff9"
+      },
+      "pending": {
+        "label": "Approaching…",
+        "disabled": false,
+        "url": "http://127.0.0.1:4202/earth?date=2026-06-05T02%3A10%3A00.000Z"
+      }
+    }
+  ],
+  "fixture": "Actual native coordinate flight. Its genuine completion result is held at the MessagePort transport boundary until explicitly released; no native calculation/result is fabricated.",
+  "error": "AssertionError [ERR_ASSERTION]: Sky handoff must be disabled while real coordinate flight acknowledgement is pending\n\nfalse !== true\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/review-only/flight-browser.mjs:13:688"
+}

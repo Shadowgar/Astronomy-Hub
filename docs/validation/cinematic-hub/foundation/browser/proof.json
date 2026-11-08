@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "width": 1440,
+      "height": 900,
+      "copyRemoved": true,
+      "modeChooserKeyboard": true,
+      "utc": "2026-02-28T00:00:00Z"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "copyRemoved": true,
+      "modeChooserKeyboard": true,
+      "utc": "2026-02-28T00:00:00Z"
+    },
+    {
+      "width": 540,
+      "height": 390,
+      "copyRemoved": true,
+      "modeChooserKeyboard": true,
+      "utc": "2026-02-28T00:00:00Z"
+    }
+  ]
+}

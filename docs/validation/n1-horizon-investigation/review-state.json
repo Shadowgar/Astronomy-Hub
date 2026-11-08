@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "threadCount": 3,
+  "unresolvedThreads": 0,
+  "threads": [
+    {
+      "id": "PRRT_kwDORt_rys6sPsml",
+      "path": "runtimes/earth-runtime/core/CameraController.mjs",
+      "resolved": true,
+      "comments": [
+        {
+          "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4268968568",
+          "databaseId": 4268968568
+        },
+        {
+          "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279091065",
+          "databaseId": 4279091065
+        }
+      ]
+    },
+    {
+      "id": "PRRT_kwDORt_rys6sPsmw",
+      "path": "runtimes/sky-adapter/plugin.js",
+      "resolved": true,
+      "comments": [
+        {
+          "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4268968586",
+          "databaseId": 4268968586
+        },
+        {
+          "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279090919",
+          "databaseId": 4279090919
+        }
+      ]
+    },
+    {
+      "id": "PRRT_kwDORt_rys6sobg8",
+      "path": "frontend/src/features/workspace/viewNavigation.ts",
+      "resolved": true,
+      "comments": [
+        {
+          "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279320866",
+          "databaseId": 4279320866
+        },
+        {
+          "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280122131",
+          "databaseId": 4280122131
+        }
+      ]
+    }
+  ]
+}

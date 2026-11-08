@@ -1,0 +1,107 @@
+{
+  "scope": "Independent installed-source and arithmetic review; no GPU, application or physical-device qualification",
+  "pass": true,
+  "adapterPath": "frontend/src/features/solar/solarTakramDepth.ts",
+  "adapterSha256": "6167a9453a4341ada79271447dd15a41d3b19ff952c6ce5030e1ec819598736d",
+  "guard": {
+    "upstreamPrefixSuffixPreserved": true,
+    "missingDuplicateAndAlreadyPatchedRejected": true,
+    "ordinaryBranchPreserved": true
+  },
+  "nearM": 100,
+  "farM": 299195741400000,
+  "numeric": [
+    {
+      "distance": 100,
+      "oldDistance": 99.99999237060547,
+      "oldNonFinite": false,
+      "oldErrorM": -0.00000762939453125,
+      "directDistance": 99.99998474121094,
+      "directErrorM": -0.0000152587890625
+    },
+    {
+      "distance": 1000,
+      "oldDistance": 999.9998168945312,
+      "oldNonFinite": false,
+      "oldErrorM": -0.00018310546875,
+      "directDistance": 999.9998168945312,
+      "directErrorM": -0.00018310546875
+    },
+    {
+      "distance": 100000,
+      "oldDistance": 99996.953125,
+      "oldNonFinite": false,
+      "oldErrorM": -3.046875,
+      "directDistance": 99999.8984375,
+      "directErrorM": -0.1015625
+    },
+    {
+      "distance": 1000000,
+      "oldDistance": 999633.25,
+      "oldNonFinite": false,
+      "oldErrorM": -366.75,
+      "directDistance": 1000000,
+      "directErrorM": 0
+    },
+    {
+      "distance": 10000000,
+      "oldDistance": 10018796,
+      "oldNonFinite": false,
+      "oldErrorM": 18796,
+      "directDistance": 9999996,
+      "directErrorM": -4
+    },
+    {
+      "distance": 20000000,
+      "oldDistance": 19814952,
+      "oldNonFinite": false,
+      "oldErrorM": -185048,
+      "directDistance": 19999992,
+      "directErrorM": -8
+    },
+    {
+      "distance": 26000000,
+      "oldDistance": 25476366,
+      "oldNonFinite": false,
+      "oldErrorM": -523634,
+      "directDistance": 25999988,
+      "directErrorM": -12
+    },
+    {
+      "distance": 32000000,
+      "oldDistance": 31845458,
+      "oldNonFinite": false,
+      "oldErrorM": -154542,
+      "directDistance": 31999988,
+      "directErrorM": -12
+    },
+    {
+      "distance": 100000000,
+      "oldDistance": 99074760,
+      "oldNonFinite": false,
+      "oldErrorM": -925240,
+      "directDistance": 99999960,
+      "directErrorM": -40
+    },
+    {
+      "distance": 1000000000,
+      "oldDistance": 891672832,
+      "oldNonFinite": false,
+      "oldErrorM": -108327168,
+      "directDistance": 999999552,
+      "directErrorM": -448
+    },
+    {
+      "distance": 100000000000,
+      "oldDistance": null,
+      "oldNonFinite": true,
+      "oldErrorM": null,
+      "directDistance": 100000079872,
+      "directErrorM": 79872
+    }
+  ],
+  "offAxisProjection": {
+    "cases": 15,
+    "maximumUvError": 1.1102230246251565e-16
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "sourceInputSha256": "94aaa2e730f2fab8609a2bc913d0d15846841137e158a32c861f0fd4e56b2d19",
+  "results": [
+    {
+      "case": "native-source-mismatch",
+      "exit": 1,
+      "error": "AssertionError: Unexpected native source change: src/modules/landscape.c",
+      "priorSuccessfulAttestationUnchanged": true,
+      "freshSuccessProduced": false
+    },
+    {
+      "case": "unexpected-frontend-input",
+      "exit": 1,
+      "error": "AssertionError: Unexpected frontend source file",
+      "priorSuccessfulAttestationUnchanged": true,
+      "freshSuccessProduced": false
+    }
+  ]
+}

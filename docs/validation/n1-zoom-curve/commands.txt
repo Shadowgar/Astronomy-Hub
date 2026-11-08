@@ -1,0 +1,26 @@
+# Run from .worktrees/n1-sky-earth-navigation-1; output logs are retained beside this file.
+node --test tests/earth/zoom-usability.test.mjs
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend test
+npm --prefix frontend run typecheck
+# Actual Chromium measurement, once before the curve change and once after:
+N1_EVIDENCE_DIR=output/n1/zoom-curve-before node scripts/validation/measure_earth_zoom_curve.mjs
+N1_EVIDENCE_DIR=output/n1/zoom-curve-after N1_ZOOM_QUALIFY=1 node scripts/validation/measure_earth_zoom_curve.mjs
+# Prior artifact preserved before building:
+cp -a output/n1/earth output/n1/earth-before-zoom-curve
+# Pinned isolated Docker Earth build, read-only source mounts, network disabled:
+docker run --rm --network none --user 1001:1001 -v /var/tmp/oras-cesium/gods-eye:/source:ro -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1:/hub:ro -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/earth:/output -e GODS_EYE_SOURCE=/source -e ORAS_EARTH_OUT=/output node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 node /source/node_modules/vite/bin/vite.js build --configLoader native --config /hub/runtimes/earth-runtime/vite.config.mjs
+cp -a output/n1/earth-before-zoom-curve/cesium output/n1/earth/
+cp output/n1/earth-before-zoom-curve/LICENSE-gods-eye.txt output/n1/earth/LICENSE-gods-eye.txt
+cp runtimes/earth-runtime/display-config.json output/n1/earth/display-config.json
+python3 scripts/runtime/copy_dependency_licenses.py /var/tmp/oras-cesium/gods-eye output/n1/earth
+# health marker written as exact bytes: ORAS Earth runtime ready followed by newline.
+python3 scripts/runtime/record_owned_earth.py /var/tmp/oras-cesium/gods-eye output/n1/earth
+python3 scripts/runtime/record_runtime_versions.py output/n1/earth
+python3 scripts/runtime/earth_artifact.py verify --source output/n1/earth
+npm --prefix frontend run build
+python3 scripts/validation/validate_architecture_docs.py
+python3 /tmp/n1-verify-served.py
+docker ps --format '{{.Names}} {{.Status}} {{.Ports}}'
+git diff 18e1ffd9 --check
+git diff --cached --check

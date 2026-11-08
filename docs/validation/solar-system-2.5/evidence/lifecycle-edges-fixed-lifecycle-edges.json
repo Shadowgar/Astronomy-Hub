@@ -1,0 +1,1469 @@
+{
+  "checks": [
+    {
+      "name": "pending-model context loss keeps disposed renderer controls disabled",
+      "pass": true
+    },
+    {
+      "name": "first direct Trajectory completes from catalog default epoch",
+      "pass": true
+    },
+    {
+      "name": "browser Back restores trajectory data with trajectory camera",
+      "pass": true
+    },
+    {
+      "name": "browser Back refetches identical selected interval and source points",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "url": "http://localhost:4231/mission-assets/v2.5/voyager.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/assets/solar/takram-0.19.1/scattering.bin",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/api/v1/solar-system/motion?epoch=1979-03-05T12%3A05%3A26.000Z",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/assets/solar/takram-0.19.1/scattering.bin",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/api/v1/solar-system/motion?epoch=1979-03-05T12%3A05%3A26.000Z",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/solar-assets/v2/eros-nasa.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/solar-assets/v2.4/pluto-cartographic.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/solar-assets/v2.4/ceres-overview.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/solar-assets/v2.4/vesta-measured.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/solar-assets/v2.4/eros-measured.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/solar-assets/v2.4/halley-measured.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:4231/solar-assets/v2.4/67p-measured.glb",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    }
+  ],
+  "status": "PASS",
+  "pendingBefore": {
+    "instanceId": "cd78790c-6d93-4bef-af65-10a89fabd50a",
+    "mission": "voyager1",
+    "segment": "jupiter-encounter-2",
+    "epoch": "1979-03-05T12:05:26.000Z",
+    "quality": "balanced",
+    "sourceQuality": "reconstructed",
+    "source": "Jupiter reconstructed encounter",
+    "frame": "ICRF",
+    "origin": "sun",
+    "precision": "camera-relative CPU64/GPU32",
+    "view": "encounter",
+    "focus": null,
+    "camera": {
+      "position": [
+        -3.2205830226126326,
+        3.8201288862995373,
+        1.7238234081773007
+      ],
+      "target": [
+        -3.2227869034958134,
+        3.8271813051257157,
+        1.718974870234303
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "focus": null,
+      "view": "encounter"
+    },
+    "craft": {
+      "selfShadow": true,
+      "shadowMapSize": [
+        1024,
+        1024
+      ],
+      "position": [
+        -3.2219429820589482,
+        3.828352606697309,
+        1.719537498142035
+      ],
+      "modelReady": false,
+      "modelError": "",
+      "modelMeshCount": 0,
+      "visible": true,
+      "radiusMeters": 9.756709775895917,
+      "scale": 0.970583576287901,
+      "attitude": "illustrative-inspection",
+      "center": "display bounding box, not qualified center of mass",
+      "loadMilliseconds": null
+    },
+    "bodies": [
+      {
+        "id": "sun",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "sourceIdentity": {
+          "target": "10",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": null,
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.004650467260962158,
+        "textureSize": null,
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 669.1999999992549,
+          "overviewReady": 669.1999999992549,
+          "detailApplied": null
+        }
+      },
+      {
+        "id": "jupiter",
+        "position": [
+          -3.2231634988275935,
+          3.8264773296592094,
+          1.718879568431657
+        ],
+        "sourceIdentity": {
+          "target": "599",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+        "geometryKind": "visualization-sphere",
+        "overviewReady": false,
+        "cloudsReady": false,
+        "envelopeAU": 0.00046732617030490934,
+        "textureSize": null,
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 670.6999999992549,
+          "overviewReady": null,
+          "detailApplied": null
+        }
+      }
+    ],
+    "trackSegments": [
+      {
+        "id": "jupiter-encounter-2",
+        "quality": "reconstructed",
+        "points": 128
+      }
+    ],
+    "pathsVisible": true,
+    "renderCount": 0,
+    "disposed": false,
+    "contextLost": false,
+    "navigation": "orbit",
+    "animating": false,
+    "viewport": {
+      "clearWidth": 1096,
+      "clearHeight": 555.0000343322754,
+      "rectangleOffsetX": -152,
+      "rectangleOffsetY": 8.899980545043945
+    },
+    "pixelRatio": 1.0000000149011612,
+    "assets": {
+      "resources": 0,
+      "textureBytes": 0,
+      "textureAllocations": 0,
+      "decodingBytes": 0,
+      "textureBudget": 134217728,
+      "shared": {
+        "textureBytes": 0,
+        "textureBudget": 134217728,
+        "textureAllocations": 0
+      },
+      "requests": 2,
+      "decodeSamples": [],
+      "fetchSamples": [],
+      "disposed": false
+    },
+    "pipeline": {
+      "mode": "linear-hdr",
+      "bloom": true,
+      "threshold": 1.8,
+      "strength": 0.13,
+      "radius": 0.28,
+      "sceneUnitsPerAU": 149597870700,
+      "hdrSupported": true,
+      "hdrClipping": false,
+      "compositionColorSpace": "linear-srgb",
+      "targetType": "rgba16f",
+      "fallbackLimitation": null,
+      "toneMapping": "ACESFilmic",
+      "toneMappingStages": 1,
+      "outputColorSpace": "srgb",
+      "antialias": "FXAA",
+      "width": 1440,
+      "height": 900,
+      "pixelRatio": 1.0000000149011612,
+      "disposed": false
+    },
+    "shaderPreparation": null,
+    "shaderFailures": 0,
+    "drawCalls": 0,
+    "geometries": 0,
+    "textures": 0,
+    "ownedResources": 12,
+    "gpuMs": {
+      "supported": true,
+      "samples": 0,
+      "median": null,
+      "p95": null
+    },
+    "frameIntervalsMs": {
+      "samples": 0
+    },
+    "renderCpuMs": {
+      "samples": 0
+    },
+    "independentAnimationLoops": 1,
+    "playing": false,
+    "speed": 3600,
+    "displayEpoch": "1979-03-05T12:05:26.000Z"
+  },
+  "pendingAfter": {
+    "status": "error",
+    "inspectDisabled": true,
+    "playDisabled": true,
+    "canvasCount": 0,
+    "diagnostics": {
+      "instanceId": "cd78790c-6d93-4bef-af65-10a89fabd50a",
+      "mission": "voyager1",
+      "segment": "jupiter-encounter-2",
+      "epoch": "1979-03-05T12:05:26.000Z",
+      "quality": "balanced",
+      "sourceQuality": "reconstructed",
+      "source": "Jupiter reconstructed encounter",
+      "frame": "ICRF",
+      "origin": "sun",
+      "precision": "camera-relative CPU64/GPU32",
+      "view": "encounter",
+      "focus": null,
+      "camera": {
+        "position": [
+          -3.2205830226126326,
+          3.8201288862995373,
+          1.7238234081773007
+        ],
+        "target": [
+          -3.2227869034958134,
+          3.8271813051257157,
+          1.718974870234303
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "focus": null,
+        "view": "encounter"
+      },
+      "craft": {
+        "selfShadow": true,
+        "shadowMapSize": [
+          1024,
+          1024
+        ],
+        "position": [
+          -3.2219429820589482,
+          3.828352606697309,
+          1.719537498142035
+        ],
+        "modelReady": false,
+        "modelError": "",
+        "modelMeshCount": 0,
+        "visible": true,
+        "radiusMeters": 9.756709775895917,
+        "scale": 0.970583576287901,
+        "attitude": "illustrative-inspection",
+        "center": "display bounding box, not qualified center of mass",
+        "loadMilliseconds": null
+      },
+      "bodies": [
+        {
+          "id": "sun",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "sourceIdentity": {
+            "target": "10",
+            "origin": "sun",
+            "frame": "ICRF",
+            "source": "Jupiter reconstructed encounter"
+          },
+          "appearanceSource": null,
+          "geometryKind": "visualization-sphere",
+          "overviewReady": true,
+          "cloudsReady": false,
+          "envelopeAU": 0.004650467260962158,
+          "textureSize": null,
+          "orientation": "illustrative-source-registration",
+          "errors": [],
+          "timing": {
+            "requested": 669.1999999992549,
+            "overviewReady": 669.1999999992549,
+            "detailApplied": null
+          }
+        },
+        {
+          "id": "jupiter",
+          "position": [
+            -3.2231634988275935,
+            3.8264773296592094,
+            1.718879568431657
+          ],
+          "sourceIdentity": {
+            "target": "599",
+            "origin": "sun",
+            "frame": "ICRF",
+            "source": "Jupiter reconstructed encounter"
+          },
+          "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+          "geometryKind": "visualization-sphere",
+          "overviewReady": false,
+          "cloudsReady": false,
+          "envelopeAU": 0.00046732617030490934,
+          "textureSize": null,
+          "orientation": "illustrative-source-registration",
+          "errors": [],
+          "timing": {
+            "requested": 670.6999999992549,
+            "overviewReady": null,
+            "detailApplied": null
+          }
+        }
+      ],
+      "trackSegments": [
+        {
+          "id": "jupiter-encounter-2",
+          "quality": "reconstructed",
+          "points": 128
+        }
+      ],
+      "pathsVisible": true,
+      "renderCount": 0,
+      "disposed": true,
+      "contextLost": true,
+      "navigation": "orbit",
+      "animating": false,
+      "viewport": {
+        "clearWidth": 1096,
+        "clearHeight": 555.0000343322754,
+        "rectangleOffsetX": -152,
+        "rectangleOffsetY": 8.899980545043945
+      },
+      "pixelRatio": 1.0000000149011612,
+      "assets": {
+        "resources": 0,
+        "textureBytes": 0,
+        "textureAllocations": 0,
+        "decodingBytes": 0,
+        "textureBudget": 134217728,
+        "shared": {
+          "textureBytes": 0,
+          "textureBudget": 134217728,
+          "textureAllocations": 0
+        },
+        "requests": 0,
+        "decodeSamples": [],
+        "fetchSamples": [
+          {
+            "url": "/solar-assets/v2.2/jupiter-overview.glb",
+            "bytes": 266920,
+            "milliseconds": 17.299999997019768
+          }
+        ],
+        "disposed": true
+      },
+      "pipeline": {
+        "mode": "linear-hdr",
+        "bloom": true,
+        "threshold": 1.8,
+        "strength": 0.13,
+        "radius": 0.28,
+        "sceneUnitsPerAU": 149597870700,
+        "hdrSupported": true,
+        "hdrClipping": false,
+        "compositionColorSpace": "linear-srgb",
+        "targetType": "rgba16f",
+        "fallbackLimitation": null,
+        "toneMapping": "ACESFilmic",
+        "toneMappingStages": 1,
+        "outputColorSpace": "srgb",
+        "antialias": "FXAA",
+        "width": 1440,
+        "height": 900,
+        "pixelRatio": 1.0000000149011612,
+        "disposed": true
+      },
+      "shaderPreparation": null,
+      "shaderFailures": 0,
+      "drawCalls": 0,
+      "geometries": 0,
+      "textures": 0,
+      "ownedResources": 0,
+      "gpuMs": {
+        "supported": true,
+        "samples": 0,
+        "median": null,
+        "p95": null
+      },
+      "frameIntervalsMs": {
+        "samples": 0
+      },
+      "renderCpuMs": {
+        "samples": 0
+      },
+      "independentAnimationLoops": 0,
+      "playing": false,
+      "speed": 3600,
+      "displayEpoch": "1979-03-05T12:05:26.000Z"
+    }
+  },
+  "stage": "selected trajectory interval",
+  "trajectoryBefore": {
+    "instanceId": "e409f7a4-6a1e-4655-9b9f-d8f1e356243a",
+    "mission": "voyager1",
+    "segment": "jupiter-encounter-2",
+    "epoch": "1979-03-05T12:05:26.000Z",
+    "quality": "balanced",
+    "sourceQuality": "reconstructed",
+    "source": "Jupiter reconstructed encounter",
+    "frame": "ICRF",
+    "origin": "sun",
+    "precision": "camera-relative CPU64/GPU32",
+    "view": "trajectory",
+    "focus": null,
+    "camera": {
+      "position": [
+        108.4240225427208,
+        -485.169338896708,
+        293.6936562187941
+      ],
+      "target": [
+        -16.264644470733334,
+        -86.16560445365495,
+        19.378588789195092
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "focus": null,
+      "view": "trajectory"
+    },
+    "craft": {
+      "selfShadow": false,
+      "shadowMapSize": [
+        1024,
+        1024
+      ],
+      "position": [
+        -3.2219429820589482,
+        3.828352606697309,
+        1.719537498142035
+      ],
+      "modelReady": true,
+      "modelError": "",
+      "modelMeshCount": 5,
+      "visible": false,
+      "radiusMeters": 9.756709775895917,
+      "scale": 0.970583576287901,
+      "attitude": "illustrative-inspection",
+      "center": "display bounding box, not qualified center of mass",
+      "loadMilliseconds": 50.600000001490116
+    },
+    "bodies": [
+      {
+        "id": "sun",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "sourceIdentity": {
+          "target": "10",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": null,
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.004650467260962158,
+        "textureSize": null,
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 174.19999999925494,
+          "overviewReady": 174.30000000074506,
+          "detailApplied": null
+        }
+      },
+      {
+        "id": "jupiter",
+        "position": [
+          -3.2231634988275935,
+          3.8264773296592094,
+          1.718879568431657
+        ],
+        "sourceIdentity": {
+          "target": "599",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.00046732619211270455,
+        "textureSize": [
+          1024,
+          768
+        ],
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 175.59999999776483,
+          "overviewReady": 231.39999999850988,
+          "detailApplied": null
+        }
+      }
+    ],
+    "trackSegments": [
+      {
+        "id": "cruise-0",
+        "quality": "mission-design",
+        "points": 124
+      },
+      {
+        "id": "jupiter-encounter-0",
+        "quality": "reconstructed",
+        "points": 38
+      },
+      {
+        "id": "jupiter-encounter-1",
+        "quality": "reconstructed",
+        "points": 59
+      },
+      {
+        "id": "jupiter-encounter-2",
+        "quality": "reconstructed",
+        "points": 281
+      },
+      {
+        "id": "cruise-1",
+        "quality": "mission-design",
+        "points": 89
+      },
+      {
+        "id": "saturn-encounter-0",
+        "quality": "reconstructed",
+        "points": 128
+      },
+      {
+        "id": "saturn-encounter-1",
+        "quality": "reconstructed",
+        "points": 316
+      },
+      {
+        "id": "cruise-2-0",
+        "quality": "mission-design",
+        "points": 25
+      },
+      {
+        "id": "cruise-2-1",
+        "quality": "mission-design",
+        "points": 3
+      },
+      {
+        "id": "cruise-3",
+        "quality": "mixed",
+        "points": 629
+      },
+      {
+        "id": "cruise-4",
+        "quality": "predicted",
+        "points": 1149
+      }
+    ],
+    "pathsVisible": true,
+    "renderCount": 2,
+    "disposed": false,
+    "contextLost": false,
+    "navigation": "orbit",
+    "animating": false,
+    "viewport": {
+      "clearWidth": 1096,
+      "clearHeight": 555.0000343322754,
+      "rectangleOffsetX": -152,
+      "rectangleOffsetY": 8.899980545043945
+    },
+    "pixelRatio": 1.0000000149011612,
+    "assets": {
+      "resources": 22,
+      "textureBytes": 21058904,
+      "textureAllocations": 5,
+      "decodingBytes": 0,
+      "textureBudget": 134217728,
+      "shared": {
+        "textureBytes": 21058904,
+        "textureBudget": 134217728,
+        "textureAllocations": 5
+      },
+      "requests": 0,
+      "decodeSamples": [
+        {
+          "kind": "model",
+          "milliseconds": 27.799999997019768
+        },
+        {
+          "kind": "model",
+          "milliseconds": 27.100000001490116
+        }
+      ],
+      "fetchSamples": [
+        {
+          "url": "/solar-assets/v2.2/jupiter-overview.glb",
+          "bytes": 266920,
+          "milliseconds": 22.400000002235174
+        },
+        {
+          "url": "/mission-assets/v2.5/voyager.glb",
+          "bytes": 3128204,
+          "milliseconds": 23.399999998509884
+        }
+      ],
+      "disposed": false
+    },
+    "pipeline": {
+      "mode": "linear-hdr",
+      "bloom": true,
+      "threshold": 1.8,
+      "strength": 0.13,
+      "radius": 0.28,
+      "sceneUnitsPerAU": 149597870700,
+      "hdrSupported": true,
+      "hdrClipping": false,
+      "compositionColorSpace": "linear-srgb",
+      "targetType": "rgba16f",
+      "fallbackLimitation": null,
+      "toneMapping": "ACESFilmic",
+      "toneMappingStages": 1,
+      "outputColorSpace": "srgb",
+      "antialias": "FXAA",
+      "width": 1440,
+      "height": 900,
+      "pixelRatio": 1.0000000149011612,
+      "disposed": false
+    },
+    "shaderPreparation": {
+      "state": "ready",
+      "supported": true,
+      "materials": 21,
+      "milliseconds": 287.1000000014901
+    },
+    "shaderFailures": 0,
+    "drawCalls": 31,
+    "geometries": 17,
+    "textures": 16,
+    "ownedResources": 33,
+    "gpuMs": {
+      "supported": true,
+      "samples": 1,
+      "median": 78.53568,
+      "p95": 78.53568
+    },
+    "frameIntervalsMs": {
+      "samples": 0
+    },
+    "renderCpuMs": {
+      "samples": 2,
+      "median": 419.70000000298023,
+      "p95": 419.70000000298023,
+      "maximum": 419.70000000298023
+    },
+    "independentAnimationLoops": 1,
+    "playing": false,
+    "speed": 3600,
+    "displayEpoch": "1979-03-05T12:05:26.000Z"
+  },
+  "trajectoryAfter": {
+    "instanceId": "521d31e9-60c4-4f69-9500-462d9946f100",
+    "mission": "voyager1",
+    "segment": "jupiter-encounter-2",
+    "epoch": "1979-03-05T12:05:26.000Z",
+    "quality": "balanced",
+    "sourceQuality": "reconstructed",
+    "source": "Jupiter reconstructed encounter",
+    "frame": "ICRF",
+    "origin": "sun",
+    "precision": "camera-relative CPU64/GPU32",
+    "view": "trajectory",
+    "focus": null,
+    "camera": {
+      "position": [
+        108.4240225427208,
+        -485.1693388967078,
+        293.69365621879393
+      ],
+      "target": [
+        -16.264644470733334,
+        -86.16560445365495,
+        19.378588789195092
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "focus": null,
+      "view": "trajectory"
+    },
+    "craft": {
+      "selfShadow": false,
+      "shadowMapSize": [
+        1024,
+        1024
+      ],
+      "position": [
+        -3.2219429820589482,
+        3.828352606697309,
+        1.719537498142035
+      ],
+      "modelReady": true,
+      "modelError": "",
+      "modelMeshCount": 5,
+      "visible": false,
+      "radiusMeters": 9.756709775895917,
+      "scale": 0.970583576287901,
+      "attitude": "illustrative-inspection",
+      "center": "display bounding box, not qualified center of mass",
+      "loadMilliseconds": 36
+    },
+    "bodies": [
+      {
+        "id": "sun",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "sourceIdentity": {
+          "target": "10",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": null,
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.004650467260962158,
+        "textureSize": null,
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 2366.5,
+          "overviewReady": 2366.5,
+          "detailApplied": null
+        }
+      },
+      {
+        "id": "jupiter",
+        "position": [
+          -3.2231634988275935,
+          3.8264773296592094,
+          1.718879568431657
+        ],
+        "sourceIdentity": {
+          "target": "599",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.00046732619211270455,
+        "textureSize": [
+          1024,
+          768
+        ],
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 2367,
+          "overviewReady": 2397.099999997765,
+          "detailApplied": null
+        }
+      }
+    ],
+    "trackSegments": [
+      {
+        "id": "cruise-0",
+        "quality": "mission-design",
+        "points": 124
+      },
+      {
+        "id": "jupiter-encounter-0",
+        "quality": "reconstructed",
+        "points": 38
+      },
+      {
+        "id": "jupiter-encounter-1",
+        "quality": "reconstructed",
+        "points": 59
+      },
+      {
+        "id": "jupiter-encounter-2",
+        "quality": "reconstructed",
+        "points": 281
+      },
+      {
+        "id": "cruise-1",
+        "quality": "mission-design",
+        "points": 89
+      },
+      {
+        "id": "saturn-encounter-0",
+        "quality": "reconstructed",
+        "points": 128
+      },
+      {
+        "id": "saturn-encounter-1",
+        "quality": "reconstructed",
+        "points": 316
+      },
+      {
+        "id": "cruise-2-0",
+        "quality": "mission-design",
+        "points": 25
+      },
+      {
+        "id": "cruise-2-1",
+        "quality": "mission-design",
+        "points": 3
+      },
+      {
+        "id": "cruise-3",
+        "quality": "mixed",
+        "points": 629
+      },
+      {
+        "id": "cruise-4",
+        "quality": "predicted",
+        "points": 1149
+      }
+    ],
+    "pathsVisible": true,
+    "renderCount": 2,
+    "disposed": false,
+    "contextLost": false,
+    "navigation": "orbit",
+    "animating": false,
+    "viewport": {
+      "clearWidth": 1096,
+      "clearHeight": 555.0000343322754,
+      "rectangleOffsetX": -152,
+      "rectangleOffsetY": 8.899980545043945
+    },
+    "pixelRatio": 1.0000000149011612,
+    "assets": {
+      "resources": 22,
+      "textureBytes": 21058904,
+      "textureAllocations": 5,
+      "decodingBytes": 0,
+      "textureBudget": 134217728,
+      "shared": {
+        "textureBytes": 21058904,
+        "textureBudget": 134217728,
+        "textureAllocations": 5
+      },
+      "requests": 0,
+      "decodeSamples": [
+        {
+          "kind": "model",
+          "milliseconds": 21.5
+        },
+        {
+          "kind": "model",
+          "milliseconds": 23.200000002980232
+        }
+      ],
+      "fetchSamples": [
+        {
+          "url": "/solar-assets/v2.2/jupiter-overview.glb",
+          "bytes": 266920,
+          "milliseconds": 7.599999997764826
+        },
+        {
+          "url": "/mission-assets/v2.5/voyager.glb",
+          "bytes": 3128204,
+          "milliseconds": 12.599999997764826
+        }
+      ],
+      "disposed": false
+    },
+    "pipeline": {
+      "mode": "linear-hdr",
+      "bloom": true,
+      "threshold": 1.8,
+      "strength": 0.13,
+      "radius": 0.28,
+      "sceneUnitsPerAU": 149597870700,
+      "hdrSupported": true,
+      "hdrClipping": false,
+      "compositionColorSpace": "linear-srgb",
+      "targetType": "rgba16f",
+      "fallbackLimitation": null,
+      "toneMapping": "ACESFilmic",
+      "toneMappingStages": 1,
+      "outputColorSpace": "srgb",
+      "antialias": "FXAA",
+      "width": 1440,
+      "height": 900,
+      "pixelRatio": 1.0000000149011612,
+      "disposed": false
+    },
+    "shaderPreparation": {
+      "state": "ready",
+      "supported": true,
+      "materials": 21,
+      "milliseconds": 21.399999998509884
+    },
+    "shaderFailures": 0,
+    "drawCalls": 31,
+    "geometries": 17,
+    "textures": 16,
+    "ownedResources": 33,
+    "gpuMs": {
+      "supported": true,
+      "samples": 1,
+      "median": 15.496192,
+      "p95": 15.496192
+    },
+    "frameIntervalsMs": {
+      "samples": 0
+    },
+    "renderCpuMs": {
+      "samples": 2,
+      "median": 19.600000001490116,
+      "p95": 19.600000001490116,
+      "maximum": 19.600000001490116
+    },
+    "independentAnimationLoops": 1,
+    "playing": false,
+    "speed": 3600,
+    "displayEpoch": "1979-03-05T12:05:26.000Z"
+  },
+  "selectedRequestBefore": "http://localhost:4231/api/v1/solar/missions/voyager1/trajectory?start=1979-03-05T11%3A00%3A00.000Z&end=1979-03-05T13%3A00%3A00.000Z",
+  "selectedBefore": {
+    "instanceId": "521d31e9-60c4-4f69-9500-462d9946f100",
+    "mission": "voyager1",
+    "segment": "jupiter-encounter-2",
+    "epoch": "1979-03-05T12:05:26.000Z",
+    "quality": "balanced",
+    "sourceQuality": "reconstructed",
+    "source": "Jupiter reconstructed encounter",
+    "frame": "ICRF",
+    "origin": "sun",
+    "precision": "camera-relative CPU64/GPU32",
+    "view": "trajectory",
+    "focus": null,
+    "camera": {
+      "position": [
+        -3.2206659644309696,
+        3.824382835945096,
+        1.7222104777485352
+      ],
+      "target": [
+        -3.2218908006715257,
+        3.828302311914876,
+        1.7195158380193116
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "focus": null,
+      "view": "trajectory"
+    },
+    "craft": {
+      "selfShadow": false,
+      "shadowMapSize": [
+        1024,
+        1024
+      ],
+      "position": [
+        -3.2219429820589482,
+        3.828352606697309,
+        1.719537498142035
+      ],
+      "modelReady": true,
+      "modelError": "",
+      "modelMeshCount": 5,
+      "visible": false,
+      "radiusMeters": 9.756709775895917,
+      "scale": 0.970583576287901,
+      "attitude": "illustrative-inspection",
+      "center": "display bounding box, not qualified center of mass",
+      "loadMilliseconds": 36
+    },
+    "bodies": [
+      {
+        "id": "sun",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "sourceIdentity": {
+          "target": "10",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": null,
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.004650467260962158,
+        "textureSize": null,
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 2366.5,
+          "overviewReady": 2366.5,
+          "detailApplied": null
+        }
+      },
+      {
+        "id": "jupiter",
+        "position": [
+          -3.2231634988275935,
+          3.8264773296592094,
+          1.718879568431657
+        ],
+        "sourceIdentity": {
+          "target": "599",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.00046732619211270455,
+        "textureSize": [
+          1024,
+          768
+        ],
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 2367,
+          "overviewReady": 2397.099999997765,
+          "detailApplied": null
+        }
+      }
+    ],
+    "trackSegments": [
+      {
+        "id": "jupiter-encounter-2",
+        "quality": "reconstructed",
+        "points": 13
+      }
+    ],
+    "pathsVisible": true,
+    "renderCount": 6,
+    "disposed": false,
+    "contextLost": false,
+    "navigation": "orbit",
+    "animating": false,
+    "viewport": {
+      "clearWidth": 1096,
+      "clearHeight": 555.0000343322754,
+      "rectangleOffsetX": -152,
+      "rectangleOffsetY": 8.899980545043945
+    },
+    "pixelRatio": 1.0000000149011612,
+    "assets": {
+      "resources": 22,
+      "textureBytes": 21058904,
+      "textureAllocations": 5,
+      "decodingBytes": 0,
+      "textureBudget": 134217728,
+      "shared": {
+        "textureBytes": 21058904,
+        "textureBudget": 134217728,
+        "textureAllocations": 5
+      },
+      "requests": 0,
+      "decodeSamples": [
+        {
+          "kind": "model",
+          "milliseconds": 21.5
+        },
+        {
+          "kind": "model",
+          "milliseconds": 23.200000002980232
+        }
+      ],
+      "fetchSamples": [
+        {
+          "url": "/solar-assets/v2.2/jupiter-overview.glb",
+          "bytes": 266920,
+          "milliseconds": 7.599999997764826
+        },
+        {
+          "url": "/mission-assets/v2.5/voyager.glb",
+          "bytes": 3128204,
+          "milliseconds": 12.599999997764826
+        }
+      ],
+      "disposed": false
+    },
+    "pipeline": {
+      "mode": "linear-hdr",
+      "bloom": true,
+      "threshold": 1.8,
+      "strength": 0.13,
+      "radius": 0.28,
+      "sceneUnitsPerAU": 149597870700,
+      "hdrSupported": true,
+      "hdrClipping": false,
+      "compositionColorSpace": "linear-srgb",
+      "targetType": "rgba16f",
+      "fallbackLimitation": null,
+      "toneMapping": "ACESFilmic",
+      "toneMappingStages": 1,
+      "outputColorSpace": "srgb",
+      "antialias": "FXAA",
+      "width": 1440,
+      "height": 900,
+      "pixelRatio": 1.0000000149011612,
+      "disposed": false
+    },
+    "shaderPreparation": {
+      "state": "ready",
+      "supported": true,
+      "materials": 21,
+      "milliseconds": 21.399999998509884
+    },
+    "shaderFailures": 0,
+    "drawCalls": 20,
+    "geometries": 7,
+    "textures": 16,
+    "ownedResources": 13,
+    "gpuMs": {
+      "supported": true,
+      "samples": 4,
+      "median": 7.939072,
+      "p95": 15.496192
+    },
+    "frameIntervalsMs": {
+      "samples": 0
+    },
+    "renderCpuMs": {
+      "samples": 6,
+      "median": 5,
+      "p95": 19.600000001490116,
+      "maximum": 19.600000001490116
+    },
+    "independentAnimationLoops": 1,
+    "playing": false,
+    "speed": 3600,
+    "displayEpoch": "1979-03-05T12:05:26.000Z"
+  },
+  "selectedRequestAfter": "http://localhost:4231/api/v1/solar/missions/voyager1/trajectory?start=1979-03-05T11%3A00%3A00.000Z&end=1979-03-05T13%3A00%3A00.000Z",
+  "selectedAfter": {
+    "instanceId": "a8a1ed7f-c330-4b2c-8083-659b60a1768a",
+    "mission": "voyager1",
+    "segment": "jupiter-encounter-2",
+    "epoch": "1979-03-05T12:05:26.000Z",
+    "quality": "balanced",
+    "sourceQuality": "reconstructed",
+    "source": "Jupiter reconstructed encounter",
+    "frame": "ICRF",
+    "origin": "sun",
+    "precision": "camera-relative CPU64/GPU32",
+    "view": "trajectory",
+    "focus": null,
+    "camera": {
+      "position": [
+        -3.2206659644309696,
+        3.824382835945096,
+        1.7222104777485352
+      ],
+      "target": [
+        -3.2218908006715257,
+        3.828302311914876,
+        1.7195158380193116
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "focus": null,
+      "view": "trajectory"
+    },
+    "craft": {
+      "selfShadow": false,
+      "shadowMapSize": [
+        1024,
+        1024
+      ],
+      "position": [
+        -3.2219429820589482,
+        3.828352606697309,
+        1.719537498142035
+      ],
+      "modelReady": true,
+      "modelError": "",
+      "modelMeshCount": 5,
+      "visible": false,
+      "radiusMeters": 9.756709775895917,
+      "scale": 0.970583576287901,
+      "attitude": "illustrative-inspection",
+      "center": "display bounding box, not qualified center of mass",
+      "loadMilliseconds": 54.900000002235174
+    },
+    "bodies": [
+      {
+        "id": "sun",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "sourceIdentity": {
+          "target": "10",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": null,
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.004650467260962158,
+        "textureSize": null,
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 5445.199999999255,
+          "overviewReady": 5445.199999999255,
+          "detailApplied": null
+        }
+      },
+      {
+        "id": "jupiter",
+        "position": [
+          -3.2231634988275935,
+          3.8264773296592094,
+          1.718879568431657
+        ],
+        "sourceIdentity": {
+          "target": "599",
+          "origin": "sun",
+          "frame": "ICRF",
+          "source": "Jupiter reconstructed encounter"
+        },
+        "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+        "geometryKind": "visualization-sphere",
+        "overviewReady": true,
+        "cloudsReady": false,
+        "envelopeAU": 0.00046732619211270455,
+        "textureSize": [
+          1024,
+          768
+        ],
+        "orientation": "illustrative-source-registration",
+        "errors": [],
+        "timing": {
+          "requested": 5445.800000000745,
+          "overviewReady": 5478.89999999851,
+          "detailApplied": null
+        }
+      }
+    ],
+    "trackSegments": [
+      {
+        "id": "jupiter-encounter-2",
+        "quality": "reconstructed",
+        "points": 13
+      }
+    ],
+    "pathsVisible": true,
+    "renderCount": 1,
+    "disposed": false,
+    "contextLost": false,
+    "navigation": "orbit",
+    "animating": false,
+    "viewport": {
+      "clearWidth": 1096,
+      "clearHeight": 555.0000343322754,
+      "rectangleOffsetX": -152,
+      "rectangleOffsetY": 8.899980545043945
+    },
+    "pixelRatio": 1.0000000149011612,
+    "assets": {
+      "resources": 22,
+      "textureBytes": 21058904,
+      "textureAllocations": 5,
+      "decodingBytes": 0,
+      "textureBudget": 134217728,
+      "shared": {
+        "textureBytes": 21058904,
+        "textureBudget": 134217728,
+        "textureAllocations": 5
+      },
+      "requests": 0,
+      "decodeSamples": [
+        {
+          "kind": "model",
+          "milliseconds": 22.799999997019768
+        },
+        {
+          "kind": "model",
+          "milliseconds": 26.800000000745058
+        }
+      ],
+      "fetchSamples": [
+        {
+          "url": "/solar-assets/v2.2/jupiter-overview.glb",
+          "bytes": 266920,
+          "milliseconds": 8.5
+        },
+        {
+          "url": "/mission-assets/v2.5/voyager.glb",
+          "bytes": 3128204,
+          "milliseconds": 27.899999998509884
+        }
+      ],
+      "disposed": false
+    },
+    "pipeline": {
+      "mode": "linear-hdr",
+      "bloom": true,
+      "threshold": 1.8,
+      "strength": 0.13,
+      "radius": 0.28,
+      "sceneUnitsPerAU": 149597870700,
+      "hdrSupported": true,
+      "hdrClipping": false,
+      "compositionColorSpace": "linear-srgb",
+      "targetType": "rgba16f",
+      "fallbackLimitation": null,
+      "toneMapping": "ACESFilmic",
+      "toneMappingStages": 1,
+      "outputColorSpace": "srgb",
+      "antialias": "FXAA",
+      "width": 1440,
+      "height": 900,
+      "pixelRatio": 1.0000000149011612,
+      "disposed": false
+    },
+    "shaderPreparation": {
+      "state": "ready",
+      "supported": true,
+      "materials": 21,
+      "milliseconds": 26.100000001490116
+    },
+    "shaderFailures": 0,
+    "drawCalls": 20,
+    "geometries": 6,
+    "textures": 16,
+    "ownedResources": 13,
+    "gpuMs": {
+      "supported": true,
+      "samples": 0,
+      "median": null,
+      "p95": null
+    },
+    "frameIntervalsMs": {
+      "samples": 0
+    },
+    "renderCpuMs": {
+      "samples": 1,
+      "median": 20.5,
+      "p95": 20.5,
+      "maximum": 20.5
+    },
+    "independentAnimationLoops": 1,
+    "playing": false,
+    "speed": 3600,
+    "displayEpoch": "1979-03-05T12:05:26.000Z"
+  }
+}

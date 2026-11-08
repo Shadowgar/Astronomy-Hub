@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "command": "node scripts/validation/verify_solar21_takram.mjs http://127.0.0.1:4235 output/playwright/solar21-independent-atmosphere/takram-gpu.json",
+  "scope": "controlled real Takram/Three GPU proof; not application, hardware or owner acceptance",
+  "device": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "errors": [],
+  "backgroundOpaqueEquivalence": {
+    "impactParameterM": 6388680.766714441,
+    "pixel": [
+      420,
+      192
+    ],
+    "background": [
+      253,
+      223,
+      193
+    ],
+    "opaque": [
+      253,
+      223,
+      193
+    ],
+    "maximumDifference": 0
+  },
+  "foregroundToneMapping": {
+    "before": [
+      252,
+      243,
+      217
+    ],
+    "after": [
+      252,
+      243,
+      217
+    ],
+    "maximumDifference": 0
+  },
+  "memoryDisposed": {
+    "geometries": 0,
+    "textures": 0
+  },
+  "sevenViewsActive": true,
+  "reviewedFiles": {
+    "frontend/src/features/solar/solarTakram.ts": "f3306dadefc76d3e1a4015da6e528e28e256b05b1102e107d062edccabd8b9de",
+    "frontend/src/features/solar/solarRenderPipeline.ts": "6ae2b04d2f47c49a4aeda3c64e030c1dc0bf58e27d2f052a9d43a199465e9f13",
+    "frontend/src/features/solar/SolarScene.ts": "5c81fed95ef8b23d28db51c630b7b113281bdbbd65b095932608b41cd6f7fa39",
+    "frontend/src/features/solar/solarEarthFrame.ts": "ad68e4ec8fc2b27d7f9f4611bdd0294693550f2409562c91fab717e81676b186",
+    "frontend/src/features/solar/solarPrecision.ts": "ef71895701ef30eaeef86cf7ea0c5fef37ae5aca661c3e6577ba0a5e4e9d7acd",
+    "frontend/Dockerfile": "580fc6ff79f1f213355c1ce6288b2c315b0623c73e6d7f6384d41106d59e4761",
+    "frontend/Dockerfile.production": "1b25e7f921744e4a0a82d63174c68fe2bebfbbda847c5280b9d09f256ff16b37",
+    "frontend/Dockerfile.prod": "777e9326b0ccde5ed823f0cd1edf0b2a59d20cda81ce230e20f8db5824233774",
+    ".dockerignore": "8c00099ef2a89c1a38898aa66af2346006b4d877765082813d1b86e27e243663",
+    "scripts/source-distribution/reconstruct.py": "985a7ac300e81415de9dd26f39d6bfb688058c0ae2337a8b1e1cb45fd223ee8f"
+  }
+}

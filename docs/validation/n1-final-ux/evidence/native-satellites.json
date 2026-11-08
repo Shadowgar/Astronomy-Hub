@@ -1,0 +1,2799 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_satellites.mjs": "02646adb7e81479605b637be249bb3816bf94588b24098a4a81ddc5c0300526e",
+    "tests/runtime/fixtures/native-satellite-selection.json": "0f177a7bba4e969b74ec003d56fd07e1ae8af043f037d552e03a3b133b4c890f",
+    "runtimes/sky-adapter/plugin.js": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2",
+    "integrations/renderers.lock.json": "b6be23f62c66cf54db29084f75e4ed6204d95bc87df5b7f2ebe08459c24d07e0",
+    "frontend/public/runtime-versions.json": "dfa169e679ef5755a2e00aeb055c7278df072033a04193240a89766abe1aed30"
+  },
+  "sourceEpochScenario": "2026-06-04T02:58:00.000Z",
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "standalone-native-offset-0",
+          "file": "standalone-native-offset-0-1440.png",
+          "state": {
+            "hints": true,
+            "offset": 0,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776333058,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786288,
+                "pitchRad": 0.991324967529,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "guereins",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 93,
+            "centerWhite": 47
+          }
+        },
+        {
+          "name": "standalone-overlay-offset-2",
+          "file": "standalone-overlay-offset-2-1440.png",
+          "state": {
+            "hints": true,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776333058,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786288,
+                "pitchRad": 0.991324967529,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "guereins",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 3271,
+            "centerWhite": 47
+          }
+        },
+        {
+          "name": "initial-normal-sky",
+          "file": "initial-normal-sky-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776334588,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 0
+          }
+        },
+        {
+          "name": "wide-point",
+          "file": "wide-point-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776334588,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221790196,
+                "pitchRad": 0.991322115361,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 12
+          }
+        },
+        {
+          "name": "wide-point-moving",
+          "file": "wide-point-moving-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002147158,
+              -0.000007230871,
+              0.000003505063,
+              1
+            ],
+            "vmag": 2.615299835875,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:04.170Z",
+              "live": true,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221790196,
+                "pitchRad": 0.991322115361,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 4
+          }
+        },
+        {
+          "name": "fov-20",
+          "file": "fov-20-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 20.000000000007685,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.349065850399,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "fov-5",
+          "file": "fov-5-1440.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 5.000000000016245,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.0872664626,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 164,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "fov-6",
+          "file": "fov-6-1440.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 6.000000000019494,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.10471975512,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 169,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "fov-7",
+          "file": "fov-7-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 7.000000000022743,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.12217304764,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "fov-120",
+          "file": "fov-120-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 12
+          }
+        },
+        {
+          "name": "selected-wide",
+          "file": "selected-wide-1440.png",
+          "state": {
+            "hints": true,
+            "offset": -30,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": 28096,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": {
+                "id": "Satellite TLE (local):28096:tle_satellite",
+                "name": "NOSS 3-2 r",
+                "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+                "kind": "satellite",
+                "catalog": "Satellite TLE (local)",
+                "source_id": "28096",
+                "model": "tle_satellite",
+                "facts": [
+                  {
+                    "label": "Catalog",
+                    "value": "Satellite TLE (local)"
+                  },
+                  {
+                    "label": "Source ID",
+                    "value": "28096"
+                  },
+                  {
+                    "label": "NORAD",
+                    "value": "28096"
+                  }
+                ],
+                "available": true,
+                "focusable": true,
+                "trackable": false,
+                "link": "/oras-sky-engine/skysource/NOSS%203-2%20r?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+              },
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 57
+          }
+        },
+        {
+          "name": "selected-close",
+          "file": "selected-close-1440.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 1.000000000003249,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": 28096,
+            "locked": 28096,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.01745329252,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": {
+                "id": "Satellite TLE (local):28096:tle_satellite",
+                "name": "NOSS 3-2 r",
+                "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+                "kind": "satellite",
+                "catalog": "Satellite TLE (local)",
+                "source_id": "28096",
+                "model": "tle_satellite",
+                "facts": [
+                  {
+                    "label": "Catalog",
+                    "value": "Satellite TLE (local)"
+                  },
+                  {
+                    "label": "Source ID",
+                    "value": "28096"
+                  },
+                  {
+                    "label": "NORAD",
+                    "value": "28096"
+                  }
+                ],
+                "available": true,
+                "focusable": true,
+                "trackable": false,
+                "link": "/oras-sky-engine/skysource/NOSS%203-2%20r?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+              },
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "focus-native-tracking",
+          "file": "focus-native-tracking-1440.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 1.000000000003249,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002146656,
+              -0.00000719593,
+              0.000003534915,
+              1
+            ],
+            "vmag": 2.612993437018,
+            "selected": 28096,
+            "locked": 28096,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:03.206Z",
+              "live": true,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.01745329252,
+                "yawRad": 1.867294935633,
+                "pitchRad": 0.978380146432,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": {
+                "id": "Satellite TLE (local):28096:tle_satellite",
+                "name": "NOSS 3-2 r",
+                "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+                "kind": "satellite",
+                "catalog": "Satellite TLE (local)",
+                "source_id": "28096",
+                "model": "tle_satellite",
+                "facts": [
+                  {
+                    "label": "Catalog",
+                    "value": "Satellite TLE (local)"
+                  },
+                  {
+                    "label": "Source ID",
+                    "value": "28096"
+                  },
+                  {
+                    "label": "NORAD",
+                    "value": "28096"
+                  }
+                ],
+                "available": true,
+                "focusable": true,
+                "trackable": false,
+                "link": "/oras-sky-engine/skysource/NOSS%203-2%20r?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite&date=2026-06-04T02%3A58%3A03.206Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+              },
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "sky-earth-sky-remount",
+          "file": "sky-earth-sky-remount-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144807,
+              -0.000007079551,
+              0.000003633992,
+              1
+            ],
+            "vmag": 2.605776358452,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219015393746,
+                "lon": -79.58539410405257,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 0
+          }
+        },
+        {
+          "name": "fresh-runtime",
+          "file": "fresh-runtime-1440.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144807,
+              -0.000007079551,
+              0.000003633992,
+              1
+            ],
+            "vmag": 2.605776358452,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219015393746,
+                "lon": -79.58539410405257,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 0
+          }
+        }
+      ],
+      "movement": {
+        "before": {
+          "hints": false,
+          "offset": 2,
+          "satellitesVisible": true,
+          "fovDeg": 119.99999999998879,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          },
+          "radec": [
+            -0.000002144838,
+            -0.000007081332,
+            0.000003632479,
+            1
+          ],
+          "vmag": 2.605881303534,
+          "selected": null,
+          "locked": null,
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.049Z",
+            "live": true,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 1.847221790196,
+              "pitchRad": 0.991322115361,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "landscape": "pennsylvania-woodland-v1",
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          }
+        },
+        "after": {
+          "hints": false,
+          "offset": 2,
+          "satellitesVisible": true,
+          "fovDeg": 119.99999999998879,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          },
+          "radec": [
+            -0.000002147158,
+            -0.000007230871,
+            0.000003505063,
+            1
+          ],
+          "vmag": 2.615299835875,
+          "selected": null,
+          "locked": null,
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:04.170Z",
+            "live": true,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 1.847221790196,
+              "pitchRad": 0.991322115361,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "landscape": "pennsylvania-woodland-v1",
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          }
+        },
+        "nativeClockRate": 1
+      },
+      "focusMessages": [
+        {
+          "runtime": "sky",
+          "nonce": "4590d3d114ecb687c70e4c18093385fd",
+          "generation": 1,
+          "type": "result",
+          "id": 55,
+          "command": "focusSelection",
+          "payload": {
+            "ok": true
+          }
+        }
+      ],
+      "modelAvailability": [
+        {
+          "id": "25544",
+          "present": true,
+          "canOrbit": false
+        },
+        {
+          "id": "20580",
+          "present": true,
+          "canOrbit": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "pageErrors": [],
+      "scenes": [
+        {
+          "name": "standalone-native-offset-0",
+          "file": "standalone-native-offset-0-390.png",
+          "state": {
+            "hints": true,
+            "offset": 0,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776333058,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786288,
+                "pitchRad": 0.991324967529,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "guereins",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 4
+          }
+        },
+        {
+          "name": "standalone-overlay-offset-2",
+          "file": "standalone-overlay-offset-2-390.png",
+          "state": {
+            "hints": true,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776333058,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786288,
+                "pitchRad": 0.991324967529,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "guereins",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 204,
+            "centerWhite": 47
+          }
+        },
+        {
+          "name": "initial-normal-sky",
+          "file": "initial-normal-sky-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776334588,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 0
+          }
+        },
+        {
+          "name": "wide-point",
+          "file": "wide-point-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776334588,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221790196,
+                "pitchRad": 0.991322115361,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 4
+          }
+        },
+        {
+          "name": "wide-point-moving",
+          "file": "wide-point-moving-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.00000214674,
+              -0.000007201659,
+              0.000003530024,
+              1
+            ],
+            "vmag": 2.613367228887,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:03.364Z",
+              "live": true,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221790196,
+                "pitchRad": 0.991322115361,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 4
+          }
+        },
+        {
+          "name": "fov-20",
+          "file": "fov-20-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 20.000000000007685,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.349065850399,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 32
+          }
+        },
+        {
+          "name": "fov-5",
+          "file": "fov-5-390.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 5.000000000016245,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.0872664626,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 220,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "fov-6",
+          "file": "fov-6-390.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 6.000000000019494,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.10471975512,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 219,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "fov-7",
+          "file": "fov-7-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 7.000000000022743,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.12217304764,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 80
+          }
+        },
+        {
+          "name": "fov-120",
+          "file": "fov-120-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 4
+          }
+        },
+        {
+          "name": "selected-wide",
+          "file": "selected-wide-390.png",
+          "state": {
+            "hints": true,
+            "offset": -30,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": 28096,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": {
+                "id": "Satellite TLE (local):28096:tle_satellite",
+                "name": "NOSS 3-2 r",
+                "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+                "kind": "satellite",
+                "catalog": "Satellite TLE (local)",
+                "source_id": "28096",
+                "model": "tle_satellite",
+                "facts": [
+                  {
+                    "label": "Catalog",
+                    "value": "Satellite TLE (local)"
+                  },
+                  {
+                    "label": "Source ID",
+                    "value": "28096"
+                  },
+                  {
+                    "label": "NORAD",
+                    "value": "28096"
+                  }
+                ],
+                "available": true,
+                "focusable": true,
+                "trackable": false,
+                "link": "/oras-sky-engine/skysource/NOSS%203-2%20r?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+              },
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 57
+          }
+        },
+        {
+          "name": "selected-close",
+          "file": "selected-close-390.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 1.000000000003249,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776332827,
+            "selected": 28096,
+            "locked": 28096,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.01745329252,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": {
+                "id": "Satellite TLE (local):28096:tle_satellite",
+                "name": "NOSS 3-2 r",
+                "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+                "kind": "satellite",
+                "catalog": "Satellite TLE (local)",
+                "source_id": "28096",
+                "model": "tle_satellite",
+                "facts": [
+                  {
+                    "label": "Catalog",
+                    "value": "Satellite TLE (local)"
+                  },
+                  {
+                    "label": "Source ID",
+                    "value": "28096"
+                  },
+                  {
+                    "label": "NORAD",
+                    "value": "28096"
+                  }
+                ],
+                "available": true,
+                "focusable": true,
+                "trackable": false,
+                "link": "/oras-sky-engine/skysource/NOSS%203-2%20r?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+              },
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "focus-native-tracking",
+          "file": "focus-native-tracking-390.png",
+          "state": {
+            "hints": true,
+            "offset": 4,
+            "satellitesVisible": true,
+            "fovDeg": 1.000000000003249,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002146154,
+              -0.00000716256,
+              0.000003563379,
+              1
+            ],
+            "vmag": 2.610850524915,
+            "selected": 28096,
+            "locked": 28096,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:02.286Z",
+              "live": true,
+              "camera": {
+                "projection": 2,
+                "fovRad": 0.01745329252,
+                "yawRad": 1.861642261676,
+                "pitchRad": 0.982096683872,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": {
+                "id": "Satellite TLE (local):28096:tle_satellite",
+                "name": "NOSS 3-2 r",
+                "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+                "kind": "satellite",
+                "catalog": "Satellite TLE (local)",
+                "source_id": "28096",
+                "model": "tle_satellite",
+                "facts": [
+                  {
+                    "label": "Catalog",
+                    "value": "Satellite TLE (local)"
+                  },
+                  {
+                    "label": "Source ID",
+                    "value": "28096"
+                  },
+                  {
+                    "label": "NORAD",
+                    "value": "28096"
+                  }
+                ],
+                "available": true,
+                "focusable": true,
+                "trackable": false,
+                "link": "/oras-sky-engine/skysource/NOSS%203-2%20r?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite&date=2026-06-04T02%3A58%3A02.286Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+              },
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 81
+          }
+        },
+        {
+          "name": "sky-earth-sky-remount",
+          "file": "sky-earth-sky-remount-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776349286,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.321902100357576,
+                "lon": -79.58539406411742,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 0
+          }
+        },
+        {
+          "name": "fresh-runtime",
+          "file": "fresh-runtime-390.png",
+          "state": {
+            "hints": false,
+            "offset": 2,
+            "satellitesVisible": true,
+            "fovDeg": 119.99999999998879,
+            "source": {
+              "types": [
+                "Asa",
+                "SSO",
+                "?"
+              ],
+              "model": "tle_satellite",
+              "model_data": {
+                "norad_number": 28096,
+                "tle": [
+                  "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                  "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+                ],
+                "mag": 2.7,
+                "status": "Unknown",
+                "owner": "United States",
+                "launch_site": "Air Force Western Test Range, California, USA",
+                "type": "Rocket body",
+                "designation": "03054B"
+              },
+              "names": [
+                "NAME NOSS 3-2 r",
+                "NAME ATLAS 2AS CENTAUR R/B",
+                "NORAD 28096",
+                "COSPAR 2003-054B"
+              ],
+              "short_name": "NOSS 3-2 r"
+            },
+            "radec": [
+              -0.000002144808,
+              -0.000007079551,
+              0.000003633991,
+              1
+            ],
+            "vmag": 2.605776349286,
+            "selected": null,
+            "locked": null,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.321902100357576,
+                "lon": -79.58539406411742,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 1.847221786412,
+                "pitchRad": 0.991322118259,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "snapshot": {
+              "selection": null,
+              "layers": [],
+              "tracking": false
+            }
+          },
+          "pixels": {
+            "green": 0,
+            "centerWhite": 0
+          }
+        }
+      ],
+      "movement": {
+        "before": {
+          "hints": false,
+          "offset": 2,
+          "satellitesVisible": true,
+          "fovDeg": 119.99999999998879,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          },
+          "radec": [
+            -0.00000214482,
+            -0.000007080242,
+            0.000003633405,
+            1
+          ],
+          "vmag": 2.605817015897,
+          "selected": null,
+          "locked": null,
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:00.019Z",
+            "live": true,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 1.847221790196,
+              "pitchRad": 0.991322115361,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "landscape": "pennsylvania-woodland-v1",
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          }
+        },
+        "after": {
+          "hints": false,
+          "offset": 2,
+          "satellitesVisible": true,
+          "fovDeg": 119.99999999998879,
+          "source": {
+            "types": [
+              "Asa",
+              "SSO",
+              "?"
+            ],
+            "model": "tle_satellite",
+            "model_data": {
+              "norad_number": 28096,
+              "tle": [
+                "1 28096U 03054B   26153.82831591 -.00000040  00000-0  84045-4 0  9991",
+                "2 28096  63.6806  71.3906 0070386 107.9144 252.9573 13.41070117100494"
+              ],
+              "mag": 2.7,
+              "status": "Unknown",
+              "owner": "United States",
+              "launch_site": "Air Force Western Test Range, California, USA",
+              "type": "Rocket body",
+              "designation": "03054B"
+            },
+            "names": [
+              "NAME NOSS 3-2 r",
+              "NAME ATLAS 2AS CENTAUR R/B",
+              "NORAD 28096",
+              "COSPAR 2003-054B"
+            ],
+            "short_name": "NOSS 3-2 r"
+          },
+          "radec": [
+            -0.00000214674,
+            -0.000007201659,
+            0.000003530024,
+            1
+          ],
+          "vmag": 2.613367228887,
+          "selected": null,
+          "locked": null,
+          "view": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-06-04T02:58:03.364Z",
+            "live": true,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 1.847221790196,
+              "pitchRad": 0.991322115361,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "landscape": "pennsylvania-woodland-v1",
+          "snapshot": {
+            "selection": null,
+            "layers": [],
+            "tracking": false
+          }
+        },
+        "nativeClockRate": 1
+      },
+      "focusMessages": [
+        {
+          "runtime": "sky",
+          "nonce": "09d307a65648ba5ea6508211220e6fe1",
+          "generation": 1,
+          "type": "result",
+          "id": 31,
+          "command": "focusSelection",
+          "payload": {
+            "ok": true
+          }
+        }
+      ],
+      "modelAvailability": [
+        {
+          "id": "25544",
+          "present": true,
+          "canOrbit": false
+        },
+        {
+          "id": "20580",
+          "present": true,
+          "canOrbit": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Existing mounted TLE data is stale for the current owner date. This historical native-SGP4 scenario does not qualify a current satellite provider or current orbit accuracy.",
+    "Pinned open-source renderer has weak/no-op 3D model hooks; model availability is inspected and no 3D visual qualification is claimed.",
+    "Chromium software rendering and emulated mobile input are not physical-device qualification."
+  ],
+  "started": "2026-10-16T16:26:57.529Z",
+  "finished": "2026-10-16T16:29:50.297Z"
+}

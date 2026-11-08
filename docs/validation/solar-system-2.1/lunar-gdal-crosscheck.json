@@ -1,0 +1,149 @@
+[
+  {
+    "product": "NAC_DTM_APOLLO17_E203N0308",
+    "gdalVersion": "3.12.2",
+    "rasterioVersion": "1.5.2",
+    "crs": "PROJCS[\"EQUIRECTANGULAR MOON\",GEOGCS[\"GCS_MOON\",DATUM[\"D_MOON\",SPHEROID[\"MOON_localRadius\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",20],PARAMETER[\"central_meridian\",180],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+    "transform": [
+      4.9999999999999005,
+      0.0,
+      -4276879.999999915,
+      0.0,
+      -4.9999999999999005,
+      645989.9999999872,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "controlPoints": [
+      {
+        "row": 0,
+        "column": 0,
+        "longitudeDeg": 29.90583469702735,
+        "latitudeDeg": 21.303302272479872
+      },
+      {
+        "row": 11599,
+        "column": 9984,
+        "longitudeDeg": 31.657743825106056,
+        "latitudeDeg": 19.390749761336128
+      },
+      {
+        "row": 6300,
+        "column": 4071,
+        "longitudeDeg": 30.62017985532148,
+        "latitudeDeg": 20.26449885665044
+      },
+      {
+        "row": 6812,
+        "column": 4583,
+        "longitudeDeg": 30.710021349069113,
+        "latitudeDeg": 20.180075467935417
+      },
+      {
+        "row": 7324,
+        "column": 5095,
+        "longitudeDeg": 30.799862842816694,
+        "latitudeDeg": 20.095652079220386
+      }
+    ]
+  },
+  {
+    "product": "NAC_DTM_APOLLO17_MOSAIC_5M",
+    "gdalVersion": "3.12.2",
+    "rasterioVersion": "1.5.2",
+    "crs": "PROJCS[\"EQUIRECTANGULAR MOON\",GEOGCS[\"GCS_MOON\",DATUM[\"D_MOON\",SPHEROID[\"MOON_localRadius\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",20],PARAMETER[\"central_meridian\",180],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+    "transform": [
+      4.9999999999999005,
+      0.0,
+      -4276879.999999915,
+      0.0,
+      -4.9999999999999005,
+      645989.9999999872,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "controlPoints": [
+      {
+        "row": 0,
+        "column": 0,
+        "longitudeDeg": 29.90583469702735,
+        "latitudeDeg": 21.303302272479872
+      },
+      {
+        "row": 11599,
+        "column": 9984,
+        "longitudeDeg": 31.657743825106056,
+        "latitudeDeg": 19.390749761336128
+      },
+      {
+        "row": 6300,
+        "column": 4071,
+        "longitudeDeg": 30.62017985532148,
+        "latitudeDeg": 20.26449885665044
+      },
+      {
+        "row": 6812,
+        "column": 4583,
+        "longitudeDeg": 30.710021349069113,
+        "latitudeDeg": 20.180075467935417
+      },
+      {
+        "row": 7324,
+        "column": 5095,
+        "longitudeDeg": 30.799862842816694,
+        "latitudeDeg": 20.095652079220386
+      }
+    ]
+  },
+  {
+    "product": "NAC_DTM_APOLLO17_CONF",
+    "gdalVersion": "3.12.2",
+    "rasterioVersion": "1.5.2",
+    "crs": "PROJCS[\"EQUIRECTANGULAR MOON\",GEOGCS[\"GCS_MOON\",DATUM[\"D_MOON\",SPHEROID[\"MOON_localRadius\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",20],PARAMETER[\"central_meridian\",180],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+    "transform": [
+      4.9999999999999005,
+      0.0,
+      -4276879.999999915,
+      0.0,
+      -4.9999999999999005,
+      645989.9999999872,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "controlPoints": [
+      {
+        "row": 0,
+        "column": 0,
+        "longitudeDeg": 29.90583469702735,
+        "latitudeDeg": 21.303302272479872
+      },
+      {
+        "row": 11599,
+        "column": 9984,
+        "longitudeDeg": 31.657743825106056,
+        "latitudeDeg": 19.390749761336128
+      },
+      {
+        "row": 6300,
+        "column": 4071,
+        "longitudeDeg": 30.62017985532148,
+        "latitudeDeg": 20.26449885665044
+      },
+      {
+        "row": 6812,
+        "column": 4583,
+        "longitudeDeg": 30.710021349069113,
+        "latitudeDeg": 20.180075467935417
+      },
+      {
+        "row": 7324,
+        "column": 5095,
+        "longitudeDeg": 30.799862842816694,
+        "latitudeDeg": 20.095652079220386
+      }
+    ]
+  }
+]

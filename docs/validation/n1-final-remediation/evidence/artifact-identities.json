@@ -1,0 +1,17 @@
+{
+  "acceptedLandscapeBase": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7",
+  "acceptedScrollingBase": "301f9eb3ddfd21a22ad04378bf09ee45c59e8adc",
+  "skyArtifact": "d293874321c60bd3bd154c5a1696037d72d9a1f35c2415c6141d62fab6224d57",
+  "earthArtifact": "834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c",
+  "earthSourceInput": "a28b113d5457dbb3042840e9baa96abf786ca3c353a0c1bde8441e49e3a65096",
+  "nativeSourceInput": "94aaa2e730f2fab8609a2bc913d0d15846841137e158a32c861f0fd4e56b2d19",
+  "nativeOutputs": {
+    "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+    "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+  },
+  "satelliteSourceSha256": "419dd72bca65f1740b033156ad4dfff5dd97e6125d4cd408f0954e1f18d2a8b1",
+  "patchedLandscapeSource": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+  "nativePatchSha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+  "upstreamPin": "023e3b26babf7ffddf45f39293230b14cfe96993",
+  "nativeCompilationInputsUnchanged": 430
+}

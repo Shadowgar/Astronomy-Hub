@@ -1,0 +1,478 @@
+{
+  "schema": "oras.solar26-observation-receipt.v1",
+  "qualification_date": "2026-11-08",
+  "starting_head": "66050b5e7f3a9cbcfccbf6258645bd1804051b28",
+  "tools": {
+    "cdflib": "1.3.6",
+    "numpy": "2.5.4",
+    "pypdf": "6.1.1",
+    "independent_frame": "spiceypy8.0.0 / CSPICE_N0067"
+  },
+  "budgets_MiB": {
+    "aggregate": 96,
+    "ibex": 32,
+    "imap": 56,
+    "metadata": 8,
+    "response": 32,
+    "runtime": 16,
+    "first_browser_product": 2,
+    "all_browser_products": 8
+  },
+  "retained_raw_and_discovery_bytes": 4227350,
+  "raw_cache_files": [
+    {
+      "file": "0e2df6592f263e5b.txt",
+      "bytes": 765,
+      "sha256": "cbff3457ad7444c946a1acb1e62e0b0532efc41d3be65f02c817acce67ca919d"
+    },
+    {
+      "file": "18fc929558ecbea2.txt",
+      "bytes": 5564,
+      "sha256": "8a2a0d0a26db8d7fd379631a107e46ec25d49d992c3190d6be0d5c3f15d45a18"
+    },
+    {
+      "file": "209e66a4913f3114.txt",
+      "bytes": 549,
+      "sha256": "94385aaa95dde9a4dc5ff4fef2663bc64e8ea12db9f062fdfb4bc3229856d7df"
+    },
+    {
+      "file": "30b2f17f6bed0b9f.txt",
+      "bytes": 1665,
+      "sha256": "10239f0e77c662f50b9c0aa6a4f1e0bac97bab93b9b3da61435229db46652500"
+    },
+    {
+      "file": "3ee243690cb735f0.txt",
+      "bytes": 16596,
+      "sha256": "2e558e741fa1368d3a338b92ba511541cdc15b200b94dbdc971d1309f8a19115"
+    },
+    {
+      "file": "4c0e12bdf6c6d312.txt",
+      "bytes": 631,
+      "sha256": "97338f28b908a81bebac5c4ec41e13455c21fa0a13d8a8cd8827e2b0b809beb5"
+    },
+    {
+      "file": "52bf4c143a30b8b9.txt",
+      "bytes": 30961,
+      "sha256": "5fbc0684b20eed6ba8af747eb5c6c9bb1c597b9e70a4793e1f224c6170bee34f"
+    },
+    {
+      "file": "5b4d103393b0a674.html",
+      "bytes": 3466,
+      "sha256": "9654ecb031e6218f9ace2e2a77049924f2c3df10b2275a48699d8bb9e67361b4"
+    },
+    {
+      "file": "5eb4feff48fc1646.txt",
+      "bytes": 7658,
+      "sha256": "ab8ddf83b5b6a7a78c54cf67ffd1f1c0a40a48638cc6aa93c3ce4f8128dcfba1"
+    },
+    {
+      "file": "9fb0ea4d27885b71.txt",
+      "bytes": 1835,
+      "sha256": "f8ba07e3094568df93953ce80f3fbb407def04e4826b3d71a5458c9813e02352"
+    },
+    {
+      "file": "README.pdf",
+      "bytes": 78146,
+      "sha256": "547318dd9820b040f62f04a013ef66602e6e49529570d20690a92fd3fd5cb3ea"
+    },
+    {
+      "file": "a7fcc00ceee6270e.txt",
+      "bytes": 1217,
+      "sha256": "3a45387c6efcd268e783f767693389847f8adc41e147f469af88138c2020bcae"
+    },
+    {
+      "file": "aebc27ebf60f05b3.txt",
+      "bytes": 696,
+      "sha256": "ded9cc774f02f1f38d8ad782590cb57a734688193f7f30acfc8604eaeb88b213"
+    },
+    {
+      "file": "b8a15176191e6f33.txt",
+      "bytes": 40159,
+      "sha256": "4ad88ef379c80277d137fac5478ab2948b14dc0ed04616d32b5dcea65a0547b1"
+    },
+    {
+      "file": "c3bc39828393c42d.html",
+      "bytes": 2009,
+      "sha256": "29c1f33daebf43d5c1db6b8a9ec28598e60d9680d610cbe254361e71d077f71c"
+    },
+    {
+      "file": "c3bc39828393c42d.txt",
+      "bytes": 2009,
+      "sha256": "29c1f33daebf43d5c1db6b8a9ec28598e60d9680d610cbe254361e71d077f71c"
+    },
+    {
+      "file": "f66af1e13442d0fd.html",
+      "bytes": 1958,
+      "sha256": "affd041d17c798f5fc26bf82b9327fe9d0a2f838e2b70aa0c46a0268c7f265da"
+    },
+    {
+      "file": "hv60.hide-trp-flux100-hi-5-desc.txt",
+      "bytes": 153777,
+      "sha256": "ca585b856d003479868536d8fd83fd8144838f757db0ad76d6ab87045ac2f17b"
+    },
+    {
+      "file": "hv60.hide-trp-mono_80-2.73-flux.png",
+      "bytes": 30825,
+      "sha256": "078661162bdc13bde758e61da6918688f367e65f4bb53f91c591de701feb1ba7"
+    },
+    {
+      "file": "hv60.hide-trp-mono_80-2.73-flux.txt",
+      "bytes": 19748,
+      "sha256": "3e748f5888549e72d6940bf5c30124d53455414f9c4f424b5afd7a930d117ddf"
+    },
+    {
+      "file": "hv60.hide-trp-mono_80-2.73-fvar.txt",
+      "bytes": 17923,
+      "sha256": "883d3ccfdd4a9abfc1307f8cbf56889f3ab67c1b1f24c57025ecce6b2f776a8a"
+    },
+    {
+      "file": "hv60.hide-trp-mono_80-desc.txt",
+      "bytes": 1647,
+      "sha256": "222218f96dc697552c5b26cd9c69fb73e33c9b0f0aae2275735943a02213bda5"
+    },
+    {
+      "file": "imap_mag_l2_norm-gse_20260701_v002.0003.cdf",
+      "bytes": 3781231,
+      "sha256": "4a594a3a9a79b78ea1e0db926e53c6820db8be0f32245cd002ad8b36f3e4427f"
+    },
+    {
+      "file": "probes.jsonl",
+      "bytes": 4488,
+      "sha256": "063ed8c1e4f3aa1f1d9ed4f191ad388cacfaf64f89dea0bae862c0d7b860d371"
+    },
+    {
+      "file": "spdf-data-use-policy.html",
+      "bytes": 21827,
+      "sha256": "902381e09e9bf4f4a7b6b683bce5cb474822918d147f08c4556cd7d94f8d8b9e"
+    }
+  ],
+  "probes": [
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/",
+      "file": "a7fcc00ceee6270e.txt",
+      "bytes": 1217,
+      "sha256": "3a45387c6efcd268e783f767693389847f8adc41e147f469af88138c2020bcae"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/00readme.txt",
+      "file": "5eb4feff48fc1646.txt",
+      "bytes": 7658,
+      "sha256": "ab8ddf83b5b6a7a78c54cf67ffd1f1c0a40a48638cc6aa93c3ce4f8128dcfba1"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/mag/",
+      "file": "209e66a4913f3114.txt",
+      "bytes": 549,
+      "sha256": "94385aaa95dde9a4dc5ff4fef2663bc64e8ea12db9f062fdfb4bc3229856d7df"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/00readme.txt",
+      "file": "18fc929558ecbea2.txt",
+      "bytes": 5564,
+      "sha256": "8a2a0d0a26db8d7fd379631a107e46ec25d49d992c3190d6be0d5c3f15d45a18"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/helio1hr/",
+      "file": "4c0e12bdf6c6d312.txt",
+      "bytes": 631,
+      "sha256": "97338f28b908a81bebac5c4ec41e13455c21fa0a13d8a8cd8827e2b0b809beb5"
+    },
+    {
+      "url": "https://astimapcpanel.deptcpanel.princeton.edu/data/publications/release-2/imap/",
+      "file": "c3bc39828393c42d.txt",
+      "bytes": 2009,
+      "sha256": "29c1f33daebf43d5c1db6b8a9ec28598e60d9680d610cbe254361e71d077f71c"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/Hi/",
+      "file": "52bf4c143a30b8b9.txt",
+      "bytes": 30961,
+      "sha256": "5fbc0684b20eed6ba8af747eb5c6c9bb1c597b9e70a4793e1f224c6170bee34f"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/mag/l2/",
+      "file": "30b2f17f6bed0b9f.txt",
+      "bytes": 1665,
+      "sha256": "10239f0e77c662f50b9c0aa6a4f1e0bac97bab93b9b3da61435229db46652500"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/documents/cmad/",
+      "file": "0e2df6592f263e5b.txt",
+      "bytes": 765,
+      "sha256": "cbff3457ad7444c946a1acb1e62e0b0532efc41d3be65f02c817acce67ca919d"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/Hi/hvset_cg_2009-2022/",
+      "file": "3ee243690cb735f0.txt",
+      "bytes": 16596,
+      "sha256": "2e558e741fa1368d3a338b92ba511541cdc15b200b94dbdc971d1309f8a19115"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/mag/l2/norm-gse/",
+      "file": "aebc27ebf60f05b3.txt",
+      "bytes": 696,
+      "sha256": "ded9cc774f02f1f38d8ad782590cb57a734688193f7f30acfc8604eaeb88b213"
+    },
+    {
+      "url": "https://astimapcpanel.deptcpanel.princeton.edu/data/publications/release-2/imap/mag/",
+      "file": "9fb0ea4d27885b71.txt",
+      "bytes": 1835,
+      "sha256": "f8ba07e3094568df93953ce80f3fbb407def04e4826b3d71a5458c9813e02352"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/Hi/hvset_cg_2009-2022/hv60.hide-trp-mono_80-2.73-flux.txt",
+      "file": "hv60.hide-trp-mono_80-2.73-flux.txt",
+      "bytes": 19748,
+      "sha256": "3e748f5888549e72d6940bf5c30124d53455414f9c4f424b5afd7a930d117ddf"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/Hi/hvset_cg_2009-2022/hv60.hide-trp-mono_80-2.73-fvar.txt",
+      "file": "hv60.hide-trp-mono_80-2.73-fvar.txt",
+      "bytes": 17923,
+      "sha256": "883d3ccfdd4a9abfc1307f8cbf56889f3ab67c1b1f24c57025ecce6b2f776a8a"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/Hi/hvset_cg_2009-2022/hv60.hide-trp-mono_80-desc.txt",
+      "file": "hv60.hide-trp-mono_80-desc.txt",
+      "bytes": 1647,
+      "sha256": "222218f96dc697552c5b26cd9c69fb73e33c9b0f0aae2275735943a02213bda5"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/mag/l2/norm-gse/2026/",
+      "file": "b8a15176191e6f33.txt",
+      "bytes": 40159,
+      "sha256": "4ad88ef379c80277d137fac5478ab2948b14dc0ed04616d32b5dcea65a0547b1"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/mag/l2/norm-gse/2026/imap_mag_l2_norm-gse_20260701_v002.0003.cdf",
+      "file": "imap_mag_l2_norm-gse_20260701_v002.0003.cdf",
+      "bytes": 3781231,
+      "sha256": "4a594a3a9a79b78ea1e0db926e53c6820db8be0f32245cd002ad8b36f3e4427f"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/README.pdf",
+      "file": "README.pdf",
+      "bytes": 78146,
+      "sha256": "547318dd9820b040f62f04a013ef66602e6e49529570d20690a92fd3fd5cb3ea"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/Hi/hvset_cg_2009-2022/hv60.hide-trp-mono_80-2.73-flux.png",
+      "file": "hv60.hide-trp-mono_80-2.73-flux.png",
+      "bytes": 30825,
+      "sha256": "078661162bdc13bde758e61da6918688f367e65f4bb53f91c591de701feb1ba7"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/data_use_policy.html",
+      "file": "spdf-data-use-policy.html",
+      "bytes": 21827,
+      "sha256": "902381e09e9bf4f4a7b6b683bce5cb474822918d147f08c4556cd7d94f8d8b9e"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/ibex/release18/Hi/hvset_cg_2009-2022/hv60.hide-trp-flux100-hi-5-desc.txt",
+      "file": "hv60.hide-trp-flux100-hi-5-desc.txt",
+      "bytes": 153777,
+      "sha256": "ca585b856d003479868536d8fd83fd8144838f757db0ad76d6ab87045ac2f17b"
+    }
+  ],
+  "failed_or_declined_probes": [
+    {
+      "url": "https://ibex.swri.org/researchers/publicdata.shtml",
+      "status": "Python TLS certificate hostname mismatch; web tool timeout",
+      "disposition": "TLS not bypassed; official Princeton and NASA SPDF mirror used"
+    },
+    {
+      "url": "https://ibex.princeton.edu/DataRelease1/MapData",
+      "status": "Python HTTP403; web text accessible",
+      "disposition": "Older release not selected"
+    },
+    {
+      "url": "https://astimapcpanel.deptcpanel.princeton.edu/data/publications/release-2/imap/",
+      "status": "web tool502; Python200 directory listing",
+      "disposition": "Actual NASA SPDF daily file qualified"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/TermsOfUse.html",
+      "status": "web tool inaccessible",
+      "disposition": "Actual policy saved from https://spdf.gsfc.nasa.gov/data_use_policy.html"
+    },
+    {
+      "url": "https://spdf.gsfc.nasa.gov/pub/data/imap/documents/cmad/IMAP_CMAD_20261029.pdf",
+      "status": "not downloaded: directory advertised130MB exceeds response/aggregate budget",
+      "disposition": "Use original CDF calibration/quality/rights metadata; full CMAD review not claimed"
+    }
+  ],
+  "pack": [
+    {
+      "file": "ibex-ena-map.json",
+      "bytes": 66598,
+      "sha256": "cd1ea4a6570359db376b6792cf6777f9fcd3d02b9da392308157571dd31596a3"
+    },
+    {
+      "file": "imap-magnetic-field.json",
+      "bytes": 126183,
+      "sha256": "fab85bc23eaa33bbcdeb6de6e9048d8a7ed0b9aeab73ea292d9cd7c113130e9b"
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 5428,
+      "sha256": "7157a049597f164fa0b4df34d72c483401d0f7aaac5f217f3c084cec0b28f037"
+    }
+  ],
+  "ibex": {
+    "valid_bins": 1800,
+    "masked_bins": 0,
+    "longitude_centers_deg": [
+      3,
+      357
+    ],
+    "latitude_centers_deg": [
+      -87,
+      87
+    ],
+    "cell_size_deg": 6,
+    "flux_range": [
+      2.275443,
+      27.074915
+    ],
+    "uncertainty": "sqrt(published fvar); statistical only",
+    "frame_reference": "CSPICE_N0067 pxform(ECLIPJ2000,J2000,0), six independent vector fixtures; component differences <1e-14",
+    "grid_check": "Cell solid angles sum to4pi; no seam duplication; all60 columns preserved",
+    "source_conflict": "README identical-first/last-column claim conflicts with actual6-degree60-column grid; source pixels preserved"
+  },
+  "imap": {
+    "variable": "magnitude",
+    "units": "nT",
+    "input_samples": 172800,
+    "cadence_seconds": 0.5,
+    "accepted": 167721,
+    "excluded": 5079,
+    "minute_bins": 1440,
+    "empty_bins": 40,
+    "partial_bins": 4,
+    "first_tt2000_ns": 836136069184000000,
+    "first_utc": "2026-07-01T00:00:00Z",
+    "last_utc": "2026-07-01T23:59:59.500Z",
+    "vector_scalar_max_difference_nT": 1.906603458223799e-06,
+    "independent_numpy_means": [
+      {
+        "minute": 0,
+        "source_numpy_mean_nT": 17.32527926762899,
+        "normalized_mean_nT": 17.32527926762899
+      },
+      {
+        "minute": 1,
+        "source_numpy_mean_nT": 17.06897988319397,
+        "normalized_mean_nT": 17.06897988319397
+      },
+      {
+        "minute": 100,
+        "source_numpy_mean_nT": 18.76919388771057,
+        "normalized_mean_nT": 18.76919388771057
+      },
+      {
+        "minute": 1000,
+        "source_numpy_mean_nT": 14.17650458017985,
+        "normalized_mean_nT": 14.17650458017985
+      },
+      {
+        "minute": 1439,
+        "source_numpy_mean_nT": 8.771109183629354,
+        "normalized_mean_nT": 8.771109183629354
+      }
+    ],
+    "quality_bitmask_counts": {
+      "0": 167721,
+      "2": 4440,
+      "4": 639
+    },
+    "global_metadata": {
+      "Acknowledgement": [
+        "Users should acknowledge the sources of data used in all publications, presentations, and reports using an appropriate DOI. Appropriate acknowledgement to institutions, personnel, and funding agencies should be given, including acknowledging the IMAP Mission Principal Investigator, Prof. David J. McComas of Princeton University (Contract #80GSFC19C0027). IMAP Rules-of-the-Road for data usage can be found in the IMAP CMAD.\n"
+      ],
+      "Data_type": [
+        "L2_norm-gse>Level 2 normal rate data in GSE"
+      ],
+      "Data_version": [
+        "002.0003"
+      ],
+      "Descriptor": [
+        "MAG>Magnetometer"
+      ],
+      "Discipline": [
+        "Solar Physics>Heliospheric Physics"
+      ],
+      "File_naming_convention": [
+        "source_descriptor_datatype_yyyyMMdd_vMMM.mmmm"
+      ],
+      "HTTP_LINK": [
+        "https://imap.princeton.edu/"
+      ],
+      "Instrument_type": [
+        "Magnetic Fields (space)"
+      ],
+      "LINK_TITLE": [
+        "IMAP The Interstellar Mapping and Acceleration Probe"
+      ],
+      "Logical_file_id": [
+        "imap_mag_l2_norm-gse_20260701_v002.0003"
+      ],
+      "Logical_source": [
+        "imap_mag_l2_norm-gse"
+      ],
+      "Logical_source_description": [
+        "IMAP Mission MAG Normal Rate Instrument Level-2 Data in Geocentric Solar Ecliptic Reference Frame"
+      ],
+      "Mission_group": [
+        "IMAP"
+      ],
+      "MODS": [
+        "Major version 2, Oct. 8, 2026 - Use corrected spin tables and SPICE kernels for spin axis and spin phase."
+      ],
+      "PI_affiliation": [
+        "Princeton University"
+      ],
+      "PI_name": [
+        "Prof. David J. McComas"
+      ],
+      "Project": [
+        "STP>Solar Terrestrial Probes"
+      ],
+      "Rules_of_use": [
+        "All IMAP data products are publicly released and citable for use in publications. Please consult the IMAP team publications and personnel for further details on production, processing, and usage of these data.\n"
+      ],
+      "Source_name": [
+        "IMAP>Interstellar Mapping and Acceleration Probe"
+      ],
+      "TEXT": [
+        "The IMAP magnetometer MAG consists of two vector magnetic field sensors which measure the magnetic field in the vicinity of the spacecraft. MAG will contribute to our understanding of the acceleration and transport of charged particles in the heliosphere, the dynamics of interplanetary shocks, and provide real time space weather measurements via the I-AliRT service. MAG design, assembly, operations, and calibration are led by Imperial College London. See https://imap.princeton.edu/spacecraft/instruments/magnetometer-mag for more details.\n"
+      ],
+      "Parents": [
+        "imap_mag_l2-calibration_20260301_v006.cdf",
+        "imap_mag_l2-norm-offsets_20260701_20260701_v004.cdf",
+        "naif0012.tls",
+        "pck00011.tpc",
+        "imap_130.tf",
+        "imap_science_130.tf",
+        "imap_sclk_0244.tsc",
+        "de440.bsp",
+        "imap_recon_20250925_20260928_v01.bsp",
+        "imap_2026_172_2026_262_010.ah.bc",
+        "imap_dps_2026_176_2026_182_002.ah.bc",
+        "imap_dps_2026_172_2026_262_010.ah.bc",
+        "imap_mag_l1c_norm-mago_20260701_v001.0002.cdf"
+      ],
+      "Start_date": [
+        "20260701"
+      ],
+      "ground_software_version": [
+        "1.0.38.post7.dev0+fc4e121"
+      ],
+      "Generation_date": [
+        "20261010"
+      ],
+      "Generated_by": [
+        "IMAP Science Data Center"
+      ]
+    }
+  }
+}

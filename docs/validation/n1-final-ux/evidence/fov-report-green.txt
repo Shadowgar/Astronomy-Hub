@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: FOV report accepts only exact finite native angle and current authenticated Sky session
+ok 1 - FOV report accepts only exact finite native angle and current authenticated Sky session
+  ---
+  duration_ms: 0.82568
+  type: 'test'
+  ...
+# Subtest: native reactive reports coalesce at 10Hz, require hello, recover cached pages and release all listeners/timers
+ok 2 - native reactive reports coalesce at 10Hz, require hello, recover cached pages and release all listeners/timers
+  ---
+  duration_ms: 1.510854
+  type: 'test'
+  ...
+# Subtest: Sky panel reports accept only current origin, frame, session and boolean visibility
+ok 3 - Sky panel reports accept only current origin, frame, session and boolean visibility
+  ---
+  duration_ms: 0.731373
+  type: 'test'
+  ...
+# Subtest: panel reports require a qualified parent hello, survive persisted pagehide and stop on disposal
+ok 4 - panel reports require a qualified parent hello, survive persisted pagehide and stop on disposal
+  ---
+  duration_ms: 1.851471
+  type: 'test'
+  ...
+# Subtest: night reports validate exact origin/frame/session/type/boolean payload before the Hub reflects them
+ok 5 - night reports validate exact origin/frame/session/type/boolean payload before the Hub reflects them
+  ---
+  duration_ms: 0.729642
+  type: 'test'
+  ...
+# Subtest: engine-ready replay and native changes publish actual SWE state, not event or host toggle state
+ok 6 - engine-ready replay and native changes publish actual SWE state, not event or host toggle state
+  ---
+  duration_ms: 2.66093
+  type: 'test'
+  ...
+# Subtest: hello replays already-restored native state; persisted pages survive, disposal releases all listeners
+ok 7 - hello replays already-restored native state; persisted pages survive, disposal releases all listeners
+  ---
+  duration_ms: 0.763706
+  type: 'test'
+  ...
+# Subtest: cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+ok 8 - cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+  ---
+  duration_ms: 3.08462
+  type: 'test'
+  ...
+# Subtest: genuine Sky departure closes the endpoint
+ok 9 - genuine Sky departure closes the endpoint
+  ---
+  duration_ms: 0.934361
+  type: 'test'
+  ...
+# Subtest: interaction timers are cleared on every cached departure
+ok 10 - interaction timers are cleared on every cached departure
+  ---
+  duration_ms: 0.763643
+  type: 'test'
+  ...
+# Subtest: cached departure resets active interaction and restored page can interact normally
+ok 11 - cached departure resets active interaction and restored page can interact normally
+  ---
+  duration_ms: 0.844897
+  type: 'test'
+  ...
+# Subtest: every cached cycle resets interaction without accumulating timers or endpoints
+ok 12 - every cached cycle resets interaction without accumulating timers or endpoints
+  ---
+  duration_ms: 0.722666
+  type: 'test'
+  ...
+# Subtest: departure before canvas readiness still explicitly resets interaction and closes once
+ok 13 - departure before canvas readiness still explicitly resets interaction and closes once
+  ---
+  duration_ms: 0.575158
+  type: 'test'
+  ...
+# Subtest: entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+ok 14 - entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+  ---
+  duration_ms: 1.023654
+  type: 'test'
+  ...
+# Subtest: explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+ok 15 - explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+  ---
+  duration_ms: 1.44986
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 63.00142

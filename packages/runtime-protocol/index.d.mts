@@ -1,7 +1,14 @@
 export type RuntimeMode = 'sky' | 'earth'
 export type ObserverIntent = {lat:number;lon:number;elevationM:number}
 export type Session = {runtime:RuntimeMode;nonce:string;generation:number}
-export type RuntimeResult = {ok:boolean;state?:WorkspaceSnapshot;error?:string;version?:string;capabilities?:string[];temporalMode?:'LIVE_ONLY'|'CONTROLLED'|'UNAVAILABLE';effectiveTime?:string|null;effectiveObserver?:ObserverIntent|null}
+export type ElevationSource='oras-site'|'provided'|'unavailable-zero'
+export type SkyCamera={projection:number;fovRad:number;yawRad:number;pitchRad:number;rollRad:number;landscapeVisible:boolean}
+export type EarthCamera={latitudeRad:number;longitudeRad:number;heightM:number;headingRad:number;pitchRad:number;rollRad:number}
+export type NavigationView={mode:'sky';camera:SkyCamera}|{mode:'earth';camera:EarthCamera}
+export type NavigationState=NavigationView&{observer:ObserverIntent;utc:string;live:boolean;elevationSource:ElevationSource}
+export type NavigationIntent={target:RuntimeMode;phase:'idle'|'boundary'|'progress'|'request';progress:number}
+export type RuntimeEvent={active:boolean;focused:boolean;key?:'Escape'|'Tab'}|NavigationIntent
+export type RuntimeResult = {ok:boolean;state?:WorkspaceSnapshot;navigation?:NavigationState;error?:string;version?:string;capabilities?:string[];temporalMode?:'LIVE_ONLY'|'CONTROLLED'|'UNAVAILABLE';effectiveTime?:string|null;effectiveObserver?:ObserverIntent|null}
 export const PROTOCOL: {major:number;minor:number}
 export const CAPABILITIES: readonly string[]
 export function validateBootstrap(event:{data:unknown;origin:string;source:unknown},expected:Session & {origin:string;source:unknown}):boolean

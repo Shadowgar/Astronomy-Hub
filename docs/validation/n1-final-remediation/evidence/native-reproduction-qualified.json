@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "defaultSource": "/var/tmp/oras-phase-c/sky-reconstruction/upstream",
+  "alternateSource": "/tmp/n1-remediation-source-53ac7478",
+  "nativeOutputsIdentical": {
+    "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+    "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+  },
+  "frontendFilesIdentical": 110,
+  "sourceInputSha256": "94aaa2e730f2fab8609a2bc913d0d15846841137e158a32c861f0fd4e56b2d19",
+  "inputCount": 564,
+  "nativeCompilationInputsUnchanged": 430
+}

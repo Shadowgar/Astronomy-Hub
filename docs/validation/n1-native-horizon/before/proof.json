@@ -1,0 +1,317 @@
+{
+  "status": "FAIL",
+  "head": "f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1",
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "b7fd67de80f2853470edffd340427b1dcd7ee1ffa722b18087d0a9800e241e11",
+    "integrations/sky-patches/0001-configurable-zero-horizon.patch": null,
+    "integrations/renderers.lock.json": "4bac90cf106fff01686f832858490a5f8e7feef45b13cbd830eb39883fd1135d",
+    "frontend/public/runtime-versions.json": "dec783afa4dbb04f28793084b6d9c5cba2b68bf7fbe876df41975f441298aca2"
+  },
+  "baseline": true,
+  "runs": [
+    {
+      "width": 1440,
+      "pageErrors": [],
+      "consoleSummary": {
+        "Failed to load resource: the server responded with a status of 404 (Not Found)": 36
+      },
+      "resourceFailures": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph"
+        }
+      ],
+      "scenes": [
+        {
+          "name": "before-green",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "ground": [
+              26,
+              38,
+              26,
+              255
+            ],
+            "horizonColumn": [
+              [
+                49,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                63,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                56,
+                63,
+                255
+              ],
+              [
+                51,
+                58,
+                62,
+                255
+              ],
+              [
+                51,
+                60,
+                61,
+                255
+              ],
+              [
+                51,
+                62,
+                59,
+                255
+              ],
+              [
+                52,
+                79,
+                45,
+                255
+              ],
+              [
+                38,
+                70,
+                26,
+                255
+              ],
+              [
+                30,
+                47,
+                26,
+                255
+              ],
+              [
+                28,
+                44,
+                26,
+                255
+              ],
+              [
+                28,
+                42,
+                26,
+                255
+              ],
+              [
+                26,
+                39,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              23,
+              35,
+              255
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "started": "2026-10-15T07:28:27.196Z",
+  "error": "AssertionError [ERR_ASSERTION]: embedded native horizon fill is configurable and charcoal\n+ actual - expected\n\n+ undefined\n- [\n-   0.035,\n-   0.04,\n-   0.05,\n-   1\n- ]\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_horizon.mjs:29:10",
+  "finished": "2026-10-15T07:28:31.738Z"
+}

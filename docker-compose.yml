@@ -10,6 +10,8 @@ services:
       ORAS_SATELLITE_TLE_MANIFEST_PATH: /runtime/oras-satellite-tle/manifest.json
       ORAS_CATALOG_PACKS_DIR: /runtime/oras-catalog-packs
       ORAS_PLANETARY_EPHEMERIS_DIR: /runtime/oras-planetary-ephemeris
+      ORAS_LUNAR_ORIENTATION_DIR: /runtime/oras-lunar-orientation
+      ORAS_PLANETARY_SYSTEMS_DIR: /runtime/oras-planetary-systems
     ports:
       - "8000:8000"
     volumes:
@@ -17,6 +19,18 @@ services:
       - ${ORAS_SATELLITE_TLE_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}:/runtime/oras-satellite-tle:ro
       - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/runtime/oras-catalog-packs:ro
       - ${ORAS_PLANETARY_EPHEMERIS_HOST_DIR:-./data/runtime-packs/planetary-ephemeris/release}:/runtime/oras-planetary-ephemeris:ro
+      - type: bind
+        source: ${ORAS_LUNAR_ORIENTATION_HOST_DIR:-./data/runtime-packs/lunar-orientation/release}
+        target: /runtime/oras-lunar-orientation
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ORAS_PLANETARY_SYSTEMS_HOST_DIR:-./data/runtime-packs/planetary-systems/release}
+        target: /runtime/oras-planetary-systems
+        read_only: true
+        bind:
+          create_host_path: false
     depends_on:
       - postgres
       - redis
@@ -37,11 +51,13 @@ services:
       FRONTEND_PORT: ${FRONTEND_PORT:-4173}
       VITE_DEV_PROXY_TARGET: http://backend:${BACKEND_PORT:-8000}
       ORAS_EARTH_PROXY_TARGET: http://earth-runtime:8877
+      ORAS_PLANET_PROXY_TARGET: http://planet-runtime:8878
     ports:
       - "${FRONTEND_PORT:-4173}:${FRONTEND_PORT:-4173}"
     depends_on:
       - backend
       - earth-runtime
+      - planet-runtime
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "node -e \"const http=require('http');http.get('http://127.0.0.1:'+(process.env.FRONTEND_PORT||4173),res=>process.exit(res.statusCode<500?0:1)).on('error',()=>process.exit(1))\""]
@@ -64,6 +80,37 @@ services:
       - "8877"
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O- http://127.0.0.1:8877/earth-runtime/health | grep -q 'ORAS Earth runtime ready'"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+  # Delivery only: the separately built Moon renderer owns its frame/lifecycle.
+  # Install qualified artifacts/data explicitly; never create empty source dirs.
+  planet-runtime:
+    image: nginx:1.27-alpine
+    volumes:
+      - type: bind
+        source: ./integrations/planet-runtime/nginx.conf
+        target: /etc/nginx/conf.d/default.conf
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ORAS_PLANET_ARTIFACT_DIR:-./data/runtime-artifacts/planet}
+        target: /runtime
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ORAS_LUNAR_SURFACE_HOST_DIR:-./data/runtime-packs/lunar-surface/release}
+        target: /planet-data
+        read_only: true
+        bind:
+          create_host_path: false
+    expose:
+      - "8878"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8878/planet-runtime/"]
       interval: 20s
       timeout: 5s
       retries: 5

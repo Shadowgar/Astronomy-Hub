@@ -1,0 +1,172 @@
+{
+  "sourceHashes": {
+    "frontend/src/features/solar/solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+    "frontend/src/features/solar/SolarScene.ts": "1a8ba028ddfd990b1eb759929e216352d21a2bba5e59c7e63517c2ee2dfc8ef1",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "daefb14723caab707b0d9277eab84638b1ec6ad5ee0aa739ed7694e4aef64417",
+    "frontend/src/features/solar/solarPresentation.ts": "bfc9de2dae8e4cddee03f73cfdb9fd5599977956b4debe0377eae8adbff89673",
+    "frontend/src/features/solar/solar.css": "d0cc7f4258582b7a06bcc561076c6cdaf9418624a7e60818dc80b902e93e4bf8"
+  },
+  "images": [
+    {
+      "file": "../../solar-scientific-controls/gallery/images/solar-primary-cinematic-045227411f.png",
+      "source": "docs/validation/solar-scientific-controls/gallery/images/solar-primary-cinematic-045227411f.png",
+      "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+      "label": "Exact approved original solar-primary-cinematic-045227411f.png",
+      "kind": "approved-original",
+      "originalBytes": true
+    },
+    {
+      "file": "../../solar-scientific-controls/gallery/images/solar-adaptive-explorer-c9a5bfdf05.png",
+      "source": "docs/validation/solar-scientific-controls/gallery/images/solar-adaptive-explorer-c9a5bfdf05.png",
+      "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7",
+      "label": "Exact approved original solar-adaptive-explorer-c9a5bfdf05.png",
+      "kind": "approved-original",
+      "originalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-inner-51071e9fbe.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/1440x900-current-inner.png",
+      "sha256": "51071e9fbe106ecee45686d605f182612938d7c7f9ec8b2c9a1b9a96d229d861",
+      "label": "Actual 1440x900 cinematic inner",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-full-b5d162d026.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/1440x900-current-full.png",
+      "sha256": "b5d162d0266362783fd93d9baaec1e9df3cc8054750e34d3cb6bda0bf0d48c9d",
+      "label": "Actual 1440x900 cinematic full",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-outer-7ef794f186.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/1440x900-current-outer.png",
+      "sha256": "7ef794f1865f2668c4a273f1e3c8b69724398722068569d2c4b9924d04db9e43",
+      "label": "Actual 1440x900 cinematic outer",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-earth-bde6c934c0.png",
+      "source": "output/solar-cinematic-balance/browser-final-hud-qualified/1440x900-current-earth.png",
+      "sha256": "bde6c934c078f382167c40d1f67592c04542b5a8a487e5a8bc29301fbf0ce118",
+      "label": "Actual 1440x900 selected Earth \u00b7 physical close-up",
+      "kind": "actual-close-up",
+      "originalBytes": true
+    },
+    {
+      "file": "images/1440x900-current-saturn-b846a0a589.png",
+      "source": "output/solar-cinematic-balance/browser-final-hud-qualified/1440x900-current-saturn.png",
+      "sha256": "b846a0a5894520688b4fd86a1ad1ca02ff77b228e8fe37a36a26491e99c37e8a",
+      "label": "Actual 1440x900 selected Saturn \u00b7 physical close-up, illustrative rings",
+      "kind": "actual-close-up",
+      "originalBytes": true
+    },
+    {
+      "file": "images/390x900-current-inner-b1ee73557e.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/390x900-current-inner.png",
+      "sha256": "b1ee73557eec9356ff55d6b1cf98ee7ddcb44e1a9dcb1e6b58744401f0f906fc",
+      "label": "Actual 390x900 cinematic inner",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/390x900-current-full-14135f9bc1.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/390x900-current-full.png",
+      "sha256": "14135f9bc148dd867cbe3ff0b01adb3d9f463a9be679a0d0895fff9162f5abdb",
+      "label": "Actual 390x900 cinematic full",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/390x900-current-outer-3be47b6443.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/390x900-current-outer.png",
+      "sha256": "3be47b64430e5f7f24fbb11a2c2bf3b88262fd019c83ab3745ff7fe43a2f19ff",
+      "label": "Actual 390x900 cinematic outer",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/390x900-current-earth-e9fd777c2c.png",
+      "source": "output/solar-cinematic-balance/browser-final-hud-qualified/390x900-current-earth.png",
+      "sha256": "e9fd777c2c1541375034d1b24e90f6cd961b27e09e9e4903c21304d53c4e6d90",
+      "label": "Actual 390x900 selected Earth \u00b7 physical close-up",
+      "kind": "actual-close-up",
+      "originalBytes": true
+    },
+    {
+      "file": "images/390x900-current-saturn-e1e0f1d820.png",
+      "source": "output/solar-cinematic-balance/browser-final-hud-qualified/390x900-current-saturn.png",
+      "sha256": "e1e0f1d8206955619b54f1e3c143a4bb6584fc5961ce351e48f0684acd748e0f",
+      "label": "Actual 390x900 selected Saturn \u00b7 physical close-up, illustrative rings",
+      "kind": "actual-close-up",
+      "originalBytes": true
+    },
+    {
+      "file": "images/540x390-current-inner-77cc5b083e.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/540x390-current-inner.png",
+      "sha256": "77cc5b083e6639cbc0a73b5b20ce1ee3a15455797d9ae41101f8577840c36c50",
+      "label": "Actual 540x390 cinematic inner",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/540x390-current-full-678a4992fc.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/540x390-current-full.png",
+      "sha256": "678a4992fce0781c188a59f4f89029d2c00380914701fc1cbc86272d62623c7c",
+      "label": "Actual 540x390 cinematic full",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/540x390-current-outer-a39ac54123.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/540x390-current-outer.png",
+      "sha256": "a39ac54123d8beeccc341ead920e39301e017b109a745c72247001243be271f7",
+      "label": "Actual 540x390 cinematic outer",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/540x390-current-earth-52d7c93484.png",
+      "source": "output/solar-cinematic-balance/browser-final-hud-qualified/540x390-current-earth.png",
+      "sha256": "52d7c9348414feac216eb39349e261b360143485ace73aa85ff4eb6a55b3a427",
+      "label": "Actual 540x390 selected Earth \u00b7 physical close-up",
+      "kind": "actual-close-up",
+      "originalBytes": true
+    },
+    {
+      "file": "images/320x568-current-inner-ecbe83214c.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/320x568-current-inner.png",
+      "sha256": "ecbe83214c815697cc40808dcadf1c3d4e4d364c8f2c0db50d05926e991fbd14",
+      "label": "Actual 320x568 cinematic inner",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/320x568-current-full-db0ff3ab34.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/320x568-current-full.png",
+      "sha256": "db0ff3ab34b26983a7dd290a86a4d5e245dd695b40a21327b23324194358ca4c",
+      "label": "Actual 320x568 cinematic full",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/320x568-current-outer-baab4c3332.png",
+      "source": "output/solar-cinematic-balance/presentation-qualified/320x568-current-outer.png",
+      "sha256": "baab4c33321c3cb5f39db68cc117d8048e498de252988fea7c22ec4c9d37032b",
+      "label": "Actual 320x568 cinematic outer",
+      "kind": "actual-cinematic",
+      "originalBytes": true
+    },
+    {
+      "file": "images/320x568-current-earth-88f4345544.png",
+      "source": "output/solar-cinematic-balance/browser-final-hud-qualified/320x568-current-earth.png",
+      "sha256": "88f4345544b3d197b6620f0f053ee7aac376159c50f8417103e757517c29e655",
+      "label": "Actual 320x568 selected Earth \u00b7 physical close-up",
+      "kind": "actual-close-up",
+      "originalBytes": true
+    }
+  ],
+  "notes": "Original reference and browser PNG bytes preserved. Independent display enlargement is disclosed; owner visual acceptance pending."
+}

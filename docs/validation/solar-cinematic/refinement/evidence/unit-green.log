@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/solarPresentation.test.ts tests/solarRefinement.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/frontend
+
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  12:34:13
+   Duration  238ms (transform 62ms, setup 0ms, import 151ms, tests 63ms, environment 0ms)

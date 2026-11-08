@@ -1,4 +1,11 @@
 
+
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 #`STACK_OVERVIEW.md`
 
 ---
@@ -266,7 +273,7 @@ Stellarium Web / Stellarium Web Engine
 
 ---
 
-### Active Runtime
+### Historical — Active Runtime
 
 The ORAS Sky Engine at `/oras-sky-engine/` owns:
 
@@ -277,14 +284,14 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
 
 ---
 
-### Current and Planned Renderer Boundaries
+### Historical — Current and Planned Renderer Boundaries
 
 * Earth: Astronomy Hub-owned independent Cesium runtime at `/earth-runtime/`.
   Hub owns Viewer/camera/layers/selection/attribution/UI/lifecycle. God's Eye is an
   immutable external pin used through selected public feature exports; its full
   application and Viewer startup are prohibited by the Phase C owner pivot.
 * Planet: body-aware Cesium surface direction, first proof Mars; not implemented.
-* Solar-system scale: renderer OPEN; no implementation in Phase C.
+* Solar-system scale: R3-A uses already-installed Three.js0.180 in an isolated lazy Solar engine, geometric DE442s API and serial disposal barrier; [ADR0010](decisions/0010-r3-a-solar-runtime.md). Full R3 remains incomplete; historical Phase C contained no Solar implementation.
 
 Sky and Earth are independent builds in serial same-origin disposable frames,
 with a validated versioned capability bridge. SWE remains contained. FastAPI is

@@ -1,0 +1,108 @@
+{
+  "head": "a92c741f5a4abbc853387683455aa04c2780ec0e",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "checks": [
+        "Efficient changes only display budget",
+        "Quality and selection survive UTC rebuild",
+        "Actual WebGL loss removes canvas and retry retains time/body/quality",
+        "Actual globe pointer selection from overview",
+        "No idle renders or page exceptions"
+      ],
+      "errors": [],
+      "frames": [
+        {
+          "body": "earth",
+          "point": [
+            604.8,
+            450.0000000000004
+          ],
+          "card": {
+            "x": 1130,
+            "y": 130,
+            "width": 282,
+            "height": 254.375,
+            "top": 130,
+            "right": 1412,
+            "bottom": 384.375,
+            "left": 1130
+          },
+          "hit": "<canvas data-engine=\"three.js r180\" width=\"1440\" height=\"900\" aria-label=\"Solar System 3D view. Drag to orbit, pinch or scroll to zoom. Body and camera controls follow.\" tabindex=\"0\" style=\"display: b",
+          "selectedVisible": true
+        }
+      ],
+      "marsPickHit": "<canvas data-engine=\"three.js r180\" width=\"1440\" height=\"900\" aria-label=\"Solar System 3D view. Drag to orbit, pinch or scroll to zoom. Body and camera controls follow.\" tabindex=\"0\" style=\"display: b"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "Efficient changes only display budget",
+        "Quality and selection survive UTC rebuild",
+        "Actual WebGL loss removes canvas and retry retains time/body/quality",
+        "Actual globe pointer selection from overview",
+        "No idle renders or page exceptions"
+      ],
+      "errors": [],
+      "frames": [
+        {
+          "body": "earth",
+          "point": [
+            194.9999999999999,
+            360.00000000000006
+          ],
+          "card": {
+            "x": 14,
+            "y": 636,
+            "width": 362,
+            "height": 136,
+            "top": 636,
+            "right": 376,
+            "bottom": 772,
+            "left": 14
+          },
+          "hit": "<canvas data-engine=\"three.js r180\" width=\"390\" height=\"900\" aria-label=\"Solar System 3D view. Drag to orbit, pinch or scroll to zoom. Body and camera controls follow.\" tabindex=\"0\" style=\"display: bl",
+          "selectedVisible": true
+        }
+      ],
+      "marsPickHit": "<canvas data-engine=\"three.js r180\" width=\"390\" height=\"900\" aria-label=\"Solar System 3D view. Drag to orbit, pinch or scroll to zoom. Body and camera controls follow.\" tabindex=\"0\" style=\"display: bl"
+    },
+    {
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "Efficient changes only display budget",
+        "Quality and selection survive UTC rebuild",
+        "Actual WebGL loss removes canvas and retry retains time/body/quality",
+        "Actual globe pointer selection from overview",
+        "No idle renders or page exceptions"
+      ],
+      "errors": [],
+      "frames": [
+        {
+          "body": "earth",
+          "point": [
+            270,
+            185.0000000000002
+          ],
+          "card": {
+            "x": 14,
+            "y": 178,
+            "width": 512,
+            "height": 66,
+            "top": 178,
+            "right": 526,
+            "bottom": 244,
+            "left": 14
+          },
+          "hit": "<section class=\"solar-context solar-glass\" aria-label=\"Selected body details\" data-expanded=\"false\"><div class=\"solar-object-heading\"><span class=\"solar-mini-body solar-mini-earth\" aria-hidden=\"true\">",
+          "selectedVisible": false
+        }
+      ],
+      "marsPickHit": "<canvas data-engine=\"three.js r180\" width=\"540\" height=\"390\" aria-label=\"Solar System 3D view. Drag to orbit, pinch or scroll to zoom. Body and camera controls follow.\" tabindex=\"0\" style=\"display: bl"
+    }
+  ],
+  "status": "PASS"
+}

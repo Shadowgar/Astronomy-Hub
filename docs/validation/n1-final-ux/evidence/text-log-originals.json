@@ -1,0 +1,611 @@
+[
+  {
+    "original": "output/n1/final-ux/about-unit-red.txt",
+    "sha256": "52861cd0ad8d06f02201a9a34d851742672a2290be2c4f25ba5909f4861a75fd",
+    "copy": "docs/validation/n1-final-ux/evidence/about-unit-red.txt",
+    "copiedSha256": "f9e263c1890eb76b376f45e76deec48d9a7f864b7f20d7975569ef03389ba06e",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/architecture-docs.txt",
+    "sha256": "c2367e26805cde4f0c83b648a5b40c1c9e21e0ce5b50c74d54f6ec93ab50152b",
+    "copy": "docs/validation/n1-final-ux/evidence/architecture-docs.txt",
+    "copiedSha256": "c2367e26805cde4f0c83b648a5b40c1c9e21e0ce5b50c74d54f6ec93ab50152b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/attest-alternate.txt",
+    "sha256": "a0d3807649256f7c441a9800ddbf8a5e3581e239ee80edc731b6d4af2e2cdc4c",
+    "copy": "docs/validation/n1-final-ux/evidence/attest-alternate.txt",
+    "copiedSha256": "a0d3807649256f7c441a9800ddbf8a5e3581e239ee80edc731b6d4af2e2cdc4c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/attest-default.txt",
+    "sha256": "bb011359566b3be4c6707d5680fb59e4db4575c66d56b69f94f398773a93d773",
+    "copy": "docs/validation/n1-final-ux/evidence/attest-default.txt",
+    "copiedSha256": "bb011359566b3be4c6707d5680fb59e4db4575c66d56b69f94f398773a93d773",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/baseline-container.txt",
+    "sha256": "2992f2f8a72c802756821c7688c8fa68560c07255c4a99dc3d071f39a3513c70",
+    "copy": "docs/validation/n1-final-ux/evidence/baseline-container.txt",
+    "copiedSha256": "2992f2f8a72c802756821c7688c8fa68560c07255c4a99dc3d071f39a3513c70",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/baseline-navigation-run.txt",
+    "sha256": "822b9c11128927e73a81860b1c8e5f61a3736467c46046c853f41c7a4f0b6762",
+    "copy": "docs/validation/n1-final-ux/evidence/baseline-navigation-run.txt",
+    "copiedSha256": "822b9c11128927e73a81860b1c8e5f61a3736467c46046c853f41c7a4f0b6762",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-after-desktop-run.txt",
+    "sha256": "5505faec440cc09a7e4a32d8c56b9805b6cd0c5f0bfa24bb8be0264fe9ca8a16",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-after-desktop-run.txt",
+    "copiedSha256": "5505faec440cc09a7e4a32d8c56b9805b6cd0c5f0bfa24bb8be0264fe9ca8a16",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-copy-readiness-attempt.txt",
+    "sha256": "cbb3ee8f95c5aa4f34621c361900a2e6e507b0380d6aefed9325c542e0f5c20b",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-copy-readiness-attempt.txt",
+    "copiedSha256": "cbb3ee8f95c5aa4f34621c361900a2e6e507b0380d6aefed9325c542e0f5c20b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-earth-label-attempt.txt",
+    "sha256": "5db26aa699a01748648cb9a38ddf00fb3164844ebfe87e6fb1b7611de8254bdc",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-earth-label-attempt.txt",
+    "copiedSha256": "5db26aa699a01748648cb9a38ddf00fb3164844ebfe87e6fb1b7611de8254bdc",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-headed-run.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-headed-run.txt",
+    "copiedSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-key-focus-attempt.txt",
+    "sha256": "83ed3ba0a6ddc5b0ff5bad90767728f542b8d09089276568ea63293605c929ca",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-key-focus-attempt.txt",
+    "copiedSha256": "83ed3ba0a6ddc5b0ff5bad90767728f542b8d09089276568ea63293605c929ca",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-key-observer-attempt.txt",
+    "sha256": "83ed3ba0a6ddc5b0ff5bad90767728f542b8d09089276568ea63293605c929ca",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-key-observer-attempt.txt",
+    "copiedSha256": "83ed3ba0a6ddc5b0ff5bad90767728f542b8d09089276568ea63293605c929ca",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-live-prior-focus-attempt.txt",
+    "sha256": "707fbcfd1fa6f5960642c7de3ea50d5353d78122a091e1a6729fd9e4cf5ad298",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-live-prior-focus-attempt.txt",
+    "copiedSha256": "707fbcfd1fa6f5960642c7de3ea50d5353d78122a091e1a6729fd9e4cf5ad298",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-regressions-run.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-regressions-run.txt",
+    "copiedSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-remaining-run.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-remaining-run.txt",
+    "copiedSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-resource-profile-run.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-resource-profile-run.txt",
+    "copiedSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-run.txt",
+    "sha256": "bae1cc746a41aa7a2aa4df8d0a48721567ab8af5446ee4f1358233a76ba243d4",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-run.txt",
+    "copiedSha256": "bae1cc746a41aa7a2aa4df8d0a48721567ab8af5446ee4f1358233a76ba243d4",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/browser-silent-fov-attempt.txt",
+    "sha256": "d37831086157676aa8394cb5c9b9499068d1cd63df1f35470ada091b9603932a",
+    "copy": "docs/validation/n1-final-ux/evidence/browser-silent-fov-attempt.txt",
+    "copiedSha256": "d37831086157676aa8394cb5c9b9499068d1cd63df1f35470ada091b9603932a",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/build-ui-run.txt",
+    "sha256": "8004bf2787cbeebf6a487d57faf0210861c4e81e90afa98ebf7694c87dccee9a",
+    "copy": "docs/validation/n1-final-ux/evidence/build-ui-run.txt",
+    "copiedSha256": "8004bf2787cbeebf6a487d57faf0210861c4e81e90afa98ebf7694c87dccee9a",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/collect-partial-run.txt",
+    "sha256": "3f607f6c2e15767586df0b34ae1bb1166d0e53d4f444bca1264b2bcaa51e3c71",
+    "copy": "docs/validation/n1-final-ux/evidence/collect-partial-run.txt",
+    "copiedSha256": "3f607f6c2e15767586df0b34ae1bb1166d0e53d4f444bca1264b2bcaa51e3c71",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/diagnostics-branding-red.txt",
+    "sha256": "19b7fffc0f83b7de6e95ebc3657341022cccd0f218f0273c40d93719b8a30eec",
+    "copy": "docs/validation/n1-final-ux/evidence/diagnostics-branding-red.txt",
+    "copiedSha256": "762484b2607cf8f272429da5e3a01c76ef4d269a3ecd4e156c3be8074744902c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/final-browser-navigation-run.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy": "docs/validation/n1-final-ux/evidence/final-browser-navigation-run.txt",
+    "copiedSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/focused-frontend-green.txt",
+    "sha256": "0717eae1e70de859087b7522d564ce82c34ab8720da57116c6007377d3372299",
+    "copy": "docs/validation/n1-final-ux/evidence/focused-frontend-green.txt",
+    "copiedSha256": "2f3a6477c3ff528086eb0d44748e7feeba091c951649f04487bec9283d31d2e1",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-compositing-diagnostic-run.txt",
+    "sha256": "b558c055be9b7bda3b404b015afb9f70af6459bce4eed0ab2466ebf2a08f61a5",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-compositing-diagnostic-run.txt",
+    "copiedSha256": "b558c055be9b7bda3b404b015afb9f70af6459bce4eed0ab2466ebf2a08f61a5",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-format-green.txt",
+    "sha256": "3f15e5bf0dee5da746f450168b8b685393747881f945bafead15981feb691b33",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-format-green.txt",
+    "copiedSha256": "e60da214b856ba69f8deddbd6ae2cfe016113ba1caf7725d760b5b34aca1d813",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-format-red.txt",
+    "sha256": "0f02062bb4b04a608c0f773f094d2142ac3177eae238d9e6be12800873347732",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-format-red.txt",
+    "copiedSha256": "4910f31e08cb408604d3f86fa4e5f586961782d546a19c2191ff64ca96a0067d",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-report-green-sandbox-invalid.txt",
+    "sha256": "a50957557ce94f618e068968d8ae984c7de334cccf6a3b43ec700a0f2c5c836f",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-report-green-sandbox-invalid.txt",
+    "copiedSha256": "a50957557ce94f618e068968d8ae984c7de334cccf6a3b43ec700a0f2c5c836f",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-report-green.txt",
+    "sha256": "681269dff26aa312e27d7c12421d5e53db69a9a530b9cf866740aa0ccdd85299",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-report-green.txt",
+    "copiedSha256": "681269dff26aa312e27d7c12421d5e53db69a9a530b9cf866740aa0ccdd85299",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-report-red-sandbox-invalid.txt",
+    "sha256": "cc18c47cbae67052b7393d9ecc38e5b6da0158b79cb6fed27c0429d6fe1cbc1c",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-report-red-sandbox-invalid.txt",
+    "copiedSha256": "cc18c47cbae67052b7393d9ecc38e5b6da0158b79cb6fed27c0429d6fe1cbc1c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-report-red.txt",
+    "sha256": "60b3d92dd9acd227cd7444ba11e1b81e6d91423031dce12753790865d18df70f",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-report-red.txt",
+    "copiedSha256": "60b3d92dd9acd227cd7444ba11e1b81e6d91423031dce12753790865d18df70f",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-silent-green.txt",
+    "sha256": "bdd3893fb822cd7d7b81510645e68e4f693d703ac50faee0025865017011a7fb",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-silent-green.txt",
+    "copiedSha256": "bdd3893fb822cd7d7b81510645e68e4f693d703ac50faee0025865017011a7fb",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/fov-silent-red.txt",
+    "sha256": "db9aaf812038db6a12389cc7f81fd7b231050f0124760e738b8b54257a4e01a3",
+    "copy": "docs/validation/n1-final-ux/evidence/fov-silent-red.txt",
+    "copiedSha256": "9e48fa434e8afbf1f78f95fc787c550f83d0a60326e5d537a7f829dde94fe869",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/frontend-tests.txt",
+    "sha256": "3f01254d7a4a4f2369b94078709751a51125b79ec923e660c9ba36b6309e6a98",
+    "copy": "docs/validation/n1-final-ux/evidence/frontend-tests.txt",
+    "copiedSha256": "9273c5931503fde298a7a2133fe57c98a2f76199bb64e85895093f460f93337b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/git-working-log.txt",
+    "sha256": "d2eac31306b49096c594976318c51141ddbc3867bccd045faf45623e38cd8fb7",
+    "copy": "docs/validation/n1-final-ux/evidence/git-working-log.txt",
+    "copiedSha256": "d2eac31306b49096c594976318c51141ddbc3867bccd045faf45623e38cd8fb7",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/git-working-status.txt",
+    "sha256": "b3f655f1ff6e9e9f0ed919b8040c1e7054f23b42578cdb143f99a6be8b9af6be",
+    "copy": "docs/validation/n1-final-ux/evidence/git-working-status.txt",
+    "copiedSha256": "b3f655f1ff6e9e9f0ed919b8040c1e7054f23b42578cdb143f99a6be8b9af6be",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/hub-alternate-build.txt",
+    "sha256": "6b81b54b2efc740bf4cc8c5e0a680aafae351ea08c0064fcd54fe56c21496249",
+    "copy": "docs/validation/n1-final-ux/evidence/hub-alternate-build.txt",
+    "copiedSha256": "66c716c8b7aa8c34d4d352109da312c32e80d434d9ba991f2d1b250d394e0879",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/hub-build.txt",
+    "sha256": "10b7d682141fbabade1eaf59ba7e62c562cfc7b5d32749358daac7cc5a78c3fb",
+    "copy": "docs/validation/n1-final-ux/evidence/hub-build.txt",
+    "copiedSha256": "720b314c82df2735ae0128e0785a77e1b33a5a91735d911b9424f775c0da7d1e",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt.txt",
+    "sha256": "ab3c24163d08a160bd7dd306fb992572d35f02d2832fcbf6ed00be0256f1bc3f",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-chrome-headless-attempt.txt",
+    "copiedSha256": "ab3c24163d08a160bd7dd306fb992572d35f02d2832fcbf6ed00be0256f1bc3f",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-dialog-selector-attempt.txt",
+    "sha256": "d976a91220184b04fbdfc2ba23e148088b24c14fda37347ed812c160c3484e9d",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-dialog-selector-attempt.txt",
+    "copiedSha256": "d976a91220184b04fbdfc2ba23e148088b24c14fda37347ed812c160c3484e9d",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-headed-attempt.txt",
+    "sha256": "189efb2d4a0c8baa7766f7c324e410bacbba3427c092e86f04ae52806d41cd1c",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-headed-attempt.txt",
+    "copiedSha256": "189efb2d4a0c8baa7766f7c324e410bacbba3427c092e86f04ae52806d41cd1c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt.txt",
+    "sha256": "b0c474942608a5790f8801999aacdcecdf54f8c9cbc7876082086e18626da851",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-mesa-unsupported-attempt.txt",
+    "copiedSha256": "b0c474942608a5790f8801999aacdcecdf54f8c9cbc7876082086e18626da851",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-run.txt",
+    "sha256": "abbc095d79ed373ddfe4bc32e3279a9be6ee738ba781619a7de9f876ac0a3871",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-run.txt",
+    "copiedSha256": "abbc095d79ed373ddfe4bc32e3279a9be6ee738ba781619a7de9f876ac0a3871",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-software-compositor-attempt.txt",
+    "sha256": "e74083d86cd6c0e089bfa7ebeadedcf49a02df05c7c50ce708250f9dbe0a5fa5",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-software-compositor-attempt.txt",
+    "copiedSha256": "e74083d86cd6c0e089bfa7ebeadedcf49a02df05c7c50ce708250f9dbe0a5fa5",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-stall-attempt.txt",
+    "sha256": "83789f61f6facd2c1df9184bd6a46dc94790b6bf0b81b59e128312bbd1bdd6a2",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-stall-attempt.txt",
+    "copiedSha256": "83789f61f6facd2c1df9184bd6a46dc94790b6bf0b81b59e128312bbd1bdd6a2",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt.txt",
+    "sha256": "ca2d3d0fc949c93b0e2bbf6e0a2db7efc9ffcd6dca670d1ad582d4b23244a76e",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop-visibility-stall-attempt.txt",
+    "copiedSha256": "ca2d3d0fc949c93b0e2bbf6e0a2db7efc9ffcd6dca670d1ad582d4b23244a76e",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt.txt",
+    "sha256": "277c498776baf0a8f352233c9a5af214d154f2b166d583932b33e1cbc6aaf49b",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-mobile-resource-pressure-attempt.txt",
+    "copiedSha256": "277c498776baf0a8f352233c9a5af214d154f2b166d583932b33e1cbc6aaf49b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/journeys-mobile-run.txt",
+    "sha256": "702a5e9258aea7187370ff86f7ef6cb82cb4520a539aea7b9a2af65d03958f85",
+    "copy": "docs/validation/n1-final-ux/evidence/journeys-mobile-run.txt",
+    "copiedSha256": "702a5e9258aea7187370ff86f7ef6cb82cb4520a539aea7b9a2af65d03958f85",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/keyboard-green.txt",
+    "sha256": "de3a5d0a0f999157ef6d2e886ca1a79520b0192b3be37d685d71180c89ee4464",
+    "copy": "docs/validation/n1-final-ux/evidence/keyboard-green.txt",
+    "copiedSha256": "de3a5d0a0f999157ef6d2e886ca1a79520b0192b3be37d685d71180c89ee4464",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/keyboard-modifier-red.txt",
+    "sha256": "8a7f9ab06dd7f4a9170a95e9d8e1d12cb4884c9936fddb5efb358463b6bcff57",
+    "copy": "docs/validation/n1-final-ux/evidence/keyboard-modifier-red.txt",
+    "copiedSha256": "f5c7e39b1f3a7cd4c094b1714ffb8a30c678c0e8f2158413eac909b23215d27b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/keyboard-probe-run.txt",
+    "sha256": "1763c6d217b6857a377b6ff82f9f4e5757dd81f7a4588471b935711ba5bca2fe",
+    "copy": "docs/validation/n1-final-ux/evidence/keyboard-probe-run.txt",
+    "copiedSha256": "1763c6d217b6857a377b6ff82f9f4e5757dd81f7a4588471b935711ba5bca2fe",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/keyboard-red.txt",
+    "sha256": "453bab9a0b7b3ffaf68c5818af511ad24acbd87fe5c14b9062bc2aedf1c8598e",
+    "copy": "docs/validation/n1-final-ux/evidence/keyboard-red.txt",
+    "copiedSha256": "5f0031580bc400adada232dccc781a69761f572d083d5efaeb8222de7b15eb34",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/license-assets-green.txt",
+    "sha256": "96ed68668f977cb6dc76bfcdf0b8975ad5f05ab74d89d39ae11aa698dd80baff",
+    "copy": "docs/validation/n1-final-ux/evidence/license-assets-green.txt",
+    "copiedSha256": "af9ceef2ea4096592d8b9ffb4de8a3c019d7bf8c48264afe8ae96036728a9171",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/license-assets-red.txt",
+    "sha256": "480f238f44536290584d90668a86452c9d136924b2466693992ecf331adf8335",
+    "copy": "docs/validation/n1-final-ux/evidence/license-assets-red.txt",
+    "copiedSha256": "f84b4f91f8ac2119c9eb06c3a9e70008c3babf19e815d1804d5f4621f896a5fd",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/native-date-probe-june-run.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy": "docs/validation/n1-final-ux/evidence/native-date-probe-june-run.txt",
+    "copiedSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/native-satellites-run.txt",
+    "sha256": "ce7a8d4688ab07173e2a71b2dc0e9e78bc318596dc1b4489e95e117ea5d66dce",
+    "copy": "docs/validation/n1-final-ux/evidence/native-satellites-run.txt",
+    "copiedSha256": "ce7a8d4688ab07173e2a71b2dc0e9e78bc318596dc1b4489e95e117ea5d66dce",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/navigation-inspection-current.txt",
+    "sha256": "38778218493cce57a9b108c3f6ed4b2841729cea3c389288c75bc0b22ba2bf8c",
+    "copy": "docs/validation/n1-final-ux/evidence/navigation-inspection-current.txt",
+    "copiedSha256": "38778218493cce57a9b108c3f6ed4b2841729cea3c389288c75bc0b22ba2bf8c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/navigation-inspection-run.txt",
+    "sha256": "e22968f2ba00c8eac923ecdf48679a2c5559308482dd6c3614f3a8ba386cdb8e",
+    "copy": "docs/validation/n1-final-ux/evidence/navigation-inspection-run.txt",
+    "copiedSha256": "e22968f2ba00c8eac923ecdf48679a2c5559308482dd6c3614f3a8ba386cdb8e",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/navigation-retry-stall-process.txt",
+    "sha256": "f556e8a35b473c64db62c690c9f3eb6a6073380fcc5fa31d756cd6ee1f3f91bf",
+    "copy": "docs/validation/n1-final-ux/evidence/navigation-retry-stall-process.txt",
+    "copiedSha256": "f556e8a35b473c64db62c690c9f3eb6a6073380fcc5fa31d756cd6ee1f3f91bf",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/navigation-stall-processes.txt",
+    "sha256": "a2e860562ea22327de10bdfa9bed9ebb0c505d8918144300376d04e5c458fc43",
+    "copy": "docs/validation/n1-final-ux/evidence/navigation-stall-processes.txt",
+    "copiedSha256": "a2e860562ea22327de10bdfa9bed9ebb0c505d8918144300376d04e5c458fc43",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/observer-history-run.txt",
+    "sha256": "17889763310286cd97a9639d2a9a913ba56f93184fc2d6715b9afd90840254d2",
+    "copy": "docs/validation/n1-final-ux/evidence/observer-history-run.txt",
+    "copiedSha256": "17889763310286cd97a9639d2a9a913ba56f93184fc2d6715b9afd90840254d2",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/pennsylvania-run.txt",
+    "sha256": "6d4b10980f28abb709c7b5c7138e99a1017e94b88da2dd3005d3946d255dc913",
+    "copy": "docs/validation/n1-final-ux/evidence/pennsylvania-run.txt",
+    "copiedSha256": "6d4b10980f28abb709c7b5c7138e99a1017e94b88da2dd3005d3946d255dc913",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/product-paths-run.txt",
+    "sha256": "3daf98ce1f7a8bdb4f62f82b3e36630819be113fa130032622ba71b8059cc90c",
+    "copy": "docs/validation/n1-final-ux/evidence/product-paths-run.txt",
+    "copiedSha256": "3daf98ce1f7a8bdb4f62f82b3e36630819be113fa130032622ba71b8059cc90c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/promotion-tests.txt",
+    "sha256": "65e5b798955e6e568d2daabab5afc09978d7602e11ea1a6331b541d612c013a8",
+    "copy": "docs/validation/n1-final-ux/evidence/promotion-tests.txt",
+    "copiedSha256": "65e5b798955e6e568d2daabab5afc09978d7602e11ea1a6331b541d612c013a8",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/reconciliation-docs.txt",
+    "sha256": "ac55cc921072000956473230a8a7bfb5e1d818aec0388a966f17fd0a177f17f8",
+    "copy": "docs/validation/n1-final-ux/evidence/reconciliation-docs.txt",
+    "copiedSha256": "ac55cc921072000956473230a8a7bfb5e1d818aec0388a966f17fd0a177f17f8",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/remote-continuation-start.txt",
+    "sha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+    "copy": "docs/validation/n1-final-ux/evidence/remote-continuation-start.txt",
+    "copiedSha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/remote-working-head.txt",
+    "sha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+    "copy": "docs/validation/n1-final-ux/evidence/remote-working-head.txt",
+    "copiedSha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/reproduction-run-current.txt",
+    "sha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+    "copy": "docs/validation/n1-final-ux/evidence/reproduction-run-current.txt",
+    "copiedSha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/reproduction-run-final.txt",
+    "sha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+    "copy": "docs/validation/n1-final-ux/evidence/reproduction-run-final.txt",
+    "copiedSha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/reproduction-run.txt",
+    "sha256": "a2b2c99466b6ef07a5df5f98d0c4a61fdb6518a71a11bdaee3825e58d8651c4c",
+    "copy": "docs/validation/n1-final-ux/evidence/reproduction-run.txt",
+    "copiedSha256": "a2b2c99466b6ef07a5df5f98d0c4a61fdb6518a71a11bdaee3825e58d8651c4c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/review-continuation-start.txt",
+    "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+    "copy": "docs/validation/n1-final-ux/evidence/review-continuation-start.txt",
+    "copiedSha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/review-working-summary.txt",
+    "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+    "copy": "docs/validation/n1-final-ux/evidence/review-working-summary.txt",
+    "copiedSha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/runtime-tests-fixture-attempt.txt",
+    "sha256": "66fcc77ca23444cd58c0ebb7cac868fd5b75c147ef7aaa3cc7ba92e7f20f9928",
+    "copy": "docs/validation/n1-final-ux/evidence/runtime-tests-fixture-attempt.txt",
+    "copiedSha256": "66fcc77ca23444cd58c0ebb7cac868fd5b75c147ef7aaa3cc7ba92e7f20f9928",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/runtime-tests-stale-keyboard-artifact-attempt.txt",
+    "sha256": "c9827541aaa2b4a4c3f64b4262b57b7dee4c5c1bdf2b0c4210853c36d3f68994",
+    "copy": "docs/validation/n1-final-ux/evidence/runtime-tests-stale-keyboard-artifact-attempt.txt",
+    "copiedSha256": "cb15475daf1c9fd807c620b66bd2b5e86a1b883a6da6ce2e6d372dd62886d2a9",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/runtime-tests.txt",
+    "sha256": "041ad6f493da11516db1ac6f94dec2cdca9612f88ca7348d7dfaa0a7e5b6c71d",
+    "copy": "docs/validation/n1-final-ux/evidence/runtime-tests.txt",
+    "copiedSha256": "041ad6f493da11516db1ac6f94dec2cdca9612f88ca7348d7dfaa0a7e5b6c71d",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/satellite-pixels-run.txt",
+    "sha256": "b30a00b3a70843b70b34e64a02adcc5970d0d9c723201c342e1336a10ec0d9dc",
+    "copy": "docs/validation/n1-final-ux/evidence/satellite-pixels-run.txt",
+    "copiedSha256": "b30a00b3a70843b70b34e64a02adcc5970d0d9c723201c342e1336a10ec0d9dc",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/satellite-run.txt",
+    "sha256": "182cb5f0fdcdd387f1a4af50ef8b1ffc525357c3b37c139d6d6c76e596b5a75c",
+    "copy": "docs/validation/n1-final-ux/evidence/satellite-run.txt",
+    "copiedSha256": "182cb5f0fdcdd387f1a4af50ef8b1ffc525357c3b37c139d6d6c76e596b5a75c",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/served-working-run.txt",
+    "sha256": "7c982c284e5d11f1987745e0d632ebd115e00a434efc6fd82b3ffd1ae5da4797",
+    "copy": "docs/validation/n1-final-ux/evidence/served-working-run.txt",
+    "copiedSha256": "7c982c284e5d11f1987745e0d632ebd115e00a434efc6fd82b3ffd1ae5da4797",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/share-link-red.txt",
+    "sha256": "048abdd2b0693ffae33e62189cc2276e995a57c8e2df9434a82d8315bf22b1df",
+    "copy": "docs/validation/n1-final-ux/evidence/share-link-red.txt",
+    "copiedSha256": "fa9a5c4d4e0001ca58f09aece36f7058bc61564391c3fc0185cbde5565a36e39",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/sky-alternate-build.txt",
+    "sha256": "9d3ce9af1ba5659183373a03fcad0449e0b6a2600172fa8314d7845f95188a8e",
+    "copy": "docs/validation/n1-final-ux/evidence/sky-alternate-build.txt",
+    "copiedSha256": "3c8adf022100e7f9fc71c172f1aea78eea331bbc855f3f1393562a9dd37840fe",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/sky-default-build.txt",
+    "sha256": "18be905c78952421439868572a00a68e60dbf7e00316167b5560f34a5686e589",
+    "copy": "docs/validation/n1-final-ux/evidence/sky-default-build.txt",
+    "copiedSha256": "19bc20ce44af80ec22e7ad4025510b60db2c63f12bbefaedd69acdc5a5d6d045",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/smoke-run.txt",
+    "sha256": "366f3399ef9a916af308a61d3e490bf5ec7beac126e1c7a1f3184be5ce6adfa5",
+    "copy": "docs/validation/n1-final-ux/evidence/smoke-run.txt",
+    "copiedSha256": "366f3399ef9a916af308a61d3e490bf5ec7beac126e1c7a1f3184be5ce6adfa5",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/source-tests.txt",
+    "sha256": "6549c2412ad99545da7d6272b41e690e5fc543149eefe2c645e1fefe4b1a3111",
+    "copy": "docs/validation/n1-final-ux/evidence/source-tests.txt",
+    "copiedSha256": "6549c2412ad99545da7d6272b41e690e5fc543149eefe2c645e1fefe4b1a3111",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/time-unit-green.txt",
+    "sha256": "e26c68605d8879c66cd4bc8201651dc4cf78e4f662eeea1a9ed4d559b8b28dfc",
+    "copy": "docs/validation/n1-final-ux/evidence/time-unit-green.txt",
+    "copiedSha256": "b7bee4432a87b04e0a9977917c1638a079f59f5fa4f2838ca170056d5ed97b85",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/time-unit-red.txt",
+    "sha256": "e5775470b541087fd6d401b5d8d54daabcd94bb41f4c201db16763f9ee195d97",
+    "copy": "docs/validation/n1-final-ux/evidence/time-unit-red.txt",
+    "copiedSha256": "bb13d7f3a25669901ba3bafcc4b840c592c87eb82ddbf6ab84dbcd8d69485aa4",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/time-unit-unchanged-attempt.txt",
+    "sha256": "c87938feec1aa18828858e0d4be01bbe07d74fa799d0165a46cb3c529c2d7361",
+    "copy": "docs/validation/n1-final-ux/evidence/time-unit-unchanged-attempt.txt",
+    "copiedSha256": "8185b857fdcf11a2a5dea519d88e57183cc5e26a0043e24495e947cbb62573c2",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/typecheck-green.txt",
+    "sha256": "eaf8519de1a7c341ec55d8ac83722fe2065100ebfbcb6936cb60b1b30be155d3",
+    "copy": "docs/validation/n1-final-ux/evidence/typecheck-green.txt",
+    "copiedSha256": "42b32de2d71dc9ec5cb42ba208886d0727efa8688428f75591aabbd700224fcd",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  },
+  {
+    "original": "output/n1/final-ux/typecheck.txt",
+    "sha256": "83d7757cfd5e7cf2fec51a535e28840dbc9d618ca5e36563418a1d05c5bbeb11",
+    "copy": "docs/validation/n1-final-ux/evidence/typecheck.txt",
+    "copiedSha256": "83d7757cfd5e7cf2fec51a535e28840dbc9d618ca5e36563418a1d05c5bbeb11",
+    "normalization": "Trailing whitespace and final blank lines normalized; original byte hash and raw log retained; no result changes."
+  }
+]

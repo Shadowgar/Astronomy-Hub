@@ -1,0 +1,388 @@
+{
+  "mode": "Default",
+  "packs": [
+    "frontend_change",
+    "backend_change",
+    "docs_change",
+    "validation",
+    "review",
+    "planning"
+  ],
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "loadedSha256": "9ffc8810584c536a73d1e3d4cec35e24c50b583dc589b34e32c3509c860d611a",
+      "sha256": "f82835aa767d266844d76086abb7829f94778d8d86e0cb6ad0030d5b085feb51",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/context/CORE_CONTEXT.md",
+      "loadedSha256": "245f847476a2a8c67c3b32499dbe38c2776b591005199973231764e60c888b8c",
+      "sha256": "616789063b6aae67da639c7b2a2da032e426cc4494d938a389c861aab498dd96",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/context/LIVE_SESSION_BRIEF.md",
+      "loadedSha256": "1ecf43ccd8fd085dc87f320f4e3bbff4c2518028c2c87fe041a050599e4ede43",
+      "sha256": "5d79c81b41b9686c23d1e1c04fefc1af7804e49db40d6de06c0e7e501c90752e",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/context/CONTEXT_MANIFEST.yaml",
+      "loadedSha256": "4adc2fa75d68843b13647ce88ff4f8550ed5ac8a7458d8f18bf38410321640de",
+      "sha256": "4adc2fa75d68843b13647ce88ff4f8550ed5ac8a7458d8f18bf38410321640de",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/product/PRODUCT_VISION.md",
+      "loadedSha256": "bb8cfdeaa0123a139eab343bbd8622037cb8ab2945d6ae59f77e35a72ff63af5",
+      "sha256": "bb8cfdeaa0123a139eab343bbd8622037cb8ab2945d6ae59f77e35a72ff63af5",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md",
+      "loadedSha256": "79bf937939859128e803e0b3404d58e9d97afd17d69c201a331d4442ae607e2b",
+      "sha256": "79bf937939859128e803e0b3404d58e9d97afd17d69c201a331d4442ae607e2b",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/design/adaptive-explorer-r1a/README.md",
+      "loadedSha256": "4d70f126bc1ed046e71099a391238a0c27e0a4f600a362f81c4fdf53146cb8d6",
+      "sha256": "4d70f126bc1ed046e71099a391238a0c27e0a4f600a362f81c4fdf53146cb8d6",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/SYSTEM_VALIDATION_SPEC.md",
+      "loadedSha256": "e89b88846dc8aa53b6476160ec800141613073904d6d2b44c8290c64fac38ce7",
+      "sha256": "e89b88846dc8aa53b6476160ec800141613073904d6d2b44c8290c64fac38ce7",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/ASTRONOMY_HUB_DIAGRAM.md",
+      "loadedSha256": "99e4f6f5fcdcb0fca86ac3e7e6549ecb7d5967f14ebcbf40fbb989ea9893b6e5",
+      "sha256": "99e4f6f5fcdcb0fca86ac3e7e6549ecb7d5967f14ebcbf40fbb989ea9893b6e5",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md",
+      "loadedSha256": "4f4993cfd931c80eeaa53100c353a00e62ca6d6cfbf4bc06560d476130702991",
+      "sha256": "4f4993cfd931c80eeaa53100c353a00e62ca6d6cfbf4bc06560d476130702991",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md",
+      "loadedSha256": "d901bff35768636b2f5d2df61f4c91d9a7310068fcdadaec1b1e7f8cdc241e22",
+      "sha256": "d901bff35768636b2f5d2df61f4c91d9a7310068fcdadaec1b1e7f8cdc241e22",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md",
+      "loadedSha256": "2918ec4dcfd2297e3db2a8dbf537b73afb066ed5b8d0d2959bd343bda4c706b8",
+      "sha256": "2918ec4dcfd2297e3db2a8dbf537b73afb066ed5b8d0d2959bd343bda4c706b8",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md",
+      "loadedSha256": "d02ffd0bd6070483ce750833e9f0701f4795a9bcd400c077f9e4afd11899f6a8",
+      "sha256": "d02ffd0bd6070483ce750833e9f0701f4795a9bcd400c077f9e4afd11899f6a8",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "loadedSha256": "1d5b205e45bf53d2517b1ea223a9d971d4c4934e5a56a8a48780e5424935e810",
+      "sha256": "1d5b205e45bf53d2517b1ea223a9d971d4c4934e5a56a8a48780e5424935e810",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/EARTH_HD_MAPPING_EVIDENCE.md",
+      "loadedSha256": "f78edcd73f54b1f073ab364325a39a334e7a05c0a389fd343fc6d974249c6980",
+      "sha256": "f78edcd73f54b1f073ab364325a39a334e7a05c0a389fd343fc6d974249c6980",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md",
+      "loadedSha256": "d5ae9bc77ddcbfd7cb7555c151c89dd091173feba4706d99a27648d0e9b5f9ce",
+      "sha256": "d5ae9bc77ddcbfd7cb7555c151c89dd091173feba4706d99a27648d0e9b5f9ce",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE_OVERVIEW.md",
+      "loadedSha256": "0b3739c702a32f105bc04df620206ddd99b726ca97aa243bcd4fcfdf3d1f2a22",
+      "sha256": "0b3739c702a32f105bc04df620206ddd99b726ca97aa243bcd4fcfdf3d1f2a22",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/ENGINE_SPEC.md",
+      "loadedSha256": "17cbc8da31a3012c0b58cc93921a5d5c8dac846d501d90869cfcfd76472b9a49",
+      "sha256": "17cbc8da31a3012c0b58cc93921a5d5c8dac846d501d90869cfcfd76472b9a49",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/ENGINE_CATALOG.md",
+      "loadedSha256": "e1e30367a5397554018f90502e3b1f9fc88535aedb86ad2d817fd46ff94a5c11",
+      "sha256": "e1e30367a5397554018f90502e3b1f9fc88535aedb86ad2d817fd46ff94a5c11",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/OBJECT_MODEL.md",
+      "loadedSha256": "4f3554df30166abb154750fe7ce061de8769fb3454d9e002a7a07ea9a08c5082",
+      "sha256": "4f3554df30166abb154750fe7ce061de8769fb3454d9e002a7a07ea9a08c5082",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/DATA_CONTRACTS.md",
+      "loadedSha256": "5449411a2f9d1ea92b4b50e58fef9f933f7db6a9a35997f90e17baa5fd0dff63",
+      "sha256": "5449411a2f9d1ea92b4b50e58fef9f933f7db6a9a35997f90e17baa5fd0dff63",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/TONIGHT_CONTRACT.md",
+      "loadedSha256": "63b10129bcd52d5e0571b1381bb52587278d303a294c4b22ba48377fff6fe9b0",
+      "sha256": "63b10129bcd52d5e0571b1381bb52587278d303a294c4b22ba48377fff6fe9b0",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/STACK_OVERVIEW.md",
+      "loadedSha256": "e48e38da2d2a9b1e0355596f0d8ce7dbac25c06dfa44fd519bb746f4ff610ef9",
+      "sha256": "e48e38da2d2a9b1e0355596f0d8ce7dbac25c06dfa44fd519bb746f4ff610ef9",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/execution/PROJECT_STATE.md",
+      "loadedSha256": "41834ebecb6140f91734206570b7a2b64ce0bcef7e552e2d0a31d35686fc2a4a",
+      "sha256": "6b7bc4c594ab88f7e4ec2d41d9fc3b8bcf301bb924779d223ec17b162133ea29",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/execution/MASTER_PLAN.md",
+      "loadedSha256": "bd03549571c04f79456297addbe668f722f3d88b12c7ef9d249d55a528f3b0d7",
+      "sha256": "47953da13f2cf66def0b6c38514ec29cfc6b19d3e664a97d4b2743cc2eb73173",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/features/FEATURE_EXECUTION_MODEL.md",
+      "loadedSha256": "cb194d45af7fb046482da40a7bd7bf2aa886118d28a10bb1c273de2a3bd328d5",
+      "sha256": "cb194d45af7fb046482da40a7bd7bf2aa886118d28a10bb1c273de2a3bd328d5",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/features/FEATURE_CATALOG.md",
+      "loadedSha256": "8cd5c5dba86d0ee7ee8656caedcfc0ec22034e53c9f6f41c2e3a37228c0efa32",
+      "sha256": "8cd5c5dba86d0ee7ee8656caedcfc0ec22034e53c9f6f41c2e3a37228c0efa32",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/features/FEATURE_ACCEPTANCE.md",
+      "loadedSha256": "2db851b8fe28769105746188a2bd1f4deb8f9cf87596f1a841f30b48a885cbdb",
+      "sha256": "2db851b8fe28769105746188a2bd1f4deb8f9cf87596f1a841f30b48a885cbdb",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/features/FEATURE_TRACKER.md",
+      "loadedSha256": "ffbe83d6512bcef884c12046bdaaf5b58049fe9ba19af53ce6e702d45ca125e8",
+      "sha256": "c162d31fdb408d211ea7bf6f248aacb87bec1dcba1f6fdf2969af883d9d322e4",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/execution/EARTH_CAPABILITY_PLAN.md",
+      "loadedSha256": "ea3fed3e12c61837fcf929a6805837a3b89b2e645f56ecae26fd5ba338c84a75",
+      "sha256": "df4e6ef355062d0d170c55dfe458c63cf5d207b0238341f47eb83478a2e12f8b",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md",
+      "loadedSha256": "bac2169cd9a4200593c8be3cb01262a15de55205b9f017790aeff48788a9d3dc",
+      "sha256": "bac2169cd9a4200593c8be3cb01262a15de55205b9f017790aeff48788a9d3dc",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/execution/C6_GLOBAL_MAPPING_SPEC.md",
+      "loadedSha256": "a899b6dad765007c8bcba07953aef59c28754c90f2bbea52d79d67f4c4353484",
+      "sha256": "a899b6dad765007c8bcba07953aef59c28754c90f2bbea52d79d67f4c4353484",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0009-owned-earth-feature-reuse.md",
+      "loadedSha256": "24e9e0b6402cda573cf83e412cb177b99f00626d008c1e152d5a4ecd0dd25c41",
+      "sha256": "24e9e0b6402cda573cf83e412cb177b99f00626d008c1e152d5a4ecd0dd25c41",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md",
+      "loadedSha256": "de2167240a4b4301f64cd19246fe72188c0ddb32ccf9eb53910468b88b7a6962",
+      "sha256": "de2167240a4b4301f64cd19246fe72188c0ddb32ccf9eb53910468b88b7a6962",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md",
+      "loadedSha256": "dcd166902aa4e961401bfb4209057fde374020f320ec9997b7ec0ac0ec4dea98",
+      "sha256": "dcd166902aa4e961401bfb4209057fde374020f320ec9997b7ec0ac0ec4dea98",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md",
+      "loadedSha256": "a4d9eeb0875bdc754182e777ceb3583fbad577fcd3cdddd172c79da28ebb55a1",
+      "sha256": "a4d9eeb0875bdc754182e777ceb3583fbad577fcd3cdddd172c79da28ebb55a1",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/INGESTION_STRATEGY.md",
+      "loadedSha256": "b6724bba3b117ee4afe3710053a6b878811799ef1b10c6ac86d32837d9aa85d6",
+      "sha256": "b6724bba3b117ee4afe3710053a6b878811799ef1b10c6ac86d32837d9aa85d6",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/DOCUMENT_INDEX.md",
+      "loadedSha256": "c8a4d2998dd48bb316b8d4c8ae132c7173917774fcb1f3d9452218f43cf6c4c8",
+      "sha256": "7f467325db160c073eeec0581eee73847b9de4c01f587481a5f8de8fe33c8cd6",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/DOC_INVENTORY.md",
+      "loadedSha256": "4f319561f59e27dd6a6f83a857c2b9d9a318dae34fc73d366adc86a3712c38cc",
+      "sha256": "2f8ab209bba114cc6fa872a370a49a4d6b8ab46bd4a5460066d553e7d5387eb5",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md",
+      "loadedSha256": "51c5f7cca44ce1d415d2e5487d92653a413aefea15d8785453588da303a998b0",
+      "sha256": "51c5f7cca44ce1d415d2e5487d92653a413aefea15d8785453588da303a998b0",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/README.md",
+      "loadedSha256": "a5137a8b5c7b5362f535a16a437c4088171c447e295a95aa9b57866814e949ac",
+      "sha256": "a5137a8b5c7b5362f535a16a437c4088171c447e295a95aa9b57866814e949ac",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/MASTER_PLAN.md",
+      "loadedSha256": "13761fb5e914636ce8b8d47f055d8a755904ecad5968457e0e52a737c7096a30",
+      "sha256": "13761fb5e914636ce8b8d47f055d8a755904ecad5968457e0e52a737c7096a30",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0001-universal-application-state.md",
+      "loadedSha256": "e2b9ad734c7c10f0b91979783360d3fcfcd04a324a277e5439871240c92747b1",
+      "sha256": "e2b9ad734c7c10f0b91979783360d3fcfcd04a324a277e5439871240c92747b1",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0002-swe-sky-renderer.md",
+      "loadedSha256": "28e82b0122f528cd4163219f91c91d1f6a731bd00853be1475a3ef3d837a1bc2",
+      "sha256": "28e82b0122f528cd4163219f91c91d1f6a731bd00853be1475a3ef3d837a1bc2",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0003-gods-eye-earth-runtime.md",
+      "loadedSha256": "d880148b2d4fe804a8f4e62fd6ed805383a04f1430136e7ef4b18880818961c9",
+      "sha256": "d880148b2d4fe804a8f4e62fd6ed805383a04f1430136e7ef4b18880818961c9",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0004-additive-earth-extensions.md",
+      "loadedSha256": "d6348dc7882892c1e9916cc621a226cac29dcb2edeacafec6be6da52088a4811",
+      "sha256": "d6348dc7882892c1e9916cc621a226cac29dcb2edeacafec6be6da52088a4811",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0005-cesium-planetary-direction.md",
+      "loadedSha256": "a66b93a289ed943bde040c512f1622a7cea120e0c51e13813d772b4e5a1ed9e3",
+      "sha256": "a66b93a289ed943bde040c512f1622a7cea120e0c51e13813d772b4e5a1ed9e3",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0006-controlled-renderer-handoffs.md",
+      "loadedSha256": "353422b3ccecc4c972aaff9f2847388ef49679ff34627b3ba69be32e2c1b755d",
+      "sha256": "353422b3ccecc4c972aaff9f2847388ef49679ff34627b3ba69be32e2c1b755d",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0007-immutable-upstream-source.md",
+      "loadedSha256": "a3bac9c2a94efe07b37f2a3e7e0b830ad4935d075a97366872fbdfbbf152703f",
+      "sha256": "a3bac9c2a94efe07b37f2a3e7e0b830ad4935d075a97366872fbdfbbf152703f",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/architecture/decisions/0008-provider-licensing-boundaries.md",
+      "loadedSha256": "959ade437b10832c53c45107013012ff27388dbeee93a0a4871252c5bbc17d81",
+      "sha256": "959ade437b10832c53c45107013012ff27388dbeee93a0a4871252c5bbc17d81",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/EARTH_CAPABILITY_RECONCILIATION_INPUT_2026-10-05.md",
+      "loadedSha256": "41a443d02b23c3f4452277f2a5defb51c40422e56c5e898db79444d027b3e8d6",
+      "sha256": "41a443d02b23c3f4452277f2a5defb51c40422e56c5e898db79444d027b3e8d6",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md",
+      "loadedSha256": "459311f7d3ab0f8e84ef6ff264889b0866ab3ba78bd70234a5ef305aadc7c53a",
+      "sha256": "459311f7d3ab0f8e84ef6ff264889b0866ab3ba78bd70234a5ef305aadc7c53a",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PUBLIC_EXPORT_AUDIT_2026-10-05.md",
+      "loadedSha256": "ff2a15587c46fd7c717d6e01e959e1f373b5dde9ea6714f41c5e762dff3a8f99",
+      "sha256": "ff2a15587c46fd7c717d6e01e959e1f373b5dde9ea6714f41c5e762dff3a8f99",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md",
+      "loadedSha256": "928d105a5a17b07b63a6d9a62a8d23cd5c567d924f04d150e06761155fba20bc",
+      "sha256": "928d105a5a17b07b63a6d9a62a8d23cd5c567d924f04d150e06761155fba20bc",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md",
+      "loadedSha256": "e450148005e82990d9827355dbee00a5404494ccf41b276761710c68fd2c60a7",
+      "sha256": "e450148005e82990d9827355dbee00a5404494ccf41b276761710c68fd2c60a7",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md",
+      "loadedSha256": "32d32448f86f64c34de181496ac9f962997bc088ce5592257fe16c21d59913b0",
+      "sha256": "32d32448f86f64c34de181496ac9f962997bc088ce5592257fe16c21d59913b0",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md",
+      "loadedSha256": "adb795e9f39727d6058e42ceefe17e167dcb66a9588abd09d1b7428560268d1f",
+      "sha256": "adb795e9f39727d6058e42ceefe17e167dcb66a9588abd09d1b7428560268d1f",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md",
+      "loadedSha256": "57bfae11ec71c6520abb19d5463267be4fb5b30066e302b5b29f68f3c3d8d169",
+      "sha256": "57bfae11ec71c6520abb19d5463267be4fb5b30066e302b5b29f68f3c3d8d169",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md",
+      "loadedSha256": "7fd57268a5158e7fe71d7b2148cdd654e8eed582c206a7d0353d4107836dc8e8",
+      "sha256": "7fd57268a5158e7fe71d7b2148cdd654e8eed582c206a7d0353d4107836dc8e8",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md",
+      "loadedSha256": "9fefd707b0e797b6958ec148b384d6e2e5414da8f7472813ab0eb011a900ca1d",
+      "sha256": "9fefd707b0e797b6958ec148b384d6e2e5414da8f7472813ab0eb011a900ca1d",
+      "sourceMatchedPriorContextAtLoad": true
+    },
+    {
+      "path": "docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md",
+      "loadedSha256": "08aa5732cbe257ed16097c42622678ebe161ddaf52c04e2cba05b7339e0a0aa9",
+      "sha256": "08aa5732cbe257ed16097c42622678ebe161ddaf52c04e2cba05b7339e0a0aa9",
+      "sourceMatchedPriorContextAtLoad": true
+    }
+  ],
+  "ownerOverride": "R2-B bounded imagery/cache integration;N1 OWNER ACCEPTED;no merge/deploy/R3",
+  "base": "27f34a94198f2061c0a5083a68beebd567c7d87f",
+  "identityNotes": "sha256 records current handoff bytes; loadedSha256 preserves the original context identity where candidate edits changed authority documents. No new document load is inferred.",
+  "additionalExplicitInputs": [
+    "docs/validation/r2-a-earth-search/README.md",
+    "docs/validation/r2-a-earth-search/PR71_REUSE.md",
+    "PR71@35dcc94c:docs/validation/EARTH_HD_MAPPING_EVIDENCE.md"
+  ],
+  "reuse": "All61 previously loaded document bytes match at R2-A base; current mandatory CORE/LIVE/AGENTS and manifest rechecked."
+}

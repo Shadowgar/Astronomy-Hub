@@ -1,0 +1,10 @@
+{
+  "scripts/validation/verify_n1_navigation.mjs": "bdb357f73b5f2f6aea1e260a34e24a6c61f5f2be16437109f5fafabf3dd2bf90",
+  "integrations/renderers.lock.json": "b6be23f62c66cf54db29084f75e4ed6204d95bc87df5b7f2ebe08459c24d07e0",
+  "frontend/public/runtime-versions.json": "dfa169e679ef5755a2e00aeb055c7278df072033a04193240a89766abe1aed30",
+  "runtimes/sky-adapter/entry.mjs": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+  "runtimes/sky-adapter/plugin.js": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
+  "runtimes/sky-adapter/native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+  "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+  "frontend/src/features/workspace/WorkspaceShell.tsx": "62ea088e09eebd296a9d948145c0ad1495642f2cad0ef149c26e61ef283cc6c5"
+}

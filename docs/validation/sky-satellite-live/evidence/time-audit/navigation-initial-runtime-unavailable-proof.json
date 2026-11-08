@@ -1,0 +1,44 @@
+{
+  "started": "2026-10-24T08:17:50.404Z",
+  "base": "http://127.0.0.1:4226",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "steps": [],
+  "frameEvents": [
+    {
+      "event": "attached",
+      "id": 1,
+      "at": "2026-10-24T08:17:51.719Z",
+      "url": ""
+    },
+    {
+      "event": "detached",
+      "id": 1,
+      "at": "2026-10-24T08:17:58.370Z",
+      "url": "http://127.0.0.1:4226/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0"
+    }
+  ],
+  "pageErrors": [],
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "7cfe992c8050be555db1238686c4046a07eb4f1f33b6561462662e8a7678b77d",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "72b7433248f6486de86b3bb388e7b89e681f027bdfd91538e87d343caa9c2f1e",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "b2254eff03ace7dda6e52ce352500c873b100eb4e04db3c9179a2c8f64568679",
+    "frontend/src/features/workspace/TimeSurface.tsx": "4a60a044a3659d4fe837ecea5ffd06a6b2c8a5b117802a1989764038bdcba532",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "frontend/src/features/solar/solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+    "frontend/src/features/planet/planetContracts.ts": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf"
+  },
+  "limitations": [
+    "DOM iframe detachment and one active heavy surface are renderer lifecycle evidence; this is not physical GPU allocation/driver proof.",
+    "Native hints-off is exercised through the existing native public property because the embedded compact tools do not expose a satellite-hint checkbox. Real wheel input exercises subsequent zoom. Cross-remount persistence is recorded rather than assumed."
+  ],
+  "status": "FAIL",
+  "error": "locator.waitFor: Timeout 90000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-runtime-mode=sky][data-runtime-status=ready]') to be visible\u001b[22m\n\n    at ready (/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/output/sky-satellite-live/time-audit/navigation-recovery.mjs:3:277)\n    at /home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/output/sky-satellite-live/time-audit/navigation-recovery.mjs:7:79",
+  "failureUrl": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+  "failureDOM": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nSky is unavailable\n\nWe couldn't open this view. Try again, or continue exploring Earth.\n\nRetry Sky\nOpen Earth\nPAUSED\nSTALE DATA\nCurrent astronomical time\nResume Live\nChange time",
+  "finished": "2026-10-24T08:19:21.650Z"
+}

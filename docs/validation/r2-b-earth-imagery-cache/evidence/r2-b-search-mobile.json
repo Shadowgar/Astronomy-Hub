@@ -1,0 +1,41 @@
+{
+  "status": "FAIL",
+  "base": "http://127.0.0.1:4204",
+  "sourceHashes": {
+    "scripts/validation/verify_r2_earth_search.mjs": "e74c5bf26816d03fca58e0b6137d690a66ab67032b06a8f49507ad6da3eca016",
+    "frontend/src/features/workspace/EarthSearch.tsx": "9fbb191bd7f02a0285adb10309e9340d75fed2a2e0d74c78a2e307a1b372e9c5",
+    "frontend/src/features/workspace/earthSearch.ts": "38e68d4e164977e5a7b6b269fb7a16f5f596fb54eacbc4eac1d004239e1700fe",
+    "frontend/src/features/workspace/EarthExplore.tsx": "cfcda9e8ff6c717b182f323f43065b137355fad54804a9a21e5ce96a5447c0f3",
+    "frontend/src/features/workspace/earthLocationNavigation.ts": "069cf7d852dc973140d8992b05affe3a0112ba10257965a7ecd8de597fadab87",
+    "frontend/src/features/workspace/useEarthLocation.ts": "1d6c07cc4349ce61b30af9fdbdcec3bfe27ee057c608b2e25e62065d601d16b8",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "17541ab399a6bb517c781ae16d874ff56ac7d5c6e4b6c41ab0f0cfc94e8d6284",
+    "backend/app/services/earth_search.py": "86f9a9d173ea870b4a7b8be00a8a175ecabddcd11070f8c5d17506d793278859",
+    "backend/app/routes/earth.py": "adea444c69d2db3f4bfe9a6da82a8e5c71681c9bb4b7b98cdb8996c9ebd73315",
+    "integrations/renderers.lock.json": "038cb08a93a266a61aa0f9ae60f18df59c33b3b3515da0c68dbc605a53f1c5d6",
+    "frontend/public/runtime-versions.json": "dc69424d167a4367164a59963d4fef4d350e4c48c93f2407e140a707a8419f9e"
+  },
+  "runs": [
+    {
+      "width": 390,
+      "status": "RUNNING",
+      "steps": [
+        "Earth ready; exactly one owned renderer"
+      ],
+      "scenes": [],
+      "responses": [],
+      "pageErrors": [],
+      "resourceFailures": [
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering/emulated mobile; no physical-device or full R2 imagery/cache acceptance.",
+    "Address/place matches are actual Photon/OpenStreetMap results. Controlled empty/503/429 responses are isolated transport fixtures, never fabricated locations.",
+    "N1 historical full navigation5/22 and7/22 is unchanged and not rerun."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: actual place search status\n\n503 !== 200\n\n    at pick (file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/scripts/validation/verify_r2_earth_search.mjs:8:1646)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:453:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/scripts/validation/verify_r2_earth_search.mjs:12:37"
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "viewport": {
+      "width": 390,
+      "height": 900
+    },
+    "id": "49753",
+    "start": "2026-10-26T17:42:28.008Z",
+    "end": "2026-10-26T17:42:33.928Z",
+    "native_magnitude": 5.965584023937,
+    "tle_epoch": "2026-10-25T22:40:28.649856+00:00",
+    "tle_age_days": 0.7930481266666667,
+    "fov_deg": 37.50000000000724,
+    "point_pixels": 31.615428919689748,
+    "fixed_star_pixels": 0,
+    "touch_selected": true,
+    "stop_button": {
+      "x": 86.40625,
+      "y": 816,
+      "width": 101.875,
+      "height": 44
+    },
+    "live_after_return": 1
+  },
+  {
+    "viewport": {
+      "width": 667,
+      "height": 390
+    },
+    "id": "49745",
+    "start": "2026-10-26T17:42:45.162Z",
+    "end": "2026-10-26T17:42:51.800Z",
+    "native_magnitude": 6.457725934976,
+    "tle_epoch": "2026-10-25T02:16:17.920704+00:00",
+    "tle_age_days": 1.6433708483333334,
+    "fov_deg": 37.50000000000724,
+    "point_pixels": 22.03382194404663,
+    "fixed_star_pixels": 0.00015026747908170258,
+    "touch_selected": true,
+    "stop_button": {
+      "x": 86.40625,
+      "y": 255,
+      "width": 101.875,
+      "height": 44
+    },
+    "live_after_return": 1
+  }
+]

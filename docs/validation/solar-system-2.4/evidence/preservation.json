@@ -1,0 +1,10 @@
+{
+  "priorContainers": 146,
+  "priorVolumes": 90,
+  "missingContainers": [],
+  "missingVolumes": [],
+  "addedContainers": [
+    "b998811ab548"
+  ],
+  "addedVolumes": []
+}

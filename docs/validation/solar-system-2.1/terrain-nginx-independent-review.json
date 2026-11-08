@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "base": "http://127.0.0.1:4231",
+  "method": "HEAD with redirects disabled",
+  "results": [
+    {
+      "path": "/planet-terrain/apollo17-nac-v1",
+      "status": 200,
+      "location": null,
+      "type": "text/html",
+      "length": "568"
+    },
+    {
+      "path": "/planet-terrain/apollo17-nac-v1/",
+      "status": 200,
+      "location": null,
+      "type": "text/html",
+      "length": "568"
+    },
+    {
+      "path": "/planet-terrain/apollo17-nac-v1/tileset.json",
+      "status": 200,
+      "location": null,
+      "type": "application/json",
+      "length": "56952"
+    },
+    {
+      "path": "/planet-terrain/apollo17-nac-v1/tiles/0/0/0.glb",
+      "status": 200,
+      "location": null,
+      "type": "application/octet-stream",
+      "length": "561592"
+    },
+    {
+      "path": "/planet-terrain/apollo17-nac-v1/missing-review.glb",
+      "status": 404,
+      "location": null,
+      "type": "text/html",
+      "length": "153"
+    }
+  ],
+  "nginxSourceSHA256": "33bcb5552073b9c383aba18705ba4e36815a7e76d498e1ce57d3742a31248a7a",
+  "scope": "Private Docker nginx route/asset behavior; no external deployment claim"
+}

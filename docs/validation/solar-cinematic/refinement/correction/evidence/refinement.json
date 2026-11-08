@@ -1,0 +1,1749 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "frontend/src/App.jsx": "90f21aa15f77823a7cac13c2b8d0573b9cf9b4496681e3ed85d93973f1b08ce4",
+    "frontend/src/app/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend/src/app/queryClient.ts": "ed0b0a7a32426c8612537d569bcc1360ab74b645b8f25405149bdd13e144b00a",
+    "frontend/src/components/AboveMeScene.jsx": "36b9abecf49f0daf6f10b92d0b285f9014d5919e34bc10eb2d2757702d360ce8",
+    "frontend/src/components/AlertsEvents.jsx": "80c72d69cf53b52b0667c31d822c1ebded09c854d26cf8aee0635cab55844db3",
+    "frontend/src/components/CesiumFoundation.jsx": "4ad4d20a1c990dbbd4a08f004534e179f9d9689cdc7146cfbeeed4e523ee8d90",
+    "frontend/src/components/Conditions.jsx": "fe24fdafa1b248bf9654dee4bd61994275d97e9c6ab49a324d8db60a6adcb37e",
+    "frontend/src/components/LocationSelector/LocationSelector.jsx": "bb5b595c480c055b3ff5f7a8da1ea5a07ebd868de5db02a7f50bb5e93ba5f3bd",
+    "frontend/src/components/LocationSelector/locationSelector.css": "2a5882209cf6248eef57ac3e0d6e8d63ee32102fa03bad2299bc45fd441a6143",
+    "frontend/src/components/MoonSummary.jsx": "a76d08b17e522dd9d80154be626b46836effadf220ff13a8152b96a82329b629",
+    "frontend/src/components/ObjectDetail.jsx": "6f77d75e4ba4a0d4893f697082907c185ad6ccbb9ae14ad3435bc486223d63c0",
+    "frontend/src/components/PrimaryDecisionPanel.jsx": "8b1660b78a35dd8e8f4d3852fb89f4c4c06c0c510223a94f8e9ee10f0dfe8adb",
+    "frontend/src/components/RecommendedTargets.jsx": "97a3b70af02e3a56b414ca9dbf950e7ef5f43222c8e291c2b79ca6662aa85ccb",
+    "frontend/src/components/SatellitePasses.jsx": "51b88110c0ce3482c9099a2e4f99d133b1eb566db4703ff56f18f1632658f2de",
+    "frontend/src/components/SkyNews.jsx": "91ef5c6fd9b35594b3276f88528687e69189e7da3378fb94c6967e7914134449",
+    "frontend/src/components/Starfield.jsx": "390929ac284eed423da31a999a9d8c8b597ebead11523cbb2353492c5465dce8",
+    "frontend/src/components/common/InlineExpansion.css": "da8e5d6a257c7731d74972fce428f9353459fa71807f9c5242e37f30082d6ad9",
+    "frontend/src/components/common/InlineExpansion.jsx": "a9e1ff90ae90c97ed1498c68d5ec21b09be006103f8887a3b975bdb931fef399",
+    "frontend/src/components/layout/AppShell.jsx": "8a32114791ace15f29753d8c2f74e63c0bb758c679f85e510c93aca9543d736d",
+    "frontend/src/components/layout/CommandCenterHeader.jsx": "c25b3f7121b4dd59a47028e8fc89d1444c09bd6b2dffa1cac04082ff227f89d9",
+    "frontend/src/components/layout/ContentGrid.jsx": "be2e5254d540b5e84a4ba5bbc667c425c03f2b82548398af858477b91e6f71c2",
+    "frontend/src/components/layout/foundation/CommandCenterFoundationView.jsx": "7d268cb11898ba9986f8aabe9a65c30a0890589b2d20c380923a0f7090d04611",
+    "frontend/src/components/layout/foundation/ContextPanel.jsx": "3307ce5678019eee574c4891b48be3c5b4e81a1abe7b1057481fb168e9729973",
+    "frontend/src/components/layout/foundation/DetailPanelShell.jsx": "1865fffdb4c8173cf300214b7ad80743975b7e29fc922517acb33d0026c79bc0",
+    "frontend/src/components/layout/foundation/EngineGrid.jsx": "2d72ad90918e0d27cdc43aef9b75bd641b4428d3b0b71e5ce25ce7c57d164767",
+    "frontend/src/components/layout/foundation/EngineModuleCard.jsx": "b4827364f32aee15e05b96107e8b0f6cb0a90337373233ee94f19bcaa1aca50d",
+    "frontend/src/components/layout/foundation/NowAboveMePanel.jsx": "5a0df8f85da6f5ffe0100813fdf620d5cb3446e002ac9a92e32925f68b18ed6e",
+    "frontend/src/components/layout/foundation/PanelSection.jsx": "6f67a065925bbd71af4017468d73e9392e386e384caf0a675c95626241c2787d",
+    "frontend/src/components/layout/foundation/PlaceholderItemRow.jsx": "65bd80820da070196066f90f85bc4f519cde61dc4164fa236a48b6187cb0a82f",
+    "frontend/src/components/layout/foundation/RadarMapPreview.jsx": "6c65fdc20c5c4a0da3a7e0d1d12ee8a90fe486360379f64344383aef4b852589",
+    "frontend/src/components/layout/foundation/ScenePanel.jsx": "e0f4d211c9967cb0569f2ce38f85e2e47a351fa697d4b71fb936823f31d97090",
+    "frontend/src/components/layout/foundation/TopControlBar.jsx": "937c7a1eeae9cb0cbb3cfe45bb41dac51d033b2896ec1d32ab11550c28f20e44",
+    "frontend/src/components/layout/foundation/foundationData.js": "5c3f95cb7c102915ff6142b8091e34c5dec798006073d743bf0ce672a79abe07",
+    "frontend/src/components/media/AssetImage.jsx": "e91669d46b27a0d2280bd8298f46ad2fa1c5c3615b1eeb0b56b6032091df350c",
+    "frontend/src/components/shell/OrasAppShell.tsx": "6cd56d5628d34d4c34e79ce42e220eaab8b273fb03d9e2b1ca5caf605b59f5b3",
+    "frontend/src/components/shell/publicShell.css": "a4ac724527bfb72333a296ef74ac48453df0f0f3a0c13aea2a54f99961487fee",
+    "frontend/src/components/ui/AppButton.jsx": "5a564a9195cd6833353cdcf5eb95dbafe20c5b246814a23044c995f98f175a82",
+    "frontend/src/components/ui/CommandBar.jsx": "c8d32eaff87314a34370e074c2641fd06ed44aa8857d7b9d99ab71901fa1907c",
+    "frontend/src/components/ui/DataRow.jsx": "6672545cdb6dcdac1532e635c90b6bdb2c7d24e9ca916ae80537090d0c5f1f51",
+    "frontend/src/components/ui/EmptyState.jsx": "5de87939ed4778bb03456e9d9d505041911296c2c61187b081644471f5a29ade",
+    "frontend/src/components/ui/ErrorState.jsx": "1d623561d8329bae319fb547f743612c62626c4895230284bca3864d8dc3c739",
+    "frontend/src/components/ui/GlassPanel.jsx": "d382d47d51db6972d7340a90fa1d8723053e494975f90ed91de51e84f7c8ac2a",
+    "frontend/src/components/ui/LoadingState.jsx": "8ddc571e986257042601363770c92a56800f602c47820dd41c8728f19947e24d",
+    "frontend/src/components/ui/Panel.jsx": "cb28b622d0934a757ff5dcaaad24c76888385c980cc25c39cc9904f95784d1d4",
+    "frontend/src/components/ui/RowItem.jsx": "1bcf1a3dfb3d8ba339c7b5310d4c583df162f820dafe461aaea4528551bce8bd",
+    "frontend/src/components/ui/SectionHeader.d.ts": "adb6875d47e18aff77f1e7ae8b36b25509a0a71a75e5a6da3d20a78124d5e796",
+    "frontend/src/components/ui/SectionHeader.jsx": "680dd319b1f9a74a82c7dd526a1c60526e08731c4813bfd4cbab84fafdefc46b",
+    "frontend/src/components/ui/StatusBadge.jsx": "7311bb7909e8f4a2e3334100187cb949fce72a3463a93ff83baac74a5db1f712",
+    "frontend/src/config/orasSite.json": "3779ff6baf6417e79c424fffbcc35de39b09bd551f09bf40e9e45fcc7a746115",
+    "frontend/src/config/orasSite.ts": "c342326e538ded5c1ba053264ae39606d827566e76c17cae46afce2a6c2f5af4",
+    "frontend/src/content/publicChangelog.json": "5f88488ea90006be47db38734bc709d7cbaacf7ab4847547abf9f14c808e1d1b",
+    "frontend/src/design/semantic.css": "fd7949de1a34909c9501f9e898ac63f561e2206aade35b572d07f904e7f7bb62",
+    "frontend/src/design/themes.css": "16015e6d0212e2f0e39023ce72020bdbfe41737d2705a61ca648ea5ecf6d3e9d",
+    "frontend/src/env.d.ts": "ca3c11fa155ba2ec2fa199df8af7cc1632af3cd674a2fdeb11a447bfe9d57ffb",
+    "frontend/src/features/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend/src/features/alerts/queries.ts": "7650d75fb7790d7f48d269979d020b27c5b245b3956c53c07b8b2c86597a51a6",
+    "frontend/src/features/assets/queries.ts": "3bdcbf8b2a00f97e22dac0a32490322893ce06769316aac8bd19ac7679c9d6c9",
+    "frontend/src/features/conditions/queries.ts": "9daf17c2236bacdcd3edde4c80239157481c629bcb96fd0e4e81f65b847733f2",
+    "frontend/src/features/forecast/queries.ts": "3e449fb4b93e819b52c62d7b9cc8619a04d090970fdcb03376c32b80d815420f",
+    "frontend/src/features/health/queries.ts": "2cc77c0c0e89e30ddf78d0e093ec5fa87fc4520be801469c74918311e63b2141",
+    "frontend/src/features/home/HomePage.tsx": "da6ad613fb7fe2e403bc37816f090a659c5eac96f50855f6c4647209b2a0ff5f",
+    "frontend/src/features/location/queries.ts": "9d3b4c5dde7a691108ae37111db652bcf3bba91469bf0843faef522b8e755fce",
+    "frontend/src/features/news/queries.ts": "3048591e672016350ff4ccd77c3fea4b38c6a717b4eaa3568434937210c6ff15",
+    "frontend/src/features/objects/queries.ts": "91438a59646cfc07a1844337300694268a8347dd3c6d59d3a31bf524d1aede71",
+    "frontend/src/features/observe/ObservePage.tsx": "bd9816ed801e0c86ca989e2c807d1576a8278f38b25f743823f497e05cf9efff",
+    "frontend/src/features/observe/model.ts": "c4591f1ae6c35a0bed4fb93eeaeae8837a659242c606e9928eefee651379a6e2",
+    "frontend/src/features/observe/observe.css": "cc99f542c6e4a5100fde6fe420d017d005e4bb0c72c0e6335c51e5acd6e5047f",
+    "frontend/src/features/observe/queries.ts": "b3799dd4dd6b7b7894440710064599d5c2a2495ba1962b660dabc848f8a89d0e",
+    "frontend/src/features/passes/queries.ts": "49f1b32d370b00bbfa30d2f60c18e17118cd3b291af0cafdf625777aafbf472b",
+    "frontend/src/features/runtime/productState.ts": "116d6077c6a0ed2fc1297ec10e379fe2dd114b7b99e90a8babaa4be490e627ff",
+    "frontend/src/features/runtime/runtimeProbeService.ts": "3649c9b14b724318e542440fbeb7237eb0a5c02be01599aaea0a808325503531",
+    "frontend/src/features/scene/contracts.ts": "fdfdf1d15bce253415d7dc1e637df075296804799a89aadc81e2d168f3fcb4db",
+    "frontend/src/features/scene/queries.ts": "85fe0bdfe83f06d94a7bd15ed3010c55cb675e2237a70c74fe49824bd8967307",
+    "frontend/src/features/scopes/queries.ts": "fd2f6a4acaffc66551446f476b4703e09e35eecccf2e2baf9c76b9b0d7fccc07",
+    "frontend/src/features/shared/locationQuery.ts": "bb711652d209960f2edf5e583972202b74d3aef6902c5c671751c64c0414a5d5",
+    "frontend/src/features/sky-engine/MirrorLiteProgressPage.tsx": "e8c730b26cc021953fd9a784988a99c2671b5c1bacd3bcfb4471c9e79a5d7052",
+    "frontend/src/features/sky-engine/MirrorProgressPage.tsx": "97a7ecac90deb42995239272d783407498fd415629b2e18e3431c63064df2ebe",
+    "frontend/src/features/sky-engine/README.md": "de67d94cde931e4d24070391cb2fdbb38c989a05cc9f0fd0dd22ee5ee8d5906a",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "b2254eff03ace7dda6e52ce352500c873b100eb4e04db3c9179a2c8f64568679",
+    "frontend/src/features/sky-engine/SkyEnginePage.tsx": "e7b3361b045ca230b33d010274333a4ce3646deb64c90feae5e6398843a3e322",
+    "frontend/src/features/sky-engine/SkyOverOrasNowRedirect.tsx": "ad96532d92844efe0a9c073f412b9143fe891fe00e22d2c9f3eddb014c207c1c",
+    "frontend/src/features/sky-engine/skyOverOrasNow.ts": "7a2383db2e525a65670484287f29f9a56fed02b704df2b53410acebd724b6658",
+    "frontend/src/features/sky-engine/stellarium/README.md": "028436a7961a47f9ac0026d09272ee57f338262ab3a3c4f65400aeebabc3612a",
+    "frontend/src/features/sky-engine/stellarium/stellariumRuntimeBridge.ts": "3aac7bbe8f6a10412cc450ae676f2132acf19cfc41ff62fbaf4055051e285b28",
+    "frontend/src/features/sky-engine/stellarium/stellariumRuntimeDiscovery.ts": "4a463983fdd9206c3f2fa69b242a60d0aaba89fa49a32a2b03e34e2579db309a",
+    "frontend/src/features/solar/SolarScene.ts": "23018591478a0505b9ff4c8323164667a5052030325f486c008a87e2f0556d5c",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "4e5c89d07ff756ef271f6ef3314a241506d7542da35cc51f83583a3e48b5455d",
+    "frontend/src/features/solar/assets/earth-blue-marble.png": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+    "frontend/src/features/solar/assets/earth-clouds-2002.jpg": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+    "frontend/src/features/solar/assets/mars-nasa.glb": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+    "frontend/src/features/solar/assets/provenance.json": "566ba89818af6aa2c65b24a673303930b67f273619ae0ee26006a637bfbb30c1",
+    "frontend/src/features/solar/solar.css": "13fecec8f19517698f0b58af79fdbc695828c4460f920a770fe6702de63b371a",
+    "frontend/src/features/solar/solarContracts.ts": "94a40041d70d3dcd3670115aefe86633e9ba32891cbd292fdc4f6fb4d5de72b8",
+    "frontend/src/features/solar/solarGpuTiming.ts": "6f7f4b2952c544968f30f3fb1f57c0d3377aee9caafbedcceee3815bd9ee6dce",
+    "frontend/src/features/solar/solarMaterials.ts": "0b0790dfea1f036d0b7d887d8797a01d2316f81397b8dcc2e01ea496b6073f8f",
+    "frontend/src/features/solar/solarPresentation.ts": "03ca508f291a96b31a9fb5c3618f161af7479e5f2b6354f3ec16b2bad0d99d6c",
+    "frontend/src/features/solar/threeBoundary.d.ts": "9791da33cb74455a017c4c4597391d1c1e624506e1c6ed0725d9b90b6acd06a5",
+    "frontend/src/features/targets/queries.ts": "af40756bcbb1b0a992aeece90f83ed2ff6d9b2ea7e5845cc806cc103d9746b10",
+    "frontend/src/features/tonight/TonightPage.tsx": "75945d5523e0b6678a643fca3c12845a0880bb4b94ae97705509ce4bf4d807e1",
+    "frontend/src/features/tonight/model.ts": "bceb058539c8b470e9ef0cae79be70bf43c74a4171c4253c064e9b4a7bd8441b",
+    "frontend/src/features/tonight/nightClock.ts": "f3b6d9519e79db5ec5ba120b2eb5fe4f2a9f09b5591d660a7571aba8a1a9addc",
+    "frontend/src/features/tonight/queries.ts": "5a105993f7ad9f9270bac635824db09da34f29538198eb41cca3a1f9f1eebfe8",
+    "frontend/src/features/tonight/tonight.css": "05a8c157ad5750ff766d60ea5591c4a809bfe46ff935bca6fb55d3f7617bd3c9",
+    "frontend/src/features/workspace/AboutLicenses.tsx": "5bc96e2b905b6d7338a69d210404cc785c303119d8199e9c16efa5b3fad1aba8",
+    "frontend/src/features/workspace/AdaptiveSkyChrome.tsx": "001f9cdc46d13e1061bc0ee7cd4d938f663b9724a62bec90596d8e53ab96ee5a",
+    "frontend/src/features/workspace/BottomSheet.tsx": "472a94b855a9831363e3853a7ec50ff7d678b434880b6361e4407613094f37b4",
+    "frontend/src/features/workspace/ContextSurface.tsx": "da00133672e5b2e99befd6ff048161df1da33569963697c91756cb71e48bb194",
+    "frontend/src/features/workspace/DiagnosticsSurface.tsx": "795452fd3679a73f4d6506e24a9f7f9b485271e3ee66507e46a5fb6aba417aef",
+    "frontend/src/features/workspace/EarthExplore.tsx": "aeaed42e8e3a559649c88e03bbf031f067f01e69b1f005d66fbdc7e498900f3e",
+    "frontend/src/features/workspace/EarthSearch.tsx": "805c9f99dc1d53601ee8610b0ab3fc831e7f91869114e23ac2ef023733dcab1b",
+    "frontend/src/features/workspace/ImageryCacheSection.tsx": "8655c82ce93844aafadee5d09e2cbe1d058de8504fd38f38c2e4dc199365b728",
+    "frontend/src/features/workspace/ImmersiveController.ts": "55db2e15589235de2853ae5e923829ebafc2289fdcdda6f833089471f6d3e4e1",
+    "frontend/src/features/workspace/LayerPanel.tsx": "6a6f97be331912ed368aa6c317338fece56c7ef71f0df3cb0d48a4e3a036d4c0",
+    "frontend/src/features/workspace/ModeSwitcher.tsx": "53c17bdc6455656453a9f03dca0260db6188e6520ba3a0cd28e425fdcf437119",
+    "frontend/src/features/workspace/ObserveSurface.tsx": "2a53a16ee85ca10536da55f9f61742993c92e5c35ae3eb730b9881e2d61e4494",
+    "frontend/src/features/workspace/ProductHeader.tsx": "af2a1d4e52588e2856ad165a0f810a7f36d703a3a273c8a47dd411b795f0c375",
+    "frontend/src/features/workspace/SelectionDrawer.tsx": "2efc7a4dca1580961e84053eba8b96cc6e4e41b3c7e2f8005f0ab6a1360256fb",
+    "frontend/src/features/workspace/SkyFovIndicator.tsx": "c31ae2c21d5d81a75f7d4f7502aea5b7eeb7443d67157509cac26bb3bd0764cf",
+    "frontend/src/features/workspace/SkyWorkspaceLink.tsx": "d6df148a5a8d1858a25804071cbf42aa4747552f96e8f681bee47f9b808fb86c",
+    "frontend/src/features/workspace/TargetRow.tsx": "f4a1d975a958779380ce91ba8c4e3bb66e1d0ee345717e23f4c4da7ec8a00f1c",
+    "frontend/src/features/workspace/TimeSurface.tsx": "a2f254f6040f5cc17eec33560438cbfe404cd759f0d1a5000e899e25d9432f0d",
+    "frontend/src/features/workspace/TonightSurface.tsx": "9f5dbbe9602ca7f1429872a4eb76d10c05c574f8d49a4e9cc5c9ef97f6d0cf4c",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "65523283e869c3e457a50e49a30fde0f34c0b0a1a732fdc0549e3b51268d3e4f",
+    "frontend/src/features/workspace/adaptiveSky.css": "61e9fd05fdeceae32b63495ff99b5d40a8db304a4f08dfd9cd959132585bdc6e",
+    "frontend/src/features/workspace/assets/LICENSES.txt": "ec59a3987e5c2e79a6d1ad6d1ae32ab1194969777b4c15de6239167ab6ecc1d2",
+    "frontend/src/features/workspace/assets/plex-0.ttf": "6dbe082463cf749cfa057d45c3048c90f4df031496498e5b5bdfd0b6babb9d16",
+    "frontend/src/features/workspace/assets/plex-1.ttf": "6f7a8c4219e021ff7c9131bc5f1f7af97bcd1436a59578d444a8cb92e9791742",
+    "frontend/src/features/workspace/assets/plex-2.ttf": "5311c66fd6d04ae45671236f7eae667b671c06c1dc7e88d52c206e5fadd0fb21",
+    "frontend/src/features/workspace/earthLocationNavigation.ts": "069cf7d852dc973140d8992b05affe3a0112ba10257965a7ecd8de597fadab87",
+    "frontend/src/features/workspace/earthSearch.css": "ea0af391b4c8f51996047a0172326cc5ba6b293dd78d1a24a6ec96731aff9ed1",
+    "frontend/src/features/workspace/earthSearch.ts": "38e68d4e164977e5a7b6b269fb7a16f5f596fb54eacbc4eac1d004239e1700fe",
+    "frontend/src/features/workspace/earthWorkspace.css": "16602a54ba3852220e2ab34bd892e53586c44029344e277b64917bad9326e746",
+    "frontend/src/features/workspace/fonts.css": "987090721c4db7f59c75ec17dfde7e2c6c3e18030a3478b3bae68ee88a7c155c",
+    "frontend/src/features/workspace/icons.json": "d17e1259643a4f6fcbd67872c8cb9e760451394ababbc403f0240d9e4e456a15",
+    "frontend/src/features/workspace/observerProvenance.ts": "aa49472cb44998f669cc3c10be3e8539aea68aa98bef019fc68f0603edf7bb8c",
+    "frontend/src/features/workspace/primitives.tsx": "76152d5a291ca1b699e82d36c1e1f93c8bf2c4a56e0365943a24dfd6c0316d29",
+    "frontend/src/features/workspace/skyNightMode.ts": "3d21ac7313a4d4019630be3d406b7ccc15b8a670d14b3219c13ff9e20db27b03",
+    "frontend/src/features/workspace/useEarthLocation.ts": "1d6c07cc4349ce61b30af9fdbdcec3bfe27ee057c608b2e25e62065d601d16b8",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "frontend/src/features/workspace/viewNavigation.ts": "9188dab23501c95cb6437d77b54ecaec058cb1ed8c3251a429248ae853acce63",
+    "frontend/src/features/workspace/workspace.css": "8142b3480add9f95933cc3f71812cba9a09a70c7da2bf9e20ddb006788e6e939",
+    "frontend/src/features/workspace/workspaceNavigation.ts": "076914f2f42d814789fa3938092ab6929e94358c40952e1ea6c455fdbc5a2a6f",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+    "frontend/src/features/workspace/workspaceUiState.ts": "0f59bcf04f9584f7d40fb729ee671cee257fccd309b8fa327dbcbff9db2a9f9a",
+    "frontend/src/lib/api/client.ts": "bc7d4986b98cbe1825c1d881cba8028f109846ab7cb7d537e45b7dbf59756c5b",
+    "frontend/src/lib/api/errors.ts": "01c3b909b1fc3a5ef54ef2250abdc52b71791b8581f4bca8c4eb675115313bdc",
+    "frontend/src/lib/api/types.ts": "c3239318d28d0a502481f47bc34111e488f2279f3cbcfbb3adf6200ac6a1bac8",
+    "frontend/src/lib/designTokens.js": "2ed4c8a82e27aec77402407a94837a225bccdca6537eec70f2b8f9b5b2c3dcfe",
+    "frontend/src/lib/logFetch.js": "eb904a0781adaea59ec035359f989cf8145eca86d10b2b2623e253eadcdb0913",
+    "frontend/src/lib/logger.js": "fd1a7206acb1e57645c3ddfa80b5be595bee3a4bc8d537966348873b6408a40e",
+    "frontend/src/main.jsx": "72dae2a137284daa76c22f8a4083778ea6aa1cd03add928251d5acdec83f3e0b",
+    "frontend/src/pages/Progress.jsx": "c9fbea499441173604b3ba710534dd34415f4e60eb3887376a5ebff11e9bbe76",
+    "frontend/src/routes/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend/src/routes/AppRouter.tsx": "01823107bc92b345f965376c617c4b4507bc32a43ba5bedf073e84d2033991bc",
+    "frontend/src/state/displayModeState.js": "cd77ee3929d244a254222f71c946ac5514508e5ab04f2ed699e8fc1bd387e04f",
+    "frontend/src/state/globalUiState.js": "990f5a80b42921248b14f63259d890e8d353c4653f8c1f813daef95f68fcdc19",
+    "frontend/src/state/locationState.js": "b28f68453aa2e2b4562ed29a1e329ec3fc95bd21086a65c6cf96a7b87f8864ea",
+    "frontend/src/styles.css": "f1060a881d80105964cf6b18837a31bb8330770c589c7410f77bc3379bb86d88",
+    "frontend/src/styles/tokens.css": "42a03fce7f0f2a7e4802daefa0a95686ed5116522ae9bd12d09d37ded997533c",
+    "frontend/src/types/conditions.ts": "b0e886762633306a0f59204ebe5c2fb41eafe35818e91210e088a4efb45edbb2",
+    "frontend/src/types/index.ts": "ee0df5433b12d91d45e2733ee7f858ab2ac0c6b2e3809a5457e660f267214bba",
+    "frontend/src/types/responseEnvelope.ts": "5947ba897fc833dbbf5349684cbd2f1639c5890057c94cbe4c2e83abe47e8b1a",
+    "scripts/validation/verify_solar_refinement.mjs": "7f5f9364f099f965b317f28a44c10d4891a80613452d545ffeb08a088d30f355"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "checks": [
+        "Three original NASA assets loaded locally; timing and bytes recorded",
+        "Sun/Earth/Mars focus and approach preserve exact source vectors/time; contextual card clears selected anchor",
+        "Explicit Efficient fallback removes haze/reduces points, preserving all scientific bodies",
+        "Quality, body and epoch survive source rebuild and actual WebGL loss/retry",
+        "Missing clouds disclose bounded fallback; original Earth/Mars textures and renderer recover",
+        "No idle animation or browser/shader errors"
+      ],
+      "screens": [
+        {
+          "file": "1440-overview.png",
+          "sha256": "a63a61b0a84511a38abc3143cebf010eb5864e02d24088b80a6b9b6a16065990"
+        },
+        {
+          "file": "1440-sun.png",
+          "sha256": "bc4037430a2cdc97fcb1b8b3b59dc985cbba209f227dbf4962c7ca6abf7e5c55"
+        },
+        {
+          "file": "1440-sun-close.png",
+          "sha256": "9504e1e29182efd5a0245c62e8c8b90491339c4b161758df074f9bf7ffd06ed2"
+        },
+        {
+          "file": "1440-earth.png",
+          "sha256": "db5958346d4e1c59a500f6eacd4895592243868a92d5d8830b2e140354eba65b"
+        },
+        {
+          "file": "1440-earth-close.png",
+          "sha256": "6a36fff7ef9d3eb1f0acd855371fbb11674462346dc01bb6c354a5adeaf3331a"
+        },
+        {
+          "file": "1440-mars.png",
+          "sha256": "b629d218f1c335dbb699e8e8cdfddb72b1e6b18128474669988324df5ee93442"
+        },
+        {
+          "file": "1440-mars-close.png",
+          "sha256": "435b61e637467904183bac53b9f38737c8c86a57a0e4a9b9b915649dad451fb1"
+        },
+        {
+          "file": "1440-efficient.png",
+          "sha256": "19725feda2f94a3a9759f7661bb846c17f2b5ae1ce7327d005bcbfbcb62c8e1c"
+        },
+        {
+          "file": "1440-clouds-unavailable.png",
+          "sha256": "72adb1ca000026b268188d25120abc5e76105f79b54241e70b385be9a1172ca3"
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "textureLoads": [
+        {
+          "url": "http://127.0.0.1:4211/assets/mars-nasa-CvpPatzZ.glb",
+          "duration": 753.1999999992549,
+          "transferSize": 4032448,
+          "encodedBytes": 4032148,
+          "decodedBytes": 4032148
+        },
+        {
+          "url": "http://127.0.0.1:4211/assets/earth-blue-marble-DGdC6oh9.png",
+          "duration": 4.900000000372529,
+          "transferSize": 1511679,
+          "encodedBytes": 1511379,
+          "decodedBytes": 1511379
+        },
+        {
+          "url": "http://127.0.0.1:4211/assets/earth-clouds-2002-Daoe7Ck3.jpg",
+          "duration": 4.099999999627471,
+          "transferSize": 829667,
+          "encodedBytes": 829367,
+          "decodedBytes": 829367
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "checks": [
+        "Three original NASA assets loaded locally; timing and bytes recorded",
+        "Sun/Earth/Mars focus and approach preserve exact source vectors/time; contextual card clears selected anchor",
+        "Explicit Efficient fallback removes haze/reduces points, preserving all scientific bodies",
+        "Quality, body and epoch survive source rebuild and actual WebGL loss/retry",
+        "Missing clouds disclose bounded fallback; original Earth/Mars textures and renderer recover",
+        "No idle animation or browser/shader errors"
+      ],
+      "screens": [
+        {
+          "file": "390-overview.png",
+          "sha256": "dd355d38ecfb0d7510a174b5eef690558334a086675bcdda31f4fd055c6b549f"
+        },
+        {
+          "file": "390-sun.png",
+          "sha256": "502e9dd847345a252f6592aa9b1d0450f6553ebbd0d6857882c1fa51066002af"
+        },
+        {
+          "file": "390-sun-close.png",
+          "sha256": "caed32e5f389ec341b5a73a8582114ffc6372e873dfee69f16b4d153475eb5be"
+        },
+        {
+          "file": "390-earth.png",
+          "sha256": "0d4ae1fadcb149d004424e141cd44fe957b39cc89b248ab3bcfd02dcd9eae686"
+        },
+        {
+          "file": "390-earth-close.png",
+          "sha256": "9eeb269ae80f562c1655e7f3b32516ba2fcfaa822bcb396d436fdbef5699d9d0"
+        },
+        {
+          "file": "390-mars.png",
+          "sha256": "510878aecb34123558a1bafbacbb5057b39ccf2badaf11ba8d8685f7936c90a0"
+        },
+        {
+          "file": "390-mars-close.png",
+          "sha256": "5cd1866a20c991fbf6d2360538d9deae75fedcd9a50a8f346c655399d9ad3f1c"
+        },
+        {
+          "file": "390-efficient.png",
+          "sha256": "53246b80f3453cf6a107a9829473002cd8357d990c85489fda9d6327fd0c7e56"
+        },
+        {
+          "file": "390-clouds-unavailable.png",
+          "sha256": "9c17a08de062dac033f322d4141d29778128156a9e45e683f3b099d853cef42f"
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "textureLoads": [
+        {
+          "url": "http://127.0.0.1:4211/assets/mars-nasa-CvpPatzZ.glb",
+          "duration": 504,
+          "transferSize": 4032448,
+          "encodedBytes": 4032148,
+          "decodedBytes": 4032148
+        },
+        {
+          "url": "http://127.0.0.1:4211/assets/earth-blue-marble-DGdC6oh9.png",
+          "duration": 4.299999998882413,
+          "transferSize": 1511679,
+          "encodedBytes": 1511379,
+          "decodedBytes": 1511379
+        },
+        {
+          "url": "http://127.0.0.1:4211/assets/earth-clouds-2002-Daoe7Ck3.jpg",
+          "duration": 3.400000000372529,
+          "transferSize": 829667,
+          "encodedBytes": 829367,
+          "decodedBytes": 829367
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Desktop Chromium and emulated touch; no physical GPU/mobile acceptance.",
+    "GPU timer measurements are explicitly unavailable where the extension is unsupported.",
+    "Procedural optical styling and NASA historical imagery do not model live weather or measured solar activity."
+  ],
+  "performance": [
+    {
+      "width": 1440,
+      "quality": "balanced",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795883442,
+          0.813599992607511,
+          0.3684952914224924
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051471593,
+              968.9213109881225
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8,
+              450.0000000000004
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.869812813,
+              -117131.63957344157
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 11,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.2999999988824129,
+          "p95": 0.2999999988824129
+        },
+        "pixelRatio": 1.5
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 59,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795882376,
+          0.8135999926075033,
+          0.3684952914224885
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051472022,
+              968.9213109881375
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8000000000001,
+              450.0000000000007
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.8698118805,
+              -117131.63957312121
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.40000000037252903,
+          "p95": 0.7000000011175871
+        },
+        "pixelRatio": 1.5
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 151.40000000037253,
+        "p95": 183.7999999988824
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 1440,
+      "quality": "efficient",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 61,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795883442,
+          0.813599992607511,
+          0.3684952914224924
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051471593,
+              968.9213109881225
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8,
+              450.0000000000004
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.869812813,
+              -117131.63957344157
+            ]
+          }
+        ],
+        "drawCalls": 8,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.19999999925494194,
+          "p95": 0.19999999925494194
+        },
+        "pixelRatio": 1
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 109,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795882376,
+          0.8135999926075033,
+          0.3684952914224885
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051472022,
+              968.9213109881375
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8000000000001,
+              450.0000000000007
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.8698118805,
+              -117131.63957312121
+            ]
+          }
+        ],
+        "drawCalls": 8,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.30000000074505806,
+          "p95": 0.7999999988824129
+        },
+        "pixelRatio": 1
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 69.40000000037253,
+        "p95": 110.80000000074506
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 1440,
+      "quality": "detailed",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 111,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795883442,
+          0.813599992607511,
+          0.3684952914224924
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051471593,
+              968.9213109881225
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8,
+              450.0000000000004
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.869812813,
+              -117131.63957344157
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "detailed",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.2000000011175871,
+          "p95": 0.2000000011175871
+        },
+        "pixelRatio": 2
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 159,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795882376,
+          0.8135999926075033,
+          0.3684952914224885
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051472022,
+              968.9213109881375
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8000000000001,
+              450.0000000000007
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.8698118805,
+              -117131.63957312121
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "detailed",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.30000000074505806,
+          "p95": 0.5
+        },
+        "pixelRatio": 2
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 253.59999999962747,
+        "p95": 285.80000000074506
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 1440,
+      "quality": "balanced",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 161,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795883442,
+          0.813599992607511,
+          0.3684952914224924
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051471593,
+              968.9213109881225
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8,
+              450.0000000000004
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.869812813,
+              -117131.63957344157
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.2000000011175871,
+          "p95": 0.2000000011175871
+        },
+        "pixelRatio": 1.5
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 209,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795882376,
+          0.8135999926075033,
+          0.3684952914224885
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -999.5847051472022,
+              968.9213109881375
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.8000000000001,
+              450.0000000000007
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.8698118805,
+              -117131.63957312121
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.30000000074505806,
+          "p95": 0.5
+        },
+        "pixelRatio": 1.5
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 155.40000000037253,
+        "p95": 189.59999999962747
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 390,
+      "quality": "balanced",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740179,
+          1.2645454027652159,
+          0.5785666923198026
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.99854747148177,
+              -182.88250202692967
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              194.9999999999999,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.0751689942191,
+              -1844.785957305066
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 11,
+        "textures": 2,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.2999999988824129,
+          "p95": 0.2999999988824129
+        },
+        "pixelRatio": 1.5
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 59,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740161,
+          1.2645454027652032,
+          0.5785666923197932
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.9985474714812,
+              -182.8825020269371
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              195.00000000000014,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.07516899421438,
+              -1844.7859573051212
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.5,
+          "p95": 0.7000000011175871
+        },
+        "pixelRatio": 1.5
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 58.59999999962747,
+        "p95": 78.40000000037253
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 390,
+      "quality": "efficient",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 61,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740179,
+          1.2645454027652159,
+          0.5785666923198026
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.99854747148177,
+              -182.88250202692967
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              194.9999999999999,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.0751689942191,
+              -1844.785957305066
+            ]
+          }
+        ],
+        "drawCalls": 8,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.2000000011175871,
+          "p95": 0.2000000011175871
+        },
+        "pixelRatio": 1
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 109,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740161,
+          1.2645454027652032,
+          0.5785666923197932
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.9985474714812,
+              -182.8825020269371
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              195.00000000000014,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.07516899421438,
+              -1844.7859573051212
+            ]
+          }
+        ],
+        "drawCalls": 8,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.30000000074505806,
+          "p95": 0.599999999627471
+        },
+        "pixelRatio": 1
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 27.199999999254942,
+        "p95": 32.09999999962747
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 390,
+      "quality": "detailed",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 111,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740179,
+          1.2645454027652159,
+          0.5785666923198026
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.99854747148177,
+              -182.88250202692967
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              194.9999999999999,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.0751689942191,
+              -1844.785957305066
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "detailed",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.2000000011175871,
+          "p95": 0.2000000011175871
+        },
+        "pixelRatio": 2
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 159,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740161,
+          1.2645454027652032,
+          0.5785666923197932
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.9985474714812,
+              -182.8825020269371
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              195.00000000000014,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.07516899421438,
+              -1844.7859573051212
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "detailed",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.30000000074505806,
+          "p95": 0.40000000037252903
+        },
+        "pixelRatio": 2
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 84.69999999925494,
+        "p95": 107.29999999888241
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "width": 390,
+      "quality": "balanced",
+      "first": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 161,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740179,
+          1.2645454027652159,
+          0.5785666923198026
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.99854747148177,
+              -182.88250202692967
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              194.9999999999999,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.0751689942191,
+              -1844.785957305066
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 1,
+          "median": 0.2000000011175871,
+          "p95": 0.2000000011175871
+        },
+        "pixelRatio": 1.5
+      },
+      "final": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 209,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740161,
+          1.2645454027652032,
+          0.5785666923197932
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              201.9985474714812,
+              -182.8825020269371
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              195.00000000000014,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.07516899421438,
+              -1844.7859573051212
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 12,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 49,
+          "median": 0.30000000074505806,
+          "p95": 0.599999999627471
+        },
+        "pixelRatio": 1.5
+      },
+      "frameIntervalsMs": {
+        "samples": 48,
+        "median": 61.90000000037253,
+        "p95": 81.80000000074506
+      },
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ]
+}

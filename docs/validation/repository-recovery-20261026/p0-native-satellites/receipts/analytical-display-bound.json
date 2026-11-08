@@ -1,0 +1,31 @@
+{
+  "method": "Direct transcription of pinned core.c, telescope.c and tonemapper.c; upper bound at native minimum adaptation, not a measured per-frame threshold.",
+  "inputs": {
+    "fov_degrees": 120,
+    "native_minimum_adaptation": 0.052,
+    "light_grasp": 0.4,
+    "exposure": 2.5,
+    "bortle": 3,
+    "linear_scale": 1,
+    "relative_scale": 1.1,
+    "skip_radius": 0.25
+  },
+  "results": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "darkest_native_adaptation_upper_point_magnitude": 7.262133551553266,
+      "unconstrained_radius_at_magnitude_9_2": 0.09370765539509181
+    },
+    {
+      "viewport": [
+        390,
+        900
+      ],
+      "darkest_native_adaptation_upper_point_magnitude": 5.754904288414782,
+      "unconstrained_radius_at_magnitude_9_2": 0.04373023918437617
+    }
+  ]
+}

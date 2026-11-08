@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: bounded opt-in zoomStep contract rejects invalid directions and extra payload
+ok 1 - bounded opt-in zoomStep contract rejects invalid directions and extra payload
+  ---
+  duration_ms: 1.049545
+  type: 'test'
+  ...
+# Subtest: map zoom delegates to accepted smooth wheel controller without a scroll-to-Sky gesture; embedded labels use existing overlay
+ok 2 - map zoom delegates to accepted smooth wheel controller without a scroll-to-Sky gesture; embedded labels use existing overlay
+  ---
+  duration_ms: 3.051553
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12.129639

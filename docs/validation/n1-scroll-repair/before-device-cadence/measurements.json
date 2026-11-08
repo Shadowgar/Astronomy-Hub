@@ -1,0 +1,102 @@
+{
+  "head": "8fe05ca1a8505dc20449635fa47b615e4bd23a0c",
+  "started": "2026-10-14T09:57:03.372Z",
+  "base": "http://127.0.0.1:4202",
+  "measurements": [
+    {
+      "name": "continuous mouse",
+      "delta": 120,
+      "intervalMs": 100,
+      "sent": 24,
+      "elapsedMs": 2734,
+      "transitioned": false,
+      "state": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-14T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 3.22885911619,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "name": "slow discrete mouse",
+      "delta": 120,
+      "intervalMs": 600,
+      "sent": 14,
+      "elapsedMs": 8118,
+      "transitioned": false,
+      "state": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-14T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 3.22885911619,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    },
+    {
+      "name": "trackpad sized",
+      "delta": 12,
+      "intervalMs": 20,
+      "sent": 280,
+      "elapsedMs": 5898,
+      "transitioned": false,
+      "state": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-10-14T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 3.22885911619,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    }
+  ],
+  "pageErrors": [],
+  "limitations": [
+    "Headless Chromium software rendering; the owner’s ChatGPT browser and physical wheel/trackpad hardware cannot be automated here. Device input is sent through Chromium, never synthetic DOM events."
+  ],
+  "served": {
+    "/assets/index-C5OMHOaJ.js": "47634ba76da42d854515069ce940d622c30626ba762cba7a0fafd83c8a99cd79",
+    "/oras-sky-engine/oras-runtime-build.json": "929f0f8ccc694602742b90a2267f70c04e17f684a37aed4c4a39313bdb1f6673",
+    "/earth-runtime/release.json": "ad6f2742c842be0090dbcd683cd853c36b9f0934c801d010c1e9a7e6628b5fd0"
+  },
+  "standalone": {
+    "landscape": "zero",
+    "visible": true
+  },
+  "finished": "2026-10-14T09:57:32.011Z"
+}

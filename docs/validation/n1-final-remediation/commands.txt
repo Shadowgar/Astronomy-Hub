@@ -1,0 +1,113 @@
+Working directory for all repository commands:
+/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+
+State/context:
+git status --short
+git worktree list
+git rev-parse HEAD
+gh pr view 75 --repo Shadowgar/Astronomy-Hub --json number,state,headRefName,headRefOid,baseRefName,reviews,statusCheckRollup
+Read only manifest-required documents and explicitly requested prior evidence; exact ledger/hashes: loaded-documents.txt/json.
+
+Deterministic qualification:
+N1_BRIDGE_SOURCE=output/n1/remediation/bridge-before.mjs N1_CAMERA_SOURCE=output/n1/remediation/camera-before.mjs node --test tests/earth/navigation-snapshot.test.mjs
+node --test tests/earth/navigation-snapshot.test.mjs tests/earth/smooth-camera.test.mjs
+N1_PLUGIN_SOURCE=output/n1/remediation/plugin-before.js node --test tests/runtime/sky-landscape-context.test.mjs
+node tests/runtime/sky-landscape-context.test.mjs
+npm --prefix frontend test -- tests/observerProvenance.test.ts
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend test
+npm --prefix frontend run typecheck
+python3 tests/runtime/test_sky_source.py
+
+Native offline build (fresh output directories; existing pinned images/dependencies):
+ORAS_SKY_BUILD_DIR="$PWD/output/n1/remediation/native-default" bash scripts/runtime/build_sky_horizon.sh
+ORAS_SKY_SOURCE_REPO=/tmp/n1-remediation-source-53ac7478 ORAS_SKY_BUILD_DIR="$PWD/output/n1/remediation/native-alternate" bash scripts/runtime/build_sky_horizon.sh
+Alternate is a genuine independent Git checkout at 023e3b26babf7ffddf45f39293230b14cfe96993 with existing dependency directory mounted read-only, not a command-routing shim.
+
+Final UI-only refresh and fresh attestation, performed for both native build trees:
+bash /tmp/n1-final-ui-build.sh
+Exact replay script retained as build-sky-ui.sh.txt. Existing native WASM/vendor guards remained active for promotion.
+
+Independent Earth reproduction:
+bash /tmp/n1-earth-reproduction.sh
+Exact replay script retained as build-earth-reproduction.sh.txt. Uses existing pinned Node image, no network, no npm install, same Cesium static files from matching rollback. Every final release row must match.
+
+Hub build:
+npm --prefix frontend run build
+npm --prefix frontend run build -- --outDir ../output/n1/remediation/hub-final-reproduction --emptyOutDir
+
+Source/artifact verification:
+python3 scripts/runtime/attest_sky_horizon.py output/n1/remediation/native-default/upstream --source-repo /var/tmp/oras-phase-c/sky-reconstruction/upstream
+python3 scripts/runtime/attest_sky_horizon.py output/n1/remediation/native-alternate/upstream --source-repo /tmp/n1-remediation-source-53ac7478
+python3 scripts/runtime/earth_artifact.py verify --source output/n1/earth
+N1_SERVED_EVIDENCE=output/n1/remediation/served-working-tree.json python3 scripts/validation/verify_n1_motion_served.py
+python3 /tmp/n1-preserve.py
+python3 /tmp/n1-evidence-identity.py
+Preservation replay retained as preservation.py.txt. Negative native/UI input checks mutate only disposable alternate build inputs, assert failure/prior record unchanged, restore exact inputs and re-attest. Results: negative-source-qualified.json.
+
+Actual Chromium/Docker browser qualification (each invocation tees its own run log):
+N1_WIDTHS=1440 N1_EVIDENCE_DIR=output/n1/remediation/elevation-desktop node scripts/validation/verify_n1_elevation.mjs
+N1_WIDTHS=390 N1_EVIDENCE_DIR=output/n1/remediation/elevation-mobile node scripts/validation/verify_n1_elevation.mjs
+N1_WIDTHS=1440,390 N1_EVIDENCE_DIR=output/n1/remediation/snapshots-final node scripts/validation/verify_n1_snapshots.mjs
+N1_WIDTHS=390,1440 N1_EVIDENCE_DIR=output/n1/remediation/satellites-final node scripts/validation/verify_n1_satellites.mjs
+N1_WIDTHS=1440 N1_EVIDENCE_DIR=output/n1/remediation/journeys-desktop node scripts/validation/verify_n1_navigation.mjs
+N1_WIDTHS=390 N1_EVIDENCE_DIR=output/n1/remediation/journeys-mobile node scripts/validation/verify_n1_navigation.mjs
+N1_EVIDENCE_DIR=output/n1/remediation/landscape node scripts/validation/verify_n1_pennsylvania.mjs
+
+Docker preview restoration (local only):
+docker start oras-r1b-backend
+docker start oras-n1-owner-preview
+Existing ignored nginx.conf copied to output/n1/remediation/nginx-before.conf; exact local TLE route adds Content-Encoding:gzip for the outer gzip layer; no data mutation.
+docker exec oras-n1-owner-preview nginx -t
+docker exec oras-n1-owner-preview nginx -s reload
+
+Delivery checks, only after qualification:
+git status --short
+git diff --check
+git log --oneline -5
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+N1_SERVED_EVIDENCE=output/n1/remediation/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
+Commit/push and original-thread response/resolution outcomes are recorded with the delivery SHA in the final handoff/review evidence. No merge/deployment command.
+
+Verified implementation delivery:
+git commit -m "fix(n1): qualify snapshots, elevation, source builds and native satellites"
+git push origin n1-sky-earth-navigation-1
+python3 /tmp/n1-evidence-identity.py
+N1_SERVED_EVIDENCE=output/n1/remediation/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
+python3 /tmp/n1-publish-reviews.py
+The publication helper requires exact remote/local head, committed-input and served-identity PASS, then posts structured JSON replies to the three original comment IDs and resolves only their matching threads. Actual URLs and SHA are retained in review-thread-resolutions.json.
+
+Same-route final-head P2 follow-up:
+npm --prefix frontend test -- tests/workspaceRuntimeAdapter.test.ts
+N1_WIDTHS=1440 N1_MODES=sky N1_EVIDENCE_DIR=output/n1/remediation/same-route-red node scripts/validation/verify_n1_observer_history.mjs
+N1_EVIDENCE_DIR=output/n1/remediation/observer-history node scripts/validation/verify_n1_observer_history.mjs
+RED uses the previously served ea802138 Hub; GREEN uses rebuilt source. Full frontend252/runtime150/Python3/typecheck, independent Hub build125 and complete navigation/elevation matrices rerun for this frontend-only correction. Unchanged native proofs retain their original scope.
+
+Qualified same-route delivery:
+python3 /tmp/n1-finalize-qualified.py
+python3 /tmp/n1-preserve.py
+git diff --check
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git commit -m "fix(n1): preserve provenance during same-route observer updates"
+git push origin n1-sky-earth-navigation-1
+python3 /tmp/n1-evidence-identity.py
+N1_SERVED_EVIDENCE=output/n1/remediation/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
+python3 /tmp/n1-publish-same-route.py
+python3 /tmp/n1-audit-current.py
+python3 /tmp/n1-record-final.py
+Post-push helper guards require exact local/remote head and PASS served/committed-input identity. Final JSON/Markdown delivery receipt is generated only after same-route resolution and current-head Codex completion with no findings. The failed disposal attempt is retained; final navigation repeats use the unchanged driver in isolation.
+
+Promotion-identity delivery-head P2 follow-up:
+python3 tests/runtime/test_sky_promotion.py
+node --test tests/runtime/sky-artifact.test.mjs
+python3 scripts/runtime/record_sky_workspace.py output/n1/remediation/metadata-promotion-dist
+python3 scripts/runtime/record_sky_workspace.py output/n1/remediation/native-alternate/upstream/apps/web-frontend/dist
+npm --prefix frontend run build
+npm --prefix frontend run build -- --outDir ../output/n1/remediation/hub-metadata-reproduction --emptyOutDir
+python3 scripts/validation/verify_n1_metadata_equivalence.py
+N1_EVIDENCE_DIR=output/n1/remediation/metadata-browser node scripts/validation/verify_n1_observer_history.mjs
+Complete Node150/frontend252/source-selection3/promotion3/typecheck repeated; metadata-equivalence checks unchanged native/rendering/Hub payloads,125 files and original8 proof records. New ninth proof qualifies corrected metadata admission/history. No native rebuild or regenerated landscape/catalog.
+python3 /tmp/n1-publish-metadata.py
+Exact post-push identity guards and original-comment reply/resolution are retained in publish-metadata.py.txt; original proofs are never rewritten.

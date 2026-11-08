@@ -1,0 +1,256 @@
+{
+  "started": "2026-10-24T08:15:55.881Z",
+  "base": "http://127.0.0.1:4226",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "steps": [
+    {
+      "name": "green-track-A-25544",
+      "at": "2026-10-24T08:16:01.827Z",
+      "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=25544&model=tle_satellite",
+      "hubTime": "LIVE\nTRACKING\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time",
+      "hubBody": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nInternational Space Station\n\nsatellite · 25544\n\nFocus\nStop tracking\nDetails\nLIVE\nTRACKING\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time\nInternational Space Station, satellite, selected",
+      "native": {
+        "utc": "2026-10-24T08:16:01.947Z",
+        "speed": 1,
+        "selected": "25544",
+        "locked": "25544",
+        "selectionPointer": 46273992,
+        "lockPointer": 46273992,
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):25544:tle_satellite",
+            "name": "International Space Station",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "25544",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "25544"
+              },
+              {
+                "label": "NORAD",
+                "value": "25544"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/International%20Space%20Station?catalog=Satellite+TLE+%28local%29&source_id=25544&model=tle_satellite&date=2026-10-24T08%3A16%3A01.947Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        }
+      }
+    },
+    {
+      "name": "green-select-B-clears-A",
+      "at": "2026-10-24T08:16:05.214Z",
+      "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite",
+      "hubTime": "LIVE\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time",
+      "hubBody": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nHubble Space Telescope\n\nsatellite · 20580\n\nFocus\nTrack\nDetails\nLIVE\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time\nHubble Space Telescope, satellite, selected",
+      "native": {
+        "utc": "2026-10-24T08:16:05.363Z",
+        "speed": 1,
+        "selected": "20580",
+        "locked": "",
+        "selectionPointer": 41990704,
+        "lockPointer": null,
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):20580:tle_satellite",
+            "name": "Hubble Space Telescope",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "20580",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "20580"
+              },
+              {
+                "label": "NORAD",
+                "value": "20580"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Hubble%20Space%20Telescope?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite&date=2026-10-24T08%3A16%3A05.363Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": false
+        }
+      }
+    },
+    {
+      "name": "green-track-B-20580",
+      "at": "2026-10-24T08:16:09.939Z",
+      "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite",
+      "hubTime": "LIVE\nTRACKING\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time",
+      "hubBody": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nHubble Space Telescope\n\nsatellite · 20580\n\nFocus\nStop tracking\nDetails\nLIVE\nTRACKING\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time\nHubble Space Telescope, satellite, selected",
+      "native": {
+        "utc": "2026-10-24T08:16:10.814Z",
+        "speed": 1,
+        "selected": "20580",
+        "locked": "20580",
+        "selectionPointer": 41990704,
+        "lockPointer": 41990704,
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):20580:tle_satellite",
+            "name": "Hubble Space Telescope",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "20580",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "20580"
+              },
+              {
+                "label": "NORAD",
+                "value": "20580"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Hubble%20Space%20Telescope?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite&date=2026-10-24T08%3A16%3A10.814Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        }
+      }
+    },
+    {
+      "name": "green-same-B-preserves-lock",
+      "at": "2026-10-24T08:16:15.266Z",
+      "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite",
+      "hubTime": "LIVE\nTRACKING\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time",
+      "hubBody": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nHubble Space Telescope\n\nsatellite · 20580\n\nFocus\nStop tracking\nDetails\nLIVE\nTRACKING\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time\nHubble Space Telescope, satellite, selected",
+      "native": {
+        "utc": "2026-10-24T08:16:15.408Z",
+        "speed": 1,
+        "selected": "20580",
+        "locked": "20580",
+        "selectionPointer": 41990704,
+        "lockPointer": 41990704,
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):20580:tle_satellite",
+            "name": "Hubble Space Telescope",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "20580",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "20580"
+              },
+              {
+                "label": "NORAD",
+                "value": "20580"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Hubble%20Space%20Telescope?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite&date=2026-10-24T08%3A16%3A15.408Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": true
+        }
+      }
+    },
+    {
+      "name": "green-stop-B",
+      "at": "2026-10-24T08:16:19.007Z",
+      "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite",
+      "hubTime": "LIVE\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time",
+      "hubBody": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nHubble Space Telescope\n\nsatellite · 20580\n\nFocus\nTrack\nDetails\nLIVE\nSTALE DATA\nOct 24, 4:16 AM EDT\nChange time\nHubble Space Telescope, satellite, selected",
+      "native": {
+        "utc": "2026-10-24T08:16:19.252Z",
+        "speed": 1,
+        "selected": "20580",
+        "locked": "",
+        "selectionPointer": 41990704,
+        "lockPointer": null,
+        "snapshot": {
+          "selection": {
+            "id": "Satellite TLE (local):20580:tle_satellite",
+            "name": "Hubble Space Telescope",
+            "detail": "Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.",
+            "kind": "satellite",
+            "catalog": "Satellite TLE (local)",
+            "source_id": "20580",
+            "model": "tle_satellite",
+            "facts": [
+              {
+                "label": "Catalog",
+                "value": "Satellite TLE (local)"
+              },
+              {
+                "label": "Source ID",
+                "value": "20580"
+              },
+              {
+                "label": "NORAD",
+                "value": "20580"
+              }
+            ],
+            "available": true,
+            "focusable": true,
+            "trackable": true,
+            "link": "/oras-sky-engine/skysource/Hubble%20Space%20Telescope?catalog=Satellite+TLE+%28local%29&source_id=20580&model=tle_satellite&date=2026-10-24T08%3A16%3A19.252Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816"
+          },
+          "layers": [],
+          "tracking": false
+        }
+      }
+    }
+  ],
+  "pageErrors": [],
+  "limitations": [
+    "Canonical selection uses the existing public adapter.select API to isolate selection ownership; Track is an actual Hub button click. No focus call or time mutation is applied to B."
+  ],
+  "selectA": {
+    "ok": true
+  },
+  "selectB": {
+    "ok": true
+  },
+  "selectSameB": {
+    "ok": true
+  },
+  "clockContinued": true,
+  "status": "GREEN_PASS",
+  "finished": "2026-10-24T08:16:20.558Z"
+}

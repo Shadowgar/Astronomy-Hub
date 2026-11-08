@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: persisted pagehide preserves Viewer and bridge; repeated pageshow does not duplicate startup
+ok 1 - persisted pagehide preserves Viewer and bridge; repeated pageshow does not duplicate startup
+  ---
+  duration_ms: 10.803812
+  type: 'test'
+  ...
+# Subtest: persisted restoration of a disposed runtime coalesces repeated startup into one new Viewer/bridge
+ok 2 - persisted restoration of a disposed runtime coalesces repeated startup into one new Viewer/bridge
+  ---
+  duration_ms: 9.407351
+  type: 'test'
+  ...
+# Subtest: genuine departure during startup creates no late Viewer/bridge and an absent runtime can restore
+ok 3 - genuine departure during startup creates no late Viewer/bridge and an absent runtime can restore
+  ---
+  duration_ms: 3.317657
+  type: 'test'
+  ...
+# Subtest: bfcache departure cancels motion while preserving the Viewer for restoration
+ok 4 - bfcache departure cancels motion while preserving the Viewer for restoration
+  ---
+  duration_ms: 3.748642
+  type: 'test'
+  ...
+# Subtest: cached departure cancels native flight and wheel motion but retains the same tracking entity
+ok 5 - cached departure cancels native flight and wheel motion but retains the same tracking entity
+  ---
+  duration_ms: 3.563809
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 40.041813

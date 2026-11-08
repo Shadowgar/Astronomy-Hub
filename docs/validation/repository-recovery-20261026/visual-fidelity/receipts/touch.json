@@ -1,0 +1,26 @@
+{
+  "runs": [
+    {
+      "width": 390,
+      "height": 844,
+      "limit": "Individual touch controls and CDP orbit qualified separately. Immediate mixed CDP-drag-to-tap sequence remains inconclusive; physical device unverified.",
+      "status": "PASS",
+      "checks": [
+        "Touch View presets",
+        "Actual single-finger orbit",
+        "Touch destination selection"
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "limit": "Individual touch controls and CDP orbit qualified separately. Immediate mixed CDP-drag-to-tap sequence remains inconclusive; physical device unverified.",
+      "status": "PASS",
+      "checks": [
+        "Touch View presets",
+        "Actual single-finger orbit",
+        "Touch destination selection"
+      ]
+    }
+  ]
+}

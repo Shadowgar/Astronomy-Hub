@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "status": "PREPARED_NOT_PUBLISHED",
+  "source_revision": "f7cb702c428980ce2b32539dbc74fc2b35082c12",
+  "archive": {
+    "filename": "astronomy-hub-source-f7cb702c428980ce2b32539dbc74fc2b35082c12.tar.gz",
+    "bytes": 23639435,
+    "sha256": "7cf5cf444b35c02f05aeebd555e4a0142fc52c666161d14bea4981de9ebf3fde"
+  },
+  "files": 1563
+}

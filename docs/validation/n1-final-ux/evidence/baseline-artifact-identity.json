@@ -1,0 +1,24 @@
+{
+  "classification": "DIAGNOSTIC counterfactual",
+  "baselineHead": "f3629f9a8e4b4ac7a158a1448912d75ca36574db",
+  "originalDeliveryReceipt": "output/n1/satellite-zoom-reveal/final-delivery.json",
+  "originalReceiptSha256": "d8488b42a079adcebb2a675e792a5ad3c813e16d62af137747f6a052a7e50c42",
+  "baselineServedFilesMatchedOriginalReceipt": [
+    {
+      "url": "/assets/index-C5XU8tgl.js",
+      "sha256": "afdd44d4c4fd3f6a34782eb1d9c79b7eeeb9742fc8fe9add8eaf3341be94f4bc"
+    },
+    {
+      "url": "/oras-sky-engine/js/app.db9f2a50.js",
+      "sha256": "cef2f20d948dad6f1c9151fb6e54ee5ab37792c75f02e2d4caccbfebc21b4da9"
+    },
+    {
+      "url": "/oras-sky-engine/js/chunk-2d2253ec.81e41965.js",
+      "sha256": "d3f803f08754c11aaeb96cbc5f1ed46b05fdbc6164ba9a91eabc6a64cbe4716c"
+    },
+    {
+      "url": "/oras-sky-engine/js/chunk-vendors.c8723c79.js",
+      "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260"
+    }
+  ]
+}

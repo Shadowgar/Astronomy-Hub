@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: one wheel event moves only on frames and supplies many monotonic intermediate positions
+ok 1 - one wheel event moves only on frames and supplies many monotonic intermediate positions
+  ---
+  duration_ms: 5.602732
+  type: 'test'
+  ...
+# Subtest: equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+ok 2 - equal elapsed time produces the same position with 30, 60, 144 Hz and uneven frame intervals
+  ---
+  duration_ms: 4.001836
+  type: 'test'
+  ...
+# Subtest: scroll accumulates and decelerates to actual rest without idle rendering
+ok 3 - scroll accumulates and decelerates to actual rest without idle rendering
+  ---
+  duration_ms: 3.326186
+  type: 'test'
+  ...
+# Subtest: opposite input reverses the next frame, discarding unconsumed inward motion
+ok 4 - opposite input reverses the next frame, discarding unconsumed inward motion
+  ---
+  duration_ms: 0.934615
+  type: 'test'
+  ...
+# Subtest: small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+ok 5 - small trackpad input is proportional; rapid/coalesced input has bounded pending travel
+  ---
+  duration_ms: 10.451381
+  type: 'test'
+  ...
+# Subtest: pointer, keyboard and all camera navigation actions cancel residual zoom
+ok 6 - pointer, keyboard and all camera navigation actions cancel residual zoom
+  ---
+  duration_ms: 6.692593
+  type: 'test'
+  ...
+# Subtest: bounds preserve the center target and orientation even on oblique approach
+ok 7 - bounds preserve the center target and orientation even on oblique approach
+  ---
+  duration_ms: 41.458887
+  type: 'test'
+  ...
+# Subtest: missing intersection and teardown leave no callbacks or corrupted position
+ok 8 - missing intersection and teardown leave no callbacks or corrupted position
+  ---
+  duration_ms: 1.496381
+  type: 'test'
+  ...
+# Subtest: animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+ok 9 - animation arrival and residual motion cannot earn Sky intent; fresh continuation can
+  ---
+  duration_ms: 1.937417
+  type: 'test'
+  ...
+# Subtest: bridge wheel interaction does not cancel the animation it just started
+ok 10 - bridge wheel interaction does not cancel the animation it just started
+  ---
+  duration_ms: 2.258841
+  type: 'test'
+  ...
+# Subtest: altitude gain is continuous across orbital, regional and near-surface scales
+ok 11 - altitude gain is continuous across orbital, regional and near-surface scales
+  ---
+  duration_ms: 29.288857
+  type: 'test'
+  ...
+# Subtest: equivalent pixel, line and page deltas give equivalent movement
+ok 12 - equivalent pixel, line and page deltas give equivalent movement
+  ---
+  duration_ms: 2.784116
+  type: 'test'
+  ...
+# Subtest: native inputs have exclusive ownership after pointer cancellation, with settings restored
+ok 13 - native inputs have exclusive ownership after pointer cancellation, with settings restored
+  ---
+  duration_ms: 1.726409
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 129.225083

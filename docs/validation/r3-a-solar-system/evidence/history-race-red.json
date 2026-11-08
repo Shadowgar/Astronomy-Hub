@@ -1,0 +1,66 @@
+{
+  "status": "FAIL",
+  "scene": {
+    "epoch": "2026-02-28T00:00:00Z",
+    "frame": "ICRF",
+    "origin": "Sun center (10)",
+    "units": "AU",
+    "selected": "mars",
+    "renderCount": 77,
+    "disposed": false,
+    "animating": false,
+    "camera": [
+      1.2527080101912633,
+      -1.3286912557963633,
+      -0.07932068357522332
+    ],
+    "target": [
+      1.0527080101912634,
+      -0.8086912557963634,
+      -0.39932068357522316
+    ],
+    "bodies": [
+      {
+        "id": "sun",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "screen": [
+          4.679540497845791,
+          -238.82625346557725
+        ]
+      },
+      {
+        "id": "earth",
+        "position": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "screen": [
+          -247.7250681889199,
+          -303.58650535201355
+        ]
+      },
+      {
+        "id": "mars",
+        "position": [
+          1.0527080101912634,
+          -0.8086912557963634,
+          -0.39932068357522316
+        ],
+        "screen": [
+          460,
+          359.99999999999983
+        ]
+      }
+    ],
+    "drawCalls": 3,
+    "geometries": 5
+  },
+  "url": "http://127.0.0.1:4210/solar-system?date=2026-02-28T00%3A00%3A00.000Z&solarBody=earth",
+  "heading": "Earth",
+  "error": "AssertionError [ERR_ASSERTION]: Resolved scene focus must follow latest history selection\n\n'mars' !== 'earth'\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/scripts/validation/verify_r3_history_race.mjs:4:1139"
+}

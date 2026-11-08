@@ -1,0 +1,13 @@
+{
+  "status": "FAIL",
+  "base": "http://127.0.0.1:4211",
+  "runs": [
+    {
+      "width": 1440,
+      "checks": [],
+      "errors": [],
+      "screens": []
+    }
+  ],
+  "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-solar-status=ready]') to be visible\u001b[22m\n\n    at /home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_solar_cinematic.mjs:19:109"
+}

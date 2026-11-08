@@ -1,0 +1,213 @@
+{
+  "status": "NOT_AUTHORIZED_NOT_EXECUTED",
+  "conditions": [
+    "Owner consolidated approval",
+    "Fresh remote SHA equality and reachability",
+    "Recheck registered and owner external consumers immediately before deletion"
+  ],
+  "branches": [
+    {
+      "branch": "chore/finalize-license-metadata-20261024",
+      "expected_remote_sha": "0e88c2d9d74d038b6a7d5661dbaa560cb2d920d3",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "docs-align-oras-sky-engine-runtime-2026-06",
+      "expected_remote_sha": "2a02a9384e570e67ca1b21fc150c4ac4a8af82f6",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "docs-reconcile-current-runtime-state-2026-06",
+      "expected_remote_sha": "2999e433fa5a15b358755e82e8987886dc2da36e",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "docs/agpl-stellarium-corresponding-source-audit-20261024",
+      "expected_remote_sha": "5f9ebe3b63a001f9c6fe043033aa86267ee2401b",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "docs/readme-licensing-readiness-20261024",
+      "expected_remote_sha": "ea9fe161af58f0f319ce18c9765609d7a087c05a",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "docs/readme-product-gallery-20261024",
+      "expected_remote_sha": "e2d139a1a81bb10a7f244ae3b6ab8d80ea4a6e7c",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "earth-hd-mapping-1",
+      "expected_remote_sha": "a9f3e207235d42399d37d8c51b18103f6edcbb87",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "fix-spa-fallback-test-fixture",
+      "expected_remote_sha": "3ba6f0d66300f23f9019ede1600f55d442d443c0",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "hub-public-shell-homepage-1",
+      "expected_remote_sha": "45886c771561a85d015e45f674a86c5097442b23",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "phase-c-cesium-earth-runtime-1",
+      "expected_remote_sha": "eaad970a4385c61cfad6c0126682e2ccb4400785",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "phase-c5-earth-live-layers-1",
+      "expected_remote_sha": "e0e69e4747e9123b75072f9636e566865948d584",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "phase-c7-unified-workspace-implementation-1",
+      "expected_remote_sha": "a45fa637dce0b420f63d49abe30f4d76633bd410",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "repo-hygiene-gitignore-package-critical-2026-06",
+      "expected_remote_sha": "09ea1a1ffa0da57be0ecf2b4c67ad655880b3388",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "review-remediation-pr1-26",
+      "expected_remote_sha": "e21643f8cfea7626d52dd2b021cd140500caf32b",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-canonical-star-rendering-fix-1",
+      "expected_remote_sha": "ce17a002482813886e428bd90def90d30265fbdd",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-catalog-pack-deployment-1",
+      "expected_remote_sha": "604c586213d419b2821a04517d0e3c581c4f432f",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-data-parity-pass-1",
+      "expected_remote_sha": "5ec38eed1bd7b9448e0390d2c62980c1f7c28947",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-data-parity-pass-2",
+      "expected_remote_sha": "7c68a2b7faee3c30126e61ad5b05077089a6b8fb",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-data-parity-pass-3b-solar-browser-validation",
+      "expected_remote_sha": "705024b95f865e7da98d4d603fb900bca893c251",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-data-parity-pass-4-satellites",
+      "expected_remote_sha": "240a0cf15f3f1f5231dd6d8eb8ede5649178d358",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-data-superiority-pass-1",
+      "expected_remote_sha": "53b87be470f6d2696175476d5c87f5df5233623a",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-deep-link-validation-determinism-1",
+      "expected_remote_sha": "f7ad1b03b3e1d518905664b761bf539138ef92dd",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-dense-gaia-native-tiling-1",
+      "expected_remote_sha": "f82bb055588692354448046e8febc82749e507f9",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-dense-star-visual-realism-fix-1",
+      "expected_remote_sha": "3bec83f051461be9acfea0bd7c3bfdae3ef18f88",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-dense-stars-visual-qa-tuning-1",
+      "expected_remote_sha": "2f8a1f5a63eecf55443da59884df51579cc2503c",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-visual-parity-pass-1b-dso-centering",
+      "expected_remote_sha": "1c80a1556565ba162cdd448932d394312aa3a2fc",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "sky-engine-visual-parity-pass-2-hd-survey-default",
+      "expected_remote_sha": "575c2150b520e35ef174851435bc5f63b74c5208",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "unified-runtime-compatibility-study-1",
+      "expected_remote_sha": "960e3cb30696656bf5a37e96ae9fd9823c45f193",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    },
+    {
+      "branch": "unified-universe-architecture-1",
+      "expected_remote_sha": "658db8522ca6b2f2b63b1a7952245d219ac61d85",
+      "reachable_from_main": "9a03d8260a529f5858c5c3298cbb9d32b721daeb",
+      "delete_local_branch": false,
+      "delete_worktree": false
+    }
+  ]
+}

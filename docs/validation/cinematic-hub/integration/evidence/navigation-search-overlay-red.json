@@ -1,0 +1,1595 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "backend/app/__init__.py": "51ac1ca26aa823690419d98a0f7155cf90f7f237d02a3f1de6a0e0aa051fd6cf",
+    "backend/app/api/__init__.py": "23826703bf9962da36326481089ad262cc7ed0b685ca757359c63c1b8911b46f",
+    "backend/app/api/routes/__init__.py": "e1e3e06e8eb9b141dc043c67e2a0166cc89a859c7cedd48e1ae8062a39bae40d",
+    "backend/app/api/routes/conditions.py": "74d1658093c4baae9283d423b43d8feeb0b9e4ee0062ed5690715323440a9371",
+    "backend/app/cache/init.py": "529c6abe89959f9410155cd1a6d4e002855e0dfd795693e72251402194398d69",
+    "backend/app/cache/redis_cache.py": "7307e617bac295c91c0bd390daa950e9ba1d1ce265dbeffb0536a8617c4fb50e",
+    "backend/app/contracts/phase1.py": "76f6b6738b3e8ed326e9c99cbeb34bf29f9dfe1648640dab77c8e64c0d742fdd",
+    "backend/app/contracts/sky_scene.py": "911f0e756015a60c191ea507cb1f8cdd99d0ba5daa8ef57763404c6175a6c028",
+    "backend/app/core/logging.py": "f6a674b4ff3a01f0bf8d362b95ac5bf07e3316a0882553aaca08a49797b0498a",
+    "backend/app/core/settings.py": "ea458037f22321d02fd530772ec82c6619646bc8b6ec5ba27805a95c3ace713c",
+    "backend/app/data/sky/catalog_registry.json": "e681b59cfd78c7c56666d6ce91f7f26d0d227e2586a8c817a08e2c4b83f7963d",
+    "backend/app/data/sky/gaia_dr3_pilot_manifest.json": "cbe1f179c498123f2f259d7a58b279f686afe241c193a75143d56ad657bb1907",
+    "backend/app/data/sky/hipparcos_tier2_subset.json": "f40d89ddf0f436dc16a2b5a6ba2c757ffaee6776f327e56bc71f0c6bddd843d2",
+    "backend/app/data/sky/openngc_dso_catalog.json.gz": "0115109ddae3101df19412a929f272f8887186278f9c3da6d3a55cd59ee9d0ed",
+    "backend/app/db/__init__.py": "789d1df3bd555edca5a5d1b46d8427a6a63da5d6d83dccf19314ccc9cb295a1d",
+    "backend/app/db/models.py": "198295cf462c3dae951fa8a8c53d0f5cbdf56a2ec7ff05d04c4e68804b66be0c",
+    "backend/app/db/session.py": "235f3c6e2dbf0b4c4bb5982df1790a61d6a248594adc2e4d1bd2d97650100bc6",
+    "backend/app/main.py": "10cba88358b70629581e7ec61a3b17a6268876bf006351be1d788a106b4e896d",
+    "backend/app/routes/__init__.py": "b7f8c627c97b893ad83422f19ec7c2cd3d53ae7e976e87d82462178afa868730",
+    "backend/app/routes/_contract.py": "511479dcdb573e47477cde5621eed67b1caf31b31c45513b849b6a45e1837adf",
+    "backend/app/routes/above_me.py": "cba7b8872579ed9c6a702c8f67df8f88963625aca48e1c139e3197490e8e8249",
+    "backend/app/routes/alerts.py": "e42f1d75c0f5512dcd314d32a23d5fdfd28e4da42ce050bd12afb8631ac9c295",
+    "backend/app/routes/assets.py": "b534b5650b0835bf810b97373d6127f08755643cadb09339258c6e6dbcd2cd30",
+    "backend/app/routes/conditions.py": "372539ea562e1a55f5d4b21361660449711277dcd5d57ece6da1123ed2a0ae88",
+    "backend/app/routes/earth.py": "adea444c69d2db3f4bfe9a6da82a8e5c71681c9bb4b7b98cdb8996c9ebd73315",
+    "backend/app/routes/health.py": "8148a609d0aad8d601770bbbd8ba4ecaaf6627b50e03688db4038c3d0dc0133b",
+    "backend/app/routes/location.py": "1523d803fa210d82f3d0dde40a3c43bd103c19145d5f54582a65b77a59162934",
+    "backend/app/routes/news.py": "636e11a33d98175f693d6d9b505cd1779ac0d826d78e555c99d120752e0aaa05",
+    "backend/app/routes/objects.py": "487926e0933b792be5970570744bc8d8a802268b42108187bb8f6b81ceef466a",
+    "backend/app/routes/passes.py": "9692f5b9b9a82b97b8c0e6ac471702407d793af45d678fcdafa1c5b954dba6c0",
+    "backend/app/routes/satellite_feed.py": "82ecb65f278876483150d6ae524a3715046c0c9266a9f5b916454b98f07a136b",
+    "backend/app/routes/scene.py": "c926af3cd1475b19d9c421db8a8ccfb64c2ac987d41de8d8cc1d72833940a5ff",
+    "backend/app/routes/scopes.py": "e3b1d53d25289768ba2980322f7b2e7d4b9975b19c76a7257a92b8ce61275cb9",
+    "backend/app/routes/sky.py": "0a990efb1ddd22afb59d1c1e67ccdf28096ccdba413b69c4a35cf7137850389f",
+    "backend/app/routes/sky_mirror.py": "bc4dcac7981212113b6b1e52692315d2dc272586dc0c7eaca507c73c52239504",
+    "backend/app/routes/solar_exploration.py": "4c3f5d45591ac543d581f0f22b1b83e14d8765a6e26bfb8ba030c6ebc3ef66aa",
+    "backend/app/routes/targets.py": "53efe24dbd3ef81c4c0becf3587425372ed6f18f62bd60c035c5a1a9bb0b796e",
+    "backend/app/routes/tonight.py": "311d8737ac1de8346f70c1e2b3eda39a05c2c3bc1a01ba3b20695216aad0f0c9",
+    "backend/app/schemas/__init__.py": "4485f27d03c9844c481153907c33fd31f85e0c584186368d374c234514af946f",
+    "backend/app/schemas/conditions.py": "499957eb2ad50bf49f29c66df54c18ed3286b8a146bc3c0ceda97468790591dd",
+    "backend/app/schemas/response_envelope.py": "cba9e2b00f6287e97cfc348b96e4b920ce4d98bbeff9f31f268943844f04e081",
+    "backend/app/schemas/solar_exploration.py": "2c277b67e6cab20fb46e8ed7734d8794f7cdf54439d96a44b6fdc43fbac9a290",
+    "backend/app/schemas/tonight.py": "d8d70bf6eb75a95967d5f8a6107335407113c27ae7cf7f719c665fae421e5486",
+    "backend/app/services/_legacy_scene_logic.py": "b13f2b44e166379c67013f114b504cb83b35ef39c778dfa82ca79b75cf7381d8",
+    "backend/app/services/above_me_service.py": "8eb147c294c3b16660556ad5fa6e8d40b2e0a944552ff31f6b5dc4bfac9ac0b3",
+    "backend/app/services/alerts_service.py": "7a247955f5ccb11040b77ea32b121faca1377f3ad1fcb199dc095f8e512af45b",
+    "backend/app/services/assets_service.py": "74fdc98ca96db02ad4320a429b3146f899a5fc2ae4c57f823d663ee8c5423eb4",
+    "backend/app/services/catalog_pack_service.py": "6785bfd1415da1445bb8342c84ac702c7b1899e3e1af6c7ac87b363893b72cf2",
+    "backend/app/services/catalog_registry_service.py": "472302684d40413f68fa9ddd06cc588f62e8d41616b95b133089a4e29367c7df",
+    "backend/app/services/conditions_service.py": "5caa181c90641b44d2e8538f7009dc9d79bf875da313155c188d7a3693517940",
+    "backend/app/services/earth_events.py": "f275ca7e3a74b92f0dc138a4f1c74979e0ed9887e5981017ddb92d3f24c1da1e",
+    "backend/app/services/earth_search.py": "86f9a9d173ea870b4a7b8be00a8a175ecabddcd11070f8c5d17506d793278859",
+    "backend/app/services/health_service.py": "b18c01df8d9152b31532f5335642277215f0be11f39da4be1ffe237df456c046",
+    "backend/app/services/live_ingestion.py": "c3c0f9e13a3fd6c4b1a5251e92792a7846b713a356efeb67027a5f46c2fe797f",
+    "backend/app/services/live_providers.py": "da81089b313919b2663d1d24fce4b50d0d41d543ec7aaeb1ab33058e7c2b0806",
+    "backend/app/services/location_service.py": "ab6a3abfe84d6936febfdf44c08965989207710f3da6f201a411f5f7aecc7bd5",
+    "backend/app/services/news_service.py": "32fcfd24a9f5c77f1ec521a38431598b95b1c4b3ea9c14b60ea16c4ee3a122a0",
+    "backend/app/services/objects_service.py": "13584603cfb419492f22cc91290d92c5fc0ece196c1203cf3f602dc438a52a08",
+    "backend/app/services/observability_service.py": "fe17b83f5874dde766dae8dd72fd5307ae5d5a84ac0ec61c5b6cfe4d2f475725",
+    "backend/app/services/openngc_dso_catalog_service.py": "a3d24c7044a947b10b7e9b992aa7bea196fbe08711961c2e4649a68637c458bf",
+    "backend/app/services/oras_site.py": "43365c6317eaa14130e97226cb6caf631c2f12182b260095ea146f2717e06454",
+    "backend/app/services/passes_service.py": "83839d1e571a2e97361fa8a16e37efffee61d42cf6b14ff64f4a440c190c10cb",
+    "backend/app/services/planetary_ephemeris_service.py": "1f3406894d83cfe03246c081df6b8a96a7f1d77dde3a35eaddebd706e98c8055",
+    "backend/app/services/satellite_feed_status_service.py": "d0a77afa16ad55934aaf052aec6f0aba276d72754465ba05fa6f9bceedec0566",
+    "backend/app/services/satellite_propagation_service.py": "52a6b074d616fd95936b1e67dc0a37261148fee23b7caf41a46a2ec62b093c0c",
+    "backend/app/services/satellite_tle_catalog_service.py": "4d291d82cc211edd9ffc385a9c7e63173d0466c72df09b6e18cf943f0f532e3e",
+    "backend/app/services/scene_service.py": "217b10201cdeb8ff390c9ce9e00eba76f9979cbccf1aab96957ebdf6c2da5d61",
+    "backend/app/services/scopes_service.py": "0db4d1c1ed8fac7229f22865062d8ad2ac77cb4233048cb8f1319a74d1b4a81e",
+    "backend/app/services/sky_catalog_service.py": "b2a030e908911354dcfc4c1c7c5a643500e4df5a12ff39004a6a05b040ef215b",
+    "backend/app/services/sky_coordinates.py": "9bff9ee26ee72609641acccf681ac4386c73e6bc972506344a91600735bfaf2e",
+    "backend/app/services/sky_engine_links.py": "fddfabc55bee0640d1567b7157db095b91c6a69bd03633bbb94c09944877393e",
+    "backend/app/services/sky_mirror_manager.py": "38d2c092eaf4f510ac34acd3a44c4984536e9dcfee3ac0af98c4ecd50f864471",
+    "backend/app/services/sky_object_enrichment.py": "f767748b6740de30ebc7f284659a5aff7daa93d3c3ffb0c7528ef1398fe88a12",
+    "backend/app/services/sky_star_catalog.py": "9eb260ca026963615cfdfeab03bf2b52c37c2082c92e3f7adcecab7234aa13af",
+    "backend/app/services/solar_exploration.py": "38e7c4def28e80384c2e4c1b0f4ca67a9ba682a45c0135f2e74a7820465ab5f4",
+    "backend/app/services/solar_system_catalog_service.py": "1a8714d33fe7e07f8e40e338754817965f29370d35aad93023d6e79495b00bd6",
+    "backend/app/services/star_science.py": "419f28a3789f26f6837184ce74d102d7b6d71f16fbdb768f44b706cdbe93b496",
+    "backend/app/services/targets_service.py": "15b46cd982e690ea3746faedd89e97f6a6d4fa6445c4bbf0c1d2f0b4a8251f0d",
+    "backend/app/services/tonight_catalog.py": "f92786007c2bb54572b08bfbe0bf7c4b382bba2d9c629b15e87db5956b004b25",
+    "backend/app/services/tonight_forecast.py": "d5cf19c9fccdea7c325ee5e106fb15b4c17e8b7a8b715a1ff745534685a7ce16",
+    "backend/app/services/tonight_geometry.py": "c93c35c0166843cff58e94655f1fb4ebfcd7e36af91af6730a3b402d8ec8e2fc",
+    "backend/app/services/tonight_service.py": "2555d1e9a164a00551938f29280652038aeeab5d02c2c4821e6c50fe2068d473",
+    "frontend/src/App.jsx": "90f21aa15f77823a7cac13c2b8d0573b9cf9b4496681e3ed85d93973f1b08ce4",
+    "frontend/src/app/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend/src/app/queryClient.ts": "ed0b0a7a32426c8612537d569bcc1360ab74b645b8f25405149bdd13e144b00a",
+    "frontend/src/components/AboveMeScene.jsx": "36b9abecf49f0daf6f10b92d0b285f9014d5919e34bc10eb2d2757702d360ce8",
+    "frontend/src/components/AlertsEvents.jsx": "80c72d69cf53b52b0667c31d822c1ebded09c854d26cf8aee0635cab55844db3",
+    "frontend/src/components/CesiumFoundation.jsx": "4ad4d20a1c990dbbd4a08f004534e179f9d9689cdc7146cfbeeed4e523ee8d90",
+    "frontend/src/components/Conditions.jsx": "fe24fdafa1b248bf9654dee4bd61994275d97e9c6ab49a324d8db60a6adcb37e",
+    "frontend/src/components/LocationSelector/LocationSelector.jsx": "bb5b595c480c055b3ff5f7a8da1ea5a07ebd868de5db02a7f50bb5e93ba5f3bd",
+    "frontend/src/components/LocationSelector/locationSelector.css": "2a5882209cf6248eef57ac3e0d6e8d63ee32102fa03bad2299bc45fd441a6143",
+    "frontend/src/components/MoonSummary.jsx": "a76d08b17e522dd9d80154be626b46836effadf220ff13a8152b96a82329b629",
+    "frontend/src/components/ObjectDetail.jsx": "6f77d75e4ba4a0d4893f697082907c185ad6ccbb9ae14ad3435bc486223d63c0",
+    "frontend/src/components/PrimaryDecisionPanel.jsx": "8b1660b78a35dd8e8f4d3852fb89f4c4c06c0c510223a94f8e9ee10f0dfe8adb",
+    "frontend/src/components/RecommendedTargets.jsx": "97a3b70af02e3a56b414ca9dbf950e7ef5f43222c8e291c2b79ca6662aa85ccb",
+    "frontend/src/components/SatellitePasses.jsx": "51b88110c0ce3482c9099a2e4f99d133b1eb566db4703ff56f18f1632658f2de",
+    "frontend/src/components/SkyNews.jsx": "91ef5c6fd9b35594b3276f88528687e69189e7da3378fb94c6967e7914134449",
+    "frontend/src/components/Starfield.jsx": "390929ac284eed423da31a999a9d8c8b597ebead11523cbb2353492c5465dce8",
+    "frontend/src/components/common/InlineExpansion.css": "da8e5d6a257c7731d74972fce428f9353459fa71807f9c5242e37f30082d6ad9",
+    "frontend/src/components/common/InlineExpansion.jsx": "a9e1ff90ae90c97ed1498c68d5ec21b09be006103f8887a3b975bdb931fef399",
+    "frontend/src/components/layout/AppShell.jsx": "8a32114791ace15f29753d8c2f74e63c0bb758c679f85e510c93aca9543d736d",
+    "frontend/src/components/layout/CommandCenterHeader.jsx": "c25b3f7121b4dd59a47028e8fc89d1444c09bd6b2dffa1cac04082ff227f89d9",
+    "frontend/src/components/layout/ContentGrid.jsx": "be2e5254d540b5e84a4ba5bbc667c425c03f2b82548398af858477b91e6f71c2",
+    "frontend/src/components/layout/foundation/CommandCenterFoundationView.jsx": "7d268cb11898ba9986f8aabe9a65c30a0890589b2d20c380923a0f7090d04611",
+    "frontend/src/components/layout/foundation/ContextPanel.jsx": "3307ce5678019eee574c4891b48be3c5b4e81a1abe7b1057481fb168e9729973",
+    "frontend/src/components/layout/foundation/DetailPanelShell.jsx": "1865fffdb4c8173cf300214b7ad80743975b7e29fc922517acb33d0026c79bc0",
+    "frontend/src/components/layout/foundation/EngineGrid.jsx": "2d72ad90918e0d27cdc43aef9b75bd641b4428d3b0b71e5ce25ce7c57d164767",
+    "frontend/src/components/layout/foundation/EngineModuleCard.jsx": "b4827364f32aee15e05b96107e8b0f6cb0a90337373233ee94f19bcaa1aca50d",
+    "frontend/src/components/layout/foundation/NowAboveMePanel.jsx": "5a0df8f85da6f5ffe0100813fdf620d5cb3446e002ac9a92e32925f68b18ed6e",
+    "frontend/src/components/layout/foundation/PanelSection.jsx": "6f67a065925bbd71af4017468d73e9392e386e384caf0a675c95626241c2787d",
+    "frontend/src/components/layout/foundation/PlaceholderItemRow.jsx": "65bd80820da070196066f90f85bc4f519cde61dc4164fa236a48b6187cb0a82f",
+    "frontend/src/components/layout/foundation/RadarMapPreview.jsx": "6c65fdc20c5c4a0da3a7e0d1d12ee8a90fe486360379f64344383aef4b852589",
+    "frontend/src/components/layout/foundation/ScenePanel.jsx": "e0f4d211c9967cb0569f2ce38f85e2e47a351fa697d4b71fb936823f31d97090",
+    "frontend/src/components/layout/foundation/TopControlBar.jsx": "937c7a1eeae9cb0cbb3cfe45bb41dac51d033b2896ec1d32ab11550c28f20e44",
+    "frontend/src/components/layout/foundation/foundationData.js": "5c3f95cb7c102915ff6142b8091e34c5dec798006073d743bf0ce672a79abe07",
+    "frontend/src/components/media/AssetImage.jsx": "e91669d46b27a0d2280bd8298f46ad2fa1c5c3615b1eeb0b56b6032091df350c",
+    "frontend/src/components/shell/OrasAppShell.tsx": "6cd56d5628d34d4c34e79ce42e220eaab8b273fb03d9e2b1ca5caf605b59f5b3",
+    "frontend/src/components/shell/publicShell.css": "a4ac724527bfb72333a296ef74ac48453df0f0f3a0c13aea2a54f99961487fee",
+    "frontend/src/components/ui/AppButton.jsx": "5a564a9195cd6833353cdcf5eb95dbafe20c5b246814a23044c995f98f175a82",
+    "frontend/src/components/ui/CommandBar.jsx": "c8d32eaff87314a34370e074c2641fd06ed44aa8857d7b9d99ab71901fa1907c",
+    "frontend/src/components/ui/DataRow.jsx": "6672545cdb6dcdac1532e635c90b6bdb2c7d24e9ca916ae80537090d0c5f1f51",
+    "frontend/src/components/ui/EmptyState.jsx": "5de87939ed4778bb03456e9d9d505041911296c2c61187b081644471f5a29ade",
+    "frontend/src/components/ui/ErrorState.jsx": "1d623561d8329bae319fb547f743612c62626c4895230284bca3864d8dc3c739",
+    "frontend/src/components/ui/GlassPanel.jsx": "d382d47d51db6972d7340a90fa1d8723053e494975f90ed91de51e84f7c8ac2a",
+    "frontend/src/components/ui/LoadingState.jsx": "8ddc571e986257042601363770c92a56800f602c47820dd41c8728f19947e24d",
+    "frontend/src/components/ui/Panel.jsx": "cb28b622d0934a757ff5dcaaad24c76888385c980cc25c39cc9904f95784d1d4",
+    "frontend/src/components/ui/RowItem.jsx": "1bcf1a3dfb3d8ba339c7b5310d4c583df162f820dafe461aaea4528551bce8bd",
+    "frontend/src/components/ui/SectionHeader.d.ts": "adb6875d47e18aff77f1e7ae8b36b25509a0a71a75e5a6da3d20a78124d5e796",
+    "frontend/src/components/ui/SectionHeader.jsx": "680dd319b1f9a74a82c7dd526a1c60526e08731c4813bfd4cbab84fafdefc46b",
+    "frontend/src/components/ui/StatusBadge.jsx": "7311bb7909e8f4a2e3334100187cb949fce72a3463a93ff83baac74a5db1f712",
+    "frontend/src/config/orasSite.json": "3779ff6baf6417e79c424fffbcc35de39b09bd551f09bf40e9e45fcc7a746115",
+    "frontend/src/config/orasSite.ts": "c342326e538ded5c1ba053264ae39606d827566e76c17cae46afce2a6c2f5af4",
+    "frontend/src/content/publicChangelog.json": "5f88488ea90006be47db38734bc709d7cbaacf7ab4847547abf9f14c808e1d1b",
+    "frontend/src/design/semantic.css": "fd7949de1a34909c9501f9e898ac63f561e2206aade35b572d07f904e7f7bb62",
+    "frontend/src/design/themes.css": "16015e6d0212e2f0e39023ce72020bdbfe41737d2705a61ca648ea5ecf6d3e9d",
+    "frontend/src/env.d.ts": "ca3c11fa155ba2ec2fa199df8af7cc1632af3cd674a2fdeb11a447bfe9d57ffb",
+    "frontend/src/features/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend/src/features/alerts/queries.ts": "7650d75fb7790d7f48d269979d020b27c5b245b3956c53c07b8b2c86597a51a6",
+    "frontend/src/features/assets/queries.ts": "3bdcbf8b2a00f97e22dac0a32490322893ce06769316aac8bd19ac7679c9d6c9",
+    "frontend/src/features/conditions/queries.ts": "9daf17c2236bacdcd3edde4c80239157481c629bcb96fd0e4e81f65b847733f2",
+    "frontend/src/features/forecast/queries.ts": "3e449fb4b93e819b52c62d7b9cc8619a04d090970fdcb03376c32b80d815420f",
+    "frontend/src/features/health/queries.ts": "2cc77c0c0e89e30ddf78d0e093ec5fa87fc4520be801469c74918311e63b2141",
+    "frontend/src/features/home/HomePage.tsx": "da6ad613fb7fe2e403bc37816f090a659c5eac96f50855f6c4647209b2a0ff5f",
+    "frontend/src/features/location/queries.ts": "9d3b4c5dde7a691108ae37111db652bcf3bba91469bf0843faef522b8e755fce",
+    "frontend/src/features/news/queries.ts": "3048591e672016350ff4ccd77c3fea4b38c6a717b4eaa3568434937210c6ff15",
+    "frontend/src/features/objects/queries.ts": "91438a59646cfc07a1844337300694268a8347dd3c6d59d3a31bf524d1aede71",
+    "frontend/src/features/observe/ObservePage.tsx": "bd9816ed801e0c86ca989e2c807d1576a8278f38b25f743823f497e05cf9efff",
+    "frontend/src/features/observe/model.ts": "c4591f1ae6c35a0bed4fb93eeaeae8837a659242c606e9928eefee651379a6e2",
+    "frontend/src/features/observe/observe.css": "cc99f542c6e4a5100fde6fe420d017d005e4bb0c72c0e6335c51e5acd6e5047f",
+    "frontend/src/features/observe/queries.ts": "b3799dd4dd6b7b7894440710064599d5c2a2495ba1962b660dabc848f8a89d0e",
+    "frontend/src/features/passes/queries.ts": "49f1b32d370b00bbfa30d2f60c18e17118cd3b291af0cafdf625777aafbf472b",
+    "frontend/src/features/runtime/productState.ts": "116d6077c6a0ed2fc1297ec10e379fe2dd114b7b99e90a8babaa4be490e627ff",
+    "frontend/src/features/runtime/runtimeProbeService.ts": "3649c9b14b724318e542440fbeb7237eb0a5c02be01599aaea0a808325503531",
+    "frontend/src/features/scene/contracts.ts": "fdfdf1d15bce253415d7dc1e637df075296804799a89aadc81e2d168f3fcb4db",
+    "frontend/src/features/scene/queries.ts": "85fe0bdfe83f06d94a7bd15ed3010c55cb675e2237a70c74fe49824bd8967307",
+    "frontend/src/features/scopes/queries.ts": "fd2f6a4acaffc66551446f476b4703e09e35eecccf2e2baf9c76b9b0d7fccc07",
+    "frontend/src/features/shared/locationQuery.ts": "bb711652d209960f2edf5e583972202b74d3aef6902c5c671751c64c0414a5d5",
+    "frontend/src/features/sky-engine/MirrorLiteProgressPage.tsx": "e8c730b26cc021953fd9a784988a99c2671b5c1bacd3bcfb4471c9e79a5d7052",
+    "frontend/src/features/sky-engine/MirrorProgressPage.tsx": "97a7ecac90deb42995239272d783407498fd415629b2e18e3431c63064df2ebe",
+    "frontend/src/features/sky-engine/README.md": "de67d94cde931e4d24070391cb2fdbb38c989a05cc9f0fd0dd22ee5ee8d5906a",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "b2254eff03ace7dda6e52ce352500c873b100eb4e04db3c9179a2c8f64568679",
+    "frontend/src/features/sky-engine/SkyEnginePage.tsx": "e7b3361b045ca230b33d010274333a4ce3646deb64c90feae5e6398843a3e322",
+    "frontend/src/features/sky-engine/SkyOverOrasNowRedirect.tsx": "ad96532d92844efe0a9c073f412b9143fe891fe00e22d2c9f3eddb014c207c1c",
+    "frontend/src/features/sky-engine/skyOverOrasNow.ts": "7a2383db2e525a65670484287f29f9a56fed02b704df2b53410acebd724b6658",
+    "frontend/src/features/sky-engine/stellarium/README.md": "028436a7961a47f9ac0026d09272ee57f338262ab3a3c4f65400aeebabc3612a",
+    "frontend/src/features/sky-engine/stellarium/stellariumRuntimeBridge.ts": "3aac7bbe8f6a10412cc450ae676f2132acf19cfc41ff62fbaf4055051e285b28",
+    "frontend/src/features/sky-engine/stellarium/stellariumRuntimeDiscovery.ts": "4a463983fdd9206c3f2fa69b242a60d0aaba89fa49a32a2b03e34e2579db309a",
+    "frontend/src/features/solar/SolarScene.ts": "9e2453c3d9185d04bbb4de36e9fe3be3f54d6bb5d06a7951d90259d82d57f373",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "3ab3e81e0b3ca414e6d240fa479ccd7fd16cf4e9ae245019586c3532f05f55b4",
+    "frontend/src/features/solar/assets/earth-blue-marble.png": "ae6214b078ed0864c96f74bcb10ae3021f6eb116f8059797efe0fa9ea8b89d35",
+    "frontend/src/features/solar/assets/earth-clouds-2002.jpg": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+    "frontend/src/features/solar/assets/mars-nasa.glb": "0d27fc65fe3e6a5847cf0cd3a5c951538afdd49bd0513607d8a70e8ab1d8d7ac",
+    "frontend/src/features/solar/assets/provenance.json": "566ba89818af6aa2c65b24a673303930b67f273619ae0ee26006a637bfbb30c1",
+    "frontend/src/features/solar/solar.css": "bb49477b1b6e043b623e3ef263b58a1e3d738081c815f83817b54f72e05efb82",
+    "frontend/src/features/solar/solarBelt.ts": "536b847379774913c3a9012a86374439a412b1e04b2aa28b995c7c5f9919fd30",
+    "frontend/src/features/solar/solarContracts.ts": "b8727de348e6438c1fe70e0c86a57b4a0bae6c276f45c796c92e6e6652656c4a",
+    "frontend/src/features/solar/solarGpuTiming.ts": "6f7f4b2952c544968f30f3fb1f57c0d3377aee9caafbedcceee3815bd9ee6dce",
+    "frontend/src/features/solar/solarMaterials.ts": "01b070a87851830d0c3058c4ab087b617d53249ccc7346bfcc54f9d86e13a6f2",
+    "frontend/src/features/solar/solarPresentation.ts": "9ae010b1874461829eb61fee2b58dfb971fe71d90863a1e3cd6ae519815fcb1b",
+    "frontend/src/features/solar/threeBoundary.d.ts": "9791da33cb74455a017c4c4597391d1c1e624506e1c6ed0725d9b90b6acd06a5",
+    "frontend/src/features/targets/queries.ts": "af40756bcbb1b0a992aeece90f83ed2ff6d9b2ea7e5845cc806cc103d9746b10",
+    "frontend/src/features/tonight/TonightPage.tsx": "75945d5523e0b6678a643fca3c12845a0880bb4b94ae97705509ce4bf4d807e1",
+    "frontend/src/features/tonight/model.ts": "bceb058539c8b470e9ef0cae79be70bf43c74a4171c4253c064e9b4a7bd8441b",
+    "frontend/src/features/tonight/nightClock.ts": "f3b6d9519e79db5ec5ba120b2eb5fe4f2a9f09b5591d660a7571aba8a1a9addc",
+    "frontend/src/features/tonight/queries.ts": "5a105993f7ad9f9270bac635824db09da34f29538198eb41cca3a1f9f1eebfe8",
+    "frontend/src/features/tonight/tonight.css": "05a8c157ad5750ff766d60ea5591c4a809bfe46ff935bca6fb55d3f7617bd3c9",
+    "frontend/src/features/workspace/AboutLicenses.tsx": "5bc96e2b905b6d7338a69d210404cc785c303119d8199e9c16efa5b3fad1aba8",
+    "frontend/src/features/workspace/AdaptiveSkyChrome.tsx": "fb1f82ef1d51c63e92154dad306c1aa9065de4c0dd836f9c1a0a8351d703f444",
+    "frontend/src/features/workspace/BottomSheet.tsx": "472a94b855a9831363e3853a7ec50ff7d678b434880b6361e4407613094f37b4",
+    "frontend/src/features/workspace/ContextSurface.tsx": "da00133672e5b2e99befd6ff048161df1da33569963697c91756cb71e48bb194",
+    "frontend/src/features/workspace/DiagnosticsSurface.tsx": "795452fd3679a73f4d6506e24a9f7f9b485271e3ee66507e46a5fb6aba417aef",
+    "frontend/src/features/workspace/EarthExplore.tsx": "aeaed42e8e3a559649c88e03bbf031f067f01e69b1f005d66fbdc7e498900f3e",
+    "frontend/src/features/workspace/EarthSearch.tsx": "442e6a64896f174b4e6f8174ee7f3d1c2adc0d50ebd9463322180d6bc6217316",
+    "frontend/src/features/workspace/ImageryCacheSection.tsx": "8655c82ce93844aafadee5d09e2cbe1d058de8504fd38f38c2e4dc199365b728",
+    "frontend/src/features/workspace/ImmersiveController.ts": "55db2e15589235de2853ae5e923829ebafc2289fdcdda6f833089471f6d3e4e1",
+    "frontend/src/features/workspace/LayerPanel.tsx": "6a6f97be331912ed368aa6c317338fece56c7ef71f0df3cb0d48a4e3a036d4c0",
+    "frontend/src/features/workspace/ModeSwitcher.tsx": "53c17bdc6455656453a9f03dca0260db6188e6520ba3a0cd28e425fdcf437119",
+    "frontend/src/features/workspace/ObserveSurface.tsx": "2a53a16ee85ca10536da55f9f61742993c92e5c35ae3eb730b9881e2d61e4494",
+    "frontend/src/features/workspace/ProductHeader.tsx": "aca2450f60f18be8a0c03c46d39879419b11107c855204143b2ccc6db7a83c93",
+    "frontend/src/features/workspace/SelectionDrawer.tsx": "2efc7a4dca1580961e84053eba8b96cc6e4e41b3c7e2f8005f0ab6a1360256fb",
+    "frontend/src/features/workspace/SkyFovIndicator.tsx": "c31ae2c21d5d81a75f7d4f7502aea5b7eeb7443d67157509cac26bb3bd0764cf",
+    "frontend/src/features/workspace/SkyWorkspaceLink.tsx": "d6df148a5a8d1858a25804071cbf42aa4747552f96e8f681bee47f9b808fb86c",
+    "frontend/src/features/workspace/TargetRow.tsx": "f4a1d975a958779380ce91ba8c4e3bb66e1d0ee345717e23f4c4da7ec8a00f1c",
+    "frontend/src/features/workspace/TimeSurface.tsx": "a2f254f6040f5cc17eec33560438cbfe404cd759f0d1a5000e899e25d9432f0d",
+    "frontend/src/features/workspace/TonightSurface.tsx": "9f5dbbe9602ca7f1429872a4eb76d10c05c574f8d49a4e9cc5c9ef97f6d0cf4c",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "d5e0990fd314431d5ea7e6498fd1aee4c15b2b20af57fccb8551d658a37ab89e",
+    "frontend/src/features/workspace/adaptiveSky.css": "61e9fd05fdeceae32b63495ff99b5d40a8db304a4f08dfd9cd959132585bdc6e",
+    "frontend/src/features/workspace/assets/LICENSES.txt": "ec59a3987e5c2e79a6d1ad6d1ae32ab1194969777b4c15de6239167ab6ecc1d2",
+    "frontend/src/features/workspace/assets/plex-0.ttf": "6dbe082463cf749cfa057d45c3048c90f4df031496498e5b5bdfd0b6babb9d16",
+    "frontend/src/features/workspace/assets/plex-1.ttf": "6f7a8c4219e021ff7c9131bc5f1f7af97bcd1436a59578d444a8cb92e9791742",
+    "frontend/src/features/workspace/assets/plex-2.ttf": "5311c66fd6d04ae45671236f7eae667b671c06c1dc7e88d52c206e5fadd0fb21",
+    "frontend/src/features/workspace/cinematic.css": "aa4fc6f2809ca09b6212b8352c40ddaea4e9a449b0b5fca5d2ec772935863318",
+    "frontend/src/features/workspace/cinematic.tsx": "a6ba29b561c97fb0f8dde513107dc4d4421de11e78848b0ba7e38aa73b81b737",
+    "frontend/src/features/workspace/earthLocationNavigation.ts": "069cf7d852dc973140d8992b05affe3a0112ba10257965a7ecd8de597fadab87",
+    "frontend/src/features/workspace/earthSearch.css": "ea0af391b4c8f51996047a0172326cc5ba6b293dd78d1a24a6ec96731aff9ed1",
+    "frontend/src/features/workspace/earthSearch.ts": "38e68d4e164977e5a7b6b269fb7a16f5f596fb54eacbc4eac1d004239e1700fe",
+    "frontend/src/features/workspace/earthWorkspace.css": "a38ad8afc14f8113e6053e88cdc3869e896b32b612aea2ff65596d216a2beb45",
+    "frontend/src/features/workspace/fonts.css": "987090721c4db7f59c75ec17dfde7e2c6c3e18030a3478b3bae68ee88a7c155c",
+    "frontend/src/features/workspace/icons.json": "d17e1259643a4f6fcbd67872c8cb9e760451394ababbc403f0240d9e4e456a15",
+    "frontend/src/features/workspace/observerProvenance.ts": "aa49472cb44998f669cc3c10be3e8539aea68aa98bef019fc68f0603edf7bb8c",
+    "frontend/src/features/workspace/primitives.tsx": "76152d5a291ca1b699e82d36c1e1f93c8bf2c4a56e0365943a24dfd6c0316d29",
+    "frontend/src/features/workspace/skyCinematic.css": "9acb3db99221f318627d7d7440a6613aea0a569b5083987d06190417d32c98f3",
+    "frontend/src/features/workspace/skyNightMode.ts": "3d21ac7313a4d4019630be3d406b7ccc15b8a670d14b3219c13ff9e20db27b03",
+    "frontend/src/features/workspace/useEarthLocation.ts": "1d6c07cc4349ce61b30af9fdbdcec3bfe27ee057c608b2e25e62065d601d16b8",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "frontend/src/features/workspace/viewNavigation.ts": "9188dab23501c95cb6437d77b54ecaec058cb1ed8c3251a429248ae853acce63",
+    "frontend/src/features/workspace/workspace.css": "8142b3480add9f95933cc3f71812cba9a09a70c7da2bf9e20ddb006788e6e939",
+    "frontend/src/features/workspace/workspaceNavigation.ts": "076914f2f42d814789fa3938092ab6929e94358c40952e1ea6c455fdbc5a2a6f",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+    "frontend/src/features/workspace/workspaceUiState.ts": "0f59bcf04f9584f7d40fb729ee671cee257fccd309b8fa327dbcbff9db2a9f9a",
+    "frontend/src/lib/api/client.ts": "bc7d4986b98cbe1825c1d881cba8028f109846ab7cb7d537e45b7dbf59756c5b",
+    "frontend/src/lib/api/errors.ts": "01c3b909b1fc3a5ef54ef2250abdc52b71791b8581f4bca8c4eb675115313bdc",
+    "frontend/src/lib/api/types.ts": "c3239318d28d0a502481f47bc34111e488f2279f3cbcfbb3adf6200ac6a1bac8",
+    "frontend/src/lib/designTokens.js": "2ed4c8a82e27aec77402407a94837a225bccdca6537eec70f2b8f9b5b2c3dcfe",
+    "frontend/src/lib/logFetch.js": "eb904a0781adaea59ec035359f989cf8145eca86d10b2b2623e253eadcdb0913",
+    "frontend/src/lib/logger.js": "fd1a7206acb1e57645c3ddfa80b5be595bee3a4bc8d537966348873b6408a40e",
+    "frontend/src/main.jsx": "72dae2a137284daa76c22f8a4083778ea6aa1cd03add928251d5acdec83f3e0b",
+    "frontend/src/pages/Progress.jsx": "c9fbea499441173604b3ba710534dd34415f4e60eb3887376a5ebff11e9bbe76",
+    "frontend/src/routes/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend/src/routes/AppRouter.tsx": "01823107bc92b345f965376c617c4b4507bc32a43ba5bedf073e84d2033991bc",
+    "frontend/src/state/displayModeState.js": "cd77ee3929d244a254222f71c946ac5514508e5ab04f2ed699e8fc1bd387e04f",
+    "frontend/src/state/globalUiState.js": "990f5a80b42921248b14f63259d890e8d353c4653f8c1f813daef95f68fcdc19",
+    "frontend/src/state/locationState.js": "b28f68453aa2e2b4562ed29a1e329ec3fc95bd21086a65c6cf96a7b87f8864ea",
+    "frontend/src/styles.css": "f1060a881d80105964cf6b18837a31bb8330770c589c7410f77bc3379bb86d88",
+    "frontend/src/styles/tokens.css": "42a03fce7f0f2a7e4802daefa0a95686ed5116522ae9bd12d09d37ded997533c",
+    "frontend/src/types/conditions.ts": "b0e886762633306a0f59204ebe5c2fb41eafe35818e91210e088a4efb45edbb2",
+    "frontend/src/types/index.ts": "ee0df5433b12d91d45e2733ee7f858ab2ac0c6b2e3809a5457e660f267214bba",
+    "frontend/src/types/responseEnvelope.ts": "5947ba897fc833dbbf5349684cbd2f1639c5890057c94cbe4c2e83abe47e8b1a",
+    "frontend/tsconfig.json": "650ccf3253c4842c2fe05e6d1a06f3da8d947f4decbf30ae98a0e4ee18befa4a",
+    "packages/runtime-protocol/client.d.mts": "007da6646dccceee013b5ef1acd063173acb5b7fcfc6eb618108b18d27a85ca0",
+    "packages/runtime-protocol/client.mjs": "70af15c15c36ddb0be9d4ccc82a8ca2345a111aa0b974e9d8043a64156a818ec",
+    "packages/runtime-protocol/continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+    "packages/runtime-protocol/endpoint.mjs": "ac411c29a99c63d3a212bf28393a3a62915f9865c432103295b19c4b695843af",
+    "packages/runtime-protocol/index.d.mts": "45b57c0b0c17a72592e701a26b901d0ad14cac89e5a8ded34accee417941514c",
+    "packages/runtime-protocol/index.mjs": "68942038408a0854940d5154b094ba18246ddb05fe561b1eb90cc3f8ac991b84",
+    "packages/runtime-protocol/navigation.d.mts": "d9b2f6ae4519795da204a30194a5536a84e6e59f26771734358bc4fc6ed8657d",
+    "packages/runtime-protocol/navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+    "packages/runtime-protocol/observer-elevation.d.mts": "6d2733646bc3a8a4c7323fbe75cda8f707f5e94b52a0224caa73f9987c847e19",
+    "packages/runtime-protocol/observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3",
+    "packages/runtime-protocol/workspace.mjs": "032d6fe1b84fd9b513d8f3a1f1ab772a3ceb854445d869758eb14101e5c7a110",
+    "scripts/validation/verify_cinematic_hub.mjs": "0c545521ebb909f95af2ce596ef62d0eead0dda5d657f7c08d337f91ea59ee74"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "steps": [
+        "Source-backed nine-body scene, actual draws, no inactive native renderer",
+        "Actual scene object positions equal Docker ephemeris vectors",
+        "Keyboard Earth selection moves actual camera target to source vector",
+        "Mars selection/focus and honest barycenter details",
+        "Back/Forward restores selected identity and actual camera focus",
+        "Explicit zoom/orbit controls move actual camera and support keyboard",
+        "Real pointer wheel/drag or emulated touch remains interactive",
+        "Unsupported R4 visit stays in usable Solar context",
+        "Controlled epoch recalculates source positions; selection retained",
+        "Reload restores epoch/body from canonical URL",
+        "Out-of-coverage API rejection destroys stale scene; Back recovers",
+        "Existing coordinate search actual Cesium destination; Earth→Solar→Earth preserves observer/epoch/camera and single renderer",
+        "Native Sky/Pennsylvania/time/observer survive Earth return and Solar round trip",
+        "Cross-mode history disposes/recreates one heavy renderer"
+      ],
+      "errors": [],
+      "screens": [
+        {
+          "file": "1440-overview.png",
+          "sha256": "243814671de6377b13290c27e37d93b0c76a0d2319036bd29e00cedb0bb92a60"
+        },
+        {
+          "file": "1440-earth-focused.png",
+          "sha256": "c5f9a861eb452041e90228afdfaee88305078932f4e3cd9a7f406335019c7e15"
+        },
+        {
+          "file": "1440-mars-focused.png",
+          "sha256": "60f0309bba8cb405207881ae9c30372bf6e2fcd31c0eeaae878428fc98b1fa3a"
+        },
+        {
+          "file": "1440-time-dialog.png",
+          "sha256": "393517ea8c7fc1474d6637fe51cdfe56bd8f3bf05476d9d75f46bdf3c8c31c6e"
+        },
+        {
+          "file": "1440-sky-return.png",
+          "sha256": "da29bee2810f7cd578f9037ad0965c8a168d860d98aea33f7fc9ca45621b7a5f"
+        }
+      ],
+      "initial": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 9,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -2.2679503673155152,
+          -1.6323590275379534,
+          1.0800080440832338
+        ],
+        "target": [
+          0.036382993193487256,
+          -0.21430772876318294,
+          -0.10170137156240841
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              637.129428359238,
+              407.20625328641586
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              511.68842905468085,
+              374.3884007089472
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              732.9186386059329,
+              317.48324292051126
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              243.6470846447804,
+              484.82535356872523
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              1060.478137957827,
+              439.09032610905666
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              -1555.7298606122163,
+              -286.7625613446415
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1143.9698170611682,
+              45.52958881694511
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              3.987699038470849,
+              -473.06057978069566
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              1321.4216145503422,
+              -43.54789176537186
+            ]
+          }
+        ],
+        "drawCalls": 22,
+        "geometries": 22,
+        "textures": 2,
+        "texturesReady": 1,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 6,
+          "median": 0.6000000000931323,
+          "p95": 37.299999999813735
+        },
+        "pixelRatio": 1
+      },
+      "earth": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 21,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.11692248795883442,
+          0.8135999926075105,
+          0.3684952914224924
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.32507579826999744,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              -999.5847051471603,
+              968.921310988123
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              -223.64482487000566,
+              639.6388921069794
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              6759.946188224842,
+              -1866.6595550969625
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              604.7999999999998,
+              449.9999999999999
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              342634.8698127435,
+              -117131.63957341778
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              27645.104442677173,
+              -8069.285153217697
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1210.794712995002,
+              185.73629673856982
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              -95.42161739805279,
+              646.8914551937747
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              1179.158098216899,
+              222.56408431591652
+            ]
+          }
+        ],
+        "drawCalls": 14,
+        "geometries": 23,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 18,
+          "median": 0.7999999998137355,
+          "p95": 37.299999999813735
+        },
+        "pixelRatio": 1
+      },
+      "mars": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "mars",
+        "renderCount": 37,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.26723912426057894,
+          -0.9177157890593347,
+          0.01020163618476333
+        ],
+        "target": [
+          1.0527080101912634,
+          -0.8086912557963635,
+          -0.3993206835752232
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              9950.600416656513,
+              -470.6997443150255
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              4738.86329420393,
+              251.99309409624067
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              -1572.4436698637878,
+              -103.51890302096642
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              2303.2645924406584,
+              -11.964510744900114
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              604.8,
+              449.99999999999994
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              3429.4132772656776,
+              874.4197823654948
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              546.9359745907477,
+              -133.0307722827013
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              -1862.7130521495988,
+              -1315.579395413973
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              691.6718723002535,
+              -138.66364663249908
+            ]
+          }
+        ],
+        "drawCalls": 13,
+        "geometries": 23,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 34,
+          "median": 0.6000000000931323,
+          "p95": 18.800000000279397
+        },
+        "pixelRatio": 1
+      },
+      "earthToSolar": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 9,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -2.2679503673155152,
+          -1.6323590275379534,
+          1.0800080440832338
+        ],
+        "target": [
+          0.036382993193487256,
+          -0.21430772876318294,
+          -0.10170137156240841
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              637.129428359238,
+              407.20625328641586
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              511.68842905468085,
+              374.3884007089472
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              732.9186386059329,
+              317.48324292051126
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              243.6470846447804,
+              484.82535356872523
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              1060.478137957827,
+              439.09032610905666
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              -1555.7298606122163,
+              -286.7625613446415
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1143.9698170611682,
+              45.52958881694511
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              3.987699038470849,
+              -473.06057978069566
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              1321.4216145503422,
+              -43.54789176537186
+            ]
+          }
+        ],
+        "drawCalls": 22,
+        "geometries": 22,
+        "textures": 2,
+        "texturesReady": 1,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 6,
+          "median": 0.40000000037252903,
+          "p95": 36.39999999990687
+        },
+        "pixelRatio": 1
+      },
+      "nativeEarth": {
+        "mode": "earth",
+        "observer": {
+          "lat": 41.321903001007314,
+          "lon": -79.5853940000091,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "camera": {
+          "latitudeRad": 0.7212032605397223,
+          "longitudeRad": -1.38902716179694,
+          "heightM": 39999.9999999561,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.570775528851808,
+          "rollRad": 0
+        },
+        "utc": "2026-02-28T00:00:00.000Z",
+        "live": false
+      },
+      "skyBefore": {
+        "mode": "sky",
+        "observer": {
+          "lat": 41.321903000989934,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "utc": "2026-02-28T00:00:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      },
+      "skyAfter": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.321903000989934,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "steps": [
+        "Source-backed nine-body scene, actual draws, no inactive native renderer",
+        "Actual scene object positions equal Docker ephemeris vectors",
+        "Keyboard Earth selection moves actual camera target to source vector",
+        "Mars selection/focus and honest barycenter details",
+        "Back/Forward restores selected identity and actual camera focus",
+        "Explicit zoom/orbit controls move actual camera and support keyboard",
+        "Real pointer wheel/drag or emulated touch remains interactive",
+        "Unsupported R4 visit stays in usable Solar context",
+        "Controlled epoch recalculates source positions; selection retained",
+        "Reload restores epoch/body from canonical URL",
+        "Out-of-coverage API rejection destroys stale scene; Back recovers"
+      ],
+      "errors": [],
+      "screens": [
+        {
+          "file": "390-overview.png",
+          "sha256": "fcb14e2a7569c28f43ac540390da20f4f6006e878aba82592e716202bed7a82a"
+        },
+        {
+          "file": "390-earth-focused.png",
+          "sha256": "1ff767016ab64330a09290f18cce1458ee08ca8fe69f7581a6c267fc44063784"
+        },
+        {
+          "file": "390-mars-focused.png",
+          "sha256": "7e735eb2a8d93627f4410d509921498fd9f86f52e5e74cd70bc8c7ae4ce476c0"
+        },
+        {
+          "file": "390-time-dialog.png",
+          "sha256": "6dd613fc12dc7dc9f65105ef8c7aec57c1161493ba33f005b907ebcca357b647"
+        }
+      ],
+      "initial": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 10,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -4.781122601952427,
+          -3.1789265565452838,
+          2.368814318256009
+        ],
+        "target": [
+          0.036382993193487256,
+          -0.21430772876318294,
+          -0.10170137156240841
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              154.32849303261938,
+              468.9686548011298
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              106.72262473249451,
+              505.9483346615077
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              143.81810510337226,
+              401.84821611892767
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              83.3834073173467,
+              618.6123927936059
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              300.0239346008623,
+              304.6457077450031
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              -700.819028898906,
+              1062.8284545079653
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              148.11706598805367,
+              1.4437975390063473
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              -770.4703050760551,
+              451.9500900208446
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              174.52457286522818,
+              -244.49366085406777
+            ]
+          }
+        ],
+        "drawCalls": 22,
+        "geometries": 22,
+        "textures": 2,
+        "texturesReady": 1,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 7,
+          "median": 0.6999999997206032,
+          "p95": 25.5
+        },
+        "pixelRatio": 1
+      },
+      "earth": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 12,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.078643575740179,
+          1.2645454027652159,
+          0.5785666923198026
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              201.99854747148177,
+              -182.88250202692967
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              224.83368708076844,
+              64.67441173854469
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              152.1641813065801,
+              -889.5563020729901
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              194.9999999999999,
+              360.00000000000006
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              183.0751689942191,
+              -1844.785957305066
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              110.06724262358236,
+              4503.240361196081
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              260.09659343451733,
+              1119.4223960312145
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              235.27019734837867,
+              -419.6799284013284
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              228.0532595406427,
+              1003.3968346024615
+            ]
+          }
+        ],
+        "drawCalls": 16,
+        "geometries": 23,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 9,
+          "median": 0.6999999997206032,
+          "p95": 25.5
+        },
+        "pixelRatio": 1
+      },
+      "mars": {
+        "overviewScope": "inner",
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "mars",
+        "renderCount": 13,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -0.4578090781369757,
+          -1.0183538197636164,
+          0.38822223904013536
+        ],
+        "target": [
+          1.0527080101912634,
+          -0.8086912557963634,
+          -0.39932068357522316
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.2,
+            "screen": [
+              -1274.3528029363335,
+              930.5742899717301
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              -0.2066612901565862,
+              0.21619774285346316,
+              0.13691172883352498
+            ],
+            "glyphRadius": 0.07,
+            "screen": [
+              -2520.27233116307,
+              1259.981590466838
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.7161081832705812,
+              0.11888105030245502,
+              0.008187944250591841
+            ],
+            "glyphRadius": 0.21,
+            "screen": [
+              -676.6960118648565,
+              380.2628672023348
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              11033.790073794624,
+              -6104.154895800412
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              195,
+              360.00000000000017
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -2.1069632004342678,
+              4.38378181845611,
+              1.9302953857716294
+            ],
+            "glyphRadius": 0.65,
+            "screen": [
+              4587.62074330547,
+              -183.27591565890762
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.474993095952856,
+              0.6864309303320548,
+              -0.12449170078720741
+            ],
+            "glyphRadius": 0.55,
+            "screen": [
+              1.578059672124286,
+              -137.03524686772522
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              9.68091944829015,
+              15.533953103185496,
+              6.66640129918404
+            ],
+            "glyphRadius": 0.36,
+            "screen": [
+              -2365.0386824351854,
+              -571.2292677058106
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.866823507540502,
+              0.9236217381460939,
+              -0.3654805869736469
+            ],
+            "glyphRadius": 0.35,
+            "screen": [
+              122.66599841263725,
+              -212.51189295012875
+            ]
+          }
+        ],
+        "drawCalls": 13,
+        "geometries": 23,
+        "textures": 3,
+        "texturesReady": 2,
+        "cloudsReady": true,
+        "quality": "balanced",
+        "backgroundVisible": true,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": true,
+          "requestedDensity": 2400,
+          "drawCount": 2400,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 10,
+          "median": 0.6999999997206032,
+          "p95": 25.5
+        },
+        "pixelRatio": 1
+      }
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering/emulated touch; physical hardware and owner visual acceptance remain open.",
+    "No full historical N1 stalled suites rerun.",
+    "Nine primary bodies; outer-kernel model differences and aggregate main-belt limitations are separate; no R4 surface."
+  ],
+  "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('navigation', { name: 'Exploration modes' }).getByRole('button', { name: 'Solar System', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button>Solar System</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <button type=\"button\" aria-expanded=\"true\" class=\"ws-search-reopen\" aria-controls=\"earth-search-content\" aria-label=\"Show search results and location\">…</button> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <button type=\"button\" aria-expanded=\"true\" class=\"ws-search-reopen\" aria-controls=\"earth-search-content\" aria-label=\"Show search results and location\">…</button> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    15 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <button type=\"button\" aria-expanded=\"true\" class=\"ws-search-reopen\" aria-controls=\"earth-search-content\" aria-label=\"Show search results and location\">…</button> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/scripts/validation/verify_cinematic_hub.mjs:20:642"
+}

@@ -1,0 +1,21 @@
+1440 initial ORAS Sky and served source identity 4555ms
+1440 native Landscape toggle and Sky Night Mode ON 9535ms
+1440 Explore dismissal and focus return 788ms
+1440 arrival and short outward overshoot stay in Sky 1993ms
+1440 reverse input leaves boundary hysteresis 1059ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.screenshot: Target crashed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+    at shot (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:33:72)
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:74:140 {
+  name: 'Error'
+}
+
+Node.js v22.22.0

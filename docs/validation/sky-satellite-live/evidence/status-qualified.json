@@ -1,0 +1,1489 @@
+{
+  "started": "2026-10-25T04:34:32.304Z",
+  "base": "http://127.0.0.1:4226",
+  "runs": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenes": [
+        {
+          "name": "paused-stale",
+          "wall": "2026-10-25T04:34:34.415Z",
+          "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+          "native": {
+            "frameId": 1028609781,
+            "utc": "2026-06-04T02:58:00.000Z",
+            "speed": 0,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "PAUSED\nSTALE DATA\nJun 3, 10:58 PM EDT\nResume Live\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 578.53125,
+              "y": 814,
+              "width": 282.9375,
+              "height": 54,
+              "top": 814,
+              "right": 861.46875,
+              "bottom": 868,
+              "left": 578.53125
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Paused",
+                "visible": true,
+                "rect": {
+                  "x": 591.53125,
+                  "y": 820,
+                  "width": 40.390625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 631.921875,
+                  "bottom": 840,
+                  "left": 591.53125
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 639.921875,
+                  "y": 820,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 698.828125,
+                  "bottom": 840,
+                  "left": 639.921875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-paused-stale-1440x900.png"
+        },
+        {
+          "name": "paused-frozen",
+          "wall": "2026-10-25T04:34:36.690Z",
+          "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+          "native": {
+            "frameId": 1028609781,
+            "utc": "2026-06-04T02:58:00.000Z",
+            "speed": 0,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "PAUSED\nSTALE DATA\nJun 3, 10:58 PM EDT\nResume Live\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 578.53125,
+              "y": 814,
+              "width": 282.9375,
+              "height": 54,
+              "top": 814,
+              "right": 861.46875,
+              "bottom": 868,
+              "left": 578.53125
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Paused",
+                "visible": true,
+                "rect": {
+                  "x": 591.53125,
+                  "y": 820,
+                  "width": 40.390625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 631.921875,
+                  "bottom": 840,
+                  "left": 591.53125
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 639.921875,
+                  "y": 820,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 698.828125,
+                  "bottom": 840,
+                  "left": 639.921875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-paused-frozen-1440x900.png"
+        },
+        {
+          "name": "resume-live",
+          "wall": "2026-10-25T04:34:39.294Z",
+          "url": "http://127.0.0.1:4226/sky-engine",
+          "native": {
+            "frameId": 1028609781,
+            "utc": "2026-10-25T04:34:39.226Z",
+            "speed": 1,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:34 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 620.96875,
+              "y": 814,
+              "width": 198.0625,
+              "height": 54,
+              "top": 814,
+              "right": 819.03125,
+              "bottom": 868,
+              "left": 620.96875
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 633.96875,
+                  "y": 820,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 820,
+                  "right": 655.65625,
+                  "bottom": 840,
+                  "left": 633.96875
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 663.65625,
+                  "y": 820,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 722.5625,
+                  "bottom": 840,
+                  "left": 663.65625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-resume-live-1440x900.png"
+        },
+        {
+          "name": "live-advancing",
+          "wall": "2026-10-25T04:34:42.193Z",
+          "url": "http://127.0.0.1:4226/sky-engine",
+          "native": {
+            "frameId": 1028609781,
+            "utc": "2026-10-25T04:34:42.126Z",
+            "speed": 1,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:34 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 620.96875,
+              "y": 814,
+              "width": 198.0625,
+              "height": 54,
+              "top": 814,
+              "right": 819.03125,
+              "bottom": 868,
+              "left": 620.96875
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 633.96875,
+                  "y": 820,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 820,
+                  "right": 655.65625,
+                  "bottom": 840,
+                  "left": 633.96875
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 663.65625,
+                  "y": 820,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 722.5625,
+                  "bottom": 840,
+                  "left": 663.65625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-live-advancing-1440x900.png"
+        },
+        {
+          "name": "tracking-live",
+          "wall": "2026-10-25T04:34:48.604Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 1028609781,
+            "utc": "2026-10-25T04:34:48.548Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": 28096,
+            "tracking": true
+          },
+          "text": "LIVE\nTRACKING\nSTALE DATA\nOct 25, 12:34 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 580.8671875,
+              "y": 814,
+              "width": 278.265625,
+              "height": 54,
+              "top": 814,
+              "right": 859.1328125,
+              "bottom": 868,
+              "left": 580.8671875
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 593.8671875,
+                  "y": 820,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 820,
+                  "right": 615.5546875,
+                  "bottom": 840,
+                  "left": 593.8671875
+                }
+              },
+              {
+                "text": "Tracking",
+                "visible": true,
+                "rect": {
+                  "x": 623.5546875,
+                  "y": 820,
+                  "width": 51.671875,
+                  "height": 20,
+                  "top": 820,
+                  "right": 675.2265625,
+                  "bottom": 840,
+                  "left": 623.5546875
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 683.2265625,
+                  "y": 820,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 742.1328125,
+                  "bottom": 840,
+                  "left": 683.2265625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-tracking-live-1440x900.png"
+        },
+        {
+          "name": "tracking-stopped",
+          "wall": "2026-10-25T04:34:52.495Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 1028609781,
+            "utc": "2026-10-25T04:34:52.438Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:34 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 620.96875,
+              "y": 814,
+              "width": 198.0625,
+              "height": 54,
+              "top": 814,
+              "right": 819.03125,
+              "bottom": 868,
+              "left": 620.96875
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 633.96875,
+                  "y": 820,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 820,
+                  "right": 655.65625,
+                  "bottom": 840,
+                  "left": 633.96875
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 663.65625,
+                  "y": 820,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 722.5625,
+                  "bottom": 840,
+                  "left": 663.65625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-tracking-stopped-1440x900.png"
+        },
+        {
+          "name": "unavailable-fixture",
+          "wall": "2026-10-25T04:34:58.259Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 1791723355,
+            "utc": "2026-10-25T04:34:58.124Z",
+            "speed": 1,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nUNAVAILABLE\nOct 25, 12:34 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 620.96875,
+              "y": 814,
+              "width": 198.0625,
+              "height": 54,
+              "top": 814,
+              "right": 819.03125,
+              "bottom": 868,
+              "left": 620.96875
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 633.96875,
+                  "y": 820,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 820,
+                  "right": 655.65625,
+                  "bottom": 840,
+                  "left": 633.96875
+                }
+              },
+              {
+                "text": "Unavailable",
+                "visible": true,
+                "rect": {
+                  "x": 663.65625,
+                  "y": 820,
+                  "width": 66.890625,
+                  "height": 20,
+                  "top": 820,
+                  "right": 730.546875,
+                  "bottom": 840,
+                  "left": 663.65625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-unavailable-fixture-1440x900.png"
+        }
+      ],
+      "pageErrors": [],
+      "servedBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "timeDetails": "Change time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nLive advances at current astronomical time.\n\nCurrent satellite elements: 0 fresh · 14,281 stale. Current orbital positions are not qualified for stale elements. Release provenance is unavailable.\n\nNORAD 28096: TLE epoch 2026-06-02T19:52:46Z · 144.4 days old at current UTC · stale",
+      "status": "PASS"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "scenes": [
+        {
+          "name": "paused-stale",
+          "wall": "2026-10-25T04:35:01.111Z",
+          "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+          "native": {
+            "frameId": 2722764808,
+            "utc": "2026-06-04T02:58:00.000Z",
+            "speed": 0,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "PAUSED\nSTALE DATA\nJun 3, 10:58 PM EDT\nResume Live\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 818,
+              "width": 366,
+              "height": 54,
+              "top": 818,
+              "right": 378,
+              "bottom": 872,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Paused",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 824,
+                  "width": 40.390625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 61.390625,
+                  "bottom": 844,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 69.390625,
+                  "y": 824,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 128.296875,
+                  "bottom": 844,
+                  "left": 69.390625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-paused-stale-390x900.png"
+        },
+        {
+          "name": "paused-frozen",
+          "wall": "2026-10-25T04:35:02.930Z",
+          "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+          "native": {
+            "frameId": 2722764808,
+            "utc": "2026-06-04T02:58:00.000Z",
+            "speed": 0,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "PAUSED\nSTALE DATA\nJun 3, 10:58 PM EDT\nResume Live\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 818,
+              "width": 366,
+              "height": 54,
+              "top": 818,
+              "right": 378,
+              "bottom": 872,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Paused",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 824,
+                  "width": 40.390625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 61.390625,
+                  "bottom": 844,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 69.390625,
+                  "y": 824,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 128.296875,
+                  "bottom": 844,
+                  "left": 69.390625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-paused-frozen-390x900.png"
+        },
+        {
+          "name": "resume-live",
+          "wall": "2026-10-25T04:35:04.677Z",
+          "url": "http://127.0.0.1:4226/sky-engine",
+          "native": {
+            "frameId": 2722764808,
+            "utc": "2026-10-25T04:35:04.631Z",
+            "speed": 1,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 818,
+              "width": 366,
+              "height": 54,
+              "top": 818,
+              "right": 378,
+              "bottom": 872,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 824,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 824,
+                  "right": 42.6875,
+                  "bottom": 844,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 824,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 109.59375,
+                  "bottom": 844,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-resume-live-390x900.png"
+        },
+        {
+          "name": "live-advancing",
+          "wall": "2026-10-25T04:35:06.709Z",
+          "url": "http://127.0.0.1:4226/sky-engine",
+          "native": {
+            "frameId": 2722764808,
+            "utc": "2026-10-25T04:35:06.683Z",
+            "speed": 1,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 818,
+              "width": 366,
+              "height": 54,
+              "top": 818,
+              "right": 378,
+              "bottom": 872,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 824,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 824,
+                  "right": 42.6875,
+                  "bottom": 844,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 824,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 109.59375,
+                  "bottom": 844,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-live-advancing-390x900.png"
+        },
+        {
+          "name": "tracking-live",
+          "wall": "2026-10-25T04:35:11.226Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 2722764808,
+            "utc": "2026-10-25T04:35:11.136Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": 28096,
+            "tracking": true
+          },
+          "text": "LIVE\nTRACKING\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 818,
+              "width": 366,
+              "height": 54,
+              "top": 818,
+              "right": 378,
+              "bottom": 872,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 824,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 824,
+                  "right": 42.6875,
+                  "bottom": 844,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Tracking",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 824,
+                  "width": 51.671875,
+                  "height": 20,
+                  "top": 824,
+                  "right": 102.359375,
+                  "bottom": 844,
+                  "left": 50.6875
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 110.359375,
+                  "y": 824,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 169.265625,
+                  "bottom": 844,
+                  "left": 110.359375
+                }
+              }
+            ]
+          },
+          "screenshot": "status-tracking-live-390x900.png"
+        },
+        {
+          "name": "tracking-stopped",
+          "wall": "2026-10-25T04:35:14.095Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 2722764808,
+            "utc": "2026-10-25T04:35:14.055Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 818,
+              "width": 366,
+              "height": 54,
+              "top": 818,
+              "right": 378,
+              "bottom": 872,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 824,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 824,
+                  "right": 42.6875,
+                  "bottom": 844,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 824,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 109.59375,
+                  "bottom": 844,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-tracking-stopped-390x900.png"
+        },
+        {
+          "name": "unavailable-fixture",
+          "wall": "2026-10-25T04:35:17.249Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 3654715761,
+            "utc": "2026-10-25T04:35:17.097Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nUNAVAILABLE\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 818,
+              "width": 366,
+              "height": 54,
+              "top": 818,
+              "right": 378,
+              "bottom": 872,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 824,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 824,
+                  "right": 42.6875,
+                  "bottom": 844,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Unavailable",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 824,
+                  "width": 66.890625,
+                  "height": 20,
+                  "top": 824,
+                  "right": 117.578125,
+                  "bottom": 844,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-unavailable-fixture-390x900.png"
+        }
+      ],
+      "pageErrors": [],
+      "servedBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "timeDetails": "Change time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nLive advances at current astronomical time.\n\nCurrent satellite elements: 0 fresh · 14,281 stale. Current orbital positions are not qualified for stale elements. Release provenance is unavailable.\n\nNORAD 28096: TLE epoch 2026-06-02T19:52:46Z · 144.4 days old at current UTC · stale",
+      "status": "PASS"
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 390
+      },
+      "scenes": [
+        {
+          "name": "paused-stale",
+          "wall": "2026-10-25T04:35:19.151Z",
+          "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+          "native": {
+            "frameId": 2808832975,
+            "utc": "2026-06-04T02:58:00.000Z",
+            "speed": 0,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "PAUSED\nSTALE DATA\nJun 3, 10:58 PM EDT\nResume Live\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 316,
+              "width": 643,
+              "height": 54,
+              "top": 316,
+              "right": 655,
+              "bottom": 370,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Paused",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 322,
+                  "width": 40.390625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 61.390625,
+                  "bottom": 342,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 69.390625,
+                  "y": 322,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 128.296875,
+                  "bottom": 342,
+                  "left": 69.390625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-paused-stale-667x390.png"
+        },
+        {
+          "name": "paused-frozen",
+          "wall": "2026-10-25T04:35:20.758Z",
+          "url": "http://127.0.0.1:4226/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+          "native": {
+            "frameId": 2808832975,
+            "utc": "2026-06-04T02:58:00.000Z",
+            "speed": 0,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "PAUSED\nSTALE DATA\nJun 3, 10:58 PM EDT\nResume Live\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 316,
+              "width": 643,
+              "height": 54,
+              "top": 316,
+              "right": 655,
+              "bottom": 370,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Paused",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 322,
+                  "width": 40.390625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 61.390625,
+                  "bottom": 342,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 69.390625,
+                  "y": 322,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 128.296875,
+                  "bottom": 342,
+                  "left": 69.390625
+                }
+              }
+            ]
+          },
+          "screenshot": "status-paused-frozen-667x390.png"
+        },
+        {
+          "name": "resume-live",
+          "wall": "2026-10-25T04:35:21.918Z",
+          "url": "http://127.0.0.1:4226/sky-engine",
+          "native": {
+            "frameId": 2808832975,
+            "utc": "2026-10-25T04:35:21.880Z",
+            "speed": 1,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 316,
+              "width": 643,
+              "height": 54,
+              "top": 316,
+              "right": 655,
+              "bottom": 370,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 322,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 322,
+                  "right": 42.6875,
+                  "bottom": 342,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 322,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 109.59375,
+                  "bottom": 342,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-resume-live-667x390.png"
+        },
+        {
+          "name": "live-advancing",
+          "wall": "2026-10-25T04:35:23.735Z",
+          "url": "http://127.0.0.1:4226/sky-engine",
+          "native": {
+            "frameId": 2808832975,
+            "utc": "2026-10-25T04:35:23.708Z",
+            "speed": 1,
+            "selected": null,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 316,
+              "width": 643,
+              "height": 54,
+              "top": 316,
+              "right": 655,
+              "bottom": 370,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 322,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 322,
+                  "right": 42.6875,
+                  "bottom": 342,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 322,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 109.59375,
+                  "bottom": 342,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-live-advancing-667x390.png"
+        },
+        {
+          "name": "tracking-live",
+          "wall": "2026-10-25T04:35:28.135Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 2808832975,
+            "utc": "2026-10-25T04:35:28.049Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": 28096,
+            "tracking": true
+          },
+          "text": "LIVE\nTRACKING\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 316,
+              "width": 643,
+              "height": 54,
+              "top": 316,
+              "right": 655,
+              "bottom": 370,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 322,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 322,
+                  "right": 42.6875,
+                  "bottom": 342,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Tracking",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 322,
+                  "width": 51.671875,
+                  "height": 20,
+                  "top": 322,
+                  "right": 102.359375,
+                  "bottom": 342,
+                  "left": 50.6875
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 110.359375,
+                  "y": 322,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 169.265625,
+                  "bottom": 342,
+                  "left": 110.359375
+                }
+              }
+            ]
+          },
+          "screenshot": "status-tracking-live-667x390.png"
+        },
+        {
+          "name": "tracking-stopped",
+          "wall": "2026-10-25T04:35:30.535Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 2808832975,
+            "utc": "2026-10-25T04:35:30.506Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nSTALE DATA\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 316,
+              "width": 643,
+              "height": 54,
+              "top": 316,
+              "right": 655,
+              "bottom": 370,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 322,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 322,
+                  "right": 42.6875,
+                  "bottom": 342,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Stale data",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 322,
+                  "width": 58.90625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 109.59375,
+                  "bottom": 342,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-tracking-stopped-667x390.png"
+        },
+        {
+          "name": "unavailable-fixture",
+          "wall": "2026-10-25T04:35:33.300Z",
+          "url": "http://127.0.0.1:4226/sky-engine?catalog=Satellite+TLE+%28local%29&source_id=28096&model=tle_satellite",
+          "native": {
+            "frameId": 1762741262,
+            "utc": "2026-10-25T04:35:33.191Z",
+            "speed": 1,
+            "selected": 28096,
+            "locked": null,
+            "tracking": false
+          },
+          "text": "LIVE\nUNAVAILABLE\nOct 25, 12:35 AM EDT\nChange time",
+          "iframeCount": 1,
+          "layout": {
+            "box": {
+              "x": 12,
+              "y": 316,
+              "width": 643,
+              "height": 54,
+              "top": 316,
+              "right": 655,
+              "bottom": 370,
+              "left": 12
+            },
+            "overflow": false,
+            "badges": [
+              {
+                "text": "Live",
+                "visible": true,
+                "rect": {
+                  "x": 21,
+                  "y": 322,
+                  "width": 21.6875,
+                  "height": 20,
+                  "top": 322,
+                  "right": 42.6875,
+                  "bottom": 342,
+                  "left": 21
+                }
+              },
+              {
+                "text": "Unavailable",
+                "visible": true,
+                "rect": {
+                  "x": 50.6875,
+                  "y": 322,
+                  "width": 66.890625,
+                  "height": 20,
+                  "top": 322,
+                  "right": 117.578125,
+                  "bottom": 342,
+                  "left": 50.6875
+                }
+              }
+            ]
+          },
+          "screenshot": "status-unavailable-fixture-667x390.png"
+        }
+      ],
+      "pageErrors": [],
+      "servedBuild": {
+        "runtime": "oras-sky-engine",
+        "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+        "overlay_version": "oras-sky-workspace.1",
+        "native_wasm_identical": false,
+        "native_vendor_chunks_identical": false,
+        "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+        "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+        "native_horizon": {
+          "purpose": "embedded-zero-horizon-colors",
+          "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+          "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+          "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+          "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+          "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+          "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+          "native_output_sha256": {
+            "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+            "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+          }
+        },
+        "material_input_sha256": {
+          "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+          "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+        },
+        "bridge_input_sha256": {
+          "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+          "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+          "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+          "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+        },
+        "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+        "navigation_input_sha256": {
+          "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+          "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+          "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+        },
+        "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+      },
+      "timeDetails": "Change time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nLive advances at current astronomical time.\n\nCurrent satellite elements: 0 fresh · 14,281 stale. Current orbital positions are not qualified for stale elements. Release provenance is unavailable.\n\nNORAD 28096: TLE epoch 2026-06-02T19:52:46Z · 144.4 days old at current UTC · stale",
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    "Read-only route fixture is used only for unavailable data UI recovery; no scientific data files or native source values are changed.",
+    "Selection uses native NORAD object API before actual Hub Track/Stop tracking clicks; root owns native visual selection and point-motion proof."
+  ],
+  "skyBuild": {
+    "runtime": "oras-sky-engine",
+    "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+    "overlay_version": "oras-sky-workspace.1",
+    "native_wasm_identical": false,
+    "native_vendor_chunks_identical": false,
+    "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+    "adapter_sha256": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+    "native_horizon": {
+      "purpose": "embedded-zero-horizon-colors",
+      "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+      "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+      "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+      "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+      "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+      "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+      "native_output_sha256": {
+        "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+        "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+      }
+    },
+    "material_input_sha256": {
+      "runtimes/shared/glass.css": "ad15f3a7d3f6e39f214364b9d7c1552447109a13974744b00831ff74e453a977",
+      "runtimes/sky-adapter/native-material.css": "b3be615ee9440f59c63df7701100476d69af5373f6bd4e59eeca485b99538a99"
+    },
+    "bridge_input_sha256": {
+      "entry.mjs": "a46831167e4256ee444f2248a1a6d413a79cc993da1799238c01d5c95b9a6e4c",
+      "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
+      "satellite-presentation.mjs": "d538ce1ea99918ee1807ff8b2fb12d4c6196c605854eb5cd8711e0b654b8ac9c",
+      "satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+    },
+    "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+    "navigation_input_sha256": {
+      "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+      "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+      "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
+    },
+    "artifact_sha256": "c8edee7e59ec889c07abb8f5fd870dc3d4b8d724aca151ec464f372531793dbf"
+  },
+  "sourceHashes": {
+    "frontend/src/features/workspace/TimeSurface.tsx": "4a60a044a3659d4fe837ecea5ffd06a6b2c8a5b117802a1989764038bdcba532",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "9a4da32e8b07d76483ad4b00208691f4572b304f5a3a0010e77be757b1dbee83",
+    "frontend/src/features/workspace/satelliteTimeStatus.ts": "705048676cf486555ce109dae962ff46cc8bb5c8ccd179b9d13c94925a9e13bb",
+    "runtimes/sky-adapter/plugin.js": "5fca6e315d01d2db3a0093a01f0ae450a7831759a43553613c5bafef0e7b9103",
+    "runtimes/sky-adapter/satellite-tracking.mjs": "7b6906c783e64b76cb311292d8bac9c7b18c919145e1a715d537bd8e6fe38b13"
+  },
+  "status": "PASS",
+  "finished": "2026-10-25T04:35:33.529Z"
+}

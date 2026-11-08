@@ -1,0 +1,16 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:4202
+Call log:
+[2m  - → GET http://127.0.0.1:4202/earth-runtime/release.json[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/review-only/cache-browser.mjs:2:2035 {
+  name: 'Error'
+}
+
+Node.js v22.22.0

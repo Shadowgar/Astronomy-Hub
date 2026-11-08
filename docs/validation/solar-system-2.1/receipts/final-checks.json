@@ -1,0 +1,26 @@
+{
+  "baseline": "b4005ce48e9869c298de4ed019c67e4e246accda",
+  "branch": "recovery/reconcile-20261026",
+  "frontend": {
+    "tests": 500,
+    "files": 75,
+    "status": "PASS"
+  },
+  "dockerScience": {
+    "tests": 7,
+    "warningsAreErrors": true,
+    "status": "PASS"
+  },
+  "sourceTests": 10,
+  "sourceArchiveContractTests": 6,
+  "windowsAtmospherePairs": 5,
+  "windowsSolarRegressionGroups": 27,
+  "windowsAtmosphereFailureGroups": 3,
+  "windowsPerformanceCases": 12,
+  "windowsTerrainLayouts": 3,
+  "windowsNativeHandoffCases": 8,
+  "galleryAssets": 34,
+  "galleryLayouts": 3,
+  "terrainManifestSha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+  "scope": "Engineering qualification only; owner, physical iPhone, corresponding-source release and baseline dependency gates remain."
+}

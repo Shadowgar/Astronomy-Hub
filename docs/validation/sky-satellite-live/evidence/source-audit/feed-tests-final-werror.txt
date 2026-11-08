@@ -1,0 +1,15 @@
+
+==================================== ERRORS ====================================
+__________ ERROR collecting backend/tests/test_satellite_feed_api.py ___________
+backend/tests/test_satellite_feed_api.py:13: in <module>
+    client = TestClient(app)
+             ^^^^^^^^^^^^^^^
+../../.venv/lib/python3.12/site-packages/starlette/testclient.py:399: in __init__
+    super().__init__(
+../../.venv/lib/python3.12/site-packages/httpx/_client.py:690: in __init__
+    warnings.warn(message, DeprecationWarning)
+E   DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+=========================== short test summary info ============================
+ERROR backend/tests/test_satellite_feed_api.py - DeprecationWarning: The 'app...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.82s

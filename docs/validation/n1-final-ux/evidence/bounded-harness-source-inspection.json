@@ -1,0 +1,16 @@
+{
+  "packageVersion": "1.58.2",
+  "fileSha256": {
+    "node_modules/playwright-core/lib/client/page.js": "409b11561b319e8dfb4d1ec3f8b126fb32ab19e894fae529edbeae57c056ae84",
+    "node_modules/playwright-core/lib/client/locator.js": "9c4fa569fd160b2f5a3204615967499f925deca68fc6846af13e0cdbfde87135",
+    "node_modules/playwright-core/lib/client/frame.js": "f3eeec1734312b518d488763365f7b3f877284bf92c01edc267bdbb1648ef8c7",
+    "node_modules/playwright-core/lib/client/timeoutSettings.js": "3049c9c53cb5c4f84d0fd00d237c2f78ddb70b8ac60908790b8ef28eb0b14ef0",
+    "node_modules/playwright-core/lib/server/dispatchers/dispatcher.js": "628c39de7799325c589a6f62e642324cb61b8d6fdaeec6bc29b40b0f0a76dc58"
+  },
+  "confirmed": [
+    "page.screenshot uses this._timeoutSettings.timeout(options); the driver sets page default20000ms.",
+    "Frame._queryCount forwards selector and options without injecting a timeout; locator.count is called without options.",
+    "The dispatcher uses validParams.timeout; absent timeout provides no deadline."
+  ],
+  "notEstablished": "No runtime stack inside Playwright/Chromium establishes why screenshot failed to return its inherited timeout or why count remained pending. No root-cause inference about resource pressure."
+}

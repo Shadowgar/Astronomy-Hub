@@ -1,0 +1,29 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_catalog_uses_sourced_metadata_and_honest_unavailability _________
+
+    def test_catalog_uses_sourced_metadata_and_honest_unavailability():
+        response = request('/api/v1/planetary-systems')
+        assert response.status_code == 200
+        catalog = response.json()
+        rows = {s['id']: s for s in catalog['systems']}
+>       assert set(rows) == {'earth','mars','jupiter','saturn','uranus','neptune'}
+E       AssertionError: assert {'earth', 'ju...'saturn', ...} == {'earth', 'ju...rn', 'uranus'}
+E         
+E         Extra items in the left set:
+E         'venus'
+E         'mercury'
+E         Use -v to get more diff
+
+backend/tests/test_planetary_systems.py:78: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T04:38:18.634243+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "21dc9938-3172-4fc2-b2a5-bf45a8b1d839", "route": "/api/v1/planetary-systems", "method": "GET"}
+{"timestamp": "2026-10-24T04:38:18.637744+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "21dc9938-3172-4fc2-b2a5-bf45a8b1d839", "route": "/api/v1/planetary-systems", "method": "GET", "status_code": 200, "duration_ms": 3}
+{"timestamp": "2026-10-24T04:38:18.638270+00:00", "level": "info", "event": "HTTP Request: GET http://test/api/v1/planetary-systems \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1786 HTTP Request: GET http://test/api/v1/planetary-systems "HTTP/1.1 200 OK"
+=========================== short test summary info ============================
+FAILED backend/tests/test_planetary_systems.py::test_catalog_uses_sourced_metadata_and_honest_unavailability
+1 failed, 13 deselected in 0.85s

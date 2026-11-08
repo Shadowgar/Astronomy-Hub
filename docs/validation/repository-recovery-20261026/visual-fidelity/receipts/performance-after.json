@@ -1,0 +1,72 @@
+{
+  "label": "after",
+  "base": "http://localhost:4231",
+  "runs": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 900,
+      "quality": "balanced",
+      "drawCalls": 20,
+      "geometries": 21,
+      "textures": 3,
+      "starCount": 4000,
+      "pixelRatio": 1.0000000149011612,
+      "renderCpuMs": {
+        "samples": 46,
+        "median": 0.5,
+        "p95": 0.7000000476837158
+      },
+      "gpuMs": {
+        "supported": true,
+        "samples": 46,
+        "median": 1.560576,
+        "p95": 2.428928
+      }
+    },
+    {
+      "name": "portrait",
+      "width": 390,
+      "height": 844,
+      "quality": "balanced",
+      "drawCalls": 19,
+      "geometries": 20,
+      "textures": 3,
+      "starCount": 4000,
+      "pixelRatio": 1.0000000149011612,
+      "renderCpuMs": {
+        "samples": 46,
+        "median": 0.5,
+        "p95": 0.699999988079071
+      },
+      "gpuMs": {
+        "supported": true,
+        "samples": 46,
+        "median": 0.459776,
+        "p95": 1.161216
+      }
+    },
+    {
+      "name": "landscape",
+      "width": 844,
+      "height": 390,
+      "quality": "balanced",
+      "drawCalls": 20,
+      "geometries": 21,
+      "textures": 3,
+      "starCount": 4000,
+      "pixelRatio": 1.0000000149011612,
+      "renderCpuMs": {
+        "samples": 46,
+        "median": 0.6000000238418579,
+        "p95": 0.800000011920929
+      },
+      "gpuMs": {
+        "supported": true,
+        "samples": 46,
+        "median": 0.857088,
+        "p95": 2.049024
+      }
+    }
+  ]
+}

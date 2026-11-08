@@ -1,0 +1,7 @@
+PASS [
+  'Keyboard toggle, Escape focus restoration and opaque preference persist in Hub/native reload',
+  'OS reduced-transparency media removes Hub/native blur and translucent gradient',
+  'Night Hub chrome is deliberately red/opaque with no blur',
+  'Forced-colors retains system surface semantics in Night Mode',
+  'Representative portrait controls retain44px targets and real pointer hit ownership'
+]

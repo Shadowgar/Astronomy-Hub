@@ -1,0 +1,847 @@
+{
+  "sha": "5ef2b8a52c6542f18ff616481439598c6140d7bf",
+  "base": "http://127.0.0.1:4230",
+  "runs": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/sky-engine",
+      "errors": [],
+      "httpFailures": [
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix298.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix318.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix471.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+          "status": 404
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:4230/sky-engine",
+      "body": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nLIVE\nMIXED AGES\nOct 26, 1:50 PM EDT\nChange time",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/sky-engine",
+        "http://127.0.0.1:4230/oras-sky-engine/?orasEmbedded=1&orasNightMode=0"
+      ],
+      "canvases": 0,
+      "nativeBefore": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:32.221Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": true,
+        "offset": 2,
+        "wallUtc": "2026-10-26T17:50:32.197Z"
+      },
+      "nativeAfter": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:35.231Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": true,
+        "offset": 2,
+        "wallUtc": "2026-10-26T17:50:35.206Z"
+      },
+      "liveTimeAdvances": true,
+      "screenshot": "1440-_sky-engine.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/earth",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/earth",
+      "body": "Skip to workspace\nAstronomy Hub\nEARTH\n⌄\nExplore\nEarth workspace\nSearch Earth\nSearch Earth\n+\n−\nORAS\nSources\nLIVE\nEarth layers use live source time\nTime details",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/earth",
+        "http://127.0.0.1:4230/earth-runtime/?orasEmbedded=1"
+      ],
+      "canvases": 0,
+      "screenshot": "1440-_earth.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/solar-system",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/solar-system",
+      "body": "Skip to Solar controls\nSun\nMercury\nVenus\nEarth\nMars\nSaturn\nSolar System\nAstronomy Hub\nSOLAR SYSTEM\n⌄\nReturn to Sky\nSun\nMercury\nVenus\nEarth ›\nMars ›\nJupiter ›\nSaturn ›\nUranus ›\nNeptune ›\nAll planets\nInner planets\nOuter planets\nRecenter\n−\n+\n↶\n↷\n\nSizes enlarged independentlySun, Mercury–Mars\n\n26 Oct 202617:50 UTC\n‹\n›\nJPL positions · sizes enlarged\nControls · reduced motion\n\nSolar System ready.",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/solar-system"
+      ],
+      "canvases": 1,
+      "screenshot": "1440-_solar-system.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/planetary-system/earth?date=2026-10-23T01:05:00Z",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/planetary-system/earth?date=2026-10-23T01:05:00Z",
+      "body": "Skip to planetary system controls\nEarth\nMoon\nSolar System\nAstronomy Hub\nSOLAR SYSTEM\n⌄\n← Solar System\nSolar System\n›\nEarth System\nEarth System\n\nParent-centered · ICRF · source-derived motion\n\nOverview\n+\n−\n↶\n↷\nMoons · 1\nⓘ\n▶ Play\nSimulation speed\n1 min / sec\n1 hour / sec\n6 hours / sec\n1 day / sec\n2026-10-2301:05:00 UTC\nPlanet and moon sizes enlarged independently\nUse physical scale",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/planetary-system/earth?date=2026-10-23T01:05:00Z"
+      ],
+      "canvases": 1,
+      "screenshot": "1440-_planetary-system_earth.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/planet-view/moon?date=2026-10-23T01:05:00Z",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/planet-view/moon?date=2026-10-23T01%3A05%3A00Z&lat=-1.3641640202608576&lon=33.95459647333041&height=4343500.000000001&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "body": "Astronomy Hub\nSOLAR SYSTEM\n⌄\nReturn to Solar\nPLANET VIEW · EARTH SATELLITE\nMoon\n\n2026-10-23T01:05:00Z · UTC\n\n+\n−\n↶\n↷\nSources\nLatitude °N\nLongitude °E\nHeight m\nGo\nPlanetocentric · east-positive · reference sphere · no terrain",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/planet-view/moon?date=2026-10-23T01%3A05%3A00Z&lat=-1.3641640202608576&lon=33.95459647333041&height=4343500.000000001&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+        "http://127.0.0.1:4230/planet-runtime/?channel=eaf997e1111640f4f502db4d53f289b5"
+      ],
+      "canvases": 0,
+      "screenshot": "1440-_planet-view_moon.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "route": "/sky-engine",
+      "errors": [],
+      "httpFailures": [
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix318.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix401.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix407.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix482.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix486.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix490.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix494.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix506.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4230/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix702.eph",
+          "status": 404
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:4230/sky-engine",
+      "body": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nLIVE\nMIXED AGES\nOct 26, 1:50 PM EDT\nChange time",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/sky-engine",
+        "http://127.0.0.1:4230/oras-sky-engine/?orasEmbedded=1&orasNightMode=0"
+      ],
+      "canvases": 0,
+      "nativeBefore": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:50:58.367Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": true,
+        "offset": 2,
+        "wallUtc": "2026-10-26T17:50:58.386Z"
+      },
+      "nativeAfter": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-26T17:51:01.381Z",
+          "live": true,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "snapshot": {
+          "selection": null,
+          "layers": [],
+          "tracking": false
+        },
+        "speed": 1,
+        "selection": null,
+        "lock": null,
+        "satellites": true,
+        "hints": true,
+        "offset": 2,
+        "wallUtc": "2026-10-26T17:51:01.442Z"
+      },
+      "liveTimeAdvances": true,
+      "screenshot": "390-_sky-engine.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "route": "/earth",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/earth",
+      "body": "Skip to workspace\nAstronomy Hub\nEARTH\n⌄\nExplore\nEarth workspace\nSearch Earth\nSearch Earth\n+\n−\nORAS\nSources\nLayers\nTonight\nLIVE\nEarth layers use live source time\nTime details",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/earth",
+        "http://127.0.0.1:4230/earth-runtime/?orasEmbedded=1"
+      ],
+      "canvases": 0,
+      "screenshot": "390-_earth.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "route": "/solar-system",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/solar-system",
+      "body": "Skip to Solar controls\nSun\nMercury\nVenus\nEarth\nMars\nSolar System\nAstronomy Hub\nSOLAR SYSTEM\n⌄\nReturn to Sky\nSun\nMercury\nVenus\nEarth ›\nMars ›\nJupiter ›\nSaturn ›\nUranus ›\nNeptune ›\nAll planets\nInner planets\nOuter planets\nRecenter\n−\n+\n↶\n↷\n\nSizes enlarged independentlySun, Mercury–Mars\n\n26 Oct 2026\n17:51 UTC\n‹\n›\n\nSolar System ready.",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/solar-system"
+      ],
+      "canvases": 1,
+      "screenshot": "390-_solar-system.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "route": "/planetary-system/earth?date=2026-10-23T01:05:00Z",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/planetary-system/earth?date=2026-10-23T01:05:00Z",
+      "body": "Skip to planetary system controls\nEarth\nMoon\nSolar System\nAstronomy Hub\nSOLAR SYSTEM\n⌄\n← Solar System\nSolar System\n›\nEarth System\nEarth System\n\nParent-centered · ICRF · source-derived motion\n\nOverview\n+\n−\n↶\n↷\nMoons · 1\nⓘ\n▶ Play\nSimulation speed\n1 min / sec\n1 hour / sec\n6 hours / sec\n1 day / sec\n2026-10-23\n01:05:00 UTC\nPlanet and moon sizes enlarged independently\nUse physical scale",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/planetary-system/earth?date=2026-10-23T01:05:00Z"
+      ],
+      "canvases": 1,
+      "screenshot": "390-_planetary-system_earth.png",
+      "status": "OBSERVED"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 900
+      },
+      "route": "/planet-view/moon?date=2026-10-23T01:05:00Z",
+      "errors": [],
+      "httpFailures": [],
+      "finalUrl": "http://127.0.0.1:4230/planet-view/moon?date=2026-10-23T01%3A05%3A00Z&lat=-1.3641640202608578&lon=33.95459647333041&height=6515250&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+      "body": "Astronomy Hub\nSOLAR SYSTEM\n⌄\nReturn to Solar\nPLANET VIEW · EARTH SATELLITE\nMoon\n\n2026-10-23T01:05:00Z · UTC\n\n+\n−\n↶\n↷\nSources\nLatitude °N\nLongitude °E\nHeight m\nGo\nPlanetocentric · east-positive · reference sphere · no terrain",
+      "overflow": false,
+      "frames": [
+        "http://127.0.0.1:4230/planet-view/moon?date=2026-10-23T01%3A05%3A00Z&lat=-1.3641640202608578&lon=33.95459647333041&height=6515250&heading=6.283185307179586&pitch=-1.5707963267948966&roll=0",
+        "http://127.0.0.1:4230/planet-runtime/?channel=5988c7c5a9a034c008b14dd8aecfb792"
+      ],
+      "canvases": 0,
+      "screenshot": "390-_planet-view_moon.png",
+      "status": "OBSERVED"
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering and emulated mobile; owner and physical device acceptance absent."
+  ]
+}

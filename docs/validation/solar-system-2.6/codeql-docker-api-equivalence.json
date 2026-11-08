@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "runtime": "Docker private preview127.0.0.1:4231",
+  "byte_identical_before_after": true,
+  "responses": [
+    {
+      "path": "context",
+      "bytes": 16043,
+      "sha256": "bd592ecf37af713caeee995d484df7452ce7acf9ae4178380415463a19cb72c2",
+      "http_status": 200
+    },
+    {
+      "path": "observations/ibex-ena-map",
+      "bytes": 66750,
+      "sha256": "4c1cab33346970c0bb131fd878c9c468583faa1d87682175ebbaf943e1936cd1",
+      "http_status": 200
+    },
+    {
+      "path": "observations/imap-magnetic-field",
+      "bytes": 126182,
+      "sha256": "7389455cf74d3bffb4f1ded22a9b8aff6fdcc1e1da804a38d0f19ebdf27ee532",
+      "http_status": 200
+    }
+  ]
+}

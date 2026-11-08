@@ -1,0 +1,207 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Unavailable local imagery is disclosed; source geometry/camera remain usable",
+    "Reload after imagery recovery loads both source assets",
+    "Scene display preferences survive a time change without settings writes",
+    "Actual WebGL context loss removes the renderer; explicit Retry recovers",
+    "Portrait/landscape resize retains native focus; reduced motion remains immediate",
+    "Camera animation ends; renderer is idle between interactions (no perpetual RAF)",
+    "Late original GLB response cannot revive a disposed Solar renderer"
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "frameTiming": {
+    "frames": 19,
+    "median": 16.700000000000728,
+    "p95": 250,
+    "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "diagnostics": {
+      "overviewScope": "inner",
+      "epoch": "2026-03-01T00:00:00Z",
+      "frame": "ICRF",
+      "origin": "Sun center (10)",
+      "units": "AU",
+      "selected": "mars",
+      "renderCount": 22,
+      "disposed": false,
+      "animating": false,
+      "camera": [
+        0.27711703116354347,
+        -0.915090890901918,
+        0.013238918958259793
+      ],
+      "target": [
+        1.0622798496961037,
+        -0.7977963757673062,
+        -0.39458162382170137
+      ],
+      "bodies": [
+        {
+          "id": "sun",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "glyphRadius": 0.2,
+          "visible": true,
+          "screenRadius": 2055.660758321627,
+          "screen": [
+            10039.489551907509,
+            -515.0258109035502
+          ]
+        },
+        {
+          "id": "mercury",
+          "position": [
+            -0.23324983271527747,
+            0.19955620297869084,
+            0.1307773684458807
+          ],
+          "glyphRadius": 0.07,
+          "visible": true,
+          "screenRadius": 237.28448928847172,
+          "screen": [
+            4490.755834715709,
+            196.99365867387206
+          ]
+        },
+        {
+          "id": "venus",
+          "position": [
+            0.7126199901948562,
+            0.1368990886032651,
+            0.016516238605945525
+          ],
+          "glyphRadius": 0.21,
+          "visible": true,
+          "screenRadius": 487.7360122063553,
+          "screen": [
+            -1595.1455738678533,
+            -105.4171557881956
+          ]
+        },
+        {
+          "id": "earth",
+          "position": [
+            -0.93122863093717,
+            0.3102305324258698,
+            0.13448340640221867
+          ],
+          "glyphRadius": 0.23,
+          "visible": true,
+          "screenRadius": 290.0756356670662,
+          "screen": [
+            2311.376959126185,
+            -20.600156119808144
+          ]
+        },
+        {
+          "id": "mars",
+          "position": [
+            1.062279849696104,
+            -0.7977963757673064,
+            -0.3945816238217013
+          ],
+          "glyphRadius": 0.175,
+          "visible": true,
+          "screenRadius": 236.7566238207012,
+          "screen": [
+            619.4062500000006,
+            453.9999999999997
+          ]
+        },
+        {
+          "id": "jupiter",
+          "position": [
+            -2.1139623789581803,
+            4.381244316529881,
+            1.9293781185832406
+          ],
+          "glyphRadius": 0.65,
+          "visible": false,
+          "screenRadius": 343.77612206780947,
+          "screen": [
+            3501.4278018952828,
+            891.3317897961638
+          ]
+        },
+        {
+          "id": "saturn",
+          "position": [
+            9.474338965319955,
+            0.6915563049877463,
+            -0.1223466680710583
+          ],
+          "glyphRadius": 0.55,
+          "visible": false,
+          "screenRadius": 174.98403673879739,
+          "screen": [
+            573.7168429481378,
+            -125.94918373345443
+          ]
+        },
+        {
+          "id": "uranus",
+          "position": [
+            9.677470250735903,
+            15.535556926169807,
+            6.667152564786
+          ],
+          "glyphRadius": 0.36,
+          "visible": false,
+          "screenRadius": 58.810017433029245,
+          "screen": [
+            -1781.564689297171,
+            -1279.545244491214
+          ]
+        },
+        {
+          "id": "neptune",
+          "position": [
+            29.86672243807959,
+            0.9265423908546634,
+            -0.3642826724766978
+          ],
+          "glyphRadius": 0.35,
+          "visible": false,
+          "screenRadius": 15.980418137143879,
+          "screen": [
+            718.9293474294662,
+            -131.86158502731882
+          ]
+        }
+      ],
+      "drawCalls": 12,
+      "geometries": 21,
+      "textures": 3,
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "quality": "balanced",
+      "backgroundVisible": true,
+      "gpuMs": {
+        "supported": false,
+        "samples": 0,
+        "median": null,
+        "p95": null
+      },
+      "orbitsVisible": true,
+      "effectsVisible": true,
+      "belt": {
+        "visible": true,
+        "requestedDensity": 2400,
+        "drawCount": 2400,
+        "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+      },
+      "starfield": "illustrative",
+      "starCount": 4000,
+      "renderCpuMs": {
+        "samples": 19,
+        "median": 0.5,
+        "p95": 24.799999999813735
+      },
+      "pixelRatio": 1
+    }
+  }
+}

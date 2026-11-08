@@ -1,0 +1,542 @@
+[
+  {
+    "baseRefName": "main",
+    "headRefName": "r1-a-adaptive-explorer-design-1",
+    "headRefOid": "b151d45787cf0e450aa0b187acd3eee142fa1fef",
+    "isDraft": false,
+    "mergeStateStatus": "CLEAN",
+    "number": 73,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T08:45:12Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/Shadowgar/Astronomy-Hub/actions/runs/38371341464/job/115208822747",
+        "name": "Analyze (actions)",
+        "startedAt": "2026-10-13T08:44:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CodeQL"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T08:45:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/Shadowgar/Astronomy-Hub/actions/runs/38371347410/job/115208839370",
+        "name": "test",
+        "startedAt": "2026-10-13T08:44:39Z",
+        "status": "COMPLETED",
+        "workflowName": "Playwright Tests"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T08:45:27Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/Shadowgar/Astronomy-Hub/actions/runs/38371341464/job/115208822145",
+        "name": "Analyze (c-cpp)",
+        "startedAt": "2026-10-13T08:44:35Z",
+        "status": "COMPLETED",
+        "workflowName": "CodeQL"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T08:45:34Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/Shadowgar/Astronomy-Hub/actions/runs/38371341464/job/115208822642",
+        "name": "Analyze (javascript-typescript)",
+        "startedAt": "2026-10-13T08:44:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CodeQL"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T08:45:27Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/Shadowgar/Astronomy-Hub/actions/runs/38371341464/job/115208822609",
+        "name": "Analyze (python)",
+        "startedAt": "2026-10-13T08:44:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CodeQL"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T08:45:05Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/Shadowgar/Astronomy-Hub/runs/115209016755",
+        "name": "CodeQL",
+        "startedAt": "2026-10-13T08:45:03Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-13T08:44:41Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T08:44:34Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-13T08:44:33Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/73"
+  },
+  {
+    "baseRefName": "r1-a-adaptive-explorer-design-1",
+    "headRefName": "r1-b-adaptive-sky-implementation-1",
+    "headRefOid": "d1e3a75c4fa3b48a41fc5167786b3147bf763e71",
+    "isDraft": false,
+    "mergeStateStatus": "CLEAN",
+    "number": 74,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-17T17:27:14Z",
+        "conclusion": "NEUTRAL",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-17T17:27:08Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-17T17:27:14Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/74"
+  },
+  {
+    "baseRefName": "r1-b-adaptive-sky-implementation-1",
+    "headRefName": "r2-a-earth-search-1",
+    "headRefOid": "27f34a94198f2061c0a5083a68beebd567c7d87f",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 78,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-17T18:40:35Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-17T18:40:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-17T18:40:24Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/78"
+  },
+  {
+    "baseRefName": "r2-a-earth-search-1",
+    "headRefName": "r2-b-earth-imagery-cache-1",
+    "headRefOid": "158a77053ea18e4d0aed8725f715ca373930fd13",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 79,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-20T16:06:01Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T16:06:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-20T16:06:00Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/79"
+  },
+  {
+    "baseRefName": "r2-b-earth-imagery-cache-1",
+    "headRefName": "r2-earth-ux-performance-1",
+    "headRefOid": "23f5c41f830fad7eb66b67fec297962c2599428e",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 80,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-20T17:40:03Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T17:40:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-20T17:40:00Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/80"
+  },
+  {
+    "baseRefName": "r2-earth-ux-performance-1",
+    "headRefName": "r3-a-solar-system-1",
+    "headRefOid": "a646960edda6968be2bf8453b7863ff0dba75d18",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 81,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-21T14:07:59Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-21T14:08:41Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-21T14:08:23Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/81"
+  },
+  {
+    "baseRefName": "r3-a-solar-system-1",
+    "headRefName": "design-cinematic-owner-acceptance-2026-10-21",
+    "headRefOid": "7aaeeef4e4e9b6ad406752814270ea0970666104",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 82,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-21T15:40:55Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-21T15:42:03Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-21T15:41:29Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/82"
+  },
+  {
+    "baseRefName": "design-cinematic-owner-acceptance-2026-10-21",
+    "headRefName": "r3-a-cinematic-solar-1",
+    "headRefOid": "b68e2b40b2d94719f9afe5c3c37cc30ae36432d7",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 83,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-21T17:08:34Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-21T17:09:04Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-21T17:08:29Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/83"
+  },
+  {
+    "baseRefName": "r3-a-cinematic-solar-1",
+    "headRefName": "cinematic-foundation-1",
+    "headRefOid": "bdd0e0a03f593313e8789e4e56fa989f82f5ec12",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 84,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-22T23:24:09Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-22T23:24:04Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-22T23:24:03Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/84"
+  },
+  {
+    "baseRefName": "cinematic-foundation-1",
+    "headRefName": "r3-b-major-planets-1",
+    "headRefOid": "9e7f23360b4048902cc99066879529286163a329",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 85,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-22T23:32:15Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-22T23:32:13Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-22T23:32:10Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/85"
+  },
+  {
+    "baseRefName": "r3-b-major-planets-1",
+    "headRefName": "cinematic-earth-ux-1",
+    "headRefOid": "59fd9f0f7eaf77037cc52142d79709924a15758a",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 86,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-22T23:38:19Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-22T23:38:22Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-22T23:38:21Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/86"
+  },
+  {
+    "baseRefName": "cinematic-earth-ux-1",
+    "headRefName": "cinematic-sky-ux-1",
+    "headRefOid": "9eb60f09a43c2de22d9f6f4b19fa9f9b142a8af3",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 87,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-22T23:38:31Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-22T23:38:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-22T23:38:24Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/87"
+  },
+  {
+    "baseRefName": "cinematic-sky-ux-1",
+    "headRefName": "cinematic-hub-integration-1",
+    "headRefOid": "89491f72ef4f4ab9e75d1bc2e4599cd3e74ca3f2",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 88,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-23T02:36:30Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-23T02:36:26Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-23T02:36:23Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/88"
+  },
+  {
+    "baseRefName": "cinematic-hub-integration-1",
+    "headRefName": "cinematic-earth-completion-1",
+    "headRefOid": "94f98598131f23d9179135ec492fb1ad5d739407",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 89,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-23T16:04:58Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-23T16:04:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-23T16:04:51Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/89"
+  },
+  {
+    "baseRefName": "cinematic-earth-completion-1",
+    "headRefName": "cinematic-sky-completion-1",
+    "headRefOid": "4fa9ffd8a8a216ed9a313e4f4929d2bc336ff7f8",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 90,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-23T16:40:57Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-23T16:40:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-23T16:40:51Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/90"
+  },
+  {
+    "baseRefName": "cinematic-sky-completion-1",
+    "headRefName": "cinematic-glass-1",
+    "headRefOid": "2080ed5130c501a7ac286fb862e99d5c9dc6cb30",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "number": 91,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "StatusContext",
+        "context": "CodeRabbit",
+        "startedAt": "2026-10-23T19:06:33Z",
+        "state": "SUCCESS",
+        "targetUrl": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-23T19:06:29Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://dashboard.gitguardian.com",
+        "name": "GitGuardian Security Checks",
+        "startedAt": "2026-10-23T19:06:27Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/91"
+  }
+]

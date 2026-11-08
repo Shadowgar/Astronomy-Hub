@@ -1,0 +1,92 @@
+{
+  "status": "FAIL",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "steps": [
+        "Direct search, one actual native renderer and compact shared brand visible",
+        "Source coordinate result moves actual Cesium camera, independent selected-location summary",
+        "Collapsed/expanded source details with honest imagery/elevation limitations",
+        "Keyboard zoom moves actual camera and preserves scene time",
+        "Source availability remains accessible",
+        "Sky return retains actual observer and Pennsylvania native horizon"
+      ],
+      "errors": [],
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.321903000989934,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "steps": [
+        "Direct search, one actual native renderer and compact shared brand visible",
+        "Source coordinate result moves actual Cesium camera, independent selected-location summary",
+        "Collapsed/expanded source details with honest imagery/elevation limitations",
+        "Keyboard zoom moves actual camera and preserves scene time",
+        "Source availability remains accessible",
+        "Sky return retains actual observer and Pennsylvania native horizon"
+      ],
+      "errors": [],
+      "sky": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.321903000989934,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-02-28T00:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 667,
+      "height": 390,
+      "steps": [
+        "Direct search, one actual native renderer and compact shared brand visible",
+        "Source coordinate result moves actual Cesium camera, independent selected-location summary",
+        "Collapsed/expanded source details with honest imagery/elevation limitations",
+        "Keyboard zoom moves actual camera and preserves scene time"
+      ],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Software Chromium and emulated mobile, not physical GPU or owner visual acceptance."
+  ],
+  "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Imagery sources and availability', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-label=\"Imagery sources and availability\">Sources</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <input type=\"search\" maxlength=\"200\" autocomplete=\"off\" id=\"earth-search-query\" value=\"41.321903, -79.585394\" placeholder=\"City, street address, or latitude, longitude\"/> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <input type=\"search\" maxlength=\"200\" autocomplete=\"off\" id=\"earth-search-query\" value=\"41.321903, -79.585394\" placeholder=\"City, street address, or latitude, longitude\"/> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    22 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <input type=\"search\" maxlength=\"200\" autocomplete=\"off\" id=\"earth-search-query\" value=\"41.321903, -79.585394\" placeholder=\"City, street address, or latitude, longitude\"/> from <div class=\"ws-earth-direct\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-ux-1/scripts/validation/verify_cinematic_earth.mjs:8:82"
+}

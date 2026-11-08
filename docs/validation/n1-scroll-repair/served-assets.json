@@ -1,0 +1,32 @@
+{
+  "testedApplicationHead": "746e5f8a8131a4bb4ebdadaa89784dfeb59923f5",
+  "base": "http://127.0.0.1:4202",
+  "status": "PASS",
+  "cacheControl": "no-store",
+  "skyArtifact": "3b80bb352c8d1680d9217ce9b8e7fc5dbb8ed0b71b59c2f0f66d1143d103b50f",
+  "earthArtifact": "cbe7f8d88c855f5f4fca7dc5fd7ae078d2b570c95a256b69c6529a5f5cd5108c",
+  "servedJavaScript": [
+    {
+      "url": "/assets/index-BPnvPv5z.js",
+      "sha256": "e53e451a26ac6b8f47889ec93cd0f31ed08636a2a633658e201a05720b074a42"
+    },
+    {
+      "url": "/oras-sky-engine/js/app.430062b1.js",
+      "sha256": "20e3f1dd1844557ae1a0c80c8c2bd11014cdcd70c857e97c7b0f392028d10be0"
+    },
+    {
+      "url": "/oras-sky-engine/js/chunk-2d2253ec.1b0c9439.js",
+      "sha256": "460796e24b13821b2d7515baa7b2d01b43cf129a811855d5c8bcf0f56e041d55"
+    },
+    {
+      "url": "/oras-sky-engine/js/chunk-vendors.c8723c79.js",
+      "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260"
+    },
+    {
+      "url": "/earth-runtime/assets/index-SvjOIFdM.js",
+      "sha256": "097ea90f4aacfb3aeceabd31ea8dabec1a76867de572e07ad3720dd80016a643"
+    }
+  ],
+  "verifiedAt": "2026-10-15T04:38:43Z",
+  "capturedGitHead": "746e5f8a8131a4bb4ebdadaa89784dfeb59923f5"
+}

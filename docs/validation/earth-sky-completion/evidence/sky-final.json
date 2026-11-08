@@ -1,0 +1,396 @@
+{
+  "status": "PASS",
+  "base": "http://127.0.0.1:4220",
+  "runs": [
+    {
+      "w": 1440,
+      "h": 900,
+      "checks": [
+        "Native display sliders, Milky Way/survey toggles, reset and focus restoration",
+        "User display choice survives reload; observer, epoch and camera unchanged",
+        "Constellation names independently controlled without changing lines",
+        "Real Deneb identity selection/native focus and compact/expanded source context"
+      ],
+      "errors": [],
+      "before": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "exposure": 2.5,
+        "starScale": 1,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "reloaded": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "exposure": 2,
+        "starScale": 0.8,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "selected": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0.943220233038,
+            "pitchRad": 1.441184309394,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": {
+          "id": "Bright Star Catalog (local):star-deneb:star",
+          "name": "Deneb",
+          "kind": "star",
+          "catalog": "Bright Star Catalog (local)",
+          "source_id": "star-deneb",
+          "model": "star",
+          "ra": 310.35797809,
+          "dec": 45.280338,
+          "facts": [
+            {
+              "label": "Catalog",
+              "value": "Bright Star Catalog (local)"
+            },
+            {
+              "label": "Source ID",
+              "value": "star-deneb"
+            },
+            {
+              "label": "Magnitude",
+              "value": "1.25"
+            }
+          ],
+          "available": true,
+          "focusable": true,
+          "trackable": false,
+          "link": "/oras-sky-engine/skysource/Deneb?catalog=Bright+Star+Catalog+%28local%29&source_id=star-deneb&model=star&date=2026-08-13T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=310.35797809&dec=45.280338"
+        },
+        "exposure": 2,
+        "starScale": 0.8,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "status": "PASS"
+    },
+    {
+      "w": 390,
+      "h": 900,
+      "checks": [
+        "Native display sliders, Milky Way/survey toggles, reset and focus restoration",
+        "User display choice survives reload; observer, epoch and camera unchanged",
+        "Constellation names independently controlled without changing lines",
+        "Real Deneb identity selection/native focus and compact/expanded source context"
+      ],
+      "errors": [],
+      "before": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "exposure": 2.5,
+        "starScale": 1,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "reloaded": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "exposure": 2,
+        "starScale": 0.8,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "selected": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0.943220233038,
+            "pitchRad": 1.441184309394,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": {
+          "id": "Bright Star Catalog (local):star-deneb:star",
+          "name": "Deneb",
+          "kind": "star",
+          "catalog": "Bright Star Catalog (local)",
+          "source_id": "star-deneb",
+          "model": "star",
+          "ra": 310.35797809,
+          "dec": 45.280338,
+          "facts": [
+            {
+              "label": "Catalog",
+              "value": "Bright Star Catalog (local)"
+            },
+            {
+              "label": "Source ID",
+              "value": "star-deneb"
+            },
+            {
+              "label": "Magnitude",
+              "value": "1.25"
+            }
+          ],
+          "available": true,
+          "focusable": true,
+          "trackable": false,
+          "link": "/oras-sky-engine/skysource/Deneb?catalog=Bright+Star+Catalog+%28local%29&source_id=star-deneb&model=star&date=2026-08-13T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=310.35797809&dec=45.280338"
+        },
+        "exposure": 2,
+        "starScale": 0.8,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "status": "PASS"
+    },
+    {
+      "w": 667,
+      "h": 390,
+      "checks": [
+        "Native display sliders, Milky Way/survey toggles, reset and focus restoration",
+        "User display choice survives reload; observer, epoch and camera unchanged",
+        "Constellation names independently controlled without changing lines",
+        "Real Deneb identity selection/native focus and compact/expanded source context"
+      ],
+      "errors": [],
+      "before": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "exposure": 2.5,
+        "starScale": 1,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "reloaded": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": null,
+        "exposure": 2,
+        "starScale": 0.8,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "selected": {
+        "nav": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-08-13T04:00:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0.943220233038,
+            "pitchRad": 1.441184309394,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "selection": {
+          "id": "Bright Star Catalog (local):star-deneb:star",
+          "name": "Deneb",
+          "kind": "star",
+          "catalog": "Bright Star Catalog (local)",
+          "source_id": "star-deneb",
+          "model": "star",
+          "ra": 310.35797809,
+          "dec": 45.280338,
+          "facts": [
+            {
+              "label": "Catalog",
+              "value": "Bright Star Catalog (local)"
+            },
+            {
+              "label": "Source ID",
+              "value": "star-deneb"
+            },
+            {
+              "label": "Magnitude",
+              "value": "1.25"
+            }
+          ],
+          "available": true,
+          "focusable": true,
+          "trackable": false,
+          "link": "/oras-sky-engine/skysource/Deneb?catalog=Bright+Star+Catalog+%28local%29&source_id=star-deneb&model=star&date=2026-08-13T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=310.35797809&dec=45.280338"
+        },
+        "exposure": 2,
+        "starScale": 0.8,
+        "atmosphere": false,
+        "landscape": "pennsylvania-woodland-v1",
+        "milkyway": true,
+        "dss": true,
+        "profile": "visual-default",
+        "night": false
+      },
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    "SwiftShader/emulated touch; no physical GPU benchmark. Native display brightness is not a measured observing condition."
+  ]
+}

@@ -1,0 +1,2043 @@
+{
+  "started": "2026-10-24T07:56:39.057Z",
+  "base": "http://127.0.0.1:4225",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "inputs": {
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "b2254eff03ace7dda6e52ce352500c873b100eb4e04db3c9179a2c8f64568679",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "44447706de778f0490ba2dcbba99fc16f6ff6f63bae8474983afc2d2d27ab54d",
+    "frontend/src/features/workspace/TimeSurface.tsx": "a2f254f6040f5cc17eec33560438cbfe404cd759f0d1a5000e899e25d9432f0d",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+    "frontend/src/features/runtime/productState.ts": "116d6077c6a0ed2fc1297ec10e379fe2dd114b7b99e90a8babaa4be490e627ff",
+    "frontend/src/features/workspace/workspaceNavigation.ts": "076914f2f42d814789fa3938092ab6929e94358c40952e1ea6c455fdbc5a2a6f",
+    "frontend/src/features/solar/solarContracts.ts": "a01ceeb119ea2fb7d81ab619e1298545f12a0f3ebe9ca0ef9fc04fbfbba1020c",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "e8ab2db980c8ac0ec3ec37f543a288b241089fedbfab5799a4000b43a9363b7d",
+    "frontend/src/features/systems/SystemWorkspace.tsx": "bf719996482a68acc72bbef780a083fa5d776d51f50bb65fd3747abf52d535cd",
+    "frontend/src/features/planet/PlanetWorkspace.tsx": "2e9efa2d5377886648e8369e6e02752e68aca9c4757df6ec7f201f3798296236",
+    "frontend/src/features/planet/planetContracts.ts": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf",
+    "runtimes/sky-adapter/entry.mjs": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+    "runtimes/sky-adapter/plugin.js": "a257ea41150bd2c28c78c7f8a05eeef31aa1e35270867f789ea5945c5d5199e6"
+  },
+  "observations": [
+    {
+      "name": "normal-no-date-before",
+      "wallUtc": "2026-10-24T07:56:41.208Z",
+      "url": "http://127.0.0.1:4225/sky-engine",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "LIVE\nOct 24, 3:56 AM EDT\nChange time",
+      "intent": "date=2026-10-24T07%3A56%3A39.212Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:40.117Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.484Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:39.212Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.670Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:40.709Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 4136849401,
+        "utc": "2026-10-24T07:56:41.490Z",
+        "timeSpeed": 1,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "normal-no-date-after",
+      "wallUtc": "2026-10-24T07:56:43.095Z",
+      "url": "http://127.0.0.1:4225/sky-engine",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "LIVE\nOct 24, 3:56 AM EDT\nChange time",
+      "intent": "date=2026-10-24T07%3A56%3A39.212Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:40.117Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.484Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:39.212Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.670Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:40.709Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 4136849401,
+        "utc": "2026-10-24T07:56:43.320Z",
+        "timeSpeed": 1,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "normal-to-solar",
+      "url": "http://127.0.0.1:4225/solar-system?date=2026-10-24T07%3A56%3A45.759Z&solarFrom=sky",
+      "wallUtc": "2026-10-24T07:56:48.904Z",
+      "solar": {
+        "overviewScope": "inner",
+        "cameraView": "inner",
+        "closeView": false,
+        "sizeMode": "cinematic",
+        "scale": "independently-enlarged-display-radii",
+        "near": 0.001,
+        "cameraUp": [
+          0.15,
+          0,
+          1
+        ],
+        "cameraQuaternion": [
+          0.4884737160435733,
+          -0.24753448371180314,
+          -0.43742580099473377,
+          0.7132873030779597
+        ],
+        "epoch": "2026-10-24T07:56:45.759Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -2.5986973774116415,
+          -1.1283453890954118,
+          1.796178946264388
+        ],
+        "target": [
+          0.33516961942272144,
+          0.6771112243411186,
+          0.2916317684006119
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "geometryRadiusAu": 0.0046504674668608895,
+            "displayFactor": 32.54660798842351,
+            "displayRadiusAu": 0.15135693490553298,
+            "cameraDistance": 3.3544970090108097,
+            "inView": true,
+            "radiusAu": 0.004650467260962158,
+            "glyphRadius": 0.004650467260962158,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 55.56561169888811,
+            "screen": [
+              870.5157334693229,
+              634.4130371157765
+            ]
+          },
+          {
+            "id": "mercury",
+            "position": [
+              0.3591496160529971,
+              -0.07537506617288597,
+              -0.07748702936436151
+            ],
+            "geometryRadiusAu": 0.000016308388063111475,
+            "displayFactor": 2695.0203321932654,
+            "displayRadiusAu": 0.04395143509520493,
+            "cameraDistance": 3.6562589522532734,
+            "inView": true,
+            "radiusAu": 0.000016308387202198327,
+            "glyphRadius": 0.000016308387202198327,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 14.889810327535052,
+            "screen": [
+              940.1567128570202,
+              602.5550126692937
+            ]
+          },
+          {
+            "id": "venus",
+            "position": [
+              0.6224126018136128,
+              0.35082888061440615,
+              0.11848745814322378
+            ],
+            "geometryRadiusAu": 0.00004045378599889756,
+            "displayFactor": 1983.0231471942598,
+            "displayRadiusAu": 0.08022079075080192,
+            "cameraDistance": 3.9214990434463064,
+            "inView": true,
+            "radiusAu": 0.00004045378434654418,
+            "glyphRadius": 0.00004045378434654418,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.86298148686155,
+            "screen": [
+              844.5852936915453,
+              488.30956668942304
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              0.8565909557307487,
+              0.4639548941514997,
+              0.20110781020328306
+            ],
+            "geometryRadiusAu": 0.00004258750669325284,
+            "displayFactor": 1920.3290597745008,
+            "displayRadiusAu": 0.08178202258211249,
+            "cameraDistance": 4.125371448278734,
+            "inView": true,
+            "radiusAu": 0.00004258750455597227,
+            "glyphRadius": 0.00004258750455597227,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 24.08546146761795,
+            "screen": [
+              841.4032549727372,
+              435.1999772515657
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              -0.18627224488470603,
+              1.4295909753636489,
+              0.6607440266741111
+            ],
+            "geometryRadiusAu": 0.00002265740912741269,
+            "displayFactor": 4179.888555664011,
+            "displayRadiusAu": 0.09470544061308732,
+            "cameraDistance": 3.6948675106551003,
+            "inView": true,
+            "radiusAu": 0.0000226574080509289,
+            "glyphRadius": 0.0000226574080509289,
+            "markerVisible": false,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 32.069221446615224,
+            "screen": [
+              404.9248651271047,
+              380.01922035584516
+            ]
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.6233194544481715,
+              3.54067881517234,
+              1.605830241771604
+            ],
+            "geometryRadiusAu": 0.00046732619236863806,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00046732617030490934,
+            "cameraDistance": 4.783917855700581,
+            "inView": false,
+            "radiusAu": 0.00046732617030490934,
+            "glyphRadius": 0.00046732617030490934,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.3714848135307136,
+            "screen": [
+              -2787.3799828375295,
+              391.55807553444794
+            ]
+          },
+          {
+            "id": "saturn",
+            "position": [
+              9.226652459474854,
+              1.8969783258846462,
+              0.38617782470994316
+            ],
+            "geometryRadiusAu": 0.0003892568966336601,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00038925687730393614,
+            "cameraDistance": 12.287375045466668,
+            "inView": true,
+            "radiusAu": 0.00038925687730393614,
+            "glyphRadius": 0.00038925687730393614,
+            "markerVisible": true,
+            "labelVisible": true,
+            "visible": true,
+            "screenRadius": 0.09210282506894263,
+            "screen": [
+              1060.6718873482098,
+              78.96891772491661
+            ]
+          },
+          {
+            "id": "uranus",
+            "position": [
+              8.848309692127092,
+              15.89817029759766,
+              6.837707985714191
+            ],
+            "geometryRadiusAu": 0.00016953450571177144,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016953449859497232,
+            "cameraDistance": 21.127073207969215,
+            "inView": false,
+            "radiusAu": 0.00016953449859497232,
+            "glyphRadius": 0.00016953449859497232,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.013562215644284947,
+            "screen": [
+              -21.23130303991548,
+              -422.7124031358221
+            ]
+          },
+          {
+            "id": "neptune",
+            "position": [
+              29.833485854555093,
+              1.6191127801384253,
+              -0.07999593433333037
+            ],
+            "geometryRadiusAu": 0.00016458791119007592,
+            "displayFactor": 1,
+            "displayRadiusAu": 0.00016458790412449367,
+            "cameraDistance": 32.602378253221644,
+            "inView": false,
+            "radiusAu": 0.00016458790412449367,
+            "glyphRadius": 0.00016458790412449367,
+            "markerVisible": false,
+            "labelVisible": false,
+            "visible": true,
+            "screenRadius": 0.0072575924163231775,
+            "screen": [
+              1304.0332689533923,
+              -13.772952331511945
+            ]
+          }
+        ],
+        "drawCalls": 20,
+        "geometries": 21,
+        "textures": 2,
+        "texturesReady": 1,
+        "cloudsReady": true,
+        "quality": "efficient",
+        "backgroundVisible": false,
+        "gpuMs": {
+          "supported": false,
+          "samples": 0,
+          "median": null,
+          "p95": null
+        },
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "belt": {
+          "visible": false,
+          "requestedDensity": 2400,
+          "drawCount": 1000,
+          "model": "illustrative aggregate; no identities or precise asteroid ephemerides"
+        },
+        "starfield": "illustrative",
+        "starCount": 1200,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 1.900000000372529,
+          "p95": 60.90000000037253
+        },
+        "pixelRatio": 1
+      }
+    },
+    {
+      "name": "live-solar-return-before",
+      "wallUtc": "2026-10-24T07:56:52.331Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-10-24T07%3A56%3A45.759Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-10-24T07%3A56%3A45.759Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nOct 24, 3:56 AM EDT\nChange time",
+      "intent": "date=2026-10-24T07%3A56%3A45.759Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:40.117Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.484Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:39.212Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.670Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:40.709Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:45.718Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 11,
+            "command": "getNavigationState",
+            "payload": {}
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:46.086Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 13,
+            "command": "destroy",
+            "payload": {}
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:49.805Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:50.699Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:45.759Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.045Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.298Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 4,
+            "command": "setNavigationView",
+            "payload": {
+              "mode": "sky",
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.549Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 6,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:45.759Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.549Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 7,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1969903097,
+        "utc": "2026-10-24T07:56:45.759Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "live-solar-return-after",
+      "wallUtc": "2026-10-24T07:56:54.283Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-10-24T07%3A56%3A45.759Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-10-24T07%3A56%3A45.759Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nOct 24, 3:56 AM EDT\nChange time",
+      "intent": "date=2026-10-24T07%3A56%3A45.759Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:40.117Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.484Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:39.212Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.670Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:40.709Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:40.709Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:45.718Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 11,
+            "command": "getNavigationState",
+            "payload": {}
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:46.086Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "b86f9d58ae881740d1aae68718056bfa",
+            "generation": 1,
+            "type": "command",
+            "id": 13,
+            "command": "destroy",
+            "payload": {}
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:49.805Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:50.699Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:45.759Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.045Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.298Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 4,
+            "command": "setNavigationView",
+            "payload": {
+              "mode": "sky",
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.549Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 6,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:56:45.759Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:51.549Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "28dce8ea77dec8f49d58768a6e29e1d0",
+            "generation": 2,
+            "type": "command",
+            "id": 7,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1969903097,
+        "utc": "2026-10-24T07:56:45.759Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "explicit-historical-before",
+      "wallUtc": "2026-10-24T07:56:58.300Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:56.320Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.262Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.558Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1748773419,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "explicit-historical-after",
+      "wallUtc": "2026-10-24T07:57:00.381Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:56.320Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.262Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.558Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1748773419,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "now-resume-before",
+      "wallUtc": "2026-10-24T07:57:03.602Z",
+      "url": "http://127.0.0.1:4225/sky-engine",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "LIVE\nOct 24, 3:57 AM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:56.320Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.262Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.558Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:02.074Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 11,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:02.937Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 13,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:57:02.937Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:03.329Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 14,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:57:03.329Z",
+              "live": true
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1748773419,
+        "utc": "2026-10-24T07:57:04.447Z",
+        "timeSpeed": 1,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "now-resume-after",
+      "wallUtc": "2026-10-24T07:57:06.100Z",
+      "url": "http://127.0.0.1:4225/sky-engine",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "LIVE\nOct 24, 3:57 AM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:56:56.320Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.262Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.558Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:56:57.759Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:02.074Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 11,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:02.937Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 13,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:57:02.937Z",
+              "live": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:03.329Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c48598e2cc36edc8d0e0a0387c42ced5",
+            "generation": 1,
+            "type": "command",
+            "id": 14,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-10-24T07:57:03.329Z",
+              "live": true
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1748773419,
+        "utc": "2026-10-24T07:57:06.689Z",
+        "timeSpeed": 1,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "fixed-solar-return-before",
+      "wallUtc": "2026-10-24T07:57:13.807Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:57:11.860Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:12.746Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:12.864Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:13.218Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:13.218Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 2685386036,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "fixed-solar-return-after",
+      "wallUtc": "2026-10-24T07:57:15.422Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:57:11.860Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:12.746Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:12.864Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:13.218Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:13.218Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "c3a25555f5206095ecb1665014eea4bc",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 2685386036,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "earth-moon-system-return-before",
+      "wallUtc": "2026-10-24T07:57:20.879Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:57:18.405Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.229Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.370Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.854Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.854Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 2457643122,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "earth-moon-system-return-after",
+      "wallUtc": "2026-10-24T07:57:22.934Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00.000Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:57:18.405Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.229Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.370Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.854Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:19.854Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "fa92902d51b12a4cc4a9e8922388a573",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 2457643122,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "native-moon-return-before",
+      "wallUtc": "2026-10-24T07:57:29.832Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:57:28.013Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:28.868Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:29.132Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:29.379Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:29.379Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1363252103,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    },
+    {
+      "name": "native-moon-return-after",
+      "wallUtc": "2026-10-24T07:57:31.773Z",
+      "url": "http://127.0.0.1:4225/sky-engine?date=2026-06-04T02%3A58%3A00Z",
+      "frameUrl": "http://127.0.0.1:4225/oras-sky-engine/?date=2026-06-04T02%3A58%3A00Z&orasEmbedded=1&orasNightMode=0",
+      "iframeCount": 1,
+      "hubTime": "SET TIME\nJun 3, 10:58 PM EDT\nChange time",
+      "intent": "date=2026-06-04T02%3A58%3A00.000Z&lat=41.321903&lng=-79.585394&elev=432.816&elevationSource=oras-site",
+      "messages": [
+        {
+          "at": "2026-10-24T07:57:28.013Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 1,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:28.868Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 2,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:29.132Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 3,
+            "command": "setObserverIntent",
+            "payload": {
+              "lat": 41.321903,
+              "lon": -79.585394,
+              "elevationM": 432.816,
+              "elevationSource": "oras-site"
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:29.379Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 5,
+            "command": "setTimeIntent",
+            "payload": {
+              "utc": "2026-06-04T02:58:00.000Z",
+              "live": false
+            }
+          }
+        },
+        {
+          "at": "2026-10-24T07:57:29.379Z",
+          "message": {
+            "runtime": "sky",
+            "nonce": "e7c03484f69d8f159e547c41e5864538",
+            "generation": 1,
+            "type": "command",
+            "id": 6,
+            "command": "setPresentation",
+            "payload": {
+              "embedded": true,
+              "creditsAtTop": false
+            }
+          }
+        }
+      ],
+      "native": {
+        "frameId": 1363252103,
+        "utc": "2026-06-04T02:58:00.000Z",
+        "timeSpeed": 0,
+        "observer": {
+          "lat": 41.3219030000159,
+          "lon": -79.58539400000345,
+          "elevationM": 432.816
+        },
+        "selected": null,
+        "locked": null,
+        "tracking": false
+      }
+    }
+  ],
+  "pageErrors": [],
+  "failures": [],
+  "status": "PASS",
+  "finished": "2026-10-24T07:57:32.768Z"
+}

@@ -1,0 +1,302 @@
+{
+  "status": "FAIL",
+  "runs": [
+    {
+      "width": 1440,
+      "steps": [
+        "Source-backed three-body scene, actual draws, no inactive native renderer",
+        "Actual scene object positions equal Docker ephemeris vectors",
+        "Keyboard Earth selection moves actual camera target to source vector",
+        "Mars selection/focus and honest barycenter details",
+        "Back/Forward restores selected identity and actual camera focus",
+        "Explicit zoom/orbit controls move actual camera and support keyboard",
+        "Real pointer wheel/drag or emulated touch remains interactive",
+        "Unsupported R4 visit stays in usable Solar context",
+        "Controlled epoch recalculates source positions; selection retained",
+        "Reload restores epoch/body from canonical URL",
+        "Out-of-coverage API rejection destroys stale scene; Back recovers",
+        "Existing coordinate search actual Cesium destination; Earth→Solar→Earth preserves observer/epoch/camera and single renderer"
+      ],
+      "errors": [],
+      "screens": [
+        {
+          "file": "1440-overview.png",
+          "sha256": "76645f17b8a2638ece54edf98193122f5886fb1389a7679ee0d05a1115584b34"
+        },
+        {
+          "file": "1440-earth-focused.png",
+          "sha256": "6e26b9773bf323b38d0d6796cae514010e6d6a8f4e545e8fbf32256e5a33521c"
+        },
+        {
+          "file": "1440-mars-focused.png",
+          "sha256": "f9cd9bb75cd0b3d00a7c42248631a62d5f365c9561f724995cc4b47dba1b2a78"
+        }
+      ],
+      "initial": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 12,
+        "disposed": false,
+        "animating": true,
+        "camera": [
+          0,
+          -3.2999999999999976,
+          2.799999999999998
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "screen": [
+              540,
+              450
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "screen": [
+              298.2125913233424,
+              366.93286525961844
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "screen": [
+              850.8876643874901,
+              694.4351311599746
+            ]
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5
+      },
+      "earth": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "earth",
+        "renderCount": 94,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -0.724942023804289,
+          -0.19492420173000263,
+          0.460917940450406
+        ],
+        "target": [
+          -0.9249420238042889,
+          0.3250757982699974,
+          0.14091794045040631
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "screen": [
+              5953.984763002075,
+              3631.143937058415
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "screen": [
+              539.9999999999998,
+              450.0000000000002
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "screen": [
+              -2173.2727218778227,
+              -2094.05452697237
+            ]
+          }
+        ],
+        "drawCalls": 3,
+        "geometries": 5
+      },
+      "mars": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "mars",
+        "renderCount": 161,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.2527080101912633,
+          -1.3286912557963633,
+          -0.07932068357522326
+        ],
+        "target": [
+          1.0527080101912634,
+          -0.8086912557963634,
+          -0.3993206835752232
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "screen": [
+              -29.15057437769269,
+              -298.53281683197156
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "screen": [
+              -344.6563352361497,
+              -379.48313169001676
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "screen": [
+              540,
+              450
+            ]
+          }
+        ],
+        "drawCalls": 3,
+        "geometries": 5
+      },
+      "earthToSolar": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 15,
+        "disposed": false,
+        "animating": true,
+        "camera": [
+          0,
+          -3.2999999999999976,
+          2.799999999999998
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "screen": [
+              540,
+              450
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "screen": [
+              298.2125913233424,
+              366.93286525961844
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "screen": [
+              850.8876643874901,
+              694.4351311599746
+            ]
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5
+      },
+      "nativeEarth": {
+        "mode": "earth",
+        "observer": {
+          "lat": 41.321903001007314,
+          "lon": -79.5853940000091,
+          "elevationM": 432.816
+        },
+        "elevationSource": "oras-site",
+        "camera": {
+          "latitudeRad": 0.7212032605397223,
+          "longitudeRad": -1.38902716179694,
+          "heightM": 39999.9999999561,
+          "headingRad": 6.283185307179586,
+          "pitchRad": -1.570775528851808,
+          "rollRad": 0
+        },
+        "utc": "2026-02-28T00:00:00.000Z",
+        "live": false
+      }
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering/emulated touch; physical hardware and owner visual acceptance remain open.",
+    "No full historical N1 stalled suites rerun.",
+    "Only Sun/Earth/Mars-system slice, no R4 surface."
+  ],
+  "error": "frame.evaluate: TypeError: Cannot read properties of undefined (reading 'getNavigationState')\n    at eval (eval at evaluate (:290:30), <anonymous>:1:37)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/scripts/validation/verify_r3_solar.mjs:22:212"
+}

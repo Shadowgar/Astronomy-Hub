@@ -1,0 +1,13 @@
+{
+  "diagnostic-filter-disabled.png": {
+    "changed_pixels": 310804,
+    "total_pixels": 356400,
+    "mean_absolute_rgb_difference": 3.2752880658436214
+  },
+  "diagnostic-opaque.png": {
+    "changed_pixels": 316179,
+    "total_pixels": 356400,
+    "mean_absolute_rgb_difference": 14.387964833520389
+  },
+  "interpretation": "Actual raster changes with filter removed and with opaque surface. This is compositing evidence, not an aesthetic similarity score or owner acceptance."
+}

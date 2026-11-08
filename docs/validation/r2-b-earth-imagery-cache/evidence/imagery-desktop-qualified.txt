@@ -1,0 +1,8 @@
+1440 paris-cold eox-2016 partial 4816ms settled
+1440 paris-warm eox-2016 partial 4867ms settled
+1440 paris-restart eox-2016 partial 4943ms settled
+1440 oras-local-detail usgs-naip partial partial after30s
+1440 qualified-us-aerial eox-2016 ready 23275ms settled
+1440 us-outside-admitted-aerial eox-2016 ready 7ms settled
+1440 rapid boundaries/latest native camera/one safety base PASS
+1440 product-owned cache confirmation/cancel/clear/unrelated work PASS

@@ -1,0 +1,26 @@
+{
+  "browser": {
+    "sha256": "5020e410ca1482d070b4fd73b2de30ab74bded8837510f8ced140e2bf4d298a3",
+    "rawPath": "output/n1/satellite-zoom-reveal/browser/proof.json"
+  },
+  "symbol-pixels": {
+    "sha256": "09ce36f0cf5488fdbb01ce1e96c5517a308992bbfd2824ec1d290acfdd481ed1",
+    "rawPath": "output/n1/satellite-zoom-reveal/symbol-pixels/proof.json"
+  },
+  "native-regressions": {
+    "sha256": "f1e8619c950a8526b58b4be468ee13cec7125a835ef2b3150a413b4d8a9dc8fc",
+    "rawPath": "output/n1/satellite-zoom-reveal/native-regressions/proof.json"
+  },
+  "journeys-desktop": {
+    "sha256": "fcb76032f7fd65d535f7e5731477faa6188a8c91974c78d05097a33eba28e292",
+    "rawPath": "output/n1/satellite-zoom-reveal/journeys-desktop/proof.json"
+  },
+  "journeys-mobile": {
+    "sha256": "a9e46c0ba6354814b14877ec07f80e8f7fc703d82bcb277be8c86a83cf5533c9",
+    "rawPath": "output/n1/satellite-zoom-reveal/journeys-mobile/proof.json"
+  },
+  "observer-history": {
+    "sha256": "56303bbf57a853c52b32c6344e1eba06e1b2161b8dbb72a264c1902304bdf081",
+    "rawPath": "output/n1/satellite-zoom-reveal/observer-history/proof.json"
+  }
+}

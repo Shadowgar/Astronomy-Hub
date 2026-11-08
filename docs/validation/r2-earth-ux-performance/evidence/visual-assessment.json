@@ -1,0 +1,725 @@
+{
+  "method": "Human review of original fixed-checkpoint PNGs and contact sheets. Recognizable=broad geographic scene structure; useful=discernible fields, roads or urban blocks beyond uniform/coarse colors. Partial aerial coverage may qualify only the central patch. These are conservative sampled observations, not exact onset times or full-coverage acceptance. Null means not demonstrated by8s. Original PNGs and exact capture-completion times remain in measurement receipts.",
+  "rows": [
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "cold",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "cold",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "cold",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": null,
+      "usefulDetailByRequestedCheckpointSeconds": null,
+      "sceneIncompleteAt8Seconds": true,
+      "finalSource": "usgs-naip"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "cold",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": true,
+      "finalSource": "usgs-naip"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "cold",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "cold",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "warm",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "warm",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "warm",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "warm",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": true,
+      "finalSource": "usgs-naip"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "warm",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "warm",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "restart",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "restart",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "restart",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "restart",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": true,
+      "finalSource": "usgs-naip"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "restart",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 1440,
+      "phase": "restart",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "cold",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "cold",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "cold",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "cold",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "cold",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "cold",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "warm",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "warm",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "warm",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "warm",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "warm",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "warm",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "restart",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "restart",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "restart",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "restart",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "restart",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "baseline",
+      "width": 390,
+      "phase": "restart",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "cold",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "cold",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "cold",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "cold",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "cold",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "cold",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "warm",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "warm",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "warm",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "warm",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": true,
+      "finalSource": "usgs-naip"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "warm",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "warm",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "restart",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "restart",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "restart",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "restart",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": null,
+      "usefulDetailByRequestedCheckpointSeconds": null,
+      "sceneIncompleteAt8Seconds": true,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "restart",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 1440,
+      "phase": "restart",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "cold",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "cold",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "cold",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "cold",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "cold",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 8,
+      "usefulDetailByRequestedCheckpointSeconds": 8,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "cold",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "warm",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "warm",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "warm",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "warm",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "warm",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "warm",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "restart",
+      "name": "reference",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "restart",
+      "name": "oras-medium",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "restart",
+      "name": "oras-close",
+      "recognizableByRequestedCheckpointSeconds": 1,
+      "usefulDetailByRequestedCheckpointSeconds": 1,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "pema"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "restart",
+      "name": "us-aerial",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "restart",
+      "name": "paris",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "phase": "restart",
+      "name": "uncovered",
+      "recognizableByRequestedCheckpointSeconds": 3,
+      "usefulDetailByRequestedCheckpointSeconds": 3,
+      "sceneIncompleteAt8Seconds": false,
+      "finalSource": "eox-2016"
+    }
+  ]
+}

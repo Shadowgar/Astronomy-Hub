@@ -1,0 +1,61 @@
+/* First approved cinematic fidelity slice. Only Solar presentation is affected. */
+.ws-shell[data-workspace-mode=solar] .solar-header{top:18px;left:24px;right:24px;height:48px}
+.ws-shell[data-workspace-mode=solar] .solar-destinations{position:absolute;left:24px;top:92px;z-index:5;border-radius:14px}
+.ws-shell[data-workspace-mode=solar] summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;box-sizing:border-box;padding:8px 14px;cursor:pointer;list-style:none;font-size:12px;touch-action:manipulation}
+.ws-shell[data-workspace-mode=solar] summary::-webkit-details-marker{display:none}
+.ws-shell[data-workspace-mode=solar] summary:focus-visible{outline:2px solid var(--solar-blue);outline-offset:3px;border-radius:12px}
+.ws-shell[data-workspace-mode=solar] details[open]>summary svg{transform:rotate(180deg)}
+.ws-shell[data-workspace-mode=solar] .solar-bodies{left:0;right:auto;top:54px;width:284px;max-width:calc(100vw - 48px);display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:10px;max-height:calc(100dvh - 180px);overflow:auto;border-radius:16px}
+.ws-shell[data-workspace-mode=solar] .solar-bodies button{padding:8px 4px;min-height:64px;min-width:0;gap:6px;font-size:11px}
+.ws-shell[data-workspace-mode=solar] .solar-mini-body{width:28px;height:28px}
+.ws-shell[data-workspace-mode=solar] .solar-camera{right:24px;left:auto;bottom:24px;top:auto;width:auto;max-width:calc(100vw - 48px);display:flex;flex-direction:row;align-items:center;gap:0;padding:4px;border-radius:14px}
+.ws-shell[data-workspace-mode=solar] .solar-camera-actions{gap:0}
+.ws-shell[data-workspace-mode=solar] .solar-camera-actions button,.ws-shell[data-workspace-mode=solar] .solar-camera-actions button:first-child{min-width:44px;width:44px;flex:none;margin:0;padding:8px}
+.ws-shell[data-workspace-mode=solar] .solar-camera-actions button:first-child span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.ws-shell[data-workspace-mode=solar] .solar-framing{position:relative}
+.ws-shell[data-workspace-mode=solar] .solar-framing summary{min-width:76px;padding:8px 10px}
+.ws-shell[data-workspace-mode=solar] .solar-presets{position:absolute;right:0;bottom:calc(100% + 14px);width:180px;display:flex;flex-direction:column;align-items:stretch;padding:6px;border-radius:14px}
+.ws-shell[data-workspace-mode=solar] .solar-presets button{min-width:0;min-height:44px;width:100%;justify-content:flex-start;padding:8px 12px}
+.ws-shell[data-workspace-mode=solar] .solar-scale-note{position:absolute;bottom:calc(100% + 9px);right:4px;width:max-content;max-width:calc(100vw - 40px);text-align:right;margin:0;font-size:10px;color:#c2cad4;text-shadow:0 1px 4px #000}
+.ws-shell[data-workspace-mode=solar] .solar-scale-note span{font-size:10px;color:#e3b77c}
+.ws-shell[data-workspace-mode=solar] .solar-time-bar{left:50%;right:auto;bottom:24px;transform:translateX(-50%);max-width:calc(100vw - 48px);padding:4px 8px;border-radius:14px}
+.ws-shell[data-workspace-mode=solar] .solar-caption{left:26px;right:auto;bottom:28px;display:flex;max-width:240px;gap:10px;font-size:10px}
+.ws-shell[data-workspace-mode=solar] .solar-context{top:112px;right:24px;left:auto;bottom:auto;width:276px;max-height:calc(100dvh - 250px);border-radius:18px;padding:18px}
+.ws-shell[data-workspace-mode=solar] .solar-context[data-expanded=false] .solar-object-intro,.ws-shell[data-workspace-mode=solar] .solar-context[data-expanded=false] .solar-appearance-note{display:none}
+.ws-shell[data-workspace-mode=solar] .solar-object-heading h2{font-size:25px;font-weight:450}
+.ws-shell[data-workspace-mode=solar] .solar-object-heading small{font-size:9px;letter-spacing:1.2px}
+.ws-shell[data-workspace-mode=solar] .solar-distance{margin:16px 0 12px}
+.ws-shell[data-workspace-mode=solar] .solar-object-actions{margin-top:8px;padding-top:12px}
+.ws-shell[data-workspace-mode=solar] .solar-body-label{font-size:12px!important;font-weight:450;background:transparent!important;border:0;text-shadow:0 2px 6px #000}
+.ws-shell[data-workspace-mode=solar] .solar-leaders line{stroke-opacity:.35}
+@media(max-width:767px){
+ .ws-shell[data-workspace-mode=solar] .solar-header{left:14px;right:12px;top:10px;height:44px;gap:8px}
+ .ws-shell[data-workspace-mode=solar] .solar-return{min-width:44px;width:44px;padding:8px}
+ .ws-shell[data-workspace-mode=solar] .solar-return span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ .ws-shell[data-workspace-mode=solar] .solar-header-actions{gap:2px}
+ .ws-shell[data-workspace-mode=solar] .solar-destinations{left:14px;top:72px}
+ .ws-shell[data-workspace-mode=solar] .solar-camera{left:auto;right:14px;bottom:78px;max-width:calc(100vw - 28px);padding:2px}
+ .ws-shell[data-workspace-mode=solar] .solar-camera-actions button,.ws-shell[data-workspace-mode=solar] .solar-camera-actions button:first-child{width:44px;min-width:44px;min-height:44px}
+ .ws-shell[data-workspace-mode=solar] .solar-framing summary{min-width:64px;padding:8px}
+ .ws-shell[data-workspace-mode=solar] .solar-scale-note{bottom:calc(100% + 6px);font-size:9px}
+ .ws-shell[data-workspace-mode=solar] .solar-scale-note span{font-size:9px}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar{left:14px;right:14px;bottom:14px;transform:none;max-width:none;width:auto}
+ .ws-shell[data-workspace-mode=solar] .solar-caption{display:none}
+ .ws-shell[data-workspace-mode=solar] .solar-context{left:14px;right:14px;top:auto;bottom:156px;width:auto;max-height:calc(100dvh - 320px);padding:12px 14px}
+ .ws-shell[data-workspace-mode=solar] .solar-context[data-expanded=false]{max-height:170px}
+ .ws-shell[data-workspace-mode=solar] .solar-object-heading h2{font-size:21px}
+ .ws-shell[data-workspace-mode=solar] .solar-distance{margin:8px 0}
+ .ws-shell[data-workspace-mode=solar] .solar-object-actions{padding-top:8px}
+}
+@media(max-height:560px) and (min-width:560px){
+ .ws-shell[data-workspace-mode=solar] .solar-destinations{left:14px;top:74px}
+ .ws-shell[data-workspace-mode=solar] .solar-camera{left:auto;right:14px;bottom:12px}
+ .ws-shell[data-workspace-mode=solar] .solar-time-bar{left:14px;right:auto;bottom:12px;transform:none;width:auto;max-width:calc(100vw - 360px)}
+ .ws-shell[data-workspace-mode=solar] .solar-context{left:auto;right:14px;top:78px;bottom:auto;width:226px;max-height:calc(100dvh - 182px);padding:12px}
+ .ws-shell[data-workspace-mode=solar] .solar-context[data-expanded=false]{max-height:180px}
+ .ws-shell[data-workspace-mode=solar] .solar-bodies{max-height:calc(100dvh - 140px)}
+}
+@media(max-width:359px){
+ .ws-shell[data-workspace-mode=solar] .solar-camera-actions button,.ws-shell[data-workspace-mode=solar] .solar-camera-actions button:first-child{min-width:44px;width:44px}
+ .ws-shell[data-workspace-mode=solar] .solar-framing summary{min-width:58px}
+}

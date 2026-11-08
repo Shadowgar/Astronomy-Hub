@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "source_files": 667,
+  "source_content_bytes": 30366898,
+  "source_transfer_bytes": 31038386,
+  "mission_files": 10,
+  "runtime_total_bytes": 4990074,
+  "manifest_sha256": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+}

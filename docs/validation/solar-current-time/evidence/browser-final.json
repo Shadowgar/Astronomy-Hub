@@ -1,0 +1,272 @@
+{
+  "status": "PASS",
+  "base": "http://172.26.23.204:4218",
+  "clock": "2026-10-23T01:05:00.123Z",
+  "clockMeaning": "Controlled client wall clock; actual Docker ephemeris API, no mocked responses",
+  "runs": [
+    {
+      "width": 1440,
+      "name": "default-current",
+      "expected": "2026-10-23T01:05:00.123Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-10-23T01:05:00.123000Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-10-23T01:05:00.123Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    },
+    {
+      "width": 1440,
+      "name": "explicit-milliseconds",
+      "expected": "2026-10-23T01:05:00.123Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-10-23T01:05:00.123000Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-10-23T01:05:00.123Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    },
+    {
+      "width": 1440,
+      "name": "whole-second",
+      "expected": "2026-02-28T00:00:00Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-02-28T00:00:00Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-02-28T00:00:00Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    },
+    {
+      "width": 1440,
+      "name": "live-current",
+      "expected": "2026-10-23T01:11:42.819Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-10-23T01:11:42.819000Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-10-23T01:11:42.819Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    },
+    {
+      "width": 390,
+      "name": "default-current",
+      "expected": "2026-10-23T01:05:00.123Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-10-23T01:05:00.123000Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-10-23T01:05:00.123Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    },
+    {
+      "width": 390,
+      "name": "explicit-milliseconds",
+      "expected": "2026-10-23T01:05:00.123Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-10-23T01:05:00.123000Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-10-23T01:05:00.123Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    },
+    {
+      "width": 390,
+      "name": "whole-second",
+      "expected": "2026-02-28T00:00:00Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-02-28T00:00:00Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-02-28T00:00:00Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    },
+    {
+      "width": 390,
+      "name": "live-current",
+      "expected": "2026-10-23T01:11:55.575Z",
+      "api": {
+        "status": 200,
+        "epoch": "2026-10-23T01:11:55.575000Z",
+        "source": {
+          "id": "jpl_de442s_local",
+          "release": "de442s-2025-02-06",
+          "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+        },
+        "frame": "ICRF",
+        "bodyIds": [
+          "sun",
+          "mercury",
+          "venus",
+          "earth",
+          "mars",
+          "jupiter",
+          "saturn",
+          "uranus",
+          "neptune"
+        ]
+      },
+      "status": "PASS",
+      "error": null,
+      "epoch": "2026-10-23T01:11:55.575Z",
+      "texturesReady": 2,
+      "cloudsReady": true,
+      "renderCount": 11,
+      "selected": "earth"
+    }
+  ]
+}

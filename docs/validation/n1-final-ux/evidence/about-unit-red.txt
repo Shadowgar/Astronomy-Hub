@@ -1,0 +1,23 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/aboutLicenses.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/aboutLicenses.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/aboutLicenses.test.tsx [ tests/aboutLicenses.test.tsx ]
+Error: Cannot find module '../src/features/workspace/AboutLicenses' imported from /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend/tests/aboutLicenses.test.tsx
+ ❯ tests/aboutLicenses.test.tsx:4:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  10:18:55
+   Duration  175ms (transform 24ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)

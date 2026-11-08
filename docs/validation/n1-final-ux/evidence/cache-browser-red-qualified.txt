@@ -1,0 +1,20 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: persisted lifecycle must retain tracked entity
++ actual - expected
+
++ null
+- 'satellites:28096'
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/review-only/cache-browser.mjs:2:3862 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: null,
+  expected: 'satellites:28096',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

@@ -1,0 +1,43 @@
+{
+  "schema": "oras.solar-small-body-acquisition.v1",
+  "started_utc": "2026-10-28T04:43:33.497592Z",
+  "completed_utc": "2026-10-28T04:43:43.865131Z",
+  "files": {
+    "sbdb-main-belt.json": {
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?fields=spkid,full_name,pdes,epoch,e,a,i,om,w,ma,n,diameter&sb-class=MBA&sb-ns=n&full-prec=true&sort=-diameter&limit=2048",
+      "sha256": "9dca1c3629cbe22b0f669eae500435a0494bdc4cf5ffb455b3b693aec071292c",
+      "bytes": 420217,
+      "acquired_utc": "2026-10-28T04:43:41.311751Z"
+    },
+    "sbdb-eros.json": {
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=433&full-prec=true&phys-par=true",
+      "sha256": "3b3a07e6e533b798846c7b12d10dd86f93f0c503c6bb5245d15662461d3b739e",
+      "bytes": 6533,
+      "acquired_utc": "2026-10-28T04:43:41.608434Z"
+    },
+    "horizons-1.json": {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=1%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27",
+      "sha256": "ad14dc7d3682c1895e7bff3ba18c7d94d7c0d0bc64f56ff4c50cd1240d4a8c56",
+      "bytes": 7991,
+      "acquired_utc": "2026-10-28T04:43:42.147003Z"
+    },
+    "horizons-4.json": {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=4%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27",
+      "sha256": "548b7b972dd445a69df984d97f00863d7f7ad8e3cfa59e0d6b4acc448b1d5726",
+      "bytes": 7991,
+      "acquired_utc": "2026-10-28T04:43:42.714669Z"
+    },
+    "horizons-2.json": {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=2%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27",
+      "sha256": "345074a6de38bf1b192272d1f09bc1a25e81ddceb5f6529159c0526024a83d1a",
+      "bytes": 7957,
+      "acquired_utc": "2026-10-28T04:43:43.260954Z"
+    },
+    "horizons-433.json": {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=433%3B&EPHEM_TYPE=VECTORS&CENTER=500%4010&REF_PLANE=FRAME&REF_SYSTEM=ICRF&OUT_UNITS=AU-D&VEC_CORR=NONE&VEC_TABLE=2&CSV_FORMAT=YES&TLIST=%272461020.5+2461200.5+2461341.5+2461380.5%27",
+      "sha256": "496cd162d1d93dd16cd3acd12bf908d5870d77b10871f2f56a0823791a627f02",
+      "bytes": 7987,
+      "acquired_utc": "2026-10-28T04:43:43.864891Z"
+    }
+  }
+}

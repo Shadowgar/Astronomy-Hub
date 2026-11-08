@@ -1,0 +1,18 @@
+from pathlib import Path
+import subprocess,json,hashlib
+root=Path.cwd();out=root/'output/n1/remediation';base='53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7';sha=lambda b:hashlib.sha256(b).hexdigest();git=lambda p:subprocess.check_output(['git','show',base+':'+p]);rows=[]
+for folder in ['runtimes/sky-adapter/assets/pennsylvania-woodland-v1','frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1','integrations/sky-patches','integrations/sky-overlay']:
+ names=subprocess.check_output(['git','ls-tree','-r','--name-only',base,'--',folder],text=True).splitlines()
+ for name in names:
+  actual=(root/name).read_bytes();assert actual==git(name),name;rows.append({'path':name,'sha256':sha(actual)})
+settings=Path('/home/rocco/Astronomy-Hub/.vscode/settings.json');assert sha(settings.read_bytes())=='6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0'
+tle=Path('/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz');assert sha(tle.read_bytes())=='431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436'
+rollback=out/'rollback';lock=json.loads((rollback/'integrations/renderers.lock.json').read_text());sky=rollback/'frontend/public/oras-sky-engine'
+for row in lock['sky']['artifact_files']:assert sha((sky/row['path']).read_bytes())==row['sha256'],row['path']
+earth=json.loads((rollback/'earth/release.json').read_text())
+for row in earth['files']:assert sha((rollback/'earth'/row['path']).read_bytes())==row['sha256'],row['path']
+# Controllers may change only the approved reset and observer-context lines.
+old=git('runtimes/earth-runtime/core/CameraController.mjs').decode();new=(root/'runtimes/earth-runtime/core/CameraController.mjs').read_text()
+old=old.replace('resetNavigation(){this.cancelZoom();','resetNavigation({preserveMotion=false}={}){if(!preserveMotion)this.cancelZoom();').replace('navigation(site){','navigation(site,known){').replace('surfaceObserver(target.lat,target.lon,site)','surfaceObserver(target.lat,target.lon,site,known)');assert old==new
+result={'status':'PASS','acceptedBaseline':base,'unchangedAssetsOverlayPatch':rows,'ownerSettingsSha256':sha(settings.read_bytes()),'mountedTleSha256':sha(tle.read_bytes()),'rollbackSkyFiles':len(lock['sky']['artifact_files']),'rollbackEarthFiles':len(earth['files']),'acceptedCameraMathUnchanged':True,'rollbackDirectoriesPresent':sorted(p.relative_to(root/'output/n1').as_posix() for p in (root/'output/n1').iterdir() if 'before' in p.name or 'rollback' in p.name)}
+(out/'preservation.json').write_text(json.dumps(result,indent=2)+'\n');print('PRESERVATION PASS',len(rows),'assets/overlay/patch rows;',len(lock['sky']['artifact_files']),'Sky rollback;',len(earth['files']),'Earth rollback; settings/TLE/camera math unchanged')

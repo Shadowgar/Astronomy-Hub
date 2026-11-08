@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r3-b-major-planets-1/frontend
+
+
+ Test Files  47 passed (47)
+      Tests  315 passed (315)
+   Start at  19:29:26
+   Duration  5.88s (transform 23.79s, setup 0ms, import 38.20s, tests 10.81s, environment 10ms)

@@ -1,0 +1,26 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   "Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found.",
++   "Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found."
++ ]
+- []
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/review-only/cache-browser.mjs:2:4240 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    "Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found.",
+    "Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found."
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

@@ -1,0 +1,43 @@
+{
+  "status": "EXACT_SOURCE_BYTES_AND_PRESERVATION_VERIFIED",
+  "head": "afdcdc0d11e43cd934876881e8888ce3145e36b6",
+  "base": "158a77053ea18e4d0aed8725f715ca373930fd13",
+  "earthArtifact": "cb1f579d3f7625ad776d6182740da581c152c3a79684b4f2520477672eb12c3e",
+  "earthFilesServedPerPreview": 513,
+  "hubArtifact": "2db5ec097d9b97fd97cf8456cbabbeb31eb010910378023f8cbe37acccb77bcb",
+  "hubSourceManifestSha256": "ac0451d1553cb308ee2b81c6f6eaea9b22dbff7e46a480a16b13619f6024a0bf",
+  "hubSourceFiles": 155,
+  "hubFilesServedPerPreview": 130,
+  "skyArtifact": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
+  "protected": [
+    "runtimes/earth-runtime/core/CameraController.mjs",
+    "runtimes/earth-runtime/core/EarthRuntime.mjs",
+    "runtimes/sky-adapter",
+    "frontend/public/oras-sky-engine",
+    "vendor",
+    "backend",
+    "packages/earth-search",
+    "data",
+    "frontend/src/features/workspace/earthSearch.ts",
+    "frontend/src/features/workspace/earthLocationNavigation.ts",
+    "frontend/src/features/workspace/useEarthLocation.ts",
+    "runtimes/earth-runtime/core/imageryCachePolicy.mjs",
+    "runtimes/earth-runtime/core/imageryCacheStore.mjs",
+    "package.json",
+    "package-lock.json",
+    "frontend/package.json",
+    "frontend/package-lock.json"
+  ],
+  "originalContainersAndMountsAndStatesIntact": 107,
+  "volumesIntact": 90,
+  "settingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "originalContainerStateDrift": [],
+  "preservedArtifacts": [
+    "R2-B e0a904a2",
+    "N1 662e6170"
+  ],
+  "preview": "http://127.0.0.1:4206/earth",
+  "limits": [
+    "Browser qualification is recorded separately; this identity receipt does not execute or relabel earlier journeys."
+  ]
+}

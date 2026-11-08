@@ -1,0 +1,4361 @@
+{
+  "copiedProofs": [
+    {
+      "original": "output/n1/final-ux/browser/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/browser.json",
+      "sha256": "922db9ff2bcbedee986d002cd8200080649b7692d099d94853eb58bcaf0d25c5"
+    },
+    {
+      "original": "output/n1/final-ux/satellite-recheck/browser/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/satellite-recheck-browser.json",
+      "sha256": "3c653cab01396d6fbb20eabd5d841379280a773066499aa1bfcd6c1aba982726"
+    },
+    {
+      "original": "output/n1/final-ux/satellite-recheck/symbol-pixels/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/satellite-recheck-symbol-pixels.json",
+      "sha256": "4d648b74afe297fd3d3e39771f03940abd860dc2a195529559981e6be97b3ca3"
+    },
+    {
+      "original": "output/n1/final-ux/native-satellites/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/native-satellites.json",
+      "sha256": "67ad26e5a5767345f8cc0ac3e1a82b527f800037b5f31de04a528df4252331e1"
+    },
+    {
+      "original": "output/n1/final-ux/pennsylvania/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/pennsylvania.json",
+      "sha256": "2ba8d69212b19379a12a4e6c6c7c2556098394db4995edad6b8dac27616f58d8"
+    },
+    {
+      "original": "output/n1/final-ux/journeys-desktop/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/journeys-desktop.json",
+      "sha256": "0e79a1cc6d7fcaabf0386ee60ae51a82f970cf8a30d6df64d66be9109a3dd94c"
+    },
+    {
+      "original": "output/n1/final-ux/journeys-mobile/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/journeys-mobile.json",
+      "sha256": "e16b33cc65663ef34a565d2ea7cb1bf112763348754d17de17e88b12802df361"
+    },
+    {
+      "original": "output/n1/final-ux/observer-history/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/observer-history.json",
+      "sha256": "3b5cbb4a2ce1260170d70c8d9d043d0a17b06fae5df105dfe858fa29c50556fe"
+    },
+    {
+      "original": "output/n1/final-ux/product-paths/proof.json",
+      "copy": "docs/validation/n1-final-ux/evidence/product-paths.json",
+      "sha256": "59dab1922124b2149bfba3d67ec5bd21c83920ff1e207a6e4a6982073109e03a"
+    },
+    {
+      "original": "output/n1/final-ux/selection-reproduction.json",
+      "copy": "docs/validation/n1-final-ux/evidence/selection-reproduction.json",
+      "sha256": "36ce1b401d35c95b0a25b0e601379d4ae8cbc52f69e1dd4a9ccd64c05f254d34"
+    },
+    {
+      "original": "output/n1/final-ux/reproduction.json",
+      "copy": "docs/validation/n1-final-ux/evidence/reproduction.json",
+      "sha256": "6fce84e13081304a97d3e5cce6de24314ea1c92e0a275e961f381142374f9f09"
+    },
+    {
+      "original": "output/n1/final-ux/served-working.json",
+      "copy": "docs/validation/n1-final-ux/evidence/served-working.json",
+      "sha256": "a5ffa6419fc29eb9c36dbb089b97e68eae3adbcfedd68dc89a579ee6dcdf8742"
+    },
+    {
+      "original": "output/n1/final-ux/preservation-before.json",
+      "copy": "docs/validation/n1-final-ux/evidence/preservation-before.json",
+      "sha256": "1ac55f69416d62274fe1d8a99b7406608085550f30569ab1217a8654b102fd22"
+    },
+    {
+      "original": "output/n1/final-ux/mounts-before.json",
+      "copy": "docs/validation/n1-final-ux/evidence/mounts-before.json",
+      "sha256": "92df323197e08eaa3b4390e64cb5ef6f6cd06311c725c88d203817541ebed3ee"
+    },
+    {
+      "original": "output/n1/final-ux/source-access.json",
+      "copy": "docs/validation/n1-final-ux/evidence/source-access.json",
+      "sha256": "4746de1e05fe0b4a7204040069986eb6d90aacf2ae46962dc7c7deda1da53c08"
+    },
+    {
+      "original": "output/n1/final-ux/catalog-planning-snapshot.json",
+      "copy": "docs/validation/n1-final-ux/evidence/catalog-planning-snapshot.json",
+      "sha256": "06e93e8726fe7b46d44339adf7cefbc9ffb2a936ef7bb9a0dacabf0bb57e5092"
+    },
+    {
+      "original": "output/n1/final-ux/review-start.json",
+      "copy": "docs/validation/n1-final-ux/evidence/review-start.json",
+      "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2"
+    },
+    {
+      "original": "output/n1/final-ux/review-current-summary.json",
+      "copy": "docs/validation/n1-final-ux/evidence/review-current-summary.json",
+      "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2"
+    },
+    {
+      "original": "output/n1/final-ux/baseline-artifact-identity.json",
+      "copy": "docs/validation/n1-final-ux/evidence/baseline-artifact-identity.json",
+      "sha256": "be23aa2d52261fc9d072d24f9823b86cc3d2c455047f51d646b267cb2a2e9588"
+    },
+    {
+      "original": "output/n1/final-ux/final-navigation-exits.json",
+      "copy": "docs/validation/n1-final-ux/evidence/final-navigation-exits.json",
+      "sha256": "87686336bcf1cb527415e3258030f721c5096d56e8a8798ce26c7c164ba8e2a6"
+    },
+    {
+      "original": "output/n1/final-ux/final-short-browser-exits.json",
+      "copy": "docs/validation/n1-final-ux/evidence/final-short-browser-exits.json",
+      "sha256": "d1d3c931a727f51fc9456b1692c1c3c7d9a7f82d557e10bab50923f694ec53f3"
+    },
+    {
+      "original": "output/n1/final-ux/current-resource-record.json",
+      "copy": "docs/validation/n1-final-ux/evidence/current-resource-record.json",
+      "sha256": "5746a5240f3752dd234b428fe5e51c5d5244cbca814eca7e039591c87bafdc42"
+    },
+    {
+      "original": "output/n1/final-ux/final-navigation-intervention.json",
+      "copy": "docs/validation/n1-final-ux/evidence/final-navigation-intervention.json",
+      "sha256": "449e9c881aa70b7d5bc08c8fc833ae59d500965ec4616d51efcbf267aa9552e7"
+    },
+    {
+      "original": "output/n1/final-ux/navigation-inspection-final-attempt.json",
+      "copy": "docs/validation/n1-final-ux/evidence/navigation-inspection-final-attempt.json",
+      "sha256": "63d4a1160dc45bafdd883fe35126708f054e6b5a14ac1c04da4a00ff446d98f3"
+    },
+    {
+      "original": "output/n1/final-ux/native-date-probe-2026-06-05.json",
+      "copy": "docs/validation/n1-final-ux/evidence/native-date-probe-2026-06-05.json",
+      "sha256": "ee8bbeeba3c96dcd794551a975479717385f8dc917680041d162a214e9b0c777"
+    },
+    {
+      "original": "output/n1/final-ux/passing-source-bindings.json",
+      "copy": "docs/validation/n1-final-ux/evidence/passing-source-bindings.json",
+      "sha256": "963b892aebdb5cbd794808e10b6f222c65a5ed0c9e1649dc90cc29a10063b7dd"
+    },
+    {
+      "original": "output/n1/final-ux/progress-record.json",
+      "copy": "docs/validation/n1-final-ux/evidence/progress-record.json",
+      "sha256": "548f7d6eb88b40275766ef2db9fd1ff503c857f85adf28062cc1d08e3fce9e0e"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-fixed-night-before.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-paused-native-night-live-url-before.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-paused-native-night-live-url-before.png",
+      "sha256": "9cc2efe585346c5db0d1931f448d83188b1dc00fff2d13f1fd3291988d2a1308"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-paused-native-night-live-url-after.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-paused-native-night-live-url-after.png",
+      "sha256": "025ab5fac809b059c9437364161ebfb0b49388e6063eee5d2a6f2f652c308811"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-fov-intermediate.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-fov-close.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-fov-close.png",
+      "sha256": "9d76d3fdcb3493fb9d84dd287154531924b22c3bda3c4ca0d963041294014cd4"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-fov-one-arcsecond.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-fov-one-arcsecond.png",
+      "sha256": "5d05b9b8798fb4046096f93909c327e8c50ab8c2af94ac098bafb9fb3de9d3de"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-sky-about.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-sky-about.png",
+      "sha256": "5356b2e87a5f28cfe778703069de70b5f6324c19c4c49f6e6dbfafe062fa85c4"
+    },
+    {
+      "original": "output/n1/final-ux/browser/1440-earth-about.png",
+      "copy": "docs/validation/n1-final-ux/evidence/1440-earth-about.png",
+      "sha256": "0f80fa3b3ef9c2912657321c7db0cd6c4778d606acd7e742fd36b34315951075"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-fixed-night-before.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-fixed-night-before.png",
+      "sha256": "864008719d7ff0e4f8e927e6090924fa8f93a633d9273500effe0e5d123f4737"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-paused-native-night-live-url-before.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-paused-native-night-live-url-before.png",
+      "sha256": "efea56a1320d077ffe2220d4a814236815cc5fb64ba2beb5ebfb2487060400f4"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-paused-native-night-live-url-after.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-paused-native-night-live-url-after.png",
+      "sha256": "7aed97cdec472379c103e61a70cb36ea07f0409b8fffb2a5dd71661a11b18be5"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-fov-intermediate.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-fov-intermediate.png",
+      "sha256": "9e027bbdef1f700a0d60a77a1e74bfb5e251b98a2f1fb4250441caad5b07e92d"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-fov-close.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-fov-close.png",
+      "sha256": "a896cc027824d5043e88354832308245833eeba8b229dfe74af9b963abd38cd1"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-fov-one-arcsecond.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-fov-one-arcsecond.png",
+      "sha256": "ef5434aab34f2109b9726335eb0006eaa1b40e9d0e7754a414394f97ecba4a16"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-sky-about.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-sky-about.png",
+      "sha256": "9ae27baca43cbcee395165e90ef5f527d00c74e108a6d196cc4b579cd48c48d5"
+    },
+    {
+      "original": "output/n1/final-ux/browser/390-earth-about.png",
+      "copy": "docs/validation/n1-final-ux/evidence/390-earth-about.png",
+      "sha256": "98c4e367c2eb8ca96fd1e4328db3920b9908cf2c990b407dd3ac66a12f74c418"
+    },
+    {
+      "original": "output/n1/final-ux/reproduction/native-night-live-route-before.png",
+      "copy": "docs/validation/n1-final-ux/evidence/baseline-native-night-live-route-before.png",
+      "sha256": "55728baaf7befb7d73a664b6d4023550d2d50d3d12a8df80e90b54f38b67383a"
+    },
+    {
+      "original": "output/n1/final-ux/reproduction/native-night-live-route-after.png",
+      "copy": "docs/validation/n1-final-ux/evidence/baseline-native-night-live-route-after.png",
+      "sha256": "654cf7a76b8a881608ba76614b38a3915260d371399ea367ee0ee5567ae8013c"
+    },
+    {
+      "original": "output/n1/final-ux/reproduction/fixed-night-menu.png",
+      "copy": "docs/validation/n1-final-ux/evidence/baseline-fixed-night-menu.png",
+      "sha256": "dcaf1bc6757b7d832a84771a8e0a325b82697bfaf2f95a014539fae4c18876cd"
+    },
+    {
+      "original": "output/n1/final-ux/pennsylvania/night-landscape-on-1440.png",
+      "copy": "docs/validation/n1-final-ux/evidence/woodland-night-desktop.png",
+      "sha256": "b0e0ab46ef9acabcbcf477978ddaba6856c31c8604245e8b40d91f1d90050075"
+    },
+    {
+      "original": "output/n1/final-ux/pennsylvania/day-landscape-on-390.png",
+      "copy": "docs/validation/n1-final-ux/evidence/woodland-day-mobile.png",
+      "sha256": "41d1b92ffc947efe1e8b80091987304fae289f08a4c8efce7bc72ad698e237e8"
+    },
+    {
+      "original": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close.png",
+      "copy": "docs/validation/n1-final-ux/evidence/native-symbol-desktop.png",
+      "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3"
+    },
+    {
+      "original": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-automatic-close.png",
+      "copy": "docs/validation/n1-final-ux/evidence/native-symbol-mobile.png",
+      "sha256": "fe20677612e4b59308f6acce093808b4b7d06f9709b6924b1bf2d67bc6954f0b"
+    }
+  ],
+  "originalRecords": [
+    {
+      "path": "output/n1/final-ux/about-focus-probe-run.txt",
+      "sha256": "78ba50ac133770853976193e8bb60621c0176cfe253027148fffaa868b206683",
+      "bytes": 12298
+    },
+    {
+      "path": "output/n1/final-ux/about-focus-probe.json",
+      "sha256": "82cb1bfd8e7be7a5be16e2ad8c3026acb05b8c07fa6203d6759773786f766a18",
+      "bytes": 12368
+    },
+    {
+      "path": "output/n1/final-ux/about-focus-probe.mjs",
+      "sha256": "e35b316df3c1f2e9acbc007b8b69e4ab57fa6536bd6dd085632f86b68817a355",
+      "bytes": 994
+    },
+    {
+      "path": "output/n1/final-ux/about-unit-red.txt",
+      "sha256": "52861cd0ad8d06f02201a9a34d851742672a2290be2c4f25ba5909f4861a75fd",
+      "bytes": 808
+    },
+    {
+      "path": "output/n1/final-ux/architecture-docs.txt",
+      "sha256": "c2367e26805cde4f0c83b648a5b40c1c9e21e0ce5b50c74d54f6ec93ab50152b",
+      "bytes": 436
+    },
+    {
+      "path": "output/n1/final-ux/attest-alternate.txt",
+      "sha256": "a0d3807649256f7c441a9800ddbf8a5e3581e239ee80edc731b6d4af2e2cdc4c",
+      "bytes": 180
+    },
+    {
+      "path": "output/n1/final-ux/attest-default.txt",
+      "sha256": "bb011359566b3be4c6707d5680fb59e4db4575c66d56b69f94f398773a93d773",
+      "bytes": 178
+    },
+    {
+      "path": "output/n1/final-ux/baseline-artifact-identity.json",
+      "sha256": "be23aa2d52261fc9d072d24f9823b86cc3d2c455047f51d646b267cb2a2e9588",
+      "bytes": 949
+    },
+    {
+      "path": "output/n1/final-ux/baseline-container.txt",
+      "sha256": "2992f2f8a72c802756821c7688c8fa68560c07255c4a99dc3d071f39a3513c70",
+      "bytes": 65
+    },
+    {
+      "path": "output/n1/final-ux/baseline-navigation/failure.png",
+      "sha256": "a6462936b1c5e9aafdca7f0f8189788988e840cb49776a36aa52f58f2a6748a9",
+      "bytes": 325018
+    },
+    {
+      "path": "output/n1/final-ux/baseline-navigation/oras-sky-1440.png",
+      "sha256": "02cc07824dabfa9b2aa4ac4bee0db6e07991e623e7e78043e094052891b7ebcd",
+      "bytes": 337127
+    },
+    {
+      "path": "output/n1/final-ux/baseline-navigation/proof.json",
+      "sha256": "835ede9d4e76009ce078cc59e24e5cb04caa4fea59ab19d96b49eb97de72a41c",
+      "bytes": 16557
+    },
+    {
+      "path": "output/n1/final-ux/baseline-navigation-run.txt",
+      "sha256": "822b9c11128927e73a81860b1c8e5f61a3736467c46046c853f41c7a4f0b6762",
+      "bytes": 410
+    },
+    {
+      "path": "output/n1/final-ux/baseline-navigation.mjs",
+      "sha256": "912a36b4ac5a0774b9405d3d71430764c70fe36991f071727f2941fad3d0bf39",
+      "bytes": 25092
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/additional-identities.json",
+      "sha256": "fd36f1cd851781f9881125b8701239d533604bf7fb7f6c370f6caca031a4705c",
+      "bytes": 1836
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/attempts.json",
+      "sha256": "fdcdf186968e2ac7e6a44534e1cda1ce934f160bb18afcd95d0e257b4a6cf22f",
+      "bytes": 2222
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/build-identity-run.txt",
+      "sha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+      "bytes": 111
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/collect-run.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/finish-report.py",
+      "sha256": "30408b6373408b7463d3d9c65d5bb2577c112dd77b3f16808d0a7983583fa40a",
+      "bytes": 14522
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/harness-source-inspection.json",
+      "sha256": "e67194e1063019f6c4e0ce3bbde21511e8f95ea5f13105a854df86c5489d8232",
+      "bytes": 1252
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/inputs-before.json",
+      "sha256": "47d6fe2f8393970c025d4cdecaa9f50aa7a224e51e1dd984d5664725bc4e0464",
+      "bytes": 913
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-desktop/oras-sky-1440.png",
+      "sha256": "5317cdc0af50ab56e3214558caa8040c28767bfe8c4ee04bbb88baff39b27405",
+      "bytes": 337870
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-desktop/proof.json",
+      "sha256": "0e79a1cc6d7fcaabf0386ee60ae51a82f970cf8a30d6df64d66be9109a3dd94c",
+      "bytes": 20572
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-desktop-run.txt",
+      "sha256": "c628a6d9c12935de3b087798b9cf2506c9c80876b64a62b827e94654c385b94d",
+      "bytes": 779
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile/oras-earth-390.png",
+      "sha256": "2cdd86fb4e7bd446b4ac9c857427ba525d8353528002bcc3c9f67144dd53d6d4",
+      "bytes": 380517
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile/oras-return-sky-390.png",
+      "sha256": "7be77ad455c0f3925cf858a263cb5b336d5517bee9dbc27208be8d984f43f4a6",
+      "bytes": 62864
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile/oras-sky-390.png",
+      "sha256": "073613659af41291f50a5890c63a6baa42b3863ea5241617b99fb7582dc39d4c",
+      "bytes": 106768
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile/proof.json",
+      "sha256": "e16b33cc65663ef34a565d2ea7cb1bf112763348754d17de17e88b12802df361",
+      "bytes": 45848
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/journeys-mobile-run.txt",
+      "sha256": "7a4956ad8553af659d7a76613f3c34303feeaf5fdaf42f07dc6acdad5cc7f5cc",
+      "bytes": 925
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/mounts-after.json",
+      "sha256": "41ee2014be946c146a76776fb04100e6883f0694b6c4bf50ed256f1be9d36ab1",
+      "bytes": 1624
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/outer-budget-run.txt",
+      "sha256": "d0b830ce94fad13733dd70d8791ceb169d0cd031819c85ae5190362dca59602e",
+      "bytes": 82
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/outer-budget-stops.json",
+      "sha256": "4cc7898fe52a9bd4ac3617ac2a5fc0a2f8a88c4e086b14d4f04a27c81132a58e",
+      "bytes": 642
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/outer-budget.py",
+      "sha256": "b501a8dfe5d1c86ede322fef19afc0412385b59301ffb7748f294f69472659ab",
+      "bytes": 1718
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/qualification-handoff.json",
+      "sha256": "42c041a8d105c294319aa829de387bee9144e5010213bf0159933386e9d730b2",
+      "bytes": 5274
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/reuse-verification.json",
+      "sha256": "337bbc2a4bf3c0407909de0feeb4e66ce3c908b40dabc98b39c511f1c85b0f32",
+      "bytes": 2220
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/run-once.py",
+      "sha256": "d2db5b39fd1de11a6871e2bdc175fae0d270b402af59eb91f28f440b33aec8bf",
+      "bytes": 1588
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/runner.txt",
+      "sha256": "ad813b5966105ba277fd4bc4e2ef473386e6abf3159306b16d0634552f7f9901",
+      "bytes": 119
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/served-working-run.txt",
+      "sha256": "7c982c284e5d11f1987745e0d632ebd115e00a434efc6fd82b3ffd1ae5da4797",
+      "bytes": 111
+    },
+    {
+      "path": "output/n1/final-ux/bounded-delivery-20261016/served-working.json",
+      "sha256": "448f94f34a8c5fca218537ad28883857b4e2ab68864f830f88e71eba50620537",
+      "bytes": 1696
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-copied-link-focus-after.png",
+      "sha256": "66eb5b28ab91981e16e52884c9938a36199a9b8880213f5d5b343185e48978f6",
+      "bytes": 578539
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-copied-link-focus-before.png",
+      "sha256": "b2566c6bef974fe24cb64e1e886b1e7cf13bff9a80c56507beaee43812b74e2a",
+      "bytes": 451022
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-copied-link-followed.png",
+      "sha256": "5613fcbf0257f0301fff190b0ab8e4e7bc5b5c254cf558ad91bfbb16f4f2295e",
+      "bytes": 450614
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-earth-about.png",
+      "sha256": "0f80fa3b3ef9c2912657321c7db0cd6c4778d606acd7e742fd36b34315951075",
+      "bytes": 197158
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-day-after.png",
+      "sha256": "92acebdcfec8f7286f6c24b40894803c62e91fbdc0c707b64a809a6ac8166717",
+      "bytes": 108806
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-day-before.png",
+      "sha256": "69393c728fd194f9a77687786031f2698e1dd65d1f7eb9fd4789265d2f4454b8",
+      "bytes": 89954
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-day-clear-after.png",
+      "sha256": "e2a7dfe96dcfcd419f57e1d568b6847b807e75a9dcfc8d551a5b3fae42b2a16e",
+      "bytes": 783577
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-day-clear-before.png",
+      "sha256": "09dd16510f58ba2f9466160d231e250cf10fd6f045ef085987e91e0391b5ec56",
+      "bytes": 783544
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-day-focus-after.png",
+      "sha256": "17c450a0d1ecadde76aad54ed4eaf4a8a67f7a885e9d87807e4e417e91e08bce",
+      "bytes": 783518
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-day-focus-before.png",
+      "sha256": "92acebdcfec8f7286f6c24b40894803c62e91fbdc0c707b64a809a6ac8166717",
+      "bytes": 108806
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-night-after.png",
+      "sha256": "610e57ea26b2873f71a7a9f95b245639963fa75e2d6278a9e9a4798cf068c38c",
+      "bytes": 589496
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-night-clear-after.png",
+      "sha256": "eaa8108bf9cc402e0233b807fa9895e69299a2e06daac6fa5fabfbf880884f4b",
+      "bytes": 610542
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-night-clear-before.png",
+      "sha256": "befa7223ed08dc2bcf1d77018e78e4285e5d3e575b67e6920a8d168199842276",
+      "bytes": 589406
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-night-focus-after.png",
+      "sha256": "19a8a39b0f5a52b7d673529eabe33126078c858dc81d217799ae659b9d57d9a8",
+      "bytes": 589561
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fixed-night-focus-before.png",
+      "sha256": "f8bb6768d39f8d039819a7733848c6f5d87e2df8dac96cd789bc93ea4092df2b",
+      "bytes": 589408
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fov-close.png",
+      "sha256": "9d76d3fdcb3493fb9d84dd287154531924b22c3bda3c4ca0d963041294014cd4",
+      "bytes": 630182
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0",
+      "bytes": 440297
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fov-keyboard.png",
+      "sha256": "08e554ac36a20e55dd3004bf34d17481edfbb210b69419df24624441d1080fb3",
+      "bytes": 889910
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fov-one-arcsecond.png",
+      "sha256": "5d05b9b8798fb4046096f93909c327e8c50ab8c2af94ac098bafb9fb3de9d3de",
+      "bytes": 96507
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fov-outward.png",
+      "sha256": "07e4ecb9013f85249bef6bb334fc9ac7c401c38acf937698565c2ef88a4d82b8",
+      "bytes": 762451
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-fov-trackpad.png",
+      "sha256": "413d108275e62ebc00534393b88112a366d1544457186be791d34ac4fea00ad7",
+      "bytes": 640541
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-history-return.png",
+      "sha256": "637b60c1409000b5bd1538fbf5dd4316776cf1ba60c9f2bfc947131f121378c4",
+      "bytes": 84593
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-live-after.png",
+      "sha256": "7a6f61319e25ed02af64fbd0c7e380435758c0cde519635704c3869b70293085",
+      "bytes": 780827
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-live-before.png",
+      "sha256": "d5a5a5fccacb02c79efa9ffdf5a8205be17ad439ddb6f8333f6f339f0c8d076f",
+      "bytes": 793811
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-live-clear-after.png",
+      "sha256": "796e2e339b8efc452b72c07e792c589e1e86807a471a24cd6bb1786fe2a1b21e",
+      "bytes": 793828
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-live-clear-before.png",
+      "sha256": "b007edfb0be550f722fc3102f3c0521b0e2c2b690958a408640b5e35c8fb3bb8",
+      "bytes": 780839
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-night-mode-on-after.png",
+      "sha256": "b6213083193b339cfadbf111470dd5f27d585fa906c078dfd939ce31452c573d",
+      "bytes": 358277
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-night-mode-on-before.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-night-mode-on-clear-after.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-night-mode-on-clear-before.png",
+      "sha256": "6b46706121798b47b2d818edeae1a725eda5e65980a05d6280280e2659b74006",
+      "bytes": 358289
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-paused-native-night-live-url-after.png",
+      "sha256": "025ab5fac809b059c9437364161ebfb0b49388e6063eee5d2a6f2f652c308811",
+      "bytes": 590087
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-paused-native-night-live-url-before.png",
+      "sha256": "9cc2efe585346c5db0d1931f448d83188b1dc00fff2d13f1fd3291988d2a1308",
+      "bytes": 637804
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-paused-native-night-live-url-clear-after.png",
+      "sha256": "e3f465989cffefb0d417d00233c72f240879d6334fa3c83509a71955adea57e2",
+      "bytes": 627962
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-paused-native-night-live-url-clear-before.png",
+      "sha256": "869383e84329d3eede86c2a5e0eb6bf68cde1539929c2a743043213c8e0936b8",
+      "bytes": 590211
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-paused-native-night-live-url-focus-after.png",
+      "sha256": "1d6271c3bde714b01ecfceb4f379c6d0b615e2b3b955a61d1d9f21be0c960900",
+      "bytes": 590154
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-paused-native-night-live-url-focus-before.png",
+      "sha256": "52bce901dcb4754e346e5ff725cb6476b61a4a29e9f8803119ace6dfe52ed10e",
+      "bytes": 590158
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-reloaded.png",
+      "sha256": "8b819b91ed5ad5be6f66d09c0fd119be8f1a7a9af328d0e32d226147534cfa61",
+      "bytes": 84595
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-repeated-night-after.png",
+      "sha256": "f8bb6768d39f8d039819a7733848c6f5d87e2df8dac96cd789bc93ea4092df2b",
+      "bytes": 589408
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-repeated-night-before.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-repeated-night-clear-after.png",
+      "sha256": "d5c2ce10b23e5b8d7a6a763a419b47512c27f63669eea376c9ee5ff73ed2f1e8",
+      "bytes": 591700
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-repeated-night-clear-before.png",
+      "sha256": "dcd2efadbe1e36a263e1e23dfa1c50ddc2e540c3bec0c369832d888bc3a6a882",
+      "bytes": 589488
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-roundtrip.png",
+      "sha256": "4e810e6c774f75b13581a23de7baa7319fd2579873fa85f3757330a95dc10dd4",
+      "bytes": 84999
+    },
+    {
+      "path": "output/n1/final-ux/browser/1440-sky-about.png",
+      "sha256": "5356b2e87a5f28cfe778703069de70b5f6324c19c4c49f6e6dbfafe062fa85c4",
+      "bytes": 172340
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-copied-link-focus-after.png",
+      "sha256": "dcef44434e769b88f9eec2100e0057851f882ef94d64a0e9d6f28658fe99df18",
+      "bytes": 112617
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-copied-link-focus-before.png",
+      "sha256": "a7715812e9c111d93abdcd9b7b2867141b8ac216eee168aaca993bc7b6b48b8e",
+      "bytes": 92765
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-copied-link-followed.png",
+      "sha256": "b0d3a6d5974f658f9928de668658eca3fd764ede439ed04a580730c561c5dad3",
+      "bytes": 117920
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-earth-about.png",
+      "sha256": "98c4e367c2eb8ca96fd1e4328db3920b9908cf2c990b407dd3ac66a12f74c418",
+      "bytes": 70255
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-day-after.png",
+      "sha256": "afb90fef479a733d745b4420777a3966705708f3bfe3be1586b3e5906ea6d480",
+      "bytes": 52363
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-day-before.png",
+      "sha256": "9dfb413438a61e2dc112109d50ed3b0f1e25dc054498ebc9246034480ccbd5a2",
+      "bytes": 53208
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-day-clear-after.png",
+      "sha256": "c57c15e46b0ceee1d5544e85bbd043bd84e3eb9a4b3c0aa6630373de22127b46",
+      "bytes": 199779
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-day-clear-before.png",
+      "sha256": "0431ea91c70223bb64ad2d24ba0c75b834bb17690a03aab60842f5f48033d362",
+      "bytes": 210464
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-day-focus-after.png",
+      "sha256": "400d0219411cf41322882bca245de10dd56c11a5f67437979fe8b4910f1520ca",
+      "bytes": 210455
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-day-focus-before.png",
+      "sha256": "afb90fef479a733d745b4420777a3966705708f3bfe3be1586b3e5906ea6d480",
+      "bytes": 52363
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-night-after.png",
+      "sha256": "0f3cecce00d82b86b57e065182798d5d23f58cad16eb35aceecc696d13e3bf9c",
+      "bytes": 112876
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-night-before.png",
+      "sha256": "864008719d7ff0e4f8e927e6090924fa8f93a633d9273500effe0e5d123f4737",
+      "bytes": 143372
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-night-clear-after.png",
+      "sha256": "e8d9d5b9bda43c2549c4908d996ce1d32116881f64a3e364ddedb03dfd7e88dd",
+      "bytes": 103723
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-night-clear-before.png",
+      "sha256": "5366ab1d40144edfb7d1024a3cfaa6fb34204d1549aa782b27b161796e198fb8",
+      "bytes": 112476
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-night-focus-after.png",
+      "sha256": "5840c1d6d84323d5616801b246d9def67179e2d484db7d9153998f013f70e372",
+      "bytes": 112491
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fixed-night-focus-before.png",
+      "sha256": "92eb7b4d6a11fca3ecf5bc6ae24b1e5cf68d069a3a09688e6082316a562b1cbe",
+      "bytes": 112939
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fov-close.png",
+      "sha256": "a896cc027824d5043e88354832308245833eeba8b229dfe74af9b963abd38cd1",
+      "bytes": 200150
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fov-intermediate.png",
+      "sha256": "9e027bbdef1f700a0d60a77a1e74bfb5e251b98a2f1fb4250441caad5b07e92d",
+      "bytes": 145307
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fov-keyboard.png",
+      "sha256": "e910f2411c258192af13f3ed389d5947b29dabacf92928bd351902c47b232c4b",
+      "bytes": 194969
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fov-one-arcsecond.png",
+      "sha256": "ef5434aab34f2109b9726335eb0006eaa1b40e9d0e7754a414394f97ecba4a16",
+      "bytes": 43627
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fov-outward.png",
+      "sha256": "cecee114d8a0c64b2524b53e8eb4ddadf21167536e0d1ea082970aa24212edb0",
+      "bytes": 226719
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-fov-trackpad.png",
+      "sha256": "c087dfb625616870f1494c0c77af3ff222142cb2be4d2e49f2d8833f5e16f025",
+      "bytes": 200067
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-history-return.png",
+      "sha256": "f1de2c68111a861157ef005fcfb66f208bd808eae16a8f853625bbc62a7f1141",
+      "bytes": 64392
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-live-after.png",
+      "sha256": "da46eb33abb1034ce896edf331d9e3b47db71a41f7ee8d959ea4685c9fa544fa",
+      "bytes": 209636
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-live-before.png",
+      "sha256": "91cb04b04b92f7f6dd5ff9b74c0fffc879bc950bca8fcfddab23ee860f4de021",
+      "bytes": 258450
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-live-clear-after.png",
+      "sha256": "e9632a3b18580457abf9bd10fd5ad9fa188e3939d0140ae5a13f1388ba18cab4",
+      "bytes": 198843
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-live-clear-before.png",
+      "sha256": "902749a3934a62586fbe58219bacb8b786325ab8c426be27b23e71975de33086",
+      "bytes": 209635
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-night-mode-on-after.png",
+      "sha256": "dcf3dc1dd19a5ca637dc00ae8d4adbbdaa9fdbcbe14c141fcdcf300600f2e2cc",
+      "bytes": 72917
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-night-mode-on-before.png",
+      "sha256": "226090404a1078afb14aa9da9dbfc3ae8d18e5dcd62701b3b5202ea5507a933c",
+      "bytes": 97627
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-night-mode-on-clear-after.png",
+      "sha256": "d70002b463579dd4b9618ef5aa13c7bec6b905d3b813041268e78d458671f93e",
+      "bytes": 76654
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-night-mode-on-clear-before.png",
+      "sha256": "163e710c694c8374485845be409f2177c1c32142810608b7a6e369d4882e4224",
+      "bytes": 72916
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-paused-native-night-live-url-after.png",
+      "sha256": "7aed97cdec472379c103e61a70cb36ea07f0409b8fffb2a5dd71661a11b18be5",
+      "bytes": 112897
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-paused-native-night-live-url-before.png",
+      "sha256": "efea56a1320d077ffe2220d4a814236815cc5fb64ba2beb5ebfb2487060400f4",
+      "bytes": 143327
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-paused-native-night-live-url-clear-after.png",
+      "sha256": "8689693d68f4a666fd7acad30fcf3b4b5c3aae5a1b57ba141c5eee298369440b",
+      "bytes": 103293
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-paused-native-night-live-url-clear-before.png",
+      "sha256": "018f26ea3f0d585f7117cb208ccd0a4b6c1b27b4e4e6df3216674ee27588b2d9",
+      "bytes": 112543
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-paused-native-night-live-url-focus-after.png",
+      "sha256": "7222c087d6eb26933d899d96aa050c37ee580f08adac3029f5ea2263ea584d73",
+      "bytes": 112512
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-paused-native-night-live-url-focus-before.png",
+      "sha256": "1e95aa9ad01aadb5b4bf50d6b9ff9ee52bf966a8ee5121bcccc97d4f73ab4bc6",
+      "bytes": 112921
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-reloaded.png",
+      "sha256": "960b371cb27993dc3d1c2d80787c632e049d0103085d36145d1a9af94177de9a",
+      "bytes": 64424
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-repeated-night-after.png",
+      "sha256": "b6c5e81ae1dc0ec2eafd0ed59203303cb81723979e9b23321648a2bac263c038",
+      "bytes": 112605
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-repeated-night-before.png",
+      "sha256": "2c4287c750cf36815adb7b460d9dc91cacd8bb53203dfc38b3b3ec05fbc89d37",
+      "bytes": 143372
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-repeated-night-clear-after.png",
+      "sha256": "b5732c4705de32f89dd56b153c13fe1c8d467f86edb6a554ecdce20f510d4636",
+      "bytes": 103979
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-repeated-night-clear-before.png",
+      "sha256": "2671d0b2f35374135acb670130e85464ddb1334de960474ca72b99354b2690df",
+      "bytes": 112656
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-roundtrip.png",
+      "sha256": "3f0386a54c664aa5597a26979353a852c0fb65a72acc4ce421758af7036f2ce0",
+      "bytes": 64597
+    },
+    {
+      "path": "output/n1/final-ux/browser/390-sky-about.png",
+      "sha256": "9ae27baca43cbcee395165e90ef5f527d00c74e108a6d196cc4b579cd48c48d5",
+      "bytes": 100970
+    },
+    {
+      "path": "output/n1/final-ux/browser/proof.json",
+      "sha256": "922db9ff2bcbedee986d002cd8200080649b7692d099d94853eb58bcaf0d25c5",
+      "bytes": 853107
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-earth-about.png",
+      "sha256": "0f80fa3b3ef9c2912657321c7db0cd6c4778d606acd7e742fd36b34315951075",
+      "bytes": 197158
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-day-after.png",
+      "sha256": "92acebdcfec8f7286f6c24b40894803c62e91fbdc0c707b64a809a6ac8166717",
+      "bytes": 108806
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-day-before.png",
+      "sha256": "69393c728fd194f9a77687786031f2698e1dd65d1f7eb9fd4789265d2f4454b8",
+      "bytes": 89954
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-day-clear-after.png",
+      "sha256": "9963c028a973b8a83c0d9fdcaa1df6b1e5a9f45af29bc852c9b96d8a7b8d4885",
+      "bytes": 777308
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-day-clear-before.png",
+      "sha256": "214c406b755bdc25f830f38e0aa030b2532c349abc2775cb43340b4e343f56f1",
+      "bytes": 783562
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-day-focus-after.png",
+      "sha256": "9cd618ae466dac75431e2c2376f7e2a37f83f4ab9100923a6bf8a6443004cbe6",
+      "bytes": 783543
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-day-focus-before.png",
+      "sha256": "92acebdcfec8f7286f6c24b40894803c62e91fbdc0c707b64a809a6ac8166717",
+      "bytes": 108806
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-night-after.png",
+      "sha256": "b7ad24f0c569b4e58a7d107fda7964d4053d617b92b15c7d38a12c6d50d94976",
+      "bytes": 589426
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-night-clear-after.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-night-clear-before.png",
+      "sha256": "fea4140cef9e66f0f36a3310a6b0faad1a49761df3894e429691b1fe1632e8fa",
+      "bytes": 589466
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-night-focus-after.png",
+      "sha256": "684cc24efae1e4b000be7f18b9bac067d8a6605885f6126cd19c9ba85416c864",
+      "bytes": 589483
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fixed-night-focus-before.png",
+      "sha256": "bc743ed50c1c4de8cadb5e5b578eaac9df9efafc117489ed061fcc8cffdf6575",
+      "bytes": 589513
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fov-close.png",
+      "sha256": "eff4b843f7a04e38bd3bf3d402cf1f1b274787f7fa964bf027124f1a25fe0ed7",
+      "bytes": 630233
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0",
+      "bytes": 440297
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fov-keyboard.png",
+      "sha256": "ea53b4b0f06fd76ecc62c90887728637ca006d4811a2a887f44361abf78a899f",
+      "bytes": 889497
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fov-one-arcsecond.png",
+      "sha256": "c3612aad9b588516b219e98ae27cca881469de8b7cd1cc81b5d3a9a7f632cdd4",
+      "bytes": 96511
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fov-outward.png",
+      "sha256": "7ca0c073652f07abfbd5efd9a68817588f77070eb67ad555407c7445269d4b51",
+      "bytes": 762461
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-fov-trackpad.png",
+      "sha256": "814500d9710323a489311a458e71c0d441793697f29333835cc328730207dd33",
+      "bytes": 640574
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-live-after.png",
+      "sha256": "92bfab9d63d4398d8742ac9f4722f7fa90dd022e4c097f0dee0e9fe9bdc7f46b",
+      "bytes": 781362
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-live-before.png",
+      "sha256": "02b00871add7b68722e9bbacc671f7ef37879e7bf6fcd3fa15dee24e8a5114d4",
+      "bytes": 794477
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-live-clear-after.png",
+      "sha256": "60f0fbb221a134062cff0e27cfbc17ade65a5a23b8f198cc3817f5f7e511202e",
+      "bytes": 787647
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-live-clear-before.png",
+      "sha256": "f558f248f8f6b1ff4a1b6666964ce4623361649174f7607666b15e1d4b458f8f",
+      "bytes": 781368
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-night-mode-on-after.png",
+      "sha256": "00d121787d1ce79f054af0fa9a85366347cd2860db1dca19797e40c2bdc87a7f",
+      "bytes": 358275
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-night-mode-on-before.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-night-mode-on-clear-after.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-night-mode-on-clear-before.png",
+      "sha256": "7acf268ce922d08fd76a7f3402c9cf47fcd7b065101d0a648ec9844bd1bcc219",
+      "bytes": 358288
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-repeated-night-after.png",
+      "sha256": "cf85678ce01f2b31698a926ae319cbc18687cdf71d573bcf6dd1b04681489dbe",
+      "bytes": 589520
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-repeated-night-before.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-repeated-night-clear-after.png",
+      "sha256": "cb2ea71d8d4dbce3c7e643dd78ebddca5f06964f54e2cc0b5e66919424f173e6",
+      "bytes": 574939
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-repeated-night-clear-before.png",
+      "sha256": "670bc385d33a141ba88dd20770d6a3dccc47ac480fed4f662a57b22cbfc28382",
+      "bytes": 589495
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/1440-sky-about.png",
+      "sha256": "cc870e57d3466533d99a0bd552d2fdc5258d5caf9f76a00d8c9c06ecdfad2889",
+      "bytes": 172336
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/failure.png",
+      "sha256": "60637b7e054d947ddc9496b2c97cbfed3ec7c94cc9bebe85f5aea53936663022",
+      "bytes": 973826
+    },
+    {
+      "path": "output/n1/final-ux/browser-about-focus-attempt/proof.json",
+      "sha256": "9c67129547636177c85dfe6b22898620705d8f7ecfd5437288b945b8e767c293",
+      "bytes": 298561
+    },
+    {
+      "path": "output/n1/final-ux/browser-after-desktop-run.txt",
+      "sha256": "5505faec440cc09a7e4a32d8c56b9805b6cd0c5f0bfa24bb8be0264fe9ca8a16",
+      "bytes": 88
+    },
+    {
+      "path": "output/n1/final-ux/browser-after-desktop.sh",
+      "sha256": "0d96f0ff86931b9db32b0cc54d233e47d447b35c4b2593a4d0a8e7ec50eedf03",
+      "bytes": 596
+    },
+    {
+      "path": "output/n1/final-ux/browser-copy-readiness-attempt/1440-fixed-night-after.png",
+      "sha256": "53a0e30196ce8b6491c17bae31c506c92d6bcfcabb66d05a8a6d9d6e691fa4df",
+      "bytes": 589402
+    },
+    {
+      "path": "output/n1/final-ux/browser-copy-readiness-attempt/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser-copy-readiness-attempt/1440-fixed-night-focus-after.png",
+      "sha256": "3e0eac8644e508d1156b5231751719838cff87c4c44a0ee7db0e6c4014f118c7",
+      "bytes": 589486
+    },
+    {
+      "path": "output/n1/final-ux/browser-copy-readiness-attempt/1440-fixed-night-focus-before.png",
+      "sha256": "cc0ee8e9a73435d0718b80dd64ef3ca137dcf3f70161cc0b0410e3495052b7a8",
+      "bytes": 589451
+    },
+    {
+      "path": "output/n1/final-ux/browser-copy-readiness-attempt/failure.png",
+      "sha256": "5b699d05f6771af2bc85984eccc9cca76737f1ee10368a367a318be7d8340d6c",
+      "bytes": 589585
+    },
+    {
+      "path": "output/n1/final-ux/browser-copy-readiness-attempt/proof.json",
+      "sha256": "7de2eba3ce38fdd5083891b4d836c1b45a33db81a485544ecd53b3a5b54f326d",
+      "bytes": 41378
+    },
+    {
+      "path": "output/n1/final-ux/browser-copy-readiness-attempt.txt",
+      "sha256": "cbb3ee8f95c5aa4f34621c361900a2e6e507b0380d6aefed9325c542e0f5c20b",
+      "bytes": 376
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-earth-about.png",
+      "sha256": "0f80fa3b3ef9c2912657321c7db0cd6c4778d606acd7e742fd36b34315951075",
+      "bytes": 197158
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-day-after.png",
+      "sha256": "92acebdcfec8f7286f6c24b40894803c62e91fbdc0c707b64a809a6ac8166717",
+      "bytes": 108806
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-day-before.png",
+      "sha256": "69393c728fd194f9a77687786031f2698e1dd65d1f7eb9fd4789265d2f4454b8",
+      "bytes": 89954
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-day-clear-after.png",
+      "sha256": "9963c028a973b8a83c0d9fdcaa1df6b1e5a9f45af29bc852c9b96d8a7b8d4885",
+      "bytes": 777308
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-day-clear-before.png",
+      "sha256": "a5c29ad58eb4dc0541a0f56d11b88b5322c736dcba2a923e17786243613ed8d1",
+      "bytes": 783551
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-day-focus-after.png",
+      "sha256": "b4d3d4f86908bffa578b3fbf1bd9764285a97d5b5a0106734148494cfde85d66",
+      "bytes": 783536
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-day-focus-before.png",
+      "sha256": "92acebdcfec8f7286f6c24b40894803c62e91fbdc0c707b64a809a6ac8166717",
+      "bytes": 108806
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-night-after.png",
+      "sha256": "c5bea9cb465c4ba2ddca54acf081d4bb7a964c40baa99c4e44afe3087f39bbd2",
+      "bytes": 589448
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-night-clear-after.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-night-clear-before.png",
+      "sha256": "befa7223ed08dc2bcf1d77018e78e4285e5d3e575b67e6920a8d168199842276",
+      "bytes": 589406
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-night-focus-after.png",
+      "sha256": "90cdfa731843fa9c93a2709bcdfeda1b6dc31061050d002981ec2dd524c3e62b",
+      "bytes": 589575
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fixed-night-focus-before.png",
+      "sha256": "375521b98763650ef6a2b1374ea1f3937cece72f57f8ff6bbea7385f0d050fad",
+      "bytes": 589475
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fov-close.png",
+      "sha256": "e783b64ef5b790c498766fdf1c27875e85b9d114fe0bc6124f3032326f1da241",
+      "bytes": 630231
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0",
+      "bytes": 440297
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fov-keyboard.png",
+      "sha256": "14bbc9e7252e7ce19b67278ec4a20d903586273fa7c6b585a13d4526f07499cd",
+      "bytes": 889906
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fov-one-arcsecond.png",
+      "sha256": "0d8eee349a3cb01ee695664b6a43e1fe2b5fc9688c0021b1d9bbf13c9dec0522",
+      "bytes": 96518
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fov-outward.png",
+      "sha256": "5bd2c1a75b12ebfa7fa589b38695ea128592c4e6dfbe75f8d794ab3d657940e5",
+      "bytes": 762454
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-fov-trackpad.png",
+      "sha256": "24e6cb7c0d00a2ab208b5650610df589384e6480c3ba4543daf5ae8a49c03705",
+      "bytes": 640537
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-live-after.png",
+      "sha256": "941c94796eb1448141b34bd6d9e089620ce16718a7fe1350e38facb6f760dd5a",
+      "bytes": 780807
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-live-before.png",
+      "sha256": "7753a07d910b92d43c2b31617065c5732318d0a5d124a415e79fce8f0539ff60",
+      "bytes": 793862
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-live-clear-after.png",
+      "sha256": "648a62ecb10a605f2f5959837218c4a0209d4eca319757b28a0997ac30c11875",
+      "bytes": 787263
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-live-clear-before.png",
+      "sha256": "1ff04ed2cc217c7b5790bf5fbc97e66147858a33f9c2572216d14e7bdc9cdcf2",
+      "bytes": 780777
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-night-mode-on-after.png",
+      "sha256": "a42ac791fbcaa3b319a7487a9a4cec8361083e5ce5e2366792622daf6a2006a6",
+      "bytes": 358307
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-night-mode-on-before.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-night-mode-on-clear-after.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-night-mode-on-clear-before.png",
+      "sha256": "e07e9df01303cc92441822c2e7d8547e183378dcfc2977dec7023bf60bd57107",
+      "bytes": 358302
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-repeated-night-after.png",
+      "sha256": "77505644e11bddf73d17f9ebc149d9a0311b29688421ac4e14cc91da2b1695a5",
+      "bytes": 589447
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-repeated-night-before.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-repeated-night-clear-after.png",
+      "sha256": "cb2ea71d8d4dbce3c7e643dd78ebddca5f06964f54e2cc0b5e66919424f173e6",
+      "bytes": 574939
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-repeated-night-clear-before.png",
+      "sha256": "610e57ea26b2873f71a7a9f95b245639963fa75e2d6278a9e9a4798cf068c38c",
+      "bytes": 589496
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/1440-sky-about.png",
+      "sha256": "cc870e57d3466533d99a0bd552d2fdc5258d5caf9f76a00d8c9c06ecdfad2889",
+      "bytes": 172336
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/failure-retained-from-current-folder.png",
+      "sha256": "54fafd864308da1871ea70b2fe0c1d9f14d918918b6d7115d2f496693f761e16",
+      "bytes": 320834
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/failure.png",
+      "sha256": "54fafd864308da1871ea70b2fe0c1d9f14d918918b6d7115d2f496693f761e16",
+      "bytes": 320834
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt/proof.json",
+      "sha256": "faa926ef5d56ae2ebd33f0f3c02f206fa48b91b47497ad364ce42cfd74f99cc8",
+      "bytes": 297432
+    },
+    {
+      "path": "output/n1/final-ux/browser-earth-label-attempt.txt",
+      "sha256": "5db26aa699a01748648cb9a38ddf00fb3164844ebfe87e6fb1b7611de8254bdc",
+      "bytes": 529
+    },
+    {
+      "path": "output/n1/final-ux/browser-headed-run.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fixed-night-after.png",
+      "sha256": "dcd2efadbe1e36a263e1e23dfa1c50ddc2e540c3bec0c369832d888bc3a6a882",
+      "bytes": 589488
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fixed-night-clear-after.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fixed-night-clear-before.png",
+      "sha256": "20fd9eaa619cce1b424f086492dd5076592bb86fb71d7ee3fe92a0fe39476a30",
+      "bytes": 589404
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fixed-night-focus-after.png",
+      "sha256": "1d0355c5ec674222b761f5289123dd81ee1660289d4bd110e2f0f2f7ba476b16",
+      "bytes": 589585
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fixed-night-focus-before.png",
+      "sha256": "feae7c327996fec76bcf22380d3d9aebe72a3f5a6fc714258ba1d328cd0e8cd0",
+      "bytes": 589402
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fov-close.png",
+      "sha256": "30875f97dba615ec1ea185eb48448e65c4df75d1c3f94ac6a771e42e04f8adfd",
+      "bytes": 630189
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0",
+      "bytes": 440297
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fov-keyboard.png",
+      "sha256": "a8eefb4585e9e8ad4d31086d0dfdfb0117ff4cd9222afaf76ea9712e7cc563f5",
+      "bytes": 897723
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fov-one-arcsecond.png",
+      "sha256": "ec12da6e5fd92a9de084cea1d72cae0f08fa6453013c0d7f4ea62f2a89b72409",
+      "bytes": 96224
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fov-outward.png",
+      "sha256": "665329c5c73b3e85021cb5fb39ca22502ec8ecb2747dd53e57e957e625ffb98e",
+      "bytes": 755742
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-fov-trackpad.png",
+      "sha256": "f0cb6ba0d8f7dbeaf53eafa9f9b1f4e7c97ad8da1b7cd6f38a4eafaf82a282f3",
+      "bytes": 640469
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-night-mode-on-after.png",
+      "sha256": "82891a4d4e07e0663ff7ffade85eb6293ac665374108045c0ef46cb60dd10696",
+      "bytes": 358288
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-night-mode-on-before.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-night-mode-on-clear-after.png",
+      "sha256": "ea4e4f7091b7d50ce470b6aabf960c5e56c7b58baa364e614e5324a3501ad98b",
+      "bytes": 348610
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-night-mode-on-clear-before.png",
+      "sha256": "180efbfd925067393307214b36c1ae5aae537601b734c4f0cf953b9f93426253",
+      "bytes": 358272
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-repeated-night-after.png",
+      "sha256": "7d2cb96a552ee57334f8400370fdafa377d1268582d75925645f3c1e880d0883",
+      "bytes": 589515
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-repeated-night-before.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-repeated-night-clear-after.png",
+      "sha256": "cb2ea71d8d4dbce3c7e643dd78ebddca5f06964f54e2cc0b5e66919424f173e6",
+      "bytes": 574939
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/1440-repeated-night-clear-before.png",
+      "sha256": "7af1d68f2f7f6fb60f45a8092443e6e11d1d9f3e9a7c89c3062b0978efe0f696",
+      "bytes": 589482
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/failure.png",
+      "sha256": "82253f5bcbc5e34ddb2e5dda2f3842a6fb371ae0690179d19ddae972e51baf35",
+      "bytes": 96219
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt/proof.json",
+      "sha256": "95c4b64136bd626e8068b72d881e03319584d52a63d281505a91ac023b37292a",
+      "bytes": 172169
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-focus-attempt.txt",
+      "sha256": "83ed3ba0a6ddc5b0ff5bad90767728f542b8d09089276568ea63293605c929ca",
+      "bytes": 481
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fixed-night-after.png",
+      "sha256": "0420bcccbd4c87bb26e2e045a5a2b621aee1e4ec321276913feb5c7133ee1658",
+      "bytes": 589417
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fixed-night-clear-after.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fixed-night-clear-before.png",
+      "sha256": "f03f2934273f18dca8761d875251c2ecde89e157fb840685df8cb6869d416201",
+      "bytes": 589405
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fixed-night-focus-after.png",
+      "sha256": "d9a84e4b37e6b049fd87fa95e89ed25d35750d70fdd9cee8c58fe55810467dc5",
+      "bytes": 589587
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fixed-night-focus-before.png",
+      "sha256": "9028b09c488b47ba8f4a4c7e87ab5d3b672123add200e82044210dabe99eedb1",
+      "bytes": 589505
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fov-close.png",
+      "sha256": "cbe5713b09ecec07d6c4ff1836ad9c3d1d1d94dfcbacb3610e0aef9decaafd01",
+      "bytes": 630186
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0",
+      "bytes": 440297
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fov-keyboard.png",
+      "sha256": "1805b0e63babdf1730d9f2bba4fa9be3925a778b01cd4ec83272ee07b53feeaf",
+      "bytes": 891186
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fov-one-arcsecond.png",
+      "sha256": "82253f5bcbc5e34ddb2e5dda2f3842a6fb371ae0690179d19ddae972e51baf35",
+      "bytes": 96219
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fov-outward.png",
+      "sha256": "eb59f2d1efbc848cbfaea10f513f25c9ca6892a3e8c1b8494315b7495bca5d77",
+      "bytes": 755739
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-fov-trackpad.png",
+      "sha256": "0ddd4bbb2fea72ed9f6a193c4fb734474e266f9e10e11c1a80508c46998332ee",
+      "bytes": 639001
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-night-mode-on-after.png",
+      "sha256": "8afcd669444e19e325b3babe687c24cdd97ad7e90a6b842678b029a9de504bfb",
+      "bytes": 358281
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-night-mode-on-before.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-night-mode-on-clear-after.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-night-mode-on-clear-before.png",
+      "sha256": "1da5f5c9e60ff0a4bf9449a734c3d438138d0eb02d1655567d2aabf63b4b548b",
+      "bytes": 358302
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-repeated-night-after.png",
+      "sha256": "375521b98763650ef6a2b1374ea1f3937cece72f57f8ff6bbea7385f0d050fad",
+      "bytes": 589475
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-repeated-night-before.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-repeated-night-clear-after.png",
+      "sha256": "cb2ea71d8d4dbce3c7e643dd78ebddca5f06964f54e2cc0b5e66919424f173e6",
+      "bytes": 574939
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/1440-repeated-night-clear-before.png",
+      "sha256": "283b937354a4e1212f8ae762a8dcbc0e643cbde6a56262961182099b4ee31029",
+      "bytes": 589414
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/failure.png",
+      "sha256": "82253f5bcbc5e34ddb2e5dda2f3842a6fb371ae0690179d19ddae972e51baf35",
+      "bytes": 96219
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt/proof.json",
+      "sha256": "8d4b5a390031d30253423d6be05945682b3ea4476dd4cc8d768f2452bf8610cc",
+      "bytes": 171742
+    },
+    {
+      "path": "output/n1/final-ux/browser-key-observer-attempt.txt",
+      "sha256": "83ed3ba0a6ddc5b0ff5bad90767728f542b8d09089276568ea63293605c929ca",
+      "bytes": 481
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-day-after.png",
+      "sha256": "6e3812c646e447b178f66e1d4dd4afb6ed9b09e54a9165ba16be9f4c9b11eed8",
+      "bytes": 108798
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-day-before.png",
+      "sha256": "daf375a51c6e51e603c434d37c584ec17099026533f731c091f0c9ae38184b33",
+      "bytes": 89947
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-day-clear-after.png",
+      "sha256": "3b8fbf05ab2d1b718f935faf0928fb0dfd9ab1debc1530040ba9f3c9d03af15c",
+      "bytes": 783580
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-day-clear-before.png",
+      "sha256": "448b18ac03107536f20a8384aed93c476ff8f23a54851b3cc69b3397d6afe38b",
+      "bytes": 783542
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-day-focus-after.png",
+      "sha256": "2e7c635532f3ab7ce2c78b604c2ee53979e3c09ab53ae2fc6be441bdb41dfe12",
+      "bytes": 783540
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-day-focus-before.png",
+      "sha256": "6e3812c646e447b178f66e1d4dd4afb6ed9b09e54a9165ba16be9f4c9b11eed8",
+      "bytes": 108798
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-night-after.png",
+      "sha256": "c1849fc2272c29cf1828e8ded3b68c3544433ffd3ca216d81b7053e82af85d50",
+      "bytes": 589430
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-night-clear-after.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-night-clear-before.png",
+      "sha256": "c5676e1df6b3b1331b8053a3c9a05c6672258e39fd6b9adfa54bd2e32bb33190",
+      "bytes": 589452
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-night-focus-after.png",
+      "sha256": "40e3767bc8d1d51b53fe50c8246187b743853f5d6eae626227afb58e1a808cfe",
+      "bytes": 589504
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fixed-night-focus-before.png",
+      "sha256": "f1ed898c6c1af41ffaec549cc56bfad82bf32e40206fd903e6dbc02aac4f7355",
+      "bytes": 589524
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fov-close.png",
+      "sha256": "b9058461f74f4b5275491d5c0d7cbef0af2518284350d838a68a044ba333245d",
+      "bytes": 630233
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0",
+      "bytes": 440297
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fov-keyboard.png",
+      "sha256": "2c66d5dfa5257563367f117a9665bbea2ee0cae663d1a801f76f4725ae0a1736",
+      "bytes": 836172
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fov-one-arcsecond.png",
+      "sha256": "8dce1cde153d094ab32db076a43f6d871d2c766ca376a0f93d41321ad19a8185",
+      "bytes": 96506
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fov-outward.png",
+      "sha256": "8330a295c6faa57b2962f1d57e03d09f046a42137c7bb84e807f28d9359538e2",
+      "bytes": 762451
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-fov-trackpad.png",
+      "sha256": "80848c5920bd5ae2c85f0acd68b67477cde56b891b6fcb2c11669f9a5ddfd5a7",
+      "bytes": 640531
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-live-after.png",
+      "sha256": "1e44705110e44058c8c5dc6e9037b0b1282200a468fe9d8718a18ec0f3ea2ff4",
+      "bytes": 784151
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-live-before.png",
+      "sha256": "a43fa3d38ed0178d60bfe36cdec91fe9684d5ca6c301725f2dff074a0b8b89a4",
+      "bytes": 797230
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-night-mode-on-after.png",
+      "sha256": "7ff3bd559d530c10ac07e754b9aee328584de9fae6a3aa34d7568d06433e6a69",
+      "bytes": 358288
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-night-mode-on-before.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-night-mode-on-clear-after.png",
+      "sha256": "ea4e4f7091b7d50ce470b6aabf960c5e56c7b58baa364e614e5324a3501ad98b",
+      "bytes": 348610
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-night-mode-on-clear-before.png",
+      "sha256": "46735a8f150e6b63c36050273405e9d433897974c7b9883d97445a4006a94648",
+      "bytes": 358279
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-repeated-night-after.png",
+      "sha256": "90e100656b1559381a14cb83648a3160a1243c46fc74d92ae27896dba38f5848",
+      "bytes": 589520
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-repeated-night-before.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-repeated-night-clear-after.png",
+      "sha256": "d5c2ce10b23e5b8d7a6a763a419b47512c27f63669eea376c9ee5ff73ed2f1e8",
+      "bytes": 591700
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/1440-repeated-night-clear-before.png",
+      "sha256": "15eb34657b466ff178bee6934684c3023ce02886098ce8a1a94caa0e3667c8a6",
+      "bytes": 589452
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/failure.png",
+      "sha256": "fe64bf9e0f3db5a1cf662aa73f6cf98d52ca500635d1a933a309ff297253a1cb",
+      "bytes": 784340
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt/proof.json",
+      "sha256": "e6ddb4155d1b23a49ea1b4fe710f396578773060215f22574d5a821be82feb9a",
+      "bytes": 269826
+    },
+    {
+      "path": "output/n1/final-ux/browser-live-prior-focus-attempt.txt",
+      "sha256": "707fbcfd1fa6f5960642c7de3ea50d5353d78122a091e1a6729fd9e4cf5ad298",
+      "bytes": 659
+    },
+    {
+      "path": "output/n1/final-ux/browser-regressions-run.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "output/n1/final-ux/browser-regressions.sh",
+      "sha256": "45c90a12a6d982f150a53968c7082a5f50280b1b975f71b973aba1e80dc5f6df",
+      "bytes": 1624
+    },
+    {
+      "path": "output/n1/final-ux/browser-remaining-run.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "output/n1/final-ux/browser-remaining.sh",
+      "sha256": "b08f980f5df97a2c35684046b77b914190f2f6d9ee99a266edf40860c9e83e05",
+      "bytes": 789
+    },
+    {
+      "path": "output/n1/final-ux/browser-resource-profile-run.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "output/n1/final-ux/browser-resource-profile.sh",
+      "sha256": "f43514c24934bb878822b18fe8f5c9a971e3e18249278e3cfe18addc84fb3742",
+      "bytes": 1373
+    },
+    {
+      "path": "output/n1/final-ux/browser-run.txt",
+      "sha256": "bae1cc746a41aa7a2aa4df8d0a48721567ab8af5446ee4f1358233a76ba243d4",
+      "bytes": 304
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fixed-night-after.png",
+      "sha256": "cf85678ce01f2b31698a926ae319cbc18687cdf71d573bcf6dd1b04681489dbe",
+      "bytes": 589520
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fixed-night-before.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fixed-night-clear-after.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fixed-night-clear-before.png",
+      "sha256": "b8aa8395eed4b6963133ed6fba1ccf9aef0daa5f32f39fdcbbc32757d9bd066f",
+      "bytes": 589425
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fixed-night-focus-after.png",
+      "sha256": "0a6f9bd82c2183319e969e0443a743ad972ab9ec91d80db653202ff72e95e295",
+      "bytes": 589575
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fixed-night-focus-before.png",
+      "sha256": "feae7c327996fec76bcf22380d3d9aebe72a3f5a6fc714258ba1d328cd0e8cd0",
+      "bytes": 589402
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fov-close.png",
+      "sha256": "c1ee8ebb303e60e4fbb0704747c4878f0883c151eba1be8de84cd29b628d7803",
+      "bytes": 630177
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fov-intermediate.png",
+      "sha256": "ad2c02f24d26f8f6037536a85fc76835aadda1ce99cfddd17dd30cebe02512b0",
+      "bytes": 440297
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fov-keyboard.png",
+      "sha256": "7be255702163a706b7153fe70ebf8a62344d6479177832e42a8cf1c6093cb652",
+      "bytes": 896511
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fov-outward.png",
+      "sha256": "b8869d5dba8b391c916eaa731372f2b05a085e916270a9ea4abc1e3c3b05cb0b",
+      "bytes": 762451
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-fov-trackpad.png",
+      "sha256": "e3b421ce140395252fbd5ebad3fcaf9658388231f0555680816efa73adbf9423",
+      "bytes": 640583
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-night-mode-on-after.png",
+      "sha256": "be928acab3d255210c4665b70166a77b10dd2daa6ec98af24e374bd36a3a8875",
+      "bytes": 358294
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-night-mode-on-before.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-night-mode-on-clear-after.png",
+      "sha256": "c9f03a144273ab3fa37bc8ed967758095ae5dc4ff4c6ad1703d14ebf6a8ff3b6",
+      "bytes": 361590
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-night-mode-on-clear-before.png",
+      "sha256": "6b46706121798b47b2d818edeae1a725eda5e65980a05d6280280e2659b74006",
+      "bytes": 358289
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-repeated-night-after.png",
+      "sha256": "f201b406399c985c00f11d78e00c980108c0f66db8668a76a4da479627801eaf",
+      "bytes": 589434
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-repeated-night-before.png",
+      "sha256": "5c8103ba4b4c62aedcb045749bcad1b2406c936d358bb038e8fd3417615f8a88",
+      "bytes": 627373
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-repeated-night-clear-after.png",
+      "sha256": "cb2ea71d8d4dbce3c7e643dd78ebddca5f06964f54e2cc0b5e66919424f173e6",
+      "bytes": 574939
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/1440-repeated-night-clear-before.png",
+      "sha256": "828ba9274f1393e65ed1ffbd3d50c6999f8767932536ef00b3038656b2d58125",
+      "bytes": 589516
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/failure.png",
+      "sha256": "957537fb291a0b504a7c2bef6cebd031b2c2b5c8d4b54196afe8f3ae0cd9284f",
+      "bytes": 93394
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt/proof.json",
+      "sha256": "42eb6aae1f5af39ecd4c90d7cd131515f9df96235fa5e30d5b1c2bcc98705db1",
+      "bytes": 151938
+    },
+    {
+      "path": "output/n1/final-ux/browser-silent-fov-attempt.txt",
+      "sha256": "d37831086157676aa8394cb5c9b9499068d1cd63df1f35470ada091b9603932a",
+      "bytes": 406
+    },
+    {
+      "path": "output/n1/final-ux/build-ui-run.txt",
+      "sha256": "8004bf2787cbeebf6a487d57faf0210861c4e81e90afa98ebf7694c87dccee9a",
+      "bytes": 217
+    },
+    {
+      "path": "output/n1/final-ux/build-ui.sh",
+      "sha256": "a5ef122715b0ebf900d8ca7db36b2ef763d48ee3b07666aa81897ee552fe6459",
+      "bytes": 1372
+    },
+    {
+      "path": "output/n1/final-ux/catalog-planning-snapshot.json",
+      "sha256": "06e93e8726fe7b46d44339adf7cefbc9ffb2a936ef7bb9a0dacabf0bb57e5092",
+      "bytes": 201
+    },
+    {
+      "path": "output/n1/final-ux/collect-evidence.py",
+      "sha256": "2f602b0ae0e0ca204f76ab5147ddeee7fbca98bc1480e0feefa1395fc463d491",
+      "bytes": 4049
+    },
+    {
+      "path": "output/n1/final-ux/collect-partial-run.txt",
+      "sha256": "3f607f6c2e15767586df0b34ae1bb1166d0e53d4f444bca1264b2bcaa51e3c71",
+      "bytes": 63
+    },
+    {
+      "path": "output/n1/final-ux/current-resource-record.json",
+      "sha256": "5746a5240f3752dd234b428fe5e51c5d5244cbca814eca7e039591c87bafdc42",
+      "bytes": 571
+    },
+    {
+      "path": "output/n1/final-ux/diagnose-fov-compositing.mjs",
+      "sha256": "cadf82b58d7d151f9b8537acfd6489e133f9e04582a1a49bda1c37d9aa735d98",
+      "bytes": 2249
+    },
+    {
+      "path": "output/n1/final-ux/diagnostics-branding-red.txt",
+      "sha256": "19b7fffc0f83b7de6e95ebc3657341022cccd0f218f0273c40d93719b8a30eec",
+      "bytes": 1934
+    },
+    {
+      "path": "output/n1/final-ux/driver-about-focus-attempt.mjs",
+      "sha256": "6cbc927c764087aacfacdcf76ec08a2a057495553de5b8fbaaeb279a8ccbdd4a",
+      "bytes": 17849
+    },
+    {
+      "path": "output/n1/final-ux/driver-earth-label-attempt.mjs",
+      "sha256": "88864714510b51bdbab203b8f2482d56342b5974a1dfc76e4f2f689acd5d5875",
+      "bytes": 18147
+    },
+    {
+      "path": "output/n1/final-ux/driver-key-focus-attempt.mjs",
+      "sha256": "16603b0206b13cc5cdf6cb14f7c8b5bdb77b97c4209cc01d9587f710155fb452",
+      "bytes": 17708
+    },
+    {
+      "path": "output/n1/final-ux/driver-key-observer-attempt.mjs",
+      "sha256": "4f28a65dcd5af2a0b4d9d43067bf540c10cb84af38d71716de4f0edad5c736ab",
+      "bytes": 17646
+    },
+    {
+      "path": "output/n1/final-ux/driver-live-prior-focus-attempt.mjs",
+      "sha256": "fb4cd78d40ee6c97567c229bfb6d6b114325b392f009dc749996315e88a5ffcc",
+      "bytes": 17788
+    },
+    {
+      "path": "output/n1/final-ux/driver-silent-fov-attempt.mjs",
+      "sha256": "fb10e6012c8e583e7a4ed46285ae178b13d65951aedbaaa5cc16b0e62e3b9c91",
+      "bytes": 17645
+    },
+    {
+      "path": "output/n1/final-ux/final-browser-navigation-run.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "output/n1/final-ux/final-browser-navigation.sh",
+      "sha256": "fe313ae02992b6927afd48561030d4c68120a93dcf5ae1c7a0040ce55b763f45",
+      "bytes": 999
+    },
+    {
+      "path": "output/n1/final-ux/final-navigation-exits.json",
+      "sha256": "87686336bcf1cb527415e3258030f721c5096d56e8a8798ce26c7c164ba8e2a6",
+      "bytes": 756
+    },
+    {
+      "path": "output/n1/final-ux/final-navigation-intervention.json",
+      "sha256": "449e9c881aa70b7d5bc08c8fc833ae59d500965ec4616d51efcbf267aa9552e7",
+      "bytes": 340
+    },
+    {
+      "path": "output/n1/final-ux/final-short-browser-exits.json",
+      "sha256": "d1d3c931a727f51fc9456b1692c1c3c7d9a7f82d557e10bab50923f694ec53f3",
+      "bytes": 701
+    },
+    {
+      "path": "output/n1/final-ux/final-ux-driver-start.mjs",
+      "sha256": "09f7f47673bf71d0d71ddb2e92aa5035eebfb8cc658d488689f70a131dfb70a0",
+      "bytes": 17419
+    },
+    {
+      "path": "output/n1/final-ux/finalize.py",
+      "sha256": "de28f55514c86d31df9b21e7a8ac12bc8ca432b7622e4e2650a62b687c9bf70d",
+      "bytes": 4536
+    },
+    {
+      "path": "output/n1/final-ux/focused-frontend-green.txt",
+      "sha256": "0717eae1e70de859087b7522d564ce82c34ab8720da57116c6007377d3372299",
+      "bytes": 437
+    },
+    {
+      "path": "output/n1/final-ux/fov-compositing-diagnostic-run.txt",
+      "sha256": "b558c055be9b7bda3b404b015afb9f70af6459bce4eed0ab2466ebf2a08f61a5",
+      "bytes": 446
+    },
+    {
+      "path": "output/n1/final-ux/fov-compositing-diagnostic.json",
+      "sha256": "0d80d3d73a1af08049c396d69660b51cf6866f855699ec1dbaa64ea8d6067b4c",
+      "bytes": 1474
+    },
+    {
+      "path": "output/n1/final-ux/fov-format-green.txt",
+      "sha256": "3f15e5bf0dee5da746f450168b8b685393747881f945bafead15981feb691b33",
+      "bytes": 330
+    },
+    {
+      "path": "output/n1/final-ux/fov-format-red.txt",
+      "sha256": "0f02062bb4b04a608c0f773f094d2142ac3177eae238d9e6be12800873347732",
+      "bytes": 768
+    },
+    {
+      "path": "output/n1/final-ux/fov-report-green-sandbox-invalid.txt",
+      "sha256": "a50957557ce94f618e068968d8ae984c7de334cccf6a3b43ec700a0f2c5c836f",
+      "bytes": 716
+    },
+    {
+      "path": "output/n1/final-ux/fov-report-green.txt",
+      "sha256": "681269dff26aa312e27d7c12421d5e53db69a9a530b9cf866740aa0ccdd85299",
+      "bytes": 3815
+    },
+    {
+      "path": "output/n1/final-ux/fov-report-red-sandbox-invalid.txt",
+      "sha256": "cc18c47cbae67052b7393d9ecc38e5b6da0158b79cb6fed27c0429d6fe1cbc1c",
+      "bytes": 496
+    },
+    {
+      "path": "output/n1/final-ux/fov-report-red.txt",
+      "sha256": "60b3d92dd9acd227cd7444ba11e1b81e6d91423031dce12753790865d18df70f",
+      "bytes": 1898
+    },
+    {
+      "path": "output/n1/final-ux/fov-silent-green.txt",
+      "sha256": "bdd3893fb822cd7d7b81510645e68e4f693d703ac50faee0025865017011a7fb",
+      "bytes": 3242
+    },
+    {
+      "path": "output/n1/final-ux/fov-silent-red.txt",
+      "sha256": "db9aaf812038db6a12389cc7f81fd7b231050f0124760e738b8b54257a4e01a3",
+      "bytes": 1816
+    },
+    {
+      "path": "output/n1/final-ux/frontend-tests.txt",
+      "sha256": "3f01254d7a4a4f2369b94078709751a51125b79ec923e660c9ba36b6309e6a98",
+      "bytes": 314
+    },
+    {
+      "path": "output/n1/final-ux/git-working-log.txt",
+      "sha256": "d2eac31306b49096c594976318c51141ddbc3867bccd045faf45623e38cd8fb7",
+      "bytes": 360
+    },
+    {
+      "path": "output/n1/final-ux/git-working-status.txt",
+      "sha256": "b3f655f1ff6e9e9f0ed919b8040c1e7054f23b42578cdb143f99a6be8b9af6be",
+      "bytes": 1746
+    },
+    {
+      "path": "output/n1/final-ux/hub-alternate-build.txt",
+      "sha256": "6b81b54b2efc740bf4cc8c5e0a680aafae351ea08c0064fcd54fe56c21496249",
+      "bytes": 17787
+    },
+    {
+      "path": "output/n1/final-ux/hub-alternate-stale-attempt.json",
+      "sha256": "27beff34e39c5b3ecec918546e7f56cbb096defac3ee70764b75d640f5ab1619",
+      "bytes": 110
+    },
+    {
+      "path": "output/n1/final-ux/hub-build.txt",
+      "sha256": "10b7d682141fbabade1eaf59ba7e62c562cfc7b5d32749358daac7cc5a78c3fb",
+      "bytes": 13729
+    },
+    {
+      "path": "output/n1/final-ux/inspect-navigation.mjs",
+      "sha256": "a4005e0e2ae5b7ede255bee5287fc4f59a5fd6fd0fe340bc29b4eeaaa98e406d",
+      "bytes": 1420
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/new-york-back-sky-1440.png",
+      "sha256": "ecbc2bb7a7549664baef75118ee16bf31fef1bff49be2dacbbad476b2df20ba4",
+      "bytes": 201447
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/new-york-boundary-1440.png",
+      "sha256": "9912d62c419617d9b2041058791bceb94bc102518cf229dd7cc041d395e367a4",
+      "bytes": 1544382
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/new-york-earth-1440.png",
+      "sha256": "457983806e1836bf8a59a29f61737ae06023ff131935503e97a7ae0560ed3cd4",
+      "bytes": 130613
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/new-york-return-earth-1440.png",
+      "sha256": "b1868f6217337c9193a3ac11e4247451220fc91eba61dff3ebabd5d6fadbc3fc",
+      "bytes": 1146382
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/new-york-sky-1440.png",
+      "sha256": "205ee08fb5d028cf9b2b867535b9c76893e5514f731cac76b308ca080d76c1e1",
+      "bytes": 202652
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/oras-earth-1440.png",
+      "sha256": "d65f8882edda6f152920b0442fabc6ba57aa7fa34ee49c58212e70291813232a",
+      "bytes": 1135468
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/oras-return-sky-1440.png",
+      "sha256": "7c57097b188cc8d59d5db7b214981ce0ad00c1427508f2877a0d7df4c7461103",
+      "bytes": 200495
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/oras-sky-1440.png",
+      "sha256": "5317cdc0af50ab56e3214558caa8040c28767bfe8c4ee04bbb88baff39b27405",
+      "bytes": 337870
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop/proof.json",
+      "sha256": "0e79a1cc6d7fcaabf0386ee60ae51a82f970cf8a30d6df64d66be9109a3dd94c",
+      "bytes": 20572
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/failure.png",
+      "sha256": "8b3f53bc11619cf031f7356cfc8b69978db2337260e7f2eec9525311c2cd46a8",
+      "bytes": 29894
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/new-york-back-sky-1440.png",
+      "sha256": "ecbc2bb7a7549664baef75118ee16bf31fef1bff49be2dacbbad476b2df20ba4",
+      "bytes": 201447
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/new-york-boundary-1440.png",
+      "sha256": "9912d62c419617d9b2041058791bceb94bc102518cf229dd7cc041d395e367a4",
+      "bytes": 1544382
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/new-york-earth-1440.png",
+      "sha256": "457983806e1836bf8a59a29f61737ae06023ff131935503e97a7ae0560ed3cd4",
+      "bytes": 130613
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/new-york-return-earth-1440.png",
+      "sha256": "b1868f6217337c9193a3ac11e4247451220fc91eba61dff3ebabd5d6fadbc3fc",
+      "bytes": 1146382
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/new-york-sky-1440.png",
+      "sha256": "205ee08fb5d028cf9b2b867535b9c76893e5514f731cac76b308ca080d76c1e1",
+      "bytes": 202652
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/oras-earth-1440.png",
+      "sha256": "d65f8882edda6f152920b0442fabc6ba57aa7fa34ee49c58212e70291813232a",
+      "bytes": 1135468
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/oras-return-sky-1440.png",
+      "sha256": "7c57097b188cc8d59d5db7b214981ce0ad00c1427508f2877a0d7df4c7461103",
+      "bytes": 200495
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/oras-sky-1440.png",
+      "sha256": "5317cdc0af50ab56e3214558caa8040c28767bfe8c4ee04bbb88baff39b27405",
+      "bytes": 337870
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-before-bounded-delivery/proof.json",
+      "sha256": "741c4bbe238d189906cea935083db64b44b0de2065dbd3f0325ee3182adc6c73",
+      "bytes": 16419
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/failure.png",
+      "sha256": "9ffdb3065951310c7d96aa81b6ef323de044fa5917ff06d70d7ac6ea49e901f9",
+      "bytes": 126904
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/new-york-back-sky-1440.png",
+      "sha256": "7ef7f6a87c42ea4d177f695cfedc5368d84bfb05d2c11ba8f76bd3b794ce8bec",
+      "bytes": 201016
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/new-york-boundary-1440.png",
+      "sha256": "d8dd3fd8779ab4e434995f867140b020dd78941d47f218ea4ad3fb23c029d71e",
+      "bytes": 1403827
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/new-york-earth-1440.png",
+      "sha256": "d2b3b035a4353bdfd8c303bfcd69dbb66398efd0c8540661f7bf752076f58d05",
+      "bytes": 129219
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/new-york-return-earth-1440.png",
+      "sha256": "949dc3f40aa620a877ea6b84c221aff655882731fc5bdae5ac160efb26f371a9",
+      "bytes": 1117037
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/new-york-sky-1440.png",
+      "sha256": "9035fff2c892dd10b7c2186722b88f0a101f93eeb6cec031f6270a179bf43f78",
+      "bytes": 202664
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/oras-earth-1440.png",
+      "sha256": "e79a3e3437ef40832f9cfb9380a51010706068a147c18f3127bd031961afa396",
+      "bytes": 1161407
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/oras-return-sky-1440.png",
+      "sha256": "a2c00baaa801543c6e6d1d03050635ca1ecfcd4e61e27f67173892d100a9178b",
+      "bytes": 200537
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/oras-sky-1440.png",
+      "sha256": "485d59d987a6647efd34c1b50e24e3272be7dfc1b895e21a5e471f3f6d7a87f1",
+      "bytes": 337871
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt/proof.json",
+      "sha256": "79c91e03e7072a8983054d5348c1e26c9ac95073637da16e1a26c48fa24e3f18",
+      "bytes": 16458
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-chrome-headless-attempt.txt",
+      "sha256": "ab3c24163d08a160bd7dd306fb992572d35f02d2832fcbf6ed00be0256f1bc3f",
+      "bytes": 762
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-dialog-selector-attempt/failure.png",
+      "sha256": "9ffdb3065951310c7d96aa81b6ef323de044fa5917ff06d70d7ac6ea49e901f9",
+      "bytes": 126904
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-dialog-selector-attempt/oras-earth-1440.png",
+      "sha256": "e79a3e3437ef40832f9cfb9380a51010706068a147c18f3127bd031961afa396",
+      "bytes": 1161407
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-dialog-selector-attempt/oras-return-sky-1440.png",
+      "sha256": "71cfcd8ff12903b5395a0ea19d3dfc1c1cda5d90bb9c7faa99d1c71ec9d2d812",
+      "bytes": 200557
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-dialog-selector-attempt/oras-sky-1440.png",
+      "sha256": "a92e9e66c93efe4abb5931060562a0175a0bdd793a6e700f0a1783d0cb5583c1",
+      "bytes": 337789
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-dialog-selector-attempt/proof.json",
+      "sha256": "46348d53e7dc16f06610573290d8d1ef39301a00c8948da9d521f2d002629d3f",
+      "bytes": 170443
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-dialog-selector-attempt.txt",
+      "sha256": "d976a91220184b04fbdfc2ba23e148088b24c14fda37347ed812c160c3484e9d",
+      "bytes": 1227
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/failure.png",
+      "sha256": "2152e3f76106a72b64b2da326191ee4b8b8fd6ee98d5c2b11d1838f4564c3c3a",
+      "bytes": 276838
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/new-york-back-sky-1440.png",
+      "sha256": "7ef7f6a87c42ea4d177f695cfedc5368d84bfb05d2c11ba8f76bd3b794ce8bec",
+      "bytes": 201016
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/new-york-boundary-1440.png",
+      "sha256": "d8dd3fd8779ab4e434995f867140b020dd78941d47f218ea4ad3fb23c029d71e",
+      "bytes": 1403827
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/new-york-earth-1440.png",
+      "sha256": "d2b3b035a4353bdfd8c303bfcd69dbb66398efd0c8540661f7bf752076f58d05",
+      "bytes": 129219
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/new-york-return-earth-1440.png",
+      "sha256": "949dc3f40aa620a877ea6b84c221aff655882731fc5bdae5ac160efb26f371a9",
+      "bytes": 1117037
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/new-york-sky-1440.png",
+      "sha256": "9035fff2c892dd10b7c2186722b88f0a101f93eeb6cec031f6270a179bf43f78",
+      "bytes": 202664
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/oras-earth-1440.png",
+      "sha256": "e79a3e3437ef40832f9cfb9380a51010706068a147c18f3127bd031961afa396",
+      "bytes": 1161407
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/oras-return-sky-1440.png",
+      "sha256": "a2c00baaa801543c6e6d1d03050635ca1ecfcd4e61e27f67173892d100a9178b",
+      "bytes": 200537
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/oras-sky-1440.png",
+      "sha256": "ee7e8f33ffc02fb689070612ced74e71eb81fff36c0f4d3db316ca21f8ca7ce5",
+      "bytes": 337815
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt/proof.json",
+      "sha256": "9ddeffea701615bc93fa7af04c179d0aa65e8c36c8fbcc743f404f306dc200e5",
+      "bytes": 20946
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-headed-attempt.txt",
+      "sha256": "189efb2d4a0c8baa7766f7c324e410bacbba3427c092e86f04ae52806d41cd1c",
+      "bytes": 1029
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/failure.png",
+      "sha256": "8b3f53bc11619cf031f7356cfc8b69978db2337260e7f2eec9525311c2cd46a8",
+      "bytes": 29894
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/new-york-back-sky-1440.png",
+      "sha256": "7ef7f6a87c42ea4d177f695cfedc5368d84bfb05d2c11ba8f76bd3b794ce8bec",
+      "bytes": 201016
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/new-york-boundary-1440.png",
+      "sha256": "d8dd3fd8779ab4e434995f867140b020dd78941d47f218ea4ad3fb23c029d71e",
+      "bytes": 1403827
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/new-york-earth-1440.png",
+      "sha256": "d2b3b035a4353bdfd8c303bfcd69dbb66398efd0c8540661f7bf752076f58d05",
+      "bytes": 129219
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/new-york-return-earth-1440.png",
+      "sha256": "949dc3f40aa620a877ea6b84c221aff655882731fc5bdae5ac160efb26f371a9",
+      "bytes": 1117037
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/new-york-sky-1440.png",
+      "sha256": "9035fff2c892dd10b7c2186722b88f0a101f93eeb6cec031f6270a179bf43f78",
+      "bytes": 202664
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/oras-earth-1440.png",
+      "sha256": "e79a3e3437ef40832f9cfb9380a51010706068a147c18f3127bd031961afa396",
+      "bytes": 1161407
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/oras-return-sky-1440.png",
+      "sha256": "a2c00baaa801543c6e6d1d03050635ca1ecfcd4e61e27f67173892d100a9178b",
+      "bytes": 200537
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/oras-sky-1440.png",
+      "sha256": "099bda5233ec6bbefba54c1a18a758495177a48fb7f2f2e8d96fe945e90156ad",
+      "bytes": 38547
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt/proof.json",
+      "sha256": "11849f7ba1abc0fd574ca2e834ff773b88ed832e14123bc9139a22a66d5f57d6",
+      "bytes": 34096
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-mesa-unsupported-attempt.txt",
+      "sha256": "b0c474942608a5790f8801999aacdcecdf54f8c9cbc7876082086e18626da851",
+      "bytes": 935
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-run.txt",
+      "sha256": "abbc095d79ed373ddfe4bc32e3279a9be6ee738ba781619a7de9f876ac0a3871",
+      "bytes": 738
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/failure.png",
+      "sha256": "8b3f53bc11619cf031f7356cfc8b69978db2337260e7f2eec9525311c2cd46a8",
+      "bytes": 29894
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/new-york-back-sky-1440.png",
+      "sha256": "ecbc2bb7a7549664baef75118ee16bf31fef1bff49be2dacbbad476b2df20ba4",
+      "bytes": 201447
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/new-york-boundary-1440.png",
+      "sha256": "9912d62c419617d9b2041058791bceb94bc102518cf229dd7cc041d395e367a4",
+      "bytes": 1544382
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/new-york-earth-1440.png",
+      "sha256": "457983806e1836bf8a59a29f61737ae06023ff131935503e97a7ae0560ed3cd4",
+      "bytes": 130613
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/new-york-return-earth-1440.png",
+      "sha256": "b1868f6217337c9193a3ac11e4247451220fc91eba61dff3ebabd5d6fadbc3fc",
+      "bytes": 1146382
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/new-york-sky-1440.png",
+      "sha256": "205ee08fb5d028cf9b2b867535b9c76893e5514f731cac76b308ca080d76c1e1",
+      "bytes": 202652
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/oras-earth-1440.png",
+      "sha256": "d65f8882edda6f152920b0442fabc6ba57aa7fa34ee49c58212e70291813232a",
+      "bytes": 1135468
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/oras-return-sky-1440.png",
+      "sha256": "7c57097b188cc8d59d5db7b214981ce0ad00c1427508f2877a0d7df4c7461103",
+      "bytes": 200495
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/oras-sky-1440.png",
+      "sha256": "c15b3756a9702bd06425426d4e1542f3ca84de96c173f7f024ec620aaf667e35",
+      "bytes": 338432
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt/proof.json",
+      "sha256": "85e310f5c5e0d05d1ee6cc17949cb64ddd9595c507b8a2aeea1f7019d1ef5325",
+      "bytes": 93590
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-software-compositor-attempt.txt",
+      "sha256": "e74083d86cd6c0e089bfa7ebeadedcf49a02df05c7c50ce708250f9dbe0a5fa5",
+      "bytes": 1292
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/failure.png",
+      "sha256": "9ffdb3065951310c7d96aa81b6ef323de044fa5917ff06d70d7ac6ea49e901f9",
+      "bytes": 126904
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/intervention.json",
+      "sha256": "fab396d3c213a79d4629f2b9664eb384785ea77b25b5db739026036e0f189d49",
+      "bytes": 339
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/new-york-back-sky-1440.png",
+      "sha256": "7ef7f6a87c42ea4d177f695cfedc5368d84bfb05d2c11ba8f76bd3b794ce8bec",
+      "bytes": 201016
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/new-york-boundary-1440.png",
+      "sha256": "d8dd3fd8779ab4e434995f867140b020dd78941d47f218ea4ad3fb23c029d71e",
+      "bytes": 1403827
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/new-york-earth-1440.png",
+      "sha256": "d2b3b035a4353bdfd8c303bfcd69dbb66398efd0c8540661f7bf752076f58d05",
+      "bytes": 129219
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/new-york-return-earth-1440.png",
+      "sha256": "949dc3f40aa620a877ea6b84c221aff655882731fc5bdae5ac160efb26f371a9",
+      "bytes": 1117037
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/new-york-sky-1440.png",
+      "sha256": "9035fff2c892dd10b7c2186722b88f0a101f93eeb6cec031f6270a179bf43f78",
+      "bytes": 202664
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/oras-earth-1440.png",
+      "sha256": "1736d280d9302f5a97b31a25204aeca5025f5c114fddfd48ab868ad996caa20e",
+      "bytes": 1160880
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/oras-return-sky-1440.png",
+      "sha256": "a2c00baaa801543c6e6d1d03050635ca1ecfcd4e61e27f67173892d100a9178b",
+      "bytes": 200537
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/oras-sky-1440.png",
+      "sha256": "9d4af3c9b949f65a4d03d88470ce90b64e13b87a3707b8e4b9bcbb317e5559c4",
+      "bytes": 337873
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt/proof.json",
+      "sha256": "96c57cbef0582535022516e62fb9fa06cefef4acc601f955af536de07303c0a7",
+      "bytes": 102542
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-stall-attempt.txt",
+      "sha256": "83789f61f6facd2c1df9184bd6a46dc94790b6bf0b81b59e128312bbd1bdd6a2",
+      "bytes": 1322
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-standard-resource-attempt/exact-driver.mjs",
+      "sha256": "c7445ba6414c249114775867090917628c1050323180e04549ccb063ee292d84",
+      "bytes": 25996
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-standard-resource-attempt/failure.png",
+      "sha256": "8b3f53bc11619cf031f7356cfc8b69978db2337260e7f2eec9525311c2cd46a8",
+      "bytes": 29894
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-standard-resource-attempt/final-navigation-exits.json",
+      "sha256": "ba195561ad54d53fe14db44dc208273ea893b8df15521a6f48c8424d86f95604",
+      "bytes": 381
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-standard-resource-attempt/final-navigation-intervention.json",
+      "sha256": "449e9c881aa70b7d5bc08c8fc833ae59d500965ec4616d51efcbf267aa9552e7",
+      "bytes": 340
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-standard-resource-attempt/journeys-desktop-run.txt",
+      "sha256": "abbc095d79ed373ddfe4bc32e3279a9be6ee738ba781619a7de9f876ac0a3871",
+      "bytes": 738
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-standard-resource-attempt/navigation-inspection-final-attempt.json",
+      "sha256": "63d4a1160dc45bafdd883fe35126708f054e6b5a14ac1c04da4a00ff446d98f3",
+      "bytes": 5592
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-standard-resource-attempt/proof.json",
+      "sha256": "741c4bbe238d189906cea935083db64b44b0de2065dbd3f0325ee3182adc6c73",
+      "bytes": 16419
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/failure.png",
+      "sha256": "9ffdb3065951310c7d96aa81b6ef323de044fa5917ff06d70d7ac6ea49e901f9",
+      "bytes": 126904
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/intervention.json",
+      "sha256": "f5336dbf6be484020ec0020cc4a837ea384a16e49eff2e05a005b59eb1e4f46d",
+      "bytes": 358
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/new-york-back-sky-1440.png",
+      "sha256": "7ef7f6a87c42ea4d177f695cfedc5368d84bfb05d2c11ba8f76bd3b794ce8bec",
+      "bytes": 201016
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/new-york-boundary-1440.png",
+      "sha256": "d8dd3fd8779ab4e434995f867140b020dd78941d47f218ea4ad3fb23c029d71e",
+      "bytes": 1403827
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/new-york-earth-1440.png",
+      "sha256": "d2b3b035a4353bdfd8c303bfcd69dbb66398efd0c8540661f7bf752076f58d05",
+      "bytes": 129219
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/new-york-return-earth-1440.png",
+      "sha256": "949dc3f40aa620a877ea6b84c221aff655882731fc5bdae5ac160efb26f371a9",
+      "bytes": 1117037
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/new-york-sky-1440.png",
+      "sha256": "9035fff2c892dd10b7c2186722b88f0a101f93eeb6cec031f6270a179bf43f78",
+      "bytes": 202664
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/oras-earth-1440.png",
+      "sha256": "e79a3e3437ef40832f9cfb9380a51010706068a147c18f3127bd031961afa396",
+      "bytes": 1161407
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/oras-return-sky-1440.png",
+      "sha256": "a2c00baaa801543c6e6d1d03050635ca1ecfcd4e61e27f67173892d100a9178b",
+      "bytes": 200537
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/oras-sky-1440.png",
+      "sha256": "bac012e68760fe24cf10e65052d09edf3729ba88ade8218b8972c2c7cb37dfd3",
+      "bytes": 337922
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt/proof.json",
+      "sha256": "56f3f7d02913e5ef79840bdc164b8c701075a7c08ee150daa2bddaf01ff5a630",
+      "bytes": 25828
+    },
+    {
+      "path": "output/n1/final-ux/journeys-desktop-visibility-stall-attempt.txt",
+      "sha256": "ca2d3d0fc949c93b0e2bbf6e0a2db7efc9ffcd6dca670d1ad582d4b23244a76e",
+      "bytes": 1501
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/new-york-back-sky-390.png",
+      "sha256": "2b45b0eb1d97027fe49b209b5586f6523de1a07197e6e82f2ecdef79d78c810c",
+      "bytes": 63541
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/new-york-boundary-390.png",
+      "sha256": "9bbcb1d7d933c420b1034d4451f7ddd73054ae9afe83d24521f7b6717b940d95",
+      "bytes": 444722
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/new-york-earth-390.png",
+      "sha256": "9b9b6a3508bfc8cc0292c305c762aae6e40c57f835d3739db28b239bff2fb74f",
+      "bytes": 398646
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/new-york-return-earth-390.png",
+      "sha256": "21d48cdc66779a1c862e86c807dbdd41b9e5b414a4c68f174a9409b187c68d92",
+      "bytes": 370974
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/new-york-sky-390.png",
+      "sha256": "85a549dda333ec1bdd3c00dfd7ae1469f73b38841cb0d536b7d9e014c8992ec5",
+      "bytes": 70892
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/oras-earth-390.png",
+      "sha256": "2cdd86fb4e7bd446b4ac9c857427ba525d8353528002bcc3c9f67144dd53d6d4",
+      "bytes": 380517
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/oras-return-sky-390.png",
+      "sha256": "7be77ad455c0f3925cf858a263cb5b336d5517bee9dbc27208be8d984f43f4a6",
+      "bytes": 62864
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/oras-sky-390.png",
+      "sha256": "073613659af41291f50a5890c63a6baa42b3863ea5241617b99fb7582dc39d4c",
+      "bytes": 106768
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile/proof.json",
+      "sha256": "e16b33cc65663ef34a565d2ea7cb1bf112763348754d17de17e88b12802df361",
+      "bytes": 45848
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/new-york-back-sky-390.png",
+      "sha256": "2b45b0eb1d97027fe49b209b5586f6523de1a07197e6e82f2ecdef79d78c810c",
+      "bytes": 63541
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/new-york-boundary-390.png",
+      "sha256": "9bbcb1d7d933c420b1034d4451f7ddd73054ae9afe83d24521f7b6717b940d95",
+      "bytes": 444722
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/new-york-earth-390.png",
+      "sha256": "9b9b6a3508bfc8cc0292c305c762aae6e40c57f835d3739db28b239bff2fb74f",
+      "bytes": 398646
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/new-york-return-earth-390.png",
+      "sha256": "21d48cdc66779a1c862e86c807dbdd41b9e5b414a4c68f174a9409b187c68d92",
+      "bytes": 370974
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/new-york-sky-390.png",
+      "sha256": "85a549dda333ec1bdd3c00dfd7ae1469f73b38841cb0d536b7d9e014c8992ec5",
+      "bytes": 70892
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/oras-earth-390.png",
+      "sha256": "2cdd86fb4e7bd446b4ac9c857427ba525d8353528002bcc3c9f67144dd53d6d4",
+      "bytes": 380517
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/oras-return-sky-390.png",
+      "sha256": "7d505101f890b5fec53fb3d416042862e33db4547ad7f19c10efdaf4448d9219",
+      "bytes": 62908
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/oras-sky-390.png",
+      "sha256": "1fff9a7a679cf58b4e6dda790a2544cfcdc3d80371728f99957470e0d3d7aca2",
+      "bytes": 106915
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-before-bounded-delivery/proof.json",
+      "sha256": "cb441020af943bd58d50a1f5b117043e7a6929804d08a0839926e2a168eada65",
+      "bytes": 22817
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/new-york-back-sky-390.png",
+      "sha256": "2b45b0eb1d97027fe49b209b5586f6523de1a07197e6e82f2ecdef79d78c810c",
+      "bytes": 63541
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/new-york-boundary-390.png",
+      "sha256": "9bbcb1d7d933c420b1034d4451f7ddd73054ae9afe83d24521f7b6717b940d95",
+      "bytes": 444722
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/new-york-earth-390.png",
+      "sha256": "9b9b6a3508bfc8cc0292c305c762aae6e40c57f835d3739db28b239bff2fb74f",
+      "bytes": 398646
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/new-york-return-earth-390.png",
+      "sha256": "21d48cdc66779a1c862e86c807dbdd41b9e5b414a4c68f174a9409b187c68d92",
+      "bytes": 370974
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/new-york-sky-390.png",
+      "sha256": "85a549dda333ec1bdd3c00dfd7ae1469f73b38841cb0d536b7d9e014c8992ec5",
+      "bytes": 70892
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/oras-earth-390.png",
+      "sha256": "2cdd86fb4e7bd446b4ac9c857427ba525d8353528002bcc3c9f67144dd53d6d4",
+      "bytes": 380517
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/oras-return-sky-390.png",
+      "sha256": "7d505101f890b5fec53fb3d416042862e33db4547ad7f19c10efdaf4448d9219",
+      "bytes": 62908
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/oras-sky-390.png",
+      "sha256": "5b55e2494e5c5eafab3e5183096429307b55cb5605733daea1b6fea2fb148f2c",
+      "bytes": 106828
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt/proof.json",
+      "sha256": "3d82fe2379ab73a94283d35961d67874c26de3cbc6d876734f0139c239773380",
+      "bytes": 105379
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-resource-pressure-attempt.txt",
+      "sha256": "277c498776baf0a8f352233c9a5af214d154f2b166d583932b33e1cbc6aaf49b",
+      "bytes": 1585
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-run.txt",
+      "sha256": "702a5e9258aea7187370ff86f7ef6cb82cb4520a539aea7b9a2af65d03958f85",
+      "bytes": 933
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/exact-driver.mjs",
+      "sha256": "bdb357f73b5f2f6aea1e260a34e24a6c61f5f2be16437109f5fafabf3dd2bf90",
+      "bytes": 26208
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/new-york-back-sky-390.png",
+      "sha256": "2b45b0eb1d97027fe49b209b5586f6523de1a07197e6e82f2ecdef79d78c810c",
+      "bytes": 63541
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/new-york-boundary-390.png",
+      "sha256": "9bbcb1d7d933c420b1034d4451f7ddd73054ae9afe83d24521f7b6717b940d95",
+      "bytes": 444722
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/new-york-earth-390.png",
+      "sha256": "9b9b6a3508bfc8cc0292c305c762aae6e40c57f835d3739db28b239bff2fb74f",
+      "bytes": 398646
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/new-york-return-earth-390.png",
+      "sha256": "21d48cdc66779a1c862e86c807dbdd41b9e5b414a4c68f174a9409b187c68d92",
+      "bytes": 370974
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/new-york-sky-390.png",
+      "sha256": "85a549dda333ec1bdd3c00dfd7ae1469f73b38841cb0d536b7d9e014c8992ec5",
+      "bytes": 70892
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/oras-earth-390.png",
+      "sha256": "2cdd86fb4e7bd446b4ac9c857427ba525d8353528002bcc3c9f67144dd53d6d4",
+      "bytes": 380517
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/oras-return-sky-390.png",
+      "sha256": "7d505101f890b5fec53fb3d416042862e33db4547ad7f19c10efdaf4448d9219",
+      "bytes": 62908
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/oras-sky-390.png",
+      "sha256": "1fff9a7a679cf58b4e6dda790a2544cfcdc3d80371728f99957470e0d3d7aca2",
+      "bytes": 106915
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/proof.json",
+      "sha256": "cb441020af943bd58d50a1f5b117043e7a6929804d08a0839926e2a168eada65",
+      "bytes": 22817
+    },
+    {
+      "path": "output/n1/final-ux/journeys-mobile-standard-final-attempt/run.txt",
+      "sha256": "702a5e9258aea7187370ff86f7ef6cb82cb4520a539aea7b9a2af65d03958f85",
+      "bytes": 933
+    },
+    {
+      "path": "output/n1/final-ux/keyboard-green.txt",
+      "sha256": "de3a5d0a0f999157ef6d2e886ca1a79520b0192b3be37d685d71180c89ee4464",
+      "bytes": 1043
+    },
+    {
+      "path": "output/n1/final-ux/keyboard-modifier-red.txt",
+      "sha256": "8a7f9ab06dd7f4a9170a95e9d8e1d12cb4884c9936fddb5efb358463b6bcff57",
+      "bytes": 2123
+    },
+    {
+      "path": "output/n1/final-ux/keyboard-probe-run.txt",
+      "sha256": "1763c6d217b6857a377b6ff82f9f4e5757dd81f7a4588471b935711ba5bca2fe",
+      "bytes": 373
+    },
+    {
+      "path": "output/n1/final-ux/keyboard-probe.json",
+      "sha256": "188b498e6f70047047818f6f9d71dc80053bcc758cbe58c210d28fbea6f2a40f",
+      "bytes": 714
+    },
+    {
+      "path": "output/n1/final-ux/keyboard-probe.mjs",
+      "sha256": "7bf4ec64135062cce6f793c3e5314a338c49f21f888091ffa5ad09039e4792fe",
+      "bytes": 1500
+    },
+    {
+      "path": "output/n1/final-ux/keyboard-red.txt",
+      "sha256": "453bab9a0b7b3ffaf68c5818af511ad24acbd87fe5c14b9062bc2aedf1c8598e",
+      "bytes": 1925
+    },
+    {
+      "path": "output/n1/final-ux/license-assets-green.txt",
+      "sha256": "96ed68668f977cb6dc76bfcdf0b8975ad5f05ab74d89d39ae11aa698dd80baff",
+      "bytes": 339
+    },
+    {
+      "path": "output/n1/final-ux/license-assets-red.txt",
+      "sha256": "480f238f44536290584d90668a86452c9d136924b2466693992ecf331adf8335",
+      "bytes": 100949
+    },
+    {
+      "path": "output/n1/final-ux/loaded-documents.json",
+      "sha256": "a15212b004ffc6a43474f17585a7ba5099ec45de3a3a3f16fd89b10a2be79bbe",
+      "bytes": 13959
+    },
+    {
+      "path": "output/n1/final-ux/loaded-documents.txt",
+      "sha256": "73d059b30e7397dcc3619413bd97d616670f94927ef3b97d7d56513f2a2f3deb",
+      "bytes": 2945
+    },
+    {
+      "path": "output/n1/final-ux/mounts-before.json",
+      "sha256": "92df323197e08eaa3b4390e64cb5ef6f6cd06311c725c88d203817541ebed3ee",
+      "bytes": 1329
+    },
+    {
+      "path": "output/n1/final-ux/native-date-probe-2026-06-05.json",
+      "sha256": "ee8bbeeba3c96dcd794551a975479717385f8dc917680041d162a214e9b0c777",
+      "bytes": 376
+    },
+    {
+      "path": "output/n1/final-ux/native-date-probe-june-run.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "output/n1/final-ux/native-date-probe.mjs",
+      "sha256": "cead78db64dbd522c22446433647ebb629b468a13e23c56b64ebd551f3652129",
+      "bytes": 2271
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/focus-native-tracking-1440.png",
+      "sha256": "80e56b9200fdf3f19df8c63db1b9f2a9a184c52222ee8b687ef1113d51a535e6",
+      "bytes": 1146602
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/focus-native-tracking-390.png",
+      "sha256": "e437ca98e700e99c70ac6caca3d9268287230dc2cc690ed8625bd98cbbf890f4",
+      "bytes": 303415
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-120-1440.png",
+      "sha256": "b531f5f7b1b4d770254a229574a6d92a71bc773ba989ae776309092e4dd9a1a9",
+      "bytes": 635702
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-120-390.png",
+      "sha256": "147177cf694c818134fa019a81ab029eeaf251a89868f3e967539a01d5d27bd4",
+      "bytes": 142459
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-20-1440.png",
+      "sha256": "0e1e9386611b7b54a720dc95392519523ca7349c29fd3943f2343182ea27d6b2",
+      "bytes": 445002
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-20-390.png",
+      "sha256": "b8566a1b924178a99d5a1434fd4db8b47b5d56b812a13f8244485eda97945b3e",
+      "bytes": 143797
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-5-1440.png",
+      "sha256": "aa3d2993f23fb8b164e6e4624eb3b47b570a5e0a6208928ad696a024d67f42b6",
+      "bytes": 505415
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-5-390.png",
+      "sha256": "ac2ea30debd843012dc90c62cc8a21e33620bf83d5909ee0640a93dbdcebee80",
+      "bytes": 153937
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-6-1440.png",
+      "sha256": "89bb7ec5de77fb432fad98b688190cc2511d3d00945b8ca14a4ebb8ff74c8ad1",
+      "bytes": 570965
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-6-390.png",
+      "sha256": "0a880152006ad758814ba2abfa3770a2aff975791ca7880cdd197db3e1b0f013",
+      "bytes": 210053
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-7-1440.png",
+      "sha256": "384cd2d1ebce7f04138b8c08fd356677f3bd88f8d3e40d415d44593ac65f7b3c",
+      "bytes": 699624
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fov-7-390.png",
+      "sha256": "24b13568af859c2431f858df6bb25453b7773aa0d719118ebe31e1ba598576db",
+      "bytes": 215666
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fresh-runtime-1440.png",
+      "sha256": "ac57746058ff7ad587a838431e1088fced483007803e6803ac6c90551ad50639",
+      "bytes": 490540
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/fresh-runtime-390.png",
+      "sha256": "754ff156594c1d5326587d6a742adf9989616098c2077d5ac51fd58581210a61",
+      "bytes": 116055
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/initial-normal-sky-1440.png",
+      "sha256": "e864a4a8864dcfa7726042e30aa07bfa38e27c3be359f12a951e71d3e301831c",
+      "bytes": 387494
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/initial-normal-sky-390.png",
+      "sha256": "ecbbc67cdb0dd83b701d8bca513f613931764339103dddd66f4dd36cfc220a45",
+      "bytes": 90844
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/proof.json",
+      "sha256": "67ad26e5a5767345f8cc0ac3e1a82b527f800037b5f31de04a528df4252331e1",
+      "bytes": 90262
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/selected-close-1440.png",
+      "sha256": "f26c7c598aaafa51f3ae995afc10e2cbf2456b07dd3a4e059532737090cbe784",
+      "bytes": 841410
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/selected-close-390.png",
+      "sha256": "664ce23fc3d5e0fde22c8f45bfc3813dd2240ff2d93922618fa8add79ff58fb3",
+      "bytes": 199040
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/selected-wide-1440.png",
+      "sha256": "a645a4c91b8a12b3c7b9c623dbf85408449bd109b2ca2713d87464029b7a3332",
+      "bytes": 587254
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/selected-wide-390.png",
+      "sha256": "6e3000ab4a7468c8e3cd180f72bbd0829895947745841f75d79146c997090f1d",
+      "bytes": 112218
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/sky-earth-sky-remount-1440.png",
+      "sha256": "d8386fdaebbdc1039f965f17761e43dda4a3873d1e45c28e6794d38143a75be6",
+      "bytes": 491457
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/sky-earth-sky-remount-390.png",
+      "sha256": "a52eaea1dbe9ed6fb4e493dac07bdd269bc94dea71cf39a27b3f9fc61fa9db58",
+      "bytes": 116814
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/standalone-native-offset-0-1440.png",
+      "sha256": "e7ad0ecff4a42c66485b5c7ac3c6d39bff61c25ff0737d3e664bcd49bbaecbef",
+      "bytes": 644061
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/standalone-native-offset-0-390.png",
+      "sha256": "f8b9c15fc29fb036d42255dd5088717611e7ddc565237e694bf8517827404788",
+      "bytes": 139416
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/standalone-overlay-offset-2-1440.png",
+      "sha256": "afc45db08ff20e49f698caaf65f75d331be32540e79e7a8303b4501f494772f1",
+      "bytes": 656222
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/standalone-overlay-offset-2-390.png",
+      "sha256": "fdcff6c00d77fb69d175375ce4b2fd817de47ef245a26b41b83cb2dae2f82948",
+      "bytes": 140148
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/wide-point-1440.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/wide-point-390.png",
+      "sha256": "864008719d7ff0e4f8e927e6090924fa8f93a633d9273500effe0e5d123f4737",
+      "bytes": 143372
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/wide-point-moving-1440.png",
+      "sha256": "3cb426d7a9178596936f9151d28b69ed95d73aa658c96f023bc246d781d432e3",
+      "bytes": 637589
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites/wide-point-moving-390.png",
+      "sha256": "e1ceeb42220ad2949bceb569229cb5697087a5a8828c194cbad4c9b66dc0f5e8",
+      "bytes": 143687
+    },
+    {
+      "path": "output/n1/final-ux/native-satellites-run.txt",
+      "sha256": "ce7a8d4688ab07173e2a71b2dc0e9e78bc318596dc1b4489e95e117ea5d66dce",
+      "bytes": 159
+    },
+    {
+      "path": "output/n1/final-ux/navigation-inspection-current.txt",
+      "sha256": "38778218493cce57a9b108c3f6ed4b2841729cea3c389288c75bc0b22ba2bf8c",
+      "bytes": 2756
+    },
+    {
+      "path": "output/n1/final-ux/navigation-inspection-final-attempt.json",
+      "sha256": "63d4a1160dc45bafdd883fe35126708f054e6b5a14ac1c04da4a00ff446d98f3",
+      "bytes": 5592
+    },
+    {
+      "path": "output/n1/final-ux/navigation-inspection-run.txt",
+      "sha256": "e22968f2ba00c8eac923ecdf48679a2c5559308482dd6c3614f3a8ba386cdb8e",
+      "bytes": 3390
+    },
+    {
+      "path": "output/n1/final-ux/navigation-retry-stall-process.txt",
+      "sha256": "f556e8a35b473c64db62c690c9f3eb6a6073380fcc5fa31d756cd6ee1f3f91bf",
+      "bytes": 123
+    },
+    {
+      "path": "output/n1/final-ux/navigation-stall-processes.txt",
+      "sha256": "a2e860562ea22327de10bdfa9bed9ebb0c505d8918144300376d04e5c458fc43",
+      "bytes": 1317
+    },
+    {
+      "path": "output/n1/final-ux/observer-history/proof.json",
+      "sha256": "3b5cbb4a2ce1260170d70c8d9d043d0a17b06fae5df105dfe858fa29c50556fe",
+      "bytes": 169071
+    },
+    {
+      "path": "output/n1/final-ux/observer-history/same-route-earth-1440.png",
+      "sha256": "9b79bdb59906c4a0891feec458a63cca8bce1d607c99842cbdbcb6e14fcd7a24",
+      "bytes": 1940698
+    },
+    {
+      "path": "output/n1/final-ux/observer-history/same-route-earth-390.png",
+      "sha256": "68942a7e2a98de9a6446971d86fad175f043bb9c6dc175ef8b35b4f83700893d",
+      "bytes": 413718
+    },
+    {
+      "path": "output/n1/final-ux/observer-history/same-route-sky-1440.png",
+      "sha256": "1c292582f5e10cf049577b0436cbb7a87d76919169e37e422c7a7b0d9713021f",
+      "bytes": 646318
+    },
+    {
+      "path": "output/n1/final-ux/observer-history/same-route-sky-390.png",
+      "sha256": "77ef9fbd4adc3f72450c322037126a7cd7f3b03a5d9e1d0910cb80198c65ac9d",
+      "bytes": 239976
+    },
+    {
+      "path": "output/n1/final-ux/observer-history-run.txt",
+      "sha256": "17889763310286cd97a9639d2a9a913ba56f93184fc2d6715b9afd90840254d2",
+      "bytes": 382
+    },
+    {
+      "path": "output/n1/final-ux/passing-source-bindings.json",
+      "sha256": "963b892aebdb5cbd794808e10b6f222c65a5ed0c9e1649dc90cc29a10063b7dd",
+      "bytes": 1639
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-atmosphere-off-1440.png",
+      "sha256": "a21515a95e917dd48c3901dc44fdabef13c65d2a762d4121ea62dac5d0e22e9f",
+      "bytes": 1192599
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-atmosphere-off-390.png",
+      "sha256": "4bfe9b2afc5cc69dcad5be20bfbf06c2b93f612c0c5b8a9e17ad9bdd59859b05",
+      "bytes": 363196
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-landscape-off-1440.png",
+      "sha256": "74a9d7e26433f79dbc33ea9c2c950ace90cc549a6aa617f38fd940d3406da530",
+      "bytes": 101014
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-landscape-off-390.png",
+      "sha256": "6d024dda32e166de43906d52d218ddf8e3639a3b67c788e8ce3f16decf70bb3d",
+      "bytes": 58146
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-landscape-on-1440.png",
+      "sha256": "6513e982d20f89461e2aaaa2379b710dbcb60fb0f13a3d78c228c4c801a1dbdc",
+      "bytes": 949295
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-landscape-on-390.png",
+      "sha256": "41d1b92ffc947efe1e8b80091987304fae289f08a4c8efce7bc72ad698e237e8",
+      "bytes": 327800
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-night-mode-on-1440.png",
+      "sha256": "bec936842684964ec413339a4bb8062aedec3394b32870077e772ea5934b8273",
+      "bytes": 615675
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-night-mode-on-390.png",
+      "sha256": "83969614ce31c82ad016095d1cfa3103d87ffb27173241a62a2a80ffbc05e74a",
+      "bytes": 203650
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-0-1440.png",
+      "sha256": "6513e982d20f89461e2aaaa2379b710dbcb60fb0f13a3d78c228c4c801a1dbdc",
+      "bytes": 949295
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-0-390.png",
+      "sha256": "85402ad8b9ca2e43124d3a47876fe318c70648ff6d92df3c98e9a862c163736c",
+      "bytes": 327649
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-0b-1440.png",
+      "sha256": "6513e982d20f89461e2aaaa2379b710dbcb60fb0f13a3d78c228c4c801a1dbdc",
+      "bytes": 949295
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-0b-390.png",
+      "sha256": "85402ad8b9ca2e43124d3a47876fe318c70648ff6d92df3c98e9a862c163736c",
+      "bytes": 327649
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-1-1440.png",
+      "sha256": "2836fd347d06e742d6cdb31e495d74fade491e90cc0be952f4af737a6637d9ec",
+      "bytes": 948851
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-1-390.png",
+      "sha256": "e08db8a5de221fb221d9de66ad365ddf0b74d0ca885ac506728cf33c579e19e4",
+      "bytes": 328088
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-180-1440.png",
+      "sha256": "e27e1dc80e239b3c56caa7176735d4f2d0c536ca37c7650b9242251d4700452e",
+      "bytes": 794799
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-180-390.png",
+      "sha256": "e6bf09e875668bbd4368224df476f7fe0aa3ffada0b14a077cb820c0d1ff23b0",
+      "bytes": 299368
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-270-1440.png",
+      "sha256": "01b48283ea6521c48661c25e37d09906442f0987747eedd1d3994238a294ea16",
+      "bytes": 907240
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-270-390.png",
+      "sha256": "29b4797e47019c269fbc7af1efe8b49a6c8d96a12123731aa0230ee7eb014d40",
+      "bytes": 318279
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-359-1440.png",
+      "sha256": "7dfd1c77103bd52fb1f61f1e7ec164e67c627881d15eadf1de63fc1dcc19c339",
+      "bytes": 949078
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-359-390.png",
+      "sha256": "c40c45ba7c034cc99e2eceb280b286e8167222d8bc7b94c271dc5d32b8c8a155",
+      "bytes": 327025
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-360-1440.png",
+      "sha256": "6513e982d20f89461e2aaaa2379b710dbcb60fb0f13a3d78c228c4c801a1dbdc",
+      "bytes": 949295
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-360-390.png",
+      "sha256": "85402ad8b9ca2e43124d3a47876fe318c70648ff6d92df3c98e9a862c163736c",
+      "bytes": 327649
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-90-1440.png",
+      "sha256": "21119bde1366428b257e18b6a931cb7a63950ccd426fb672c51e3f04577f2cbf",
+      "bytes": 838048
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/day-yaw-90-390.png",
+      "sha256": "f15f5b6c7e929f8aff78e49e64fc09e402c4ffd0af81203b2fb587d1c3c75d0b",
+      "bytes": 299290
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/embedded-restored-1440.png",
+      "sha256": "b0e0ab46ef9acabcbcf477978ddaba6856c31c8604245e8b40d91f1d90050075",
+      "bytes": 280718
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/embedded-restored-390.png",
+      "sha256": "b3ec41d769455f6ac90e46a1630be8bde579470eca30d0dabc900b4f06c85113",
+      "bytes": 125365
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-atmosphere-off-1440.png",
+      "sha256": "bd6c101a6ab09662ac2bc63508150e3e1843af1bb093abd5de7a1e98880a2da4",
+      "bytes": 287612
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-atmosphere-off-390.png",
+      "sha256": "661646816ff066d9e876ebdc754624cd2b6cb403538b91d513ee343b219e04d6",
+      "bytes": 133139
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-landscape-off-1440.png",
+      "sha256": "e96a42785a8cd0bde393910a62aaa9da96c288fc2e96a10028eae238ca14d455",
+      "bytes": 473834
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-landscape-off-390.png",
+      "sha256": "2fe7d538f108e1693f189d836f5d1d1d534cba10e021acd36034200a415eec38",
+      "bytes": 221919
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-landscape-on-1440.png",
+      "sha256": "b0e0ab46ef9acabcbcf477978ddaba6856c31c8604245e8b40d91f1d90050075",
+      "bytes": 280718
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-landscape-on-390.png",
+      "sha256": "18a7326f4427403833e6064a5c70715217d1aa840a63d0f02761c19617cb2cd3",
+      "bytes": 125597
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-mode-off-1440.png",
+      "sha256": "b0e0ab46ef9acabcbcf477978ddaba6856c31c8604245e8b40d91f1d90050075",
+      "bytes": 280718
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-mode-off-390.png",
+      "sha256": "b3ec41d769455f6ac90e46a1630be8bde579470eca30d0dabc900b4f06c85113",
+      "bytes": 125365
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-mode-on-1440.png",
+      "sha256": "89a61b1436217c30590a1bf787297734013401ea5ff8bcb251eb0cf96d339c8a",
+      "bytes": 175173
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-mode-on-390.png",
+      "sha256": "e656fc1af20b5359c7e3abaccee434633a0c16f0427b53f2a8a41ebcbc5ab48b",
+      "bytes": 82204
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-0-1440.png",
+      "sha256": "6d85196fd9ef713e0c3d282091f33520e7c0e7091e2d202239051e823e944b06",
+      "bytes": 217711
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-0-390.png",
+      "sha256": "dfbde1a2922d8d8e9f5c3894945000366ed97f52d4f3a814f5815c858126d8bd",
+      "bytes": 99458
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-180-1440.png",
+      "sha256": "9f0ff4b8266170abbdddd453b7cde5cec66db9e30561b6e035b0056f6b0b0e39",
+      "bytes": 207562
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-180-390.png",
+      "sha256": "7f2c82bd606541d8b42ae5d2811ec87800a20a18853d6a51765b65b68a9f8b7b",
+      "bytes": 77695
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-270-1440.png",
+      "sha256": "48b569e55e1b742abdcec770ffad0915ce119a40dea8f4dd9b13d3d0853d0a13",
+      "bytes": 254197
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-270-390.png",
+      "sha256": "6f6a098f977daf776da487819e94e380e20a28cc936740a477c989e5cbf5bfd4",
+      "bytes": 122840
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-90-1440.png",
+      "sha256": "cf3b3d1b4acc1927e039e5880724cdd5b07690cb403cd2fd21056d299ede22c5",
+      "bytes": 192818
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/night-yaw-90-390.png",
+      "sha256": "e7106312fc892f65fe75082e9068e11c6deeb8ff81d420e7886dbb1bf57a5340",
+      "bytes": 93816
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/proof.json",
+      "sha256": "2ba8d69212b19379a12a4e6c6c7c2556098394db4995edad6b8dac27616f58d8",
+      "bytes": 48594
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/standalone-guereins-1440.png",
+      "sha256": "a0874abb8b7fba88d5d12d38ea9ad2f6995bb7f0e610a74a477ff5d9c8973cf5",
+      "bytes": 462150
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania/standalone-guereins-390.png",
+      "sha256": "3bed87f35c48af103b2114b50206cfc0b8e503810141353bb8e995ee4dad715e",
+      "bytes": 126013
+    },
+    {
+      "path": "output/n1/final-ux/pennsylvania-run.txt",
+      "sha256": "6d4b10980f28abb709c7b5c7138e99a1017e94b88da2dd3005d3946d255dc913",
+      "bytes": 87
+    },
+    {
+      "path": "output/n1/final-ux/preservation-before.json",
+      "sha256": "1ac55f69416d62274fe1d8a99b7406608085550f30569ab1217a8654b102fd22",
+      "bytes": 10866
+    },
+    {
+      "path": "output/n1/final-ux/product-paths/1440-observe.png",
+      "sha256": "e26d890f296df2fac359b5083afe0496fca87ad51954cd6bfc32319569060a3f",
+      "bytes": 515268
+    },
+    {
+      "path": "output/n1/final-ux/product-paths/1440-search.png",
+      "sha256": "6f433216f2ca72995379650ef12de867a81e6bb4a67ee1523d8f8f8fb4314fc9",
+      "bytes": 506356
+    },
+    {
+      "path": "output/n1/final-ux/product-paths/1440-tonight.png",
+      "sha256": "edb224052cc3ee68f0b0028e0e412f850922e5b82a26507890f59046a05b13e0",
+      "bytes": 555482
+    },
+    {
+      "path": "output/n1/final-ux/product-paths/390-observe.png",
+      "sha256": "6b206e62a3efbb24bacc84982d5540a564436db474abb999c67a32d398da9867",
+      "bytes": 126969
+    },
+    {
+      "path": "output/n1/final-ux/product-paths/390-search.png",
+      "sha256": "685580ef992bb5c8d6aa0aee2ddb10a57d61904de360397fdf6b8cbd1035d861",
+      "bytes": 116229
+    },
+    {
+      "path": "output/n1/final-ux/product-paths/390-tonight.png",
+      "sha256": "9868fdf2a6a2fb553e8da251ed5df4ef755486092502e8811724a240385e77b0",
+      "bytes": 119244
+    },
+    {
+      "path": "output/n1/final-ux/product-paths/proof.json",
+      "sha256": "59dab1922124b2149bfba3d67ec5bd21c83920ff1e207a6e4a6982073109e03a",
+      "bytes": 58524
+    },
+    {
+      "path": "output/n1/final-ux/product-paths-run.txt",
+      "sha256": "3daf98ce1f7a8bdb4f62f82b3e36630819be113fa130032622ba71b8059cc90c",
+      "bytes": 115
+    },
+    {
+      "path": "output/n1/final-ux/progress-record.json",
+      "sha256": "548f7d6eb88b40275766ef2db9fd1ff503c857f85adf28062cc1d08e3fce9e0e",
+      "bytes": 2481
+    },
+    {
+      "path": "output/n1/final-ux/promotion-tests.txt",
+      "sha256": "65e5b798955e6e568d2daabab5afc09978d7602e11ea1a6331b541d612c013a8",
+      "bytes": 101
+    },
+    {
+      "path": "output/n1/final-ux/qualification-context-refresh.json",
+      "sha256": "fd4bc13dd8a6c9e60b61ead4f996ab694ed81241b46beade25adc3b68769a992",
+      "bytes": 12139
+    },
+    {
+      "path": "output/n1/final-ux/qualify-final-inputs.sh",
+      "sha256": "809fdd65078f50c903e8a1e41bef57802d988763fb2af92f10374561a52bed14",
+      "bytes": 454
+    },
+    {
+      "path": "output/n1/final-ux/qualify-frontend.sh",
+      "sha256": "809fdd65078f50c903e8a1e41bef57802d988763fb2af92f10374561a52bed14",
+      "bytes": 454
+    },
+    {
+      "path": "output/n1/final-ux/qualify.py",
+      "sha256": "b470670244a5d9e5a67992cdbea2fb42a4461116a672bc2de25ef62f44167477",
+      "bytes": 5463
+    },
+    {
+      "path": "output/n1/final-ux/queue-after-desktop.sh",
+      "sha256": "83730c522e8bdc081a1a2f1d4baa9f705ccd136b4d136ac7a0d9bb1d6cfd3a07",
+      "bytes": 402
+    },
+    {
+      "path": "output/n1/final-ux/rebuild-final.sh",
+      "sha256": "ff7cc3eb4c38088351822e9ebf0057cdc343df4733a17e929cd59da4219ad37d",
+      "bytes": 269
+    },
+    {
+      "path": "output/n1/final-ux/reconciliation-docs.txt",
+      "sha256": "ac55cc921072000956473230a8a7bfb5e1d818aec0388a966f17fd0a177f17f8",
+      "bytes": 312
+    },
+    {
+      "path": "output/n1/final-ux/remote-continuation-start.txt",
+      "sha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+      "bytes": 78
+    },
+    {
+      "path": "output/n1/final-ux/remote-working-head.txt",
+      "sha256": "fd302e0b4609c91ff3b98bbb81a34826a6f9c738549979d0ad979239170ce24d",
+      "bytes": 78
+    },
+    {
+      "path": "output/n1/final-ux/report-results.py",
+      "sha256": "5fd8132cf30ebfdfec9d3108e43a8f4628564c99c44f9964e95c60c21acbcbbb",
+      "bytes": 4565
+    },
+    {
+      "path": "output/n1/final-ux/reproduce-build.py",
+      "sha256": "55c42e5334279ecfae34ade821230b341f71aa100479f728f5c0e40b1b6f7bcf",
+      "bytes": 1946
+    },
+    {
+      "path": "output/n1/final-ux/reproduce-unselected-attempt.mjs",
+      "sha256": "7eac98e41fec6efa228340ffb08a1b3b0eec0be7d96dec6076ad23814f5dce8d",
+      "bytes": 3404
+    },
+    {
+      "path": "output/n1/final-ux/reproduce.mjs",
+      "sha256": "868eb7d1511623159765e007c6bacf48299c1a8fd1941d032156cc61af4ae305",
+      "bytes": 3644
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/fixed-day-after.png",
+      "sha256": "bdc8cc4b23450422499af7b7a51a5359c1985cb6b758aec52d6670ba611dbddd",
+      "bytes": 1070328
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/fixed-day-before.png",
+      "sha256": "d1feb7be954e9d5d062b9d703f70abfcb453ff019380f8092d07b26f08e32691",
+      "bytes": 1070909
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/fixed-day-menu.png",
+      "sha256": "e9ccf66e3e9a4544fbea13e612d09632a6e43cbc93b85d6850925cca600d7e8c",
+      "bytes": 1056136
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/fixed-night-after.png",
+      "sha256": "d6b71abb9cf2b6811f9c0fa3b46895d654b4d67406f61f135fd74549ef1a7ea4",
+      "bytes": 588779
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/fixed-night-before.png",
+      "sha256": "6081d36c735a78f14ce9192c559aa1fc30c7f0289d361a86bcd3d8f9808b3701",
+      "bytes": 636585
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/fixed-night-menu.png",
+      "sha256": "dcaf1bc6757b7d832a84771a8e0a325b82697bfaf2f95a014539fae4c18876cd",
+      "bytes": 569378
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/native-night-live-route-after.png",
+      "sha256": "654cf7a76b8a881608ba76614b38a3915260d371399ea367ee0ee5567ae8013c",
+      "bytes": 424264
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/native-night-live-route-before.png",
+      "sha256": "55728baaf7befb7d73a664b6d4023550d2d50d3d12a8df80e90b54f38b67383a",
+      "bytes": 637244
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/native-night-live-route-menu.png",
+      "sha256": "4b9f6ca5fc4ed7562d02afd90d55441c9627664c9578d39369d5a6e74e021307",
+      "bytes": 414711
+    },
+    {
+      "path": "output/n1/final-ux/reproduction/proof.json",
+      "sha256": "a7cef53e8f94b0335efb357ee8412c10bc43ff4f31e95e7b41abd476e52751fa",
+      "bytes": 50790
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-before-license-asset-fix.json",
+      "sha256": "e8e79bcb94f51d5467aa5dfd432e2c4760e6f11d873e7a32417b7550cef79720",
+      "bytes": 17613
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-run-current.txt",
+      "sha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+      "bytes": 111
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-run-final.txt",
+      "sha256": "34948f3530069bc880de5db90e2c8ec6d515b687eb090e88e42cfe1fcc8a4cc9",
+      "bytes": 111
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-run.txt",
+      "sha256": "a2b2c99466b6ef07a5df5f98d0c4a61fdb6518a71a11bdaee3825e58d8651c4c",
+      "bytes": 244
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/fixed-day-after.png",
+      "sha256": "bdc8cc4b23450422499af7b7a51a5359c1985cb6b758aec52d6670ba611dbddd",
+      "bytes": 1070328
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/fixed-day-before.png",
+      "sha256": "d1feb7be954e9d5d062b9d703f70abfcb453ff019380f8092d07b26f08e32691",
+      "bytes": 1070909
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/fixed-day-menu.png",
+      "sha256": "e9ccf66e3e9a4544fbea13e612d09632a6e43cbc93b85d6850925cca600d7e8c",
+      "bytes": 1056136
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/fixed-night-after.png",
+      "sha256": "e1c49a866043f196329f2bde2964503ed34518197e2614a71f2d77501219073f",
+      "bytes": 634307
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/fixed-night-before.png",
+      "sha256": "9b1495e4efd5be38432cf24c609a82df353c2c7b5de32a9b0c9a7247d414677a",
+      "bytes": 555647
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/fixed-night-menu.png",
+      "sha256": "ecd195ac542aa54752b0d46356f0fe3be20e6e47c4d3baeae1aa34d87f72ff95",
+      "bytes": 616099
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/native-night-live-route-after.png",
+      "sha256": "926acab10a2ad57441b61dc7bb4a4fdb5c0d169e0e290c8e37c568e58d264bb6",
+      "bytes": 634688
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/native-night-live-route-before.png",
+      "sha256": "a86500ea69ea5330637fb562e04f0695696e52b4f0097404ffa6f6186ed40d36",
+      "bytes": 513489
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/native-night-live-route-menu.png",
+      "sha256": "ffb13b755f0f6034e67c1cef57eb3b01f6b92553f89f874c222eaa26fe5ff255",
+      "bytes": 616667
+    },
+    {
+      "path": "output/n1/final-ux/reproduction-unselected-attempt/proof.json",
+      "sha256": "0f334aa2a65f8f7d7ee3f35af7cdef877e785ac0bf4193dcc3478422869f3e02",
+      "bytes": 27435
+    },
+    {
+      "path": "output/n1/final-ux/reproduction.json",
+      "sha256": "6fce84e13081304a97d3e5cce6de24314ea1c92e0a275e961f381142374f9f09",
+      "bytes": 18036
+    },
+    {
+      "path": "output/n1/final-ux/resource-profile-exits.json",
+      "sha256": "ecf93a8448fb24c7f993be9027e9c46061b1f74cabdaab013236324993b45b78",
+      "bytes": 378
+    },
+    {
+      "path": "output/n1/final-ux/review-audit.py",
+      "sha256": "5b6f41e4c63c86c8098bdafc455b4dc4f355f9556f1a615c4f358febaa53c227",
+      "bytes": 1730
+    },
+    {
+      "path": "output/n1/final-ux/review-continuation-start.txt",
+      "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+      "bytes": 1445
+    },
+    {
+      "path": "output/n1/final-ux/review-current-summary.json",
+      "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+      "bytes": 1445
+    },
+    {
+      "path": "output/n1/final-ux/review-current.json",
+      "sha256": "2cf0137cef1422ea2ad2d6ba9ca37f6e2499b98afb01f15ee3d8fe2dc2da1ba5",
+      "bytes": 40506
+    },
+    {
+      "path": "output/n1/final-ux/review-start.json",
+      "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+      "bytes": 1445
+    },
+    {
+      "path": "output/n1/final-ux/review-working-summary.txt",
+      "sha256": "0fbd7c9e6e1f2947224fed44d4e5fa1a0a03703b6082c017f7afb3fbdcb04da2",
+      "bytes": 1445
+    },
+    {
+      "path": "output/n1/final-ux/runtime-tests-fixture-attempt.txt",
+      "sha256": "66fcc77ca23444cd58c0ebb7cac868fd5b75c147ef7aaa3cc7ba92e7f20f9928",
+      "bytes": 38970
+    },
+    {
+      "path": "output/n1/final-ux/runtime-tests-stale-keyboard-artifact-attempt.txt",
+      "sha256": "c9827541aaa2b4a4c3f64b4262b57b7dee4c5c1bdf2b0c4210853c36d3f68994",
+      "bytes": 37675
+    },
+    {
+      "path": "output/n1/final-ux/runtime-tests.txt",
+      "sha256": "041ad6f493da11516db1ac6f94dec2cdca9612f88ca7348d7dfaa0a7e5b6c71d",
+      "bytes": 37360
+    },
+    {
+      "path": "output/n1/final-ux/satellite-pixels-run.txt",
+      "sha256": "b30a00b3a70843b70b34e64a02adcc5970d0d9c723201c342e1336a10ec0d9dc",
+      "bytes": 146
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-full.png",
+      "sha256": "884550d6df1b3db207d4fa670586276245fc0a1a1842636e8c026ef0049b4c1d",
+      "bytes": 818417
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-0.png",
+      "sha256": "af6418524254d4080e66bdd1e87005125c96f3065a1c1169f3f075df1bb2c583",
+      "bytes": 1597
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-100.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-125.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-150.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-175.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-200.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-225.png",
+      "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+      "bytes": 3393
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-25.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-50.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close-sample-75.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-close.png",
+      "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+      "bytes": 3393
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-full.png",
+      "sha256": "8045a23132755ccedb07a1437be31319837137fb48c35b290add98ab0fde206d",
+      "bytes": 722485
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-0.png",
+      "sha256": "2289b12c377ef4f3986695e1dc1aa9a0300ad762f88ce52019f1658bd09f7a0a",
+      "bytes": 2361
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-100.png",
+      "sha256": "2289b12c377ef4f3986695e1dc1aa9a0300ad762f88ce52019f1658bd09f7a0a",
+      "bytes": 2361
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-125.png",
+      "sha256": "2289b12c377ef4f3986695e1dc1aa9a0300ad762f88ce52019f1658bd09f7a0a",
+      "bytes": 2361
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-150.png",
+      "sha256": "2289b12c377ef4f3986695e1dc1aa9a0300ad762f88ce52019f1658bd09f7a0a",
+      "bytes": 2361
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-175.png",
+      "sha256": "38fd1caa48b4c559cb732d8746b84f46caf18644ad72a1516efb2abe81f73e3c",
+      "bytes": 3590
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-25.png",
+      "sha256": "2289b12c377ef4f3986695e1dc1aa9a0300ad762f88ce52019f1658bd09f7a0a",
+      "bytes": 2361
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-50.png",
+      "sha256": "2289b12c377ef4f3986695e1dc1aa9a0300ad762f88ce52019f1658bd09f7a0a",
+      "bytes": 2361
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return-sample-75.png",
+      "sha256": "2289b12c377ef4f3986695e1dc1aa9a0300ad762f88ce52019f1658bd09f7a0a",
+      "bytes": 2361
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-automatic-return.png",
+      "sha256": "38fd1caa48b4c559cb732d8746b84f46caf18644ad72a1516efb2abe81f73e3c",
+      "bytes": 3590
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-native-hidden.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-native-point.png",
+      "sha256": "708bc23f25d38e1045090d7ff0cf1fa6e2fb8b74a078b5917e7bc8c3c1a74bb1",
+      "bytes": 2975
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-normal-full.png",
+      "sha256": "dee21655f172e1b01df97e2eb3060189f31d4f9b43bf8386998e10b866f3f412",
+      "bytes": 417107
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-normal.png",
+      "sha256": "9cf5cb18d819966c0eea7d5e2dfee5576cb1e026e5481df4e46a4d6004045f03",
+      "bytes": 265
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-outward-hidden-full.png",
+      "sha256": "c632c9703ab209fe3df209b8003e08c500f3e72b6f22988c55bc9ba260593b89",
+      "bytes": 664305
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-outward-hidden.png",
+      "sha256": "01200571e1b91d8f86f4ed23f5666b08ccab09c736f6988d8a25c16e019b215f",
+      "bytes": 2145
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-selected-focus-full.png",
+      "sha256": "bee2d01cf30460fbf1dc752219f6c5505398e4e090034b3e1ce20670e1553c39",
+      "bytes": 701929
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-14136-selected-focus.png",
+      "sha256": "3efc4fae99929324bd1b4ffcc4c83fc9ed413048936bcaf0fd3c74620dd671b6",
+      "bytes": 3866
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-automatic-close-full.png",
+      "sha256": "62ff81d578f62451a509be7a1d26a2d48c4e50af957d84806c7ff00c1960a666",
+      "bytes": 664594
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-automatic-close-sample-0.png",
+      "sha256": "acc93f228ff6ffc1a51952ab02a1e6a0cffe3f4e5fd343e7672cfc704c144d4c",
+      "bytes": 3768
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-automatic-close.png",
+      "sha256": "acc93f228ff6ffc1a51952ab02a1e6a0cffe3f4e5fd343e7672cfc704c144d4c",
+      "bytes": 3768
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-automatic-return-full.png",
+      "sha256": "d8a4b8b02def0bab3fa68bd5a3823892d7b59bba51fa02c64b951d258b7c8968",
+      "bytes": 869704
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-automatic-return-sample-0.png",
+      "sha256": "a924451b789515719fcad9dd91d0be66e508e3ecf35054b744da9e92a56ed265",
+      "bytes": 4686
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-automatic-return.png",
+      "sha256": "a924451b789515719fcad9dd91d0be66e508e3ecf35054b744da9e92a56ed265",
+      "bytes": 4686
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-native-hidden.png",
+      "sha256": "340454f0dad78e9f40ab9dc9854b3ec02c301c5126dda7946a6d177eb54e621a",
+      "bytes": 3339
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-native-point.png",
+      "sha256": "a241f91f8f5b2ea0931b777ebae7b3a78f25dbb206eb1eb40b9a94e06c758467",
+      "bytes": 4026
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-normal-full.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-normal.png",
+      "sha256": "26a692838e77ddd5f60f758ae627419612dedaafdc1a72f6578677a2382f9703",
+      "bytes": 1729
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-outward-hidden-full.png",
+      "sha256": "6a20aeffeb804a0a91eb31a242b80738d0b33df4384b36df6dc2f4bf727a26f3",
+      "bytes": 793802
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-outward-hidden.png",
+      "sha256": "503099bcb3ff716dfc4f6a2148e83e05096f1a95bb8280566fa8b913274c01d4",
+      "bytes": 3562
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-selected-focus-full.png",
+      "sha256": "87b242631d963179413edee0593b65cbcea6b76c96960fd91003f46f4725f0a9",
+      "bytes": 825679
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-trackpad-28096-selected-focus.png",
+      "sha256": "591fac06bc5be1c1aad938442e3b632dd640cfae0a49bf9bf65a60a37be95862",
+      "bytes": 4903
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-full.png",
+      "sha256": "884550d6df1b3db207d4fa670586276245fc0a1a1842636e8c026ef0049b4c1d",
+      "bytes": 818417
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-0.png",
+      "sha256": "af6418524254d4080e66bdd1e87005125c96f3065a1c1169f3f075df1bb2c583",
+      "bytes": 1597
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-100.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-125.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-150.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-175.png",
+      "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+      "bytes": 3393
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-25.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-50.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close-sample-75.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-close.png",
+      "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+      "bytes": 3393
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-full.png",
+      "sha256": "884550d6df1b3db207d4fa670586276245fc0a1a1842636e8c026ef0049b4c1d",
+      "bytes": 818417
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-sample-0.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-sample-100.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-sample-125.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-sample-150.png",
+      "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+      "bytes": 3393
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-sample-25.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-sample-50.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return-sample-75.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-automatic-return.png",
+      "sha256": "de9e948f35df1ad08d34df1a4b3425d823f475212a21f976b14b8c592ce4d4c3",
+      "bytes": 3393
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-native-hidden.png",
+      "sha256": "8d3119326e0ae0c972abb1dc5c4454fc3ea89ea3678b264ae8bcb649aefded87",
+      "bytes": 2965
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-native-point.png",
+      "sha256": "708bc23f25d38e1045090d7ff0cf1fa6e2fb8b74a078b5917e7bc8c3c1a74bb1",
+      "bytes": 2975
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-normal-full.png",
+      "sha256": "37bbd1efd166e85bcd526e247587e55157c09a64494387cf324f61ac8199903c",
+      "bytes": 419807
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-normal.png",
+      "sha256": "9cf5cb18d819966c0eea7d5e2dfee5576cb1e026e5481df4e46a4d6004045f03",
+      "bytes": 265
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-outward-hidden-full.png",
+      "sha256": "3e8f915a23e08db961b83fe4701e5615c54aafd8f66e96b21a3fac4d0ff152cf",
+      "bytes": 671339
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-outward-hidden.png",
+      "sha256": "01200571e1b91d8f86f4ed23f5666b08ccab09c736f6988d8a25c16e019b215f",
+      "bytes": 2145
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-selected-focus-full.png",
+      "sha256": "a278af60262c27bf00357f1b40cb8017ae3b3f8e8eb9a3b1de4f51ec8a82e052",
+      "bytes": 796694
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-14136-selected-focus.png",
+      "sha256": "62164f56db2284ac2f8f5d9d6d9efaf8f0ed2b5260566ec814f3b433a049323e",
+      "bytes": 4400
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-automatic-close-full.png",
+      "sha256": "1c70e59d1d0cc3c79898389e3c6ddd39ee4787b3c1a2700ad5ecb2f266d78b18",
+      "bytes": 664604
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-automatic-close-sample-0.png",
+      "sha256": "acc93f228ff6ffc1a51952ab02a1e6a0cffe3f4e5fd343e7672cfc704c144d4c",
+      "bytes": 3768
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-automatic-close.png",
+      "sha256": "00441c4aa5cb4aa652be60160d0d60a60eac017ac218de8d9f61157c8062d570",
+      "bytes": 3770
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-automatic-return-full.png",
+      "sha256": "d4bfebfdcb5b2c16a325f2407e206a6b21b7c6947f0a3dcdeb7066726098dd0f",
+      "bytes": 968389
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-automatic-return-sample-0.png",
+      "sha256": "3d27a8f6f42f25dfd1bbf656aecb8a796d0949ab025a26b1e343e90b675cacbf",
+      "bytes": 4815
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-automatic-return.png",
+      "sha256": "3d27a8f6f42f25dfd1bbf656aecb8a796d0949ab025a26b1e343e90b675cacbf",
+      "bytes": 4815
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-native-hidden.png",
+      "sha256": "340454f0dad78e9f40ab9dc9854b3ec02c301c5126dda7946a6d177eb54e621a",
+      "bytes": 3339
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-native-point.png",
+      "sha256": "a241f91f8f5b2ea0931b777ebae7b3a78f25dbb206eb1eb40b9a94e06c758467",
+      "bytes": 4026
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-normal-full.png",
+      "sha256": "846dacc278887d274c91f96667da14fb2382213ef790c3151737ebdeb83e38de",
+      "bytes": 637258
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-normal.png",
+      "sha256": "26a692838e77ddd5f60f758ae627419612dedaafdc1a72f6578677a2382f9703",
+      "bytes": 1729
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-outward-hidden-full.png",
+      "sha256": "d28dcd7f5e9b03e2e8a8724a92e7d5e388cdd225dad577b562f57b10a9da60ae",
+      "bytes": 801590
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-outward-hidden.png",
+      "sha256": "503099bcb3ff716dfc4f6a2148e83e05096f1a95bb8280566fa8b913274c01d4",
+      "bytes": 3562
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-selected-focus-full.png",
+      "sha256": "d8ec082d986bf2919e2dd18b55a4744851b809e189bd0e5ccf0243033df8457e",
+      "bytes": 924284
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/1440-wheel-28096-selected-focus.png",
+      "sha256": "cc6c2af6ba0bdd48cca11b53b6880e752984017e4f87c96f67072ff53a1a4a78",
+      "bytes": 5039
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-automatic-close-full.png",
+      "sha256": "9c4b05e118a8b5c33bccdc1b68c0cdfbb51ebfbeca38eaa0cb201b0345f3b6f1",
+      "bytes": 215833
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-automatic-close-sample-0.png",
+      "sha256": "f7585a65da818f2bff072387e8b245481e1a2adc1da85281e8f70052a273fb86",
+      "bytes": 4462
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-automatic-close.png",
+      "sha256": "fe20677612e4b59308f6acce093808b4b7d06f9709b6924b1bf2d67bc6954f0b",
+      "bytes": 4467
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-automatic-return-full.png",
+      "sha256": "1e4d81726987e22167f71572c34a0559143fe7120f8b3a70de7429902950dbfa",
+      "bytes": 215378
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-automatic-return-sample-0.png",
+      "sha256": "fe20677612e4b59308f6acce093808b4b7d06f9709b6924b1bf2d67bc6954f0b",
+      "bytes": 4467
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-automatic-return.png",
+      "sha256": "fe20677612e4b59308f6acce093808b4b7d06f9709b6924b1bf2d67bc6954f0b",
+      "bytes": 4467
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-native-hidden.png",
+      "sha256": "ed0525ac50797d220e8b66d81e0022ca8e30707cd82e757250bd90231364649a",
+      "bytes": 2732
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-native-point.png",
+      "sha256": "ad4a451d4db6060e42d8f890ece98f5d8d32ff57175c7c2bafc714999e7aa606",
+      "bytes": 3530
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-normal-full.png",
+      "sha256": "864008719d7ff0e4f8e927e6090924fa8f93a633d9273500effe0e5d123f4737",
+      "bytes": 143372
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-normal.png",
+      "sha256": "a5bba0a715271fbd4a3bd72ef0a15345c25bfaa74ba3b8f01d85457f874fb399",
+      "bytes": 2575
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-outward-hidden-full.png",
+      "sha256": "2575ece88e070f91c2c136ac726583ae74f5ee612369eabd07d6c129fd47c042",
+      "bytes": 144336
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-outward-hidden.png",
+      "sha256": "0faba3b066510b4d294e38ac456bb7781e87d8a13ed1271a7fe63ffa57cdd478",
+      "bytes": 2255
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-selected-focus-full.png",
+      "sha256": "2c3107d7aec8256eea413d0def5fa33b4aa013343300c9459a74568026052b59",
+      "bytes": 179616
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-pinch-28096-selected-focus.png",
+      "sha256": "5e544a37a3249ddad8248ce87eea1311d09f4336f2b1ffccd48519e2c25d287b",
+      "bytes": 4820
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-automatic-close-full.png",
+      "sha256": "f3d65591071dfeb2ad239656d34dc8d5030164caa1b41261429b869afead4714",
+      "bytes": 200207
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-automatic-close-sample-0.png",
+      "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-automatic-close.png",
+      "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-automatic-return-full.png",
+      "sha256": "628c9f9ff739901aac26d39d80ed48202480a4036de88742ad31f960c27abb96",
+      "bytes": 190395
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-automatic-return-sample-0.png",
+      "sha256": "6333f9a72989078c40776aa7ed368902fcbca8c2a9c86f7fb5d5cb7ad517dcd7",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-automatic-return.png",
+      "sha256": "6333f9a72989078c40776aa7ed368902fcbca8c2a9c86f7fb5d5cb7ad517dcd7",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-native-hidden.png",
+      "sha256": "ab6bcd02086b3a1240cc485b1da2e94ac54249ba63e77405818b6cec71e27151",
+      "bytes": 2787
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-native-point.png",
+      "sha256": "97cad4ee5204fe74b051171ea0463f562a4efeb4661a65883c4630b3fe0ffc71",
+      "bytes": 4265
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-normal-full.png",
+      "sha256": "864008719d7ff0e4f8e927e6090924fa8f93a633d9273500effe0e5d123f4737",
+      "bytes": 143372
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-normal.png",
+      "sha256": "a5bba0a715271fbd4a3bd72ef0a15345c25bfaa74ba3b8f01d85457f874fb399",
+      "bytes": 2575
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-outward-hidden-full.png",
+      "sha256": "69874e047b020080d60ba093b091139f8121ee1281a24b779b94dfa4ea99da00",
+      "bytes": 227419
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-outward-hidden.png",
+      "sha256": "d522bb63f7c537b755d98be6e4b56a666f02b0252201fafe0abe75b8a4a9238c",
+      "bytes": 3362
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-selected-focus-full.png",
+      "sha256": "773f74e047ef4f7fc8af110e951a3a4d010edec629ea1083f3b29a7518fb86d6",
+      "bytes": 183426
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-trackpad-28096-selected-focus.png",
+      "sha256": "fd17016e976f157356729dfd15a8c9b764d715eb74879a5f6d36a3ebe39cd135",
+      "bytes": 5038
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-automatic-close-full.png",
+      "sha256": "f3d65591071dfeb2ad239656d34dc8d5030164caa1b41261429b869afead4714",
+      "bytes": 200207
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-automatic-close-sample-0.png",
+      "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-automatic-close.png",
+      "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-automatic-return-full.png",
+      "sha256": "f3d65591071dfeb2ad239656d34dc8d5030164caa1b41261429b869afead4714",
+      "bytes": 200207
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-automatic-return-sample-0.png",
+      "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-automatic-return.png",
+      "sha256": "3dd4232f03f3197a693488640cc9ed627a87cb25891d374afec87d9baa6df20c",
+      "bytes": 4559
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-native-hidden.png",
+      "sha256": "ab6bcd02086b3a1240cc485b1da2e94ac54249ba63e77405818b6cec71e27151",
+      "bytes": 2787
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-native-point.png",
+      "sha256": "97cad4ee5204fe74b051171ea0463f562a4efeb4661a65883c4630b3fe0ffc71",
+      "bytes": 4265
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-normal-full.png",
+      "sha256": "864008719d7ff0e4f8e927e6090924fa8f93a633d9273500effe0e5d123f4737",
+      "bytes": 143372
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-normal.png",
+      "sha256": "a5bba0a715271fbd4a3bd72ef0a15345c25bfaa74ba3b8f01d85457f874fb399",
+      "bytes": 2575
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-outward-hidden-full.png",
+      "sha256": "adfe6691307ef582b61e1f62759b152c2a6957b6f74f24666ab5bbfeb2feee46",
+      "bytes": 226720
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-outward-hidden.png",
+      "sha256": "d522bb63f7c537b755d98be6e4b56a666f02b0252201fafe0abe75b8a4a9238c",
+      "bytes": 3362
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-selected-focus-full.png",
+      "sha256": "7a2a46ac3af7e907f67e7d6477fb93d935ede2806b51aa74aa8bcde37ae40a48",
+      "bytes": 167405
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/390-wheel-28096-selected-focus.png",
+      "sha256": "7ed15a90d8cac371b75a316640ca035a10ab50c68c1973cbb790cf707ad6e2b2",
+      "bytes": 4881
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/browser/proof.json",
+      "sha256": "3c653cab01396d6fbb20eabd5d841379280a773066499aa1bfcd6c1aba982726",
+      "bytes": 548299
+    },
+    {
+      "path": "output/n1/final-ux/satellite-recheck/symbol-pixels/proof.json",
+      "sha256": "4d648b74afe297fd3d3e39771f03940abd860dc2a195529559981e6be97b3ca3",
+      "bytes": 7572
+    },
+    {
+      "path": "output/n1/final-ux/satellite-run.txt",
+      "sha256": "182cb5f0fdcdd387f1a4af50ef8b1ffc525357c3b37c139d6d6c76e596b5a75c",
+      "bytes": 706
+    },
+    {
+      "path": "output/n1/final-ux/selection-reproduction.json",
+      "sha256": "36ce1b401d35c95b0a25b0e601379d4ae8cbc52f69e1dd4a9ccd64c05f254d34",
+      "bytes": 51219
+    },
+    {
+      "path": "output/n1/final-ux/served-working-run.txt",
+      "sha256": "7c982c284e5d11f1987745e0d632ebd115e00a434efc6fd82b3ffd1ae5da4797",
+      "bytes": 111
+    },
+    {
+      "path": "output/n1/final-ux/served-working.json",
+      "sha256": "a5ffa6419fc29eb9c36dbb089b97e68eae3adbcfedd68dc89a579ee6dcdf8742",
+      "bytes": 1696
+    },
+    {
+      "path": "output/n1/final-ux/share-link-red.txt",
+      "sha256": "048abdd2b0693ffae33e62189cc2276e995a57c8e2df9434a82d8315bf22b1df",
+      "bytes": 963
+    },
+    {
+      "path": "output/n1/final-ux/sky-alternate-build.txt",
+      "sha256": "9d3ce9af1ba5659183373a03fcad0449e0b6a2600172fa8314d7845f95188a8e",
+      "bytes": 4986
+    },
+    {
+      "path": "output/n1/final-ux/sky-default-build.txt",
+      "sha256": "18be905c78952421439868572a00a68e60dbf7e00316167b5560f34a5686e589",
+      "bytes": 5364
+    },
+    {
+      "path": "output/n1/final-ux/smoke/about-1440.png",
+      "sha256": "ab53d89bc9ccd97f94ad51145ac03a958b818a58efded7ae8b5f741f18ef5b7b",
+      "bytes": 222321
+    },
+    {
+      "path": "output/n1/final-ux/smoke/about-320.png",
+      "sha256": "4096d0a0345801426b6f253c765e93177788b4d75dea60f00ef68ca0c3f0d2f4",
+      "bytes": 88361
+    },
+    {
+      "path": "output/n1/final-ux/smoke/about-390.png",
+      "sha256": "a8231ea2f0330bade98e46c632981bf49b7019619e8ebd3c40195b3e52cca132",
+      "bytes": 97373
+    },
+    {
+      "path": "output/n1/final-ux/smoke/wide-1440.png",
+      "sha256": "62142ba7dfea1b4dc900816fef66a14ab07e50af22afe68e86d71661bc2973c9",
+      "bytes": 387208
+    },
+    {
+      "path": "output/n1/final-ux/smoke/wide-320.png",
+      "sha256": "be0d9886353c348ab27140ba6e810f36560a392ac989c301d472701c2656e20b",
+      "bytes": 75029
+    },
+    {
+      "path": "output/n1/final-ux/smoke/wide-390.png",
+      "sha256": "104a64514c2aee436be706a053bb39a57254e79d3304947bd628a0e555618a6f",
+      "bytes": 90405
+    },
+    {
+      "path": "output/n1/final-ux/smoke-run.txt",
+      "sha256": "366f3399ef9a916af308a61d3e490bf5ec7beac126e1c7a1f3184be5ce6adfa5",
+      "bytes": 490
+    },
+    {
+      "path": "output/n1/final-ux/smoke.mjs",
+      "sha256": "f4b3a2aeac7f2236c84e02e4af897f748c337124af7a54193fdfea29a143da12",
+      "bytes": 1585
+    },
+    {
+      "path": "output/n1/final-ux/source-access.json",
+      "sha256": "4746de1e05fe0b4a7204040069986eb6d90aacf2ae46962dc7c7deda1da53c08",
+      "bytes": 75
+    },
+    {
+      "path": "output/n1/final-ux/source-tests.txt",
+      "sha256": "6549c2412ad99545da7d6272b41e690e5fc543149eefe2c645e1fefe4b1a3111",
+      "bytes": 101
+    },
+    {
+      "path": "output/n1/final-ux/start-baseline.sh",
+      "sha256": "3beeb9d4b3adbc93842c922b3ff51054948c761706923683e7c151100b4b569d",
+      "bytes": 1221
+    },
+    {
+      "path": "output/n1/final-ux/time-unit-green.txt",
+      "sha256": "e26c68605d8879c66cd4bc8201651dc4cf78e4f662eeea1a9ed4d559b8b28dfc",
+      "bytes": 351
+    },
+    {
+      "path": "output/n1/final-ux/time-unit-red.txt",
+      "sha256": "e5775470b541087fd6d401b5d8d54daabcd94bb41f4c201db16763f9ee195d97",
+      "bytes": 3133
+    },
+    {
+      "path": "output/n1/final-ux/time-unit-unchanged-attempt.txt",
+      "sha256": "c87938feec1aa18828858e0d4be01bbe07d74fa799d0165a46cb3c529c2d7361",
+      "bytes": 347
+    },
+    {
+      "path": "output/n1/final-ux/typecheck-green.txt",
+      "sha256": "eaf8519de1a7c341ec55d8ac83722fe2065100ebfbcb6936cb60b1b30be155d3",
+      "bytes": 58
+    },
+    {
+      "path": "output/n1/final-ux/typecheck.txt",
+      "sha256": "83d7757cfd5e7cf2fec51a535e28840dbc9d618ca5e36563418a1d05c5bbeb11",
+      "bytes": 225
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-chrome-headless-attempt.mjs",
+      "sha256": "405b8a85313286758663402ec2edd2a0070f94528d0380c80127e54dd69c8e19",
+      "bytes": 24825
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-dialog-selector-attempt.mjs",
+      "sha256": "3d0f7bd4d9bf75b9f03689bc05731c60825d870eb7e0c8e469279a5985187797",
+      "bytes": 23853
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-headed-attempt.mjs",
+      "sha256": "b4d8b0e8411fd6aee8283f0d4eecd987726862963ab7b29255b46a8c926a51b9",
+      "bytes": 24885
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-mesa-unsupported-attempt.mjs",
+      "sha256": "e5bfe5baa0bd2f63a846f61b0eeaf7c66288e290d1a377cd2caf414f9e7ea87b",
+      "bytes": 25006
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-resource-profile-attempt.mjs",
+      "sha256": "204e960b640051d1bf122852db9a31e535b8aa73959b5c5f73e6fd68bdaad444",
+      "bytes": 26529
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-software-compositor-attempt.mjs",
+      "sha256": "204e960b640051d1bf122852db9a31e535b8aa73959b5c5f73e6fd68bdaad444",
+      "bytes": 26529
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-stall-attempt.mjs",
+      "sha256": "542fcad47eb6b4f74c6f1736dd388fe23ada6346bfd403e2c0c03c863a58cd61",
+      "bytes": 23863
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_navigation-visibility-stall-attempt.mjs",
+      "sha256": "b0307bed7fa8f46fff0c50b3064bd1d83b59df579c0888f34267b13dbaec30db",
+      "bytes": 24643
+    },
+    {
+      "path": "output/n1/final-ux/verify_n1_observer_history-dialog-selector-attempt.mjs",
+      "sha256": "f9ac04afad5026953846afaba24b1367b00fe57bad717fd60796fb9dffde7003",
+      "bytes": 6630
+    }
+  ]
+}

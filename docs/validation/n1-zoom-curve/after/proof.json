@@ -1,0 +1,2211 @@
+{
+  "head": "fa29b01ce589afa689bf02ce1b196e3ab3cb33f7",
+  "cameraSourceSha256": "e0ddcd352dc54787c6616e20a31ab7921ea4dfb1b09035a75433f45cf7256e99",
+  "base": "http://127.0.0.1:4202",
+  "started": "2026-10-15T05:06:27.970Z",
+  "status": "PASS",
+  "runs": [
+    {
+      "name": "orbit to regional",
+      "initialHeightM": 15621863.000000002,
+      "elapsedMs": 22943,
+      "samples": [
+        {
+          "step": 1,
+          "heightM": 5249679.6664412115,
+          "observer": {
+            "lat": 41.321902839776996,
+            "lon": -79.58539403497034,
+            "elevationM": 432.816
+          },
+          "camera": {
+            "latitudeRad": 0.7212032605399997,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 5249679.6664412115,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5692906945356206,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 2,
+          "heightM": 1796336.8777268394,
+          "observer": {
+            "lat": 41.32190304301081,
+            "lon": -79.58539397584728,
+            "elevationM": 432.816
+          },
+          "camera": {
+            "latitudeRad": 0.7212032605400094,
+            "longitudeRad": -1.389027161797,
+            "heightM": 1796336.8777268394,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5700632309841844,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 3,
+          "heightM": 644781.3133515847,
+          "observer": {
+            "lat": 41.32190301625575,
+            "lon": -79.58539400015047,
+            "elevationM": 432.816
+          },
+          "camera": {
+            "latitudeRad": 0.7212032605400109,
+            "longitudeRad": -1.389027161797,
+            "heightM": 644781.3133515847,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5704899827014538,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 4,
+          "heightM": 256674.27508902282,
+          "observer": {
+            "lat": 41.321903006478415,
+            "lon": -79.58539400006197,
+            "elevationM": 432.816
+          },
+          "camera": {
+            "latitudeRad": 0.7212032605399668,
+            "longitudeRad": -1.389027161797,
+            "heightM": 256674.27508902282,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.570667233865088,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 5,
+          "heightM": 119306.99651937034,
+          "observer": {
+            "lat": 41.321903003017376,
+            "lon": -79.58539400003065,
+            "elevationM": 432.816
+          },
+          "camera": {
+            "latitudeRad": 0.7212032605399427,
+            "longitudeRad": -1.389027161797,
+            "heightM": 119306.99651937034,
+            "headingRad": 6.283185307179585,
+            "pitchRad": -1.5707350515494984,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 6,
+          "heightM": 64509.93735126561,
+          "observer": {
+            "lat": 41.32190300163745,
+            "lon": -79.58539400001816,
+            "elevationM": 432.816
+          },
+          "camera": {
+            "latitudeRad": 0.7212032605399451,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 64509.93735126561,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.5707629127325937,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 7,
+          "heightM": 39076.11015817038,
+          "observer": {
+            "lat": 41.32190300099668,
+            "lon": -79.58539400001236,
+            "elevationM": 432.816
+          },
+          "camera": {
+            "latitudeRad": 0.7212032605399415,
+            "longitudeRad": -1.3890271617970003,
+            "heightM": 39076.11015817038,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.5707760062927605,
+            "rollRad": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "40 km ordinary inward notches",
+      "initialHeightM": 39999.999999977364,
+      "elapsedMs": 41602,
+      "samples": [
+        {
+          "step": 1,
+          "heightM": 26190.047026646058,
+          "observer": {
+            "lat": 40.78290000036901,
+            "lon": -73.96539999935956,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835116021,
+            "longitudeRad": -1.2909397625546142,
+            "heightM": 26190.047026646058,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.570782715059246,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 2,
+          "heightM": 18241.46911927055,
+          "observer": {
+            "lat": 40.782900000255836,
+            "lon": -73.96539999955394,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115795,
+            "longitudeRad": -1.2909397625546142,
+            "heightM": 18241.46911927055,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.57078683438094,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 3,
+          "heightM": 13337.397416169866,
+          "observer": {
+            "lat": 40.78290000018579,
+            "lon": -73.96539999967388,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115616,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 13337.397416169866,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.5707893810313451,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 4,
+          "heightM": 10142.558389591177,
+          "observer": {
+            "lat": 40.78290000014009,
+            "lon": -73.96539999975201,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883511549,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 10142.558389591177,
+            "headingRad": 6.283185307179584,
+            "pitchRad": -1.5707910421741822,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 5,
+          "heightM": 7965.60585595348,
+          "observer": {
+            "lat": 40.78290000010881,
+            "lon": -73.96539999980523,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115379,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 7965.60585595348,
+            "headingRad": 6.283185307179584,
+            "pitchRad": -1.570792175062898,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 6,
+          "heightM": 6424.371337300083,
+          "observer": {
+            "lat": 40.78290000008625,
+            "lon": -73.96539999984293,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115225,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 6424.371337300083,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707929775455187,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 7,
+          "heightM": 5296.553969425046,
+          "observer": {
+            "lat": 40.78290000006995,
+            "lon": -73.96539999987051,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115152,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 5296.553969425046,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707935651308893,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 8,
+          "heightM": 4447.273478134166,
+          "observer": {
+            "lat": 40.78290000005726,
+            "lon": -73.96539999989128,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115022,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 4447.273478134166,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707940076647966,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 9,
+          "heightM": 3791.637852887687,
+          "observer": {
+            "lat": 40.78290000004721,
+            "lon": -73.96539999990732,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883511488,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3791.637852887687,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.570794349483236,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 10,
+          "heightM": 3274.4427936201096,
+          "observer": {
+            "lat": 40.78290000003907,
+            "lon": -73.96539999991997,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114729,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3274.4427936201096,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707946190672133,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 11,
+          "heightM": 2858.7164005134214,
+          "observer": {
+            "lat": 40.78290000003239,
+            "lon": -73.96539999993013,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114585,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2858.7164005134214,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707948360083757,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 12,
+          "heightM": 2519.028751965066,
+          "observer": {
+            "lat": 40.78290000002657,
+            "lon": -73.96539999993843,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114403,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2519.028751965066,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707950131242114,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 13,
+          "heightM": 2237.4616079301063,
+          "observer": {
+            "lat": 40.78290000002156,
+            "lon": -73.96539999994532,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114223,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2237.4616079301063,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.570795159928359,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 14,
+          "heightM": 2001.110849279559,
+          "observer": {
+            "lat": 40.78289999991207,
+            "lon": -73.96540000001208,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883511408,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2001.110849279559,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707952832879526,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 15,
+          "heightM": 1800.4978406263683,
+          "observer": {
+            "lat": 40.78289999991896,
+            "lon": -73.96540000001087,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835113931,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1800.4978406263683,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707953879034857,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 16,
+          "heightM": 1628.5343059956483,
+          "observer": {
+            "lat": 40.78289999992488,
+            "lon": -73.96540000000984,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835113806,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1628.5343059956483,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707954776901727,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 17,
+          "heightM": 1479.832699914682,
+          "observer": {
+            "lat": 40.78289999992988,
+            "lon": -73.96540000000894,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835113679,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1479.832699914682,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707955553809083,
+            "rollRad": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "ordinary outward reverse",
+      "initialHeightM": 1479.832699914682,
+      "elapsedMs": 33987,
+      "samples": [
+        {
+          "step": 1,
+          "heightM": 1621.8667086267128,
+          "observer": {
+            "lat": 40.78289999992527,
+            "lon": -73.96540000000981,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883511383,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1621.8667086267128,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.570795481490491,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 2,
+          "heightM": 1784.5158733332964,
+          "observer": {
+            "lat": 40.78289999992027,
+            "lon": -73.96540000001077,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114054,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1784.5158733332964,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707953966950199,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 3,
+          "heightM": 1972.1109046710276,
+          "observer": {
+            "lat": 40.7828999999146,
+            "lon": -73.9654000000119,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114327,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1972.1109046710276,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707952989387635,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 4,
+          "heightM": 2190.201102309011,
+          "observer": {
+            "lat": 40.782899999908146,
+            "lon": -73.96540000001323,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883511467,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2190.201102309011,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707951852258946,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 5,
+          "heightM": 2445.9882728376815,
+          "observer": {
+            "lat": 40.78289999990064,
+            "lon": -73.96540000001477,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115081,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2445.9882728376815,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707950517221154,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 6,
+          "heightM": 2748.9490703310776,
+          "observer": {
+            "lat": 40.78289999989146,
+            "lon": -73.96540000001659,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115518,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2748.9490703310776,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707948938020473,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 7,
+          "heightM": 3111.7429926340233,
+          "observer": {
+            "lat": 40.782899999880655,
+            "lon": -73.96540000001878,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835116074,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3111.7429926340233,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707947046886832,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 8,
+          "heightM": 3551.5617621924334,
+          "observer": {
+            "lat": 40.78289999986772,
+            "lon": -73.96540000002142,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835116778,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3551.5617621924334,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707944754492993,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 9,
+          "heightM": 4092.1747547769,
+          "observer": {
+            "lat": 40.782899999852056,
+            "lon": -73.96540000002466,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835117681,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 4092.1747547769,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.570794193689638,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 10,
+          "heightM": 4767.096321133236,
+          "observer": {
+            "lat": 40.78289999983235,
+            "lon": -73.96540000002874,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835118786,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 4767.096321133236,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707938419173595,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 11,
+          "heightM": 5624.604433540582,
+          "observer": {
+            "lat": 40.78289999980743,
+            "lon": -73.9654000000339,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835120207,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 5624.604433540582,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.570793395088471,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 12,
+          "heightM": 6735.893360312615,
+          "observer": {
+            "lat": 40.78289999977457,
+            "lon": -73.96540000004059,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835121951,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 6735.893360312615,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707928162508273,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 13,
+          "heightM": 8208.682990420282,
+          "observer": {
+            "lat": 40.78289999973079,
+            "lon": -73.96540000004947,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835124222,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 8208.682990420282,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707920494088543,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 14,
+          "heightM": 10210.634084108908,
+          "observer": {
+            "lat": 40.782899999670576,
+            "lon": -73.9654000000615,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835127183,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 10210.634084108908,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.570791007664742,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 15,
+          "heightM": 13011.045564283719,
+          "observer": {
+            "lat": 40.78289999958619,
+            "lon": -73.96540000007838,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835131293,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 13011.045564283719,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707895515333257,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 16,
+          "heightM": 17058.181579887612,
+          "observer": {
+            "lat": 40.78289999946414,
+            "lon": -73.96540000010275,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835137215,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 17058.181579887612,
+            "headingRad": 6.28318530717958,
+            "pitchRad": -1.570787449428897,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 17,
+          "heightM": 23129.954200044573,
+          "observer": {
+            "lat": 40.78289999928258,
+            "lon": -73.9654000001393,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883514635,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 23129.954200044573,
+            "headingRad": 6.283185307179579,
+            "pitchRad": -1.5707843006899949,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 18,
+          "heightM": 32646.25889583991,
+          "observer": {
+            "lat": 40.7828999989991,
+            "lon": -73.96540000019661,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883516082,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 32646.25889583991,
+            "headingRad": 6.283185307179579,
+            "pitchRad": -1.5707793776426953,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 19,
+          "heightM": 48367.77553473098,
+          "observer": {
+            "lat": 40.78289999853153,
+            "lon": -73.96540000029127,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835184766,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 48367.77553473098,
+            "headingRad": 6.283185307179579,
+            "pitchRad": -1.5707712764581756,
+            "rollRad": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "trackpad ten 12 px events per sample",
+      "initialHeightM": 39999.999999977364,
+      "elapsedMs": 42990,
+      "samples": [
+        {
+          "step": 1,
+          "heightM": 30075.18942420393,
+          "observer": {
+            "lat": 40.78290000042359,
+            "lon": -73.96539999926456,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115998,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 30075.18942420393,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.5707807053098337,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 2,
+          "heightM": 22462.576078143175,
+          "observer": {
+            "lat": 40.78290000031593,
+            "lon": -73.96539999945072,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115911,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 22462.576078143175,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.5707846455485268,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 3,
+          "heightM": 15324.857045693014,
+          "observer": {
+            "lat": 40.78290000021335,
+            "lon": -73.96539999962528,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115545,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 15324.857045693014,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707883485066838,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 4,
+          "heightM": 11620.814874335587,
+          "observer": {
+            "lat": 40.78290000015798,
+            "lon": -73.96539999971586,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114979,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 11620.814874335587,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707902734377313,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 5,
+          "heightM": 8885.365555053113,
+          "observer": {
+            "lat": 40.78290000011675,
+            "lon": -73.96539999978273,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114505,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 8885.365555053113,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707916964403785,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 6,
+          "heightM": 7300.469025942256,
+          "observer": {
+            "lat": 40.78290000009163,
+            "lon": -73.9653999998215,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114016,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 7300.469025942256,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707925215681318,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 7,
+          "heightM": 5991.564907644762,
+          "observer": {
+            "lat": 40.78290000006926,
+            "lon": -73.96539999985352,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835113326,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 5991.564907644762,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.570793203303925,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 8,
+          "heightM": 5008.2508730462,
+          "observer": {
+            "lat": 40.78289999978755,
+            "lon": -73.96540000003019,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835112594,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 5008.2508730462,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707937157304492,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 9,
+          "heightM": 4251.474877018895,
+          "observer": {
+            "lat": 40.78289999981254,
+            "lon": -73.96540000002562,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835111864,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 4251.474877018895,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707941102252558,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 10,
+          "heightM": 3656.5909347183333,
+          "observer": {
+            "lat": 40.78289999983201,
+            "lon": -73.96540000002204,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835111255,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3656.5909347183333,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707944204942899,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 11,
+          "heightM": 3180.208228683677,
+          "observer": {
+            "lat": 40.78289999984655,
+            "lon": -73.96540000001919,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835110588,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3180.208228683677,
+            "headingRad": 6.283185307179578,
+            "pitchRad": -1.570794668944445,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 12,
+          "heightM": 2792.451421555824,
+          "observer": {
+            "lat": 40.78289999985783,
+            "lon": -73.96540000001686,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835109944,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2792.451421555824,
+            "headingRad": 6.283185307179577,
+            "pitchRad": -1.5707948711260933,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 13,
+          "heightM": 2443.4169708007153,
+          "observer": {
+            "lat": 40.782899999868334,
+            "lon": -73.96540000001474,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835109426,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2443.4169708007153,
+            "headingRad": 6.283185307179577,
+            "pitchRad": -1.570795053116019,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 14,
+          "heightM": 2204.5153297648426,
+          "observer": {
+            "lat": 40.782899999875326,
+            "lon": -73.96540000001332,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835109038,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2204.5153297648426,
+            "headingRad": 6.283185307179577,
+            "pitchRad": -1.5707951779549898,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 15,
+          "heightM": 1978.0667985025407,
+          "observer": {
+            "lat": 40.782899999881735,
+            "lon": -73.96540000001194,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835108633,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1978.0667985025407,
+            "headingRad": 6.283185307179577,
+            "pitchRad": -1.5707952961342397,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 16,
+          "heightM": 1784.632118104927,
+          "observer": {
+            "lat": 40.782899999886645,
+            "lon": -73.96540000001079,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835108187,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1784.632118104927,
+            "headingRad": 6.283185307179577,
+            "pitchRad": -1.5707953975309574,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 17,
+          "heightM": 1617.9182181146057,
+          "observer": {
+            "lat": 40.782899999890326,
+            "lon": -73.9654000000098,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835107708,
+            "longitudeRad": -1.2909397625546146,
+            "heightM": 1617.9182181146057,
+            "headingRad": 6.283185307179574,
+            "pitchRad": -1.570795484912257,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 18,
+          "heightM": 1459.6717348039224,
+          "observer": {
+            "lat": 40.78289999989278,
+            "lon": -73.96540000000883,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835107068,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1459.6717348039224,
+            "headingRad": 6.283185307179572,
+            "pitchRad": -1.5707955681516235,
+            "rollRad": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "rapid twelve 120 px events at 45 ms",
+      "initialHeightM": 39999.999999977364,
+      "finalHeightM": 4970.543881405625
+    },
+    {
+      "name": "final approach for deliberate Sky entry",
+      "initialHeightM": 39999.999999977364,
+      "elapsedMs": 39483,
+      "samples": [
+        {
+          "step": 1,
+          "heightM": 26190.047026646058,
+          "observer": {
+            "lat": 40.78290000036901,
+            "lon": -73.96539999935956,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835116021,
+            "longitudeRad": -1.2909397625546142,
+            "heightM": 26190.047026646058,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.570782715059246,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 2,
+          "heightM": 18241.46911927055,
+          "observer": {
+            "lat": 40.782900000255836,
+            "lon": -73.96539999955394,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115795,
+            "longitudeRad": -1.2909397625546142,
+            "heightM": 18241.46911927055,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.57078683438094,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 3,
+          "heightM": 13337.397416169866,
+          "observer": {
+            "lat": 40.78290000018579,
+            "lon": -73.96539999967388,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115616,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 13337.397416169866,
+            "headingRad": 6.2831853071795845,
+            "pitchRad": -1.5707893810313451,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 4,
+          "heightM": 10142.558389591177,
+          "observer": {
+            "lat": 40.78290000014009,
+            "lon": -73.96539999975201,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883511549,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 10142.558389591177,
+            "headingRad": 6.283185307179584,
+            "pitchRad": -1.5707910421741822,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 5,
+          "heightM": 7965.60585595348,
+          "observer": {
+            "lat": 40.78290000010881,
+            "lon": -73.96539999980523,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115379,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 7965.60585595348,
+            "headingRad": 6.283185307179584,
+            "pitchRad": -1.570792175062898,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 6,
+          "heightM": 6424.371337300083,
+          "observer": {
+            "lat": 40.78290000008625,
+            "lon": -73.96539999984293,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115225,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 6424.371337300083,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707929775455187,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 7,
+          "heightM": 5296.553969425046,
+          "observer": {
+            "lat": 40.78290000006995,
+            "lon": -73.96539999987051,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115152,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 5296.553969425046,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707935651308893,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 8,
+          "heightM": 4447.273478134166,
+          "observer": {
+            "lat": 40.78290000005726,
+            "lon": -73.96539999989128,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835115022,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 4447.273478134166,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707940076647966,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 9,
+          "heightM": 3791.637852887687,
+          "observer": {
+            "lat": 40.78290000004721,
+            "lon": -73.96539999990732,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.711795883511488,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3791.637852887687,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.570794349483236,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 10,
+          "heightM": 3274.4427936201096,
+          "observer": {
+            "lat": 40.78290000003907,
+            "lon": -73.96539999991997,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114729,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 3274.4427936201096,
+            "headingRad": 6.283185307179583,
+            "pitchRad": -1.5707946190672133,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 11,
+          "heightM": 2858.7164005134214,
+          "observer": {
+            "lat": 40.78290000003239,
+            "lon": -73.96539999993013,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114585,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2858.7164005134214,
+            "headingRad": 6.283185307179582,
+            "pitchRad": -1.5707948357849757,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 12,
+          "heightM": 2519.028751965066,
+          "observer": {
+            "lat": 40.78290000002701,
+            "lon": -73.96539999993843,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114483,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2519.028751965066,
+            "headingRad": 6.283185307179582,
+            "pitchRad": -1.570795012955196,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 13,
+          "heightM": 2237.4616079314414,
+          "observer": {
+            "lat": 40.782900000022444,
+            "lon": -73.96539999994532,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114375,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2237.4616079314414,
+            "headingRad": 6.283185307179582,
+            "pitchRad": -1.5707951598332168,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 14,
+          "heightM": 2001.110849279559,
+          "observer": {
+            "lat": 40.78290000001851,
+            "lon": -73.96539999995109,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114269,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 2001.110849279559,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707952830751872,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 15,
+          "heightM": 1800.4978406271434,
+          "observer": {
+            "lat": 40.78289999992043,
+            "lon": -73.96540000001087,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114189,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1800.4978406271434,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707953879034857,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 16,
+          "heightM": 1628.5343059950403,
+          "observer": {
+            "lat": 40.782900000012084,
+            "lon": -73.96539999996021,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835114063,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1628.5343059950403,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707954775594306,
+            "rollRad": 0
+          }
+        },
+        {
+          "step": 17,
+          "heightM": 1479.832699914682,
+          "observer": {
+            "lat": 40.78289999993151,
+            "lon": -73.96540000000896,
+            "elevationM": 0
+          },
+          "camera": {
+            "latitudeRad": 0.7117958835113964,
+            "longitudeRad": -1.2909397625546144,
+            "heightM": 1479.832699914682,
+            "headingRad": 6.283185307179581,
+            "pitchRad": -1.5707955553809083,
+            "rollRad": 0
+          }
+        }
+      ]
+    }
+  ],
+  "pageErrors": [],
+  "limitations": [
+    "Representative real Chromium wheel input with software rendering; exact owner ChatGPT browser and physical hardware cannot be automated."
+  ],
+  "deliveredPackets": [
+    {
+      "deltaY": -120,
+      "stamp": 10939,
+      "heightM": 5249679.6664412115
+    },
+    {
+      "deltaY": -120,
+      "stamp": 16215.400000000373,
+      "heightM": 1796336.8777268394
+    },
+    {
+      "deltaY": -120,
+      "stamp": 19648.5,
+      "heightM": 644781.3133515847
+    },
+    {
+      "deltaY": -120,
+      "stamp": 22569.200000000186,
+      "heightM": 256674.27508902282
+    },
+    {
+      "deltaY": -120,
+      "stamp": 25307.80000000028,
+      "heightM": 119306.99651937034
+    },
+    {
+      "deltaY": -120,
+      "stamp": 27731.900000000373,
+      "heightM": 64509.93735126561
+    },
+    {
+      "deltaY": -120,
+      "stamp": 30162.100000000093,
+      "heightM": 39076.11015817038
+    },
+    {
+      "deltaY": -120,
+      "stamp": 43422.30000000028,
+      "heightM": 26190.047026646058
+    },
+    {
+      "deltaY": -120,
+      "stamp": 45962.700000000186,
+      "heightM": 18241.46911927055
+    },
+    {
+      "deltaY": -120,
+      "stamp": 48661.60000000009,
+      "heightM": 13337.397416169866
+    },
+    {
+      "deltaY": -120,
+      "stamp": 51108.40000000037,
+      "heightM": 10142.558389591177
+    },
+    {
+      "deltaY": -120,
+      "stamp": 53748,
+      "heightM": 7965.60585595348
+    },
+    {
+      "deltaY": -120,
+      "stamp": 56187.80000000028,
+      "heightM": 6424.371337300083
+    },
+    {
+      "deltaY": -120,
+      "stamp": 58251.200000000186,
+      "heightM": 5296.553969425046
+    },
+    {
+      "deltaY": -120,
+      "stamp": 60633,
+      "heightM": 4447.273478134166
+    },
+    {
+      "deltaY": -120,
+      "stamp": 63077.60000000009,
+      "heightM": 3791.637852887687
+    },
+    {
+      "deltaY": -120,
+      "stamp": 65399.30000000028,
+      "heightM": 3274.4427936201096
+    },
+    {
+      "deltaY": -120,
+      "stamp": 68145.70000000019,
+      "heightM": 2858.7164005134214
+    },
+    {
+      "deltaY": -120,
+      "stamp": 70542.1000000001,
+      "heightM": 2519.028751965066
+    },
+    {
+      "deltaY": -120,
+      "stamp": 72737,
+      "heightM": 2237.4616079301063
+    },
+    {
+      "deltaY": -120,
+      "stamp": 75334.5,
+      "heightM": 2001.110849279559
+    },
+    {
+      "deltaY": -120,
+      "stamp": 78113.6000000001,
+      "heightM": 1800.4978406263683
+    },
+    {
+      "deltaY": -120,
+      "stamp": 80645.6000000001,
+      "heightM": 1628.5343059956483
+    },
+    {
+      "deltaY": -120,
+      "stamp": 82862.90000000037,
+      "heightM": 1479.832699914682
+    },
+    {
+      "deltaY": 120,
+      "stamp": 83579.30000000028,
+      "heightM": 1621.8667086267128
+    },
+    {
+      "deltaY": 120,
+      "stamp": 83979.40000000037,
+      "heightM": 1784.5158733332964
+    },
+    {
+      "deltaY": 120,
+      "stamp": 84579,
+      "heightM": 1972.1109046710276
+    },
+    {
+      "deltaY": 120,
+      "stamp": 85162.90000000037,
+      "heightM": 2190.201102309011
+    },
+    {
+      "deltaY": 120,
+      "stamp": 85562.6000000001,
+      "heightM": 2445.9882728376815
+    },
+    {
+      "deltaY": 120,
+      "stamp": 87692.70000000019,
+      "heightM": 2748.9490703310776
+    },
+    {
+      "deltaY": 120,
+      "stamp": 89991.6000000001,
+      "heightM": 3111.7429926340233
+    },
+    {
+      "deltaY": 120,
+      "stamp": 92685.40000000037,
+      "heightM": 3551.5617621924334
+    },
+    {
+      "deltaY": 120,
+      "stamp": 93463.20000000019,
+      "heightM": 4092.1747547769
+    },
+    {
+      "deltaY": 120,
+      "stamp": 95504.5,
+      "heightM": 4767.096321133236
+    },
+    {
+      "deltaY": 120,
+      "stamp": 98053.20000000019,
+      "heightM": 5624.604433540582
+    },
+    {
+      "deltaY": 120,
+      "stamp": 99478.70000000019,
+      "heightM": 6735.893360312615
+    },
+    {
+      "deltaY": 120,
+      "stamp": 102004.90000000037,
+      "heightM": 8208.682990420282
+    },
+    {
+      "deltaY": 120,
+      "stamp": 104370.40000000037,
+      "heightM": 10210.634084108908
+    },
+    {
+      "deltaY": 120,
+      "stamp": 106602.40000000037,
+      "heightM": 13011.045564283719
+    },
+    {
+      "deltaY": 120,
+      "stamp": 108920.6000000001,
+      "heightM": 17058.181579887612
+    },
+    {
+      "deltaY": 120,
+      "stamp": 111609.1000000001,
+      "heightM": 23129.954200044573
+    },
+    {
+      "deltaY": 120,
+      "stamp": 114048.40000000037,
+      "heightM": 32646.25889583991
+    },
+    {
+      "deltaY": 120,
+      "stamp": 116631.1000000001,
+      "heightM": 48367.77553473098
+    },
+    {
+      "deltaY": -12,
+      "stamp": 128968.70000000019,
+      "heightM": 38341.369394897396
+    },
+    {
+      "deltaY": -24,
+      "stamp": 129008.6000000001,
+      "heightM": 35273.11702433548
+    },
+    {
+      "deltaY": -24,
+      "stamp": 129048.70000000019,
+      "heightM": 32531.820219438174
+    },
+    {
+      "deltaY": -24,
+      "stamp": 129088.70000000019,
+      "heightM": 30075.18942420393
+    },
+    {
+      "deltaY": -24,
+      "stamp": 129128.70000000019,
+      "heightM": 27867.324951677285
+    },
+    {
+      "deltaY": -12,
+      "stamp": 129148.70000000019,
+      "heightM": 26854.049660980425
+    },
+    {
+      "deltaY": -12,
+      "stamp": 130710.70000000019,
+      "heightM": 25891.090318961553
+    },
+    {
+      "deltaY": -24,
+      "stamp": 130750.70000000019,
+      "heightM": 24092.048433568645
+    },
+    {
+      "deltaY": -24,
+      "stamp": 130790.70000000019,
+      "heightM": 22462.576078143175
+    },
+    {
+      "deltaY": -24,
+      "stamp": 130830.70000000019,
+      "heightM": 20983.21240132153
+    },
+    {
+      "deltaY": -24,
+      "stamp": 130870.70000000019,
+      "heightM": 19637.103969483847
+    },
+    {
+      "deltaY": -12,
+      "stamp": 130890.70000000019,
+      "heightM": 19013.4513594651
+    },
+    {
+      "deltaY": -12,
+      "stamp": 133193.7000000002,
+      "heightM": 18417.388157903264
+    },
+    {
+      "deltaY": -24,
+      "stamp": 133233.7000000002,
+      "heightM": 17295.067014898217
+    },
+    {
+      "deltaY": -24,
+      "stamp": 133273.7000000002,
+      "heightM": 16267.490585109617
+    },
+    {
+      "deltaY": -24,
+      "stamp": 133313.7000000002,
+      "heightM": 15324.857045693014
+    },
+    {
+      "deltaY": -24,
+      "stamp": 133353.7000000002,
+      "heightM": 14458.545870838023
+    },
+    {
+      "deltaY": -12,
+      "stamp": 133373.7000000002,
+      "heightM": 14054.093793420152
+    },
+    {
+      "deltaY": -12,
+      "stamp": 135823.7000000002,
+      "heightM": 13665.730900801642
+    },
+    {
+      "deltaY": -24,
+      "stamp": 135863.7000000002,
+      "heightM": 12929.774264241749
+    },
+    {
+      "deltaY": -24,
+      "stamp": 135903.7000000002,
+      "heightM": 12249.899518246635
+    },
+    {
+      "deltaY": -24,
+      "stamp": 135943.7000000002,
+      "heightM": 11620.814874335587
+    },
+    {
+      "deltaY": -24,
+      "stamp": 135983.7000000002,
+      "heightM": 11037.810677765983
+    },
+    {
+      "deltaY": -12,
+      "stamp": 136003.7000000002,
+      "heightM": 10763.848795702612
+    },
+    {
+      "deltaY": -12,
+      "stamp": 137842.7000000002,
+      "heightM": 10499.7441799522
+    },
+    {
+      "deltaY": -12,
+      "stamp": 137862.7000000002,
+      "heightM": 10245.04995823866
+    },
+    {
+      "deltaY": -24,
+      "stamp": 137902.7000000002,
+      "heightM": 9759.52906458765
+    },
+    {
+      "deltaY": -24,
+      "stamp": 137942.7000000002,
+      "heightM": 9307.253862296244
+    },
+    {
+      "deltaY": -24,
+      "stamp": 137982.7000000002,
+      "heightM": 8885.365555053113
+    },
+    {
+      "deltaY": -24,
+      "stamp": 138022.7000000002,
+      "heightM": 8491.293400517046
+    },
+    {
+      "deltaY": -12,
+      "stamp": 140306.7000000002,
+      "heightM": 8304.963231427717
+    },
+    {
+      "deltaY": -24,
+      "stamp": 140346.6000000001,
+      "heightM": 7948.281411761163
+    },
+    {
+      "deltaY": -24,
+      "stamp": 140386.7000000002,
+      "heightM": 7614.048659064915
+    },
+    {
+      "deltaY": -24,
+      "stamp": 140426.7000000002,
+      "heightM": 7300.469025942256
+    },
+    {
+      "deltaY": -24,
+      "stamp": 140466.7000000002,
+      "heightM": 7005.9160095222005
+    },
+    {
+      "deltaY": -12,
+      "stamp": 140486.7000000002,
+      "heightM": 6866.018439565316
+    },
+    {
+      "deltaY": -12,
+      "stamp": 142986.6000000001,
+      "heightM": 6730.287950144205
+    },
+    {
+      "deltaY": -24,
+      "stamp": 143026.7000000002,
+      "heightM": 6469.418236237984
+    },
+    {
+      "deltaY": -24,
+      "stamp": 143066.6000000001,
+      "heightM": 6223.547363999932
+    },
+    {
+      "deltaY": -24,
+      "stamp": 143106.7000000002,
+      "heightM": 5991.564907644762
+    },
+    {
+      "deltaY": -24,
+      "stamp": 143146.7000000002,
+      "heightM": 5772.458199849988
+    },
+    {
+      "deltaY": -12,
+      "stamp": 143166.7000000002,
+      "heightM": 5667.934033558139
+    },
+    {
+      "deltaY": -12,
+      "stamp": 145669.7000000002,
+      "heightM": 5566.25792311643
+    },
+    {
+      "deltaY": -24,
+      "stamp": 145709.7000000002,
+      "heightM": 5370.157037840935
+    },
+    {
+      "deltaY": -24,
+      "stamp": 145749.7000000002,
+      "heightM": 5184.391250383396
+    },
+    {
+      "deltaY": -24,
+      "stamp": 145789.7000000002,
+      "heightM": 5008.2508730462
+    },
+    {
+      "deltaY": -24,
+      "stamp": 145829.7000000002,
+      "heightM": 4841.084663371887
+    },
+    {
+      "deltaY": -12,
+      "stamp": 145849.7000000002,
+      "heightM": 4761.0275341125935
+    },
+    {
+      "deltaY": -12,
+      "stamp": 148475.7000000002,
+      "heightM": 4682.973288751738
+    },
+    {
+      "deltaY": -24,
+      "stamp": 148515.7000000002,
+      "heightM": 4531.975298116318
+    },
+    {
+      "deltaY": -24,
+      "stamp": 148555.7000000002,
+      "heightM": 4388.298255951302
+    },
+    {
+      "deltaY": -24,
+      "stamp": 148595.7000000002,
+      "heightM": 4251.474877018895
+    },
+    {
+      "deltaY": -24,
+      "stamp": 148635.7000000002,
+      "heightM": 4121.073940086188
+    },
+    {
+      "deltaY": -12,
+      "stamp": 148655.7000000002,
+      "heightM": 4058.409071157281
+    },
+    {
+      "deltaY": -12,
+      "stamp": 151351.7000000002,
+      "heightM": 3997.189212996135
+    },
+    {
+      "deltaY": -24,
+      "stamp": 151391.7000000002,
+      "heightM": 3878.445836516336
+    },
+    {
+      "deltaY": -24,
+      "stamp": 151431.7000000002,
+      "heightM": 3765.018446469439
+    },
+    {
+      "deltaY": -24,
+      "stamp": 151471.7000000002,
+      "heightM": 3656.5909347183333
+    },
+    {
+      "deltaY": -24,
+      "stamp": 151511.7000000002,
+      "heightM": 3552.8700936123114
+    },
+    {
+      "deltaY": -12,
+      "stamp": 151531.6000000001,
+      "heightM": 3502.875136394701
+    },
+    {
+      "deltaY": -12,
+      "stamp": 153834.7000000002,
+      "heightM": 3453.946903073021
+    },
+    {
+      "deltaY": -24,
+      "stamp": 153874.6000000001,
+      "heightM": 3358.826769934579
+    },
+    {
+      "deltaY": -24,
+      "stamp": 153914.7000000002,
+      "heightM": 3267.653600564273
+    },
+    {
+      "deltaY": -24,
+      "stamp": 153954.6000000001,
+      "heightM": 3180.208228683677
+    },
+    {
+      "deltaY": -24,
+      "stamp": 153994.6000000001,
+      "heightM": 3096.2864163640356
+    },
+    {
+      "deltaY": -12,
+      "stamp": 154014.7000000002,
+      "heightM": 3055.7263833086768
+    },
+    {
+      "deltaY": -12,
+      "stamp": 155308.7000000002,
+      "heightM": 3015.97020334956
+    },
+    {
+      "deltaY": -24,
+      "stamp": 155348.7000000002,
+      "heightM": 2938.526098223597
+    },
+    {
+      "deltaY": -24,
+      "stamp": 155388.6000000001,
+      "heightM": 2864.07163674193
+    },
+    {
+      "deltaY": -24,
+      "stamp": 155428.7000000002,
+      "heightM": 2792.451421555824
+    },
+    {
+      "deltaY": -24,
+      "stamp": 155468.7000000002,
+      "heightM": 2723.5200243927097
+    },
+    {
+      "deltaY": -12,
+      "stamp": 155488.7000000002,
+      "heightM": 2690.125901750731
+    },
+    {
+      "deltaY": -12,
+      "stamp": 156759.7000000002,
+      "heightM": 2657.348847343297
+    },
+    {
+      "deltaY": -12,
+      "stamp": 156779.7000000002,
+      "heightM": 2625.1733635323953
+    },
+    {
+      "deltaY": -24,
+      "stamp": 156819.7000000002,
+      "heightM": 2562.375623638803
+    },
+    {
+      "deltaY": -24,
+      "stamp": 156859.7000000002,
+      "heightM": 2501.8264924131586
+    },
+    {
+      "deltaY": -24,
+      "stamp": 156899.7000000002,
+      "heightM": 2443.4169708007153
+    },
+    {
+      "deltaY": -24,
+      "stamp": 156939.7000000002,
+      "heightM": 2387.0446197916226
+    },
+    {
+      "deltaY": -12,
+      "stamp": 159213.7000000002,
+      "heightM": 2359.671913740341
+    },
+    {
+      "deltaY": -24,
+      "stamp": 159253.7000000002,
+      "heightM": 2306.173747081551
+    },
+    {
+      "deltaY": -24,
+      "stamp": 159293.7000000002,
+      "heightM": 2254.482521478385
+    },
+    {
+      "deltaY": -24,
+      "stamp": 159333.6000000001,
+      "heightM": 2204.5153297648426
+    },
+    {
+      "deltaY": -24,
+      "stamp": 159373.7000000002,
+      "heightM": 2156.1940082438423
+    },
+    {
+      "deltaY": -12,
+      "stamp": 159393.7000000002,
+      "heightM": 2132.691321613046
+    },
+    {
+      "deltaY": -12,
+      "stamp": 162207.7000000002,
+      "heightM": 2109.570222580152
+    },
+    {
+      "deltaY": -24,
+      "stamp": 162247.7000000002,
+      "heightM": 2064.3195401592357
+    },
+    {
+      "deltaY": -24,
+      "stamp": 162287.7000000002,
+      "heightM": 2020.5057880966222
+    },
+    {
+      "deltaY": -24,
+      "stamp": 162327.7000000002,
+      "heightM": 1978.0667985025407
+    },
+    {
+      "deltaY": -24,
+      "stamp": 162367.7000000002,
+      "heightM": 1936.9437718234394
+    },
+    {
+      "deltaY": -12,
+      "stamp": 162387.6000000001,
+      "heightM": 1916.9087992774494
+    },
+    {
+      "deltaY": -12,
+      "stamp": 164949.7000000002,
+      "heightM": 1897.1802660360524
+    },
+    {
+      "deltaY": -24,
+      "stamp": 164989.7000000002,
+      "heightM": 1858.5221859437413
+    },
+    {
+      "deltaY": -24,
+      "stamp": 165029.7000000002,
+      "heightM": 1821.0219177493466
+    },
+    {
+      "deltaY": -24,
+      "stamp": 165069.7000000002,
+      "heightM": 1784.632118104927
+    },
+    {
+      "deltaY": -24,
+      "stamp": 165109.7000000002,
+      "heightM": 1749.3078772613785
+    },
+    {
+      "deltaY": -12,
+      "stamp": 165129.7000000002,
+      "heightM": 1732.0723145785694
+    },
+    {
+      "deltaY": -12,
+      "stamp": 167652.7000000002,
+      "heightM": 1715.0858689771148
+    },
+    {
+      "deltaY": -24,
+      "stamp": 167692.7000000002,
+      "heightM": 1681.764758490172
+    },
+    {
+      "deltaY": -24,
+      "stamp": 167732.7000000002,
+      "heightM": 1649.3877305914666
+    },
+    {
+      "deltaY": -24,
+      "stamp": 167772.7000000002,
+      "heightM": 1617.9182181146057
+    },
+    {
+      "deltaY": -24,
+      "stamp": 167812.7000000002,
+      "heightM": 1587.321440390891
+    },
+    {
+      "deltaY": -12,
+      "stamp": 167832.7000000002,
+      "heightM": 1572.3724771074799
+    },
+    {
+      "deltaY": -12,
+      "stamp": 169141.7000000002,
+      "heightM": 1557.6282887164311
+    },
+    {
+      "deltaY": -12,
+      "stamp": 169161.7000000002,
+      "heightM": 1543.085021565709
+    },
+    {
+      "deltaY": -24,
+      "stamp": 169201.7000000002,
+      "heightM": 1514.5261827727716
+    },
+    {
+      "deltaY": -24,
+      "stamp": 169241.7000000002,
+      "heightM": 1486.7310665526707
+    },
+    {
+      "deltaY": -24,
+      "stamp": 169281.7000000002,
+      "heightM": 1459.6717348039224
+    },
+    {
+      "deltaY": -24,
+      "stamp": 169321.7000000002,
+      "heightM": 1433.321542719444
+    },
+    {
+      "deltaY": -120,
+      "stamp": 175534.7000000002,
+      "heightM": 26190.047026646058
+    },
+    {
+      "deltaY": -240,
+      "stamp": 175624.7000000002,
+      "heightM": 16664.438919559718
+    },
+    {
+      "deltaY": -240,
+      "stamp": 175714.6000000001,
+      "heightM": 11431.528754248324
+    },
+    {
+      "deltaY": -240,
+      "stamp": 175804.7000000002,
+      "heightM": 8306.944141298063
+    },
+    {
+      "deltaY": -240,
+      "stamp": 175894.7000000002,
+      "heightM": 6313.561052855356
+    },
+    {
+      "deltaY": -240,
+      "stamp": 175984.7000000002,
+      "heightM": 4970.543881405625
+    },
+    {
+      "deltaY": -120,
+      "stamp": 176029.7000000002,
+      "heightM": 4197.3718386090195
+    }
+  ],
+  "skyEntry": {
+    "mode": "sky",
+    "observer": {
+      "lat": 40.78289999996588,
+      "lon": -73.96540000002213,
+      "elevationM": 0
+    },
+    "elevationSource": "unavailable-zero",
+    "utc": "2026-10-14T02:10:00.000Z",
+    "live": false,
+    "camera": {
+      "projection": 2,
+      "fovRad": 2.094395102393,
+      "yawRad": 0,
+      "pitchRad": 0.523598775598,
+      "rollRad": 0,
+      "landscapeVisible": true
+    }
+  },
+  "returnedEarth": {
+    "mode": "earth",
+    "observer": {
+      "lat": 40.78289896037539,
+      "lon": -73.96540050827547,
+      "elevationM": 0
+    },
+    "elevationSource": "unavailable-zero",
+    "camera": {
+      "latitudeRad": 0.7117958835109996,
+      "longitudeRad": -1.2909397625550003,
+      "heightM": 15621863,
+      "headingRad": 6.283185307179586,
+      "pitchRad": -1.568435203529845,
+      "rollRad": 0
+    },
+    "utc": "2026-10-14T02:10:00.000Z",
+    "live": false
+  },
+  "earthArtifact": "38f6bfd71993d4282c82883d39f78f2147263a1742583e42e6091cf84b41fd65",
+  "finished": "2026-10-15T05:10:27.996Z"
+}

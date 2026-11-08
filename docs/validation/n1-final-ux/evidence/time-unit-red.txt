@@ -1,0 +1,73 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run --run tests/workspaceRuntimeAdapter.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+ ❯ tests/workspaceRuntimeAdapter.test.ts (12 tests | 4 failed) 17ms
+   × selection-only route change preserves the active temporal intent ?date=2026-06-04T02%3A58%3A00.000Z 6ms
+   × selection-only route change preserves the active temporal intent  1ms
+   × observer-only updates preserve time, while Back/Forward date changes still synchronize 1ms
+   × selection arriving during a time acknowledgement reuses the pending intent and settles it 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspaceRuntimeAdapter.test.ts > selection-only route change preserves the active temporal intent ?date=2026-06-04T02%3A58%3A00.000Z
+ FAIL  tests/workspaceRuntimeAdapter.test.ts > selection-only route change preserves the active temporal intent
+AssertionError: expected [ [ 'setTimeIntent', …(2) ], …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/workspaceRuntimeAdapter.test.ts:39:81
+     37|  hooks.client=timeClient();const runtime=rerender(search);runtime.acce…
+     38|  rerender(search+(search?'&':'?')+'catalog=Satellite+TLE+%28local%29&s…
+     39|  expect(hooks.client.request.mock.calls.filter(([c]:any)=>c==='setTime…
+       |                                                                                 ^
+     40| })
+     41| it('observer-only updates preserve time, while Back/Forward date chang…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/workspaceRuntimeAdapter.test.ts > observer-only updates preserve time, while Back/Forward date changes still synchronize
+AssertionError: expected [ [ 'setTimeIntent', …(2) ], …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/workspaceRuntimeAdapter.test.ts:44:81
+     42|  hooks.client=timeClient();const runtime=rerender('?date='+fixed);runt…
+     43|  rerender('?date='+fixed+'&lat=35&lng=-120');hooks.effects.at(-1)!();a…
+     44|  expect(hooks.client.request.mock.calls.filter(([c]:any)=>c==='setTime…
+       |                                                                                 ^
+     45|  for(const date of ['2026-06-04T17:00:00.000Z',fixed]){rerender('?date…
+     46|  expect(hooks.client.request.mock.calls.filter(([c]:any)=>c==='setTime…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/workspaceRuntimeAdapter.test.ts > selection arriving during a time acknowledgement reuses the pending intent and settles it
+AssertionError: expected [ [ 'setTimeIntent', …(2) ], …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/workspaceRuntimeAdapter.test.ts:51:81
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 8 passed (12)
+   Start at  10:14:22
+   Duration  241ms (transform 75ms, setup 0ms, import 107ms, tests 17ms, environment 0ms)

@@ -1,0 +1,26 @@
+{
+  "types": [
+    "Asa"
+  ],
+  "model": "tle_satellite",
+  "model_data": {
+    "norad_number": 31104,
+    "tle": [
+      "1 31104U 07009C   26154.73401725 -.00000220  00000-0  00000+0 0  9996",
+      "2 31104  11.9843 280.4185 5655416 103.4527 315.9351  1.96447425137458"
+    ],
+    "mag": 4.9,
+    "status": "Unknown",
+    "owner": "Commonwealth of Independent States (former USSR)",
+    "launch_site": "Tyuratam Missile and Space Center, Kazakhstan (Also known as Baikonur Cosmodrome)",
+    "type": "Rocket body",
+    "designation": "07009C"
+  },
+  "names": [
+    "NAME Anik F3 Br Rk",
+    "NAME BREEZE-M R/B",
+    "NORAD 31104",
+    "COSPAR 2007-009C"
+  ],
+  "short_name": "Anik F3 Br Rk"
+}

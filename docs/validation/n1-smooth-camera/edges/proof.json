@@ -1,0 +1,2276 @@
+{
+  "head": "f36e0ae1c71e7be57f8fab1ce30cc789c31aa8b5",
+  "cameraSourceSha256": "a7c8d0f5ba8e77cbc2e2c6c4f83c8f8ce4735eaa9549b0e8e1d5f391f4b8ec23",
+  "base": "http://127.0.0.1:4202",
+  "started": "2026-10-15T06:10:03.445Z",
+  "status": "PASS",
+  "runs": [
+    {
+      "samples": [
+        {
+          "at": 0.10000000055879354,
+          "frameTime": 22846.299999999814,
+          "heightM": 17489.649034353177,
+          "camera": {
+            "latitudeRad": 0.7061496014037196,
+            "longitudeRad": -1.2909397626335473,
+            "heightM": 17489.649034353177,
+            "headingRad": 1.0626436619531887e-8,
+            "pitchRad": -0.4553409825828827,
+            "rollRad": 6.28318529619574
+          },
+          "observer": {
+            "lat": 40.782900000009874,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 7.7000000001862645,
+          "frameTime": 22835.7,
+          "heightM": 17489.649034353177,
+          "camera": {
+            "latitudeRad": 0.7061496014037196,
+            "longitudeRad": -1.2909397626335473,
+            "heightM": 17489.649034353177,
+            "headingRad": 1.0626436619531887e-8,
+            "pitchRad": -0.4553409825828827,
+            "rollRad": 6.28318529619574
+          },
+          "observer": {
+            "lat": 40.782900000009874,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 266.5,
+          "frameTime": 23085.8,
+          "heightM": 17489.649034353177,
+          "camera": {
+            "latitudeRad": 0.7061496014037196,
+            "longitudeRad": -1.2909397626335473,
+            "heightM": 17489.649034353177,
+            "headingRad": 1.0626436619531887e-8,
+            "pitchRad": -0.4553409825828827,
+            "rollRad": 6.28318529619574
+          },
+          "observer": {
+            "lat": 40.782900000009874,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 537.7000000001863,
+          "frameTime": 23369.1,
+          "heightM": 17489.649034353177,
+          "camera": {
+            "latitudeRad": 0.7061496014037196,
+            "longitudeRad": -1.2909397626335473,
+            "heightM": 17489.649034353177,
+            "headingRad": 1.0626436619531887e-8,
+            "pitchRad": -0.4553409825828827,
+            "rollRad": 6.28318529619574
+          },
+          "observer": {
+            "lat": 40.782900000009874,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 802.1000000005588,
+          "frameTime": 23635.7,
+          "heightM": 17488.4044305574,
+          "camera": {
+            "latitudeRad": 0.7061499998037729,
+            "longitudeRad": -1.2909397626335406,
+            "heightM": 17488.4044305574,
+            "headingRad": 1.0626441060423986e-8,
+            "pitchRad": -0.4553405848265397,
+            "rollRad": 6.2831852961957395
+          },
+          "observer": {
+            "lat": 40.78290000000986,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 39997.169869856196,
+            "targetRangeM": 29405.482604540266,
+            "velocityMps": -6243.650859378055
+          }
+        },
+        {
+          "at": 1045.4000000003725,
+          "frameTime": 23869,
+          "heightM": 12921.44439742065,
+          "camera": {
+            "latitudeRad": 0.7076151223143197,
+            "longitudeRad": -1.290939762609906,
+            "heightM": 12921.44439742065,
+            "headingRad": 1.0642971837171444e-8,
+            "pitchRad": -0.45387782716092007,
+            "rollRad": 6.283185296193051
+          },
+          "observer": {
+            "lat": 40.782900000009874,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 29596.878308573127,
+            "targetRangeM": 29405.482604540266,
+            "velocityMps": -3927.903741926659
+          }
+        },
+        {
+          "at": 1295.5,
+          "frameTime": 24119,
+          "heightM": 12837.890838753334,
+          "camera": {
+            "latitudeRad": 0.7076419874229791,
+            "longitudeRad": -1.290939762609472,
+            "heightM": 12837.890838753334,
+            "headingRad": 1.0643275594190982e-8,
+            "pitchRad": -0.453851005369879,
+            "rollRad": 6.283185296193002
+          },
+          "observer": {
+            "lat": 40.782900000009874,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 29406.311676958467,
+            "targetRangeM": 29405.482604540266,
+            "velocityMps": -18.349679196651543
+          }
+        },
+        {
+          "at": 1549.2000000001863,
+          "frameTime": 24385.6,
+          "heightM": 12837.528592318851,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 12837.528592318851,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -0.4538508890792756,
+            "rollRad": 6.283185296193002
+          },
+          "observer": {
+            "lat": 40.78290000000989,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1835.1000000005588,
+          "frameTime": 24669,
+          "heightM": 12837.528592318851,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 12837.528592318851,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -0.4538508890792752,
+            "rollRad": 6.283185296193002
+          },
+          "observer": {
+            "lat": 40.78290000000989,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 2090.9000000003725,
+          "frameTime": 24919,
+          "heightM": 12837.528592318851,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 12837.528592318851,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -0.4538508890792752,
+            "rollRad": 6.283185296193002
+          },
+          "observer": {
+            "lat": 40.78290000000989,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 2337.9000000003725,
+          "frameTime": 25168.9,
+          "heightM": 12837.528592318851,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 12837.528592318851,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -0.4538508890792752,
+            "rollRad": 6.283185296193002
+          },
+          "observer": {
+            "lat": 40.78290000000989,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        }
+      ],
+      "packets": [
+        {
+          "at": 798.9000000003725,
+          "deltaY": -120,
+          "deltaMode": 0,
+          "heightM": 17489.649034353177,
+          "camera": {
+            "latitudeRad": 0.7061496014037196,
+            "longitudeRad": -1.2909397626335473,
+            "heightM": 17489.649034353177,
+            "headingRad": 1.0626436619531887e-8,
+            "pitchRad": -0.4553409825828827,
+            "rollRad": 6.28318529619574
+          },
+          "observer": {
+            "lat": 40.782900000009874,
+            "lon": -73.9653999992851,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 39999.99995200487,
+            "targetRangeM": 29405.482604540266,
+            "velocityMps": 0
+          }
+        }
+      ],
+      "start": 22846.199999999255,
+      "stop": true,
+      "name": "oblique target stability",
+      "changes": 4,
+      "frameTimesMs": [
+        -10.599999999813008,
+        250.09999999999854,
+        283.2999999999993,
+        266.6000000000022,
+        233.29999999999927,
+        250,
+        266.59999999999854,
+        283.40000000000146,
+        250,
+        249.90000000000146
+      ],
+      "velocitiesMps": [
+        0,
+        0,
+        0,
+        -4.7072760808479375,
+        -18770.90025951601,
+        -334.08060242878986,
+        -1.4278535060398887,
+        0,
+        0,
+        0
+      ],
+      "frameDistributionMs": {
+        "count": 10,
+        "p50": 250.09999999999854,
+        "p95": 283.40000000000146,
+        "max": 283.40000000000146
+      }
+    },
+    {
+      "samples": [
+        {
+          "at": 0.09999999962747097,
+          "frameTime": 5177.700000000186,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 6.3999999994412065,
+          "frameTime": 5168.9,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 192.20000000018626,
+          "frameTime": 5335.6,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 405.20000000018626,
+          "frameTime": 5568.9,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 573.2000000001863,
+          "frameTime": 5735.6,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 740.7000000001863,
+          "frameTime": 5902.3,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 929.8999999994412,
+          "frameTime": 6102.2,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1109.0999999996275,
+          "frameTime": 6268.9,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1327.3999999994412,
+          "frameTime": 6485.6,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1535.8999999994412,
+          "frameTime": 6702.2,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1718.7999999998137,
+          "frameTime": 6885.5,
+          "heightM": 119.99892484163922,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 119.99892484163922,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924201,
+            "lon": -73.96540000314097,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 119.99892483982538,
+            "targetRangeM": 114.23486413920834,
+            "velocityMps": -2.670712231187289
+          }
+        },
+        {
+          "at": 1938.7000000001863,
+          "frameTime": 7102.2,
+          "heightM": 114.41027905818383,
+          "camera": {
+            "latitudeRad": 0.7076421039013369,
+            "longitudeRad": -1.2909397626094683,
+            "heightM": 114.41027905818383,
+            "headingRad": 1.0643278258726241e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242435,
+            "lon": -73.96540000314398,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 114.41027905740509,
+            "targetRangeM": 101.00485952195817,
+            "velocityMps": -17.292082867295914
+          }
+        },
+        {
+          "at": 2159.7999999998137,
+          "frameTime": 7318.8,
+          "heightM": 101.35456243204638,
+          "camera": {
+            "latitudeRad": 0.707642103901212,
+            "longitudeRad": -1.2909397626094645,
+            "heightM": 101.35456243204638,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959248844,
+            "lon": -73.96540000314364,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 101.35456243178396,
+            "targetRangeM": 90.4528554208974,
+            "velocityMps": -15.874996391011763
+          }
+        },
+        {
+          "at": 2361.0999999996275,
+          "frameTime": 7518.8,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 2554.7000000001863,
+          "frameTime": 7718.8,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 2754.0999999996275,
+          "frameTime": 7918.8,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 2987.399999999441,
+          "frameTime": 8152.2,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 3235.2999999998137,
+          "frameTime": 8402.1,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 3482.2000000001863,
+          "frameTime": 8652.1,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 3695.2000000001863,
+          "frameTime": 8852.1,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 3885.7000000001863,
+          "frameTime": 9052.1,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        }
+      ],
+      "packets": [
+        {
+          "at": 1716.0999999996275,
+          "deltaY": -120,
+          "deltaMode": 0,
+          "heightM": 120.00000000059619,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 120.00000000059619,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242,
+            "lon": -73.96540000314096,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 119.99999999950288,
+            "targetRangeM": 114.23486413920834,
+            "velocityMps": 0
+          }
+        },
+        {
+          "at": 1930.5,
+          "deltaY": -240,
+          "deltaMode": 0,
+          "heightM": 119.99892484163922,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 119.99892484163922,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924201,
+            "lon": -73.96540000314097,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 114.43638303731095,
+            "targetRangeM": 107.41636935258384,
+            "velocityMps": -4.0530449921586325
+          }
+        },
+        {
+          "at": 1932.2000000001863,
+          "deltaY": -240,
+          "deltaMode": 0,
+          "heightM": 119.99892484163922,
+          "camera": {
+            "latitudeRad": 0.7076421039013902,
+            "longitudeRad": -1.29093976260947,
+            "heightM": 119.99892484163922,
+            "headingRad": 1.0643276482369401e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924201,
+            "lon": -73.96540000314097,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 114.42171953801855,
+            "targetRangeM": 101.00485952195817,
+            "velocityMps": -11.26938497573592
+          }
+        },
+        {
+          "at": 2154.399999999441,
+          "deltaY": -120,
+          "deltaMode": 0,
+          "heightM": 114.41027905818383,
+          "camera": {
+            "latitudeRad": 0.7076421039013369,
+            "longitudeRad": -1.2909397626094683,
+            "heightM": 114.41027905818383,
+            "headingRad": 1.0643278258726241e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242435,
+            "lon": -73.96540000314398,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 101.38100812678725,
+            "targetRangeM": 96.1710807632499,
+            "velocityMps": -7.623275031424304
+          }
+        },
+        {
+          "at": 2156.2999999998137,
+          "deltaY": -240,
+          "deltaMode": 0,
+          "heightM": 114.41027905818383,
+          "camera": {
+            "latitudeRad": 0.7076421039013369,
+            "longitudeRad": -1.2909397626094683,
+            "heightM": 114.41027905818383,
+            "headingRad": 1.0643278258726241e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959242435,
+            "lon": -73.96540000314398,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 101.36301857284643,
+            "targetRangeM": 90.4528554208974,
+            "velocityMps": -12.294311181607402
+          }
+        },
+        {
+          "at": 2352.5,
+          "deltaY": -120,
+          "deltaMode": 0,
+          "heightM": 101.35456243204638,
+          "camera": {
+            "latitudeRad": 0.707642103901212,
+            "longitudeRad": -1.2909397626094645,
+            "heightM": 101.35456243204638,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959248844,
+            "lon": -73.96540000314364,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 90.9630207274406,
+            "targetRangeM": 86.16341675577863,
+            "velocityMps": -10.146773640411833
+          }
+        },
+        {
+          "at": 2355.5,
+          "deltaY": -240,
+          "deltaMode": 0,
+          "heightM": 101.35456243204638,
+          "camera": {
+            "latitudeRad": 0.707642103901212,
+            "longitudeRad": -1.2909397626094645,
+            "heightM": 101.35456243204638,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.544905959248844,
+            "lon": -73.96540000314364,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 90.9258167843306,
+            "targetRangeM": 81.08652727766605,
+            "velocityMps": -16.2787613769766
+          }
+        },
+        {
+          "at": 2550.2999999998137,
+          "deltaY": -120,
+          "deltaMode": 0,
+          "heightM": 100.00000000147537,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 100.00000000147537,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 40.54490595924876,
+            "lon": -73.9654000031436,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 100.00000000066422,
+            "targetRangeM": 95.26233937126426,
+            "velocityMps": 0
+          }
+        }
+      ],
+      "start": 5177.700000000186,
+      "stop": true,
+      "name": "near minimum altitude",
+      "changes": 4,
+      "frameTimesMs": [
+        -8.800000000186628,
+        166.70000000000073,
+        233.29999999999927,
+        166.70000000000073,
+        166.69999999999982,
+        199.89999999999964,
+        166.69999999999982,
+        216.70000000000073,
+        216.59999999999945,
+        183.30000000000018,
+        216.69999999999982,
+        216.60000000000036,
+        200,
+        200,
+        200,
+        233.39999999999964,
+        249.90000000000055,
+        250,
+        200,
+        200
+      ],
+      "velocitiesMps": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -0.0058783977964072896,
+        -25.414487419035577,
+        -59.04892187317707,
+        -6.729073177209444,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frameDistributionMs": {
+        "count": 20,
+        "p50": 200,
+        "p95": 250,
+        "max": 250
+      }
+    },
+    {
+      "samples": [
+        {
+          "at": 0.09999999962747097,
+          "frameTime": 4230,
+          "heightM": 29500000.000000004,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 29500000.000000004,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472124,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 14.099999999627471,
+          "frameTime": 4242.8,
+          "heightM": 29500000.000000004,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 29500000.000000004,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472124,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 33.299999999813735,
+          "frameTime": 4259.4,
+          "heightM": 29504507.9772908,
+          "camera": {
+            "latitudeRad": 0.7076424470486962,
+            "longitudeRad": -1.2909397626095864,
+            "heightM": 29504507.9772908,
+            "headingRad": 1.0643200099025307e-8,
+            "pitchRad": -1.5707959095623831,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.81953158847209,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 29505127.775872126,
+            "targetRangeM": 88177633.27880175,
+            "velocityMps": 12808934.85695961
+          }
+        },
+        {
+          "at": 267.20000000018626,
+          "frameTime": 4492.8,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 509.70000000018626,
+          "frameTime": 4726.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 780.2999999998137,
+          "frameTime": 4992.8,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1010.3999999994412,
+          "frameTime": 5226.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1017.8999999994412,
+          "frameTime": 5242.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1031,
+          "frameTime": 5259.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1047.7999999998137,
+          "frameTime": 5276,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1064.2999999998137,
+          "frameTime": 5292.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1081,
+          "frameTime": 5309.3,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1097.7000000001863,
+          "frameTime": 5326,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1114.2999999998137,
+          "frameTime": 5342.8,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1131.0999999996275,
+          "frameTime": 5359.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1147.5999999996275,
+          "frameTime": 5376.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1164.2999999998137,
+          "frameTime": 5392.8,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1181,
+          "frameTime": 5409.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1198.2000000001863,
+          "frameTime": 5426.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1214.2999999998137,
+          "frameTime": 5442.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1230.7999999998137,
+          "frameTime": 5459.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1247.3999999994412,
+          "frameTime": 5476,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1264.2999999998137,
+          "frameTime": 5492.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1280.8999999994412,
+          "frameTime": 5509.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1297.5,
+          "frameTime": 5526,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1314.2000000001863,
+          "frameTime": 5542.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1330.7000000001863,
+          "frameTime": 5559.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1347.5,
+          "frameTime": 5576.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1364.2000000001863,
+          "frameTime": 5592.8,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1380.8999999994412,
+          "frameTime": 5609.3,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1397.5,
+          "frameTime": 5626,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1414.0999999996275,
+          "frameTime": 5642.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1430.7999999998137,
+          "frameTime": 5659.3,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1447.5,
+          "frameTime": 5676,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1464.3999999994412,
+          "frameTime": 5692.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1480.7000000001863,
+          "frameTime": 5709.3,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1497.5,
+          "frameTime": 5726.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1514.0999999996275,
+          "frameTime": 5742.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1530.7000000001863,
+          "frameTime": 5759.3,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1547.5,
+          "frameTime": 5776.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1564.0999999996275,
+          "frameTime": 5792.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1580.7999999998137,
+          "frameTime": 5809.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1597.3999999994412,
+          "frameTime": 5826,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1614.0999999996275,
+          "frameTime": 5842.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1630.7999999998137,
+          "frameTime": 5859.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1647.3999999994412,
+          "frameTime": 5876.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1664.2000000001863,
+          "frameTime": 5892.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1680.7000000001863,
+          "frameTime": 5909.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1697.7999999998137,
+          "frameTime": 5926.1,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1714.0999999996275,
+          "frameTime": 5942.7,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        },
+        {
+          "at": 1730.7999999998137,
+          "frameTime": 5959.4,
+          "heightM": 29999999.99994905,
+          "camera": {
+            "latitudeRad": 0.7076796453030296,
+            "longitudeRad": -1.2909397626228896,
+            "heightM": 29999999.99994905,
+            "headingRad": 1.0634524372221676e-8,
+            "pitchRad": -1.5707506501733404,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472074,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": false
+          }
+        }
+      ],
+      "packets": [
+        {
+          "at": 30.899999999441206,
+          "deltaY": 120,
+          "deltaMode": 0,
+          "heightM": 29500000.000000004,
+          "camera": {
+            "latitudeRad": 0.7076421039011991,
+            "longitudeRad": -1.2909397626094639,
+            "heightM": 29500000.000000004,
+            "headingRad": 1.064328003508308e-8,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "observer": {
+            "lat": 39.819531588472124,
+            "lon": -73.96539974733086,
+            "elevationM": 0
+          },
+          "motion": {
+            "active": true,
+            "rangeM": 29500619.781782333,
+            "targetRangeM": 88177633.27880175,
+            "velocityMps": 0
+          }
+        }
+      ],
+      "start": 4230,
+      "stop": true,
+      "name": "maximum altitude clamp",
+      "changes": 2,
+      "frameTimesMs": [
+        12.800000000000182,
+        16.599999999999454,
+        233.40000000000055,
+        233.30000000000018,
+        266.6999999999998,
+        233.30000000000018,
+        16.599999999999454,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.800000000000182,
+        16.599999999999454,
+        16.700000000000728,
+        16.699999999999818,
+        16.599999999999454,
+        16.700000000000728,
+        16.599999999999454,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.700000000000728,
+        16.699999999999818,
+        16.5,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.600000000000364,
+        16.800000000000182,
+        16.599999999999454,
+        16.600000000000364,
+        16.800000000000182,
+        16.599999999999454,
+        16.699999999999818,
+        16.600000000000364,
+        16.699999999999818,
+        16.699999999999818,
+        16.700000000000728,
+        16.599999999999454,
+        16.699999999999818,
+        16.700000000000728,
+        16.599999999999454,
+        16.699999999999818
+      ],
+      "velocitiesMps": [
+        0,
+        234790.48389345026,
+        2118392.5722849863,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frameDistributionMs": {
+        "count": 50,
+        "p50": 16.699999999999818,
+        "p95": 233.30000000000018,
+        "max": 266.6999999999998
+      }
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "limitations": [
+    "Headless Chromium with software rendering; representative browser mouse/trackpad input, not physical-device or owner acceptance.",
+    "rAF diagnostics include center picking/serialization overhead; frame intervals describe this instrumented browser only."
+  ],
+  "browser": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "obliqueSetup": {
+    "mode": "earth",
+    "observer": {
+      "lat": 40.782900000009874,
+      "lon": -73.9653999992851,
+      "elevationM": 0
+    },
+    "elevationSource": "unavailable-zero",
+    "camera": {
+      "latitudeRad": 0.7061496014037196,
+      "longitudeRad": -1.2909397626335473,
+      "heightM": 17489.649034353177,
+      "headingRad": 1.0626436619531887e-8,
+      "pitchRad": -0.4553409825828827,
+      "rollRad": 6.28318529619574
+    },
+    "utc": "2026-10-14T02:10:00.000Z",
+    "live": false
+  },
+  "boundsSetup": "Real application history/view-restore contract seeds 120 m and 29,500,000 m. Measured zoom uses Chromium input; no engine responses mocked.",
+  "earthArtifact": "2f2c8530cd8499ef3c646b244d37c9a5ae8574047cabcdc751976e4908234794",
+  "finished": "2026-10-15T06:10:49.095Z",
+  "video": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/smooth-camera/edges/570fbcc6ac7811eadb6cb91de928d2f4.webm"
+}

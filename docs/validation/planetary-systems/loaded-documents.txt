@@ -1,0 +1,72 @@
+Default Mode task packs: docs_change + backend_change + frontend_change + planning + validation + review. No debug/reconciliation pack or broad docs scan. Historical files reviewed only in explicitly listed bounded sections; full text not claimed. Initial oversized output truncated visibly; subsequent bounded extraction below is the authoritative review inventory.
+Owner directive: /home/rocco/.codex/attachments/e0337d3e-4ed7-4c80-a3e1-a8c8447210eb/Pasted text.txt (full)
+Context selector: docs/context/CONTEXT_MANIFEST.yaml (pack paths parsed in full).
+{"path": "docs/context/CORE_CONTEXT.md", "review": "full", "lines": "1-449"}
+{"path": "docs/context/LIVE_SESSION_BRIEF.md", "review": "full", "lines": "1-1032"}
+{"path": "docs/validation/r3-a-solar-system/RECONCILIATION.md", "review": "bounded sections only", "lines": "13-21", "total_lines": 36}
+{"path": "docs/validation/r4-a-planet-view/README.md", "review": "full", "lines": "1-121"}
+{"path": "docs/architecture/decisions/0010-r3-a-solar-runtime.md", "review": "full", "lines": "1-116"}
+{"path": "docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md", "review": "bounded sections only", "lines": "5-5,13-13,33-37,66-72", "total_lines": 685}
+{"path": "docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md", "review": "bounded sections only", "lines": "5-15,19-31", "total_lines": 152}
+{"path": "docs/validation/solar-cinematic/README.md", "review": "bounded sections only", "lines": "62-66,119-121", "total_lines": 121}
+{"path": "docs/validation/cinematic-acceptance/README.md", "review": "bounded sections only", "lines": "3-3,15-15,21-21,27-27,77-77", "total_lines": 77}
+{"path": "docs/validation/solar-scientific-controls/README.md", "review": "bounded sections only", "lines": "3-3,53-60,62-62", "total_lines": 62}
+{"path": "docs/validation/solar-cinematic-balance/README.md", "review": "bounded sections only", "lines": "3-3,9-9,13-13,47-47", "total_lines": 47}
+{"path": "docs/validation/earth-sky-completion/README.md", "review": "bounded sections only", "lines": "16-33,96-102", "total_lines": 154}
+{"path": "docs/validation/cinematic-glass/README.md", "review": "bounded sections only", "lines": "3-6,88-90", "total_lines": 90}
+{"path": "docs/design/adaptive-explorer-r1a/README.md", "review": "bounded sections only", "lines": "29-46,137-141", "total_lines": 279}
+{"path": "docs/DOCUMENT_INDEX.md", "review": "bounded sections only", "lines": "3-3,5-5,17-17,31-31,41-41", "total_lines": 401}
+{"path": "docs/DOC_INVENTORY.md", "review": "bounded sections only", "lines": "3-3,5-5,17-17,41-41,390-395", "total_lines": 405}
+{"path": "docs/validation/SYSTEM_VALIDATION_SPEC.md", "review": "full", "lines": "1-262"}
+{"path": "docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md", "review": "bounded sections only", "lines": "7-7,11-16,26-31,60-68", "total_lines": 181}
+{"path": "docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md", "review": "bounded sections only", "lines": "107-111,115-118,225-229,248-256,449-452,586-586,619-619", "total_lines": 882}
+{"path": "docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md", "review": "bounded sections only", "lines": "276-302", "total_lines": 376}
+{"path": "docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md", "review": "bounded sections only", "lines": "57-63,118-118,120-130,132-138", "total_lines": 532}
+{"path": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md", "review": "bounded sections only", "lines": "7-9,105-111,175-177,195-203,819-825", "total_lines": 952}
+{"path": "docs/validation/EARTH_HD_MAPPING_EVIDENCE.md", "review": "bounded sections only", "lines": "171-181,214-226", "total_lines": 409}
+{"path": "docs/architecture/ARCHITECTURE_OVERVIEW.md", "review": "bounded sections only", "lines": "7-7,90-93,131-134,144-149", "total_lines": 270}
+{"path": "docs/architecture/ENGINE_SPEC.md", "review": "bounded sections only", "lines": "7-7,25-29,37-42", "total_lines": 329}
+{"path": "docs/architecture/ENGINE_CATALOG.md", "review": "bounded sections only", "lines": "7-7,21-28,47-50,94-94,96-98,234-234,238-242,252-254,356-360", "total_lines": 388}
+{"path": "docs/architecture/OBJECT_MODEL.md", "review": "full", "lines": "1-242"}
+{"path": "docs/architecture/DATA_CONTRACTS.md", "review": "full", "lines": "1-263"}
+{"path": "docs/architecture/INGESTION_STRATEGY.md", "review": "full", "lines": "1-204"}
+{"path": "docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md", "review": "bounded sections only", "lines": "456-461", "total_lines": 476}
+{"path": "docs/execution/PROJECT_STATE.md", "review": "bounded sections only", "lines": "3-3,5-14,19-26,29-34", "total_lines": 951}
+{"path": "docs/execution/MASTER_PLAN.md", "review": "full", "lines": "1-516"}
+{"path": "docs/README.md", "review": "bounded sections only", "lines": "7-7,47-60", "total_lines": 92}
+{"path": "docs/MASTER_PLAN.md", "review": "bounded sections only", "lines": "7-7,64-72,151-158,207-212", "total_lines": 261}
+{"path": "docs/product/PRODUCT_VISION.md", "review": "bounded sections only", "lines": "12-18,20-25,39-39,126-128", "total_lines": 187}
+{"path": "docs/architecture/STACK_OVERVIEW.md", "review": "bounded sections only", "lines": "7-7,84-89,289-294", "total_lines": 450}
+{"path": "docs/ASTRONOMY_HUB_DIAGRAM.md", "review": "bounded sections only", "lines": "7-7", "total_lines": 64}
+{"path": "docs/features/FEATURE_CATALOG.md", "review": "bounded sections only", "lines": "7-7,110-114,133-133,135-137", "total_lines": 318}
+{"path": "docs/features/FEATURE_TRACKER.md", "review": "bounded sections only", "lines": "1-210", "total_lines": 377}
+{"path": "docs/features/FEATURE_ACCEPTANCE.md", "review": "bounded sections only", "lines": "5-5,11-11", "total_lines": 255}
+{"path": "docs/architecture/decisions/0001-universal-application-state.md", "review": "full", "lines": "1-28"}
+{"path": "docs/architecture/decisions/0002-swe-sky-renderer.md", "review": "bounded sections only", "lines": "20-20", "total_lines": 26}
+{"path": "docs/architecture/decisions/0003-gods-eye-earth-runtime.md", "review": "bounded sections only", "lines": "24-24", "total_lines": 26}
+{"path": "docs/architecture/decisions/0004-additive-earth-extensions.md", "review": "bounded sections only", "lines": "1-1,3-9", "total_lines": 26}
+{"path": "docs/architecture/decisions/0005-cesium-planetary-direction.md", "review": "full", "lines": "1-28"}
+{"path": "docs/architecture/decisions/0006-controlled-renderer-handoffs.md", "review": "full", "lines": "1-28"}
+{"path": "docs/architecture/decisions/0007-immutable-upstream-source.md", "review": "full", "lines": "1-26"}
+{"path": "docs/architecture/decisions/0008-provider-licensing-boundaries.md", "review": "full", "lines": "1-26"}
+{"path": "docs/execution/EARTH_CAPABILITY_PLAN.md", "review": "bounded sections only", "lines": "7-7,23-31,100-108,567-567", "total_lines": 981}
+{"path": "docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md", "review": "bounded sections only", "lines": "7-7", "total_lines": 249}
+{"path": "docs/execution/C6_GLOBAL_MAPPING_SPEC.md", "review": "bounded sections only", "lines": "7-7,23-31,223-234,256-256", "total_lines": 513}
+{"path": "docs/architecture/decisions/0009-owned-earth-feature-reuse.md", "review": "bounded sections only", "lines": "22-30,32-39", "total_lines": 63}
+{"path": "docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md", "review": "bounded sections only", "lines": "13-13,19-19,29-29,67-67,85-85", "total_lines": 378}
+{"path": "docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md", "review": "bounded sections only", "lines": "235-235,239-239,257-257,259-259,265-265,303-303", "total_lines": 403}
+{"path": "docs/audits/EARTH_CAPABILITY_RECONCILIATION_INPUT_2026-10-05.md", "review": "bounded sections only", "lines": "49-55,367-367", "total_lines": 689}
+{"path": "docs/audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md", "review": "bounded sections only", "lines": "1838-1838,1840-1840,1842-1842,1884-1884,2805-2805", "total_lines": 3295}
+{"path": "docs/audits/GODS_EYE_PUBLIC_EXPORT_AUDIT_2026-10-05.md", "review": "bounded sections only", "lines": "1-1,3-3", "total_lines": 170}
+{"path": "docs/audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md", "review": "bounded sections only", "lines": "5-5,17-30", "total_lines": 1976}
+{"path": "docs/audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md", "review": "bounded sections only", "lines": "50-50", "total_lines": 103}
+{"path": "docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md", "review": "bounded sections only", "lines": "102-130,263-271", "total_lines": 317}
+{"path": "docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md", "review": "bounded sections only", "lines": "35-35,39-39,63-63,262-262", "total_lines": 628}
+{"path": "docs/audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md", "review": "bounded sections only", "lines": "5-5", "total_lines": 136}
+{"path": "docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md", "review": "bounded sections only", "lines": "44-44,110-117", "total_lines": 152}
+{"path": "docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md", "review": "bounded sections only", "lines": "32-32", "total_lines": 45}
+{"path": "docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md", "review": "bounded sections only", "lines": "126-126", "total_lines": 194}
+{"path": "docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md", "review": "bounded sections only", "lines": "29-36", "total_lines": 212}
+{"path": "docs/architecture/TONIGHT_CONTRACT.md", "review": "bounded sections only", "lines": "22-26,42-49,51-58", "total_lines": 114}
+{"path": "docs/features/FEATURE_EXECUTION_MODEL.md", "review": "full", "lines": "1-206"}
+{"path": "docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md", "review": "bounded sections only", "lines": "7-17,210-210,518-523,657-660,721-723", "total_lines": 2214}

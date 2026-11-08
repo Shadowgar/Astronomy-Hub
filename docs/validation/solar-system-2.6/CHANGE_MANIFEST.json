@@ -1,0 +1,611 @@
+{
+  "baseline": "66050b5e7f3a9cbcfccbf6258645bd1804051b28",
+  "manifest_self_hash_omitted": true,
+  "files": [
+    {
+      "path": "backend/app/data/beyond_context.json",
+      "bytes": 9900,
+      "sha256": "450a2bf20795c8780d5bb5f18f175a0ed9c6d4c0c026cb7d3c234d5654fbd279"
+    },
+    {
+      "path": "backend/app/main.py",
+      "bytes": 3610,
+      "sha256": "ba0a7343e0b4e7d430297aaabcee05138f01c699de51d15aa911ed543db8f83b"
+    },
+    {
+      "path": "backend/app/routes/beyond_exploration.py",
+      "bytes": 861,
+      "sha256": "ed79e7c6304fd30e70f3c9b34c66f6273bb7c235e72dbb19dc41fa6a847fd1ee"
+    },
+    {
+      "path": "backend/app/schemas/beyond_exploration.py",
+      "bytes": 10092,
+      "sha256": "1bbe51951f9f43c39691a05b6cb32883da89de55636d9a2868062ff856233d67"
+    },
+    {
+      "path": "backend/app/services/beyond_exploration.py",
+      "bytes": 6240,
+      "sha256": "307503a46e549e28613fa55d29fbc1a33444cfd718c2ebe7008a5552193ad03d"
+    },
+    {
+      "path": "backend/tests/test_beyond_exploration.py",
+      "bytes": 11832,
+      "sha256": "e3975e8004ec792cacc5020c434aece2e9b71ad1630440881315d0ad87471607"
+    },
+    {
+      "path": "docker-compose.solar26.yml",
+      "bytes": 478,
+      "sha256": "a43fa98529e870ae0da9743e703d9fd9c6879ad6185d9748930fcc8255258c77"
+    },
+    {
+      "path": "docs/context/CONTEXT_MANIFEST.yaml",
+      "bytes": 23195,
+      "sha256": "147342299bd5d6f566ae378b09dd068776eac887f0c311db54336cec1fdd3706"
+    },
+    {
+      "path": "docs/context/CORE_CONTEXT.md",
+      "bytes": 36202,
+      "sha256": "e497ca3bec3c001fa2c4c007e4b42c7b4c820350315e76797621040458457550"
+    },
+    {
+      "path": "docs/context/LIVE_SESSION_BRIEF.md",
+      "bytes": 91381,
+      "sha256": "d996ffa91c413d7253f050107fd80c2da9a8c23dacc98f66edb1a2e4bbe76403"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/CODEQL.md",
+      "bytes": 5201,
+      "sha256": "7518db75d308e8c91d7ac62ff2c66c9b9729aa57184939ab801380dfdfce1524"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/FRONTEND.md",
+      "bytes": 3904,
+      "sha256": "a5bd7a39570e6cf7f59ddc052667c740dca8001992af4d73d17dc0e244739640"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/FRONTEND_SCIENCE_INDEPENDENT_REVIEW.md",
+      "bytes": 8793,
+      "sha256": "1458c64a3b5975a95fb6857142ed698dde8761257a473a164690ea8effb42336"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/INDEPENDENT_UI_REVIEW.md",
+      "bytes": 11513,
+      "sha256": "ad3a6bf578394427480150b41a2cf4add5ac006ef521b90c9b1df2cb01f0301d"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/OBSERVATIONS.md",
+      "bytes": 12391,
+      "sha256": "8dbfef9e8d04082492f88935de9a34dd1f3f82dd556a12d3b3f4abc172d3a2bc"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/OBSERVATIONS_INDEPENDENT_REVIEW.md",
+      "bytes": 5264,
+      "sha256": "1a47d3d19abd618cc54a1841ba54e32863e7652d15518665b759ab08bb538a2b"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/PERFORMANCE.md",
+      "bytes": 15388,
+      "sha256": "4fe0935d9d271fa740d5a57d5f08aa9a63108444989291c3efc7aab97f775cb4"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/PERFORMANCE_INDEPENDENT_REVIEW.md",
+      "bytes": 3058,
+      "sha256": "20aa8a8411869176cade6b9d6ac052f0519f20503bab325c0fce989cbb3372d8"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/PLAN.md",
+      "bytes": 9234,
+      "sha256": "a02ddf4bd0c7002472758e592ea80006ecfaad749ba6e1e33ca9547cceb30b67"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/README.md",
+      "bytes": 9231,
+      "sha256": "0d780dd7158bdfd0ee8f4ff409afc5b44ddace5ef709253dba731cedecc31c81"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/SCIENCE.md",
+      "bytes": 8828,
+      "sha256": "0f492f2db5c5111ae33e4f67f61a7c3a0026e55063e16fca6486eba6351fbf1e"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/VALIDATION.md",
+      "bytes": 7734,
+      "sha256": "6c16763b0d21262f16ef589e864dff32b645a1e13e5ff47d459bbdbf1cbcb51e"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/backend-independent-review.json",
+      "bytes": 2449,
+      "sha256": "c4bcf40d2f3982773d04ec4285c7e0d4d26caf882d046aed3f0a8dcb89c444df"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/build-binding.json",
+      "bytes": 3469,
+      "sha256": "f485dbad63e49360b80b463cae25f2a36c7b91c81ce35db9e96d1e42b39bbc43"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/codeql-docker-api-equivalence.json",
+      "bytes": 687,
+      "sha256": "a0ab9e0e4c107573f554fa1a79882261d33e4ffdcce9ac0c0d04c7dfec82a2e1"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/codeql-independent-review.json",
+      "bytes": 1587,
+      "sha256": "e6ed145554c47fb1fb9946b1fbc67b6d0a76102fe727b0b913d38c66c8d58a53"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/codeql-response-equivalence.json",
+      "bytes": 493,
+      "sha256": "a7e0a76e21568d13127bf794e9f53a534bcae502356ce6df0cfa75b5bfdac8ee"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/context-reference-checks.json",
+      "bytes": 8980,
+      "sha256": "48b4e44327615a800073d4d69a0568b0f63e1a2027d1d77e3e598f114dacf81b"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/context.json",
+      "bytes": 4259,
+      "sha256": "c666d790446a5a05e7f199100db7655d55ffc2d13cd8e63fb5e459d0ca54ce02"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/evidence/beyond-performance.json",
+      "bytes": 86121,
+      "sha256": "6241a7632488d816e48ba196ab18228f321e938803f9d455c418cd7f78756b32"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/evidence/journeys.json",
+      "bytes": 532433,
+      "sha256": "c5cda89d77c564dd3670142761ff56d42d4cf5cb1928aee8f5af05b9accce720"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/evidence/mission-performance.json",
+      "bytes": 581186,
+      "sha256": "026c87941b014a8b4517f945243b53b97fe699756cd15203088bb81b88cdbfe8"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/evidence/workspace-independent-review.json",
+      "bytes": 353395,
+      "sha256": "2aa32fafa33789a1966d9a7e498a3db29343516bde6a5b47860e1d4e78eab91b"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/frontend-science-independent-review.json",
+      "bytes": 5442,
+      "sha256": "f61e826d781e647f701b1869821ada77fdde0e9629981ba2b79fba63af2f2f40"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/A-voyager1-crossing.png",
+      "bytes": 198621,
+      "sha256": "95c86001419f703be36c2bc39cf9cf7010b86cbfce0ed2d03d47b100e44cdee1"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/B-comparison-portrait.png",
+      "bytes": 97333,
+      "sha256": "e110347a4a5b10e8dd8c76909e18bb8f9136d7e7c48e8354afa958dbf03e09a3"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/B-separate-historical-comparison.png",
+      "bytes": 199874,
+      "sha256": "c0b5a92e6baf92ee8ccb9b714c45ca5af698c4fff640466ff5022cf64f3cab45"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/C-ibex-native-cell-selection.png",
+      "bytes": 350474,
+      "sha256": "b3e1cdf75d824c948dfeec23c541b4481d9c47e4e234077219faffedcef3d6c1"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/C-illustrative-heliosphere.png",
+      "bytes": 208156,
+      "sha256": "1e60ac9c46ae1f186a31d01b13442dab5de7d88c5b269ad80e99571c6af79490"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/C-imap-desktop.png",
+      "bytes": 288305,
+      "sha256": "9d5423a5968007803778d603bf513d43da86f754b80183a1b487192eb007a428"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/C-imap-landscape.png",
+      "bytes": 104492,
+      "sha256": "12b78c88aad2a48d356da867caccde15307e71a96d5173aabf9c260d832e25b2"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/C-imap-portrait.png",
+      "bytes": 137178,
+      "sha256": "265af36f7044d22de880a806c3749b95a0c97895a032cfc78b1fdf6509819e5b"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/D-oort-100k-desktop.png",
+      "bytes": 215319,
+      "sha256": "e7ab13234a7bcc42171ac2912388d60a2f973c2308fde6c2f8a9bcf733135d9a"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/D-oort-100k-landscape.png",
+      "bytes": 105945,
+      "sha256": "6ce22bd63b021aa778836c1321433986e8573f739c88b004270134169e49436d"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/D-oort-100k-portrait.png",
+      "bytes": 117851,
+      "sha256": "2193a42c6ccef4734a4564942604e720bb1e73215db8adf6e4dd7e4aac85875e"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/D-return-native-earth.png",
+      "bytes": 999068,
+      "sha256": "90633a1f496272d8b0a00e816484adc5fd1bb9d4e12f2668e7b1b175156f73bb"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/D-return-native-sky.png",
+      "bytes": 723902,
+      "sha256": "7273d6bebb67dafe2150416add45e3404f854c9b7de01257db597fb4badbd9d2"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/D-return-saturn-system.png",
+      "bytes": 143475,
+      "sha256": "fa29b501a7edbd1822f0cba2491f1947151b520f4339ffd7464e7c26cb30ad50"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/index.html",
+      "bytes": 5024,
+      "sha256": "694cb02ba0aeb7e2f8c9e6d6a5ade8158dd5019a6c7b86d1ce3a62e62a5e2159"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/gallery/manifest.json",
+      "bytes": 5571,
+      "sha256": "d2f9de49e41116610485bc156d3a5b96fd6b229d06eee069734e2a0c497d07a7"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/journey-observer-assertion-independent-review.json",
+      "bytes": 2092,
+      "sha256": "31222d6ad5350b2f2be995d6b6aaadcfe5ba11f976f283c3b6e766a8341fc72d"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/layout-independent-review.json",
+      "bytes": 8759,
+      "sha256": "951a2b7c42caadaaf255fff33ce49e0ecb679e3f4c822fedf1bbb5b90037e8e9"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/navigation-independent-review.json",
+      "bytes": 5576,
+      "sha256": "794203a1abf9a4b86fefe3f090d0bc681088e8e300de5147947a9ce1eda1149e"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/observation-source-receipts.json",
+      "bytes": 16912,
+      "sha256": "9af10521b1da5b9f8ff4aa997b05a47f4efc4e5f38c50571d6abc12dd36aa416"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/observations-independent-numerics.json",
+      "bytes": 1128,
+      "sha256": "4eb026a87200ba0bed24748c0ed0a839b154feca741b00e4fd1a56d040ae82e0"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/baseline-voyager1-inspection.png",
+      "bytes": 267467,
+      "sha256": "a13fb0636f13fd7f76e62de0c3f951e105c2ebe08cf36b0730039b79e6672235"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/candidate-voyager1-inspection.png",
+      "bytes": 267467,
+      "sha256": "a13fb0636f13fd7f76e62de0c3f951e105c2ebe08cf36b0730039b79e6672235"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/cassini-desktop.png",
+      "bytes": 291108,
+      "sha256": "571970b29d713737389e694a1ff48965df20465a0b933634dd94f34c40628e8f"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/cassini-landscape.png",
+      "bytes": 139774,
+      "sha256": "c7152242925ad63c70f38ce5d76c73e0382fbc6221e4616710d93f759eb50683"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/cassini-portrait.png",
+      "bytes": 130201,
+      "sha256": "88c19f14b622c7a2ad27f20622288e17c1cf0d82629de95ed7de41fc92f4bfbc"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/heliosphere-desktop.png",
+      "bytes": 236590,
+      "sha256": "8b3f939465e7153e3d549f456a98a782484e57d6b2b6bf645536fe7a3795f13e"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/heliosphere-landscape.png",
+      "bytes": 94850,
+      "sha256": "6c89550e3540ab9468dd1ea6a8729a78d8d9d4c3018d48f1534f134eb0efb7e0"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/heliosphere-portrait.png",
+      "bytes": 139621,
+      "sha256": "c5f9062602b13c6636ca7d955b87d9e671e3cb3c2754d3bddbc30c9dd2bbee56"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/newhorizons-desktop.png",
+      "bytes": 174246,
+      "sha256": "21d14bbdcab580c25cfcf1e89dc8d3f22a88409e05ab76cca290f5765f09626c"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/newhorizons-landscape.png",
+      "bytes": 92499,
+      "sha256": "f95e7045e53f3cbacda7d52edd889455dc2645313ef4691f8f1f8acffbc364fe"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/newhorizons-portrait.png",
+      "bytes": 90928,
+      "sha256": "7dc97cef97e422522a774736ab8eb45ed66132532a1e204ee7174f9eb4306bb8"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/oort-desktop.png",
+      "bytes": 255947,
+      "sha256": "eb079137ef01cf556eab53c0be87434c59b08ad59403c596705be02cd69e1179"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/oort-landscape.png",
+      "bytes": 107395,
+      "sha256": "e1c36035bde0aa4cf8155f6461b81ea1ebfa62f42e46228a9b72c84d6c814006"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/oort-portrait.png",
+      "bytes": 140498,
+      "sha256": "3843deb6bdbe714837740f330205c0cead8f68ec81d1cd843962d53570a3392f"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/voyager1-desktop.png",
+      "bytes": 267467,
+      "sha256": "a13fb0636f13fd7f76e62de0c3f951e105c2ebe08cf36b0730039b79e6672235"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/voyager1-landscape.png",
+      "bytes": 131954,
+      "sha256": "ee9db51226584cf7c575a804bfbdd0605aa69c47dc55db93a875158a0d51d21c"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/voyager1-portrait.png",
+      "bytes": 107108,
+      "sha256": "119b8b4240eac55cce69dcf5473e60b3d3e0d5142708d4057238b12be771223b"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/voyager2-desktop.png",
+      "bytes": 243719,
+      "sha256": "ec1debedc1d76fa6d1c0d3f22989df9260796d697668c84240c400eac955115c"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/voyager2-landscape.png",
+      "bytes": 127792,
+      "sha256": "4b3f3de3ac80f97cce8e9d2d417664dc7ac7013f7cab3eea6ed03bd3f857b72a"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/performance-gallery/voyager2-portrait.png",
+      "bytes": 106768,
+      "sha256": "44b353058f212ae213dfe7509ed0f945c9651c8a7034a48e4612bac2be0df4ff"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/preservation.json",
+      "bytes": 9292,
+      "sha256": "f92f7f565b8878091ca020eb4dfe1d37e48e872621e54d5a569f9cd674c12915"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/after-imap-pointer-start.png",
+      "bytes": 288245,
+      "sha256": "129063f6251c3b91b4f83cd4354196d0f689d0914b3ac60f40aa2cc1b7f92fbd"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/after-pending-prepare-context-loss.png",
+      "bytes": 194578,
+      "sha256": "de4454a2a8e9f820ec510091bcb9f7989fc2d0eab76faa4c83a93d6b9f2cf9ee"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/before-imap-pointer-start.png",
+      "bytes": 286720,
+      "sha256": "9e3bc98241c2fc4f699573b42836a34dc384d0b687145dd5439ff44dcbb37de2"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/before-pending-prepare-context-loss.png",
+      "bytes": 191347,
+      "sha256": "9684622a4cfa952d234a9ed5531ada8118134bf321c009bf4238c1c6d48d3faa"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/final-imap-pointer-start.png",
+      "bytes": 288245,
+      "sha256": "129063f6251c3b91b4f83cd4354196d0f689d0914b3ac60f40aa2cc1b7f92fbd"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/final-pending-prepare-context-loss.png",
+      "bytes": 194578,
+      "sha256": "de4454a2a8e9f820ec510091bcb9f7989fc2d0eab76faa4c83a93d6b9f2cf9ee"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/final-pending-prepare-recovered.png",
+      "bytes": 190177,
+      "sha256": "492caba54e478e3b07b09d6b1a7440ddaa7b8567e9b2d1e1c7bb7f1ca33b5b75"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/presentation-after-A-voyager1-crossing.png",
+      "bytes": 198621,
+      "sha256": "95c86001419f703be36c2bc39cf9cf7010b86cbfce0ed2d03d47b100e44cdee1"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/presentation-after-A-voyager1-measured-explanation.png",
+      "bytes": 200431,
+      "sha256": "da5bd77e2931307ad2ead2b5ce35445dce6c4704779d292b70abb658df0bba68"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/presentation-after-B-voyager2-crossing.png",
+      "bytes": 207320,
+      "sha256": "039d408b48a0af288ca285cef9271a05202c6d586e158f122d047e61cdcd4afc"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/presentation-after-B-voyager2-measured-explanation.png",
+      "bytes": 208440,
+      "sha256": "a1faea1d3f26ed8dfb0f534665f5ac79f9ae9bd2cb107cebd13ca81ff7a02afd"
+    },
+    {
+      "path": "docs/validation/solar-system-2.6/review-gallery/presentation-before-A-voyager1-crossing.png",
+      "bytes": 210176,
+      "sha256": "50b0ca79a280cd64836c2a6722fbac1088e8cf93eb05f3147d42aba576a1ab6d"
+    },
+    {
+      "path": "frontend/src/features/beyond/BeyondScene.ts",
+      "bytes": 21896,
+      "sha256": "aaa78da4bcd373f79c1cf0f2fce0ba066bf4ef1c64a492cf53b3e2015229ee1c"
+    },
+    {
+      "path": "frontend/src/features/beyond/BeyondWorkspace.tsx",
+      "bytes": 19094,
+      "sha256": "7c5881347bb09778d5c95bcb9e056acd61deb089c074b10195e308c482f6a3ab"
+    },
+    {
+      "path": "frontend/src/features/beyond/ObservationViews.tsx",
+      "bytes": 13495,
+      "sha256": "49f29ee14c70cbdf53c78ef1f5d952f1c235f5574a160a6a563822a65dca2e81"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyond.css",
+      "bytes": 8085,
+      "sha256": "0b86d8e8f009742abc4a54041eb802510cf0c6e5590fe08f39b30e3c82247e54"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyondContracts.ts",
+      "bytes": 10940,
+      "sha256": "4a129a7643137ca8cddc65b5540629a4f93d1109fa1cb94207113735a34c11b0"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyondMath.ts",
+      "bytes": 3979,
+      "sha256": "00386bf7795a2224ce22b8eb415b77a5191365e3f8091bccd5bfe87845d78364"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyondNavigation.ts",
+      "bytes": 1272,
+      "sha256": "13005837cd79b92e82c3f78eb35d4d12c532d1ce2e1e8d3b2e2a30e9d4d0c6d5"
+    },
+    {
+      "path": "frontend/src/features/missions/MissionScene.ts",
+      "bytes": 20562,
+      "sha256": "a05bbfdc87cf917e96017d66bb6f24e391083b3de75a1250be45b68683d207d5"
+    },
+    {
+      "path": "frontend/src/features/missions/MissionWorkspace.tsx",
+      "bytes": 26401,
+      "sha256": "096aa996a059dc0cad3c6253b8a68b75af5a26dbae158a504c48c705e4aee9f5"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarCameraController.ts",
+      "bytes": 9240,
+      "sha256": "b744257cb084d45970a779870c33f574ed7b969663eb8bf1d49e5a74d15e25cb"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarWorkspace.tsx",
+      "bytes": 49310,
+      "sha256": "21de1163cfe7a493050cf3a26462fd689e838cf32a8116d90498a1a968f58b89"
+    },
+    {
+      "path": "frontend/src/features/solar/solarPrecision.ts",
+      "bytes": 2409,
+      "sha256": "68c878b5f162bce0a47eed187315d11ef3b3da107b0e8e34f1944bf5d8d855fc"
+    },
+    {
+      "path": "frontend/src/features/systems/PlanetSelector.tsx",
+      "bytes": 4777,
+      "sha256": "34a602b7653068642f5ddb70d0d501aa2a871273b2b37745aa1fc7a40635b98b"
+    },
+    {
+      "path": "frontend/src/routes/AppRouter.tsx",
+      "bytes": 3019,
+      "sha256": "4e6a48baebbe9c9f0e9ea671ee0851383cc9ffeed205226416727aabb6a3ee2e"
+    },
+    {
+      "path": "frontend/tests/beyondCameraDomain.test.ts",
+      "bytes": 1843,
+      "sha256": "46bf46941560059fdfd389f9ab6e31f555bbb47ab21bef1e7b1f03e25c6e780a"
+    },
+    {
+      "path": "frontend/tests/beyondContracts.test.ts",
+      "bytes": 4516,
+      "sha256": "538f4084469800d1fc8c0efd03eee61429b5a0c8b0a58b66f57ac0341c0ebe7b"
+    },
+    {
+      "path": "frontend/tests/beyondMath.test.ts",
+      "bytes": 3610,
+      "sha256": "4c947a95cdbe986b5f0b98c2201f715d6e266c4c24c31643e8f317ef0226ae3b"
+    },
+    {
+      "path": "frontend/tests/beyondObservationViews.test.tsx",
+      "bytes": 4685,
+      "sha256": "c19e1e0aef11bd589a2ae8ab8270495edb352c1ed2e614179d709301797d3a5c"
+    },
+    {
+      "path": "frontend/tests/beyondScene.test.ts",
+      "bytes": 6153,
+      "sha256": "bf4b08454e29f8a4de37c7ebdb83ecb64cbc4e67fe55c87f1d509d83ac832dd4"
+    },
+    {
+      "path": "frontend/tests/solarCameraController.test.ts",
+      "bytes": 4195,
+      "sha256": "2854d58178e5751591983259fe29ce8198ef3e8bcf7d77a04986294318509517"
+    },
+    {
+      "path": "frontend/tests/solarFoundation.test.ts",
+      "bytes": 3563,
+      "sha256": "9e57eddb567a3e446929725f2abe19c546333ed117a81d902ce9edb9c03125bb"
+    },
+    {
+      "path": "scripts/skydata/acquire_solar26_observations.py",
+      "bytes": 20066,
+      "sha256": "9418d70b9ce54d9dedade8efd8702d8eec975c143a662e1c67b89ff87e9588d5"
+    },
+    {
+      "path": "scripts/skydata/qualify_solar26_context.py",
+      "bytes": 6173,
+      "sha256": "11b9bd21a75a54c90c087d0433b03a8099c3fdc0d56e91a3022b438e03c6a396"
+    },
+    {
+      "path": "scripts/skydata/test_solar26_observations.py",
+      "bytes": 7346,
+      "sha256": "a3e0a3e06ba84f4f21611e025e07a5ac97b5082dc9d83261372872e2c53b7419"
+    },
+    {
+      "path": "scripts/validation/package_solar26_gallery.py",
+      "bytes": 5285,
+      "sha256": "6ac6c9e9f788050c88f740bcf0b6d90d8ac0b6a383e1b4c0b7c78358b54d1361"
+    },
+    {
+      "path": "scripts/validation/package_solar26_performance.py",
+      "bytes": 3877,
+      "sha256": "800d0b98df6f57d8700cc2b5bdfd7467f960e4b1c97d4e9830f5b46cc3e7a653"
+    },
+    {
+      "path": "scripts/validation/profile_solar26_beyond.mjs",
+      "bytes": 4695,
+      "sha256": "fda9d11d818630856e3473c2a09700d4ee2d9104b874fa91c54fcf5e99d9fb40"
+    },
+    {
+      "path": "scripts/validation/profile_solar26_cold.mjs",
+      "bytes": 9340,
+      "sha256": "3ddcda5f01868564e32b25b2770e21ca42f542dc16ad0dc3da583b36b8e71d5e"
+    },
+    {
+      "path": "scripts/validation/review_solar26_workspace.mjs",
+      "bytes": 6504,
+      "sha256": "7317dc25a77a4023e9766a1c3ad559f2ae07d1cd09b4ee71c0d38373b6406928"
+    },
+    {
+      "path": "scripts/validation/verify_solar26_journeys.mjs",
+      "bytes": 26039,
+      "sha256": "c0f68326186f5336436bb0650a51d6b7d5f72de868e6cc99d326e352d39270b5"
+    },
+    {
+      "path": "scripts/validation/verify_solar26_observation_source.py",
+      "bytes": 4663,
+      "sha256": "7af770ed50ed6241c9f5734833b760d73f590a200d8c8c9259b188d8ed4166dc"
+    },
+    {
+      "path": "scripts/validation/verify_solar26_prepared_programs.mjs",
+      "bytes": 916,
+      "sha256": "9e53a8213b7d6f713714d9b65bb447e9f4ac58124ba52388f3364ef3f60fd07d"
+    },
+    {
+      "path": "scripts/validation/verify_solar26_shadow_continuity.mjs",
+      "bytes": 4700,
+      "sha256": "cf362efdc646968ef6bb41334da11543bc6684275dcd33fd5df9d8b5ae738aea"
+    }
+  ]
+}

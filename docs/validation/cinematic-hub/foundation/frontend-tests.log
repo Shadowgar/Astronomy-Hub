@@ -1,0 +1,11 @@
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-foundation-1/frontend
+
+
+ Test Files  46 passed (46)
+      Tests  311 passed (311)
+   Start at  19:19:37
+   Duration  4.32s (transform 12.81s, setup 0ms, import 22.93s, tests 8.00s, environment 13ms)

@@ -1,0 +1,20 @@
+1440 initial ORAS Sky and served source identity 769ms
+1440 native Landscape toggle and Sky Night Mode ON 434ms
+1440 Explore dismissal and focus return 73ms
+1440 arrival and short outward overshoot stay in Sky 1384ms
+1440 reverse input leaves boundary hysteresis 477ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 90000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-runtime-mode=earth][data-runtime-status=ready]') to be visible[22m
+
+    at ready (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:32:105)
+    at outward (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:59:173)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:71:3 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

@@ -1,0 +1,2 @@
+1440 native satellite presentation / identity / Focus / tracking / remount PASS
+390 native satellite presentation / identity / Focus / tracking / remount PASS

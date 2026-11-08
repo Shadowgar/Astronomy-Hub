@@ -1,0 +1,20 @@
+{
+  "checks": [],
+  "errors": [],
+  "initial": {
+    "epoch": "2026-10-23T01:05:00.000Z",
+    "url": "http://127.0.0.1:4225/planetary-system/mars?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B2.634980994374928%2C-62893.63369506926%2C168313.1267600453%5D%2C%22target%22%3A%5B2.634980994374928%2C-4.6703273503535465%2C-4.637676849615673%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D"
+  },
+  "end": {
+    "epoch": "2026-10-31T23:58:50.817Z",
+    "notice": "Playback paused at the end of these qualified source samples. Choose another UTC epoch to load its available coverage.×",
+    "url": "http://127.0.0.1:4225/planetary-system/mars?date=2026-10-31T23%3A58%3A50.817Z&camera=%7B%22position%22%3A%5B2.634980994374928%2C-62893.63369506926%2C168313.1267600453%5D%2C%22target%22%3A%5B2.634980994374928%2C-4.6703273503535465%2C-4.637676849615673%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D"
+  },
+  "back": {
+    "epoch": "2026-10-23T01:05:00.000Z",
+    "notice": "Playback paused at the end of these qualified source samples. Choose another UTC epoch to load its available coverage.×",
+    "url": "http://127.0.0.1:4225/planetary-system/mars?date=2026-10-23T01%3A05%3A00.000Z&camera=%7B%22position%22%3A%5B2.634980994374928%2C-62893.63369506926%2C168313.1267600453%5D%2C%22target%22%3A%5B2.634980994374928%2C-4.6703273503535465%2C-4.637676849615673%5D%2C%22up%22%3A%5B0%2C0%2C1%5D%2C%22focus%22%3Anull%7D"
+  },
+  "status": "FAIL",
+  "failure": "AssertionError [ERR_ASSERTION]: Back to an earlier epoch retains obsolete end-of-coverage notice\n    at file:///tmp/ps3-notice-review/reproduce.mjs:10:263"
+}

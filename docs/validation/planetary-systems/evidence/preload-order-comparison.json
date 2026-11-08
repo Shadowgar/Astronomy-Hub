@@ -1,0 +1,67 @@
+[
+  {
+    "build": "repro-host1",
+    "node": "v22.22.0",
+    "source_root": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/frontend",
+    "entry": "index-CVe2OT59.js",
+    "sha256": "58acde52bb3e7bd59f81abda1bfab993ad55a9e0fd5ecbf410c7402e541d308b",
+    "system_imports": [
+      "assets/index-CVe2OT59.js",
+      "assets/solar-CBPVovXr.js",
+      "assets/solarMaterials-CgfaEbDI.js"
+    ],
+    "preload_table": "const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=[\"assets/SystemWorkspace-Q4FAguoD.js\",\"assets/solar-CBPVovXr.js\",\"assets/solar-BfOxeaE7.css\",\"assets/solarMaterials-CgfaEbDI.js\",\"assets/solarMaterials-BrquRYN7.css\",\"assets/PlanetWorkspace-TL_Ql97C.js\",\"assets/planet-BJpfz2rD.css\",\"assets/SolarWorkspace-BgSizRBo.js\"])))=>i.map(i=>d[i]);"
+  },
+  {
+    "build": "repro-host2",
+    "node": "v22.22.0",
+    "source_root": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/frontend",
+    "entry": "index-CVe2OT59.js",
+    "sha256": "58acde52bb3e7bd59f81abda1bfab993ad55a9e0fd5ecbf410c7402e541d308b",
+    "system_imports": [
+      "assets/index-CVe2OT59.js",
+      "assets/solar-CBPVovXr.js",
+      "assets/solarMaterials-CgfaEbDI.js"
+    ],
+    "preload_table": "const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=[\"assets/SystemWorkspace-Q4FAguoD.js\",\"assets/solar-CBPVovXr.js\",\"assets/solar-BfOxeaE7.css\",\"assets/solarMaterials-CgfaEbDI.js\",\"assets/solarMaterials-BrquRYN7.css\",\"assets/PlanetWorkspace-TL_Ql97C.js\",\"assets/planet-BJpfz2rD.css\",\"assets/SolarWorkspace-BgSizRBo.js\"])))=>i.map(i=>d[i]);"
+  },
+  {
+    "build": "repro-node24a",
+    "node": "v24.14.0",
+    "source_root": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/frontend",
+    "entry": "index-CVe2OT59.js",
+    "sha256": "58acde52bb3e7bd59f81abda1bfab993ad55a9e0fd5ecbf410c7402e541d308b",
+    "system_imports": [
+      "assets/index-CVe2OT59.js",
+      "assets/solar-CBPVovXr.js",
+      "assets/solarMaterials-CgfaEbDI.js"
+    ],
+    "preload_table": "const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=[\"assets/SystemWorkspace-Q4FAguoD.js\",\"assets/solar-CBPVovXr.js\",\"assets/solar-BfOxeaE7.css\",\"assets/solarMaterials-CgfaEbDI.js\",\"assets/solarMaterials-BrquRYN7.css\",\"assets/PlanetWorkspace-TL_Ql97C.js\",\"assets/planet-BJpfz2rD.css\",\"assets/SolarWorkspace-BgSizRBo.js\"])))=>i.map(i=>d[i]);"
+  },
+  {
+    "build": "repro-node24b",
+    "node": "v24.14.0",
+    "source_root": "/home/rocco/Astronomy-Hub/.worktrees/ps1-earth-moon-system-1/frontend",
+    "entry": "index-CVe2OT59.js",
+    "sha256": "58acde52bb3e7bd59f81abda1bfab993ad55a9e0fd5ecbf410c7402e541d308b",
+    "system_imports": [
+      "assets/index-CVe2OT59.js",
+      "assets/solar-CBPVovXr.js",
+      "assets/solarMaterials-CgfaEbDI.js"
+    ],
+    "preload_table": "const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=[\"assets/SystemWorkspace-Q4FAguoD.js\",\"assets/solar-CBPVovXr.js\",\"assets/solar-BfOxeaE7.css\",\"assets/solarMaterials-CgfaEbDI.js\",\"assets/solarMaterials-BrquRYN7.css\",\"assets/PlanetWorkspace-TL_Ql97C.js\",\"assets/planet-BJpfz2rD.css\",\"assets/SolarWorkspace-BgSizRBo.js\"])))=>i.map(i=>d[i]);"
+  },
+  {
+    "build": "repro-node24-hub",
+    "node": "v24.14.0",
+    "source_root": "/hub/frontend",
+    "entry": "index-CVe2OT59.js",
+    "sha256": "5d3c37eacb2531843c2f8cbffd1837a3087ce8936e980ef7a0a96fd2e324ea62",
+    "system_imports": [
+      "assets/index-CVe2OT59.js",
+      "assets/solarMaterials-CgfaEbDI.js",
+      "assets/solar-CBPVovXr.js"
+    ],
+    "preload_table": "const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=[\"assets/SystemWorkspace-Q4FAguoD.js\",\"assets/solarMaterials-CgfaEbDI.js\",\"assets/solarMaterials-BrquRYN7.css\",\"assets/solar-CBPVovXr.js\",\"assets/solar-BfOxeaE7.css\",\"assets/PlanetWorkspace-TL_Ql97C.js\",\"assets/planet-BJpfz2rD.css\",\"assets/SolarWorkspace-BgSizRBo.js\"])))=>i.map(i=>d[i]);"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "records": 14281,
+  "uniqueNorad": 14281,
+  "objectTypes": {
+    "unspecified": 12029,
+    "Rocket second Stage": 343,
+    "Rocket body": 1782,
+    "Debris": 82,
+    "Rocket first Stage": 45
+  }
+}

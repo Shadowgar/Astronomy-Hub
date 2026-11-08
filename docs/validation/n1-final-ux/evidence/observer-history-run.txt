@@ -1,0 +1,4 @@
+1440 sky same-frame observer sync / provenance-only updates / Back / Forward / round trip PASS
+1440 earth same-frame observer sync / provenance-only updates / Back / Forward / round trip PASS
+390 sky same-frame observer sync / provenance-only updates / Back / Forward / round trip PASS
+390 earth same-frame observer sync / provenance-only updates / Back / Forward / round trip PASS

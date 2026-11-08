@@ -1,0 +1,49 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/earthDirectSearch.test.tsx
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/r2-earth-ux-performance-1/frontend
+
+stderr | tests/earthDirectSearch.test.tsx > renders a permanent submitted Search Earth field outside any dialog
+Warning: useLayoutEffect does nothing on the server, because its effect cannot be encoded into the server renderer's output format. This will lead to a mismatch between the initial, non-hydrated UI and the intended UI. To avoid this, useLayoutEffect should only be used in components that render exclusively on the client. See https://reactjs.org/link/uselayouteffect-ssr for common fixes.
+    at MemoryRouter (/home/rocco/Astronomy-Hub/frontend/node_modules/react-router/dist/umd/react-router.development.js:1097:7)
+
+ ❯ tests/earthDirectSearch.test.tsx (2 tests | 2 failed) 28ms
+   × renders a permanent submitted Search Earth field outside any dialog 21ms
+   × Explore retains cross-mode/manual coordinates without duplicating search 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/earthDirectSearch.test.tsx > renders a permanent submitted Search Earth field outside any dialog
+AssertionError: expected '<section class="ws-earth-search" aria…' to contain '>Search Earth</label>'
+
+Expected: ">Search Earth</label>"
+Received: "<section class="ws-earth-search" aria-label="Earth location search"><form><label for="earth-search-query">Find a place or address</label><div class="ws-earth-search-input"><input id="earth-search-query" type="search" placeholder="City, street address, or latitude, longitude" autoComplete="off" maxLength="200" value=""/><button class="ws-primary" type="submit" disabled="">Search Earth</button></div><p class="ws-earth-search-hint">Search when you’re ready, then choose a result. Coordinates work without place search.</p></form><p class="ws-earth-search-hint">Place data: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · Photon. Public search may be unavailable.</p></section>"
+
+ ❯ tests/earthDirectSearch.test.tsx:7:216
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/earthDirectSearch.test.tsx > Explore retains cross-mode/manual coordinates without duplicating search
+Error: useLocation() may be used only in the context of a <Router> component.
+ ❯ Object.invariant [as UNSAFE_invariant] ../../../frontend/node_modules/@remix-run/router/history.ts:494:10
+ ❯ invariant ../../../frontend/node_modules/react-router/lib/hooks.tsx:105:2
+ ❯ EarthSearch src/features/workspace/EarthSearch.tsx:7:16
+
+ ❯ renderWithHooks ../../../frontend/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5662:16
+ ❯ renderIndeterminateComponent ../../../frontend/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5736:15
+ ❯ renderElement ../../../frontend/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5961:7
+ ❯ renderNodeDestructiveImpl ../../../frontend/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6119:11
+ ❯ renderNodeDestructive ../../../frontend/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6091:14
+ ❯ renderNode ../../../frontend/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6274:12
+ ❯ renderChildrenArray ../../../frontend/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6226:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  13:04:54
+   Duration  643ms (transform 186ms, setup 0ms, import 327ms, tests 28ms, environment 0ms)

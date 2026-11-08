@@ -1,0 +1,3 @@
+PASS: manifest structure/paths/duplicates; 335 document-path entries (333 task entries + 2 global entries); 8 task packs.
+PASS: 61 checkpoint Markdown documents; 1692 relative references (1676 required repository links + 16 registered private historical artifacts); code fences balanced; 10 expected ADRs.
+NOTE: private artifact absence is expected in clean checkouts; present bytes are hash-checked. No fresh runtime proof is inferred.

@@ -1,0 +1,15 @@
+import subprocess,json,re
+from pathlib import Path
+r=Path('output/n1/remediation')
+q='''query{repository(owner:"Shadowgar",name:"Astronomy-Hub"){p75:pullRequest(number:75){headRefOid state baseRefName comments(first:100){pageInfo{hasNextPage}nodes{body url author{login}updatedAt}}reviewThreads(first:100){pageInfo{hasNextPage}nodes{id isResolved isOutdated comments(first:100){pageInfo{hasNextPage}nodes{body url commit{oid}author{login}}}}}reviews(first:100){pageInfo{hasNextPage}nodes{state submittedAt body commit{oid}author{login}}}}p74:pullRequest(number:74){state headRefOid baseRefName}p73:pullRequest(number:73){state headRefOid baseRefName}}}'''
+p=json.loads(subprocess.check_output(['gh','api','graphql','-f','query='+q],text=True));assert not p.get('errors'),p
+(r/'review-current.json').write_text(json.dumps(p,indent=2)+'\n')
+a=p['data']['repository']['p75']
+for key in ['comments','reviewThreads','reviews']:assert not a[key]['pageInfo']['hasNextPage'],key
+for t in a['reviewThreads']['nodes']:assert not t['comments']['pageInfo']['hasNextPage']
+states=[]
+for c in a['comments']['nodes']:
+ for m in re.finditer(r'<!-- codex-review-state:v1 (.*?) -->',c['body'],re.S):states.append(json.loads(m[1]))
+checks=json.loads(subprocess.check_output(['gh','pr','view','75','--repo','Shadowgar/Astronomy-Hub','--json','statusCheckRollup'],text=True))
+result={'deliveryHead':a['headRefOid'],'state':a['state'],'base':a['baseRefName'],'codexStates':states,'unresolved':[t for t in a['reviewThreads']['nodes']if not t['isResolved']],'checks':checks,'chain':{k:v for k,v in p['data']['repository'].items()if k!='p75'}}
+(r/'review-current-summary.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

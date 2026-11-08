@@ -1,0 +1,372 @@
+[
+  {
+    "path": "after/1440x900-67p-trajectory.png",
+    "bytes": 128373,
+    "sha256": "7ea1486c46c0b415927f1375fced19a2f499ac51101899e5a1b4fe719e1dee46"
+  },
+  {
+    "path": "after/1440x900-67p.png",
+    "bytes": 271987,
+    "sha256": "8ba3fd674883784ca611b309df4093463f43515e1c5a76576b8c94cb74ac230f"
+  },
+  {
+    "path": "after/1440x900-asteroid-belt.png",
+    "bytes": 496053,
+    "sha256": "813c56b1efa89531e173c973c9b0cf739451e3a739707a2a72ec94be610a7ecf"
+  },
+  {
+    "path": "after/1440x900-borisov-trajectory.png",
+    "bytes": 118645,
+    "sha256": "058f791118d9c934c6c5a191a2ccd45ffe03f170794d126d3b55c9a5a859466e"
+  },
+  {
+    "path": "after/1440x900-borisov.png",
+    "bytes": 117554,
+    "sha256": "a611449f087560a1529e89c7848849e55d51994758c44c0aad6b7272d666b994"
+  },
+  {
+    "path": "after/1440x900-ceres.png",
+    "bytes": 349986,
+    "sha256": "db814e418b36417efb8da4e5b868d1da125124cf8f0e6294d3130575d2f51fc4"
+  },
+  {
+    "path": "after/1440x900-charon.png",
+    "bytes": 349155,
+    "sha256": "a9218fc9562a762a070da0d0b76c20920a1ff3f65f1b7a559ba46e9cbbe8b36a"
+  },
+  {
+    "path": "after/1440x900-eris.png",
+    "bytes": 259716,
+    "sha256": "7e91223796d395d72a59bbfdf93013ec46c235014b396177e12dfc08b0a6b56a"
+  },
+  {
+    "path": "after/1440x900-eros.png",
+    "bytes": 214903,
+    "sha256": "46530e281fd281fe3ac8a1f29035e043842eb5be00617ad2c3789d505a460285"
+  },
+  {
+    "path": "after/1440x900-halley-trajectory.png",
+    "bytes": 115655,
+    "sha256": "e6babc7843224aa2486c77f06dd17d9527e6ce093acea40e4e983b4d259115c9"
+  },
+  {
+    "path": "after/1440x900-halley.png",
+    "bytes": 166444,
+    "sha256": "703a11ccf95b8a44424c04307dac7897f95ac5a38da4bcc9d30286575324af67"
+  },
+  {
+    "path": "after/1440x900-neptune.png",
+    "bytes": 404379,
+    "sha256": "6f872b772205675824cb82ddb8e2d55a33fa7a1cfe22d82cab6f28ee7ab7c957"
+  },
+  {
+    "path": "after/1440x900-outer.png",
+    "bytes": 228841,
+    "sha256": "8547c4c6927a0a8bef9c11303690ae5b4d0b16527ca43b06e938a7c8e559a2d9"
+  },
+  {
+    "path": "after/1440x900-overview.png",
+    "bytes": 144976,
+    "sha256": "5ec9e10a31692f015c6e4c668c2cc33c7075bd09a6919f340f09ace9a25c9227"
+  },
+  {
+    "path": "after/1440x900-pluto-system.png",
+    "bytes": 174810,
+    "sha256": "1bcdd8aaa5bf1d78113d08199cb1a3d69aa99cf8b0477a734016a6b9aa7345e7"
+  },
+  {
+    "path": "after/1440x900-pluto.png",
+    "bytes": 391518,
+    "sha256": "fbd6c9bfa424ade1ade9e28ce71fc9eef8a8dc5ae2dd1fda471995d383167e0a"
+  },
+  {
+    "path": "after/1440x900-trans-neptunian.png",
+    "bytes": 175681,
+    "sha256": "399ea024c6aee28077dbf02de2753c32b87696e54d93dedc019d1ae7205dde54"
+  },
+  {
+    "path": "after/1440x900-vesta.png",
+    "bytes": 355920,
+    "sha256": "0bbb7fe20a6cab75f7b525e6848aa3e2a33cf141b3474e8ff5d16558a3747d0e"
+  },
+  {
+    "path": "after/390x844-67p-trajectory.png",
+    "bytes": 73650,
+    "sha256": "763aeb92f8338ec737583b1595b9670cd66dd970e146394e6a4f1aafdbf63787"
+  },
+  {
+    "path": "after/390x844-67p.png",
+    "bytes": 107486,
+    "sha256": "8f8b5e1f7d9992b7a28558afb0ec5935a7d444ce08824326b0d58e3a7dcc0abb"
+  },
+  {
+    "path": "after/390x844-asteroid-belt.png",
+    "bytes": 216095,
+    "sha256": "b4b00d43b56025128182f038e9d8762486c4a1a112ee38678bfb83f552039221"
+  },
+  {
+    "path": "after/390x844-borisov-trajectory.png",
+    "bytes": 68285,
+    "sha256": "c82e8cebb4b52071e12f9b0075d3879864f4bfa22b6429b267cdd793dd00fc2f"
+  },
+  {
+    "path": "after/390x844-borisov.png",
+    "bytes": 66910,
+    "sha256": "0976409c35f1264d9c43f733c3245898039e0a3bb68ff6fa6f3ed028aa7f9086"
+  },
+  {
+    "path": "after/390x844-ceres.png",
+    "bytes": 117586,
+    "sha256": "6dbc349db3e3b636386bb57c9e975b9d7d9da0fe883122ea25d5bab2aab6ae61"
+  },
+  {
+    "path": "after/390x844-charon.png",
+    "bytes": 141295,
+    "sha256": "8e0423671ea9cbb31f0565817733e78ec1cd469be1bb42a3af2fc6ef2df603df"
+  },
+  {
+    "path": "after/390x844-eris.png",
+    "bytes": 93576,
+    "sha256": "2018026ff33726582e9688cf959b925c060ea27ebb53834d430bbc7210d47867"
+  },
+  {
+    "path": "after/390x844-eros.png",
+    "bytes": 85236,
+    "sha256": "87c296f8aa8936bd61194090d55dad1a5e0a48c3981ad8af63aa1d0c097880a8"
+  },
+  {
+    "path": "after/390x844-halley-trajectory.png",
+    "bytes": 68722,
+    "sha256": "a1ddcf0e8cf86074caab1b5b74c60a5a10fb0d4721e4d98e0a0f8667566e99b3"
+  },
+  {
+    "path": "after/390x844-halley.png",
+    "bytes": 81316,
+    "sha256": "dce409bccb6d25d262d4a68b211b215573579466cc38cd5526cc1adb73e56c38"
+  },
+  {
+    "path": "after/390x844-neptune.png",
+    "bytes": 145249,
+    "sha256": "4c4d86d7c597e423591d1e22c68aeb6e8f4ac25f5744764e12e8c90549de53e2"
+  },
+  {
+    "path": "after/390x844-outer.png",
+    "bytes": 75914,
+    "sha256": "53de233afca902d6807fb1595bab2822552adbf0aa45b22f73ff4d77765935c8"
+  },
+  {
+    "path": "after/390x844-overview.png",
+    "bytes": 70400,
+    "sha256": "c71dc68ebd64b59a6f978b2cf8b2bed1a85fc53fa729e906dc465ab367572e16"
+  },
+  {
+    "path": "after/390x844-pluto-system.png",
+    "bytes": 136547,
+    "sha256": "25c99e6f6e8e2a1355f3b87286cd05622aeafe65b0d740dbcfb030d6fb6c12cc"
+  },
+  {
+    "path": "after/390x844-pluto.png",
+    "bytes": 123446,
+    "sha256": "3f744f7185a7340b87293a8950c3f0b6af6e8633935c967e2c2f22562a7e24de"
+  },
+  {
+    "path": "after/390x844-trans-neptunian.png",
+    "bytes": 122369,
+    "sha256": "61850420334944fc5e87a2e6a9345e2aca3fe9a67ce0ca6c3f8022a7dd759136"
+  },
+  {
+    "path": "after/390x844-vesta.png",
+    "bytes": 119446,
+    "sha256": "8911bbc7a4daa96351e4044ac28af9f51bdc1cdc594c7331c284ad13a74e6592"
+  },
+  {
+    "path": "after/844x390-67p-trajectory.png",
+    "bytes": 85468,
+    "sha256": "bac810a7468fe9d1cd2d60a7353e2979503a03ef1ca6229feebf9fa53d283832"
+  },
+  {
+    "path": "after/844x390-67p.png",
+    "bytes": 133982,
+    "sha256": "fc9498609a7ee1f14a6918ff28e01b58779bb79a16e36ce48b7bb83886bed8f7"
+  },
+  {
+    "path": "after/844x390-asteroid-belt.png",
+    "bytes": 275458,
+    "sha256": "33ba240b1ebb4b56daeaba98c668630a8e48eb1142f6065cabf965f918440e56"
+  },
+  {
+    "path": "after/844x390-borisov-trajectory.png",
+    "bytes": 85795,
+    "sha256": "e42811aba94a4a6d3ce00661306e546d6870bd48d278af56caea083b8cab024d"
+  },
+  {
+    "path": "after/844x390-borisov.png",
+    "bytes": 87129,
+    "sha256": "0f7fc3bd1bbf6cafced9e266074d49dcf3741635b9fd8523cec7b729ae5e8e0d"
+  },
+  {
+    "path": "after/844x390-ceres.png",
+    "bytes": 149148,
+    "sha256": "0cc1373c732aaac66ccdfb0a5ecbdbf88eacf096f1871049c15179e76a367e35"
+  },
+  {
+    "path": "after/844x390-charon.png",
+    "bytes": 127709,
+    "sha256": "8db2ff4e37096de20a063d7cbab3be92d5364b9e7ac0f30c9f348bc27637a940"
+  },
+  {
+    "path": "after/844x390-eris.png",
+    "bytes": 136494,
+    "sha256": "e083b6b4f9490e475438f2619b024001e2ac778b6c4a7cfdb02a3c3859f43c0d"
+  },
+  {
+    "path": "after/844x390-eros.png",
+    "bytes": 121637,
+    "sha256": "a57a6266bd1357d75ef90b8abd6c4e98428e77fb2577c13da59deed9e94a5294"
+  },
+  {
+    "path": "after/844x390-halley-trajectory.png",
+    "bytes": 84300,
+    "sha256": "6704231aad8ac71d32dd215d01f8a93548c24c458d60ee737f5f5fe259063f94"
+  },
+  {
+    "path": "after/844x390-halley.png",
+    "bytes": 103290,
+    "sha256": "308cd59d44b2040143a817b3397fdecdd517b3c996cc98648646be6784029231"
+  },
+  {
+    "path": "after/844x390-neptune.png",
+    "bytes": 165648,
+    "sha256": "d4e6ed52c22129de1a5abc490f484a77a02cdd6e204b01cacdd113f783afcb56"
+  },
+  {
+    "path": "after/844x390-outer.png",
+    "bytes": 100729,
+    "sha256": "82b65be6c1fef115ccb49ed877807c62d3ef866f63e638a98276143bd75d58cf"
+  },
+  {
+    "path": "after/844x390-overview.png",
+    "bytes": 81717,
+    "sha256": "694cb6d9efdc2a0a615800473191e1f0bcfdbbbba7f9d0f32e2329f63c3c783b"
+  },
+  {
+    "path": "after/844x390-pluto-system.png",
+    "bytes": 86142,
+    "sha256": "ad9b5719b1abc4957f22b9577687a4b6c3c051043db2bd059102da48508169a9"
+  },
+  {
+    "path": "after/844x390-pluto.png",
+    "bytes": 150288,
+    "sha256": "8e8ebb0455e4ffa4431295e9ccd987480b936044c7e35e254e539bab56b934da"
+  },
+  {
+    "path": "after/844x390-trans-neptunian.png",
+    "bytes": 149629,
+    "sha256": "3a7ecd95dbbd40c7583adb85e1b5420a0d572b6dd8716e7366e4496ced4025a5"
+  },
+  {
+    "path": "after/844x390-vesta.png",
+    "bytes": 156365,
+    "sha256": "3dd612c3998d7733131215b077b46b750040581aae5db3c69623712ba206118f"
+  },
+  {
+    "path": "before/1440x900-asteroid-belt.png",
+    "bytes": 359275,
+    "sha256": "de2f6c40615f5cd2c3cada2c1f778fead2eeb7361685f037617e5016505fabb9"
+  },
+  {
+    "path": "before/1440x900-eros.png",
+    "bytes": 259484,
+    "sha256": "3b95b4bc0b1534e7c622ca3621650d43ce2343cfe2f216ca37b38c355f60baad"
+  },
+  {
+    "path": "before/1440x900-neptune.png",
+    "bytes": 406884,
+    "sha256": "583adde13f1e24aaa350b92d0b8977b5b4baf4f731c2743279611fde6fc5cb13"
+  },
+  {
+    "path": "before/1440x900-outer.png",
+    "bytes": 281051,
+    "sha256": "ded38f44f70c86e522ce2497ff2b057e87b2eaff739a446aa0a17ef2946558b6"
+  },
+  {
+    "path": "before/1440x900-overview.png",
+    "bytes": 133868,
+    "sha256": "c8892c3b8c8982c4a3f8b651c371cacceb9bf2791b21c83100d0aa8b58c8c5a4"
+  },
+  {
+    "path": "before/390x844-asteroid-belt.png",
+    "bytes": 113559,
+    "sha256": "f41154e5d2d21cb04d10d3d508910c3f9788501d44b09eed787153a0fcfbbfb6"
+  },
+  {
+    "path": "before/390x844-eros.png",
+    "bytes": 111653,
+    "sha256": "9c2682a9f58b9ae4b79cc3ef88227c4f6cd5140c957b56fc85595331a763b6e8"
+  },
+  {
+    "path": "before/390x844-neptune.png",
+    "bytes": 144932,
+    "sha256": "5c56ebe1b30333917087c4fa435c0f11c083ffde7a5d7b3c1eee850a5477afe1"
+  },
+  {
+    "path": "before/390x844-outer.png",
+    "bytes": 116760,
+    "sha256": "7521a95a21809896c1a05ec28c66b5f9816b2520a87f5ca27735578fd0adc532"
+  },
+  {
+    "path": "before/390x844-overview.png",
+    "bytes": 95510,
+    "sha256": "c8c31541db7d4c50ef0867e3b04f14fb6ca8b427f48cd5d070e377c5b7b2dab4"
+  },
+  {
+    "path": "before/844x390-asteroid-belt.png",
+    "bytes": 143113,
+    "sha256": "cd7104ef9a5166b6661247520a741405f02648cf7bdf8df63e4174160fe54781"
+  },
+  {
+    "path": "before/844x390-eros.png",
+    "bytes": 143435,
+    "sha256": "afb7e24c96790420f689d65bb63ba65ae051b98df655612e2aa6e2cd7d009657"
+  },
+  {
+    "path": "before/844x390-neptune.png",
+    "bytes": 166222,
+    "sha256": "e94df01a846e5ad26c7a71fdf654bad0925fc02bab3bcc4f95e7aa1fb3617c85"
+  },
+  {
+    "path": "before/844x390-outer.png",
+    "bytes": 93915,
+    "sha256": "3a141271c2660a89cc224ba0a99d6b8e77d804b85ea85cfa0685ab08fdc9e7ff"
+  },
+  {
+    "path": "before/844x390-overview.png",
+    "bytes": 78192,
+    "sha256": "c847981125eed20eae8a28d0dbcf5be7048e697e16d8badd051c39380b9a4673"
+  },
+  {
+    "path": "index.html",
+    "bytes": 16938,
+    "sha256": "6e102ea151087808627ad641729a0afc23897caecb150eaf8dcd8160f24ee646"
+  },
+  {
+    "path": "video/ceres-asteroids.webm",
+    "bytes": 2735931,
+    "sha256": "18ac1194639b76dde806cc02a79ec3f11e31da48b9efd736c2e143f8b89c1cb7"
+  },
+  {
+    "path": "video/comet-trajectories.webm",
+    "bytes": 1418268,
+    "sha256": "8538c0b5c5825c2190ae179acf575c522c627d894c20ac58b86f5aa9e425dd72"
+  },
+  {
+    "path": "video/kuiper-eris.webm",
+    "bytes": 1502856,
+    "sha256": "b86847a6bee14ac4014f840c1ef8b1b6e047d8dda1dfcf1cc093c6e2324841fa"
+  },
+  {
+    "path": "video/pluto-charon.webm",
+    "bytes": 1890959,
+    "sha256": "145642738f962ccaec2844f0cb678efe6e9217ed4656d013764f91f588aa7de3"
+  }
+]

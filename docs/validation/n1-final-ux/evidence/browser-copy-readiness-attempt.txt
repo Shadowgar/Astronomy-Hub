@@ -1,0 +1,13 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('button', { name: 'Copy link', exact: true }).first()[22m
+
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_final_ux.mjs:35:71 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

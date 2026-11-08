@@ -1,0 +1,104 @@
+{
+  "status": "PASS_SCOPED_ASSET_REVIEW",
+  "base_sha": "ea4d384af3aead949de7bec1947e8aff41465bca",
+  "author_independent": true,
+  "reviewed_inputs": {
+    "scripts/planetdata/build_solar25_assets.py": {
+      "bytes": 18054,
+      "sha256": "19a5f7b569b2db232b3b07dceaa71062a7f7b0792bb399c992c8d249b85eba7b"
+    },
+    "scripts/planetdata/test_solar25_assets.py": {
+      "bytes": 10798,
+      "sha256": "ebfb39e747c796336f3779f2ae88f32e26d41ac8e9a7efc7ae1082d3e61d4684"
+    },
+    "docs/validation/solar-system-2.5/ASSETS.md": {
+      "bytes": 9980,
+      "sha256": "25ce356a9b3263e6bca833ab839ebe8f6b61c5ee6541cac79adac72d792b70de"
+    },
+    "docs/validation/solar-system-2.5/asset-source-records.json": {
+      "bytes": 5969,
+      "sha256": "23c77b07435add38449982b0f4ee0b739921765269f087f177d535b374eeba03"
+    },
+    "docs/validation/solar-system-2.5/mission-event-sources.json": {
+      "bytes": 5419,
+      "sha256": "3f8925b3bb510f6a7fa0f0b0804a63673ce010371081e166e8a130cd4ba74dfc"
+    },
+    "docs/validation/solar-system-2.5/mission-events.json": {
+      "bytes": 12719,
+      "sha256": "2e8079eefeda50ca82bffc5c15352700eb8b725abdada501406fbcb9f63efc59"
+    },
+    "frontend/public/mission-assets/v2.5/manifest.json": {
+      "bytes": 19060,
+      "sha256": "f39b5edaa4f16f6b9499120da4c2c39c71c512e8962171f446e4393b5cad40c0"
+    },
+    "frontend/public/mission-assets/v2.5/voyager.glb": {
+      "bytes": 3128204,
+      "sha256": "5338241f2e89e9cfe3ebb82f519b4cad64c97e66883cccba6fdda98667aec731"
+    },
+    "frontend/public/mission-assets/v2.5/cassini.glb": {
+      "bytes": 5852640,
+      "sha256": "cacdca3279b28e64280ff8e823f572311f67a83bde2d0435b26f515a1b7926be"
+    },
+    "frontend/public/mission-assets/v2.5/new-horizons.glb": {
+      "bytes": 3293532,
+      "sha256": "cf152d8cea17c4a83711041cb0d29ca1d980bfafa084ada2656569ea92cdd73f"
+    }
+  },
+  "focused_tests": {
+    "passed": 8,
+    "duration_seconds": 1.252
+  },
+  "retained_source_hashes": {
+    "files": 22,
+    "bytes": 17547323,
+    "all_match": true
+  },
+  "independent_geometry": {
+    "status": "PASS",
+    "method": "Independent Three Object3D hierarchy and decoded Float32 positions; no builder math imported",
+    "models": [
+      {
+        "id": "voyager",
+        "sourceVertices": 23928,
+        "nodes": 4,
+        "antennaDiameterMeters": 3.7,
+        "metersPerSourceUnit": 0.970583576287901,
+        "radiusMeters": 9.756709775895917,
+        "status": "PASS"
+      },
+      {
+        "id": "cassini",
+        "sourceVertices": 30788,
+        "nodes": 12,
+        "antennaDiameterMeters": 4,
+        "metersPerSourceUnit": 0.9977542640852697,
+        "radiusMeters": 10.73431260547332,
+        "status": "PASS"
+      },
+      {
+        "id": "new-horizons",
+        "sourceVertices": 7665,
+        "nodes": 6,
+        "antennaDiameterMeters": 2.1,
+        "metersPerSourceUnit": 1.1123969966927552,
+        "radiusMeters": 2.172634402575294,
+        "status": "PASS"
+      }
+    ]
+  },
+  "events": {
+    "count": 21,
+    "source_hash_joins": true,
+    "source_precision_preserved": true,
+    "cassini_end_date_only": true,
+    "cassini_pre_entry_view_is_not_destruction_epoch": true
+  },
+  "limitations": [
+    "Approximate source-normalized scale, not engineering CAD",
+    "No qualified CK/FK/SCLK attitude",
+    "Static attached Huygens configuration is illustrative",
+    "No navigation-reference-point calibration",
+    "Browser/GPU/application review separate",
+    "No owner or whole-PR approval"
+  ]
+}

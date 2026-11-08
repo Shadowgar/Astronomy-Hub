@@ -1,0 +1,29 @@
+{
+  "title": "Astronomy Hub \u2013 owner-approved cinematic visual direction",
+  "approval": "Visual direction approved in conversation; not an approval of depicted astronomical facts or a production implementation.",
+  "primary": "solar-primary-cinematic.png",
+  "includes": {
+    "solar-primary-cinematic.png": {
+      "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+      "bytes": 2260404
+    },
+    "solar-adaptive-explorer.png": {
+      "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7",
+      "bytes": 2047493
+    },
+    "earth-cinematic.png": {
+      "sha256": "83601f768035502c1b7fbc9265866135ba40c838b0c6b598127d506112f812b1",
+      "bytes": 2658442
+    },
+    "sky-cinematic.png": {
+      "sha256": "e932e4a7cf59cf92d810e4dffbcbb5873d0fee8b51997d3f3ae162c84c7a7c91",
+      "bytes": 2092968
+    }
+  },
+  "notes": [
+    "Preserve the prior Adaptive Explorer UX sketches and mode-specific controls.",
+    "The concept images are illustrations: some labels, dates, distances, positions, atmospheric details and imagery require independent source-backed verification.",
+    "Do not use generated backgrounds as if they are scientifically rendered sky or planetary datasets.",
+    "No paid providers, new imagery rights or global production deployment authorized."
+  ]
+}

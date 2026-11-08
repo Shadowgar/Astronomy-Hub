@@ -1,0 +1,246 @@
+{
+  "application": "39f73b2ff0162d491fcf65b41a0bc038dd608b65",
+  "epoch": "2026-10-27T04:00:00Z",
+  "files": [
+    {
+      "path": "images/reference-solar-primary-cinematic.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-primary-cinematic.png",
+      "sha256": "045227411f54f4e27823b465d233f35b8e0a05797aa271eeee6db97ad824c1ab",
+      "bytes": 2260404
+    },
+    {
+      "path": "images/reference-solar-adaptive-explorer.png",
+      "source": "docs/design/cinematic-references-2026-10-21/solar-adaptive-explorer.png",
+      "sha256": "c9a5bfdf05b64d4895e77ddc1dfaa431212f973796474548979fd3105695d4e7",
+      "bytes": 2047493
+    },
+    {
+      "path": "images/before-1440x900-overview.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-1440x900-overview.png",
+      "sha256": "a834b0a84192707b633d8778b59639ba561ab2efb2d995383462b0977eb0275c",
+      "bytes": 563787
+    },
+    {
+      "path": "images/after-1440x900-overview.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-overview.png",
+      "sha256": "37c4c980a50d008d7294e6d927c19780ec0de3426bcbd3d77a5d28c197cc8f82",
+      "bytes": 345096
+    },
+    {
+      "path": "images/before-390x844-overview.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-390x844-overview.png",
+      "sha256": "56c72c1bc4be99690b3246f69a3afea2f1a3957a015dfa3f44faad4e6b7d95de",
+      "bytes": 173142
+    },
+    {
+      "path": "images/after-390x844-overview.png",
+      "source": "output/playwright/solar-system-2.2/visuals/390x844-overview.png",
+      "sha256": "ac03b473f6d55e86333916e5c64d5d6298bf882c3e5bc58557dd77d39517a60f",
+      "bytes": 101790
+    },
+    {
+      "path": "images/before-844x390-overview.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-844x390-overview.png",
+      "sha256": "d9e8eaa5b1e5d42ba5ad1e6891435a767890b1f0f39b0494d604afe6f474099e",
+      "bytes": 194749
+    },
+    {
+      "path": "images/after-844x390-overview.png",
+      "source": "output/playwright/solar-system-2.2/visuals/844x390-overview.png",
+      "sha256": "efaddfa23d142ab1179ef575ed39e7fec029df50037968b07f10dc71f3b10739",
+      "bytes": 123432
+    },
+    {
+      "path": "images/before-jupiter.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-1440x900-jupiter.png",
+      "sha256": "686a6000b3bf8cd9633e0c9f4d773ecb2ed8e62fb52d971a0883ca6c747f4b48",
+      "bytes": 389520
+    },
+    {
+      "path": "images/after-jupiter.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-jupiter-matched.png",
+      "sha256": "7cab59d6dabadbfe7a5a341f5b9be5a161080bb07410a1307b992f01127ca29b",
+      "bytes": 392504
+    },
+    {
+      "path": "images/close-jupiter.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-jupiter-close.png",
+      "sha256": "1a7f1a83d02080ee324b47ecaacbd163592ae71a669c283da8ec99274b803f1c",
+      "bytes": 598564
+    },
+    {
+      "path": "images/before-saturn.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-1440x900-saturn.png",
+      "sha256": "dc60e720732a685f49cdaadb99a9f10f61362b68452bdac381b3088f277f0ba6",
+      "bytes": 421856
+    },
+    {
+      "path": "images/after-saturn.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-saturn-matched.png",
+      "sha256": "e77e040f732ffbe87d37a0335989b83f5cef8a1a9035daf85bee63c6aaf9f7c7",
+      "bytes": 417763
+    },
+    {
+      "path": "images/close-saturn.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-saturn-close.png",
+      "sha256": "3d545d9620f24f37fea94d7103453306ba170714cdf21c6a9a33402ad342ec8a",
+      "bytes": 462438
+    },
+    {
+      "path": "images/before-earth.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-1440x900-earth.png",
+      "sha256": "4415b181f62d89b69dc2226bd55c5a978f5954fcc083e3030dc382a296e52833",
+      "bytes": 588907
+    },
+    {
+      "path": "images/after-earth.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-earth-matched.png",
+      "sha256": "904b3d7900d4b148b43214de5d89082f2de0371553f3fb13443d8f2e9d34ac0e",
+      "bytes": 591522
+    },
+    {
+      "path": "images/close-earth.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-earth-close.png",
+      "sha256": "dad63d7618aa4a8c924f9c367814fa96842d5580e0da1e7ef4dd87b19459d5a3",
+      "bytes": 897877
+    },
+    {
+      "path": "images/before-mars.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-1440x900-mars.png",
+      "sha256": "052bd80a0050407dc2285ada97061808a5357aacc2e4cf2a6f391a7ff53d28c3",
+      "bytes": 428680
+    },
+    {
+      "path": "images/after-mars.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-mars-matched.png",
+      "sha256": "9885a05690e8908808375f8def301051d191222b207f125bb9035e4392c98e8b",
+      "bytes": 509155
+    },
+    {
+      "path": "images/close-mars.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-mars-close.png",
+      "sha256": "0568a6b3c30aab6e62ccc78eb1305af28427b4d4fdc67833c50b174b9c25232a",
+      "bytes": 812374
+    },
+    {
+      "path": "images/before-sun.png",
+      "source": "output/playwright/solar-system-2.2/preview/baseline-1440x900-sun.png",
+      "sha256": "e0149a202d0d5cacae000be7351bb1e2fa57d8ead92159407b92212ade471b90",
+      "bytes": 719374
+    },
+    {
+      "path": "images/close-sun.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-sun-close.png",
+      "sha256": "f32bcc5ccbc5607200fc4ab6067c9d47f5dccb49d2e4eb17f84337567099e0ac",
+      "bytes": 756656
+    },
+    {
+      "path": "images/saturn-oblique.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-saturn-oblique.png",
+      "sha256": "e1e48a9310aab7ef862482fca8522b1de1c476aa0ebeccbff97d295ba563c8a9",
+      "bytes": 397544
+    },
+    {
+      "path": "images/saturn-backlit.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-saturn-backlit.png",
+      "sha256": "61ef9af85b260b8dd8fe0f05f5423f1c1a692171aef992f04f3259e7f2b67874",
+      "bytes": 289276
+    },
+    {
+      "path": "images/earth-detailed.png",
+      "source": "output/playwright/solar-system-2.2/visuals/1440x900-earth-close-detailed.png",
+      "sha256": "bd5480a5aebc9200c52cb305ca5587006125baaad117eae17fb56d1cf489d438",
+      "bytes": 897199
+    },
+    {
+      "path": "images/earth-day.png",
+      "source": "output/playwright/solar-system-2.2/earth/day-takram.png",
+      "sha256": "d4944c804ad280ae6189b0d94d6142a1aa478974a6e125ce5167e7b0f49abadf",
+      "bytes": 1176380
+    },
+    {
+      "path": "images/earth-limb.png",
+      "source": "output/playwright/solar-system-2.2/earth/limb-takram.png",
+      "sha256": "2bb5b3a5aadbd916320b9d2c0f67e9602b85f360ab708f615e189bd2ec908e09",
+      "bytes": 766657
+    },
+    {
+      "path": "images/earth-crescent.png",
+      "source": "output/playwright/solar-system-2.2/earth/crescent-takram.png",
+      "sha256": "3d0f98adc09010cc1927b651cccaa51e2dec5c31b26af9508a310815c1b41988",
+      "bytes": 290296
+    },
+    {
+      "path": "images/earth-backlit.png",
+      "source": "output/playwright/solar-system-2.2/earth/backlit-takram.png",
+      "sha256": "88b5dca4f8676313c1db7bfd0cf13e3f791e8547d0a607b1a41b0555c57ad6b1",
+      "bytes": 211552
+    },
+    {
+      "path": "images/earth-near-horizon.png",
+      "source": "output/playwright/solar-system-2.2/earth/near-horizon-takram.png",
+      "sha256": "020dffd457a26746710b8c4926dc8d64e376d44e9cbf7b2c4341d64ba72b26fa",
+      "bytes": 186701
+    },
+    {
+      "path": "images/390x844-jupiter.png",
+      "source": "output/playwright/solar-system-2.2/visuals/390x844-jupiter-close.png",
+      "sha256": "2079d8da6cc3abed945f8e3005bb7612c85639c5797e0751945e5c86972737d2",
+      "bytes": 179120
+    },
+    {
+      "path": "images/390x844-saturn.png",
+      "source": "output/playwright/solar-system-2.2/visuals/390x844-saturn-close.png",
+      "sha256": "991d42da0e8bab2c527b9d945d0bbf3e11e35c06cec5ac43f1cd13a41847d7a0",
+      "bytes": 156555
+    },
+    {
+      "path": "images/390x844-earth.png",
+      "source": "output/playwright/solar-system-2.2/visuals/390x844-earth-close.png",
+      "sha256": "20280bc3aed3c8c7b97bc0b555c67164e025c1a2fb87517c8c4e3664ff5acaf8",
+      "bytes": 241232
+    },
+    {
+      "path": "images/390x844-mars.png",
+      "source": "output/playwright/solar-system-2.2/visuals/390x844-mars-close.png",
+      "sha256": "73e365b8255ac3efc40d0519f5ab87e3aa193b13517af888b6a24bf5d2c10808",
+      "bytes": 207204
+    },
+    {
+      "path": "images/390x844-sun.png",
+      "source": "output/playwright/solar-system-2.2/visuals/390x844-sun-close.png",
+      "sha256": "dfdf5cc2e4bfbb430980a5bbcc5a4118745b278ebbb100ef9e8eafc11c4c4c43",
+      "bytes": 219286
+    },
+    {
+      "path": "images/844x390-jupiter.png",
+      "source": "output/playwright/solar-system-2.2/visuals/844x390-jupiter-close.png",
+      "sha256": "b46e5a91fc6904e85e4237eb274266d5833c4c032fadb8db98ae21883f5947d0",
+      "bytes": 161837
+    },
+    {
+      "path": "images/844x390-saturn.png",
+      "source": "output/playwright/solar-system-2.2/visuals/844x390-saturn-close.png",
+      "sha256": "12588e6959aa777cc3645cb60471de9623e34b67dda095bd72472291f06666c8",
+      "bytes": 172728
+    },
+    {
+      "path": "images/844x390-earth.png",
+      "source": "output/playwright/solar-system-2.2/visuals/844x390-earth-close.png",
+      "sha256": "fe6fb5dd7bbcef2d9b2bf191616b04ffe43841c091728b2267d0309b2d364e59",
+      "bytes": 207506
+    },
+    {
+      "path": "images/844x390-mars.png",
+      "source": "output/playwright/solar-system-2.2/visuals/844x390-mars-close.png",
+      "sha256": "2651c35fe34f70416bfa115f20a9366a9d1df33e9cebb3986ae9e64874b0dcdd",
+      "bytes": 184480
+    },
+    {
+      "path": "images/844x390-sun.png",
+      "source": "output/playwright/solar-system-2.2/visuals/844x390-sun-close.png",
+      "sha256": "3d5a86b50f366b145cf2af7896d98a5517057050eaf4b377263db325da2da5db",
+      "bytes": 170679
+    }
+  ]
+}

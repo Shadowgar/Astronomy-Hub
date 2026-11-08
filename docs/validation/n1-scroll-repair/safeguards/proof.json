@@ -1,0 +1,389 @@
+{
+  "head": "746e5f8a8131a4bb4ebdadaa89784dfeb59923f5",
+  "status": "PASS",
+  "checks": [
+    "ordinary arrival and short overshoot stay Sky",
+    "decaying trackpad inertia at clamp stays Sky",
+    "reverse scroll cancels and leaves five-degree hysteresis",
+    "varied small-delta trackpad continuation enters Earth",
+    "standalone native bundled landscape and original Landscape OFF/ON control work"
+  ],
+  "pageErrors": [],
+  "inertiaInputs": [
+    {
+      "deltaY": 120,
+      "wheelDelta": -120,
+      "stamp": 2974.6999999999534
+    },
+    {
+      "deltaY": 240,
+      "wheelDelta": -240,
+      "stamp": 3014.5999999998603
+    },
+    {
+      "deltaY": 240,
+      "wheelDelta": -240,
+      "stamp": 3054.6999999999534
+    },
+    {
+      "deltaY": 120,
+      "wheelDelta": -120,
+      "stamp": 3837.6999999999534
+    },
+    {
+      "deltaY": 225.7919921875,
+      "wheelDelta": -240,
+      "stamp": 3877.6999999999534
+    },
+    {
+      "deltaY": 106.16831970214844,
+      "wheelDelta": -120,
+      "stamp": 3897.6999999999534
+    },
+    {
+      "deltaY": 199.7663116455078,
+      "wheelDelta": -240,
+      "stamp": 3937.6999999999534
+    },
+    {
+      "deltaY": 93.9309310913086,
+      "wheelDelta": -120,
+      "stamp": 3957.6999999999534
+    },
+    {
+      "deltaY": 176.74044799804688,
+      "wheelDelta": -240,
+      "stamp": 3997.6999999999534
+    },
+    {
+      "deltaY": 83.10408020019531,
+      "wheelDelta": -120,
+      "stamp": 4017.6999999999534
+    },
+    {
+      "deltaY": 156.36863708496094,
+      "wheelDelta": -240,
+      "stamp": 4057.6999999999534
+    },
+    {
+      "deltaY": 73.5251693725586,
+      "wheelDelta": -120,
+      "stamp": 4077.6999999999534
+    },
+    {
+      "deltaY": 70.58416748046875,
+      "wheelDelta": -120,
+      "stamp": 4097.699999999953
+    },
+    {
+      "deltaY": 67.76079559326172,
+      "wheelDelta": -120,
+      "stamp": 4117.699999999953
+    },
+    {
+      "deltaY": 127.49871826171875,
+      "wheelDelta": -240,
+      "stamp": 4157.59999999986
+    },
+    {
+      "deltaY": 59.950416564941406,
+      "wheelDelta": -120,
+      "stamp": 4177.699999999953
+    },
+    {
+      "deltaY": 112.80270385742188,
+      "wheelDelta": -240,
+      "stamp": 4217.699999999953
+    },
+    {
+      "deltaY": 53.04029083251953,
+      "wheelDelta": -120,
+      "stamp": 4237.699999999953
+    },
+    {
+      "deltaY": 99.80061340332031,
+      "wheelDelta": -240,
+      "stamp": 4277.699999999953
+    },
+    {
+      "deltaY": 46.92665481567383,
+      "wheelDelta": -120,
+      "stamp": 4297.699999999953
+    },
+    {
+      "deltaY": 88.29719543457031,
+      "wheelDelta": -240,
+      "stamp": 4337.699999999953
+    },
+    {
+      "deltaY": 41.5177001953125,
+      "wheelDelta": -120,
+      "stamp": 4357.699999999953
+    },
+    {
+      "deltaY": 78.11970520019531,
+      "wheelDelta": -240,
+      "stamp": 4397.699999999953
+    },
+    {
+      "deltaY": 36.73220443725586,
+      "wheelDelta": -120,
+      "stamp": 4417.699999999953
+    },
+    {
+      "deltaY": 69.11531829833984,
+      "wheelDelta": -240,
+      "stamp": 4457.699999999953
+    },
+    {
+      "deltaY": 63.696678161621094,
+      "wheelDelta": -240,
+      "stamp": 4497.699999999953
+    },
+    {
+      "deltaY": 58.702857971191406,
+      "wheelDelta": -240,
+      "stamp": 4537.699999999953
+    },
+    {
+      "deltaY": 54.100555419921875,
+      "wheelDelta": -240,
+      "stamp": 4577.699999999953
+    },
+    {
+      "deltaY": 49.85906982421875,
+      "wheelDelta": -240,
+      "stamp": 4617.699999999953
+    },
+    {
+      "deltaY": 45.95011901855469,
+      "wheelDelta": -240,
+      "stamp": 4657.699999999953
+    },
+    {
+      "deltaY": 42.34762954711914,
+      "wheelDelta": -240,
+      "stamp": 4697.59999999986
+    },
+    {
+      "deltaY": 39.02757263183594,
+      "wheelDelta": -240,
+      "stamp": 4737.699999999953
+    },
+    {
+      "deltaY": 35.967811584472656,
+      "wheelDelta": -240,
+      "stamp": 4777.699999999953
+    },
+    {
+      "deltaY": 33.14793395996094,
+      "wheelDelta": -240,
+      "stamp": 4817.699999999953
+    },
+    {
+      "deltaY": 30.549137115478516,
+      "wheelDelta": -240,
+      "stamp": 4857.699999999953
+    },
+    {
+      "deltaY": 28.15408706665039,
+      "wheelDelta": -240,
+      "stamp": 4897.699999999953
+    },
+    {
+      "deltaY": 25.94680404663086,
+      "wheelDelta": -240,
+      "stamp": 4937.699999999953
+    },
+    {
+      "deltaY": 23.912574768066406,
+      "wheelDelta": -240,
+      "stamp": 4977.699999999953
+    },
+    {
+      "deltaY": 22.037830352783203,
+      "wheelDelta": -240,
+      "stamp": 5017.699999999953
+    },
+    {
+      "deltaY": 20.3100643157959,
+      "wheelDelta": -240,
+      "stamp": 5057.699999999953
+    },
+    {
+      "deltaY": 18.717754364013672,
+      "wheelDelta": -240,
+      "stamp": 5097.699999999953
+    },
+    {
+      "deltaY": 17.250282287597656,
+      "wheelDelta": -240,
+      "stamp": 5137.699999999953
+    },
+    {
+      "deltaY": 15.89786148071289,
+      "wheelDelta": -240,
+      "stamp": 5177.699999999953
+    },
+    {
+      "deltaY": 14.651468276977539,
+      "wheelDelta": -240,
+      "stamp": 5217.699999999953
+    },
+    {
+      "deltaY": 13.50279426574707,
+      "wheelDelta": -240,
+      "stamp": 5257.699999999953
+    },
+    {
+      "deltaY": 12.444174766540527,
+      "wheelDelta": -240,
+      "stamp": 5297.699999999953
+    },
+    {
+      "deltaY": 11.468551635742188,
+      "wheelDelta": -240,
+      "stamp": 5337.699999999953
+    },
+    {
+      "deltaY": 10.569416999816895,
+      "wheelDelta": -240,
+      "stamp": 5377.59999999986
+    },
+    {
+      "deltaY": 9.740774154663086,
+      "wheelDelta": -240,
+      "stamp": 5417.699999999953
+    },
+    {
+      "deltaY": 8.97709846496582,
+      "wheelDelta": -240,
+      "stamp": 5457.699999999953
+    },
+    {
+      "deltaY": 8.273292541503906,
+      "wheelDelta": -240,
+      "stamp": 5497.699999999953
+    },
+    {
+      "deltaY": 7.624667167663574,
+      "wheelDelta": -240,
+      "stamp": 5537.699999999953
+    },
+    {
+      "deltaY": 7.026893138885498,
+      "wheelDelta": -240,
+      "stamp": 5577.699999999953
+    },
+    {
+      "deltaY": 6.475984573364258,
+      "wheelDelta": -240,
+      "stamp": 5617.699999999953
+    },
+    {
+      "deltaY": 5.968267440795898,
+      "wheelDelta": -240,
+      "stamp": 5657.699999999953
+    },
+    {
+      "deltaY": 5.5003557205200195,
+      "wheelDelta": -240,
+      "stamp": 5697.59999999986
+    },
+    {
+      "deltaY": 5.069127559661865,
+      "wheelDelta": -240,
+      "stamp": 5737.699999999953
+    },
+    {
+      "deltaY": 4.671708106994629,
+      "wheelDelta": -240,
+      "stamp": 5777.699999999953
+    },
+    {
+      "deltaY": 4.305446147918701,
+      "wheelDelta": -240,
+      "stamp": 5817.699999999953
+    },
+    {
+      "deltaY": 3.9678993225097656,
+      "wheelDelta": -240,
+      "stamp": 5857.699999999953
+    },
+    {
+      "deltaY": 3.656816005706787,
+      "wheelDelta": -240,
+      "stamp": 5897.59999999986
+    },
+    {
+      "deltaY": 3.370121479034424,
+      "wheelDelta": -240,
+      "stamp": 5937.699999999953
+    },
+    {
+      "deltaY": 3.1059041023254395,
+      "wheelDelta": -240,
+      "stamp": 5977.699999999953
+    },
+    {
+      "deltaY": 2.862401008605957,
+      "wheelDelta": -240,
+      "stamp": 6017.699999999953
+    },
+    {
+      "deltaY": 2.637988805770874,
+      "wheelDelta": -240,
+      "stamp": 6057.699999999953
+    },
+    {
+      "deltaY": 2.4311704635620117,
+      "wheelDelta": -240,
+      "stamp": 6097.699999999953
+    },
+    {
+      "deltaY": 2.2405667304992676,
+      "wheelDelta": -240,
+      "stamp": 6137.699999999953
+    },
+    {
+      "deltaY": 2.064906358718872,
+      "wheelDelta": -240,
+      "stamp": 6177.699999999953
+    },
+    {
+      "deltaY": 1.9030176401138306,
+      "wheelDelta": -240,
+      "stamp": 6217.699999999953
+    },
+    {
+      "deltaY": 1.7538211345672607,
+      "wheelDelta": -240,
+      "stamp": 6257.699999999953
+    },
+    {
+      "deltaY": 1.6163215637207031,
+      "wheelDelta": -240,
+      "stamp": 6297.699999999953
+    },
+    {
+      "deltaY": 1.4896018505096436,
+      "wheelDelta": -240,
+      "stamp": 6337.699999999953
+    },
+    {
+      "deltaY": 1.372817039489746,
+      "wheelDelta": -240,
+      "stamp": 6377.699999999953
+    },
+    {
+      "deltaY": 1.265188217163086,
+      "wheelDelta": -240,
+      "stamp": 6417.699999999953
+    },
+    {
+      "deltaY": 1.1659975051879883,
+      "wheelDelta": -240,
+      "stamp": 6457.699999999953
+    }
+  ]
+}

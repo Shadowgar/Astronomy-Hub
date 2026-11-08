@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Delayed parallel preparation disables playback; SPA departure aborts polling and retires assets before Solar renders",
+    "Solar context loss during held parallel compilation cannot revive stale readiness/playback; retry owns one fresh renderer",
+    "Synchronous compile failure rejects through owner cleanup; retry creates one renderer",
+    "System→ready native Moon→ready Apollo17→ready Moon→System preserves UTC and system camera, retires native frames"
+  ],
+  "errors": []
+}

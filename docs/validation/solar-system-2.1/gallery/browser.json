@@ -1,0 +1,200 @@
+{
+  "base": "http://127.0.0.1:4231",
+  "platform": "win32",
+  "layouts": [
+    {
+      "width": 1440,
+      "scroll": 1425,
+      "images": 28,
+      "videos": 6,
+      "title": "Solar System 2.1 · Owner review"
+    },
+    {
+      "width": 390,
+      "scroll": 375,
+      "images": 28,
+      "videos": 6,
+      "title": "Solar System 2.1 · Owner review"
+    },
+    {
+      "width": 844,
+      "scroll": 829,
+      "images": 28,
+      "videos": 6,
+      "title": "Solar System 2.1 · Owner review"
+    }
+  ],
+  "assets": [
+    {
+      "path": "atmosphere/day-custom.png",
+      "bytes": 996575,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/day-takram.png",
+      "bytes": 1249320,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/limb-custom.png",
+      "bytes": 706725,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/limb-takram.png",
+      "bytes": 806253,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/crescent-custom.png",
+      "bytes": 291523,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/crescent-takram.png",
+      "bytes": 314039,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/backlit-custom.png",
+      "bytes": 207070,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/backlit-takram.png",
+      "bytes": 231341,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/near-horizon-custom.png",
+      "bytes": 154865,
+      "status": 200
+    },
+    {
+      "path": "atmosphere/near-horizon-takram.png",
+      "bytes": 187015,
+      "status": 200
+    },
+    {
+      "path": "terrain/1440x900-native-moon.png",
+      "bytes": 153965,
+      "status": 200
+    },
+    {
+      "path": "terrain/1440x900-overview.png",
+      "bytes": 553635,
+      "status": 200
+    },
+    {
+      "path": "terrain/1440x900-detail.png",
+      "bytes": 965110,
+      "status": 200
+    },
+    {
+      "path": "terrain/1440x900-relief.png",
+      "bytes": 298632,
+      "status": 200
+    },
+    {
+      "path": "terrain/390x844-native-moon.png",
+      "bytes": 79743,
+      "status": 200
+    },
+    {
+      "path": "terrain/390x844-overview.png",
+      "bytes": 139526,
+      "status": 200
+    },
+    {
+      "path": "terrain/390x844-detail.png",
+      "bytes": 289142,
+      "status": 200
+    },
+    {
+      "path": "terrain/390x844-relief.png",
+      "bytes": 111706,
+      "status": 200
+    },
+    {
+      "path": "terrain/844x390-native-moon.png",
+      "bytes": 81422,
+      "status": 200
+    },
+    {
+      "path": "terrain/844x390-overview.png",
+      "bytes": 143736,
+      "status": 200
+    },
+    {
+      "path": "terrain/844x390-detail.png",
+      "bytes": 307127,
+      "status": 200
+    },
+    {
+      "path": "terrain/844x390-relief.png",
+      "bytes": 116061,
+      "status": 200
+    },
+    {
+      "path": "exploration/desktop-overview.png",
+      "bytes": 559822,
+      "status": 200
+    },
+    {
+      "path": "exploration/desktop-saturn-oblique.png",
+      "bytes": 397382,
+      "status": 200
+    },
+    {
+      "path": "exploration/desktop-saturn-backlit.png",
+      "bytes": 281121,
+      "status": 200
+    },
+    {
+      "path": "exploration/desktop-eros.png",
+      "bytes": 262369,
+      "status": 200
+    },
+    {
+      "path": "video/solar-desktop.webm",
+      "bytes": 2939239,
+      "status": 200
+    },
+    {
+      "path": "video/solar-portrait.webm",
+      "bytes": 1664190,
+      "status": 200
+    },
+    {
+      "path": "video/solar-landscape.webm",
+      "bytes": 2258910,
+      "status": 200
+    },
+    {
+      "path": "video/terrain-portrait.webm",
+      "bytes": 434904,
+      "status": 200
+    },
+    {
+      "path": "video/terrain-desktop.webm",
+      "bytes": 994971,
+      "status": 200
+    },
+    {
+      "path": "video/terrain-landscape.webm",
+      "bytes": 437850,
+      "status": 200
+    },
+    {
+      "path": "reference/solar-primary-cinematic.png",
+      "bytes": 2260404,
+      "status": 200
+    },
+    {
+      "path": "reference/solar-adaptive-explorer.png",
+      "bytes": 2047493,
+      "status": 200
+    }
+  ],
+  "status": "PASS"
+}

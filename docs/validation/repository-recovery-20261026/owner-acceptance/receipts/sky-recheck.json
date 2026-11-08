@@ -1,0 +1,706 @@
+{
+  "runs": [
+    {
+      "name": "desktop",
+      "checks": [
+        "Actual atmosphere toggles and native panel Close",
+        "Actual Polaris search and native selection",
+        "Time and satellite source status"
+      ],
+      "polaris": {
+        "model_data": {
+          "Vmag": 1.97000002861,
+          "epoch": 1991.25,
+          "pm_ra": 0,
+          "pm_de": 0,
+          "BVMag": 0.635999977589
+        },
+        "model": "star",
+        "types": [
+          "*",
+          "?"
+        ],
+        "names": [
+          "NAME Polaris",
+          "HIP 11767",
+          "Polaris",
+          "hip-11767",
+          "* alf UMi",
+          "* 1 UMi"
+        ]
+      },
+      "statusText": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nPolaris\n\nstar · hip-11767\n\nFocus\nDetails\nChange time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nPaused at the selected astronomical time. Resume Live returns to now.\n\nCurrent satellite elements: 15,899 fresh · 2 stale. Current orbital positions are not qualified for stale elements.\n\nLoading orbital data does not guarantee a visible satellite. Satellites may be too faint, eclipsed, below the horizon, or outside this view. Brightness may be estimated when measurements are unavailable.\n\nZoom in to identify a moving point, tap it, then choose Track. Stop tracking returns to free observing. Symbols are identification aids, not a promise of naked-eye visibility.\n\nPAUSED\nMIXED AGES\nOct 27, 12:00 AM EDT\nResume Live\nChange time\nPolaris, star, selected",
+      "satelliteSearch": {
+        "status": "ok",
+        "data": {
+          "query": "ISS",
+          "recognized_query": false,
+          "results": [
+            {
+              "catalog": "NGC (OpenNGC)",
+              "source_id": "NGC2573",
+              "display_name": "NGC 2573 Polarissima Australis",
+              "model": "dso",
+              "names": [
+                "NGC 2573",
+                "NGC2573",
+                "Polarissima Australis",
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "types": [
+                "G"
+              ],
+              "ra": 25.4055416667,
+              "dec": -89.3345277778,
+              "phot_g_mean_mag": 13.53,
+              "magnitude": 13.53,
+              "object_type": "galaxy",
+              "raw_type": "G",
+              "constellation": "Oct",
+              "angular_size": {
+                "major_arcmin": 1.92,
+                "minor_arcmin": 0.74,
+                "position_angle_deg": 78
+              },
+              "messier_id": null,
+              "identifiers": [
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "aliases": [
+                "NGC 2573",
+                "NGC2573",
+                "Polarissima Australis",
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "common_names": [
+                "Polarissima Australis"
+              ],
+              "indexed": true,
+              "status": "indexed",
+              "provenance": {
+                "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                "source_key": "openngc_local"
+              },
+              "canonical_id": "NGC2573",
+              "object_type_label": "Galaxy",
+              "description": null,
+              "observing_notes": null,
+              "catalog_family": "deep_sky_object",
+              "source_attribution": [
+                {
+                  "name": "OpenNGC",
+                  "source_key": "openngc_local",
+                  "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                  "source_url": "https://github.com/mattiaverga/OpenNGC"
+                }
+              ],
+              "data_sources": {
+                "identity": [
+                  "OpenNGC"
+                ],
+                "position": [
+                  "OpenNGC"
+                ],
+                "photometry": [
+                  "OpenNGC"
+                ],
+                "aliases": [
+                  "OpenNGC"
+                ],
+                "upstream": [
+                  "NED",
+                  "HyperLEDA",
+                  "SIMBAD",
+                  "HEASARC"
+                ]
+              },
+              "enrichment_status": {
+                "identity": "source_backed",
+                "aliases": "source_backed",
+                "description": "not_available"
+              },
+              "sky_engine_url": "/oras-sky-engine/skysource/NGC2573PolarissimaAustralis?catalog=NGC+%28OpenNGC%29&source_id=NGC2573&model=dso&ra=25.4055416667&dec=-89.3345277778&fov=2.5"
+            },
+            {
+              "catalog": "NGC (OpenNGC)",
+              "source_id": "NGC3172",
+              "display_name": "NGC 3172 Polarissima Borealis",
+              "model": "dso",
+              "names": [
+                "NGC 3172",
+                "NGC3172",
+                "Polarissima Borealis",
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "types": [
+                "G"
+              ],
+              "ra": 176.8083333333,
+              "dec": 89.0930555556,
+              "phot_g_mean_mag": 15,
+              "magnitude": 15,
+              "object_type": "galaxy",
+              "raw_type": "G",
+              "constellation": "UMi",
+              "angular_size": {
+                "major_arcmin": 1.14,
+                "minor_arcmin": 1,
+                "position_angle_deg": 85
+              },
+              "messier_id": null,
+              "identifiers": [
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "aliases": [
+                "NGC 3172",
+                "NGC3172",
+                "Polarissima Borealis",
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "common_names": [
+                "Polarissima Borealis"
+              ],
+              "indexed": true,
+              "status": "indexed",
+              "provenance": {
+                "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                "source_key": "openngc_local"
+              },
+              "canonical_id": "NGC3172",
+              "object_type_label": "Galaxy",
+              "description": null,
+              "observing_notes": null,
+              "catalog_family": "deep_sky_object",
+              "source_attribution": [
+                {
+                  "name": "OpenNGC",
+                  "source_key": "openngc_local",
+                  "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                  "source_url": "https://github.com/mattiaverga/OpenNGC"
+                }
+              ],
+              "data_sources": {
+                "identity": [
+                  "OpenNGC"
+                ],
+                "position": [
+                  "OpenNGC"
+                ],
+                "photometry": [
+                  "OpenNGC"
+                ],
+                "aliases": [
+                  "OpenNGC"
+                ],
+                "upstream": [
+                  "NED",
+                  "HyperLEDA",
+                  "SIMBAD",
+                  "HEASARC"
+                ]
+              },
+              "enrichment_status": {
+                "identity": "source_backed",
+                "aliases": "source_backed",
+                "description": "not_available"
+              },
+              "sky_engine_url": "/oras-sky-engine/skysource/NGC3172PolarissimaBorealis?catalog=NGC+%28OpenNGC%29&source_id=NGC3172&model=dso&ra=176.8083333333&dec=89.0930555556&fov=2.5"
+            }
+          ]
+        },
+        "meta": {
+          "match_type": "openngc_named_object"
+        },
+        "error": null
+      },
+      "status": "PASS",
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\cf62213ddd865b973643c1c2b72b67bf.webm"
+    },
+    {
+      "name": "portrait",
+      "checks": [
+        "Actual atmosphere toggles and native panel Close",
+        "Actual Polaris search and native selection",
+        "Time and satellite source status"
+      ],
+      "polaris": {
+        "model_data": {
+          "Vmag": 1.97000002861,
+          "epoch": 1991.25,
+          "pm_ra": 0,
+          "pm_de": 0,
+          "BVMag": 0.635999977589
+        },
+        "model": "star",
+        "types": [
+          "*",
+          "?"
+        ],
+        "names": [
+          "NAME Polaris",
+          "HIP 11767",
+          "Polaris",
+          "hip-11767",
+          "* alf UMi",
+          "* 1 UMi"
+        ]
+      },
+      "statusText": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nSky workspace\nChange time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nPaused at the selected astronomical time. Resume Live returns to now.\n\nCurrent satellite elements: 15,899 fresh · 2 stale. Current orbital positions are not qualified for stale elements.\n\nLoading orbital data does not guarantee a visible satellite. Satellites may be too faint, eclipsed, below the horizon, or outside this view. Brightness may be estimated when measurements are unavailable.\n\nZoom in to identify a moving point, tap it, then choose Track. Stop tracking returns to free observing. Symbols are identification aids, not a promise of naked-eye visibility.\n\nTime\nPolaris, star, selected",
+      "satelliteSearch": {
+        "status": "ok",
+        "data": {
+          "query": "ISS",
+          "recognized_query": false,
+          "results": [
+            {
+              "catalog": "NGC (OpenNGC)",
+              "source_id": "NGC2573",
+              "display_name": "NGC 2573 Polarissima Australis",
+              "model": "dso",
+              "names": [
+                "NGC 2573",
+                "NGC2573",
+                "Polarissima Australis",
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "types": [
+                "G"
+              ],
+              "ra": 25.4055416667,
+              "dec": -89.3345277778,
+              "phot_g_mean_mag": 13.53,
+              "magnitude": 13.53,
+              "object_type": "galaxy",
+              "raw_type": "G",
+              "constellation": "Oct",
+              "angular_size": {
+                "major_arcmin": 1.92,
+                "minor_arcmin": 0.74,
+                "position_angle_deg": 78
+              },
+              "messier_id": null,
+              "identifiers": [
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "aliases": [
+                "NGC 2573",
+                "NGC2573",
+                "Polarissima Australis",
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "common_names": [
+                "Polarissima Australis"
+              ],
+              "indexed": true,
+              "status": "indexed",
+              "provenance": {
+                "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                "source_key": "openngc_local"
+              },
+              "canonical_id": "NGC2573",
+              "object_type_label": "Galaxy",
+              "description": null,
+              "observing_notes": null,
+              "catalog_family": "deep_sky_object",
+              "source_attribution": [
+                {
+                  "name": "OpenNGC",
+                  "source_key": "openngc_local",
+                  "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                  "source_url": "https://github.com/mattiaverga/OpenNGC"
+                }
+              ],
+              "data_sources": {
+                "identity": [
+                  "OpenNGC"
+                ],
+                "position": [
+                  "OpenNGC"
+                ],
+                "photometry": [
+                  "OpenNGC"
+                ],
+                "aliases": [
+                  "OpenNGC"
+                ],
+                "upstream": [
+                  "NED",
+                  "HyperLEDA",
+                  "SIMBAD",
+                  "HEASARC"
+                ]
+              },
+              "enrichment_status": {
+                "identity": "source_backed",
+                "aliases": "source_backed",
+                "description": "not_available"
+              },
+              "sky_engine_url": "/oras-sky-engine/skysource/NGC2573PolarissimaAustralis?catalog=NGC+%28OpenNGC%29&source_id=NGC2573&model=dso&ra=25.4055416667&dec=-89.3345277778&fov=2.5"
+            },
+            {
+              "catalog": "NGC (OpenNGC)",
+              "source_id": "NGC3172",
+              "display_name": "NGC 3172 Polarissima Borealis",
+              "model": "dso",
+              "names": [
+                "NGC 3172",
+                "NGC3172",
+                "Polarissima Borealis",
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "types": [
+                "G"
+              ],
+              "ra": 176.8083333333,
+              "dec": 89.0930555556,
+              "phot_g_mean_mag": 15,
+              "magnitude": 15,
+              "object_type": "galaxy",
+              "raw_type": "G",
+              "constellation": "UMi",
+              "angular_size": {
+                "major_arcmin": 1.14,
+                "minor_arcmin": 1,
+                "position_angle_deg": 85
+              },
+              "messier_id": null,
+              "identifiers": [
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "aliases": [
+                "NGC 3172",
+                "NGC3172",
+                "Polarissima Borealis",
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "common_names": [
+                "Polarissima Borealis"
+              ],
+              "indexed": true,
+              "status": "indexed",
+              "provenance": {
+                "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                "source_key": "openngc_local"
+              },
+              "canonical_id": "NGC3172",
+              "object_type_label": "Galaxy",
+              "description": null,
+              "observing_notes": null,
+              "catalog_family": "deep_sky_object",
+              "source_attribution": [
+                {
+                  "name": "OpenNGC",
+                  "source_key": "openngc_local",
+                  "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                  "source_url": "https://github.com/mattiaverga/OpenNGC"
+                }
+              ],
+              "data_sources": {
+                "identity": [
+                  "OpenNGC"
+                ],
+                "position": [
+                  "OpenNGC"
+                ],
+                "photometry": [
+                  "OpenNGC"
+                ],
+                "aliases": [
+                  "OpenNGC"
+                ],
+                "upstream": [
+                  "NED",
+                  "HyperLEDA",
+                  "SIMBAD",
+                  "HEASARC"
+                ]
+              },
+              "enrichment_status": {
+                "identity": "source_backed",
+                "aliases": "source_backed",
+                "description": "not_available"
+              },
+              "sky_engine_url": "/oras-sky-engine/skysource/NGC3172PolarissimaBorealis?catalog=NGC+%28OpenNGC%29&source_id=NGC3172&model=dso&ra=176.8083333333&dec=89.0930555556&fov=2.5"
+            }
+          ]
+        },
+        "meta": {
+          "match_type": "openngc_named_object"
+        },
+        "error": null
+      },
+      "status": "PASS",
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\a7e6341375ae45ec50a18be7ec7f3f12.webm"
+    },
+    {
+      "name": "landscape",
+      "checks": [
+        "Actual atmosphere toggles and native panel Close",
+        "Actual Polaris search and native selection",
+        "Time and satellite source status"
+      ],
+      "polaris": {
+        "model_data": {
+          "Vmag": 1.97000002861,
+          "epoch": 1991.25,
+          "pm_ra": 0,
+          "pm_de": 0,
+          "BVMag": 0.635999977589
+        },
+        "model": "star",
+        "types": [
+          "*",
+          "?"
+        ],
+        "names": [
+          "NAME Polaris",
+          "HIP 11767",
+          "Polaris",
+          "hip-11767",
+          "* alf UMi",
+          "* 1 UMi"
+        ]
+      },
+      "statusText": "Skip to workspace\nAstronomy Hub\nSKY\n⌄\nFOV 120°\nExplore\nOBSERVING LOCATION\nORAS · Pennsylvania\nSky workspace\nPolaris\n\nstar · hip-11767\n\nFocus\nDetails\nChange time\nDate and time · America/New_York\n−1h\n+1h\nNow\nApply\n\nPaused at the selected astronomical time. Resume Live returns to now.\n\nCurrent satellite elements: 15,899 fresh · 2 stale. Current orbital positions are not qualified for stale elements.\n\nLoading orbital data does not guarantee a visible satellite. Satellites may be too faint, eclipsed, below the horizon, or outside this view. Brightness may be estimated when measurements are unavailable.\n\nZoom in to identify a moving point, tap it, then choose Track. Stop tracking returns to free observing. Symbols are identification aids, not a promise of naked-eye visibility.\n\nPAUSED\nMIXED AGES\nOct 27, 12:00 AM EDT\nResume Live\nChange time\nPolaris, star, selected",
+      "satelliteSearch": {
+        "status": "ok",
+        "data": {
+          "query": "ISS",
+          "recognized_query": false,
+          "results": [
+            {
+              "catalog": "NGC (OpenNGC)",
+              "source_id": "NGC2573",
+              "display_name": "NGC 2573 Polarissima Australis",
+              "model": "dso",
+              "names": [
+                "NGC 2573",
+                "NGC2573",
+                "Polarissima Australis",
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "types": [
+                "G"
+              ],
+              "ra": 25.4055416667,
+              "dec": -89.3345277778,
+              "phot_g_mean_mag": 13.53,
+              "magnitude": 13.53,
+              "object_type": "galaxy",
+              "raw_type": "G",
+              "constellation": "Oct",
+              "angular_size": {
+                "major_arcmin": 1.92,
+                "minor_arcmin": 0.74,
+                "position_angle_deg": 78
+              },
+              "messier_id": null,
+              "identifiers": [
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "aliases": [
+                "NGC 2573",
+                "NGC2573",
+                "Polarissima Australis",
+                "2MASX J01413509-8920041",
+                "ESO 001-001",
+                "ESO-LV 1-0010",
+                "IRAS 02425-8934",
+                "PGC 006249"
+              ],
+              "common_names": [
+                "Polarissima Australis"
+              ],
+              "indexed": true,
+              "status": "indexed",
+              "provenance": {
+                "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                "source_key": "openngc_local"
+              },
+              "canonical_id": "NGC2573",
+              "object_type_label": "Galaxy",
+              "description": null,
+              "observing_notes": null,
+              "catalog_family": "deep_sky_object",
+              "source_attribution": [
+                {
+                  "name": "OpenNGC",
+                  "source_key": "openngc_local",
+                  "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                  "source_url": "https://github.com/mattiaverga/OpenNGC"
+                }
+              ],
+              "data_sources": {
+                "identity": [
+                  "OpenNGC"
+                ],
+                "position": [
+                  "OpenNGC"
+                ],
+                "photometry": [
+                  "OpenNGC"
+                ],
+                "aliases": [
+                  "OpenNGC"
+                ],
+                "upstream": [
+                  "NED",
+                  "HyperLEDA",
+                  "SIMBAD",
+                  "HEASARC"
+                ]
+              },
+              "enrichment_status": {
+                "identity": "source_backed",
+                "aliases": "source_backed",
+                "description": "not_available"
+              },
+              "sky_engine_url": "/oras-sky-engine/skysource/NGC2573PolarissimaAustralis?catalog=NGC+%28OpenNGC%29&source_id=NGC2573&model=dso&ra=25.4055416667&dec=-89.3345277778&fov=2.5"
+            },
+            {
+              "catalog": "NGC (OpenNGC)",
+              "source_id": "NGC3172",
+              "display_name": "NGC 3172 Polarissima Borealis",
+              "model": "dso",
+              "names": [
+                "NGC 3172",
+                "NGC3172",
+                "Polarissima Borealis",
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "types": [
+                "G"
+              ],
+              "ra": 176.8083333333,
+              "dec": 89.0930555556,
+              "phot_g_mean_mag": 15,
+              "magnitude": 15,
+              "object_type": "galaxy",
+              "raw_type": "G",
+              "constellation": "UMi",
+              "angular_size": {
+                "major_arcmin": 1.14,
+                "minor_arcmin": 1,
+                "position_angle_deg": 85
+              },
+              "messier_id": null,
+              "identifiers": [
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "aliases": [
+                "NGC 3172",
+                "NGC3172",
+                "Polarissima Borealis",
+                "2MASX J11471192+8905357",
+                "MCG +15-01-011",
+                "PGC 036847"
+              ],
+              "common_names": [
+                "Polarissima Borealis"
+              ],
+              "indexed": true,
+              "status": "indexed",
+              "provenance": {
+                "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                "source_key": "openngc_local"
+              },
+              "canonical_id": "NGC3172",
+              "object_type_label": "Galaxy",
+              "description": null,
+              "observing_notes": null,
+              "catalog_family": "deep_sky_object",
+              "source_attribution": [
+                {
+                  "name": "OpenNGC",
+                  "source_key": "openngc_local",
+                  "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                  "source_url": "https://github.com/mattiaverga/OpenNGC"
+                }
+              ],
+              "data_sources": {
+                "identity": [
+                  "OpenNGC"
+                ],
+                "position": [
+                  "OpenNGC"
+                ],
+                "photometry": [
+                  "OpenNGC"
+                ],
+                "aliases": [
+                  "OpenNGC"
+                ],
+                "upstream": [
+                  "NED",
+                  "HyperLEDA",
+                  "SIMBAD",
+                  "HEASARC"
+                ]
+              },
+              "enrichment_status": {
+                "identity": "source_backed",
+                "aliases": "source_backed",
+                "description": "not_available"
+              },
+              "sky_engine_url": "/oras-sky-engine/skysource/NGC3172PolarissimaBorealis?catalog=NGC+%28OpenNGC%29&source_id=NGC3172&model=dso&ra=176.8083333333&dec=89.0930555556&fov=2.5"
+            }
+          ]
+        },
+        "meta": {
+          "match_type": "openngc_named_object"
+        },
+        "error": null
+      },
+      "status": "PASS",
+      "video": "\\\\wsl.localhost\\Ubuntu\\home\\rocco\\Astronomy-Hub\\.worktrees\\repository-recovery-20261026\\output\\playwright\\owner-acceptance\\video\\44f62ab7361568c5e0bc7d0cebeb287b.webm"
+    }
+  ]
+}

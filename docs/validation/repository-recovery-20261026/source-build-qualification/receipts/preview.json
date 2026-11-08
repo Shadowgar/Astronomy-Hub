@@ -1,0 +1,6 @@
+{
+  "url": "http://10.254.108.2:8879",
+  "container_id": "5a47a9907221359b3594dba6957464742bbe2faff27f8b2beb2769ff0a7b35c5",
+  "image": "sha256:03d67b37a7b3e816f17b0320c56e29951159efb930305d4a2003c6002587b4ee",
+  "all_binds_readonly": true
+}

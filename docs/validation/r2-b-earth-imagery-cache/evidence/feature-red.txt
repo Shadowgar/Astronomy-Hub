@@ -1,0 +1,136 @@
+TAP version 13
+# node:internal/modules/esm/resolve:274
+#     throw new ERR_MODULE_NOT_FOUND(
+#           ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs' imported from /home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/admitted-map-sources.test.mjs
+#     at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+#     at moduleResolve (node:internal/modules/esm/resolve:859:10)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:731:20)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
+#   code: 'ERR_MODULE_NOT_FOUND',
+#   url: 'file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs'
+# }
+# Node.js v22.22.0
+# Subtest: tests/earth/admitted-map-sources.test.mjs
+not ok 1 - tests/earth/admitted-map-sources.test.mjs
+  ---
+  duration_ms: 42.807215
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/admitted-map-sources.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# node:internal/modules/esm/resolve:274
+#     throw new ERR_MODULE_NOT_FOUND(
+#           ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/runtimes/earth-runtime/core/imageryCachePolicy.mjs' imported from /home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache.test.mjs
+#     at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+#     at moduleResolve (node:internal/modules/esm/resolve:859:10)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:731:20)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
+#   code: 'ERR_MODULE_NOT_FOUND',
+#   url: 'file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/runtimes/earth-runtime/core/imageryCachePolicy.mjs'
+# }
+# Node.js v22.22.0
+# Subtest: tests/earth/imagery-cache.test.mjs
+not ok 2 - tests/earth/imagery-cache.test.mjs
+  ---
+  duration_ms: 33.474396
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-cache.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# node:internal/modules/esm/resolve:274
+#     throw new ERR_MODULE_NOT_FOUND(
+#           ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/runtimes/earth-runtime/core/imagerySession.mjs' imported from /home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-controller.test.mjs
+#     at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+#     at moduleResolve (node:internal/modules/esm/resolve:859:10)
+#     at defaultResolve (node:internal/modules/esm/resolve:983:11)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:731:20)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
+#   code: 'ERR_MODULE_NOT_FOUND',
+#   url: 'file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/runtimes/earth-runtime/core/imagerySession.mjs'
+# }
+# Node.js v22.22.0
+# Subtest: tests/earth/imagery-controller.test.mjs
+not ok 3 - tests/earth/imagery-controller.test.mjs
+  ---
+  duration_ms: 32.585781
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-controller.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: tests/earth/imagery-policy.test.mjs
+not ok 4 - tests/earth/imagery-policy.test.mjs
+  ---
+  duration_ms: 52.122144
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-policy.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-requests.test.mjs:3
+# import {observeImageryRequests,createImageryAvailability} from '../../runtimes/earth-runtime/core/imageryRequests.mjs';
+#                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+# SyntaxError: The requested module '../../runtimes/earth-runtime/core/imageryRequests.mjs' does not provide an export named 'createImageryAvailability'
+#     at ModuleJob._instantiate (node:internal/modules/esm/module_job:226:21)
+#     at async ModuleJob.run (node:internal/modules/esm/module_job:335:5)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.22.0
+# Subtest: tests/earth/imagery-requests.test.mjs
+not ok 5 - tests/earth/imagery-requests.test.mjs
+  ---
+  duration_ms: 40.440741
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/imagery-requests.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: tests/earth/viewer-imagery-progress.test.mjs
+not ok 6 - tests/earth/viewer-imagery-progress.test.mjs
+  ---
+  duration_ms: 48.053218
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/tests/earth/viewer-imagery-progress.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 0
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 68.329063

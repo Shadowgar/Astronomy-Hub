@@ -1,0 +1,57 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "frontend/src/features/workspace/EarthExplore.tsx": "a5a4c73fb6f4745dbd81aaba3e7cb65679a53e5e5f289717ae66eb1042cdd788",
+    "output/n1/final-ux/review-only/flight-browser.mjs": "8f58f8b849829a61f6ea5c74fb851d1945c2b334b77a7a844324e2b59faf201a"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "RUNNING",
+      "pageErrors": [],
+      "servedHub": {
+        "url": "/assets/index-Cgz3fh7E.js",
+        "sha256": "b5bc4f4b242253011717d272f622a527553a1a387ab4cdbef12b3327636b560e"
+      },
+      "pending": {
+        "label": "Approaching…",
+        "disabled": true,
+        "url": "http://127.0.0.1:4202/earth?date=2026-06-05T02%3A10%3A00.000Z"
+      },
+      "nativeCompletion": {
+        "result": {
+          "runtime": "earth",
+          "nonce": "c4d2429f40f236445597e060b377c005",
+          "generation": 1,
+          "type": "result",
+          "id": 22,
+          "command": "navigateLocation",
+          "payload": {
+            "ok": true
+          }
+        },
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 40.78290000056302,
+            "lon": -73.96539999902186,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7117958835115952,
+            "longitudeRad": -1.2909397625546142,
+            "heightM": 39999.999999977364,
+            "headingRad": 6.283185307179585,
+            "pitchRad": -1.5707755823875065,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false
+        }
+      }
+    }
+  ],
+  "fixture": "Actual native coordinate flight. Its genuine completion result is held at the MessagePort transport boundary until explicitly released; no native calculation/result is fabricated.",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- true\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/review-only/flight-browser.mjs:14:604"
+}

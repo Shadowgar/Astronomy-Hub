@@ -1,0 +1,17 @@
+{
+  "status": "FAIL",
+  "runs": [
+    {
+      "width": 1440,
+      "steps": [],
+      "errors": [],
+      "screens": []
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering/emulated touch; physical hardware and owner visual acceptance remain open.",
+    "No full historical N1 stalled suites rerun.",
+    "Only Sun/Earth/Mars-system slice, no R4 surface."
+  ],
+  "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-solar-status=ready]') to be visible\u001b[22m\n\n    at ready (/home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/scripts/validation/verify_r3_solar.mjs:6:159)\n    at /home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/scripts/validation/verify_r3_solar.mjs:7:53"
+}

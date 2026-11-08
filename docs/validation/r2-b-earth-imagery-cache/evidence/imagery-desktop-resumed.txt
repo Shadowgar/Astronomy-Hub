@@ -1,0 +1,19 @@
+1440 paris-cold nasa ready 5086ms settled
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Genuine Paris source must remain the identified2016 mosaic
+
+'nasa' !== 'eox-2016'
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/r2-b-earth-imagery-cache-1/scripts/validation/verify_r2b_imagery.mjs:19:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'nasa',
+  expected: 'eox-2016',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

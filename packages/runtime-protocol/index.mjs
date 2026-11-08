@@ -1,6 +1,7 @@
 import {WORKSPACE_CAPABILITIES,COMMAND_CAPABILITY,validState,validWorkspaceCommand,validWorkspaceEvent} from './workspace.mjs';
+import {validNavigationState} from './navigation.mjs';
 /** Serializable protocol only. No renderer objects or libraries. */
-export const PROTOCOL = Object.freeze({major:1,minor:1});
+export const PROTOCOL = Object.freeze({major:1,minor:2});
 export const CAPABILITIES = Object.freeze(['destroy','timeIntent','observerIntent',...WORKSPACE_CAPABILITIES]);
 const commands = new Set(['getVersion','getCapabilities','setTimeIntent','setObserverIntent','destroy',...Object.keys(COMMAND_CAPABILITY)]);
 const object = v => v !== null && typeof v === 'object' && !Array.isArray(v) && (Object.getPrototypeOf(v) === Object.prototype || Object.getPrototypeOf(v) === null);
@@ -19,17 +20,19 @@ export function validateBootstrap(event, expected) {
  return event.origin===expected.origin && event.source===expected.source && keys(v,['type','protocol','runtime','nonce','generation','version','capabilities']) && matches(v,expected) && v.type==='ready' && keys(v.protocol,['major','minor']) && v.protocol.major===1 && Number.isSafeInteger(v.protocol.minor) && v.protocol.minor>=0 && typeof v.version==='string' && v.version.length>0 && v.version.length<=256 && Array.isArray(v.capabilities) && v.capabilities.length<=16 && v.capabilities.every(c=>typeof c==='string' && c.length<=64);
 }
 export function validateMessage(v, session) {
- if(!keys(v,['type','runtime','nonce','generation','id','command','payload']) || !matches(v,session) || !Number.isSafeInteger(v.id) || v.id<1 || !(commands.has(v.command)||v.type==='event'&&v.command==='interaction')) return false;
- if(v.type==='event')return validWorkspaceEvent(v.command,v.payload);
+ if(!keys(v,['type','runtime','nonce','generation','id','command','payload']) || !matches(v,session) || !Number.isSafeInteger(v.id) || v.id<1 || !(commands.has(v.command)||v.type==='event'&&['interaction','navigationIntent'].includes(v.command))) return false;
+ if(v.type==='event')return validWorkspaceEvent(v.command,v.payload)&&(v.command!=='navigationIntent'||v.payload.target!==session.runtime);
  if(v.type==='command') {
+  if(v.command==='setNavigationView'&&v.payload?.mode!==session.runtime)return false;
   if(COMMAND_CAPABILITY[v.command])return validWorkspaceCommand(v.command,v.payload);
   if(v.command==='setTimeIntent') return keys(v.payload,['utc','live']) && utc(v.payload.utc) && (v.payload.live===undefined||typeof v.payload.live==='boolean');
-  if(v.command==='setObserverIntent') return observer(v.payload);
+  if(v.command==='setObserverIntent'){const p=v.payload;return keys(p,['lat','lon','elevationM','elevationSource'])&&observer({lat:p.lat,lon:p.lon,elevationM:p.elevationM})&&(p.elevationSource===undefined||['provided','oras-site','unavailable-zero'].includes(p.elevationSource)&&(p.elevationSource!=='unavailable-zero'||p.elevationM===0));}
   return keys(v.payload,[]) && Object.keys(v.payload).length===0;
  }
- if(v.type!=='result' || !keys(v.payload,['ok','error','version','capabilities','temporalMode','effectiveTime','effectiveObserver','state'])) return false;
+ if(v.type!=='result' || !keys(v.payload,['ok','error','version','capabilities','temporalMode','effectiveTime','effectiveObserver','state','navigation'])) return false;
  const p=v.payload;
  if(p.state!==undefined&&!validState(p.state))return false;
+ if(p.navigation!==undefined&&(!validNavigationState(p.navigation)||p.navigation.mode!==session.runtime))return false;
  return typeof p.ok==='boolean' && (p.error===undefined || typeof p.error==='string' && p.error.length<=300) && (p.version===undefined || typeof p.version==='string' && p.version.length<=256) && (p.capabilities===undefined || Array.isArray(p.capabilities) && p.capabilities.length<=16 && p.capabilities.every(x=>CAPABILITIES.includes(x))) && (p.temporalMode===undefined || ['LIVE_ONLY','CONTROLLED','UNAVAILABLE'].includes(p.temporalMode)) && (p.effectiveTime===undefined || p.effectiveTime===null || utc(p.effectiveTime)) && (p.effectiveObserver===undefined || p.effectiveObserver===null || observer(p.effectiveObserver));
 }
 export function envelope(session,type,id,command,payload) { return {runtime:session.runtime,nonce:session.nonce,generation:session.generation,type,id,command,payload}; }

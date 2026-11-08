@@ -1,0 +1,9 @@
+{
+  base: 'http://127.0.0.1:4220',
+  status: 'FAIL',
+  error: 'locator.waitFor: Timeout 5000ms exceeded.\n' +
+    'Call log:\n' +
+    "\x1B[2m  - waiting for getByRole('button', { name: /Reduce transparency/ }) to be visible\x1B[22m\n" +
+    '\n' +
+    '    at /home/rocco/Astronomy-Hub/.worktrees/cinematic-glass-1/scripts/validation/inspect_glass_material.mjs:6:397'
+}

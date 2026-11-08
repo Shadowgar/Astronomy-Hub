@@ -1,0 +1,10 @@
+F...                                                                     [100%]
+=================================== FAILURES ===================================
+______________ test_provider_fetchers_use_provider_specific_ttls _______________
+backend/tests/test_phase2_provider_cache_ttl.py:66: in test_provider_fetchers_use_provider_specific_ttls
+    assert ttl_by_key_prefix["jpl"] == live_providers.PROVIDER_CACHE_TTL_SECONDS["jpl_ephemeris"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'jpl'
+=========================== short test summary info ============================
+FAILED backend/tests/test_phase2_provider_cache_ttl.py::test_provider_fetchers_use_provider_specific_ttls
+1 failed, 3 passed in 0.57s

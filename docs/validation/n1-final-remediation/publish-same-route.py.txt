@@ -1,0 +1,22 @@
+from pathlib import Path
+import subprocess,json
+r=Path('output/n1/remediation');head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+p=json.loads(subprocess.check_output(['gh','pr','view','75','--repo','Shadowgar/Astronomy-Hub','--json','headRefOid,state,baseRefName'],text=True));assert p['headRefOid']==head and p['state']=='OPEN'and p['baseRefName']=='r1-b-adaptive-sky-implementation-1'
+for file in ['committed-browser-identity.json','served-identity.json']:
+ d=json.loads((r/file).read_text());assert d['status']=='PASS'and d['deliveryHead']==head
+assert not json.loads((r/'served-identity.json').read_text())['workingTreeRuntimeChanges']
+thread='PRRT_kwDORt_rys6tFj9X';comment=4291532189;path=r/'review-same-route-resolution.json'
+body=f'''Fixed in {head}. Post-mount observer synchronization now applies the same observerWithProvenance validator as initial RuntimeHost mounting. The acknowledgment key includes validated provenance, so identical numeric observers still synchronize provided-zero/fallback-zero changes; an inconsistent enum alone does not cause a false source change. Initial acknowledgment uses the latest query through a ref.
+
+Reproduced before fixing: real same-frame native Sky changed coordinates and height correctly but returned provided instead of unavailable-zero; three hook regressions failed. All seven focused hook tests now pass. Actual Chromium covers desktop/mobile Sky and Earth (four variants): changed coordinates with absent height, source-only provided-zero/fallback-zero updates, actual Back/Forward and round trips. Iframe identity and native performance.timeOrigin stay unchanged during history synchronization. Fixed observing time and actual native observer/provenance are asserted. Controlled History API entries exercise the real router; no renderer results or positions are mocked.
+
+Fresh full frontend 252/252, runtime/Earth150/150, source-selection3/3, typechecking, independent Hub build125 identical files, navigation44 groups and elevation20 cases pass. Post-commit proof-input hashes and Docker-served bytes are verified against this pushed head. No native artifacts, accepted camera math or Pennsylvania assets changed. Consolidated evidence: https://github.com/Shadowgar/Astronomy-Hub/blob/{head}/docs/validation/n1-final-remediation/README.md.'''
+if path.exists():
+ item=json.loads(path.read_text());assert item['deliveryHead']==head
+else:
+ reply=json.loads(subprocess.check_output(['gh','api','--method','POST',f'repos/Shadowgar/Astronomy-Hub/pulls/75/comments/{comment}/replies','--input','-'],input=json.dumps({'body':body}),text=True))
+ item={'originalComment':comment,'thread':thread,'reply':reply['html_url'],'resolved':False,'deliveryHead':head};path.write_text(json.dumps(item,indent=2)+'\n')
+if not item['resolved']:
+ q='mutation($thread:ID!){resolveReviewThread(input:{threadId:$thread}){thread{id isResolved}}}'
+ d=json.loads(subprocess.check_output(['gh','api','graphql','-f','query='+q,'-f','thread='+thread],text=True));assert d['data']['resolveReviewThread']['thread']['isResolved'];item['resolved']=True;path.write_text(json.dumps(item,indent=2)+'\n')
+print('RESOLVED',comment,item['reply'])

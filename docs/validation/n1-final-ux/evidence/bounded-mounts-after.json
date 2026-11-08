@@ -1,0 +1,58 @@
+[
+  {
+    "Type": "bind",
+    "Source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+    "Destination": "/skydata",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  },
+  {
+    "Type": "bind",
+    "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+    "Destination": "/skydata/catalog-packs",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  },
+  {
+    "Type": "bind",
+    "Source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+    "Destination": "/skydata/dense-star-tiles",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  },
+  {
+    "Type": "bind",
+    "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/earth",
+    "Destination": "/earth",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  },
+  {
+    "Type": "bind",
+    "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/nginx.conf",
+    "Destination": "/etc/nginx/conf.d/default.conf",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  },
+  {
+    "Type": "bind",
+    "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1",
+    "Destination": "/evidence",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  },
+  {
+    "Type": "bind",
+    "Source": "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend/dist",
+    "Destination": "/frontend",
+    "Mode": "ro",
+    "RW": false,
+    "Propagation": "rprivate"
+  }
+]

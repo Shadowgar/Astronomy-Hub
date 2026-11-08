@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-ux-1/frontend
+
+
+ Test Files  48 passed (48)
+      Tests  316 passed (316)
+   Start at  19:33:43
+   Duration  4.59s (transform 14.24s, setup 0ms, import 24.68s, tests 7.86s, environment 13ms)

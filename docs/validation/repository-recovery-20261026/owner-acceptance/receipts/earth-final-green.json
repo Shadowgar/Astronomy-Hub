@@ -1,0 +1,38 @@
+{
+  "base": "http://localhost:4231",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "pointerZoom": true,
+      "resultsReopen": true,
+      "keyboardFocusRetained": true,
+      "selectedLocationRetained": true,
+      "sourcePanelPointerClose": true,
+      "validationVisible": true,
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pointerZoom": true,
+      "resultsReopen": true,
+      "keyboardFocusRetained": true,
+      "selectedLocationRetained": true,
+      "sourcePanelPointerClose": true,
+      "validationVisible": true,
+      "status": "PASS"
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "pointerZoom": true,
+      "resultsReopen": true,
+      "keyboardFocusRetained": true,
+      "selectedLocationRetained": true,
+      "sourcePanelPointerClose": true,
+      "validationVisible": true,
+      "status": "PASS"
+    }
+  ]
+}

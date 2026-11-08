@@ -1,0 +1,196 @@
+TAP version 13
+# Subtest: tests/earth/admission.test.mjs
+ok 1 - tests/earth/admission.test.mjs
+  ---
+  duration_ms: 247.168471
+  type: 'test'
+  ...
+# Subtest: tests/earth/display-config.test.mjs
+ok 2 - tests/earth/display-config.test.mjs
+  ---
+  duration_ms: 249.289666
+  type: 'test'
+  ...
+# Subtest: tests/earth/event-camera.test.mjs
+ok 3 - tests/earth/event-camera.test.mjs
+  ---
+  duration_ms: 245.951531
+  type: 'test'
+  ...
+# Subtest: tests/earth/event-contract.test.mjs
+ok 4 - tests/earth/event-contract.test.mjs
+  ---
+  duration_ms: 239.692272
+  type: 'test'
+  ...
+# Subtest: tests/earth/event-layers.test.mjs
+ok 5 - tests/earth/event-layers.test.mjs
+  ---
+  duration_ms: 237.762334
+  type: 'test'
+  ...
+# Subtest: tests/earth/event-selection.test.mjs
+ok 6 - tests/earth/event-selection.test.mjs
+  ---
+  duration_ms: 236.496849
+  type: 'test'
+  ...
+# Subtest: tests/earth/export-boundary.test.mjs
+not ok 7 - tests/earth/export-boundary.test.mjs
+  ---
+  duration_ms: 279.986959
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/export-boundary.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: tests/earth/imagery-controller.test.mjs
+ok 8 - tests/earth/imagery-controller.test.mjs
+  ---
+  duration_ms: 235.689071
+  type: 'test'
+  ...
+# Subtest: tests/earth/imagery-requests.test.mjs
+ok 9 - tests/earth/imagery-requests.test.mjs
+  ---
+  duration_ms: 233.243488
+  type: 'test'
+  ...
+# Subtest: tests/earth/lifecycle.test.mjs
+ok 10 - tests/earth/lifecycle.test.mjs
+  ---
+  duration_ms: 239.866748
+  type: 'test'
+  ...
+# Subtest: tests/earth/navigation-elevation.test.mjs
+ok 11 - tests/earth/navigation-elevation.test.mjs
+  ---
+  duration_ms: 238.048886
+  type: 'test'
+  ...
+# Subtest: tests/earth/observer-refresh.test.mjs
+ok 12 - tests/earth/observer-refresh.test.mjs
+  ---
+  duration_ms: 199.078259
+  type: 'test'
+  ...
+# Subtest: tests/earth/page-lifecycle.test.mjs
+ok 13 - tests/earth/page-lifecycle.test.mjs
+  ---
+  duration_ms: 194.404749
+  type: 'test'
+  ...
+# Subtest: tests/earth/selection.test.mjs
+ok 14 - tests/earth/selection.test.mjs
+  ---
+  duration_ms: 191.598608
+  type: 'test'
+  ...
+# Subtest: tests/earth/smooth-camera.test.mjs
+ok 15 - tests/earth/smooth-camera.test.mjs
+  ---
+  duration_ms: 302.345814
+  type: 'test'
+  ...
+# Subtest: tests/earth/zoom-usability.test.mjs
+ok 16 - tests/earth/zoom-usability.test.mjs
+  ---
+  duration_ms: 203.328337
+  type: 'test'
+  ...
+# Subtest: tests/runtime/adaptive-sky-controls.test.mjs
+ok 17 - tests/runtime/adaptive-sky-controls.test.mjs
+  ---
+  duration_ms: 109.86748
+  type: 'test'
+  ...
+# Subtest: tests/runtime/channel.test.mjs
+ok 18 - tests/runtime/channel.test.mjs
+  ---
+  duration_ms: 207.740659
+  type: 'test'
+  ...
+# Subtest: tests/runtime/continued-input.test.mjs
+ok 19 - tests/runtime/continued-input.test.mjs
+  ---
+  duration_ms: 137.859666
+  type: 'test'
+  ...
+# Subtest: tests/runtime/deploy-artifact-preflight.test.mjs
+ok 20 - tests/runtime/deploy-artifact-preflight.test.mjs
+  ---
+  duration_ms: 331.94093
+  type: 'test'
+  ...
+# Subtest: tests/runtime/navigation.test.mjs
+ok 21 - tests/runtime/navigation.test.mjs
+  ---
+  duration_ms: 69.647502
+  type: 'test'
+  ...
+# Subtest: tests/runtime/protocol.test.mjs
+ok 22 - tests/runtime/protocol.test.mjs
+  ---
+  duration_ms: 64.25565
+  type: 'test'
+  ...
+# Subtest: tests/runtime/sky-artifact.test.mjs
+ok 23 - tests/runtime/sky-artifact.test.mjs
+  ---
+  duration_ms: 191.021915
+  type: 'test'
+  ...
+# Subtest: tests/runtime/sky-landscape-context.test.mjs
+ok 24 - tests/runtime/sky-landscape-context.test.mjs
+  ---
+  duration_ms: 76.097527
+  type: 'test'
+  ...
+# Subtest: tests/runtime/sky-native-controls.test.mjs
+ok 25 - tests/runtime/sky-native-controls.test.mjs
+  ---
+  duration_ms: 151.619665
+  type: 'test'
+  ...
+# Subtest: tests/runtime/sky-native-panels.test.mjs
+ok 26 - tests/runtime/sky-native-panels.test.mjs
+  ---
+  duration_ms: 159.198648
+  type: 'test'
+  ...
+# Subtest: tests/runtime/sky-night-mode.test.mjs
+ok 27 - tests/runtime/sky-night-mode.test.mjs
+  ---
+  duration_ms: 134.686639
+  type: 'test'
+  ...
+# Subtest: tests/runtime/sky-page-lifecycle.test.mjs
+ok 28 - tests/runtime/sky-page-lifecycle.test.mjs
+  ---
+  duration_ms: 178.612913
+  type: 'test'
+  ...
+# Subtest: tests/runtime/sky-wheel.test.mjs
+ok 29 - tests/runtime/sky-wheel.test.mjs
+  ---
+  duration_ms: 159.079813
+  type: 'test'
+  ...
+# Subtest: tests/runtime/workspace-protocol.test.mjs
+ok 30 - tests/runtime/workspace-protocol.test.mjs
+  ---
+  duration_ms: 104.774693
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 29
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 626.81793

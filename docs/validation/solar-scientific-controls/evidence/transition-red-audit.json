@@ -1,0 +1,20 @@
+{
+  "status": "FAIL_REPRODUCED_FROM_ACTUAL_RAW_SAMPLES",
+  "originalProbeStatus": "PASS",
+  "originalSha256": "75bfcd37362ff04cfaeb15a77c79b7210334a8b1da2e8e29b537f4ad362bc365",
+  "harnessDefect": "Original assertion inspected only the first unchanged RAF sample. It missed subsequent early frames; corrected validator checks all25\u2013200ms samples. Original receipt retained unchanged.",
+  "runs": [
+    {
+      "name": "Sun",
+      "maxEarlyDistanceRatio": 63.34980916169335,
+      "expectedBelow": 3,
+      "status": "FAIL"
+    },
+    {
+      "name": "Jupiter",
+      "maxEarlyDistanceRatio": 6.366032065981399,
+      "expectedBelow": 3,
+      "status": "FAIL"
+    }
+  ]
+}

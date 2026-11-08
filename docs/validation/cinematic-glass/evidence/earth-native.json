@@ -1,0 +1,1272 @@
+{
+  "base": "http://127.0.0.1:4221",
+  "status": "PASS",
+  "utc": "2026-06-05T16:00:00Z",
+  "errors": [],
+  "probes": [
+    {
+      "name": "global",
+      "requested": {
+        "lon": -79.585394,
+        "lat": 41.321903,
+        "height": 12000000
+      },
+      "diagnostics": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 20544.5,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "ready"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "unavailable",
+            "temporalMode": "LIVE_ONLY",
+            "message": "Source unavailable. Retry the layer; Earth remains interactive."
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 236.30000001192093,
+          "shellInteractiveMs": 316,
+          "viewerReadyMs": 322.5
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 11999999.999999998,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.086684947925264,
+            "lon": -79.5853935560956,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7212032605397224,
+            "longitudeRad": -1.3890271617969399,
+            "heightM": 11999999.999999998,
+            "headingRad": 1.7763568394002505e-15,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T16:00:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "NASA · Blue Marble · slow · Static Blue Marble composite · 500 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "nasa",
+          "status": "slow",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "NASA · Blue Marble",
+            "product": "Static Blue Marble composite",
+            "date": null,
+            "gsd": 500,
+            "coverage": "Global overview; not current photography",
+            "credit": "NASA GIBS · Blue Marble",
+            "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+            "host": "gibs.earthdata.nasa.gov",
+            "cap": 8,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "slow",
+            "reason": "",
+            "loadingNote": "Detail is refining slowly; currently available imagery remains usable."
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 0,
+          "budget": {
+            "active": 0,
+            "requested": 0
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 0,
+          "metadataPending": false,
+          "view": {
+            "height": 11999999.999999998,
+            "rect": [
+              -180,
+              -90,
+              180,
+              90
+            ],
+            "point": [
+              -79.5853935560956,
+              41.086684947925264
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 0,
+              "loaded": 0,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 0,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        },
+        "imageryTrace": {
+          "label": "startup",
+          "caseOriginMs": 236.40000000596046,
+          "timeOrigin": 1792781276619,
+          "events": [
+            {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            },
+            {
+              "type": "update.start",
+              "pageMs": 537.4000000059605,
+              "caseMs": 301
+            }
+          ],
+          "counts": {
+            "runtime.created": 1,
+            "viewer.ready": 1,
+            "native.pending": 1,
+            "local.construct.start": 1,
+            "local.construct.end": 1,
+            "update.start": 2,
+            "provider.construct.start": 1,
+            "provider.construct.end": 1
+          },
+          "first": {
+            "runtime.created": {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            "viewer.ready": {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            "native.pending": {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            "local.construct.start": {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            "local.construct.end": {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            "update.start": {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            "provider.construct.start": {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            "provider.construct.end": {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            }
+          },
+          "pageFirst": {
+            "runtime.created": {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            "viewer.ready": {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            "native.pending": {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            "local.construct.start": {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            "local.construct.end": {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            "update.start": {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            "provider.construct.start": {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            "provider.construct.end": {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            }
+          },
+          "visible": [],
+          "sensor": "read-only Cesium1.138 native tilesToRender/readyImagery textures; decode is separate from visibility; native idle is not complete coverage"
+        }
+      },
+      "native": {
+        "camera": {
+          "longitude": -1.3890271617969399,
+          "latitude": 0.7212032605397224,
+          "height": 11999999.999999998,
+          "heading": 1.7763568394002505e-15,
+          "pitch": -1.5707963267948966,
+          "roll": 0,
+          "position": [
+            2496287.8504633307,
+            -13581701.978362266,
+            12112803.480941836
+          ]
+        },
+        "utc": "2026-06-05T16:00:00.000Z",
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "renderer": "unavailable",
+        "globeTilesLoaded": false,
+        "imageryOrder": [
+          "local",
+          "nasa"
+        ]
+      },
+      "canvas": {
+        "filter": "none",
+        "opacity": "1",
+        "width": 1440,
+        "height": 900
+      },
+      "renderer": "unknown"
+    },
+    {
+      "name": "regional",
+      "requested": {
+        "lon": -79.585394,
+        "lat": 41.321903,
+        "height": 150000
+      },
+      "diagnostics": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 41097.70000000298,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "ready"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "unavailable",
+            "temporalMode": "LIVE_ONLY",
+            "message": "Source unavailable. Retry the layer; Earth remains interactive."
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 236.30000001192093,
+          "shellInteractiveMs": 316,
+          "viewerReadyMs": 322.5
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 149999.99999986545,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.321799441348944,
+            "lon": -79.58539400031627,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7212032605397224,
+            "longitudeRad": -1.3890271617969399,
+            "heightM": 149999.99999986545,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T16:00:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "EOX · Global Satellite · slow · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "slow",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "EOX · Global Satellite",
+            "product": "Sentinel-2 cloudless · 2016 mosaic",
+            "date": null,
+            "gsd": 10,
+            "coverage": "Web Mercator ±85.051°; capture dates vary",
+            "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+            "url": "https://maps.eox.at/",
+            "host": "tiles.maps.eox.at",
+            "cap": 14,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "eox-2016",
+            "status": "slow",
+            "reason": "",
+            "loadingNote": "Detail is refining slowly; currently available imagery remains usable."
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 0,
+          "budget": {
+            "active": 0,
+            "requested": 0
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 1,
+          "metadataPending": false,
+          "view": {
+            "height": 149999.99999986545,
+            "rect": [
+              -80.6333053693839,
+              40.82704491198705,
+              -78.5374826349515,
+              41.807083479595626
+            ],
+            "point": [
+              -79.58539400031627,
+              41.321799441348944
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 0,
+              "loaded": 0,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 0,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            },
+            "eox-2016": {
+              "requested": 0,
+              "loaded": 0,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 0,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        },
+        "imageryTrace": {
+          "label": "startup",
+          "caseOriginMs": 236.40000000596046,
+          "timeOrigin": 1792781276619,
+          "events": [
+            {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            },
+            {
+              "type": "update.start",
+              "pageMs": 537.4000000059605,
+              "caseMs": 301
+            },
+            {
+              "type": "update.start",
+              "pageMs": 20605.20000000298,
+              "caseMs": 20368.79999999702
+            },
+            {
+              "type": "provider.construct.start",
+              "pageMs": 20606,
+              "caseMs": 20369.59999999404,
+              "source": "eox-2016"
+            },
+            {
+              "type": "provider.construct.end",
+              "pageMs": 20606.20000000298,
+              "caseMs": 20369.79999999702,
+              "source": "eox-2016"
+            }
+          ],
+          "counts": {
+            "runtime.created": 1,
+            "viewer.ready": 1,
+            "native.pending": 1,
+            "local.construct.start": 1,
+            "local.construct.end": 1,
+            "update.start": 3,
+            "provider.construct.start": 2,
+            "provider.construct.end": 2
+          },
+          "first": {
+            "runtime.created": {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            "viewer.ready": {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            "native.pending": {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            "local.construct.start": {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            "local.construct.end": {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            "update.start": {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            "provider.construct.start": {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            "provider.construct.end": {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            }
+          },
+          "pageFirst": {
+            "runtime.created": {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            "viewer.ready": {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            "native.pending": {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            "local.construct.start": {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            "local.construct.end": {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            "update.start": {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            "provider.construct.start": {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            "provider.construct.end": {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            }
+          },
+          "visible": [],
+          "sensor": "read-only Cesium1.138 native tilesToRender/readyImagery textures; decode is separate from visibility; native idle is not complete coverage"
+        }
+      },
+      "native": {
+        "camera": {
+          "longitude": -1.3890271617969399,
+          "latitude": 0.7212032605397224,
+          "height": 149999.99999986545,
+          "heading": 6.283185307179586,
+          "pitch": -1.5707963267948966,
+          "roll": 0,
+          "position": [
+            887528.2504508732,
+            -4828827.810367974,
+            4288381.051865936
+          ]
+        },
+        "utc": "2026-06-05T16:00:00.000Z",
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "renderer": "unavailable",
+        "globeTilesLoaded": false,
+        "imageryOrder": [
+          "local",
+          "eox-2016"
+        ]
+      },
+      "canvas": {
+        "filter": "none",
+        "opacity": "1",
+        "width": 1440,
+        "height": 900
+      },
+      "renderer": "unknown"
+    },
+    {
+      "name": "paris-close",
+      "requested": {
+        "lon": 2.3522,
+        "lat": 48.8566,
+        "height": 2000
+      },
+      "diagnostics": {
+        "owner": "Astronomy Hub",
+        "monotonicMs": 61141.10000000894,
+        "globeTilesLoaded": false,
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "ready"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "unavailable",
+            "temporalMode": "LIVE_ONLY",
+            "message": "Source unavailable. Retry the layer; Earth remains interactive."
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 236.30000001192093,
+          "shellInteractiveMs": 316,
+          "viewerReadyMs": 322.5
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 2000.000000000434,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 48.85659998124506,
+            "lon": 2.3521999999951513,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.8527085313298611,
+            "longitudeRad": 0.04105363466541059,
+            "heightM": 2000.000000000434,
+            "headingRad": 8.881784197001252e-16,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T16:00:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "EOX · Global Satellite · slow · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "selected": "auto",
+          "actual": "eox-2016",
+          "status": "slow",
+          "fallbackReason": "",
+          "metadata": {
+            "label": "EOX · Global Satellite",
+            "product": "Sentinel-2 cloudless · 2016 mosaic",
+            "date": null,
+            "gsd": 10,
+            "coverage": "Web Mercator ±85.051°; capture dates vary",
+            "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+            "url": "https://maps.eox.at/",
+            "host": "tiles.maps.eox.at",
+            "cap": 14,
+            "coverageRasterName": null,
+            "selected": "auto",
+            "actual": "eox-2016",
+            "status": "slow",
+            "reason": "",
+            "loadingNote": "Detail is refining slowly; currently available imagery remains usable."
+          },
+          "localAllocations": 1,
+          "controllersCreated": 1,
+          "managedLayers": 1,
+          "labelsLayers": 0,
+          "budget": {
+            "active": 0,
+            "requested": 0
+          },
+          "ionSessionRequests": 0,
+          "ionSessionLedgerAvailable": true,
+          "metadataRequests": 1,
+          "metadataPending": false,
+          "view": {
+            "height": 2000.000000000434,
+            "rect": [
+              2.336461274575926,
+              48.85010883765929,
+              2.3679387254429094,
+              48.863088964783515
+            ],
+            "point": [
+              2.3521999999951513,
+              48.85659998124506
+            ],
+            "naipCovered": false,
+            "verifiedOras": false
+          },
+          "sources": {
+            "nasa": {
+              "requested": 0,
+              "loaded": 0,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 0,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            },
+            "eox-2016": {
+              "requested": 0,
+              "loaded": 0,
+              "failed": 0,
+              "cancelled": 0,
+              "active": 0,
+              "peak": 0,
+              "paused": false,
+              "partial": false,
+              "preparing": false
+            }
+          }
+        },
+        "imageryTrace": {
+          "label": "startup",
+          "caseOriginMs": 236.40000000596046,
+          "timeOrigin": 1792781276619,
+          "events": [
+            {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            },
+            {
+              "type": "update.start",
+              "pageMs": 537.4000000059605,
+              "caseMs": 301
+            },
+            {
+              "type": "update.start",
+              "pageMs": 20605.20000000298,
+              "caseMs": 20368.79999999702
+            },
+            {
+              "type": "provider.construct.start",
+              "pageMs": 20606,
+              "caseMs": 20369.59999999404,
+              "source": "eox-2016"
+            },
+            {
+              "type": "provider.construct.end",
+              "pageMs": 20606.20000000298,
+              "caseMs": 20369.79999999702,
+              "source": "eox-2016"
+            },
+            {
+              "type": "update.start",
+              "pageMs": 41137.30000001192,
+              "caseMs": 40900.90000000596
+            }
+          ],
+          "counts": {
+            "runtime.created": 1,
+            "viewer.ready": 1,
+            "native.pending": 1,
+            "local.construct.start": 1,
+            "local.construct.end": 1,
+            "update.start": 4,
+            "provider.construct.start": 2,
+            "provider.construct.end": 2
+          },
+          "first": {
+            "runtime.created": {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            "viewer.ready": {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            "native.pending": {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            "local.construct.start": {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            "local.construct.end": {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            "update.start": {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            "provider.construct.start": {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            "provider.construct.end": {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            }
+          },
+          "pageFirst": {
+            "runtime.created": {
+              "type": "runtime.created",
+              "pageMs": 236.6000000089407,
+              "caseMs": 0.20000000298023224
+            },
+            "viewer.ready": {
+              "type": "viewer.ready",
+              "pageMs": 322.6000000089407,
+              "caseMs": 86.20000000298023
+            },
+            "native.pending": {
+              "type": "native.pending",
+              "pageMs": 395.70000000298023,
+              "caseMs": 159.29999999701977,
+              "count": 2
+            },
+            "local.construct.start": {
+              "type": "local.construct.start",
+              "pageMs": 497.70000000298023,
+              "caseMs": 261.29999999701977
+            },
+            "local.construct.end": {
+              "type": "local.construct.end",
+              "pageMs": 522.8000000119209,
+              "caseMs": 286.40000000596046
+            },
+            "update.start": {
+              "type": "update.start",
+              "pageMs": 523.8000000119209,
+              "caseMs": 287.40000000596046
+            },
+            "provider.construct.start": {
+              "type": "provider.construct.start",
+              "pageMs": 526.8000000119209,
+              "caseMs": 290.40000000596046,
+              "source": "nasa"
+            },
+            "provider.construct.end": {
+              "type": "provider.construct.end",
+              "pageMs": 527.2000000029802,
+              "caseMs": 290.79999999701977,
+              "source": "nasa"
+            }
+          },
+          "visible": [],
+          "sensor": "read-only Cesium1.138 native tilesToRender/readyImagery textures; decode is separate from visibility; native idle is not complete coverage"
+        }
+      },
+      "native": {
+        "camera": {
+          "longitude": 0.04105363466541059,
+          "latitude": 0.8527085313298611,
+          "height": 2000.000000000434,
+          "heading": 8.881784197001252e-16,
+          "pitch": -1.5707963267948966,
+          "roll": 0,
+          "position": [
+            4202229.578624305,
+            172613.78327516717,
+            4781587.472431823
+          ]
+        },
+        "utc": "2026-06-05T16:00:00.000Z",
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "renderer": "unavailable",
+        "globeTilesLoaded": false,
+        "imageryOrder": [
+          "local",
+          "eox-2016"
+        ]
+      },
+      "canvas": {
+        "filter": "none",
+        "opacity": "1",
+        "width": 1440,
+        "height": 900
+      },
+      "renderer": "unknown"
+    }
+  ],
+  "limitations": [
+    "Native Earth only; separate from integrated Hub glass screenshots.",
+    "Software Chromium or renderer reported below; no physical GPU performance claim.",
+    "Source readiness is observed; no complete source coverage claim.",
+    "No PEMA view or screenshot."
+  ]
+}

@@ -1,0 +1,460 @@
+{
+  "browserChannel": "bundled Chromium",
+  "headless": true,
+  "head": "f3629f9a8e4b4ac7a158a1448912d75ca36574db",
+  "sourceHashes": {
+    "frontend/src/features/workspace/ImmersiveController.ts": "55db2e15589235de2853ae5e923829ebafc2289fdcdda6f833089471f6d3e4e1",
+    "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
+    "frontend/src/features/workspace/observerProvenance.ts": "3d5d925bc1099245335c761fa8fd1c1da406efae9e8ed9657807b614f0e07fcd",
+    "frontend/src/features/workspace/viewNavigation.ts": "9188dab23501c95cb6437d77b54ecaec058cb1ed8c3251a429248ae853acce63",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "62ea088e09eebd296a9d948145c0ad1495642f2cad0ef149c26e61ef283cc6c5",
+    "frontend/src/features/workspace/EarthExplore.tsx": "fedff5c8f14879d8932e71dc5e8ff5fd363741271f7327787f1a667048da018f",
+    "frontend/src/features/workspace/AdaptiveSkyChrome.tsx": "48c18dfdbbf96ab602165c9505a323df98135efd9f1364c908a223ba776e02a7",
+    "frontend/src/features/workspace/ProductHeader.tsx": "e2dfee73f7e620abe4548097fa23846dae7a345dfd9e7e0e33cffdedffb31ccf",
+    "frontend/src/features/workspace/workspace.css": "8142b3480add9f95933cc3f71812cba9a09a70c7da2bf9e20ddb006788e6e939",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "5019fb9bfba19f51ac432b8760edceef0d01043d318e0fe34222c25f228c70ea",
+    "frontend/src/features/runtime/productState.ts": "78f31b879ae0a8e827b15f3999156d6cc7d070ab8d4c43dbb86df9a069351e02",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "eb7b0191734fc1050dca80bd3e871d984d0642db9609442a5dcb76617dd6b818",
+    "frontend/vite.config.mjs": "5b2d5501716e4864afe2e4cb9b06c62dd31c2974ed85398110597e71f995446c",
+    "runtimes/sky-adapter/entry.mjs": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+    "runtimes/sky-adapter/plugin.js": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
+    "runtimes/sky-adapter/native-wheel.mjs": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
+    "runtimes/sky-adapter/satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2",
+    "runtimes/earth-runtime/core/CameraController.mjs": "1c9af9d135759de1e0e17daf9e91d559c67e42a5481bdc58d9eff272ac567a29",
+    "runtimes/earth-runtime/core/RuntimeBridge.mjs": "2243f52ea3f6bf50a6b24a581dc2c7ecccb3c1ad9533db84d01afa9033c048ee",
+    "runtimes/earth-runtime/core/navigationObserver.mjs": "361e1e3d50e67cb89b7561d628b4325c95bffd7858aa478f5aec56d6cafb25f1",
+    "runtimes/earth-runtime/core/EarthRuntime.mjs": "93c127f6ad955dcb7246a6d33e87eea764b5a35cc5f586067714eca09ce70b55",
+    "runtimes/earth-runtime/entry.mjs": "a399edf789d200af310289b15629c49d3b079fc7687f8c0a10bf036c620aa1a2",
+    "packages/runtime-protocol/index.mjs": "68942038408a0854940d5154b094ba18246ddb05fe561b1eb90cc3f8ac991b84",
+    "packages/runtime-protocol/workspace.mjs": "6e68c42cf9c1ed39cf2c9502d2ba4cf8da708fbb9e73440636eb5043013f8341",
+    "packages/runtime-protocol/navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+    "packages/runtime-protocol/observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3",
+    "packages/runtime-protocol/continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
+    "integrations/renderers.lock.json": "b6be23f62c66cf54db29084f75e4ed6204d95bc87df5b7f2ebe08459c24d07e0",
+    "frontend/public/runtime-versions.json": "dfa169e679ef5755a2e00aeb055c7278df072033a04193240a89766abe1aed30",
+    "scripts/validation/verify_n1_navigation.mjs": "bdb357f73b5f2f6aea1e260a34e24a6c61f5f2be16437109f5fafabf3dd2bf90"
+  },
+  "base": "http://127.0.0.1:4202",
+  "started": "2026-10-16T17:45:29.681Z",
+  "status": "FAIL",
+  "runs": [
+    {
+      "width": 1440,
+      "touch": false,
+      "reducedMotion": "no-preference",
+      "status": "RUNNING",
+      "steps": [
+        {
+          "name": "initial ORAS Sky and served source identity",
+          "status": "PASS",
+          "elapsedMs": 4555,
+          "scene": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-14T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "night": false,
+            "selection": null
+          }
+        },
+        {
+          "name": "native Landscape toggle and Sky Night Mode ON",
+          "status": "PASS",
+          "elapsedMs": 9535,
+          "scene": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-14T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "night": true,
+            "selection": null
+          }
+        },
+        {
+          "name": "Explore dismissal and focus return",
+          "status": "PASS",
+          "elapsedMs": 788,
+          "scene": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-14T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "night": true,
+            "selection": null
+          }
+        },
+        {
+          "name": "arrival and short outward overshoot stay in Sky",
+          "status": "PASS",
+          "elapsedMs": 1993,
+          "scene": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-14T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 3.22885911619,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "night": true,
+            "selection": null
+          }
+        },
+        {
+          "name": "reverse input leaves boundary hysteresis",
+          "status": "PASS",
+          "elapsedMs": 1059,
+          "scene": {
+            "mode": "sky",
+            "observer": {
+              "lat": 41.3219030000159,
+              "lon": -79.58539400000345,
+              "elevationM": 432.816
+            },
+            "elevationSource": "oras-site",
+            "utc": "2026-10-14T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.185418944282,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "night": true,
+            "selection": null
+          }
+        }
+      ],
+      "pageErrors": [],
+      "resourceFailures": [
+        {
+          "failure": "net::ERR_ABORTED",
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/surveys/dss/v1/properties"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix3.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix8.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix9.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix363.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix364.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix494.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix506.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix485.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix486.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix361.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph"
+        }
+      ],
+      "consoleSummary": {
+        "Failed to load resource: the server responded with a status of 404 (Not Found)": 61
+      },
+      "screenshots": [
+        "oras-sky-1440.png"
+      ],
+      "initialRendering": {
+        "context": true,
+        "width": 1440,
+        "height": 900,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "initialSkyPixels": {
+        "uniqueColors": 891
+      }
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering and emulated touch/trackpad input are not physical-device qualification.",
+    "The owner’s ChatGPT browser cannot be automated here; these are representative Chromium input cadences, not reproduction of that exact browser.",
+    "Default Earth uses ellipsoid terrain. Non-ORAS observer elevations use identified zero fallback; no terrain datum is qualified."
+  ],
+  "error": "page.screenshot: Target crashed \nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\n    at shot (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:33:72)\n    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:74:140",
+  "failureBridge": {},
+  "failureScene": {},
+  "finished": "2026-10-16T17:49:29.269Z"
+}

@@ -1,0 +1,6 @@
+PASS [
+  'Landscape, atmosphere and Night Mode toggle independently without changing UTC/observer/camera',
+  'Genuine continuous wheel continuation enters Earth with one native renderer',
+  'Actual Solar WebGL loss disposes the canvas; explicit retry recreates one renderer',
+  'Recovered Solar renderer is disposed on Earth return'
+]

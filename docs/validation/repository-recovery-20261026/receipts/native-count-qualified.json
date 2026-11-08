@@ -1,0 +1,86 @@
+{
+  "x": {
+    "count": 15901,
+    "small": [
+      {
+        "id": 900,
+        "found": true
+      },
+      {
+        "id": 902,
+        "found": true
+      },
+      {
+        "id": 1361,
+        "found": true
+      },
+      {
+        "id": 1512,
+        "found": true
+      },
+      {
+        "id": 1520,
+        "found": true
+      },
+      {
+        "id": 2826,
+        "found": true
+      },
+      {
+        "id": 2866,
+        "found": true
+      },
+      {
+        "id": 2872,
+        "found": true
+      },
+      {
+        "id": 2874,
+        "found": true
+      },
+      {
+        "id": 5398,
+        "found": true
+      },
+      {
+        "id": 7530,
+        "found": true
+      },
+      {
+        "id": 7646,
+        "found": true
+      },
+      {
+        "id": 8820,
+        "found": true
+      }
+    ],
+    "navigation": {
+      "mode": "sky",
+      "observer": {
+        "lat": 41.3219030000159,
+        "lon": -79.58539400000345,
+        "elevationM": 432.816
+      },
+      "elevationSource": "oras-site",
+      "utc": "2026-10-26T08:17:37.317Z",
+      "live": true,
+      "camera": {
+        "projection": 2,
+        "fovRad": 2.094395102393,
+        "yawRad": 0,
+        "pitchRad": 0.523598775598,
+        "rollRad": 0,
+        "landscapeVisible": true
+      }
+    },
+    "selection": false,
+    "lock": false,
+    "hints": true
+  },
+  "logs": [
+    "0.000000: Parsed 858 comets (latest epoch: 2020-01-29)                 comets_update (src/modules/comets.c:555)",
+    "0.002000: Parsed 500 asteroids                                         load_data (dules/minorplanets.c:172)",
+    "0.377000: Parsed 15901 satellites (latest epoch: 2026-10-26)           satellites_update (modules/satellites.c:142)"
+  ]
+}

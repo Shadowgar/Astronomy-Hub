@@ -1,0 +1,873 @@
+{
+  "status": "PASS",
+  "width": 390,
+  "sourceHashes": {
+    "scripts/validation/verify_r2b_cache_failures.mjs": "73c7ea7ad6344b6bdd96e669f29684d0e0209143a86b760c5fa1f18ff82c8b5f",
+    "runtimes/earth-runtime/core/imageryCacheWorker.mjs": "8b266ae4ef0e154542ebc08b98a05319dd0f3862efa5800950e22743cdb95163",
+    "runtimes/earth-runtime/core/imageryCacheStore.mjs": "cb51263f2dd5a383b48bdaaf04829324c5e9aea7bb85f9773ff39e5e0350262d",
+    "runtimes/earth-runtime/core/imageryCachePolicy.mjs": "8d608883c4214a844ba6a662858cb83c9994fecbfc3b0894a5826b7592fe0f14",
+    "runtimes/earth-runtime/core/ImageryController.mjs": "c04fef132d80c49dad45302ebafcfccb034558c25d8fbb2c3e89ef2ab94b672e",
+    "packages/imagery-cache/client.mjs": "902133f80992a17e35c3602e6b4413cf7473de6458d1c940bc4175b37ad8a7ed"
+  },
+  "steps": [
+    "Declared provider denial retains one local safety base and truthful unavailable state",
+    "Eligible fixture exact bytes reused without a second request",
+    "Corrupt and expired owned entries miss/refetch the original bytes",
+    "Private/no-store/tokenized/opaque responses excluded from owned cache",
+    "An actual in-flight response completed after clear cannot repopulate owned storage",
+    "Declared429 cooldown suppresses repeated starts, then real EOX recovers after virtual-time expiry without moving camera"
+  ],
+  "recoveryTransport": [
+    {
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/1/0/1.jpg",
+      "status": 429
+    },
+    {
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/1/1/1.jpg",
+      "status": 429
+    },
+    {
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/1/0/0.jpg",
+      "status": 429
+    },
+    {
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/1/1/0.jpg",
+      "status": 429
+    }
+  ],
+  "sourceBodySha256": "67b258f2e01ab80d7adfb0e8936cec6f379738861865ca50c3aea3c04a6cfea9",
+  "sourceUrl": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/1/1/0.jpg",
+  "fixtureDisclosure": "Controlled status/cache headers only; eligible fixture body is actual source tile bytes. These cases are not public provider failures or genuine-source timing measurements.",
+  "unavailable": {
+    "owner": "Astronomy Hub",
+    "monotonicMs": 1078.3999999999069,
+    "globeTilesLoaded": false,
+    "ready": true,
+    "disposed": false,
+    "viewerDestroyed": false,
+    "site": {
+      "lat": 41.321903,
+      "lon": -79.585394,
+      "elevationM": 432.816
+    },
+    "layers": [
+      {
+        "id": "oras-site",
+        "title": "ORAS site",
+        "category": "Site context",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "ORAS canonical site",
+        "status": "ready"
+      },
+      {
+        "id": "aircraft",
+        "title": "Aircraft near ORAS",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "adsb.lol · ODbL 1.0",
+        "status": "disabled"
+      },
+      {
+        "id": "satellites",
+        "title": "Satellites · stations",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "tracking",
+          "live-only"
+        ],
+        "attribution": "CelesTrak · satellite.js",
+        "status": "ready"
+      },
+      {
+        "id": "weather",
+        "title": "Weather at ORAS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "Open-Meteo · CC BY 4.0",
+        "status": "disabled"
+      },
+      {
+        "id": "earthquakes",
+        "title": "Earthquakes · M2.5+ · past day",
+        "category": "Events",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "U.S. Geological Survey",
+        "status": "disabled"
+      },
+      {
+        "id": "fire-perimeters",
+        "title": "Fire perimeters · recent subset",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NIFC/WFIGS",
+        "status": "disabled"
+      },
+      {
+        "id": "weather-radar",
+        "title": "Radar reflectivity · CONUS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NOAA/NWS nowCOAST",
+        "status": "disabled"
+      }
+    ],
+    "providers": {
+      "satellites": {
+        "status": "unavailable",
+        "temporalMode": "LIVE_ONLY",
+        "message": "Source unavailable. Retry the layer; Earth remains interactive."
+      }
+    },
+    "entityCount": 1,
+    "timings": {
+      "moduleLoadedMs": 124.60000000009313,
+      "shellInteractiveMs": 163.5,
+      "viewerReadyMs": 167.10000000009313,
+      "firstImageryTileMs": 1052.7999999998137
+    },
+    "cameraMotion": {
+      "active": false
+    },
+    "cameraHeightM": 9621863,
+    "navigation": {
+      "mode": "earth",
+      "observer": {
+        "lat": 41.148187059229414,
+        "lon": -79.58539412166371,
+        "elevationM": 0
+      },
+      "elevationSource": "unavailable-zero",
+      "camera": {
+        "latitudeRad": 0.7212032605397221,
+        "longitudeRad": -1.3890271617969399,
+        "heightM": 9621863,
+        "headingRad": 6.283185307179586,
+        "pitchRad": -1.5707963267948966,
+        "rollRad": 0
+      },
+      "utc": "2026-10-20T15:12:32.498Z",
+      "live": false
+    },
+    "tracking": null,
+    "selection": null,
+    "quality": {
+      "imagery": "Local · Natural Earth · unavailable · fallback · Natural Earth II · cartographic raster",
+      "terrain": "Terrain unavailable · ellipsoid",
+      "buildings": "Not configured",
+      "photorealistic": "Not configured"
+    },
+    "imagery": {
+      "selected": "auto",
+      "actual": "local",
+      "status": "unavailable",
+      "fallbackReason": "NASA unavailable; local safety base",
+      "metadata": {
+        "label": "Local · Natural Earth",
+        "product": "Natural Earth II · cartographic raster",
+        "date": null,
+        "gsd": null,
+        "coverage": "Global bundled safety base",
+        "credit": "Natural Earth · public domain",
+        "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+        "coverageRasterName": null,
+        "selected": "auto",
+        "actual": "local",
+        "status": "unavailable",
+        "reason": "NASA unavailable; local safety base",
+        "loadingNote": ""
+      },
+      "localAllocations": 1,
+      "controllersCreated": 1,
+      "managedLayers": 0,
+      "labelsLayers": 0,
+      "budget": {
+        "active": 0,
+        "requested": 2
+      },
+      "ionSessionRequests": 0,
+      "ionSessionLedgerAvailable": true,
+      "metadataRequests": 0,
+      "metadataPending": false,
+      "view": {
+        "height": 9621863,
+        "rect": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "point": [
+          -79.58539412166371,
+          41.148187059229414
+        ],
+        "naipCovered": false,
+        "verifiedOras": false
+      },
+      "sources": {}
+    }
+  },
+  "exclusionKeys": [
+    "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/1/1/0.jpg?r2bFixture=eligible"
+  ],
+  "counts": {
+    "eligible": 3,
+    "private": 2,
+    "no-store": 2,
+    "token": 2,
+    "opaque": 1,
+    "late-clear": 1
+  },
+  "cooldownBefore": {
+    "owner": "Astronomy Hub",
+    "monotonicMs": 872,
+    "globeTilesLoaded": false,
+    "ready": true,
+    "disposed": false,
+    "viewerDestroyed": false,
+    "site": {
+      "lat": 41.321903,
+      "lon": -79.585394,
+      "elevationM": 432.816
+    },
+    "layers": [
+      {
+        "id": "oras-site",
+        "title": "ORAS site",
+        "category": "Site context",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "ORAS canonical site",
+        "status": "ready"
+      },
+      {
+        "id": "aircraft",
+        "title": "Aircraft near ORAS",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "adsb.lol · ODbL 1.0",
+        "status": "disabled"
+      },
+      {
+        "id": "satellites",
+        "title": "Satellites · stations",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "tracking",
+          "live-only"
+        ],
+        "attribution": "CelesTrak · satellite.js",
+        "status": "loading"
+      },
+      {
+        "id": "weather",
+        "title": "Weather at ORAS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "Open-Meteo · CC BY 4.0",
+        "status": "disabled"
+      },
+      {
+        "id": "earthquakes",
+        "title": "Earthquakes · M2.5+ · past day",
+        "category": "Events",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "U.S. Geological Survey",
+        "status": "disabled"
+      },
+      {
+        "id": "fire-perimeters",
+        "title": "Fire perimeters · recent subset",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NIFC/WFIGS",
+        "status": "disabled"
+      },
+      {
+        "id": "weather-radar",
+        "title": "Radar reflectivity · CONUS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NOAA/NWS nowCOAST",
+        "status": "disabled"
+      }
+    ],
+    "providers": {
+      "satellites": {
+        "status": "loading",
+        "temporalMode": "LIVE_ONLY"
+      }
+    },
+    "entityCount": 1,
+    "timings": {
+      "moduleLoadedMs": 128,
+      "shellInteractiveMs": 167,
+      "viewerReadyMs": 170,
+      "firstImageryTileMs": 858
+    },
+    "cameraMotion": {
+      "active": false
+    },
+    "cameraHeightM": 2000.000000000434,
+    "navigation": {
+      "mode": "earth",
+      "observer": {
+        "lat": 48.85659998124506,
+        "lon": 2.3521999999951513,
+        "elevationM": 0
+      },
+      "elevationSource": "unavailable-zero",
+      "camera": {
+        "latitudeRad": 0.8527085313298611,
+        "longitudeRad": 0.04105363466541059,
+        "heightM": 2000.000000000434,
+        "headingRad": 6.283185307179586,
+        "pitchRad": -1.5707963267948966,
+        "rollRad": 0
+      },
+      "utc": "2026-10-20T15:12:38.161Z",
+      "live": false
+    },
+    "tracking": null,
+    "selection": null,
+    "quality": {
+      "imagery": "NASA · Blue Marble · loading · fallback · Static Blue Marble composite · 500 m",
+      "terrain": "Terrain unavailable · ellipsoid",
+      "buildings": "Not configured",
+      "photorealistic": "Not configured"
+    },
+    "imagery": {
+      "selected": "auto",
+      "actual": "nasa",
+      "status": "loading",
+      "fallbackReason": "Source cooldown or host unavailable",
+      "metadata": {
+        "label": "NASA · Blue Marble",
+        "product": "Static Blue Marble composite",
+        "date": null,
+        "gsd": 500,
+        "coverage": "Global overview; not current photography",
+        "credit": "NASA GIBS · Blue Marble",
+        "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+        "host": "gibs.earthdata.nasa.gov",
+        "cap": 8,
+        "coverageRasterName": null,
+        "selected": "auto",
+        "actual": "nasa",
+        "status": "loading",
+        "reason": "Source cooldown or host unavailable",
+        "loadingNote": ""
+      },
+      "localAllocations": 1,
+      "controllersCreated": 1,
+      "managedLayers": 1,
+      "labelsLayers": 0,
+      "budget": {
+        "active": 0,
+        "requested": 4
+      },
+      "ionSessionRequests": 0,
+      "ionSessionLedgerAvailable": true,
+      "metadataRequests": 0,
+      "metadataPending": false,
+      "view": {
+        "height": 2000.000000000434,
+        "rect": [
+          2.344926870028425,
+          48.84621572947648,
+          2.35947312995808,
+          48.86698374317698
+        ],
+        "point": [
+          2.3521999999951513,
+          48.85659998124506
+        ],
+        "naipCovered": false,
+        "verifiedOras": false
+      },
+      "sources": {
+        "nasa": {
+          "requested": 0,
+          "loaded": 0,
+          "failed": 0,
+          "cancelled": 0,
+          "active": 0,
+          "peak": 0,
+          "paused": false,
+          "partial": false,
+          "preparing": false
+        },
+        "eox-2016": {
+          "requested": 4,
+          "loaded": 0,
+          "failed": 1,
+          "cancelled": 3,
+          "active": 0,
+          "peak": 4,
+          "paused": true,
+          "partial": false,
+          "preparing": false
+        }
+      }
+    }
+  },
+  "afterClock": {
+    "owner": "Astronomy Hub",
+    "monotonicMs": 302363,
+    "globeTilesLoaded": false,
+    "ready": true,
+    "disposed": false,
+    "viewerDestroyed": false,
+    "site": {
+      "lat": 41.321903,
+      "lon": -79.585394,
+      "elevationM": 432.816
+    },
+    "layers": [
+      {
+        "id": "oras-site",
+        "title": "ORAS site",
+        "category": "Site context",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "ORAS canonical site",
+        "status": "ready"
+      },
+      {
+        "id": "aircraft",
+        "title": "Aircraft near ORAS",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "adsb.lol · ODbL 1.0",
+        "status": "disabled"
+      },
+      {
+        "id": "satellites",
+        "title": "Satellites · stations",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "tracking",
+          "live-only"
+        ],
+        "attribution": "CelesTrak · satellite.js",
+        "status": "loading"
+      },
+      {
+        "id": "weather",
+        "title": "Weather at ORAS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "Open-Meteo · CC BY 4.0",
+        "status": "disabled"
+      },
+      {
+        "id": "earthquakes",
+        "title": "Earthquakes · M2.5+ · past day",
+        "category": "Events",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "U.S. Geological Survey",
+        "status": "disabled"
+      },
+      {
+        "id": "fire-perimeters",
+        "title": "Fire perimeters · recent subset",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NIFC/WFIGS",
+        "status": "disabled"
+      },
+      {
+        "id": "weather-radar",
+        "title": "Radar reflectivity · CONUS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NOAA/NWS nowCOAST",
+        "status": "disabled"
+      }
+    ],
+    "providers": {
+      "satellites": {
+        "status": "loading",
+        "temporalMode": "LIVE_ONLY"
+      }
+    },
+    "entityCount": 1,
+    "timings": {
+      "moduleLoadedMs": 128,
+      "shellInteractiveMs": 167,
+      "viewerReadyMs": 170,
+      "firstImageryTileMs": 858
+    },
+    "cameraMotion": {
+      "active": false
+    },
+    "cameraHeightM": 2000.000000000434,
+    "navigation": {
+      "mode": "earth",
+      "observer": {
+        "lat": 48.85659998124506,
+        "lon": 2.3521999999951513,
+        "elevationM": 0
+      },
+      "elevationSource": "unavailable-zero",
+      "camera": {
+        "latitudeRad": 0.8527085313298611,
+        "longitudeRad": 0.04105363466541059,
+        "heightM": 2000.000000000434,
+        "headingRad": 6.283185307179586,
+        "pitchRad": -1.5707963267948966,
+        "rollRad": 0
+      },
+      "utc": "2026-10-20T15:12:38.161Z",
+      "live": false
+    },
+    "tracking": null,
+    "selection": null,
+    "quality": {
+      "imagery": "EOX · Global Satellite · slow · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+      "terrain": "Terrain unavailable · ellipsoid",
+      "buildings": "Not configured",
+      "photorealistic": "Not configured"
+    },
+    "imagery": {
+      "selected": "auto",
+      "actual": "eox-2016",
+      "status": "slow",
+      "fallbackReason": "",
+      "metadata": {
+        "label": "EOX · Global Satellite",
+        "product": "Sentinel-2 cloudless · 2016 mosaic",
+        "date": null,
+        "gsd": 10,
+        "coverage": "Web Mercator ±85.051°; capture dates vary",
+        "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+        "url": "https://maps.eox.at/",
+        "host": "tiles.maps.eox.at",
+        "cap": 14,
+        "coverageRasterName": null,
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "slow",
+        "reason": "",
+        "loadingNote": "Detail is refining slowly; currently available imagery remains usable."
+      },
+      "localAllocations": 1,
+      "controllersCreated": 1,
+      "managedLayers": 1,
+      "labelsLayers": 0,
+      "budget": {
+        "active": 27,
+        "requested": 31
+      },
+      "ionSessionRequests": 0,
+      "ionSessionLedgerAvailable": true,
+      "metadataRequests": 0,
+      "metadataPending": false,
+      "view": {
+        "height": 2000.000000000434,
+        "rect": [
+          2.344926870028425,
+          48.84621572947648,
+          2.35947312995808,
+          48.86698374317698
+        ],
+        "point": [
+          2.3521999999951504,
+          48.856599981243356
+        ],
+        "naipCovered": false,
+        "verifiedOras": false
+      },
+      "sources": {
+        "nasa": {
+          "requested": 9,
+          "loaded": 0,
+          "failed": 0,
+          "cancelled": 0,
+          "active": 9,
+          "peak": 9,
+          "paused": false,
+          "partial": false,
+          "preparing": false
+        },
+        "eox-2016": {
+          "requested": 22,
+          "loaded": 0,
+          "failed": 1,
+          "cancelled": 3,
+          "active": 18,
+          "peak": 18,
+          "paused": false,
+          "partial": false,
+          "preparing": false
+        }
+      }
+    }
+  },
+  "cooldownAfter": {
+    "owner": "Astronomy Hub",
+    "monotonicMs": 302769,
+    "globeTilesLoaded": false,
+    "ready": true,
+    "disposed": false,
+    "viewerDestroyed": false,
+    "site": {
+      "lat": 41.321903,
+      "lon": -79.585394,
+      "elevationM": 432.816
+    },
+    "layers": [
+      {
+        "id": "oras-site",
+        "title": "ORAS site",
+        "category": "Site context",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "ORAS canonical site",
+        "status": "ready"
+      },
+      {
+        "id": "aircraft",
+        "title": "Aircraft near ORAS",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "adsb.lol · ODbL 1.0",
+        "status": "disabled"
+      },
+      {
+        "id": "satellites",
+        "title": "Satellites · stations",
+        "category": "Live Earth",
+        "capabilities": [
+          "selection",
+          "tracking",
+          "live-only"
+        ],
+        "attribution": "CelesTrak · satellite.js",
+        "status": "loading"
+      },
+      {
+        "id": "weather",
+        "title": "Weather at ORAS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "live-only"
+        ],
+        "attribution": "Open-Meteo · CC BY 4.0",
+        "status": "disabled"
+      },
+      {
+        "id": "earthquakes",
+        "title": "Earthquakes · M2.5+ · past day",
+        "category": "Events",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "U.S. Geological Survey",
+        "status": "disabled"
+      },
+      {
+        "id": "fire-perimeters",
+        "title": "Fire perimeters · recent subset",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NIFC/WFIGS",
+        "status": "disabled"
+      },
+      {
+        "id": "weather-radar",
+        "title": "Radar reflectivity · CONUS",
+        "category": "Environment",
+        "capabilities": [
+          "selection",
+          "focus"
+        ],
+        "attribution": "NOAA/NWS nowCOAST",
+        "status": "disabled"
+      }
+    ],
+    "providers": {
+      "satellites": {
+        "status": "loading",
+        "temporalMode": "LIVE_ONLY"
+      }
+    },
+    "entityCount": 1,
+    "timings": {
+      "moduleLoadedMs": 128,
+      "shellInteractiveMs": 167,
+      "viewerReadyMs": 170,
+      "firstImageryTileMs": 858
+    },
+    "cameraMotion": {
+      "active": false
+    },
+    "cameraHeightM": 2000.000000000434,
+    "navigation": {
+      "mode": "earth",
+      "observer": {
+        "lat": 48.85659998124506,
+        "lon": 2.3521999999951513,
+        "elevationM": 0
+      },
+      "elevationSource": "unavailable-zero",
+      "camera": {
+        "latitudeRad": 0.8527085313298611,
+        "longitudeRad": 0.04105363466541059,
+        "heightM": 2000.000000000434,
+        "headingRad": 6.283185307179586,
+        "pitchRad": -1.5707963267948966,
+        "rollRad": 0
+      },
+      "utc": "2026-10-20T15:12:38.161Z",
+      "live": false
+    },
+    "tracking": null,
+    "selection": null,
+    "quality": {
+      "imagery": "EOX · Global Satellite · slow · Sentinel-2 cloudless · 2016 mosaic · 10 m",
+      "terrain": "Terrain unavailable · ellipsoid",
+      "buildings": "Not configured",
+      "photorealistic": "Not configured"
+    },
+    "imagery": {
+      "selected": "auto",
+      "actual": "eox-2016",
+      "status": "partial",
+      "fallbackReason": "",
+      "metadata": {
+        "label": "EOX · Global Satellite",
+        "product": "Sentinel-2 cloudless · 2016 mosaic",
+        "date": null,
+        "gsd": 10,
+        "coverage": "Web Mercator ±85.051°; capture dates vary",
+        "credit": "EOX::Maps · Sentinel-2 cloudless 2016 · CC BY 4.0",
+        "url": "https://maps.eox.at/",
+        "host": "tiles.maps.eox.at",
+        "cap": 14,
+        "coverageRasterName": null,
+        "selected": "auto",
+        "actual": "eox-2016",
+        "status": "slow",
+        "reason": "",
+        "loadingNote": "Detail is refining slowly; currently available imagery remains usable."
+      },
+      "localAllocations": 1,
+      "controllersCreated": 1,
+      "managedLayers": 1,
+      "labelsLayers": 0,
+      "budget": {
+        "active": 23,
+        "requested": 32
+      },
+      "ionSessionRequests": 0,
+      "ionSessionLedgerAvailable": true,
+      "metadataRequests": 0,
+      "metadataPending": false,
+      "view": {
+        "height": 2000.000000000434,
+        "rect": [
+          2.344926870028425,
+          48.84621572947648,
+          2.35947312995808,
+          48.86698374317698
+        ],
+        "point": [
+          2.3521999999951513,
+          48.85659998124494
+        ],
+        "naipCovered": false,
+        "verifiedOras": false
+      },
+      "sources": {
+        "nasa": {
+          "requested": 9,
+          "loaded": 4,
+          "failed": 0,
+          "cancelled": 0,
+          "active": 5,
+          "peak": 9,
+          "paused": false,
+          "partial": false,
+          "preparing": false
+        },
+        "eox-2016": {
+          "requested": 23,
+          "loaded": 1,
+          "failed": 1,
+          "cancelled": 3,
+          "active": 18,
+          "peak": 18,
+          "paused": false,
+          "partial": false,
+          "preparing": false
+        }
+      }
+    }
+  },
+  "virtualCooldownMs": 300500
+}

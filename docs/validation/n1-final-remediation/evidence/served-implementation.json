@@ -1,0 +1,40 @@
+{
+  "workingTreeRuntimeChanges": false,
+  "deliveryHead": "b7b5da90b34f33124084cf73e36ee7c2644575f0",
+  "applicationSourceCommit": "b7b5da90b34f33124084cf73e36ee7c2644575f0",
+  "sourceInputSha256": "a28b113d5457dbb3042840e9baa96abf786ca3c353a0c1bde8441e49e3a65096",
+  "base": "http://127.0.0.1:4202",
+  "status": "PASS",
+  "cacheControl": "no-store",
+  "skyArtifact": "d293874321c60bd3bd154c5a1696037d72d9a1f35c2415c6141d62fab6224d57",
+  "earthArtifact": "834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c",
+  "servedJavaScript": [
+    {
+      "url": "/assets/index-CBJazdLh.js",
+      "sha256": "34a5b94f66210fc82a8cfba6e5924267e08f59601ef1ca423282f6a2b83939b6"
+    },
+    {
+      "url": "/oras-sky-engine/js/app.8c0b384f.js",
+      "sha256": "2786b9d8a4a3f93f5e26986223cf759668822031dd5236dcf1954453cf0883a7"
+    },
+    {
+      "url": "/oras-sky-engine/js/chunk-2d2253ec.81e41965.js",
+      "sha256": "d3f803f08754c11aaeb96cbc5f1ed46b05fdbc6164ba9a91eabc6a64cbe4716c"
+    },
+    {
+      "url": "/oras-sky-engine/js/chunk-vendors.c8723c79.js",
+      "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260"
+    },
+    {
+      "url": "/earth-runtime/assets/index-DgNslkYt.js",
+      "sha256": "9e7019040984a22f58c0b09231fb3e88d518d6f8ad334f011f2f384341f58e50"
+    }
+  ],
+  "verifiedAt": "2026-10-16T06:09:53Z",
+  "skySourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+    "integrations/sky-patches/0001-configurable-zero-horizon.patch": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35"
+  },
+  "skyApplicationSourceCommit": "b7b5da90b34f33124084cf73e36ee7c2644575f0",
+  "acceptedNavigationSourceCommit": "b7b5da90b34f33124084cf73e36ee7c2644575f0"
+}

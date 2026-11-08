@@ -1,0 +1,15 @@
+{
+  "hub": {
+    "identicalFiles": 136
+  },
+  "earth": {
+    "identicalBuildFiles": 9,
+    "artifact": "bba92a4790578f33fe2cb128c9aa6d13a9578574eddd5c147cff4162d7b36e97"
+  },
+  "softwareRendering": true,
+  "windowsHttpStatus": 200,
+  "runtimeUrls": [
+    "http://127.0.0.1:4219/earth",
+    "http://172.26.23.204:4219/earth"
+  ]
+}

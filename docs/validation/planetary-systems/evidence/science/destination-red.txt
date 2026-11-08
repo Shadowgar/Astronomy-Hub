@@ -1,0 +1,32 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_catalog_uses_sourced_metadata_and_honest_unavailability _________
+
+    def test_catalog_uses_sourced_metadata_and_honest_unavailability():
+        response = request('/api/v1/planetary-systems')
+        assert response.status_code == 200
+        catalog = response.json()
+        rows = {s['id']: s for s in catalog['systems']}
+        assert set(rows) == {'mercury','venus','earth','mars','jupiter','saturn','uranus','neptune'}
+        assert rows['mercury']['satellites'] == rows['venus']['satellites'] == []
+        assert rows['earth']['satellites'][0]['radius_km'] == 1737.4
+>       assert rows['earth']['satellites'][0]['surface'] == {'available': True, 'destination': '/planet-view/moon'}
+E       AssertionError: assert {'available':.../planet/moon'} == {'available':...et-view/moon'}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'destination': '/planet/moon'} != {'destination': '/planet-view/moon'}
+E         Use -v to get more diff
+
+backend/tests/test_planetary_systems.py:81: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"timestamp": "2026-10-24T04:37:45.920479+00:00", "level": "info", "event": "request.start", "logger": "backend.app", "request_id": "a0f74582-3c3a-4bb3-81af-4acaa65173dd", "route": "/api/v1/planetary-systems", "method": "GET"}
+{"timestamp": "2026-10-24T04:37:45.926109+00:00", "level": "info", "event": "request.end", "logger": "backend.app", "request_id": "a0f74582-3c3a-4bb3-81af-4acaa65173dd", "route": "/api/v1/planetary-systems", "method": "GET", "status_code": 200, "duration_ms": 5}
+{"timestamp": "2026-10-24T04:37:45.926926+00:00", "level": "info", "event": "HTTP Request: GET http://test/api/v1/planetary-systems \"HTTP/1.1 200 OK\"", "logger": "httpx", "request_id": null}
+------------------------------ Captured log call -------------------------------
+INFO     backend.app:logging.py:52 request.start
+INFO     backend.app:logging.py:52 request.end
+INFO     httpx:_client.py:1786 HTTP Request: GET http://test/api/v1/planetary-systems "HTTP/1.1 200 OK"
+=========================== short test summary info ============================
+FAILED backend/tests/test_planetary_systems.py::test_catalog_uses_sourced_metadata_and_honest_unavailability
+1 failed, 13 deselected in 0.88s

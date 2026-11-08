@@ -1,0 +1,455 @@
+{
+  "schema": "astronomy-hub.mission-assets.v1",
+  "version": "2.5",
+  "missions": {
+    "voyager1": "voyager",
+    "voyager2": "voyager",
+    "cassini": "cassini",
+    "newhorizons": "new-horizons"
+  },
+  "models": {
+    "voyager": {
+      "id": "voyager",
+      "modelUrl": "/mission-assets/v2.5/voyager.glb",
+      "bytes": 3128204,
+      "sha256": "5338241f2e89e9cfe3ebb82f519b4cad64c97e66883cccba6fdda98667aec731",
+      "metersPerSourceUnit": 0.970583576287901,
+      "sourceBounds": {
+        "min": [
+          -3.8790203616954386,
+          -2.0337013006210327,
+          -4.2085371017456055
+        ],
+        "max": [
+          3.8732052757404745,
+          9.003668904304504,
+          12.700529098510742
+        ]
+      },
+      "centerSource": [
+        -0.0029075429774820805,
+        3.484983801841736,
+        4.245995998382568
+      ],
+      "boundsMeters": {
+        "min": [
+          -3.7649134551479464,
+          -1.9738770814581177,
+          -4.0847369911525675
+        ],
+        "max": [
+          3.7592694282253554,
+          8.738813164852033,
+          12.326924953181107
+        ]
+      },
+      "radiusMeters": 9.756709775895917,
+      "stats": {
+        "nodes": 4,
+        "meshes": 4,
+        "primitives": 5,
+        "materials": 5,
+        "vertices": 23928,
+        "triangles": 20390,
+        "textures": [
+          {
+            "name": "voyager_tex_01.jpg",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "af7589bb64697c9f85d881457a7a1348d4adefa1564ce6a7bcd40754343311eb"
+          },
+          {
+            "name": "voyager_tex_02_AO.jpg",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "5fd473e53145bd03b8146c89b879b194e366acb370bced9b5311cdd941f81cab"
+          },
+          {
+            "name": "voyager_tex_02_AO_other.jpg",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "144ac1d879fe34165e38f08593e6a9d7052a88b4876dff3a292873088040f3cf"
+          },
+          {
+            "name": "clear.png.001",
+            "width": 128,
+            "height": 128,
+            "sha256": "acffe5bb9627c724013227f2c941b2097bba5a4fbefac506429ea52718e507bf"
+          }
+        ],
+        "geometryBytesEstimate": 887844,
+        "rgba8MipTextureBytesEstimate": 16864592,
+        "gpuEstimateNote": "Geometry plus separate RGBA8 texture mip chains; excludes renderer overhead, render targets and driver allocation."
+      },
+      "centerMeaning": "Geometric bounding-box center for camera framing, not a qualified center of mass or navigation reference point.",
+      "sourcePreservation": "Byte-identical NASA GLB; all node transforms, vertices, indices, UVs, normals, material parameters and embedded texture bytes retained.",
+      "scale": {
+        "status": "reference-normalized-approximate",
+        "reference": "High-gain antenna diameter",
+        "referenceMeters": 3.7,
+        "referenceSourceSpan": 3.8121395111083984,
+        "referenceNode": 1,
+        "referenceNodeName": "tex_02_AO",
+        "measurement": "Maximum source-world X/Z span of the complete antenna mesh; one uniform root scale.",
+        "sourceUnitStatus": "Exporter unit not independently documented; glTF nominal metres are not assumed physically calibrated.",
+        "accuracy": "Approximate educational visualization; rounded independent antenna dimension, not engineering CAD or metrology."
+      },
+      "attitude": {
+        "status": "illustrative-inspection",
+        "label": "Illustrative inspection pose — historical attitude unavailable",
+        "sourceAxis": "glTF right-handed +Y-up scene; antenna reference lies in the X/Z plane. No spacecraft frame transform is qualified.",
+        "kernelsQualified": [],
+        "velocityDerived": false
+      },
+      "configuration": {
+        "label": "Voyager twin spacecraft reference model",
+        "epochQualified": false,
+        "note": "Static source geometry; no historical articulation, deployment, pointing or probe-separation state is asserted."
+      },
+      "sources": {
+        "model": {
+          "id": "voyager",
+          "file": "voyager-nasa-original.glb",
+          "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/v/Voyager.glb",
+          "bytes": 3128204,
+          "sha256": "5338241f2e89e9cfe3ebb82f519b4cad64c97e66883cccba6fdda98667aec731",
+          "acquiredUtc": "2026-11-07T09:24:01.897855+00:00",
+          "pageUrl": "https://science.nasa.gov/resource/voyager-3d-model/",
+          "pageSha256": "b936ee81fdf4f1fe1d2c3418a881480c0ca43da90b0b5b7b772b847b8063b232",
+          "pageBytes": 254687
+        },
+        "dimension": {
+          "id": "voyager-dimensions",
+          "url": "https://science.nasa.gov/mission/voyager/spacecraft/",
+          "file": "voyager-dimensions.html",
+          "bytes": 310840,
+          "sha256": "9c3764381dd05637cf8d1ca4ca9dbf71ff60c7e3943b89a97717a17b0d1f6029",
+          "acquiredUtc": "2026-11-07T09:27:35.747078+00:00"
+        },
+        "rights": {
+          "id": "nasa-media-terms",
+          "url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+          "file": "nasa-media-terms.html",
+          "bytes": 313757,
+          "sha256": "fd89b1beb574a8712a4b34981917f6f435a98be4fe7d158ab156823be531310f",
+          "acquiredUtc": "2026-11-07T09:27:34.630812+00:00"
+        }
+      },
+      "rights": {
+        "status": "qualified-for-informational-visualization",
+        "credit": "NASA Visualization Technology Applications and Development (VTAD)",
+        "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "basis": "Each linked NASA resource credits VTAD. Inspected GLB asset metadata has no third-party copyright notice; the NASA media policy expressly covers polygon and texture data.",
+        "limitations": "Retain attribution. No endorsement or NASA insignia rights are granted. This asset-specific finding does not apply to other NASA-hosted third-party material."
+      }
+    },
+    "cassini": {
+      "id": "cassini",
+      "modelUrl": "/mission-assets/v2.5/cassini.glb",
+      "bytes": 5852640,
+      "sha256": "cacdca3279b28e64280ff8e823f572311f67a83bde2d0435b26f515a1b7926be",
+      "metersPerSourceUnit": 0.9977542640852697,
+      "sourceBounds": {
+        "min": [
+          -8.99999170564115,
+          -8.27113389968872,
+          -11.069221019744873
+        ],
+        "max": [
+          8.982969949021935,
+          3.3912205696105957,
+          2.037269408654538
+        ]
+      },
+      "centerSource": [
+        -0.008510878309607506,
+        -2.4399566650390625,
+        -4.5159758055451675
+      ],
+      "boundsMeters": {
+        "min": [
+          -8.979780101035518,
+          -8.252559117234647,
+          -11.044362472552745
+        ],
+        "max": [
+          8.962796570786473,
+          3.383604783782649,
+          2.032694239575541
+        ]
+      },
+      "radiusMeters": 10.73431260547332,
+      "stats": {
+        "nodes": 12,
+        "meshes": 12,
+        "primitives": 15,
+        "materials": 10,
+        "vertices": 30788,
+        "triangles": 26020,
+        "textures": [
+          {
+            "name": "foil_n.jpg",
+            "width": 512,
+            "height": 512,
+            "sha256": "2327e256de4a690e8c4e0c9487453ced96b86586f7f277bb2e63864f9d3ab8d9"
+          },
+          {
+            "name": "foil_n.jpg",
+            "width": 512,
+            "height": 512,
+            "sha256": "2327e256de4a690e8c4e0c9487453ced96b86586f7f277bb2e63864f9d3ab8d9"
+          },
+          {
+            "name": "cassini_dish_AO.jpg",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "0140303f5b9a3d6dd97bdd3196995cd3581f24642abb784f021b4da8a567ab69"
+          },
+          {
+            "name": "cassini_foil_n_2.jpg",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "73b329f81a4475c88d1fb03d28be22360ba8e7f25dac05043db2bf39295b7157"
+          },
+          {
+            "name": "cassini_tex_01.jpg",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "ef7c5cd7cea8c5b8f348a76485a192f8848d2a3983bad4108749af8fc4528211"
+          },
+          {
+            "name": "cassini_dish_AO.jpg",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "0140303f5b9a3d6dd97bdd3196995cd3581f24642abb784f021b4da8a567ab69"
+          },
+          {
+            "name": "clear.png.001",
+            "width": 128,
+            "height": 128,
+            "sha256": "acffe5bb9627c724013227f2c941b2097bba5a4fbefac506429ea52718e507bf"
+          }
+        ],
+        "geometryBytesEstimate": 1141144,
+        "rgba8MipTextureBytesEstimate": 25253196,
+        "gpuEstimateNote": "Geometry plus separate RGBA8 texture mip chains; excludes renderer overhead, render targets and driver allocation."
+      },
+      "centerMeaning": "Geometric bounding-box center for camera framing, not a qualified center of mass or navigation reference point.",
+      "sourcePreservation": "Byte-identical NASA GLB; all node transforms, vertices, indices, UVs, normals, material parameters and embedded texture bytes retained.",
+      "scale": {
+        "status": "reference-normalized-approximate",
+        "reference": "High-gain antenna diameter",
+        "referenceMeters": 4.0,
+        "referenceSourceSpan": 4.009003162384033,
+        "referenceNode": 3,
+        "referenceNodeName": "dish",
+        "measurement": "Maximum source-world X/Z span of the complete antenna mesh; one uniform root scale.",
+        "sourceUnitStatus": "Exporter unit not independently documented; glTF nominal metres are not assumed physically calibrated.",
+        "accuracy": "Approximate educational visualization; rounded independent antenna dimension, not engineering CAD or metrology."
+      },
+      "attitude": {
+        "status": "illustrative-inspection",
+        "label": "Illustrative inspection pose — historical attitude unavailable",
+        "sourceAxis": "glTF right-handed +Y-up scene; antenna reference lies in the X/Z plane. No spacecraft frame transform is qualified.",
+        "kernelsQualified": [],
+        "velocityDerived": false
+      },
+      "configuration": {
+        "label": "Cassini–Huygens reference model; attached probe configuration is illustrative",
+        "epochQualified": false,
+        "note": "Static source geometry; no historical articulation, deployment, pointing or probe-separation state is asserted."
+      },
+      "sources": {
+        "model": {
+          "id": "cassini",
+          "file": "cassini-nasa-original.glb",
+          "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/c/Cassini.glb",
+          "bytes": 5852640,
+          "sha256": "cacdca3279b28e64280ff8e823f572311f67a83bde2d0435b26f515a1b7926be",
+          "acquiredUtc": "2026-11-07T09:24:03.368100+00:00",
+          "pageUrl": "https://science.nasa.gov/resource/cassini-3d-model/",
+          "pageSha256": "e88e57afbf701f54160ca9eace5fe47005181d75b64f99e6aa428b37329fc83b",
+          "pageBytes": 254747
+        },
+        "dimension": {
+          "id": "cassini-dimensions",
+          "url": "https://solarsystem.nasa.gov/system/downloadable_items/1944_humanspacecraft.pdf",
+          "file": "cassini-dimensions.pdf",
+          "bytes": 311362,
+          "sha256": "60d4d90f571ab227a41a6d616569da750bca06ae437353f7f972fdfa3a118963",
+          "acquiredUtc": "2026-11-07T09:27:36.616910+00:00"
+        },
+        "rights": {
+          "id": "nasa-media-terms",
+          "url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+          "file": "nasa-media-terms.html",
+          "bytes": 313757,
+          "sha256": "fd89b1beb574a8712a4b34981917f6f435a98be4fe7d158ab156823be531310f",
+          "acquiredUtc": "2026-11-07T09:27:34.630812+00:00"
+        }
+      },
+      "rights": {
+        "status": "qualified-for-informational-visualization",
+        "credit": "NASA Visualization Technology Applications and Development (VTAD)",
+        "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "basis": "Each linked NASA resource credits VTAD. Inspected GLB asset metadata has no third-party copyright notice; the NASA media policy expressly covers polygon and texture data.",
+        "limitations": "Retain attribution. No endorsement or NASA insignia rights are granted. This asset-specific finding does not apply to other NASA-hosted third-party material."
+      }
+    },
+    "new-horizons": {
+      "id": "new-horizons",
+      "modelUrl": "/mission-assets/v2.5/new-horizons.glb",
+      "bytes": 3293532,
+      "sha256": "cf152d8cea17c4a83711041cb0d29ca1d980bfafa084ada2656569ea92cdd73f",
+      "metersPerSourceUnit": 1.1123969966927552,
+      "sourceBounds": {
+        "min": [
+          -1.2047935789452922,
+          -0.5,
+          -1.0655800104141235
+        ],
+        "max": [
+          1.2793420553207397,
+          1.6217194610518533,
+          1.9103198051452637
+        ]
+      },
+      "centerSource": [
+        0.037274238187723796,
+        0.5608597305259266,
+        0.42236989736557007
+      ],
+      "boundsMeters": {
+        "min": [
+          -1.3402087588534588,
+          -0.5561984983463776,
+          -1.1853480033205057
+        ],
+        "max": [
+          1.4231362600815276,
+          1.803995857952275,
+          2.1250340139662804
+        ]
+      },
+      "radiusMeters": 2.1726344025752935,
+      "stats": {
+        "nodes": 6,
+        "meshes": 6,
+        "primitives": 6,
+        "materials": 6,
+        "vertices": 7665,
+        "triangles": 8280,
+        "textures": [
+          {
+            "name": "newhorizons_AO_1.png",
+            "width": 512,
+            "height": 512,
+            "sha256": "63fd7aeefd2da258a238ce9c84788eb3c11285baf46f17cf8968a832a97b7363"
+          },
+          {
+            "name": "newhorizons_AO_dish.png",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "6c4d7d243de49ff14dd7e114eb218e0e1041b4f938be13d80a98f8f000a50a79"
+          },
+          {
+            "name": "foil_n.jpg",
+            "width": 512,
+            "height": 512,
+            "sha256": "72813ca90d11126d8318f65ecb457bb7081db4d5e0f010b374cb986313b210ef"
+          },
+          {
+            "name": "newhorizons_tex_01.png",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "3de172a47471d1d28e7bdd5dc01c6cb3bc3ca60ec2e26ea0c23ca3bf03275367"
+          },
+          {
+            "name": "newhorizons_tex_02.png",
+            "width": 1024,
+            "height": 1024,
+            "sha256": "bb56c827224330dca2d69111682f7f5a17f0789c9cc87e8bced0d0fd18e6f1f9"
+          },
+          {
+            "name": "clear.png.001",
+            "width": 128,
+            "height": 128,
+            "sha256": "acffe5bb9627c724013227f2c941b2097bba5a4fbefac506429ea52718e507bf"
+          }
+        ],
+        "geometryBytesEstimate": 294768,
+        "rgba8MipTextureBytesEstimate": 19660792,
+        "gpuEstimateNote": "Geometry plus separate RGBA8 texture mip chains; excludes renderer overhead, render targets and driver allocation."
+      },
+      "centerMeaning": "Geometric bounding-box center for camera framing, not a qualified center of mass or navigation reference point.",
+      "sourcePreservation": "Byte-identical NASA GLB; all node transforms, vertices, indices, UVs, normals, material parameters and embedded texture bytes retained.",
+      "scale": {
+        "status": "reference-normalized-approximate",
+        "reference": "High-gain antenna diameter",
+        "referenceMeters": 2.1,
+        "referenceSourceSpan": 1.887815237045288,
+        "referenceNode": 1,
+        "referenceNodeName": "AO_dish",
+        "measurement": "Maximum source-world X/Z span of the complete antenna mesh; one uniform root scale.",
+        "sourceUnitStatus": "Exporter unit not independently documented; glTF nominal metres are not assumed physically calibrated.",
+        "accuracy": "Approximate educational visualization; rounded independent antenna dimension, not engineering CAD or metrology."
+      },
+      "attitude": {
+        "status": "illustrative-inspection",
+        "label": "Illustrative inspection pose — historical attitude unavailable",
+        "sourceAxis": "glTF right-handed +Y-up scene; antenna reference lies in the X/Z plane. No spacecraft frame transform is qualified.",
+        "kernelsQualified": [],
+        "velocityDerived": false
+      },
+      "configuration": {
+        "label": "New Horizons spacecraft reference model",
+        "epochQualified": false,
+        "note": "Static source geometry; no historical articulation, deployment, pointing or probe-separation state is asserted."
+      },
+      "sources": {
+        "model": {
+          "id": "new-horizons",
+          "file": "new-horizons-nasa-original.glb",
+          "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/n/New_Horizons.glb",
+          "bytes": 3293532,
+          "sha256": "cf152d8cea17c4a83711041cb0d29ca1d980bfafa084ada2656569ea92cdd73f",
+          "acquiredUtc": "2026-11-07T09:24:04.731727+00:00",
+          "pageUrl": "https://science.nasa.gov/resource/new-horizons-3d-model/",
+          "pageSha256": "e4f7ec11592fd4601316f9ac4b0d4f19f47638bb4666a33c7091bb9f8781bf5e",
+          "pageBytes": 255217
+        },
+        "dimension": {
+          "id": "new-horizons-dimensions",
+          "url": "https://www.nasa.gov/image-article/new-horizons-approaches-pluto/",
+          "file": "new-horizons-dimensions.html",
+          "bytes": 267252,
+          "sha256": "185add9ab9048be614d0a0e3008445d7c4febd0a30fb39e118356b81a8918f73",
+          "acquiredUtc": "2026-11-07T09:27:37.660529+00:00"
+        },
+        "rights": {
+          "id": "nasa-media-terms",
+          "url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+          "file": "nasa-media-terms.html",
+          "bytes": 313757,
+          "sha256": "fd89b1beb574a8712a4b34981917f6f435a98be4fe7d158ab156823be531310f",
+          "acquiredUtc": "2026-11-07T09:27:34.630812+00:00"
+        }
+      },
+      "rights": {
+        "status": "qualified-for-informational-visualization",
+        "credit": "NASA Visualization Technology Applications and Development (VTAD)",
+        "termsUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "basis": "Each linked NASA resource credits VTAD. Inspected GLB asset metadata has no third-party copyright notice; the NASA media policy expressly covers polygon and texture data.",
+        "limitations": "Retain attribution. No endorsement or NASA insignia rights are granted. This asset-specific finding does not apply to other NASA-hosted third-party material."
+      }
+    }
+  },
+  "delivery": {
+    "modelBytes": 12274376,
+    "rawSourceBytes": 16100086,
+    "singleFileCapBytes": 67108864,
+    "aggregateAcquisitionCapBytes": 268435456,
+    "runtimePackCapBytes": 100663296,
+    "loading": "On demand for the selected spacecraft; dispose geometry, materials and textures on renderer exit."
+  }
+}

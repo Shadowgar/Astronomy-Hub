@@ -1,0 +1,12 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+
+ Test Files  32 passed (32)
+      Tests  239 passed (239)
+   Start at  02:19:41
+   Duration  4.41s (transform 13.51s, setup 0ms, import 20.88s, tests 5.67s, environment 5ms)

@@ -1,0 +1,203 @@
+{
+  "source": "NASA/JPL Horizons VECTORS independent network retrieval",
+  "retrievedUtc": "2026-10-22T23:19:51.144873+00:00",
+  "frame": "ICRF",
+  "origin": "Sun center 10",
+  "correction": "NONE geometric",
+  "units": "AU",
+  "timeScale": "UTC input; provider dynamical evaluation",
+  "rows": [
+    {
+      "target": "399",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        -0.1771478822733411,
+        0.8874263692893543,
+        0.3847419657178373
+      ],
+      "raw": "r3b-horizons-399.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "399",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        -0.9249420238484993,
+        0.3250757981769236,
+        0.1409179403889026
+      ],
+      "raw": "r3b-horizons-399.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "4",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        1.390716420540463,
+        0.001411479650472844,
+        -0.03695547382092874
+      ],
+      "raw": "r3b-horizons-4.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%274%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "4",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        1.052708010535126,
+        -0.8086912552801178,
+        -0.3993206833242322
+      ],
+      "raw": "r3b-horizons-4.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%274%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "5",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        4.00117376746374,
+        2.736583093177142,
+        1.075514236280493
+      ],
+      "raw": "r3b-horizons-5.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%275%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "5",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        -2.106963197855859,
+        4.383781859653745,
+        1.930295295796956
+      ],
+      "raw": "r3b-horizons-5.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%275%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "6",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        6.406405670875909,
+        6.174660413749266,
+        2.274772003445623
+      ],
+      "raw": "r3b-horizons-6.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%276%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "6",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        9.474993095927848,
+        0.6864309311358266,
+        -0.1244916996449357
+      ],
+      "raw": "r3b-horizons-6.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%276%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "7",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        14.43185860386393,
+        -12.50626443005999,
+        -5.681689286400784
+      ],
+      "raw": "r3b-horizons-7.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%277%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "7",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        9.680926404559472,
+        15.53395629266825,
+        6.666402393334367
+      ],
+      "raw": "r3b-horizons-7.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%277%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "8",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        16.81204888411637,
+        -22.98009926632721,
+        -9.824427193913987
+      ],
+      "raw": "r3b-horizons-8.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%278%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "8",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        29.86682156942331,
+        0.9236228019202801,
+        -0.3654801045653849
+      ],
+      "raw": "r3b-horizons-8.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%278%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "199",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        -0.1300777328324658,
+        -0.4005973809166413,
+        -0.2004929028644262
+      ],
+      "raw": "r3b-horizons-199.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27199%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "199",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        -0.2066612901867513,
+        0.216197742831809,
+        0.1369117288207652
+      ],
+      "raw": "r3b-horizons-199.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27199%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "299",
+      "jdUtc": 2451545.0,
+      "calendarUtc": "A.D. 2000-Jan-01 12:00:00.0000",
+      "positionAu": [
+        -0.7183017032914344,
+        -0.04628798370945381,
+        0.02463442083102368
+      ],
+      "raw": "r3b-horizons-299.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27299%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    },
+    {
+      "target": "299",
+      "jdUtc": 2461099.5,
+      "calendarUtc": "A.D. 2026-Feb-28 00:00:00.0000",
+      "positionAu": [
+        0.7161081832593464,
+        0.1188810503587748,
+        0.008187944295836165
+      ],
+      "raw": "r3b-horizons-299.json",
+      "requestUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27299%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&TLIST=%272451545.0%2C2461099.5%27&TIME_TYPE=%27UT%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&OUT_UNITS=%27AU-D%27&VEC_TABLE=%272%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27"
+    }
+  ]
+}

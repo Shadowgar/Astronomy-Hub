@@ -1,0 +1,26 @@
+{
+  "source": "live",
+  "width": 390,
+  "norad": "63053",
+  "crop": {
+    "x": 121,
+    "y": 304,
+    "w": 97,
+    "h": 139
+  },
+  "frames": [
+    {
+      "utc": "2026-10-26T14:02:44.394Z",
+      "sha256": "6675e3b09153ed8935d55f0a3851e69026fdb3aff38a91d736a9c84779465c7b"
+    },
+    {
+      "utc": "2026-10-26T14:02:49.576Z",
+      "sha256": "0858ad1f6af8fdf75ae4d8e035e7e0950df98496c9cb84b826d52ef07f9cb0a5"
+    },
+    {
+      "utc": "2026-10-26T14:02:54.748Z",
+      "sha256": "cd6d3314b0058f12417275b2f426c6a21ad8ab166ce69e6b710d3f379798602a"
+    }
+  ],
+  "method": "Lossless 1:1 crops composed with timestamp captions; no brightness or coordinate changes. Full frames retained locally."
+}

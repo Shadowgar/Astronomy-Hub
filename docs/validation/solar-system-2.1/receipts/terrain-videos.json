@@ -1,0 +1,38 @@
+[
+  {
+    "file": "output/playwright/solar-system-2.1/terrain-windows-final/video/166fb76f916c25781ae6b2b56b399df3.webm",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "layout": "portrait",
+    "durationSeconds": 5.12,
+    "bytes": 434904,
+    "sha256": "c9f98c6bd78c5e578d88baa4ee5e3d8d89423a901bec5a2e0a47ee0c3372f64e",
+    "mappingEvidence": "Playwright bundled ffmpeg -hide_banner -i: actual encoded stream dimensions; original bytes unchanged"
+  },
+  {
+    "file": "output/playwright/solar-system-2.1/terrain-windows-final/video/5e36cf87c3c292a57f139d9eceaf0c1d.webm",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "layout": "desktop",
+    "durationSeconds": 6.28,
+    "bytes": 994971,
+    "sha256": "b4143d2b457b2efdf491c71aa17f44fe9dfd328e321e1e6da877b4aa0002c3ba",
+    "mappingEvidence": "Playwright bundled ffmpeg -hide_banner -i: actual encoded stream dimensions; original bytes unchanged"
+  },
+  {
+    "file": "output/playwright/solar-system-2.1/terrain-windows-final/video/fd26e4b4a07e65b81e8387914c466e28.webm",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "layout": "landscape",
+    "durationSeconds": 4.96,
+    "bytes": 437850,
+    "sha256": "d4f089c18831751953723a53982adf76d8c5e76a4308de7e3b9d6b06b98d8279",
+    "mappingEvidence": "Playwright bundled ffmpeg -hide_banner -i: actual encoded stream dimensions; original bytes unchanged"
+  }
+]

@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+cd /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+build_out="$PWD/output/n1/remediation/earth-reproduction"
+mkdir -p "$build_out"
+docker run --rm --network none -v /var/tmp/oras-cesium/gods-eye:/source:ro -v "$PWD:/hub:ro" -v "$build_out:/output" -e GODS_EYE_SOURCE=/source -e ORAS_EARTH_OUT=/output node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 node /source/node_modules/vite/bin/vite.js build --configLoader native --config /hub/runtimes/earth-runtime/vite.config.mjs
+python3 - <<'PY'
+from pathlib import Path
+import json,shutil
+root=Path('output/n1/remediation');source=root/'rollback/earth';target=root/'earth-reproduction'
+if not source.exists():
+ print('rollback paths',list((root/'rollback').iterdir()));raise SystemExit(1)
+for row in json.loads((source/'release.json').read_text())['files']:
+ name=row['path']
+ if name.startswith('assets/') or name in ['index.html','module-policy.json']:continue
+ dest=target/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source/name,dest)
+PY
+python3 scripts/runtime/record_owned_earth.py /var/tmp/oras-cesium/gods-eye "$build_out"
+python3 - <<'PY'
+from pathlib import Path
+import json
+live=json.loads(Path('output/n1/earth/release.json').read_text());rebuilt=json.loads(Path('output/n1/remediation/earth-reproduction/release.json').read_text());assert live==rebuilt
+print('EARTH_REPRODUCTION PASS',live['artifact_sha256'],len(live['files']))
+PY

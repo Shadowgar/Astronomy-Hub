@@ -1,0 +1,26 @@
+[
+  {
+    "name": "desktop",
+    "source": "a57a39f3f602863ecf999ad88cc52ab3.webm",
+    "startSeconds": 53.202,
+    "requestedSeconds": 18,
+    "target": "desktop-interaction.webm",
+    "edit": "Continuous actual recorded interaction; time trim only, no frame replacement."
+  },
+  {
+    "name": "portrait",
+    "source": "1351d858069655f1799c5a109190c11b.webm",
+    "startSeconds": 33.552,
+    "requestedSeconds": 16,
+    "target": "portrait-interaction.webm",
+    "edit": "Continuous actual recorded interaction; time trim only, no frame replacement."
+  },
+  {
+    "name": "landscape",
+    "source": "95e4efbd088915da90ca705663ec0bbd.webm",
+    "startSeconds": 22.625,
+    "requestedSeconds": 12,
+    "target": "landscape-interaction.webm",
+    "edit": "Continuous actual recorded interaction; time trim only, no frame replacement."
+  }
+]

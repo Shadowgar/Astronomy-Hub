@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "rootOwnerSettingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "skyArtifact": "3b80bb352c8d1680d9217ce9b8e7fc5dbb8ed0b71b59c2f0f66d1143d103b50f",
+  "priorEarthArtifact": "38f6bfd71993d4282c82883d39f78f2147263a1742583e42e6091cf84b41fd65",
+  "priorEarthFilesVerified": 512,
+  "newEarthArtifact": "2f2c8530cd8499ef3c646b244d37c9a5ae8574047cabcdc751976e4908234794",
+  "readOnlyMountsUnchanged": true,
+  "upstreamPin": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+  "rollbackEarth": "output/n1/earth-before-smooth-camera",
+  "rollbackHub": "output/n1/hub-before-smooth-camera",
+  "rollbackPR74": "http://127.0.0.1:4201/sky-engine"
+}

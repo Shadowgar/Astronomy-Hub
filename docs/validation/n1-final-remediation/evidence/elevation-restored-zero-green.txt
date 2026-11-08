@@ -1,0 +1,13 @@
+
+> astronomy-hub-frontend@0.0.1 test
+> vitest run tests/observerProvenance.test.ts
+
+
+ RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  01:16:34
+   Duration  158ms (transform 35ms, setup 0ms, import 50ms, tests 5ms, environment 0ms)
+

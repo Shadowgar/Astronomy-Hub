@@ -1,0 +1,414 @@
+{
+  "status": "PASS",
+  "base": "http://127.0.0.1:4211",
+  "runs": [
+    {
+      "width": 1440,
+      "checks": [
+        "Full-viewport scene and contextual-only details",
+        "Exact source vectors; bounded real textured scene and illustrative starfield",
+        "Orbit visibility changes native scene",
+        "mars focus/approach/expanded/collapsed; actual camera and accessible controls",
+        "earth focus/approach/expanded/collapsed; actual camera and accessible controls",
+        "Direct ray selection on Mars geometry",
+        "Time controls update actual JPL geometry",
+        "Keyboard camera movement",
+        "Accessible source dialog and Escape return"
+      ],
+      "errors": [],
+      "screens": [
+        {
+          "file": "after-1440-overview.png",
+          "sha256": "27b29e795106922d602bd8daf099e1ffb3527ef951c2e4d8531c25dee1dc4940"
+        },
+        {
+          "file": "after-1440-mars.png",
+          "sha256": "110cea755ce680e057a28295f78878cecddacd6622b981d340ad1c5b7ae0890e"
+        },
+        {
+          "file": "after-1440-mars-details.png",
+          "sha256": "76c916060e84c33288eb3da06cea7e4d06f30dd710c9386fce442e6f4891c621"
+        },
+        {
+          "file": "after-1440-mars-close.png",
+          "sha256": "1741b9d79921d4c7558443137acab8a72c6f687eea22515003b20ac399540ca5"
+        },
+        {
+          "file": "after-1440-earth.png",
+          "sha256": "d2f649e3d8a320a8e557b3f38fe486b94ebd52a235b5d3690cbe73044932c191"
+        },
+        {
+          "file": "after-1440-earth-details.png",
+          "sha256": "f7fe76b8a0eed026b387192e02806ae5f5ab1b9650be005525c4f3ce906c058b"
+        },
+        {
+          "file": "after-1440-earth-close.png",
+          "sha256": "5f66592f82b9a92262556241a5261b4e32b9bff5eb59eeec5e5818f9168c8045"
+        },
+        {
+          "file": "after-1440-time.png",
+          "sha256": "72c96e4b7680b767fb516908e54cd1fbdc9b303b46346d4117ecf4c7bbde533d"
+        },
+        {
+          "file": "after-1440-sources.png",
+          "sha256": "bee76ca2c19273cab508a5fa00d42319c5dece6ae1536cf0dcc7b0a738a645fe"
+        }
+      ],
+      "overview": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 8,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.6254433745841282,
+          1.9063096442431244,
+          1.847285897731971
+        ],
+        "target": [
+          0.036382993193487256,
+          -0.21430772876318294,
+          -0.06716034178761157
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              759.7633771126417,
+              483.7572800245105
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              1205.994132845925,
+              456.91148525388377
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              323.06602536393126,
+              468.57726039025454
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 10,
+        "textures": 2,
+        "texturesReady": 2,
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 0.7000000011175871,
+          "p95": 60.09999999962747
+        },
+        "pixelRatio": 1
+      },
+      "final": {
+        "epoch": "2026-03-01T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "mars",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          0.2628513118110378,
+          -1.1453399438853038,
+          0.05322132511315786
+        ],
+        "target": [
+          1.0622798496961037,
+          -0.7977963757673062,
+          -0.3945816238217012
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -5547.129935625708,
+              172.39646879128804
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.93122863093717,
+              0.3102305324258698,
+              0.13448340640221867
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              5008.839501564096,
+              64.14456503408418
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.062279849696104,
+              -0.7977963757673064,
+              -0.3945816238217013
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              720.0000000000003,
+              450.0000000000001
+            ]
+          }
+        ],
+        "drawCalls": 6,
+        "geometries": 10,
+        "textures": 1,
+        "texturesReady": 2,
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 11,
+          "median": 0.2000000011175871,
+          "p95": 57
+        },
+        "pixelRatio": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "checks": [
+        "Full-viewport scene and contextual-only details",
+        "Exact source vectors; bounded real textured scene and illustrative starfield",
+        "Orbit visibility changes native scene",
+        "mars focus/approach/expanded/collapsed; actual camera and accessible controls",
+        "earth focus/approach/expanded/collapsed; actual camera and accessible controls",
+        "Direct ray selection on Mars geometry",
+        "Time controls update actual JPL geometry",
+        "Keyboard camera movement",
+        "Accessible source dialog and Escape return"
+      ],
+      "errors": [],
+      "screens": [
+        {
+          "file": "after-390-overview.png",
+          "sha256": "3b8a64634ec525afb6906be9ef31fa52fc254159e877d6a1ce5c6189d6a672d9"
+        },
+        {
+          "file": "after-390-mars.png",
+          "sha256": "a307089cce95d162d62c56f57b5c6f4e094eeaff4b9b0ed0817a44a2d8495014"
+        },
+        {
+          "file": "after-390-mars-details.png",
+          "sha256": "9a005253ced5c01757c3e0cb7b96510d02a969c13cd26992ba7a148898e0795b"
+        },
+        {
+          "file": "after-390-mars-close.png",
+          "sha256": "2beae7ab34e4c7746ff2c7dd2a07127c1b3bb03a8f8b3bb230614ced90a8654e"
+        },
+        {
+          "file": "after-390-earth.png",
+          "sha256": "692686f7d6d73f4cedb3ac70bed5f1df0b2e226a52ac46977c3a051cd719b82f"
+        },
+        {
+          "file": "after-390-earth-details.png",
+          "sha256": "cc510175b24520f9f683ca9d1d2e9fc35373c6b3b690655176955d2de1475558"
+        },
+        {
+          "file": "after-390-earth-close.png",
+          "sha256": "a9e1db7ef404a91d0d3822ec6376b99c6385e0068adec67cd3a0d1f2e7a6f6e8"
+        },
+        {
+          "file": "after-390-time.png",
+          "sha256": "d60bf22af50835f7d094847f1aa34d3a2a3554401588a959b4dd22e07a5bcb02"
+        },
+        {
+          "file": "after-390-sources.png",
+          "sha256": "3d55b00c4fe2f804b5e4a189da432afe0c93894247caf0246a4b10cf6469fe25"
+        }
+      ],
+      "overview": {
+        "epoch": "2026-02-28T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": null,
+        "renderCount": 8,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          1.0662865421150758,
+          3.493345047354535,
+          3.2800261922075507
+        ],
+        "target": [
+          0.036382993193487256,
+          -0.21430772876318294,
+          -0.06716034178761157
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              172.60386250011078,
+              468.35612575905225
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.9249420238042889,
+              0.3250757982699974,
+              0.14091794045040631
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              144.08132682047784,
+              708.4217041132405
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.0527080101912634,
+              -0.8086912557963634,
+              -0.39932068357522316
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              227.08145376448076,
+              211.221798150055
+            ]
+          }
+        ],
+        "drawCalls": 9,
+        "geometries": 10,
+        "textures": 2,
+        "texturesReady": 2,
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 8,
+          "median": 0.5,
+          "p95": 50.90000000037253
+        },
+        "pixelRatio": 1
+      },
+      "final": {
+        "epoch": "2026-03-01T00:00:00Z",
+        "frame": "ICRF",
+        "origin": "Sun center (10)",
+        "units": "AU",
+        "selected": "mars",
+        "renderCount": 11,
+        "disposed": false,
+        "animating": false,
+        "camera": [
+          -0.7825552377309712,
+          -1.599819994501146,
+          0.638809796797204
+        ],
+        "target": [
+          1.0622798496961037,
+          -0.7977963757673062,
+          -0.3945816238217012
+        ],
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "glyphRadius": 0.44,
+            "screen": [
+              -487.714219196321,
+              1044.2579404667028
+            ]
+          },
+          {
+            "id": "earth",
+            "position": [
+              -0.93122863093717,
+              0.3102305324258698,
+              0.13448340640221867
+            ],
+            "glyphRadius": 0.23,
+            "screen": [
+              -1593.0921691627632,
+              2486.389484250057
+            ]
+          },
+          {
+            "id": "mars",
+            "position": [
+              1.062279849696104,
+              -0.7977963757673064,
+              -0.3945816238217013
+            ],
+            "glyphRadius": 0.175,
+            "screen": [
+              195.0000000000003,
+              450
+            ]
+          }
+        ],
+        "drawCalls": 6,
+        "geometries": 10,
+        "textures": 1,
+        "texturesReady": 2,
+        "orbitsVisible": true,
+        "effectsVisible": true,
+        "starfield": "illustrative",
+        "starCount": 4000,
+        "renderCpuMs": {
+          "samples": 11,
+          "median": 0.2000000011175871,
+          "p95": 49.30000000074506
+        },
+        "pixelRatio": 1
+      },
+      "status": "PASS"
+    }
+  ]
+}

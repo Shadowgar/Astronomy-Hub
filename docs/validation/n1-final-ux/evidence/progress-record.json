@@ -1,0 +1,70 @@
+{
+  "status": "PARTIAL - owner-bounded qualification finished; two mandatory suites FAIL",
+  "sourceBaseline": "f3629f9a",
+  "committed": false,
+  "pushed": false,
+  "proofs": [
+    {
+      "family": "browser",
+      "status": "PASS",
+      "runs": 2,
+      "error": null
+    },
+    {
+      "family": "satellite-recheck/browser",
+      "status": "PASS",
+      "runs": 7,
+      "error": null
+    },
+    {
+      "family": "satellite-recheck/symbol-pixels",
+      "status": "PASS",
+      "runs": 7,
+      "error": null
+    },
+    {
+      "family": "native-satellites",
+      "status": "PASS",
+      "runs": 2,
+      "error": null
+    },
+    {
+      "family": "pennsylvania",
+      "status": "PASS",
+      "runs": 2,
+      "error": null
+    },
+    {
+      "family": "journeys-desktop",
+      "status": "FAIL",
+      "runs": 1,
+      "error": "page.screenshot: Target crashed \nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\n    at shot (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:33:72)\n    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:74:140"
+    },
+    {
+      "family": "journeys-mobile",
+      "status": "FAIL",
+      "runs": 1,
+      "error": "locator.count: Target page, context or browser has been closed\n    at ready (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:32:324)\n    at async outward (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:59:167)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:77:3"
+    },
+    {
+      "family": "observer-history",
+      "status": "PASS",
+      "runs": 4,
+      "error": null
+    },
+    {
+      "family": "product-paths",
+      "status": "PASS",
+      "runs": 2,
+      "error": null
+    }
+  ],
+  "sourceChecks": {
+    "nodeAssertions": 160,
+    "frontendTests": 266,
+    "frontendFiles": 37,
+    "pythonSourcePromotion": 6,
+    "typecheck": "PASS"
+  },
+  "note": "Exactly one additional desktop/mobile attempt;240-second outer caps, no increased stage timeouts, no production edits, no unrelated workload/service changes. Stop retry cycle for owner review. No new commit/push/qualification exception."
+}

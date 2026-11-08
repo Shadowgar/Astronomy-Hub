@@ -1,0 +1,14 @@
+{
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:96:237\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:453:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)",
+  "incompleteEarthDisposal": [
+    {
+      "index": 19,
+      "url": "http://127.0.0.1:4202/earth-runtime/?date=2026-10-14T02%3A10%3A00.000Z&lat=40.78290000048155&lng=-73.9653999990481&elev=0&elevationSource=unavailable-zero&orasEmbedded=1",
+      "earth": false,
+      "sky": false,
+      "destroyMessages": []
+    }
+  ],
+  "reason": "Actual assertion failure; cause not established. Full driver rerun without simultaneous heavy suite will check reproducibility. No assertion or timeout changed."
+}

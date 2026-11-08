@@ -1,0 +1,6 @@
+1440 Declared provider denial retains one local safety base and truthful unavailable state
+1440 Eligible fixture exact bytes reused without a second request
+1440 Corrupt and expired owned entries miss/refetch the original bytes
+1440 Private/no-store/tokenized/opaque responses excluded from owned cache
+1440 An actual in-flight response completed after clear cannot repopulate owned storage
+1440 Declared429 cooldown suppresses repeated starts, then real EOX recovers after virtual-time expiry without moving camera

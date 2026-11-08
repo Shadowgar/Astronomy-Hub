@@ -1,0 +1,32 @@
+390 initial ORAS Sky and served source identity 2315ms
+390 native Landscape toggle and Sky Night Mode ON 3977ms
+390 Explore dismissal and focus return 367ms
+390 arrival and short outward overshoot stay in Sky 1490ms
+390 reverse input leaves boundary hysteresis 691ms
+390 ORAS Sky → Earth by deliberate wheel 9232ms
+390 Earth → ORAS Sky through accessible Explore 2993ms
+390 native touch drag explores Earth 14678ms
+390 Earth geographic exploration to Central Park coordinates 4258ms
+390 ordinary inward zoom reaches boundary without a mode change 7217ms
+390 Earth → New York Sky by deliberate inward wheel 4658ms
+390 New York Sky → Earth by trackpad-sized outward input 10574ms
+390 Browser Back restores New York sky observer/time/camera 1647ms
+390 repeat 1: outward
+390 repeat 1: location
+390 repeat 1: near surface
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.boundingBox: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for locator('canvas').first()[22m
+
+    at hoverScene (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:37:94)
+    at wheelBurst (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:41:71)
+    at nearSurface (/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:50:11)
+    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:87:199 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

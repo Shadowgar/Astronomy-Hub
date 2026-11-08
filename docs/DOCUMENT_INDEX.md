@@ -1,10 +1,98 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+Current owner-authorized [Sky satellite repair](validation/sky-satellite-live/README.md) is a bounded draft stacked on preserved PR95. Historical native motion is qualified separately from current Live orbital accuracy, blocked by stale source data. No merge or deployment.
+
+Current integrated planetary-system review preview and package ledger: [PS3](validation/planetary-systems/ps3/README.md).
+
+PS2 major-moon implementation, source limits and qualification: [PS2](validation/planetary-systems/ps2/README.md).
+
+Current owner-authorized [planetary systems](validation/planetary-systems/README.md) extend preserved PR92 in bounded PS1/PS2/PS3 draft packages. Earth–Moon first, then qualified major-moon subsets; no merge or deployment. Earlier single-globe restrictions below are historical within this explicit scope.
+
+Current owner-authorized [R4-A lunar Planet View](validation/r4-a-planet-view/README.md) resumes the canonical roadmap from draft PR91; no broad visual redesign, merge or deployment.
+
+Current owner visual rejection activates [G1/G2/V1 glass correction](validation/cinematic-glass/README.md) stacked on PR90. Approved references remain; no visual acceptance, merge, deployment or R4.
+
+Current owner-authorized [Earth/Sky completion](validation/earth-sky-completion/README.md) continues from PR88, preserving owner-confirmed satisfactory Solar responsiveness. Draft delivery and visual acceptance remain separate.
+
+Owner-approved cinematic sizing correction: [current implementation/evidence](validation/solar-cinematic-balance/README.md); prior physical-default qualification remains historical.
+
+Current owner-approved Solar scientific-size/control correction and source-matched
+proof: [Solar scientific controls](validation/solar-scientific-controls/README.md).
+Prior cinematic/current-time evidence remains historical at its recorded source.
+
+## Current integrated PR88 visual correction evidence — 2026-10-22
+
+[Earth/Solar/Sky corrections, exact commands, current screenshots and limits](validation/cinematic-acceptance/README.md) continue the owner-authorized packages84–88 from4e07ebfb. The approved original visual family is unchanged. This supporting validation report is routed through the five visual/docs/review context packs, adding one unique document to their combined inventory. Original technical/historical evidence remains intact; owner visual and hardware acceptance remain separate. Earlier PR83-only execution wording below is historical where superseded by CORE/LIVE/PROJECT_STATE. No merge, deployment, paid provider or R4 authority.
+
+
+## Current PR83 refinement evidence
+
+[Reference/actual screenshots, remaining gaps, fresh qualification and exact commands](validation/solar-cinematic/refinement/README.md). Supporting evidence; existing approved direction and draft stack, OWNER VISUAL ACCEPTANCE PENDING. No new phase or merge/deployment authority.
+
+## Cinematic Solar implementation evidence — 2026-10-21
+
+[Validation](validation/solar-cinematic/README.md), [fidelity/screenshots](validation/solar-cinematic/FIDELITY.md), [commands](validation/solar-cinematic/COMMANDS.md), [plan](validation/solar-cinematic/PLAN.md).
+Supporting evidence only; owner visual acceptance pending, no merge/deployment or new phase.
+
+## Current cinematic visual direction — owner approved 2026-10-21
+
+[Owner-approved reference family, image hashes and required fidelity protocol](design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md) — supporting approval record under the canonical [Unified Workspace Design Contract](design/UNIFIED_WORKSPACE_DESIGN_SPEC.md), not a new authority tier. Original R1-A and ORA-6 sketches remain structural/interaction references. Current R3-A science foundation retained, current screen appearance OWNER REJECTED; next bounded implementation is Solar cinematic fidelity, with Earth/Sky style alignment later. Exact PNGs are imported byte for byte from the owner-committed archive; [original manifest](design/cinematic-references-2026-10-21/manifest.json). No current PR merge/deployment or broader R3-B/R4 start.
+
+## Current scope reconciliation — 2026-10-21
+R3-A renderer/science decision: [ADR0010](architecture/decisions/0010-r3-a-solar-runtime.md).
+
+R3-A reconciliation/proof: [package ledger](validation/r3-a-solar-system/RECONCILIATION.md), [context inventory](validation/r3-a-solar-system/context.json). These are evidence under the existing authority, not a new master plan.
+
+
+Current execution: [PROJECT_STATE](execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
+## R2-B imagery/cache support — 2026-10-17
+
+[Implementation and evidence](validation/r2-b-earth-imagery-cache/README.md) ·
+[Bounded integration plan](validation/r2-b-earth-imagery-cache/plan.md).
+R2-A remains draft and N1 owner accepted; historical records retain their identities.
+
+
+## Historical — Current R2-A execution — owner authorization 2026-10-17
+
+N1 is OWNER ACCEPTED; PR75 merged into PR74 at `d1e3a75c`. The owner activates
+R2-A Earth Search, Navigation and Location Context on a separate stacked draft PR.
+PR74/73 stay open; no deployment or R3. Earlier R1/N1 activation statements below
+are historical. Current scope/proof: [R2-A](validation/r2-a-earth-search/README.md),
+[implementation plan](validation/r2-a-earth-search/plan.md),
+[PR71 reuse assessment](validation/r2-a-earth-search/PR71_REUSE.md).
+N1's partial full-navigation evidence remains historical, not a new44-group pass.
+
+## Historical — Current R1-B execution
+
+PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef` is the accepted visual target.
+LIVE/PROJECT_STATE authorize bounded real Sky implementation on a dependent branch;
+no merge/deployment or later package. Evidence is recorded in
+[workspace implementation evidence](validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+
+
+## Historical R1-A design discovery — 2026-10-13
+
+R0 PR #72 is merged. The owner separately authorizes R1-A DESIGN ONLY. The
+[editable visual gallery](design/adaptive-explorer-r1a/index.html),
+[reference/evidence contract](design/adaptive-explorer-r1a/README.md) and
+[shared components/tokens](design/adaptive-explorer-r1a/system.html) are SUPPORT
+proposals, all **PENDING OWNER VISUAL ACCEPTANCE**. They cannot activate app work.
+The existing workspace design contract remains canonical; no new authority tier.
+
+R1-A adds its README to docs_change/frontend_change/planning/review/validation:
+55→56, 33→34, 46→47, 42→43, 40→41 documents respectively. Other packs unchanged.
+The R0 before/after counts below are dated R0 evidence; its reduction proposal is
+still unimplemented. The README routes exact local HTML/CSS/JS and screenshot proof.
+
 ## R0 canonical inventory and conflict classification — 2026-10-13
 
 The existing authority tiers/order below remain. Adaptive Explorer replaces
 contradictory product/next-action statements, not scientific truth or renderer
-ownership. Only LIVE/PROJECT_STATE authorize R0 documentation; no later package.
+ownership. LIVE/PROJECT_STATE now record merged R0 and authorize R1-A design only;
+no application implementation or later package.
 
 | Canonical document(s) | R0 classification and reconciliation |
 | --- | --- |
@@ -181,7 +269,7 @@ extensions remain planned. Product vision cannot override execution gates.
 [PROJECT_STATE](execution/PROJECT_STATE.md) is the authoritative checkpoint sequence;
 LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complete;
 C5.6.75 is a historical documentation checkpoint superseded by merged PR #68.
-R0 documentation is the only active package. Proposed R0–R5 checkpoints live in
+R0 is merged; bounded R1-B Sky implementation is active. Proposed R0–R5 checkpoints live in
 [the existing master plan](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
 PR #71 is open/unmerged; imagery/search/visual acceptance stays unfinished. All
 future packages and merges require explicit owner authority. Source reuse,

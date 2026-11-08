@@ -1,0 +1,24 @@
+{
+  "status": "PASS_READ_ONLY_COMPARISON_NOT_REGISTRATION",
+  "comparison": "LOLA bilinear minus NAC radial height at nominal equal latitude/longitude; no qualified cross-frame transform",
+  "verifiedGlbHashes": 85,
+  "lolaSha256": "c04632eba6449af49e3108ed7c25b3b1c450600abd3690df4fc815853a1af476",
+  "sampledRootVertices": 16641,
+  "sampledRootEdgeVertices": 512,
+  "centerLolaM": -2415.7727083779537,
+  "centerNacM": -2611.294189453125,
+  "deltaMinM": 13.322356041023795,
+  "deltaMaxM": 596.6672720493125,
+  "edgeDeltaMinM": 23.504059771495122,
+  "edgeDeltaMaxM": 593.7459439541176,
+  "rmsM": 234.95486238059877,
+  "nearSideOrthographicMarkerNormalized": {
+    "right": 0.47934339519508484,
+    "up": 0.3449718184109069,
+    "towardViewer": 0.8069847297099995
+  },
+  "wacContinuousPixelCenter": {
+    "column": 1685.1801707925292,
+    "row": 558.0593962565135
+  }
+}

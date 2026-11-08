@@ -1,0 +1,5 @@
+{
+  "format": "Lossless UTF-8 command stdout/stderr; original terminal whitespace retained by JSON escaping",
+  "original_sha256": "c3bbb3f60280756077141b6b54a3b8f25e609a448f6fb933ae1e9bb1ab3c0358",
+  "stdout": "PASS: manifest structure/paths/duplicates; 340 document-path entries (338 task entries + 2 global entries); 8 task packs.\nPASS: 62 checkpoint Markdown documents; 1715 relative references (1699 required repository links + 16 registered private historical artifacts); code fences balanced; 10 expected ADRs.\nNOTE: private artifact absence is expected in clean checkouts; present bytes are hash-checked. No fresh runtime proof is inferred.\n"
+}

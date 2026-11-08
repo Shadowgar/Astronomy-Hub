@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "skyfieldVersion": "1.55",
+  "rotations": 1736,
+  "maxMatrixError": 6.169269603636604e-15,
+  "maxDeterminantError": 1.3322676295501878e-15,
+  "maxQuaternionNormError": 1.1102230246251565e-16,
+  "polarMotionTableInstalled": false,
+  "windows": [
+    {
+      "epoch": "1849-12-26T00:00:00+00:00",
+      "samples": 193,
+      "start": "1849-12-26T00:00:00.000Z",
+      "end": "1850-01-03T00:00:00.000Z",
+      "maxSampledInterpolationErrorArcsec": 0.011281386888938566
+    },
+    {
+      "epoch": "1972-06-30T23:59:59.999+00:00",
+      "samples": 193,
+      "start": "1972-06-22T23:59:59.999Z",
+      "end": "1972-06-30T23:59:59.999Z",
+      "maxSampledInterpolationErrorArcsec": 0.00014668413348197505
+    },
+    {
+      "epoch": "2000-01-01T12:00:00+00:00",
+      "samples": 385,
+      "start": "1999-12-24T12:00:00.000Z",
+      "end": "2000-01-09T12:00:00.000Z",
+      "maxSampledInterpolationErrorArcsec": 0.00015960292925277389
+    },
+    {
+      "epoch": "2016-12-31T23:59:59.500+00:00",
+      "samples": 194,
+      "start": "2016-12-23T23:59:59.500Z",
+      "end": "2016-12-31T23:59:59.999Z",
+      "maxSampledInterpolationErrorArcsec": 0.00012919026492642382
+    },
+    {
+      "epoch": "2017-01-01T00:00:00+00:00",
+      "samples": 193,
+      "start": "2017-01-01T00:00:00.000Z",
+      "end": "2017-01-09T00:00:00.000Z",
+      "maxSampledInterpolationErrorArcsec": 0.00012274375803071117
+    },
+    {
+      "epoch": "2026-10-28T12:00:00+00:00",
+      "samples": 385,
+      "start": "2026-10-20T12:00:00.000Z",
+      "end": "2026-11-05T12:00:00.000Z",
+      "maxSampledInterpolationErrorArcsec": 0.00016235887243032422
+    },
+    {
+      "epoch": "2150-01-22T00:00:00+00:00",
+      "samples": 193,
+      "start": "2150-01-14T00:00:00.000Z",
+      "end": "2150-01-22T00:00:00.000Z",
+      "maxSampledInterpolationErrorArcsec": 0.00015999749758346832
+    }
+  ],
+  "reviewedBackendFiles": {
+    "backend/app/services/solar_earth_frame.py": "d13371e607b56774f1eb4bebcf23028320babccde3991511c9c5a03b35a392dc",
+    "backend/app/services/solar_motion.py": "28355b33c2abcb60b03777ad659f254bde62167b56ba4749d7ada8fd54f10fb3",
+    "backend/app/schemas/solar_exploration.py": "99e41d5ad35bacfa2fb39f726bebebe0cb438201c198d42cf22cdb4c8ff08184"
+  },
+  "scope": "Numerical source frame/interpolation. No physical EOP accuracy, browser, device or owner-acceptance claim."
+}

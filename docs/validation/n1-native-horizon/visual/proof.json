@@ -1,0 +1,4717 @@
+{
+  "status": "PASS",
+  "head": "f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1",
+  "sourceHashes": {
+    "runtimes/sky-adapter/plugin.js": "e58fcb0dfb12838434284830b4b50ebff8bb524375fd68e8443d37112cafa50c",
+    "integrations/sky-patches/0001-configurable-zero-horizon.patch": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+    "integrations/renderers.lock.json": "d22c4bc48e43587fd0b92fb0bb89da18b12833c965eccc51d965d894f73571dd",
+    "frontend/public/runtime-versions.json": "4c5d41c051ca04fb249fa794626a5f8a9171d83b11e09fa49cd38cbfee05ee09",
+    "scripts/validation/verify_n1_horizon.mjs": "9341229a2e11d5f0450613e38205b33df11b93e2ad65b31a5a10a1eb26d911a5",
+    "scripts/runtime/attest_sky_horizon.py": "01b937218867e96b58a8f27e5b792f1ff7fb572567a0a272677d19affd70bfe1",
+    "scripts/runtime/build_sky_horizon.sh": "6728b61cbddb01e566b03b4d6ecf46b125a4f2299d463c3276ba1d94123f16b7",
+    "scripts/runtime/record_sky_workspace.py": "adcc5491e7efc7c0973268863ff9f8a0a9ba9c27af78478df8c416e73beb169d"
+  },
+  "baseline": false,
+  "runs": [
+    {
+      "width": 1440,
+      "pageErrors": [],
+      "consoleSummary": {
+        "Failed to load resource: the server responded with a status of 404 (Not Found)": 104
+      },
+      "resourceFailures": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix339.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix346.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix350.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix338.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix344.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix401.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix407.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix419.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix486.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix485.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix494.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix506.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix3.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix8.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix9.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph"
+        }
+      ],
+      "scenes": [
+        {
+          "name": "embedded-dark",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                49,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                63,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                55,
+                63,
+                255
+              ],
+              [
+                49,
+                54,
+                62,
+                255
+              ],
+              [
+                48,
+                53,
+                62,
+                255
+              ],
+              [
+                47,
+                52,
+                61,
+                255
+              ],
+              [
+                39,
+                43,
+                50,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              17,
+              22,
+              34,
+              255
+            ]
+          }
+        },
+        {
+          "name": "landscape-off",
+          "state": {
+            "landscape": "zero",
+            "visible": false,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": false
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              17,
+              22,
+              34,
+              255
+            ],
+            "horizonColumn": [
+              [
+                49,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                63,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                55,
+                64,
+                255
+              ],
+              [
+                51,
+                55,
+                64,
+                255
+              ],
+              [
+                51,
+                55,
+                65,
+                255
+              ],
+              [
+                51,
+                56,
+                65,
+                255
+              ],
+              [
+                52,
+                56,
+                65,
+                255
+              ],
+              [
+                52,
+                56,
+                65,
+                255
+              ],
+              [
+                51,
+                56,
+                65,
+                255
+              ],
+              [
+                51,
+                55,
+                65,
+                255
+              ],
+              [
+                51,
+                55,
+                64,
+                255
+              ],
+              [
+                50,
+                55,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                63,
+                255
+              ],
+              [
+                49,
+                54,
+                64,
+                255
+              ],
+              [
+                49,
+                53,
+                64,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              23,
+              35,
+              255
+            ]
+          }
+        },
+        {
+          "name": "landscape-on",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                49,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                63,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                55,
+                63,
+                255
+              ],
+              [
+                49,
+                54,
+                62,
+                255
+              ],
+              [
+                48,
+                53,
+                62,
+                255
+              ],
+              [
+                47,
+                52,
+                61,
+                255
+              ],
+              [
+                39,
+                43,
+                50,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              23,
+              35,
+              255
+            ]
+          }
+        },
+        {
+          "name": "atmosphere-off",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": false,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                35,
+                35,
+                35,
+                255
+              ],
+              [
+                36,
+                36,
+                36,
+                255
+              ],
+              [
+                36,
+                36,
+                36,
+                255
+              ],
+              [
+                37,
+                37,
+                37,
+                255
+              ],
+              [
+                36,
+                37,
+                37,
+                255
+              ],
+              [
+                36,
+                36,
+                37,
+                255
+              ],
+              [
+                36,
+                37,
+                38,
+                255
+              ],
+              [
+                32,
+                34,
+                37,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              1,
+              1,
+              1,
+              255
+            ]
+          }
+        },
+        {
+          "name": "night-on",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": true,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              2,
+              0,
+              255
+            ],
+            "horizonColumn": [
+              [
+                49,
+                8,
+                0,
+                255
+              ],
+              [
+                50,
+                8,
+                0,
+                255
+              ],
+              [
+                50,
+                8,
+                0,
+                255
+              ],
+              [
+                50,
+                8,
+                0,
+                255
+              ],
+              [
+                49,
+                8,
+                0,
+                255
+              ],
+              [
+                48,
+                8,
+                0,
+                255
+              ],
+              [
+                47,
+                7,
+                0,
+                255
+              ],
+              [
+                39,
+                6,
+                0,
+                255
+              ],
+              [
+                17,
+                3,
+                0,
+                255
+              ],
+              [
+                11,
+                2,
+                0,
+                255
+              ],
+              [
+                11,
+                2,
+                0,
+                255
+              ],
+              [
+                10,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              4,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "name": "night-off",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [
+              297147,
+              297148,
+              298587,
+              298588,
+              308679,
+              308680,
+              310120,
+              317410,
+              317411,
+              352018,
+              352019,
+              353458,
+              353459,
+              390630,
+              390631,
+              392071,
+              425049,
+              426488,
+              426489,
+              426490,
+              427928,
+              427929,
+              427930,
+              431353,
+              431354,
+              432793,
+              432794,
+              444292,
+              444293,
+              445732,
+              445733,
+              445806,
+              446879,
+              446880,
+              446881,
+              446882,
+              447245,
+              447246,
+              447247,
+              448319,
+              448320,
+              448321,
+              448322,
+              448323,
+              448686,
+              449759,
+              449760,
+              449761,
+              449762,
+              449763,
+              451200,
+              451201,
+              451202,
+              452641,
+              461469,
+              461470,
+              461471,
+              461472,
+              462908,
+              462909,
+              462910,
+              462911,
+              462912,
+              464348,
+              464349,
+              464350,
+              464351,
+              464352,
+              464353,
+              465788,
+              465789,
+              465790,
+              465791,
+              465792,
+              467082,
+              467229,
+              467230,
+              467231,
+              467232,
+              468520,
+              468521,
+              468522,
+              468523,
+              468524,
+              469960,
+              469961,
+              469962,
+              469963,
+              469964,
+              471399,
+              471400,
+              471401,
+              471402,
+              471403,
+              471404,
+              471405,
+              472840,
+              472841,
+              472842,
+              472843,
+              472844,
+              474280,
+              474281,
+              474282,
+              474283,
+              474284,
+              477056,
+              477057,
+              478495,
+              478496,
+              478497,
+              478498,
+              479934,
+              479935,
+              479936,
+              479937,
+              479938,
+              479939,
+              481374,
+              481375,
+              481376,
+              481377,
+              481378,
+              481379,
+              482815,
+              482816,
+              482817,
+              482818,
+              482819,
+              484256,
+              484257,
+              484258,
+              490173,
+              490174,
+              491613,
+              491614,
+              493053,
+              493054,
+              503315,
+              503316,
+              504755,
+              504756,
+              517233,
+              517234,
+              518673,
+              518674,
+              518675,
+              520113,
+              520114,
+              520115,
+              521554,
+              534904,
+              534905,
+              534906,
+              536344,
+              536345,
+              536346,
+              536347,
+              537783,
+              537784,
+              537785,
+              537786,
+              537787,
+              539224,
+              539225,
+              539226,
+              539227,
+              540665,
+              547789,
+              547790,
+              547791,
+              549228,
+              549229,
+              549230,
+              549231,
+              549232,
+              550668,
+              550669,
+              550670,
+              550671,
+              550672,
+              552109,
+              552110,
+              552111
+            ],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                49,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                63,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                55,
+                63,
+                255
+              ],
+              [
+                49,
+                54,
+                62,
+                255
+              ],
+              [
+                48,
+                53,
+                62,
+                255
+              ],
+              [
+                47,
+                52,
+                61,
+                255
+              ],
+              [
+                39,
+                43,
+                50,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              23,
+              35,
+              255
+            ]
+          }
+        },
+        {
+          "name": "native-default-color-probe",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.1,
+              0.15,
+              0.1,
+              1
+            ],
+            "border": [
+              0.2,
+              0.4,
+              0.1,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [
+              297147,
+              297148,
+              298587,
+              298588,
+              308679,
+              308680,
+              310120,
+              317410,
+              317411,
+              352018,
+              352019,
+              353458,
+              353459,
+              390630,
+              390631,
+              392071,
+              425049,
+              426488,
+              426489,
+              426490,
+              427928,
+              427929,
+              427930,
+              431353,
+              431354,
+              432793,
+              432794,
+              444292,
+              444293,
+              445732,
+              445733,
+              445806,
+              446879,
+              446880,
+              446881,
+              446882,
+              447245,
+              447246,
+              447247,
+              448319,
+              448320,
+              448321,
+              448322,
+              448323,
+              448686,
+              449759,
+              449760,
+              449761,
+              449762,
+              449763,
+              451200,
+              451201,
+              451202,
+              452641,
+              461469,
+              461470,
+              461471,
+              461472,
+              462908,
+              462909,
+              462910,
+              462911,
+              462912,
+              464348,
+              464349,
+              464350,
+              464351,
+              464352,
+              464353,
+              465788,
+              465789,
+              465790,
+              465791,
+              465792,
+              467082,
+              467229,
+              467230,
+              467231,
+              467232,
+              468520,
+              468521,
+              468522,
+              468523,
+              468524,
+              469960,
+              469961,
+              469962,
+              469963,
+              469964,
+              471399,
+              471400,
+              471401,
+              471402,
+              471403,
+              471404,
+              471405,
+              472840,
+              472841,
+              472842,
+              472843,
+              472844,
+              474280,
+              474281,
+              474282,
+              474283,
+              474284,
+              477056,
+              477057,
+              478495,
+              478496,
+              478497,
+              478498,
+              479934,
+              479935,
+              479936,
+              479937,
+              479938,
+              479939,
+              481374,
+              481375,
+              481376,
+              481377,
+              481378,
+              481379,
+              482815,
+              482816,
+              482817,
+              482818,
+              482819,
+              484256,
+              484257,
+              484258,
+              490173,
+              490174,
+              491613,
+              491614,
+              493053,
+              493054,
+              503315,
+              503316,
+              504755,
+              504756,
+              517233,
+              517234,
+              518673,
+              518674,
+              518675,
+              520113,
+              520114,
+              520115,
+              521554,
+              534904,
+              534905,
+              534906,
+              536344,
+              536345,
+              536346,
+              536347,
+              537783,
+              537784,
+              537785,
+              537786,
+              537787,
+              539224,
+              539225,
+              539226,
+              539227,
+              540665,
+              547789,
+              547790,
+              547791,
+              549228,
+              549229,
+              549230,
+              549231,
+              549232,
+              550668,
+              550669,
+              550670,
+              550671,
+              550672,
+              552109,
+              552110,
+              552111
+            ],
+            "groundBrightPixels": 0,
+            "ground": [
+              26,
+              38,
+              26,
+              255
+            ],
+            "horizonColumn": [
+              [
+                49,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                63,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                50,
+                56,
+                63,
+                255
+              ],
+              [
+                51,
+                58,
+                62,
+                255
+              ],
+              [
+                51,
+                60,
+                61,
+                255
+              ],
+              [
+                51,
+                62,
+                59,
+                255
+              ],
+              [
+                52,
+                79,
+                45,
+                255
+              ],
+              [
+                38,
+                70,
+                26,
+                255
+              ],
+              [
+                30,
+                47,
+                26,
+                255
+              ],
+              [
+                28,
+                44,
+                26,
+                255
+              ],
+              [
+                28,
+                42,
+                26,
+                255
+              ],
+              [
+                26,
+                39,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              23,
+              35,
+              255
+            ]
+          }
+        },
+        {
+          "name": "sydney-day",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": -33.8687999999739,
+                "lon": 151.20930000000794,
+                "elevationM": 0
+              },
+              "elevationSource": "provided",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                228,
+                221,
+                233,
+                255
+              ],
+              [
+                229,
+                220,
+                232,
+                255
+              ],
+              [
+                230,
+                220,
+                232,
+                255
+              ],
+              [
+                226,
+                216,
+                227,
+                255
+              ],
+              [
+                219,
+                209,
+                218,
+                255
+              ],
+              [
+                210,
+                201,
+                211,
+                255
+              ],
+              [
+                203,
+                193,
+                202,
+                255
+              ],
+              [
+                129,
+                125,
+                132,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              186,
+              218,
+              255,
+              255
+            ]
+          }
+        },
+        {
+          "name": "oras-day",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": -33.8687999999739,
+                "lon": 151.20930000000794,
+                "elevationM": 0
+              },
+              "elevationSource": "provided",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                53,
+                59,
+                72,
+                255
+              ],
+              [
+                53,
+                60,
+                73,
+                255
+              ],
+              [
+                53,
+                61,
+                73,
+                255
+              ],
+              [
+                53,
+                60,
+                72,
+                255
+              ],
+              [
+                52,
+                59,
+                71,
+                255
+              ],
+              [
+                51,
+                57,
+                69,
+                255
+              ],
+              [
+                50,
+                58,
+                69,
+                255
+              ],
+              [
+                40,
+                46,
+                55,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              24,
+              36,
+              255
+            ]
+          }
+        }
+      ],
+      "pixelOcclusion": {
+        "aboveBrightPixels": 184,
+        "matchedBrightPixels": 184,
+        "belowBrightPixels": 0
+      },
+      "releasedLandscape": "zero",
+      "releaseRace": {
+        "selected": "guereins",
+        "zeroFill": [
+          0.1,
+          0.15,
+          0.1,
+          1
+        ],
+        "zeroBorder": [
+          0.2,
+          0.4,
+          0.1,
+          1
+        ]
+      },
+      "standalone": {
+        "native": {
+          "id": "guereins",
+          "visible": true
+        },
+        "zero": {
+          "fill": [
+            0.1,
+            0.15,
+            0.1,
+            1
+          ],
+          "border": [
+            0.2,
+            0.4,
+            0.1,
+            1
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "pageErrors": [],
+      "consoleSummary": {
+        "Failed to load resource: the server responded with a status of 404 (Not Found)": 210
+      },
+      "resourceFailures": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix339.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix385.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix396.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix397.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix399.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix417.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix419.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix599.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix605.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix606.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix607.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix629.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix633.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix639.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix682.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix385.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix396.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix397.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix399.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix401.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix407.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix482.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix490.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix494.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix506.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix686.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix697.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix698.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix702.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix3.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix8.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix9.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix323.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix338.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix344.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix346.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix350.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix361.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix364.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix363.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix542.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix543.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix565.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix568.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix575.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix396.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix397.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix401.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix399.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix407.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix417.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix419.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix629.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix607.eph"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix698.eph"
+        }
+      ],
+      "scenes": [
+        {
+          "name": "embedded-dark",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                51,
+                54,
+                65,
+                255
+              ],
+              [
+                53,
+                56,
+                67,
+                255
+              ],
+              [
+                92,
+                93,
+                100,
+                255
+              ],
+              [
+                53,
+                57,
+                67,
+                255
+              ],
+              [
+                52,
+                56,
+                66,
+                255
+              ],
+              [
+                51,
+                54,
+                64,
+                255
+              ],
+              [
+                49,
+                53,
+                63,
+                255
+              ],
+              [
+                39,
+                44,
+                51,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              24,
+              36,
+              255
+            ]
+          }
+        },
+        {
+          "name": "landscape-off",
+          "state": {
+            "landscape": "zero",
+            "visible": false,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": false
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              17,
+              22,
+              34,
+              255
+            ],
+            "horizonColumn": [
+              [
+                51,
+                54,
+                65,
+                255
+              ],
+              [
+                53,
+                56,
+                67,
+                255
+              ],
+              [
+                92,
+                93,
+                100,
+                255
+              ],
+              [
+                54,
+                58,
+                68,
+                255
+              ],
+              [
+                54,
+                58,
+                68,
+                255
+              ],
+              [
+                54,
+                57,
+                67,
+                255
+              ],
+              [
+                53,
+                57,
+                67,
+                255
+              ],
+              [
+                53,
+                57,
+                66,
+                255
+              ],
+              [
+                52,
+                56,
+                65,
+                255
+              ],
+              [
+                51,
+                55,
+                64,
+                255
+              ],
+              [
+                50,
+                54,
+                64,
+                255
+              ],
+              [
+                49,
+                53,
+                64,
+                255
+              ],
+              [
+                48,
+                52,
+                63,
+                255
+              ],
+              [
+                47,
+                52,
+                62,
+                255
+              ],
+              [
+                46,
+                51,
+                61,
+                255
+              ],
+              [
+                46,
+                50,
+                61,
+                255
+              ],
+              [
+                45,
+                49,
+                60,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              24,
+              36,
+              255
+            ]
+          }
+        },
+        {
+          "name": "landscape-on",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                51,
+                54,
+                65,
+                255
+              ],
+              [
+                53,
+                56,
+                67,
+                255
+              ],
+              [
+                92,
+                93,
+                100,
+                255
+              ],
+              [
+                53,
+                57,
+                67,
+                255
+              ],
+              [
+                52,
+                56,
+                66,
+                255
+              ],
+              [
+                51,
+                54,
+                64,
+                255
+              ],
+              [
+                49,
+                53,
+                63,
+                255
+              ],
+              [
+                39,
+                44,
+                51,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              24,
+              36,
+              255
+            ]
+          }
+        },
+        {
+          "name": "atmosphere-off",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": false,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                34,
+                34,
+                34,
+                255
+              ],
+              [
+                37,
+                37,
+                36,
+                255
+              ],
+              [
+                39,
+                39,
+                39,
+                255
+              ],
+              [
+                46,
+                45,
+                44,
+                255
+              ],
+              [
+                65,
+                62,
+                61,
+                255
+              ],
+              [
+                40,
+                40,
+                40,
+                255
+              ],
+              [
+                39,
+                40,
+                40,
+                255
+              ],
+              [
+                33,
+                36,
+                38,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              1,
+              2,
+              2,
+              255
+            ]
+          }
+        },
+        {
+          "name": "night-on",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": true,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              2,
+              0,
+              255
+            ],
+            "horizonColumn": [
+              [
+                51,
+                8,
+                0,
+                255
+              ],
+              [
+                53,
+                8,
+                0,
+                255
+              ],
+              [
+                92,
+                13,
+                0,
+                255
+              ],
+              [
+                53,
+                8,
+                0,
+                255
+              ],
+              [
+                52,
+                8,
+                0,
+                255
+              ],
+              [
+                51,
+                8,
+                0,
+                255
+              ],
+              [
+                49,
+                8,
+                0,
+                255
+              ],
+              [
+                39,
+                6,
+                0,
+                255
+              ],
+              [
+                17,
+                3,
+                0,
+                255
+              ],
+              [
+                11,
+                2,
+                0,
+                255
+              ],
+              [
+                11,
+                2,
+                0,
+                255
+              ],
+              [
+                10,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ],
+              [
+                9,
+                2,
+                0,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              4,
+              0,
+              255
+            ]
+          }
+        },
+        {
+          "name": "night-off",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [
+              73145,
+              73535,
+              73536,
+              80459,
+              80460,
+              80849,
+              80850,
+              89388,
+              89778,
+              94577,
+              94967,
+              94968,
+              95357,
+              99509,
+              99899,
+              105804,
+              105805,
+              106194,
+              107378,
+              107767,
+              107768,
+              107769,
+              140881,
+              141271,
+              141272,
+              142913,
+              142914,
+              143239,
+              143303,
+              143304,
+              143628,
+              143629,
+              143630,
+              144018,
+              144019,
+              144020,
+              144363,
+              144752,
+              144753,
+              144754,
+              145143,
+              145144
+            ],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                51,
+                54,
+                65,
+                255
+              ],
+              [
+                53,
+                56,
+                67,
+                255
+              ],
+              [
+                92,
+                93,
+                100,
+                255
+              ],
+              [
+                53,
+                57,
+                67,
+                255
+              ],
+              [
+                52,
+                56,
+                66,
+                255
+              ],
+              [
+                51,
+                54,
+                64,
+                255
+              ],
+              [
+                49,
+                53,
+                63,
+                255
+              ],
+              [
+                39,
+                44,
+                51,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              24,
+              36,
+              255
+            ]
+          }
+        },
+        {
+          "name": "native-default-color-probe",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.1,
+              0.15,
+              0.1,
+              1
+            ],
+            "border": [
+              0.2,
+              0.4,
+              0.1,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [
+              73145,
+              73535,
+              73536,
+              80459,
+              80460,
+              80849,
+              80850,
+              89388,
+              89778,
+              94577,
+              94967,
+              94968,
+              95357,
+              99509,
+              99899,
+              105804,
+              105805,
+              106194,
+              107378,
+              107767,
+              107768,
+              107769,
+              140881,
+              141271,
+              141272,
+              142913,
+              142914,
+              143239,
+              143303,
+              143304,
+              143628,
+              143629,
+              143630,
+              144018,
+              144019,
+              144020,
+              144363,
+              144752,
+              144753,
+              144754,
+              145143,
+              145144
+            ],
+            "groundBrightPixels": 0,
+            "ground": [
+              26,
+              38,
+              26,
+              255
+            ],
+            "horizonColumn": [
+              [
+                51,
+                54,
+                65,
+                255
+              ],
+              [
+                53,
+                56,
+                67,
+                255
+              ],
+              [
+                92,
+                93,
+                100,
+                255
+              ],
+              [
+                54,
+                59,
+                67,
+                255
+              ],
+              [
+                54,
+                61,
+                65,
+                255
+              ],
+              [
+                54,
+                62,
+                63,
+                255
+              ],
+              [
+                53,
+                63,
+                61,
+                255
+              ],
+              [
+                52,
+                79,
+                46,
+                255
+              ],
+              [
+                39,
+                70,
+                26,
+                255
+              ],
+              [
+                30,
+                47,
+                26,
+                255
+              ],
+              [
+                28,
+                44,
+                26,
+                255
+              ],
+              [
+                28,
+                42,
+                26,
+                255
+              ],
+              [
+                26,
+                39,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ],
+              [
+                26,
+                38,
+                26,
+                255
+              ]
+            ],
+            "above": [
+              18,
+              24,
+              36,
+              255
+            ]
+          }
+        },
+        {
+          "name": "sydney-day",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": -33.8687999999739,
+                "lon": 151.20930000000794,
+                "elevationM": 0
+              },
+              "elevationSource": "provided",
+              "utc": "2026-10-14T02:10:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                223,
+                220,
+                238,
+                255
+              ],
+              [
+                224,
+                220,
+                237,
+                255
+              ],
+              [
+                225,
+                220,
+                236,
+                255
+              ],
+              [
+                223,
+                216,
+                230,
+                255
+              ],
+              [
+                216,
+                210,
+                221,
+                255
+              ],
+              [
+                209,
+                201,
+                212,
+                255
+              ],
+              [
+                202,
+                193,
+                203,
+                255
+              ],
+              [
+                129,
+                125,
+                132,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              190,
+              218,
+              255,
+              255
+            ]
+          }
+        },
+        {
+          "name": "oras-day",
+          "state": {
+            "landscape": "zero",
+            "visible": true,
+            "atmosphere": true,
+            "night": false,
+            "fill": [
+              0.035,
+              0.04,
+              0.05,
+              1
+            ],
+            "border": [
+              0.1,
+              0.12,
+              0.14,
+              1
+            ],
+            "view": {
+              "mode": "sky",
+              "observer": {
+                "lat": -33.8687999999739,
+                "lon": 151.20930000000794,
+                "elevationM": 0
+              },
+              "elevationSource": "provided",
+              "utc": "2026-10-14T17:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 1.570796326795,
+                "yawRad": 0,
+                "pitchRad": 0,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            }
+          },
+          "pixels": {
+            "skyBrightPixels": [],
+            "groundBrightPixels": 0,
+            "ground": [
+              9,
+              10,
+              13,
+              255
+            ],
+            "horizonColumn": [
+              [
+                53,
+                58,
+                72,
+                255
+              ],
+              [
+                60,
+                65,
+                79,
+                255
+              ],
+              [
+                65,
+                69,
+                82,
+                255
+              ],
+              [
+                70,
+                75,
+                87,
+                255
+              ],
+              [
+                70,
+                75,
+                87,
+                255
+              ],
+              [
+                66,
+                71,
+                83,
+                255
+              ],
+              [
+                64,
+                68,
+                80,
+                255
+              ],
+              [
+                47,
+                51,
+                59,
+                255
+              ],
+              [
+                17,
+                20,
+                24,
+                255
+              ],
+              [
+                11,
+                13,
+                16,
+                255
+              ],
+              [
+                11,
+                12,
+                15,
+                255
+              ],
+              [
+                10,
+                11,
+                14,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ],
+              [
+                9,
+                10,
+                13,
+                255
+              ]
+            ],
+            "above": [
+              17,
+              22,
+              34,
+              255
+            ]
+          }
+        }
+      ],
+      "pixelOcclusion": {
+        "aboveBrightPixels": 42,
+        "matchedBrightPixels": 42,
+        "belowBrightPixels": 0
+      },
+      "releasedLandscape": "zero",
+      "releaseRace": {
+        "selected": "guereins",
+        "zeroFill": [
+          0.1,
+          0.15,
+          0.1,
+          1
+        ],
+        "zeroBorder": [
+          0.2,
+          0.4,
+          0.1,
+          1
+        ]
+      },
+      "standalone": {
+        "native": {
+          "id": "guereins",
+          "visible": true
+        },
+        "zero": {
+          "fill": [
+            0.1,
+            0.15,
+            0.1,
+            1
+          ],
+          "border": [
+            0.2,
+            0.4,
+            0.1,
+            1
+          ]
+        }
+      },
+      "status": "PASS"
+    }
+  ],
+  "started": "2026-10-15T07:40:45.487Z",
+  "finished": "2026-10-15T07:42:26.912Z"
+}

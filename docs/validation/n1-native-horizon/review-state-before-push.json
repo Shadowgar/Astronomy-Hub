@@ -1,0 +1,96 @@
+{
+  "status": "OPEN_FINDINGS",
+  "unresolved": 2,
+  "threads": [
+    {
+      "id": "PRRT_kwDORt_rys6sPsml",
+      "isResolved": true,
+      "isOutdated": true,
+      "path": "runtimes/earth-runtime/core/CameraController.mjs",
+      "comments": {
+        "nodes": [
+          {
+            "databaseId": 4268968568,
+            "body": "**<sub><sub>![P1 Badge](https://img.shields.io/badge/P1-orange?style=flat)</sub></sub>  Remove the unauthorized Earth navigation changes**\n\nThis replaces the Earth runtime's native wheel handling and adds a new cross-renderer navigation package, but the active R1-B scope requires preserving Earth and rebuilding only the changed Sky UI artifact. The N1 authority text added by this same commit cannot override the repository operating rule, so these Earth/protocol changes need separate owner authorization rather than shipping in this package.\n\nAGENTS.md reference: [AGENTS.md:L11-L18](https://github.com/Shadowgar/Astronomy-Hub/blob/8fe05ca1a8505dc20449635fa47b615e4bd23a0c/AGENTS.md#L11-L18)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4268968568"
+          },
+          {
+            "databaseId": 4279091065,
+            "body": "The owner separately authorized N1 bidirectional Sky/Earth navigation and explicitly requested this PR #75 repair, preserving #75 \u2192 #74 \u2192 #73 and prohibiting N2/merge/deployment. The cited R1-B restriction is historical. AGENTS.md now marks that header historical and records the existing bounded N1 authorization; CORE/LIVE and the implementation evidence agree. This does not grant any additional renderer/provider/data scope.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279091065"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PRRT_kwDORt_rys6sPsmw",
+      "isResolved": true,
+      "isOutdated": true,
+      "path": "runtimes/sky-adapter/plugin.js",
+      "comments": {
+        "nodes": [
+          {
+            "databaseId": 4268968586,
+            "body": "**<sub><sub>![P1 Badge](https://img.shields.io/badge/P1-orange?style=flat)</sub></sub>  Keep neutral-landscape enforcement out of standalone Sky**\n\nWhen `/oras-sky-engine/` is opened standalone without `orasEmbedded=1`, this code still switches the engine to the empty `zero` landscape and the watcher immediately reverses any later native landscape selection. That regresses the standalone Stellarium surface and makes its Landscape control unable to restore the bundled landscape; apply this policy only to the embedded handoff context while preserving native standalone controls.\n\nAGENTS.md reference: [AGENTS.md:L11-L13](https://github.com/Shadowgar/Astronomy-Hub/blob/8fe05ca1a8505dc20449635fa47b615e4bd23a0c/AGENTS.md#L11-L13)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4268968586"
+          },
+          {
+            "databaseId": 4279090919,
+            "body": "Corrected the standalone landscape regression. Neutral horizon creation/enforcement now runs only in embedded exploration; standalone retains the native bundled landscape and Landscape OFF/ON. Real Chromium proof and the failed-before/passed-after context regression are in docs/validation/n1-scroll-repair/. Native WASM, science/data and panorama assets are preserved.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279090919"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PRRT_kwDORt_rys6sobg8",
+      "isResolved": true,
+      "isOutdated": false,
+      "path": "frontend/src/features/workspace/viewNavigation.ts",
+      "comments": {
+        "nodes": [
+          {
+            "databaseId": 4279320866,
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Clear Sky identity parameters before entering Earth**\n\nWhen the current Sky URL contains `catalog`, `source_id`, `model`, `ra`, or `dec`, this helper preserves them while building the Earth URL because it deletes only `focus`, `fov`, `az`, and `alt`. Reloading that Earth URL lets `productState.ingestSearch` restore the stale Sky selection, which can then unexpectedly reappear on a later Sky visit; it also contradicts the newly added test expecting `catalog` to be absent. Remove all canonical object parameters first, then add the current selection only when the target is Sky.\n\nAGENTS.md reference: [frontend/AGENTS.md:L92-L100](https://github.com/Shadowgar/Astronomy-Hub/blob/f36e0ae1c71e7be57f8fab1ce30cc789c31aa8b5/frontend/AGENTS.md#L92-L100)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4279320866"
+          },
+          {
+            "databaseId": 4280122131,
+            "body": "The complete URL path already removes these fields. At accepted application source `301f9eb3`, `handoffPath()` returns `workspaceModePath(target, ...)`; the latter deletes `catalog`, `source_id`, `model`, `ra`, `dec` and `fov` whenever `mode === 'earth'`. The intermediate URLSearchParams in this helper are not the returned Earth URL.\n\nSource: https://github.com/Shadowgar/Astronomy-Hub/blob/301f9eb3ddfd21a22ad04378bf09ee45c59e8adc/frontend/src/features/workspace/workspaceNavigation.ts#L26-L30\n\nFocused regression evidence now covers all five canonical fields, Gaia IDs retained as strings, both null/current selection arguments, unchanged observer/time, and fresh-state `ingestSearch()` of the resulting Earth URL. Command: `npm --prefix frontend test -- tests/viewNavigation.test.ts tests/workspaceNavigation.test.ts tests/runtimeProductState.test.ts` \u2014 15 tests passed in 3 files, exit 0. Full frontend: 241/241. The two added regressions are being delivered on this same PR; no redundant production/navigation change is needed. This proof concerns identity introduced by the Earth URL, not deliberate session selection persistence.\n\nResolving this finding under the owner's explicit directive to evaluate the downstream builder and resolve with regression evidence. Dark horizon implementation remains blocked at the separately reported protected native-artifact boundary; this resolution does not imply full N1 acceptance.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280122131"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PRRT_kwDORt_rys6sqlC0",
+      "isResolved": false,
+      "isOutdated": false,
+      "path": "runtimes/earth-runtime/core/RuntimeBridge.mjs",
+      "comments": {
+        "nodes": [
+          {
+            "databaseId": 4280215701,
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Keep navigation snapshots non-mutating**\n\nWhen a satellite is being tracked, simply opening Earth Explore\u2014or starting and then cancelling a handoff\u2014calls `getNavigationState`; this invokes `CameraController.interrupt()`, which cancels active flights and calls `stopTracking()` before any departure occurs. Since cancellation only resets the navigation gate, it cannot restore that source state. Capture the state without interrupting, or defer interruption until departure is committed, so inspection and cancellation preserve tracking and camera motion.\n\nAGENTS.md reference: [AGENTS.md:L24-L27](https://github.com/Shadowgar/Astronomy-Hub/blob/f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1/AGENTS.md#L24-L27)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280215701"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PRRT_kwDORt_rys6sqlC7",
+      "isResolved": false,
+      "isOutdated": false,
+      "path": "frontend/src/features/workspace/useViewNavigation.ts",
+      "comments": {
+        "nodes": [
+          {
+            "databaseId": 4280215709,
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Validate elevation provenance before overriding runtime state**\n\nWhen a public Sky URL contains a syntactically valid but inconsistent `elevationSource`\u2014for example, `elevationSource=oras-site` at New York or `unavailable-zero` with a nonzero elevation\u2014this unconditionally replaces the runtime-derived provenance. The resulting handoff URL and status text can claim an ORAS measurement or a 0 m fallback while using different observer data. Only accept provenance when it is consistent with the observer coordinates/elevation; otherwise retain the runtime-derived value or return a controlled unavailable state.\n\nAGENTS.md reference: [AGENTS.md:L970-L974](https://github.com/Shadowgar/Astronomy-Hub/blob/f9a56194c04bc333f85cff5e4c7ec7a157ba4fa1/AGENTS.md#L970-L974)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+            "url": "https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4280215709"
+          }
+        ]
+      }
+    }
+  ]
+}

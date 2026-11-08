@@ -1,0 +1,20 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Rejected epoch must not replace last qualified return time
++ actual - expected
+
++ 7258118400000
+- 1772323200000
+
+    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1/scripts/validation/verify_r3_identity.mjs:7:1717 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 7258118400000,
+  expected: 1772323200000,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

@@ -1,0 +1,82 @@
+{
+  "catalog_mode": "canonical_replacement",
+  "default_profile": "visual-default",
+  "magnitude_limit": 13.0,
+  "native_continuation": {
+    "key": "gaia",
+    "source": "bundled-gaia"
+  },
+  "profiles": {
+    "binocular": {
+      "catalog_mode": "canonical_replacement",
+      "label_mode": "named",
+      "magnitude_limit": 8.5,
+      "max_magnitude": 8.5,
+      "min_magnitude": -1.44,
+      "minimum_magnitude": null,
+      "native_continuation": {
+        "key": "gaia",
+        "source": "bundled-gaia"
+      },
+      "profile_id": "binocular",
+      "profile_intent": "opt-in",
+      "profile_label": "Binocular",
+      "release_root": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles/profiles/binocular",
+      "release_version": "2026.09.native-stars.4",
+      "rendering_path": "native_swe_star_tiles",
+      "source_manifest_sha256": "e286212acbd9b86bf30d92fe73744bfb451bce56912bca0f58b7cc560ced6f7f",
+      "star_count": 65143,
+      "tile_count": 768,
+      "tile_order": 3
+    },
+    "deep-catalog": {
+      "catalog_mode": "canonical_replacement",
+      "label_mode": "named",
+      "magnitude_limit": 13.0,
+      "max_magnitude": 10.00014,
+      "min_magnitude": -1.44,
+      "minimum_magnitude": null,
+      "native_continuation": {
+        "key": "gaia",
+        "source": "bundled-gaia"
+      },
+      "profile_id": "deep-catalog",
+      "profile_intent": "opt-in",
+      "profile_label": "Deep Catalog",
+      "release_root": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles/profiles/deep-catalog",
+      "release_version": "2026.09.native-stars.4",
+      "rendering_path": "native_swe_star_tiles",
+      "source_manifest_sha256": "e286212acbd9b86bf30d92fe73744bfb451bce56912bca0f58b7cc560ced6f7f",
+      "star_count": 84129,
+      "tile_count": 768,
+      "tile_order": 3
+    },
+    "visual-default": {
+      "catalog_mode": "canonical_replacement",
+      "label_mode": "named",
+      "magnitude_limit": 4.8,
+      "max_magnitude": 4.8,
+      "min_magnitude": -1.44,
+      "minimum_magnitude": null,
+      "native_continuation": {
+        "key": "gaia",
+        "source": "bundled-gaia"
+      },
+      "profile_id": "visual-default",
+      "profile_intent": "default",
+      "profile_label": "Visual",
+      "release_root": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles/profiles/visual-default",
+      "release_version": "2026.09.native-stars.4",
+      "rendering_path": "native_swe_star_tiles",
+      "source_manifest_sha256": "e286212acbd9b86bf30d92fe73744bfb451bce56912bca0f58b7cc560ced6f7f",
+      "star_count": 1668,
+      "tile_count": 590,
+      "tile_order": 3
+    }
+  },
+  "release_root": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/dense-star-tiles",
+  "release_version": "2026.09.native-stars.4",
+  "rendering_path": "native_swe_star_tiles",
+  "star_count": 84129,
+  "tile_count": 768
+}

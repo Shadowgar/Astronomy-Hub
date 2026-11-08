@@ -1,0 +1,11 @@
+{
+  "originalFilename": "typecheck.txt",
+  "rawSha256": "eaf8519de1a7c341ec55d8ac83722fe2065100ebfbcb6936cb60b1b30be155d3",
+  "encoding": "UTF-8; concatenate lines to recover original exact bytes",
+  "lines": [
+    "\n",
+    "> astronomy-hub-frontend@0.0.1 typecheck\n",
+    "> tsc --noEmit\n",
+    "\n"
+  ]
+}

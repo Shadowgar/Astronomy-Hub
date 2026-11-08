@@ -1,0 +1,4299 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "measurements": [
+    {
+      "mission": "voyager1",
+      "size": "desktop",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 1567.5157,
+      "cold": {
+        "frames": [
+          9.299999999999997,
+          7,
+          506.79999999999995,
+          194.5,
+          7,
+          34.700000000000045,
+          13.799999999999955,
+          7,
+          6.899999999999977,
+          7,
+          6.900000000000091,
+          7,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          7,
+          7,
+          6.899999999999977,
+          6.899999999999977,
+          6.900000000000091,
+          6.899999999999977,
+          6.899999999999977,
+          7.100000000000023,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          6.900000000000091,
+          7.099999999999909,
+          6.900000000000091,
+          6.7999999999999545,
+          7,
+          6.900000000000091,
+          7,
+          6.899999999999864,
+          7,
+          6.900000000000091,
+          6.899999999999864,
+          7.100000000000136,
+          6.7999999999999545,
+          7,
+          6.900000000000091,
+          402.89999999999986,
+          6.900000000000091,
+          7,
+          6.899999999999864,
+          6.900000000000091,
+          7,
+          6.900000000000091,
+          6.899999999999864,
+          7,
+          6.900000000000091,
+          7,
+          7,
+          27.700000000000045,
+          13.899999999999864
+        ],
+        "longTasks": [
+          {
+            "start": 195.5,
+            "duration": 611
+          },
+          {
+            "start": 1107.0999999977648,
+            "duration": 407
+          }
+        ],
+        "resources": [
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions",
+            "duration": 14.399999998509884,
+            "transferSize": 36199,
+            "decodedBodySize": 35899
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/manifest.json",
+            "duration": 1.800000000745058,
+            "transferSize": 19360,
+            "decodedBodySize": 19060
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions/voyager1?epoch=1979-03-05T12%3A05%3A26.000Z",
+            "duration": 36.5,
+            "transferSize": 74317,
+            "decodedBodySize": 74017
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/voyager.glb",
+            "duration": 13.699999999254942,
+            "transferSize": 3128504,
+            "decodedBodySize": 3128204
+          }
+        ],
+        "diagnostics": {
+          "instanceId": "3a5af37a-77ed-4c09-ac05-c2085c93e190",
+          "mission": "voyager1",
+          "segment": "jupiter-encounter-2",
+          "epoch": "1979-03-05T12:05:26.000Z",
+          "quality": "balanced",
+          "sourceQuality": "reconstructed",
+          "source": "Jupiter reconstructed encounter",
+          "frame": "ICRF",
+          "origin": "sun",
+          "precision": "camera-relative CPU64/GPU32",
+          "view": "inspection",
+          "focus": "voyager1",
+          "camera": {
+            "position": [
+              -3.2219429818045935,
+              3.8283526064388647,
+              1.7195374981210485
+            ],
+            "target": [
+              -3.2219429820589482,
+              3.8283526066973086,
+              1.719537498142035
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "focus": "voyager1",
+            "view": "inspection"
+          },
+          "craft": {
+            "selfShadow": true,
+            "shadowMapSize": [
+              1024,
+              1024
+            ],
+            "position": [
+              -3.2219429820589482,
+              3.828352606697309,
+              1.719537498142035
+            ],
+            "modelReady": true,
+            "modelError": "",
+            "modelMeshCount": 5,
+            "visible": true,
+            "radiusMeters": 9.756709775895917,
+            "scale": 0.970583576287901,
+            "attitude": "illustrative-inspection",
+            "center": "display bounding box, not qualified center of mass",
+            "loadMilliseconds": 47.30000000074506
+          },
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "sourceIdentity": {
+                "target": "10",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Jupiter reconstructed encounter"
+              },
+              "appearanceSource": null,
+              "geometryKind": "visualization-sphere",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.004650467260962158,
+              "textureSize": null,
+              "orientation": "illustrative-source-registration",
+              "errors": [],
+              "timing": {
+                "requested": 796,
+                "overviewReady": 796.0999999977648,
+                "detailApplied": null
+              }
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -3.2231634988275935,
+                3.8264773296592094,
+                1.718879568431657
+              ],
+              "sourceIdentity": {
+                "target": "599",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Jupiter reconstructed encounter"
+              },
+              "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+              "geometryKind": "visualization-sphere",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.00046732619211270455,
+              "textureSize": [
+                1024,
+                768
+              ],
+              "orientation": "illustrative-source-registration",
+              "errors": [],
+              "timing": {
+                "requested": 797.3999999985099,
+                "overviewReady": 849.6999999992549,
+                "detailApplied": null
+              }
+            }
+          ],
+          "trackSegments": [
+            {
+              "id": "jupiter-encounter-2",
+              "quality": "reconstructed",
+              "points": 128
+            }
+          ],
+          "pathsVisible": false,
+          "renderCount": 3,
+          "disposed": false,
+          "contextLost": false,
+          "navigation": "orbit",
+          "animating": false,
+          "viewport": {
+            "clearWidth": 1096,
+            "clearHeight": 555.0000343322754,
+            "rectangleOffsetX": -152,
+            "rectangleOffsetY": 8.899980545043945
+          },
+          "pixelRatio": 1.0000000149011612,
+          "assets": {
+            "resources": 22,
+            "textureBytes": 21058904,
+            "textureAllocations": 5,
+            "decodingBytes": 0,
+            "textureBudget": 134217728,
+            "shared": {
+              "textureBytes": 21058904,
+              "textureBudget": 134217728,
+              "textureAllocations": 5
+            },
+            "requests": 0,
+            "decodeSamples": [
+              {
+                "kind": "model",
+                "milliseconds": 24.800000000745058
+              },
+              {
+                "kind": "model",
+                "milliseconds": 24.300000000745058
+              }
+            ],
+            "fetchSamples": [
+              {
+                "url": "/solar-assets/v2.2/jupiter-overview.glb",
+                "bytes": 266920,
+                "milliseconds": 22.199999999254942
+              },
+              {
+                "url": "/mission-assets/v2.5/voyager.glb",
+                "bytes": 3128204,
+                "milliseconds": 22.900000002235174
+              }
+            ],
+            "disposed": false
+          },
+          "pipeline": {
+            "mode": "linear-hdr",
+            "bloom": true,
+            "threshold": 1.8,
+            "strength": 0.13,
+            "radius": 0.28,
+            "sceneUnitsPerAU": 149597870700,
+            "hdrSupported": true,
+            "hdrClipping": false,
+            "compositionColorSpace": "linear-srgb",
+            "targetType": "rgba16f",
+            "fallbackLimitation": null,
+            "toneMapping": "ACESFilmic",
+            "toneMappingStages": 1,
+            "outputColorSpace": "srgb",
+            "antialias": "FXAA",
+            "width": 1440,
+            "height": 900,
+            "pixelRatio": 1.0000000149011612,
+            "disposed": false
+          },
+          "shaderPreparation": {
+            "state": "ready",
+            "supported": true,
+            "materials": 21,
+            "milliseconds": 248
+          },
+          "shaderFailures": 0,
+          "drawCalls": 27,
+          "geometries": 11,
+          "textures": 21,
+          "ownedResources": 13,
+          "gpuMs": {
+            "supported": true,
+            "samples": 3,
+            "median": 7.641088,
+            "p95": 13.388736
+          },
+          "frameIntervalsMs": {
+            "samples": 0
+          },
+          "renderCpuMs": {
+            "samples": 3,
+            "median": 30.900000002235174,
+            "p95": 406.69999999925494,
+            "maximum": 406.69999999925494
+          },
+          "independentAnimationLoops": 1,
+          "playing": false,
+          "speed": 3600,
+          "displayEpoch": "1979-03-05T12:05:26.000Z"
+        }
+      },
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000091,
+        "p95": 7.099999999999909,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "3a5af37a-77ed-4c09-ac05-c2085c93e190",
+        "mission": "voyager1",
+        "segment": "jupiter-encounter-2",
+        "epoch": "1979-03-05T12:05:26.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Jupiter reconstructed encounter",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "voyager1",
+        "camera": {
+          "position": [
+            -3.2219429822123242,
+            3.8283526070258906,
+            1.7195374981210485
+          ],
+          "target": [
+            -3.2219429820589482,
+            3.8283526066973086,
+            1.719537498142035
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "voyager1",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -3.2219429820589482,
+            3.828352606697309,
+            1.719537498142035
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 5,
+          "visible": true,
+          "radiusMeters": 9.756709775895917,
+          "scale": 0.970583576287901,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 47.30000000074506
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 796,
+              "overviewReady": 796.0999999977648,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.2231634988275935,
+              3.8264773296592094,
+              1.718879568431657
+            ],
+            "sourceIdentity": {
+              "target": "599",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00046732619211270455,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 797.3999999985099,
+              "overviewReady": 849.6999999992549,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "jupiter-encounter-2",
+            "quality": "reconstructed",
+            "points": 128
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 273,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 1096,
+          "clearHeight": 555.0000343322754,
+          "rectangleOffsetX": -152,
+          "rectangleOffsetY": 8.899980545043945
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 22,
+          "textureBytes": 21058904,
+          "textureAllocations": 5,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 21058904,
+            "textureBudget": 134217728,
+            "textureAllocations": 5
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 24.800000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 24.300000000745058
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/jupiter-overview.glb",
+              "bytes": 266920,
+              "milliseconds": 22.199999999254942
+            },
+            {
+              "url": "/mission-assets/v2.5/voyager.glb",
+              "bytes": 3128204,
+              "milliseconds": 22.900000002235174
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 1440,
+          "height": 900,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 21,
+          "milliseconds": 248
+        },
+        "shaderFailures": 0,
+        "drawCalls": 27,
+        "geometries": 11,
+        "textures": 21,
+        "ownedResources": 13,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.61312,
+          "p95": 0.662528
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 273,
+          "median": 0.7000000029802322,
+          "p95": 1.199999999254942,
+          "maximum": 406.69999999925494
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "1979-03-05T12:05:26.000Z"
+      }
+    },
+    {
+      "mission": "voyager1",
+      "size": "portrait",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 1567.5157,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "3a5af37a-77ed-4c09-ac05-c2085c93e190",
+        "mission": "voyager1",
+        "segment": "jupiter-encounter-2",
+        "epoch": "1979-03-05T12:05:26.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Jupiter reconstructed encounter",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "voyager1",
+        "camera": {
+          "position": [
+            -3.2219429820241863,
+            3.828352606336364,
+            1.7195374981210485
+          ],
+          "target": [
+            -3.2219429820589482,
+            3.8283526066973086,
+            1.719537498142035
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "voyager1",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -3.2219429820589482,
+            3.828352606697309,
+            1.719537498142035
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 5,
+          "visible": true,
+          "radiusMeters": 9.756709775895917,
+          "scale": 0.970583576287901,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 47.30000000074506
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 796,
+              "overviewReady": 796.0999999977648,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.2231634988275935,
+              3.8264773296592094,
+              1.718879568431657
+            ],
+            "sourceIdentity": {
+              "target": "599",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00046732619211270455,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 797.3999999985099,
+              "overviewReady": 849.6999999992549,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "jupiter-encounter-2",
+            "quality": "reconstructed",
+            "points": 128
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 544,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 350.3999938964844,
+          "clearHeight": 302.00001525878906,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -25.40001678466797
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 22,
+          "textureBytes": 21058904,
+          "textureAllocations": 5,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 21058904,
+            "textureBudget": 134217728,
+            "textureAllocations": 5
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 24.800000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 24.300000000745058
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/jupiter-overview.glb",
+              "bytes": 266920,
+              "milliseconds": 22.199999999254942
+            },
+            {
+              "url": "/mission-assets/v2.5/voyager.glb",
+              "bytes": 3128204,
+              "milliseconds": 22.900000002235174
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 390.3999938964844,
+          "height": 844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 21,
+          "milliseconds": 248
+        },
+        "shaderFailures": 0,
+        "drawCalls": 27,
+        "geometries": 11,
+        "textures": 21,
+        "ownedResources": 13,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.423936,
+          "p95": 1.130496
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 544,
+          "median": 0.6999999992549419,
+          "p95": 1.0999999977648258,
+          "maximum": 406.69999999925494
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "1979-03-05T12:05:26.000Z"
+      }
+    },
+    {
+      "mission": "voyager1",
+      "size": "landscape",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 1567.5157,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7.099999999999454,
+        "maximum": 7.200000000000728
+      },
+      "diagnostics": {
+        "instanceId": "3a5af37a-77ed-4c09-ac05-c2085c93e190",
+        "mission": "voyager1",
+        "segment": "jupiter-encounter-2",
+        "epoch": "1979-03-05T12:05:26.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Jupiter reconstructed encounter",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "voyager1",
+        "camera": {
+          "position": [
+            -3.2219429819711047,
+            3.8283526070491174,
+            1.7195374981210485
+          ],
+          "target": [
+            -3.2219429820589482,
+            3.8283526066973086,
+            1.719537498142035
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "voyager1",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -3.2219429820589482,
+            3.828352606697309,
+            1.719537498142035
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 5,
+          "visible": true,
+          "radiusMeters": 9.756709775895917,
+          "scale": 0.970583576287901,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 47.30000000074506
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 796,
+              "overviewReady": 796.0999999977648,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.2231634988275935,
+              3.8264773296592094,
+              1.718879568431657
+            ],
+            "sourceIdentity": {
+              "target": "599",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00046732619211270455,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 797.3999999985099,
+              "overviewReady": 849.6999999992549,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "jupiter-encounter-2",
+            "quality": "reconstructed",
+            "points": 128
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 815,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 568,
+          "clearHeight": 134.79999160766602,
+          "rectangleOffsetX": -118,
+          "rectangleOffsetY": -15.80000114440918
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 22,
+          "textureBytes": 21058904,
+          "textureAllocations": 5,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 21058904,
+            "textureBudget": 134217728,
+            "textureAllocations": 5
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 24.800000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 24.300000000745058
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/jupiter-overview.glb",
+              "bytes": 266920,
+              "milliseconds": 22.199999999254942
+            },
+            {
+              "url": "/mission-assets/v2.5/voyager.glb",
+              "bytes": 3128204,
+              "milliseconds": 22.900000002235174
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 844,
+          "height": 390.3999938964844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 21,
+          "milliseconds": 248
+        },
+        "shaderFailures": 0,
+        "drawCalls": 29,
+        "geometries": 11,
+        "textures": 21,
+        "ownedResources": 13,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.309248,
+          "p95": 0.331776
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 600,
+          "median": 0.6000000014901161,
+          "p95": 0.9000000022351742,
+          "maximum": 1.5
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "1979-03-05T12:05:26.000Z"
+      }
+    },
+    {
+      "mission": "voyager2",
+      "size": "desktop",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 333.20910000000003,
+      "cold": {
+        "frames": [
+          6.900000000000002,
+          13.899999999999999,
+          13.799999999999997,
+          7,
+          6.900000000000006,
+          7,
+          34.8,
+          13.799999999999997,
+          7.000000000000014,
+          6.899999999999977,
+          7,
+          6.900000000000006,
+          6.900000000000006,
+          27.80000000000001,
+          6.899999999999977,
+          7.100000000000023,
+          6.899999999999977,
+          6.900000000000006,
+          7,
+          6.900000000000006,
+          7,
+          6.800000000000011,
+          7,
+          7,
+          6.899999999999977,
+          7,
+          27.69999999999999,
+          7,
+          7,
+          6.900000000000034,
+          6.899999999999977,
+          7,
+          6.900000000000034,
+          6.899999999999977,
+          7,
+          20.899999999999977
+        ],
+        "longTasks": [],
+        "resources": [
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions",
+            "duration": 13.5,
+            "transferSize": 36199,
+            "decodedBodySize": 35899
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/manifest.json",
+            "duration": 1.699999999254942,
+            "transferSize": 19360,
+            "decodedBodySize": 19060
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions/voyager2?epoch=1979-07-09T22%3A29%3A51.000Z",
+            "duration": 29.800000000745058,
+            "transferSize": 48574,
+            "decodedBodySize": 48274
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/voyager.glb",
+            "duration": 17.400000002235174,
+            "transferSize": 3128504,
+            "decodedBodySize": 3128204
+          }
+        ],
+        "diagnostics": {
+          "instanceId": "9091084f-9125-4920-9c0f-3c93d58270e1",
+          "mission": "voyager2",
+          "segment": "jupiter-encounter-1",
+          "epoch": "1979-07-09T22:29:51.000Z",
+          "quality": "balanced",
+          "sourceQuality": "reconstructed",
+          "source": "Jupiter reconstructed encounter",
+          "frame": "ICRF",
+          "origin": "sun",
+          "precision": "camera-relative CPU64/GPU32",
+          "view": "inspection",
+          "focus": "voyager2",
+          "camera": {
+            "position": [
+              -3.933689994369592,
+              3.271225403708398,
+              1.4976355267657353
+            ],
+            "target": [
+              -3.9336899946608277,
+              3.271225403936704,
+              1.4976355267744166
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "focus": "voyager2",
+            "view": "inspection"
+          },
+          "craft": {
+            "selfShadow": true,
+            "shadowMapSize": [
+              1024,
+              1024
+            ],
+            "position": [
+              -3.9336899946608277,
+              3.271225403936704,
+              1.4976355267744166
+            ],
+            "modelReady": true,
+            "modelError": "",
+            "modelMeshCount": 5,
+            "visible": true,
+            "radiusMeters": 9.756709775895917,
+            "scale": 0.970583576287901,
+            "attitude": "illustrative-inspection",
+            "center": "display bounding box, not qualified center of mass",
+            "loadMilliseconds": 47.5
+          },
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "sourceIdentity": {
+                "target": "10",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Jupiter reconstructed encounter"
+              },
+              "appearanceSource": null,
+              "geometryKind": "visualization-sphere",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.004650467260962158,
+              "textureSize": null,
+              "orientation": "illustrative-source-registration",
+              "errors": [],
+              "timing": {
+                "requested": 176.60000000149012,
+                "overviewReady": 176.69999999925494,
+                "detailApplied": null
+              }
+            },
+            {
+              "id": "jupiter",
+              "position": [
+                -3.9366212097629676,
+                3.2675206534737256,
+                1.4966584723566658
+              ],
+              "sourceIdentity": {
+                "target": "599",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Jupiter reconstructed encounter"
+              },
+              "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+              "geometryKind": "visualization-sphere",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.00046732619211270455,
+              "textureSize": [
+                1024,
+                768
+              ],
+              "orientation": "illustrative-source-registration",
+              "errors": [],
+              "timing": {
+                "requested": 178.30000000074506,
+                "overviewReady": 231.10000000149012,
+                "detailApplied": null
+              }
+            }
+          ],
+          "trackSegments": [
+            {
+              "id": "jupiter-encounter-1",
+              "quality": "reconstructed",
+              "points": 78
+            }
+          ],
+          "pathsVisible": false,
+          "renderCount": 3,
+          "disposed": false,
+          "contextLost": false,
+          "navigation": "orbit",
+          "animating": false,
+          "viewport": {
+            "clearWidth": 1096,
+            "clearHeight": 544.6000099182129,
+            "rectangleOffsetX": -152,
+            "rectangleOffsetY": 14.099992752075195
+          },
+          "pixelRatio": 1.0000000149011612,
+          "assets": {
+            "resources": 22,
+            "textureBytes": 21058904,
+            "textureAllocations": 5,
+            "decodingBytes": 0,
+            "textureBudget": 134217728,
+            "shared": {
+              "textureBytes": 21058904,
+              "textureBudget": 134217728,
+              "textureAllocations": 5
+            },
+            "requests": 0,
+            "decodeSamples": [
+              {
+                "kind": "model",
+                "milliseconds": 27.800000000745058
+              },
+              {
+                "kind": "model",
+                "milliseconds": 24.700000002980232
+              }
+            ],
+            "fetchSamples": [
+              {
+                "url": "/solar-assets/v2.2/jupiter-overview.glb",
+                "bytes": 266920,
+                "milliseconds": 19.899999998509884
+              },
+              {
+                "url": "/mission-assets/v2.5/voyager.glb",
+                "bytes": 3128204,
+                "milliseconds": 22.699999999254942
+              }
+            ],
+            "disposed": false
+          },
+          "pipeline": {
+            "mode": "linear-hdr",
+            "bloom": true,
+            "threshold": 1.8,
+            "strength": 0.13,
+            "radius": 0.28,
+            "sceneUnitsPerAU": 149597870700,
+            "hdrSupported": true,
+            "hdrClipping": false,
+            "compositionColorSpace": "linear-srgb",
+            "targetType": "rgba16f",
+            "fallbackLimitation": null,
+            "toneMapping": "ACESFilmic",
+            "toneMappingStages": 1,
+            "outputColorSpace": "srgb",
+            "antialias": "FXAA",
+            "width": 1440,
+            "height": 900,
+            "pixelRatio": 1.0000000149011612,
+            "disposed": false
+          },
+          "shaderPreparation": {
+            "state": "ready",
+            "supported": true,
+            "materials": 21,
+            "milliseconds": 21.400000002235174
+          },
+          "shaderFailures": 0,
+          "drawCalls": 27,
+          "geometries": 11,
+          "textures": 21,
+          "ownedResources": 13,
+          "gpuMs": {
+            "supported": true,
+            "samples": 1,
+            "median": 19.378176,
+            "p95": 19.378176
+          },
+          "frameIntervalsMs": {
+            "samples": 0
+          },
+          "renderCpuMs": {
+            "samples": 3,
+            "median": 25.199999999254942,
+            "p95": 27.599999997764826,
+            "maximum": 27.599999997764826
+          },
+          "independentAnimationLoops": 1,
+          "playing": false,
+          "speed": 3600,
+          "displayEpoch": "1979-07-09T22:29:51.000Z"
+        }
+      },
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000091,
+        "p95": 7,
+        "maximum": 7.100000000000136
+      },
+      "diagnostics": {
+        "instanceId": "9091084f-9125-4920-9c0f-3c93d58270e1",
+        "mission": "voyager2",
+        "segment": "jupiter-encounter-1",
+        "epoch": "1979-07-09T22:29:51.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Jupiter reconstructed encounter",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "voyager2",
+        "camera": {
+          "position": [
+            -3.9336899948590367,
+            3.2712254042492055,
+            1.4976355267657353
+          ],
+          "target": [
+            -3.9336899946608277,
+            3.271225403936704,
+            1.4976355267744166
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "voyager2",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -3.9336899946608277,
+            3.271225403936704,
+            1.4976355267744166
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 5,
+          "visible": true,
+          "radiusMeters": 9.756709775895917,
+          "scale": 0.970583576287901,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 47.5
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 176.60000000149012,
+              "overviewReady": 176.69999999925494,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.9366212097629676,
+              3.2675206534737256,
+              1.4966584723566658
+            ],
+            "sourceIdentity": {
+              "target": "599",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00046732619211270455,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 178.30000000074506,
+              "overviewReady": 231.10000000149012,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "jupiter-encounter-1",
+            "quality": "reconstructed",
+            "points": 78
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 273,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 1096,
+          "clearHeight": 544.6000099182129,
+          "rectangleOffsetX": -152,
+          "rectangleOffsetY": 14.099992752075195
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 22,
+          "textureBytes": 21058904,
+          "textureAllocations": 5,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 21058904,
+            "textureBudget": 134217728,
+            "textureAllocations": 5
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 27.800000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 24.700000002980232
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/jupiter-overview.glb",
+              "bytes": 266920,
+              "milliseconds": 19.899999998509884
+            },
+            {
+              "url": "/mission-assets/v2.5/voyager.glb",
+              "bytes": 3128204,
+              "milliseconds": 22.699999999254942
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 1440,
+          "height": 900,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 21,
+          "milliseconds": 21.400000002235174
+        },
+        "shaderFailures": 0,
+        "drawCalls": 28,
+        "geometries": 12,
+        "textures": 21,
+        "ownedResources": 13,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.659264,
+          "p95": 0.741376
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 273,
+          "median": 0.8000000007450581,
+          "p95": 1.800000000745058,
+          "maximum": 27.599999997764826
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "1979-07-09T22:29:51.000Z"
+      }
+    },
+    {
+      "mission": "voyager2",
+      "size": "portrait",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 333.20910000000003,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "9091084f-9125-4920-9c0f-3c93d58270e1",
+        "mission": "voyager2",
+        "segment": "jupiter-encounter-1",
+        "epoch": "1979-07-09T22:29:51.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Jupiter reconstructed encounter",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "voyager2",
+        "camera": {
+          "position": [
+            -3.933689994578434,
+            3.2712254035759325,
+            1.4976355267657353
+          ],
+          "target": [
+            -3.9336899946608277,
+            3.271225403936704,
+            1.4976355267744166
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "voyager2",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -3.9336899946608277,
+            3.271225403936704,
+            1.4976355267744166
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 5,
+          "visible": true,
+          "radiusMeters": 9.756709775895917,
+          "scale": 0.970583576287901,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 47.5
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 176.60000000149012,
+              "overviewReady": 176.69999999925494,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.9366212097629676,
+              3.2675206534737256,
+              1.4966584723566658
+            ],
+            "sourceIdentity": {
+              "target": "599",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00046732619211270455,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 178.30000000074506,
+              "overviewReady": 231.10000000149012,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "jupiter-encounter-1",
+            "quality": "reconstructed",
+            "points": 78
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 544,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 350.3999938964844,
+          "clearHeight": 302.00001525878906,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -25.40001678466797
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 22,
+          "textureBytes": 21058904,
+          "textureAllocations": 5,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 21058904,
+            "textureBudget": 134217728,
+            "textureAllocations": 5
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 27.800000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 24.700000002980232
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/jupiter-overview.glb",
+              "bytes": 266920,
+              "milliseconds": 19.899999998509884
+            },
+            {
+              "url": "/mission-assets/v2.5/voyager.glb",
+              "bytes": 3128204,
+              "milliseconds": 22.699999999254942
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 390.3999938964844,
+          "height": 844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 21,
+          "milliseconds": 21.400000002235174
+        },
+        "shaderFailures": 0,
+        "drawCalls": 27,
+        "geometries": 12,
+        "textures": 21,
+        "ownedResources": 13,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.268288,
+          "p95": 0.289792
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 544,
+          "median": 0.6999999992549419,
+          "p95": 1.300000000745058,
+          "maximum": 27.599999997764826
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "1979-07-09T22:29:51.000Z"
+      }
+    },
+    {
+      "mission": "voyager2",
+      "size": "landscape",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 333.20910000000003,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7.099999999999454,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "9091084f-9125-4920-9c0f-3c93d58270e1",
+        "mission": "voyager2",
+        "segment": "jupiter-encounter-1",
+        "epoch": "1979-07-09T22:29:51.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Jupiter reconstructed encounter",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "voyager2",
+        "camera": {
+          "position": [
+            -3.933689994617934,
+            3.271225404304272,
+            1.4976355267657353
+          ],
+          "target": [
+            -3.9336899946608277,
+            3.271225403936704,
+            1.4976355267744166
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "voyager2",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -3.9336899946608277,
+            3.271225403936704,
+            1.4976355267744166
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 5,
+          "visible": true,
+          "radiusMeters": 9.756709775895917,
+          "scale": 0.970583576287901,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 47.5
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 176.60000000149012,
+              "overviewReady": 176.69999999925494,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "jupiter",
+            "position": [
+              -3.9366212097629676,
+              3.2675206534737256,
+              1.4966584723566658
+            ],
+            "sourceIdentity": {
+              "target": "599",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Jupiter reconstructed encounter"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/jupiter-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00046732619211270455,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 178.30000000074506,
+              "overviewReady": 231.10000000149012,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "jupiter-encounter-1",
+            "quality": "reconstructed",
+            "points": 78
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 815,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 568,
+          "clearHeight": 134.79999160766602,
+          "rectangleOffsetX": -118,
+          "rectangleOffsetY": -15.80000114440918
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 22,
+          "textureBytes": 21058904,
+          "textureAllocations": 5,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 21058904,
+            "textureBudget": 134217728,
+            "textureAllocations": 5
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 27.800000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 24.700000002980232
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/jupiter-overview.glb",
+              "bytes": 266920,
+              "milliseconds": 19.899999998509884
+            },
+            {
+              "url": "/mission-assets/v2.5/voyager.glb",
+              "bytes": 3128204,
+              "milliseconds": 22.699999999254942
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 844,
+          "height": 390.3999938964844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 21,
+          "milliseconds": 21.400000002235174
+        },
+        "shaderFailures": 0,
+        "drawCalls": 29,
+        "geometries": 12,
+        "textures": 21,
+        "ownedResources": 13,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.34816,
+          "p95": 0.386048
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 600,
+          "median": 0.6000000014901161,
+          "p95": 1,
+          "maximum": 2.899999998509884
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "1979-07-09T22:29:51.000Z"
+      }
+    },
+    {
+      "mission": "cassini",
+      "size": "desktop",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 968.4473999999973,
+      "cold": {
+        "frames": [
+          13.899999999999999,
+          13.800000000000004,
+          6.8999999999999915,
+          6.900000000000006,
+          7,
+          34.7,
+          7.099999999999994,
+          6.8999999999999915,
+          7.100000000000023,
+          6.699999999999989,
+          7,
+          7,
+          6.900000000000006,
+          6.900000000000006,
+          7,
+          6.899999999999977,
+          6.900000000000006,
+          6.900000000000006,
+          27.900000000000006,
+          6.900000000000006,
+          7,
+          6.899999999999977,
+          13.900000000000034,
+          7,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          13.900000000000034,
+          6.899999999999977,
+          6.900000000000034,
+          7,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          6.900000000000034,
+          7,
+          7,
+          6.899999999999977,
+          6.900000000000034,
+          6.899999999999977,
+          7,
+          7,
+          6.899999999999977,
+          7,
+          6.900000000000034,
+          7,
+          6.899999999999977,
+          7,
+          6.900000000000034,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          7,
+          6.900000000000034,
+          7,
+          7,
+          6.800000000000011,
+          7,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          7,
+          6.900000000000091,
+          6.899999999999977,
+          7,
+          333.29999999999995,
+          7.100000000000023,
+          6.7999999999999545,
+          6.900000000000091,
+          7,
+          6.899999999999977,
+          6.899999999999977,
+          7.100000000000023,
+          6.899999999999977,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          6.900000000000091,
+          48.700000000000045,
+          6.899999999999864,
+          7,
+          13.799999999999955
+        ],
+        "longTasks": [
+          {
+            "start": 572.8999999985099,
+            "duration": 335
+          }
+        ],
+        "resources": [
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions",
+            "duration": 16.100000001490116,
+            "transferSize": 36199,
+            "decodedBodySize": 35899
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/manifest.json",
+            "duration": 1.3999999985098839,
+            "transferSize": 19360,
+            "decodedBodySize": 19060
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions/cassini?epoch=2004-07-01T12%3A00%3A00.000Z",
+            "duration": 45.599999997764826,
+            "transferSize": 52150,
+            "decodedBodySize": 51850
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/cassini.glb",
+            "duration": 13.299999997019768,
+            "transferSize": 5852940,
+            "decodedBodySize": 5852640
+          }
+        ],
+        "diagnostics": {
+          "instanceId": "aaad44f5-12df-4453-9b21-51b7a1f334cf",
+          "mission": "cassini",
+          "segment": "arrival-2",
+          "epoch": "2004-07-01T12:00:00.000Z",
+          "quality": "balanced",
+          "sourceQuality": "mixed",
+          "source": "Saturn arrival and first orbital arc",
+          "frame": "ICRF",
+          "origin": "sun",
+          "precision": "camera-relative CPU64/GPU32",
+          "view": "inspection",
+          "focus": "cassini",
+          "camera": {
+            "position": [
+              -2.572727126505517,
+              7.974911460547375,
+              3.403309872112475
+            ],
+            "target": [
+              -2.5727271266980862,
+              7.974911460903796,
+              3.4033098721540855
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "focus": "cassini",
+            "view": "inspection"
+          },
+          "craft": {
+            "selfShadow": true,
+            "shadowMapSize": [
+              1024,
+              1024
+            ],
+            "position": [
+              -2.5727271266980862,
+              7.974911460903795,
+              3.403309872154085
+            ],
+            "modelReady": true,
+            "modelError": "",
+            "modelMeshCount": 15,
+            "visible": true,
+            "radiusMeters": 10.73431260547332,
+            "scale": 0.9977542640852697,
+            "attitude": "illustrative-inspection",
+            "center": "display bounding box, not qualified center of mass",
+            "loadMilliseconds": 61.400000002235174
+          },
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "sourceIdentity": {
+                "target": "10",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Saturn arrival and first orbital arc"
+              },
+              "appearanceSource": null,
+              "geometryKind": "visualization-sphere",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.004650467260962158,
+              "textureSize": null,
+              "orientation": "illustrative-source-registration",
+              "errors": [],
+              "timing": {
+                "requested": 214.29999999701977,
+                "overviewReady": 214.29999999701977,
+                "detailApplied": null
+              }
+            },
+            {
+              "id": "saturn",
+              "position": [
+                -2.569811772794193,
+                7.973341988527624,
+                3.403876847694366
+              ],
+              "sourceIdentity": {
+                "target": "699",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Saturn arrival and first orbital arc"
+              },
+              "appearanceSource": "https://science.nasa.gov/resource/saturn-3d-model/",
+              "geometryKind": "visualization-sphere",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.0003892568969949131,
+              "textureSize": [
+                1024,
+                768
+              ],
+              "orientation": "illustrative-source-registration",
+              "errors": [],
+              "timing": {
+                "requested": 217.39999999850988,
+                "overviewReady": 273.8999999985099,
+                "detailApplied": null
+              }
+            }
+          ],
+          "trackSegments": [
+            {
+              "id": "arrival-2",
+              "quality": "mixed",
+              "points": 86
+            }
+          ],
+          "pathsVisible": false,
+          "renderCount": 3,
+          "disposed": false,
+          "contextLost": false,
+          "navigation": "orbit",
+          "animating": false,
+          "viewport": {
+            "clearWidth": 1096,
+            "clearHeight": 544.6000099182129,
+            "rectangleOffsetX": -152,
+            "rectangleOffsetY": 14.099992752075195
+          },
+          "pixelRatio": 1.0000000149011612,
+          "assets": {
+            "resources": 50,
+            "textureBytes": 29818886,
+            "textureAllocations": 10,
+            "decodingBytes": 0,
+            "textureBudget": 134217728,
+            "shared": {
+              "textureBytes": 29818886,
+              "textureBudget": 134217728,
+              "textureAllocations": 10
+            },
+            "requests": 0,
+            "decodeSamples": [
+              {
+                "kind": "texture",
+                "milliseconds": 10.300000000745058
+              },
+              {
+                "kind": "model",
+                "milliseconds": 35.100000001490116
+              },
+              {
+                "kind": "model",
+                "milliseconds": 39.599999997764826
+              }
+            ],
+            "fetchSamples": [
+              {
+                "url": "/solar-assets/v2.2/saturn-overview.glb",
+                "bytes": 204532,
+                "milliseconds": 17.199999999254942
+              },
+              {
+                "url": "/solar-assets/v2/saturn-rings-nasa.png",
+                "bytes": 9615,
+                "milliseconds": 20
+              },
+              {
+                "url": "/mission-assets/v2.5/cassini.glb",
+                "bytes": 5852640,
+                "milliseconds": 21.700000002980232
+              }
+            ],
+            "disposed": false
+          },
+          "pipeline": {
+            "mode": "linear-hdr",
+            "bloom": true,
+            "threshold": 1.8,
+            "strength": 0.13,
+            "radius": 0.28,
+            "sceneUnitsPerAU": 149597870700,
+            "hdrSupported": true,
+            "hdrClipping": false,
+            "compositionColorSpace": "linear-srgb",
+            "targetType": "rgba16f",
+            "fallbackLimitation": null,
+            "toneMapping": "ACESFilmic",
+            "toneMappingStages": 1,
+            "outputColorSpace": "srgb",
+            "antialias": "FXAA",
+            "width": 1440,
+            "height": 900,
+            "pixelRatio": 1.0000000149011612,
+            "disposed": false
+          },
+          "shaderPreparation": {
+            "state": "ready",
+            "supported": true,
+            "materials": 27,
+            "milliseconds": 276.19999999925494
+          },
+          "shaderFailures": 0,
+          "drawCalls": 47,
+          "geometries": 22,
+          "textures": 27,
+          "ownedResources": 15,
+          "gpuMs": {
+            "supported": true,
+            "samples": 2,
+            "median": 42.706944,
+            "p95": 42.706944
+          },
+          "frameIntervalsMs": {
+            "samples": 0
+          },
+          "renderCpuMs": {
+            "samples": 3,
+            "median": 44.5,
+            "p95": 333.4000000022352,
+            "maximum": 333.4000000022352
+          },
+          "independentAnimationLoops": 1,
+          "playing": false,
+          "speed": 3600,
+          "displayEpoch": "2004-07-01T12:00:00.000Z"
+        }
+      },
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000091,
+        "p95": 7,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "aaad44f5-12df-4453-9b21-51b7a1f334cf",
+        "mission": "cassini",
+        "segment": "arrival-2",
+        "epoch": "2004-07-01T12:00:00.000Z",
+        "quality": "balanced",
+        "sourceQuality": "mixed",
+        "source": "Saturn arrival and first orbital arc",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "cassini",
+        "camera": {
+          "position": [
+            -2.5727271267604803,
+            7.974911461304076,
+            3.403309872112475
+          ],
+          "target": [
+            -2.5727271266980862,
+            7.974911460903796,
+            3.4033098721540855
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "cassini",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -2.5727271266980862,
+            7.974911460903795,
+            3.403309872154085
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 15,
+          "visible": true,
+          "radiusMeters": 10.73431260547332,
+          "scale": 0.9977542640852697,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 61.400000002235174
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Saturn arrival and first orbital arc"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 214.29999999701977,
+              "overviewReady": 214.29999999701977,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "saturn",
+            "position": [
+              -2.569811772794193,
+              7.973341988527624,
+              3.403876847694366
+            ],
+            "sourceIdentity": {
+              "target": "699",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Saturn arrival and first orbital arc"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/saturn-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.0003892568969949131,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 217.39999999850988,
+              "overviewReady": 273.8999999985099,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "arrival-2",
+            "quality": "mixed",
+            "points": 86
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 273,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 1096,
+          "clearHeight": 544.6000099182129,
+          "rectangleOffsetX": -152,
+          "rectangleOffsetY": 14.099992752075195
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 50,
+          "textureBytes": 29818886,
+          "textureAllocations": 10,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 29818886,
+            "textureBudget": 134217728,
+            "textureAllocations": 10
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "texture",
+              "milliseconds": 10.300000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 35.100000001490116
+            },
+            {
+              "kind": "model",
+              "milliseconds": 39.599999997764826
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/saturn-overview.glb",
+              "bytes": 204532,
+              "milliseconds": 17.199999999254942
+            },
+            {
+              "url": "/solar-assets/v2/saturn-rings-nasa.png",
+              "bytes": 9615,
+              "milliseconds": 20
+            },
+            {
+              "url": "/mission-assets/v2.5/cassini.glb",
+              "bytes": 5852640,
+              "milliseconds": 21.700000002980232
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 1440,
+          "height": 900,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 27,
+          "milliseconds": 276.19999999925494
+        },
+        "shaderFailures": 0,
+        "drawCalls": 47,
+        "geometries": 22,
+        "textures": 27,
+        "ownedResources": 15,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.72192,
+          "p95": 0.772096
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 273,
+          "median": 0.8999999985098839,
+          "p95": 1.4000000022351742,
+          "maximum": 333.4000000022352
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "2004-07-01T12:00:00.000Z"
+      }
+    },
+    {
+      "mission": "cassini",
+      "size": "portrait",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 968.4473999999973,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "aaad44f5-12df-4453-9b21-51b7a1f334cf",
+        "mission": "cassini",
+        "segment": "arrival-2",
+        "epoch": "2004-07-01T12:00:00.000Z",
+        "quality": "balanced",
+        "sourceQuality": "mixed",
+        "source": "Saturn arrival and first orbital arc",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "cassini",
+        "camera": {
+          "position": [
+            -2.5727271267730365,
+            7.97491146050568,
+            3.403309872112475
+          ],
+          "target": [
+            -2.5727271266980862,
+            7.974911460903796,
+            3.4033098721540855
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "cassini",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -2.5727271266980862,
+            7.974911460903795,
+            3.403309872154085
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 15,
+          "visible": true,
+          "radiusMeters": 10.73431260547332,
+          "scale": 0.9977542640852697,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 61.400000002235174
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Saturn arrival and first orbital arc"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 214.29999999701977,
+              "overviewReady": 214.29999999701977,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "saturn",
+            "position": [
+              -2.569811772794193,
+              7.973341988527624,
+              3.403876847694366
+            ],
+            "sourceIdentity": {
+              "target": "699",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Saturn arrival and first orbital arc"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/saturn-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.0003892568969949131,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 217.39999999850988,
+              "overviewReady": 273.8999999985099,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "arrival-2",
+            "quality": "mixed",
+            "points": 86
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 544,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 350.3999938964844,
+          "clearHeight": 287.00001525878906,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -32.90001678466797
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 50,
+          "textureBytes": 29818886,
+          "textureAllocations": 10,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 29818886,
+            "textureBudget": 134217728,
+            "textureAllocations": 10
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "texture",
+              "milliseconds": 10.300000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 35.100000001490116
+            },
+            {
+              "kind": "model",
+              "milliseconds": 39.599999997764826
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/saturn-overview.glb",
+              "bytes": 204532,
+              "milliseconds": 17.199999999254942
+            },
+            {
+              "url": "/solar-assets/v2/saturn-rings-nasa.png",
+              "bytes": 9615,
+              "milliseconds": 20
+            },
+            {
+              "url": "/mission-assets/v2.5/cassini.glb",
+              "bytes": 5852640,
+              "milliseconds": 21.700000002980232
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 390.3999938964844,
+          "height": 844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 27,
+          "milliseconds": 276.19999999925494
+        },
+        "shaderFailures": 0,
+        "drawCalls": 47,
+        "geometries": 22,
+        "textures": 27,
+        "ownedResources": 15,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.349184,
+          "p95": 1.06496
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 544,
+          "median": 0.8000000007450581,
+          "p95": 1.300000000745058,
+          "maximum": 333.4000000022352
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "2004-07-01T12:00:00.000Z"
+      }
+    },
+    {
+      "mission": "cassini",
+      "size": "landscape",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 968.4473999999973,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "aaad44f5-12df-4453-9b21-51b7a1f334cf",
+        "mission": "cassini",
+        "segment": "arrival-2",
+        "epoch": "2004-07-01T12:00:00.000Z",
+        "quality": "balanced",
+        "sourceQuality": "mixed",
+        "source": "Saturn arrival and first orbital arc",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "cassini",
+        "camera": {
+          "position": [
+            -2.5727271264944123,
+            7.974911461253981,
+            3.403309872112475
+          ],
+          "target": [
+            -2.5727271266980862,
+            7.974911460903796,
+            3.4033098721540855
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "cassini",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            -2.5727271266980862,
+            7.974911460903795,
+            3.403309872154085
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 15,
+          "visible": true,
+          "radiusMeters": 10.73431260547332,
+          "scale": 0.9977542640852697,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 61.400000002235174
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Saturn arrival and first orbital arc"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 214.29999999701977,
+              "overviewReady": 214.29999999701977,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "saturn",
+            "position": [
+              -2.569811772794193,
+              7.973341988527624,
+              3.403876847694366
+            ],
+            "sourceIdentity": {
+              "target": "699",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Saturn arrival and first orbital arc"
+            },
+            "appearanceSource": "https://science.nasa.gov/resource/saturn-3d-model/",
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.0003892568969949131,
+            "textureSize": [
+              1024,
+              768
+            ],
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 217.39999999850988,
+              "overviewReady": 273.8999999985099,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "arrival-2",
+            "quality": "mixed",
+            "points": 86
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 815,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 568,
+          "clearHeight": 134.79999160766602,
+          "rectangleOffsetX": -118,
+          "rectangleOffsetY": -15.80000114440918
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 50,
+          "textureBytes": 29818886,
+          "textureAllocations": 10,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 29818886,
+            "textureBudget": 134217728,
+            "textureAllocations": 10
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "texture",
+              "milliseconds": 10.300000000745058
+            },
+            {
+              "kind": "model",
+              "milliseconds": 35.100000001490116
+            },
+            {
+              "kind": "model",
+              "milliseconds": 39.599999997764826
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.2/saturn-overview.glb",
+              "bytes": 204532,
+              "milliseconds": 17.199999999254942
+            },
+            {
+              "url": "/solar-assets/v2/saturn-rings-nasa.png",
+              "bytes": 9615,
+              "milliseconds": 20
+            },
+            {
+              "url": "/mission-assets/v2.5/cassini.glb",
+              "bytes": 5852640,
+              "milliseconds": 21.700000002980232
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 844,
+          "height": 390.3999938964844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 27,
+          "milliseconds": 276.19999999925494
+        },
+        "shaderFailures": 0,
+        "drawCalls": 47,
+        "geometries": 22,
+        "textures": 27,
+        "ownedResources": 15,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.365568,
+          "p95": 1.168384
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 600,
+          "median": 0.7000000029802322,
+          "p95": 1.1000000014901161,
+          "maximum": 1.5
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "2004-07-01T12:00:00.000Z"
+      }
+    },
+    {
+      "mission": "newhorizons",
+      "size": "desktop",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 987.5550000000003,
+      "cold": {
+        "frames": [
+          6.900000000000002,
+          13.899999999999999,
+          13.899999999999999,
+          13.899999999999999,
+          6.900000000000006,
+          7,
+          6.8999999999999915,
+          34.7,
+          7.000000000000014,
+          6.899999999999977,
+          6.900000000000006,
+          6.900000000000006,
+          7,
+          7,
+          7,
+          6.800000000000011,
+          7,
+          7,
+          6.899999999999977,
+          6.900000000000006,
+          27.80000000000001,
+          7,
+          6.900000000000006,
+          14,
+          6.899999999999977,
+          6.900000000000034,
+          7,
+          6.899999999999977,
+          13.899999999999977,
+          6.900000000000034,
+          7,
+          6.800000000000011,
+          7.099999999999966,
+          6.900000000000034,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          7,
+          6.900000000000034,
+          6.899999999999977,
+          7.100000000000023,
+          6.899999999999977,
+          6.900000000000034,
+          7,
+          6.7999999999999545,
+          7.100000000000023,
+          6.899999999999977,
+          6.900000000000034,
+          6.899999999999977,
+          7,
+          6.900000000000034,
+          7,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          6.900000000000034,
+          6.899999999999977,
+          7.100000000000023,
+          6.900000000000034,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          6.899999999999977,
+          7.100000000000023,
+          6.899999999999977,
+          7,
+          249.89999999999998,
+          14,
+          6.900000000000091,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          7,
+          6.800000000000068,
+          7.099999999999909,
+          6.900000000000091,
+          6.899999999999977,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          7,
+          6.899999999999977,
+          7,
+          6.900000000000091,
+          7,
+          6.7999999999999545,
+          7.100000000000023,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          7,
+          6.800000000000068,
+          7,
+          6.899999999999977,
+          6.999999999999886,
+          6.900000000000091,
+          7,
+          6.900000000000091,
+          7,
+          7,
+          6.899999999999864,
+          6.900000000000091,
+          6.899999999999864,
+          7,
+          6.900000000000091,
+          7,
+          7,
+          6.7999999999999545,
+          7,
+          7,
+          6.900000000000091,
+          6.899999999999864,
+          20.800000000000182,
+          14,
+          6.899999999999864,
+          6.900000000000091
+        ],
+        "longTasks": [
+          {
+            "start": 565.6999999992549,
+            "duration": 254
+          }
+        ],
+        "resources": [
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions",
+            "duration": 19.599999997764826,
+            "transferSize": 36199,
+            "decodedBodySize": 35899
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/manifest.json",
+            "duration": 3,
+            "transferSize": 19360,
+            "decodedBodySize": 19060
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar/missions/newhorizons?epoch=2015-07-14T11%3A49%3A00.000Z",
+            "duration": 59.69999999925494,
+            "transferSize": 26284,
+            "decodedBodySize": 25984
+          },
+          {
+            "name": "http://localhost:4231/mission-assets/v2.5/new-horizons.glb",
+            "duration": 11.800000000745058,
+            "transferSize": 3293832,
+            "decodedBodySize": 3293532
+          }
+        ],
+        "diagnostics": {
+          "instanceId": "c69282e1-e2dd-40b2-a01a-5e10be81fe24",
+          "mission": "newhorizons",
+          "segment": "pluto",
+          "epoch": "2015-07-14T11:49:00.000Z",
+          "quality": "balanced",
+          "sourceQuality": "reconstructed",
+          "source": "Pluto–Charon post-encounter reconstruction, PLU060",
+          "frame": "ICRF",
+          "origin": "sun",
+          "precision": "camera-relative CPU64/GPU32",
+          "view": "inspection",
+          "focus": "newhorizons",
+          "camera": {
+            "position": [
+              8.002909796792116,
+              -29.705895637592427,
+              -11.682478066450633
+            ],
+            "target": [
+              8.002909796787169,
+              -29.705895637653605,
+              -11.682478066503307
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "focus": "newhorizons",
+            "view": "inspection"
+          },
+          "craft": {
+            "selfShadow": true,
+            "shadowMapSize": [
+              1024,
+              1024
+            ],
+            "position": [
+              8.002909796787169,
+              -29.705895637653605,
+              -11.682478066503306
+            ],
+            "modelReady": true,
+            "modelError": "",
+            "modelMeshCount": 6,
+            "visible": true,
+            "radiusMeters": 2.1726344025752935,
+            "scale": 1.1123969966927552,
+            "attitude": "illustrative-inspection",
+            "center": "display bounding box, not qualified center of mass",
+            "loadMilliseconds": 84.10000000149012
+          },
+          "bodies": [
+            {
+              "id": "sun",
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "sourceIdentity": {
+                "target": "10",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+              },
+              "appearanceSource": null,
+              "geometryKind": "visualization-sphere",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.004650467260962158,
+              "textureSize": null,
+              "orientation": "illustrative-source-registration",
+              "errors": [],
+              "timing": {
+                "requested": 222.80000000074506,
+                "overviewReady": 222.89999999850988,
+                "detailApplied": null
+              }
+            },
+            {
+              "id": "pluto",
+              "position": [
+                8.002828184438036,
+                -29.705904118620957,
+                -11.682437652902609
+              ],
+              "sourceIdentity": {
+                "target": "999",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+              },
+              "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+              "geometryKind": "cartographic-sphere-km",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.00000794329551188783,
+              "textureSize": [
+                1024,
+                512
+              ],
+              "orientation": "source-frame-retained-epoch-registration-unqualified",
+              "errors": [],
+              "timing": {
+                "requested": 224.09999999776483,
+                "overviewReady": 307.30000000074506,
+                "detailApplied": null
+              }
+            },
+            {
+              "id": "charon",
+              "position": [
+                8.0027319892194,
+                -29.705991013602763,
+                -11.682418715272817
+              ],
+              "sourceIdentity": {
+                "target": "901",
+                "origin": "sun",
+                "frame": "ICRF",
+                "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+              },
+              "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+              "geometryKind": "cartographic-sphere-km",
+              "overviewReady": true,
+              "cloudsReady": false,
+              "envelopeAU": 0.000004050860091347809,
+              "textureSize": [
+                1024,
+                512
+              ],
+              "orientation": "source-frame-retained-epoch-registration-unqualified",
+              "errors": [],
+              "timing": {
+                "requested": 226.89999999850988,
+                "overviewReady": 303.3999999985099,
+                "detailApplied": null
+              }
+            }
+          ],
+          "trackSegments": [
+            {
+              "id": "pluto",
+              "quality": "reconstructed",
+              "points": 27
+            }
+          ],
+          "pathsVisible": false,
+          "renderCount": 5,
+          "disposed": false,
+          "contextLost": false,
+          "navigation": "orbit",
+          "animating": false,
+          "viewport": {
+            "clearWidth": 1096,
+            "clearHeight": 555.0000343322754,
+            "rectangleOffsetX": -152,
+            "rectangleOffsetY": 8.899980545043945
+          },
+          "pixelRatio": 1.0000000149011612,
+          "assets": {
+            "resources": 32,
+            "textureBytes": 25253210,
+            "textureAllocations": 8,
+            "decodingBytes": 0,
+            "textureBudget": 134217728,
+            "shared": {
+              "textureBytes": 25253210,
+              "textureBudget": 134217728,
+              "textureAllocations": 8
+            },
+            "requests": 0,
+            "decodeSamples": [
+              {
+                "kind": "model",
+                "milliseconds": 37.19999999925494
+              },
+              {
+                "kind": "model",
+                "milliseconds": 58.30000000074506
+              },
+              {
+                "kind": "model",
+                "milliseconds": 52.600000001490116
+              }
+            ],
+            "fetchSamples": [
+              {
+                "url": "/solar-assets/v2.4/pluto-cartographic.glb",
+                "bytes": 611900,
+                "milliseconds": 21.799999997019768
+              },
+              {
+                "url": "/solar-assets/v2.4/charon-cartographic.glb",
+                "bytes": 596768,
+                "milliseconds": 27
+              },
+              {
+                "url": "/mission-assets/v2.5/new-horizons.glb",
+                "bytes": 3293532,
+                "milliseconds": 31.399999998509884
+              }
+            ],
+            "disposed": false
+          },
+          "pipeline": {
+            "mode": "linear-hdr",
+            "bloom": true,
+            "threshold": 1.8,
+            "strength": 0.13,
+            "radius": 0.28,
+            "sceneUnitsPerAU": 149597870700,
+            "hdrSupported": true,
+            "hdrClipping": false,
+            "compositionColorSpace": "linear-srgb",
+            "targetType": "rgba16f",
+            "fallbackLimitation": null,
+            "toneMapping": "ACESFilmic",
+            "toneMappingStages": 1,
+            "outputColorSpace": "srgb",
+            "antialias": "FXAA",
+            "width": 1440,
+            "height": 900,
+            "pixelRatio": 1.0000000149011612,
+            "disposed": false
+          },
+          "shaderPreparation": {
+            "state": "ready",
+            "supported": true,
+            "materials": 22,
+            "milliseconds": 242.39999999850988
+          },
+          "shaderFailures": 0,
+          "drawCalls": 29,
+          "geometries": 12,
+          "textures": 24,
+          "ownedResources": 14,
+          "gpuMs": {
+            "supported": true,
+            "samples": 4,
+            "median": 23.906304,
+            "p95": 35.05152
+          },
+          "frameIntervalsMs": {
+            "samples": 0
+          },
+          "renderCpuMs": {
+            "samples": 5,
+            "median": 2.2000000029802322,
+            "p95": 253.5,
+            "maximum": 253.5
+          },
+          "independentAnimationLoops": 1,
+          "playing": false,
+          "speed": 3600,
+          "displayEpoch": "2015-07-14T11:49:00.000Z"
+        }
+      },
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000091,
+        "p95": 7.099999999999909,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "c69282e1-e2dd-40b2-a01a-5e10be81fe24",
+        "mission": "newhorizons",
+        "segment": "pluto",
+        "epoch": "2015-07-14T11:49:00.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Pluto–Charon post-encounter reconstruction, PLU060",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "newhorizons",
+        "camera": {
+          "position": [
+            8.002909796762056,
+            -29.705895637709613,
+            -11.682478066450633
+          ],
+          "target": [
+            8.002909796787169,
+            -29.705895637653605,
+            -11.682478066503307
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "newhorizons",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            8.002909796787169,
+            -29.705895637653605,
+            -11.682478066503306
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 6,
+          "visible": true,
+          "radiusMeters": 2.1726344025752935,
+          "scale": 1.1123969966927552,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 84.10000000149012
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 222.80000000074506,
+              "overviewReady": 222.89999999850988,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "pluto",
+            "position": [
+              8.002828184438036,
+              -29.705904118620957,
+              -11.682437652902609
+            ],
+            "sourceIdentity": {
+              "target": "999",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+            "geometryKind": "cartographic-sphere-km",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00000794329551188783,
+            "textureSize": [
+              1024,
+              512
+            ],
+            "orientation": "source-frame-retained-epoch-registration-unqualified",
+            "errors": [],
+            "timing": {
+              "requested": 224.09999999776483,
+              "overviewReady": 307.30000000074506,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "charon",
+            "position": [
+              8.0027319892194,
+              -29.705991013602763,
+              -11.682418715272817
+            ],
+            "sourceIdentity": {
+              "target": "901",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+            "geometryKind": "cartographic-sphere-km",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.000004050860091347809,
+            "textureSize": [
+              1024,
+              512
+            ],
+            "orientation": "source-frame-retained-epoch-registration-unqualified",
+            "errors": [],
+            "timing": {
+              "requested": 226.89999999850988,
+              "overviewReady": 303.3999999985099,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "pluto",
+            "quality": "reconstructed",
+            "points": 27
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 275,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 1096,
+          "clearHeight": 555.0000343322754,
+          "rectangleOffsetX": -152,
+          "rectangleOffsetY": 8.899980545043945
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 32,
+          "textureBytes": 25253210,
+          "textureAllocations": 8,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 25253210,
+            "textureBudget": 134217728,
+            "textureAllocations": 8
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 37.19999999925494
+            },
+            {
+              "kind": "model",
+              "milliseconds": 58.30000000074506
+            },
+            {
+              "kind": "model",
+              "milliseconds": 52.600000001490116
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.4/pluto-cartographic.glb",
+              "bytes": 611900,
+              "milliseconds": 21.799999997019768
+            },
+            {
+              "url": "/solar-assets/v2.4/charon-cartographic.glb",
+              "bytes": 596768,
+              "milliseconds": 27
+            },
+            {
+              "url": "/mission-assets/v2.5/new-horizons.glb",
+              "bytes": 3293532,
+              "milliseconds": 31.399999998509884
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 1440,
+          "height": 900,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 22,
+          "milliseconds": 242.39999999850988
+        },
+        "shaderFailures": 0,
+        "drawCalls": 29,
+        "geometries": 12,
+        "textures": 24,
+        "ownedResources": 14,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.733152,
+          "p95": 0.74752
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 275,
+          "median": 0.7999999970197678,
+          "p95": 1.3999999985098839,
+          "maximum": 253.5
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "2015-07-14T11:49:00.000Z"
+      }
+    },
+    {
+      "mission": "newhorizons",
+      "size": "portrait",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 987.5550000000003,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "c69282e1-e2dd-40b2-a01a-5e10be81fe24",
+        "mission": "newhorizons",
+        "segment": "pluto",
+        "epoch": "2015-07-14T11:49:00.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Pluto–Charon post-encounter reconstruction, PLU060",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "newhorizons",
+        "camera": {
+          "position": [
+            8.002909796829547,
+            -29.7058956376092,
+            -11.682478066450633
+          ],
+          "target": [
+            8.002909796787169,
+            -29.705895637653605,
+            -11.682478066503307
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "newhorizons",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            8.002909796787169,
+            -29.705895637653605,
+            -11.682478066503306
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 6,
+          "visible": true,
+          "radiusMeters": 2.1726344025752935,
+          "scale": 1.1123969966927552,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 84.10000000149012
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 222.80000000074506,
+              "overviewReady": 222.89999999850988,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "pluto",
+            "position": [
+              8.002828184438036,
+              -29.705904118620957,
+              -11.682437652902609
+            ],
+            "sourceIdentity": {
+              "target": "999",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+            "geometryKind": "cartographic-sphere-km",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00000794329551188783,
+            "textureSize": [
+              1024,
+              512
+            ],
+            "orientation": "source-frame-retained-epoch-registration-unqualified",
+            "errors": [],
+            "timing": {
+              "requested": 224.09999999776483,
+              "overviewReady": 307.30000000074506,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "charon",
+            "position": [
+              8.0027319892194,
+              -29.705991013602763,
+              -11.682418715272817
+            ],
+            "sourceIdentity": {
+              "target": "901",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+            "geometryKind": "cartographic-sphere-km",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.000004050860091347809,
+            "textureSize": [
+              1024,
+              512
+            ],
+            "orientation": "source-frame-retained-epoch-registration-unqualified",
+            "errors": [],
+            "timing": {
+              "requested": 226.89999999850988,
+              "overviewReady": 303.3999999985099,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "pluto",
+            "quality": "reconstructed",
+            "points": 27
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 546,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 350.3999938964844,
+          "clearHeight": 302.00001525878906,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -25.40001678466797
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 32,
+          "textureBytes": 25253210,
+          "textureAllocations": 8,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 25253210,
+            "textureBudget": 134217728,
+            "textureAllocations": 8
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 37.19999999925494
+            },
+            {
+              "kind": "model",
+              "milliseconds": 58.30000000074506
+            },
+            {
+              "kind": "model",
+              "milliseconds": 52.600000001490116
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.4/pluto-cartographic.glb",
+              "bytes": 611900,
+              "milliseconds": 21.799999997019768
+            },
+            {
+              "url": "/solar-assets/v2.4/charon-cartographic.glb",
+              "bytes": 596768,
+              "milliseconds": 27
+            },
+            {
+              "url": "/mission-assets/v2.5/new-horizons.glb",
+              "bytes": 3293532,
+              "milliseconds": 31.399999998509884
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 390.3999938964844,
+          "height": 844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 22,
+          "milliseconds": 242.39999999850988
+        },
+        "shaderFailures": 0,
+        "drawCalls": 29,
+        "geometries": 12,
+        "textures": 24,
+        "ownedResources": 14,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.32768,
+          "p95": 0.350208
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 546,
+          "median": 0.6999999992549419,
+          "p95": 1.199999999254942,
+          "maximum": 253.5
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "2015-07-14T11:49:00.000Z"
+      }
+    },
+    {
+      "mission": "newhorizons",
+      "size": "landscape",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "readyMs": 987.5550000000003,
+      "frames": {
+        "samples": 200,
+        "median": 6.900000000000546,
+        "p95": 7,
+        "maximum": 7.100000000000364
+      },
+      "diagnostics": {
+        "instanceId": "c69282e1-e2dd-40b2-a01a-5e10be81fe24",
+        "mission": "newhorizons",
+        "segment": "pluto",
+        "epoch": "2015-07-14T11:49:00.000Z",
+        "quality": "balanced",
+        "sourceQuality": "reconstructed",
+        "source": "Pluto–Charon post-encounter reconstruction, PLU060",
+        "frame": "ICRF",
+        "origin": "sun",
+        "precision": "camera-relative CPU64/GPU32",
+        "view": "inspection",
+        "focus": "newhorizons",
+        "camera": {
+          "position": [
+            8.002909796732398,
+            -29.705895637681284,
+            -11.682478066450633
+          ],
+          "target": [
+            8.002909796787169,
+            -29.705895637653605,
+            -11.682478066503307
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "newhorizons",
+          "view": "inspection"
+        },
+        "craft": {
+          "selfShadow": true,
+          "shadowMapSize": [
+            1024,
+            1024
+          ],
+          "position": [
+            8.002909796787169,
+            -29.705895637653605,
+            -11.682478066503306
+          ],
+          "modelReady": true,
+          "modelError": "",
+          "modelMeshCount": 6,
+          "visible": true,
+          "radiusMeters": 2.1726344025752935,
+          "scale": 1.1123969966927552,
+          "attitude": "illustrative-inspection",
+          "center": "display bounding box, not qualified center of mass",
+          "loadMilliseconds": 84.10000000149012
+        },
+        "bodies": [
+          {
+            "id": "sun",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "sourceIdentity": {
+              "target": "10",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": null,
+            "geometryKind": "visualization-sphere",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.004650467260962158,
+            "textureSize": null,
+            "orientation": "illustrative-source-registration",
+            "errors": [],
+            "timing": {
+              "requested": 222.80000000074506,
+              "overviewReady": 222.89999999850988,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "pluto",
+            "position": [
+              8.002828184438036,
+              -29.705904118620957,
+              -11.682437652902609
+            ],
+            "sourceIdentity": {
+              "target": "999",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+            "geometryKind": "cartographic-sphere-km",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.00000794329551188783,
+            "textureSize": [
+              1024,
+              512
+            ],
+            "orientation": "source-frame-retained-epoch-registration-unqualified",
+            "errors": [],
+            "timing": {
+              "requested": 224.09999999776483,
+              "overviewReady": 307.30000000074506,
+              "detailApplied": null
+            }
+          },
+          {
+            "id": "charon",
+            "position": [
+              8.0027319892194,
+              -29.705991013602763,
+              -11.682418715272817
+            ],
+            "sourceIdentity": {
+              "target": "901",
+              "origin": "sun",
+              "frame": "ICRF",
+              "source": "Pluto–Charon post-encounter reconstruction, PLU060"
+            },
+            "appearanceSource": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn%3Anasa%3Apds%3Anh_derived%3Aplutosystem_geophysics&version=1.0",
+            "geometryKind": "cartographic-sphere-km",
+            "overviewReady": true,
+            "cloudsReady": false,
+            "envelopeAU": 0.000004050860091347809,
+            "textureSize": [
+              1024,
+              512
+            ],
+            "orientation": "source-frame-retained-epoch-registration-unqualified",
+            "errors": [],
+            "timing": {
+              "requested": 226.89999999850988,
+              "overviewReady": 303.3999999985099,
+              "detailApplied": null
+            }
+          }
+        ],
+        "trackSegments": [
+          {
+            "id": "pluto",
+            "quality": "reconstructed",
+            "points": 27
+          }
+        ],
+        "pathsVisible": false,
+        "renderCount": 817,
+        "disposed": false,
+        "contextLost": false,
+        "navigation": "orbit",
+        "animating": false,
+        "viewport": {
+          "clearWidth": 568,
+          "clearHeight": 134.79999160766602,
+          "rectangleOffsetX": -118,
+          "rectangleOffsetY": -15.80000114440918
+        },
+        "pixelRatio": 1.0000000149011612,
+        "assets": {
+          "resources": 32,
+          "textureBytes": 25253210,
+          "textureAllocations": 8,
+          "decodingBytes": 0,
+          "textureBudget": 134217728,
+          "shared": {
+            "textureBytes": 25253210,
+            "textureBudget": 134217728,
+            "textureAllocations": 8
+          },
+          "requests": 0,
+          "decodeSamples": [
+            {
+              "kind": "model",
+              "milliseconds": 37.19999999925494
+            },
+            {
+              "kind": "model",
+              "milliseconds": 58.30000000074506
+            },
+            {
+              "kind": "model",
+              "milliseconds": 52.600000001490116
+            }
+          ],
+          "fetchSamples": [
+            {
+              "url": "/solar-assets/v2.4/pluto-cartographic.glb",
+              "bytes": 611900,
+              "milliseconds": 21.799999997019768
+            },
+            {
+              "url": "/solar-assets/v2.4/charon-cartographic.glb",
+              "bytes": 596768,
+              "milliseconds": 27
+            },
+            {
+              "url": "/mission-assets/v2.5/new-horizons.glb",
+              "bytes": 3293532,
+              "milliseconds": 31.399999998509884
+            }
+          ],
+          "disposed": false
+        },
+        "pipeline": {
+          "mode": "linear-hdr",
+          "bloom": true,
+          "threshold": 1.8,
+          "strength": 0.13,
+          "radius": 0.28,
+          "sceneUnitsPerAU": 149597870700,
+          "hdrSupported": true,
+          "hdrClipping": false,
+          "compositionColorSpace": "linear-srgb",
+          "targetType": "rgba16f",
+          "fallbackLimitation": null,
+          "toneMapping": "ACESFilmic",
+          "toneMappingStages": 1,
+          "outputColorSpace": "srgb",
+          "antialias": "FXAA",
+          "width": 844,
+          "height": 390.3999938964844,
+          "pixelRatio": 1.0000000149011612,
+          "disposed": false
+        },
+        "shaderPreparation": {
+          "state": "ready",
+          "supported": true,
+          "materials": 22,
+          "milliseconds": 242.39999999850988
+        },
+        "shaderFailures": 0,
+        "drawCalls": 29,
+        "geometries": 12,
+        "textures": 24,
+        "ownedResources": 14,
+        "gpuMs": {
+          "supported": true,
+          "samples": 180,
+          "median": 0.321536,
+          "p95": 0.342016
+        },
+        "frameIntervalsMs": {
+          "samples": 0
+        },
+        "renderCpuMs": {
+          "samples": 600,
+          "median": 0.6999999992549419,
+          "p95": 0.9000000022351742,
+          "maximum": 1.3999999985098839
+        },
+        "independentAnimationLoops": 1,
+        "playing": false,
+        "speed": 3600,
+        "displayEpoch": "2015-07-14T11:49:00.000Z"
+      }
+    }
+  ]
+}

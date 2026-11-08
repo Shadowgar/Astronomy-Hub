@@ -1,0 +1,42 @@
+{
+  "reviewer": "solar26_physics; not observation author",
+  "pack_manifest_sha256": "7157a049597f164fa0b4df34d72c483401d0f7aaac5f217f3c084cec0b28f037",
+  "ibex": {
+    "cells": 1800,
+    "flux_exact": true,
+    "uncertainty_sqrt_variance": true,
+    "source_min": 2.275443,
+    "source_max": 27.074915,
+    "nonduplicated_seam": true,
+    "source_max_cell": {
+      "longitude_center_deg": 237,
+      "latitude_center_deg": -33
+    }
+  },
+  "imap": {
+    "source_samples": 172800,
+    "accepted": 167721,
+    "excluded": 5079,
+    "bins_verified": 1440,
+    "empty_bins": 40,
+    "maximum_mean_difference_nt": 0.0,
+    "utc_spice_checks": [
+      {
+        "sample": 0,
+        "utc": "2026-07-01T00:00:00.000Z",
+        "tt2000_ns": 836136069184000000
+      },
+      {
+        "sample": 86400,
+        "utc": "2026-07-01T12:00:00.000Z",
+        "tt2000_ns": 836179269184000000
+      },
+      {
+        "sample": 172799,
+        "utc": "2026-07-01T23:59:59.500Z",
+        "tt2000_ns": 836222468684000000
+      }
+    ]
+  },
+  "result": "pass; scope is source normalization and numerical semantics, not UI or owner acceptance"
+}

@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: ordinary FOV keeps photometric satellites enabled without artificial hints
+ok 1 - ordinary FOV keeps photometric satellites enabled without artificial hints
+  ---
+  duration_ms: 1.243986
+  type: 'test'
+  ...
+# Subtest: identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+ok 2 - identification follows actual FOV with 5 degree entry and 7 degree exit hysteresis
+  ---
+  duration_ms: 0.220474
+  type: 'test'
+  ...
+# Subtest: wide selected satellite stays isolated; close identification and widening preserve native defaults
+ok 3 - wide selected satellite stays isolated; close identification and widening preserve native defaults
+  ---
+  duration_ms: 0.737988
+  type: 'test'
+  ...
+# Subtest: upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+ok 4 - upstream initialization during selected-only mode and standalone/repeated release preserve native settings
+  ---
+  duration_ms: 0.565621
+  type: 'test'
+  ...
+# Subtest: native user-disabled hints are retained after release and no scene API is replaced
+ok 5 - native user-disabled hints are retained after release and no scene API is replaced
+  ---
+  duration_ms: 0.108496
+  type: 'test'
+  ...
+# Subtest: native JSON FOV precision does not miss threshold boundaries
+ok 6 - native JSON FOV precision does not miss threshold boundaries
+  ---
+  duration_ms: 0.153547
+  type: 'test'
+  ...
+# Subtest: unselected close views admit native point-only satellites through a bounded hint offset
+ok 7 - unselected close views admit native point-only satellites through a bounded hint offset
+  ---
+  duration_ms: 0.101143
+  type: 'test'
+  ...
+# Subtest: own close overrides do not replace original offset across selection, widening and release
+ok 8 - own close overrides do not replace original offset across selection, widening and release
+  ---
+  duration_ms: 0.091342
+  type: 'test'
+  ...
+# Subtest: native custom offsets and asynchronous initialization survive close presentation
+ok 9 - native custom offsets and asynchronous initialization survive close presentation
+  ---
+  duration_ms: 0.27237
+  type: 'test'
+  ...
+# Subtest: an explicit native disable after automatic close identification survives later zoom and release
+ok 10 - an explicit native disable after automatic close identification survives later zoom and release
+  ---
+  duration_ms: 0.306017
+  type: 'test'
+  ...
+# Subtest: tracking state comes from the native lock and stable identity rather than a separate flag
+ok 11 - tracking state comes from the native lock and stable identity rather than a separate flag
+  ---
+  duration_ms: 0.958364
+  type: 'test'
+  ...
+# Subtest: starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+ok 12 - starting tracking uses native pointAndLock while preserving time, FOV, observer and illumination
+  ---
+  duration_ms: 0.649042
+  type: 'test'
+  ...
+# Subtest: reduced motion keeps the native satellite lock using the established sub-frame duration
+ok 13 - reduced motion keeps the native satellite lock using the established sub-frame duration
+  ---
+  duration_ms: 0.109334
+  type: 'test'
+  ...
+# Subtest: ending tracking releases only the native satellite lock and preserves selection and time mode
+ok 14 - ending tracking releases only the native satellite lock and preserves selection and time mode
+  ---
+  duration_ms: 0.697455
+  type: 'test'
+  ...
+# Subtest: missing or non-satellite selection cannot start satellite tracking
+ok 15 - missing or non-satellite selection cannot start satellite tracking
+  ---
+  duration_ms: 0.202223
+  type: 'test'
+  ...
+# Subtest: a new native selection cannot inherit the prior satellite tracking lock
+ok 16 - a new native selection cannot inherit the prior satellite tracking lock
+  ---
+  duration_ms: 0.11915
+  type: 'test'
+  ...
+# Subtest: same native object wrappers retain tracking and other native locks remain untouched
+ok 17 - same native object wrappers retain tracking and other native locks remain untouched
+  ---
+  duration_ms: 0.150263
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 54.667498

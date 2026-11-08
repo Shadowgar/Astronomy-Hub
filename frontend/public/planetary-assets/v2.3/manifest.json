@@ -1,0 +1,962 @@
+{
+  "schema": "oras.planetary.visual-assets.v2.3",
+  "assets": {
+    "io": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "io-overview.glb",
+        "url": "/planetary-assets/v2.3/io-overview.glb",
+        "bytes": 705280,
+        "sha256": "4ecda86f593d2099ebd89a602a7d3fcc56295afa1dca6052a85ea09f80591223",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "io-2048.jpg",
+          "url": "/planetary-assets/v2.3/io-2048.jpg",
+          "bytes": 797004,
+          "sha256": "0390f525ebaa102ca60762c2733893e218fc409c538111105f858b220fa3442a",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "io-4096.jpg",
+          "url": "/planetary-assets/v2.3/io-4096.jpg",
+          "bytes": 2082996,
+          "sha256": "26081deb0234006d626b792cceecaaad084ab202c26b6f5874920e2ee2a7d025",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10604,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "io",
+      "naifId": "501",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/io-overview.glb",
+      "source": {
+        "file": "io-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/i/Io_1_3643.glb",
+        "bytes": 17479700,
+        "sha256": "118a6bf7eda476ea6b454039f621778189141a82acb3ad0aaa762f1771c5a723",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          4096,
+          2048
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/io-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "1669219b509c470cda85cfdb7a06d8ef54724927c57e8ade50b9bb769c0e0631",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "global-observation-coverage-not-qualified",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "NASA source imagery visualization; surface longitude registration and global observation coverage are not independently qualified."
+      }
+    },
+    "europa": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "europa-overview.glb",
+        "url": "/planetary-assets/v2.3/europa-overview.glb",
+        "bytes": 672000,
+        "sha256": "9a10c31c03c63d09c04b127ad9483f0631330e71d40e80c7e3e74793323c27ed",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "europa-2048.jpg",
+          "url": "/planetary-assets/v2.3/europa-2048.jpg",
+          "bytes": 698890,
+          "sha256": "0496951466f97bc0624e15eaaa336177099b6281ca0d579241506e4cf6176bd3",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "europa-4096.jpg",
+          "url": "/planetary-assets/v2.3/europa-4096.jpg",
+          "bytes": 1424640,
+          "sha256": "06944548eb0759ca752027ee246dbcdf0c34fd15807ba993dcfa03f7f831d1c1",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10604,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "europa",
+      "naifId": "502",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/europa-overview.glb",
+      "source": {
+        "file": "europa-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/e/Europa_1_3138.glb",
+        "bytes": 12287068,
+        "sha256": "fe88cbe326574a658c9d3b0885d1a38deea3ebfb354772eb3b95fe0f3f3d542c",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          4096,
+          2048
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/europa-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "cb13910e8f25b6163d395c52f61737b34d29655df5bc04b76e494f6f12f159dd",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "global-observation-coverage-not-qualified",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "NASA source imagery visualization; surface longitude registration and global observation coverage are not independently qualified."
+      }
+    },
+    "ganymede": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "ganymede-overview.glb",
+        "url": "/planetary-assets/v2.3/ganymede-overview.glb",
+        "bytes": 702344,
+        "sha256": "a9d9289d909f3efb747049420ea0e49e660007f45a078b08a9af9a6485b0544c",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "ganymede-2048.jpg",
+          "url": "/planetary-assets/v2.3/ganymede-2048.jpg",
+          "bytes": 678913,
+          "sha256": "9ca17e7d7011e044c164fee37c6b95391bf877074f80f399696a2cc61e9eca72",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10604,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "ganymede",
+      "naifId": "503",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/ganymede-overview.glb",
+      "source": {
+        "file": "ganymede-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/g/Ganymede_1_5268.glb",
+        "bytes": 4075564,
+        "sha256": "367bc128197bf1d25ef5af5269f2d1902aababaae167c3c8d6529443b0100d6f",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          2048,
+          1024
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/ganymede-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "58bf1a542191a68dea7f933ebfa97a83995fe4f3fa134727ead9e1d6173b2421",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "global-observation-coverage-not-qualified",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "NASA source imagery visualization; surface longitude registration and global observation coverage are not independently qualified."
+      }
+    },
+    "callisto": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "callisto-overview.glb",
+        "url": "/planetary-assets/v2.3/callisto-overview.glb",
+        "bytes": 743492,
+        "sha256": "16b92072e445917b19f41b3f2c905c916e6d84af8fb988b69f7788f90e350e92",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "callisto-2048.jpg",
+          "url": "/planetary-assets/v2.3/callisto-2048.jpg",
+          "bytes": 797156,
+          "sha256": "3b0da9925b4dd43e80fbf3d3d83c15f031b5e38584d1c2bedf2acf4513d508ef",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10604,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "callisto",
+      "naifId": "504",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/callisto-overview.glb",
+      "source": {
+        "file": "callisto-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/c/Callisto_1_4821.glb",
+        "bytes": 4452928,
+        "sha256": "0bdbd5600a4be4bef4bd85e53f6226f49e73a66c85310219402627e59457c303",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          2048,
+          1024
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/callisto-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "02843cfb31f1faf917c7d1090d6c73aa013fb073736393784adfa5061ba49971",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "global-observation-coverage-not-qualified",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "NASA source imagery visualization; surface longitude registration and global observation coverage are not independently qualified."
+      }
+    },
+    "titan": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "titan-overview.glb",
+        "url": "/planetary-assets/v2.3/titan-overview.glb",
+        "bytes": 481688,
+        "sha256": "252499dbe8927d9868bf217a8f68fec987c6d7b3679c97c362d60ddc2eb0e0c4",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "titan-2048.jpg",
+          "url": "/planetary-assets/v2.3/titan-2048.jpg",
+          "bytes": 50569,
+          "sha256": "e17bd027d60a311823c81a5c649ebc1bc8cd73bfcab177f3d63cf377e0656a93",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "titan-4096.jpg",
+          "url": "/planetary-assets/v2.3/titan-4096.jpg",
+          "bytes": 126326,
+          "sha256": "83cde217f9134d3d683dcaf76772417b06b4aabc6797d35454ce1dfc09c3bc4a",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10604,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "titan",
+      "naifId": "606",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/titan-overview.glb",
+      "source": {
+        "file": "titan-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/t/Titan_1_5150.glb",
+        "bytes": 686348,
+        "sha256": "9e92e30902a26130895bf2558172d7f36186eb4a51368a60bc3ec1d01134fde4",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          4096,
+          2048
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/titan-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "3376c25d24a21639a2672736baeb300cf4a545eb525a5484d5a9227496e78eea",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "global-observation-coverage-not-qualified",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "visible-haze-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "NASA atmospheric haze visualization; not an infrared or radar surface map, nor a calibrated natural-color photograph."
+      }
+    },
+    "enceladus": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "enceladus-overview.glb",
+        "url": "/planetary-assets/v2.3/enceladus-overview.glb",
+        "bytes": 766172,
+        "sha256": "1942299ca561dec3f27b58a916d8ce4333f075ef578c28f0051f6d4e81185cdf",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "enceladus-2048.jpg",
+          "url": "/planetary-assets/v2.3/enceladus-2048.jpg",
+          "bytes": 1325699,
+          "sha256": "2816e87fe8a65c08ce32c3d5aa9f528fc3d0f765b654f8a4decb1f8621f2f2fb",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "enceladus-4096.jpg",
+          "url": "/planetary-assets/v2.3/enceladus-4096.jpg",
+          "bytes": 4485523,
+          "sha256": "321dae5b8ac44dcca06d3274c6ce44d488a6f1f11e9f99791cbde7724a617cf0",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10604,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "enceladus",
+      "naifId": "602",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/enceladus-overview.glb",
+      "source": {
+        "file": "enceladus-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/e/Enceladus_1_504.glb",
+        "bytes": 17925448,
+        "sha256": "7548234bae15047d6c1af6bec4f348748b1acae7d4e7bfbe50e5bb3dda75506f",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          4096,
+          2048
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/enceladus-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "25bb3d09061da506b2df97c92cb2281644207d298b323807da934a26597d362f",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "global-observation-coverage-not-qualified",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "NASA source imagery visualization; surface longitude registration and global observation coverage are not independently qualified."
+      }
+    },
+    "ariel": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "ariel-overview.glb",
+        "url": "/planetary-assets/v2.3/ariel-overview.glb",
+        "bytes": 559856,
+        "sha256": "3d399f5a7a415ed6457bb3ff04c8f42f8226a2884b47a5cf0c172de47f413d35",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "ariel-2048.jpg",
+          "url": "/planetary-assets/v2.3/ariel-2048.jpg",
+          "bytes": 250894,
+          "sha256": "e650f863c84d48841e6e4a9109f979e66123e7570fa8750868d1fbf6e54aabd2",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10606,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "ariel",
+      "naifId": "701",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/ariel-overview.glb",
+      "source": {
+        "file": "ariel-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/a/Ariel_1_1158.glb",
+        "bytes": 1364104,
+        "sha256": "b7a5cd8ad3d48687cc3162861971a76a19fe9fad4726563e24b6cc917e9bd858",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          2048,
+          1024
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/ariel-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "0ee9f41ecbfb7bd4893db56b844a465eaf03799241013f57f936e154a019c0e7",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "partial-with-neutral-source-gaps",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "Partial source imagery; unobserved regions remain neutral. Surface longitude registration is illustrative."
+      }
+    },
+    "umbriel": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "umbriel-overview.glb",
+        "url": "/planetary-assets/v2.3/umbriel-overview.glb",
+        "bytes": 514072,
+        "sha256": "5f09d1a8d576b3d0fb8d41a0304518e6abaa224c765f190a082aaa4dfecf70c7",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10606,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "umbriel",
+      "naifId": "702",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/umbriel-overview.glb",
+      "source": {
+        "file": "umbriel-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/u/Umbriel_1_1169.glb",
+        "bytes": 606920,
+        "sha256": "b523de7d1406289d540369c635d0b13576460c1fa85a885352afc71c3f118d71",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          1024,
+          512
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/umbriel-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "9c5272c3966277128e90110b5235c179229459768d190a5edbae36c0b6bf7280",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "partial-with-neutral-source-gaps",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "Partial source imagery; unobserved regions remain neutral. Surface longitude registration is illustrative."
+      }
+    },
+    "titania": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "titania-overview.glb",
+        "url": "/planetary-assets/v2.3/titania-overview.glb",
+        "bytes": 566556,
+        "sha256": "126fb0bcf567bf82e1ded2ff772c4d138c5c6406207003460a0e2fbe52ea7aec",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "titania-2048.jpg",
+          "url": "/planetary-assets/v2.3/titania-2048.jpg",
+          "bytes": 267557,
+          "sha256": "a46dc09e50b35e8519d81be711c96e5b0bcde77dbf89453aeb28ddcdcc1eb191",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10606,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "titania",
+      "naifId": "703",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/titania-overview.glb",
+      "source": {
+        "file": "titania-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/t/Titania_1_1577.glb",
+        "bytes": 1932572,
+        "sha256": "08556622082b283f2f52c9214636c22acf27300889374dd37197f11a4448324c",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          2048,
+          1024
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/titania-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "b9d0bdd136e95e9e737004185cac33e7303f19a89b947ac59d9437bb420dd8c2",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "partial-with-neutral-source-gaps",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "Partial source imagery; unobserved regions remain neutral. Surface longitude registration is illustrative."
+      }
+    },
+    "oberon": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "oberon-overview.glb",
+        "url": "/planetary-assets/v2.3/oberon-overview.glb",
+        "bytes": 535268,
+        "sha256": "9fc24dc876a2264a6a2077219724dba98775674b12ea58756e867cf39f6ebfe1",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "oberon-2048.jpg",
+          "url": "/planetary-assets/v2.3/oberon-2048.jpg",
+          "bytes": 165426,
+          "sha256": "46f8fc3cc6bfc91fdb4ec6e86167552d1497b8c8fab253e1dca7545148869bdb",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10606,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "oberon",
+      "naifId": "704",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/oberon-overview.glb",
+      "source": {
+        "file": "oberon-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/o/Oberon_1_1523.glb",
+        "bytes": 1518548,
+        "sha256": "7b42c417e523db2a22c744cd471587c26f07581564dae7c3b0c20986eea93add",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          2048,
+          1024
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/oberon-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "16513a9dcb49aff4aee7daa0034d70650e985ff5d03d901efdb96dc58e2b93c9",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "partial-with-neutral-source-gaps",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "Partial source imagery; unobserved regions remain neutral. Surface longitude registration is illustrative."
+      }
+    },
+    "miranda": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "miranda-overview.glb",
+        "url": "/planetary-assets/v2.3/miranda-overview.glb",
+        "bytes": 555988,
+        "sha256": "0dc1714b749e98fb29d9aa77a5e1a783fe5ba0e7c2d0777ee6e20f3bfc581178",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10606,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "miranda",
+      "naifId": "705",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/miranda-overview.glb",
+      "source": {
+        "file": "miranda-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/m/Miranda_1_472.glb",
+        "bytes": 688936,
+        "sha256": "5a4d24c5fb237ae6d21d1a58857efb32fd0e53162754f17e4156618a541c4c57",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          1024,
+          512
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/miranda-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "d26b58a06afa5fa1d739fcd477d0183da1b9b3271120062b08e308c4bd66a683",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "partial-with-neutral-source-gaps",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "Partial source imagery; unobserved regions remain neutral. Surface longitude registration is illustrative."
+      }
+    },
+    "triton": {
+      "kind": "nasa-source-uv",
+      "mapping": "source-uv",
+      "overview": {
+        "file": "triton-overview.glb",
+        "url": "/planetary-assets/v2.3/triton-overview.glb",
+        "bytes": 595140,
+        "sha256": "d4ecda4a51ec7b9931b2eaa2b89c561dc920f620328985a125f1554f033692f3",
+        "width": 1024,
+        "height": 512,
+        "gpuRgba8WithMipmapsBytes": 2796203
+      },
+      "detail": [
+        {
+          "file": "triton-2048.jpg",
+          "url": "/planetary-assets/v2.3/triton-2048.jpg",
+          "bytes": 435820,
+          "sha256": "44f0f593d5cc53d57691ac0370162ce880ba69c86b5d060dca8736a388216992",
+          "width": 2048,
+          "height": 1024,
+          "gpuRgba8WithMipmapsBytes": 11184811
+        },
+        {
+          "file": "triton-4096.jpg",
+          "url": "/planetary-assets/v2.3/triton-4096.jpg",
+          "bytes": 1174186,
+          "sha256": "0efc1762caacce9e228b1cab2a9dd3e5540c3bae291d7f59ba8d136ed8b5fefc",
+          "width": 4096,
+          "height": 2048,
+          "gpuRgba8WithMipmapsBytes": 44739243
+        }
+      ],
+      "geometry": {
+        "units": "source-visualization",
+        "sourceRadius": 500,
+        "vertexCount": 10606,
+        "triangleCount": 20508,
+        "nativeUvPreserved": true,
+        "geodeticRegistrationQualified": false
+      },
+      "bodyId": "triton",
+      "naifId": "801",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/triton-overview.glb",
+      "source": {
+        "file": "triton-nasa-original.glb",
+        "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/t/Triton_1_2707.glb",
+        "bytes": 6865548,
+        "sha256": "a25df7ee7fe8679e3da8cca7f1a09ec7241ad5e0c7ad97a39f057b8c1a0043ce",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": [
+          4096,
+          2048
+        ],
+        "datum": null,
+        "longitudeConvention": null,
+        "acquisitionHistory": "See source product; source image-by-image acquisition history is not published by VTAD.",
+        "organization": "NASA Visualization Technology Applications and Development (VTAD)",
+        "url": "https://science.nasa.gov/resource/triton-3d-model/",
+        "terms": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "rightsStatus": "NASA media guidelines; attribution required; no endorsement.",
+        "sourceImageSha256": "e6a871283e919c259fe7e5a0e573e1b339cc5df8d98444f5dcefe90dfb52fc30",
+        "sourceColorSpace": "glTF baseColor sRGB; embedded PNG has no ICC profile",
+        "projection": "source-native-cylindrical-UV",
+        "coverage": "partial-with-neutral-source-gaps",
+        "orientationClassification": "illustrative-source-registration",
+        "appearanceClass": "nasa-surface-visualization",
+        "version": "NASA VTAD glTF download dated 2023-09-09",
+        "disclosure": "Partial source imagery; unobserved regions remain neutral. Surface longitude registration is illustrative."
+      }
+    },
+    "phobos": {
+      "kind": "measured-shape",
+      "mapping": "none",
+      "overview": {
+        "file": "phobos-pds-shape.glb",
+        "url": "/planetary-assets/v2.3/phobos-pds-shape.glb",
+        "bytes": 1199216,
+        "sha256": "c1d03de87679c287e734a7e3e61533b149789a7ec8a254e979de75727bc1ad7d"
+      },
+      "detail": [],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 25350,
+        "triangleCount": 49152,
+        "maxBoundingRadiusKm": 13.930039097852525,
+        "boundsKm": [
+          [
+            -13.40815,
+            -11.50301,
+            -9.56502
+          ],
+          [
+            12.76091,
+            12.05435,
+            10.05167
+          ]
+        ],
+        "sourceDataSha256": "b054bd2e53057f8d52286483a1b78cef1f6de802d7ca6b6d9310ca287dae2f2b",
+        "referencedVertexCount": 24578,
+        "sourceVolumeKm3": 5757.902417954685,
+        "closedManifold": true,
+        "eulerCharacteristic": 2,
+        "frame": "IAU_PHOBOS as defined by pck00006.tpc",
+        "expectedOrientationFrame": "IAU_PHOBOS",
+        "expectedOrientationModelId": "pds-gaskell-phobos-pck00006",
+        "origin": "unaltered source body-centered origin; no additional COM correction",
+        "axes": "+X prime meridian; +Y 90 degrees east; +Z north",
+        "topology": "original PDS vertex/facet lists"
+      },
+      "bodyId": "phobos",
+      "naifId": "401",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/phobos-pds-shape.glb",
+      "source": {
+        "file": "pds-phobos-phobos_ver64q.tab",
+        "download": "https://sbnarchive.psi.edu/pds4/non_mission/gaskell.phobos.shape-model/data/phobos_ver64q.tab",
+        "bytes": 4246671,
+        "sha256": "b054bd2e53057f8d52286483a1b78cef1f6de802d7ca6b6d9310ca287dae2f2b",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": {
+          "vertices": 25350,
+          "triangles": 49152
+        },
+        "datum": "source body-centered coordinates, kilometers; no ellipsoid or fabricated relief",
+        "longitudeConvention": "east-positive; PDS planetocentric definition",
+        "acquisitionHistory": "224 Viking Orbiter 1 VIS-A/VIS-B images (1976-1978), eight Phobos 2 VSK images (1989).",
+        "organization": "NASA PDS Small Bodies Node / R. Gaskell",
+        "url": "https://sbn.psi.edu/pds/resource/phobosshape.html",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived data are public domain; cite the dataset and its authors.",
+        "doi": "10.26033/xzv5-bw95",
+        "labelUrl": "https://sbnarchive.psi.edu/pds4/non_mission/gaskell.phobos.shape-model/data/phobos_ver64q.xml",
+        "labelSha256": "9e0235a4948646aaafb8b0d7e0282844fbc7611ece257e94022305ce4a4d49af",
+        "projection": "none; original Cartesian triangular mesh",
+        "coverage": "global-measured-shape",
+        "orientationClassification": "qualified-source-body-frame",
+        "orientationModelId": "pds-gaskell-phobos-pck00006",
+        "orientationFrame": "IAU_PHOBOS",
+        "orientationQualification": "Preserved source axes; evaluator independently checked against CSPICE with the source coefficients. This is a legacy source model, not PCK11 or independent observational validation.",
+        "coordinateConventionUrl": "https://pds.nasa.gov/data/pds4/documents/document_pds3_standards/psdd_rev_E_20020828.pdf",
+        "appearanceClass": "measured-shape-with-neutral-material",
+        "version": "PDS bundle V1.0; Gaskell Q=64",
+        "productDate": "2006-03-11; PDS4 migration 2020-10",
+        "uncertainty": "Source landmark formal uncertainty 18 m/component; RMS residual 25 m/component; Q=64 is a reduced source mesh.",
+        "disclosure": "PDS measured irregular shape; neutral material. Orientation uses the exact legacy pck00006 source model, not current PCK11.",
+        "unitsLabelUrl": "https://sbnarchive.psi.edu/pds3/multi_mission/VO1_SA_VISA_VISB_5_PHOBOSSHAPE_V1_0/data/phobos_ver64q.lbl",
+        "unitsLabelSha256": "0bbca1437066798da2df52ecda9b33ac555eeb56f91b642fbec2e046e0f909bb",
+        "unitsEvidence": "PDS3 VERTEX_COORDINATES UNIT=KILOMETER; PDS4 catalog states data unchanged",
+        "orientationSourceSha256": "8aacb5dff544bed1f7cf0659296a1ca75896128a0a729447be0a4deb4de4ecb4"
+      }
+    },
+    "deimos": {
+      "kind": "measured-shape",
+      "mapping": "none",
+      "overview": {
+        "file": "deimos-pds-shape.glb",
+        "url": "/planetary-assets/v2.3/deimos-pds-shape.glb",
+        "bytes": 122048,
+        "sha256": "0f8a93211fd07cd6c4370e65a9313abbbad2162f135c872fbc00e1a7011d8da4"
+      },
+      "detail": [],
+      "geometry": {
+        "units": "km",
+        "vertexCount": 2522,
+        "triangleCount": 5040,
+        "maxBoundingRadiusKm": 8.7068,
+        "boundsKm": [
+          [
+            -8.442710298331985,
+            -5.989814963409258,
+            -5.264772103849779
+          ],
+          [
+            7.571478183376502,
+            6.661354707199884,
+            5.792359283786418
+          ]
+        ],
+        "sourceDataSha256": "9a4dbc132c7546acb2ef26a386d306f155519f0988c8052acb2276ddeb7ca2fd",
+        "referencedVertexCount": 2522,
+        "sourceVolumeKm3": 1013.6423295406204,
+        "closedManifold": true,
+        "eulerCharacteristic": 2,
+        "frame": "Thomas 1993 planetocentric body frame; source pole/W in PDS label",
+        "expectedOrientationFrame": "PDS_THOMAS_DEIMOS",
+        "expectedOrientationModelId": "pds-thomas-deimos-label-v1",
+        "origin": "unaltered source body-centered origin; no additional COM correction",
+        "axes": "+X prime meridian; +Y 90 degrees east; +Z north",
+        "topology": "triangulated original 5-degree radial grid; duplicate poles/seam merged"
+      },
+      "bodyId": "deimos",
+      "naifId": "402",
+      "runtimeAllowed": true,
+      "modelUrl": "/planetary-assets/v2.3/deimos-pds-shape.glb",
+      "source": {
+        "file": "pds-deimos-m2deimos.tab",
+        "download": "https://sbnarchive.psi.edu/pds4/non_mission/ast-sat.thomas.shape-models_V1_0/data/m2deimos.tab",
+        "bytes": 86432,
+        "sha256": "9a4dbc132c7546acb2ef26a386d306f155519f0988c8052acb2276ddeb7ca2fd",
+        "acquiredUtc": "2026-11-02",
+        "sourceResolution": {
+          "latitudeSamples": 37,
+          "longitudeSamples": 73,
+          "gridSpacingDegrees": 5
+        },
+        "datum": "source body-centered coordinates, kilometers; no ellipsoid or fabricated relief",
+        "longitudeConvention": "east-positive; PDS planetocentric definition",
+        "acquisitionHistory": "Viking Orbiter observations (1976-1980); Thomas 1993 optical shape model.",
+        "organization": "NASA PDS Small Bodies Node / P. C. Thomas et al.",
+        "url": "https://sbn.psi.edu/pds/resource/oshape.html",
+        "terms": "https://pds-ppi.igpp.ucla.edu/faq.jsp",
+        "rightsStatus": "PDS archived data are public domain; cite the dataset and its authors.",
+        "doi": "10.26033/g5e0-kh52",
+        "labelUrl": "https://sbnarchive.psi.edu/pds4/non_mission/ast-sat.thomas.shape-models_V1_0/data/m2deimos.xml",
+        "labelSha256": "74b4c557e6827940430b2d670ec972d9a5d5dc63ef0a95b2b6ebd141ab78f634",
+        "projection": "planetocentric radius grid converted to Cartesian mesh",
+        "coverage": "global-shape-with-uneven-observational-constraints",
+        "orientationClassification": "qualified-source-body-frame",
+        "orientationModelId": "pds-thomas-deimos-label-v1",
+        "orientationFrame": "PDS_THOMAS_DEIMOS",
+        "orientationQualification": "Preserved source axes; evaluator independently checked against CSPICE with the source coefficients. This is a legacy source model, not PCK11 or independent observational validation.",
+        "coordinateConventionUrl": "https://pds.nasa.gov/data/pds4/documents/document_pds3_standards/psdd_rev_E_20020828.pdf",
+        "appearanceClass": "measured-shape-with-neutral-material",
+        "version": "PDS bundle V1.0; Thomas 5-degree grid",
+        "productDate": "Thomas 1993; PDS4 migration 2021-10",
+        "uncertainty": "Source reports approximately 400 m uncertainty over much of longitude 200-355 degrees.",
+        "disclosure": "PDS measured irregular shape on a 5-degree grid with uneven accuracy; neutral material. Orientation uses the older source pole/prime meridian, not current PCK11.",
+        "sourcePoleRaDegrees": 316.65,
+        "sourcePoleDecDegrees": 53.53,
+        "sourcePrimeMeridianDegreesAtJ2000": 79.41,
+        "sourceSpinDegreesPerDay": 285.161897,
+        "orientationSourceSha256": "74b4c557e6827940430b2d670ec972d9a5d5dc63ef0a95b2b6ebd141ab78f634",
+        "sourceTimeConvention": "TDB days from J2000 follows IAU/SPICE convention; time scale not explicit in source label"
+      }
+    }
+  },
+  "delivery": {
+    "networkBytes": 23480719,
+    "rawSourceBytes": 74216787,
+    "aggregateAcquiredImageModelBytes": 78096715,
+    "heldImageModelBytesExcludedFromRuntime": 3879928,
+    "maximumSingleSourceBytes": 33554432,
+    "maximumRawSourceBytes": 134217728,
+    "maximumPackageBytes": 67108864,
+    "overviewImageMaxSize": 1024,
+    "noUpscaling": true,
+    "gpuTextureCompression": "not-implemented; encoder unavailable; no performance claim"
+  },
+  "generator": {
+    "script": "scripts/planetdata/build_solar23_assets.py",
+    "pillow": "11.3.0",
+    "geometry": "NASA geometry/UV preserved; measured meshes retain native kilometer vertices"
+  },
+  "limitations": [
+    "NASA visualization texture registration is illustrative, not an IAU-geodetic surface.",
+    "Partial source coverage remains visible; no fabricated terrain or inpainting.",
+    "Older PDS shape frames are preserved; current PCK11 shape alignment is not claimed.",
+    "Browser, GPU, scientific orientation and owner visual acceptance require separate validation."
+  ]
+}

@@ -1,0 +1,13 @@
+# Opt-in read-only scientific observations. Acquire and qualify before use.
+# Retain Solar 2.3/2.4/2.5 overrides for their independent local source packs.
+services:
+  backend:
+    environment:
+      ORAS_HELIOPHYSICS_DIR: /runtime/heliophysics
+    volumes:
+      - type: bind
+        source: ${ORAS_HELIOPHYSICS_HOST_DIR:-./data/runtime-packs/heliophysics/release-v1}
+        target: /runtime/heliophysics
+        read_only: true
+        bind:
+          create_host_path: false

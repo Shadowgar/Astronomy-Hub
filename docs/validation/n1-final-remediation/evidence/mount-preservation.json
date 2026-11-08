@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "mountCount": 7,
+  "sameBindingsIgnoringArrayOrder": true,
+  "allReadOnly": true,
+  "initialLiteralArrayComparisonFailedBecauseOrderDiffered": true,
+  "nginxContentChange": "Exact TLE Content-Encoding header only; backed up separately."
+}

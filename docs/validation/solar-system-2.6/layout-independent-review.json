@@ -1,0 +1,93 @@
+{
+  "reviewer": "solar26_observations; non-author of PlanetSelector and Beyond workspace layout",
+  "review_date": "2026-11-08",
+  "base_commit": "66050b5e7f3a9cbcfccbf6258645bd1804051b28",
+  "scope_sha256": {
+    "frontend/src/features/systems/PlanetSelector.tsx": "34a602b7653068642f5ddb70d0d501aa2a871273b2b37745aa1fc7a40635b98b",
+    "frontend/src/features/systems/systems.css": "24a01d66550656ac57ba8fca8615f733880624deab8ff41b230080ddb2e0c3cb",
+    "frontend/src/features/beyond/beyond.css": "5b1a92d93770adbccd272b115e8a5bda76e254a8a724589ebcb7d8bb113e7381"
+  },
+  "evidence_sha256": {
+    "output/playwright/solar-system-2.6/journeys/D-failure.png": "a90f454f2f8aae62e240d0b5ffebc5c757b480bfc59a2adeb3546c5fa580ad2e",
+    "output/playwright/solar-system-2.6/journeys/D-oort-100k-landscape.png": "11a5120f5f6a16bcbb6fd243fbffedcf3719e792a6775883e5fda76007cf3700",
+    "output/playwright/solar-system-2.6/journeys/C-imap-landscape.png": "412fc95b18ee009b5812b85bd7119bccfa520a05d34aa09dc1f2301b593453af",
+    "output/playwright/solar-system-2.6/journeys-final/D-oort-100k-landscape.png": "cc378585bfeb375dc4a54fb428d4b65ec8cd88bd8ab3bea489d5d40165cac294",
+    "output/playwright/solar-system-2.6/journeys-final/D-oort-100k-portrait.png": "2193a42c6ccef4734a4564942604e720bb1e73215db8adf6e4dd7e4aac85875e",
+    "output/playwright/solar-system-2.6/journeys-final/C-imap-landscape.png": "12b78c88aad2a48d356da867caccde15307e71a96d5173aabf9c260d832e25b2",
+    "output/playwright/solar-system-2.6/journeys-final/C-imap-portrait.png": "265af36f7044d22de880a806c3749b95a0c97895a032cfc78b1fdf6509819e5b",
+    "output/playwright/solar-system-2.6/journeys-final/D-return-saturn-system.png": "fa29b501a7edbd1822f0cba2491f1947151b520f4339ffd7464e7c26cb30ad50",
+    "output/playwright/solar-system-2.6/journeys-final/journeys.json": "2109c120877d714890f795c36ff34112484e5b9abb0bbf17e31ff19ea2fe3384",
+    "output/playwright/solar-system-2.6/qualified-journeys/D-oort-100k-landscape.png": "6ce22bd63b021aa778836c1321433986e8573f739c88b004270134169e49436d",
+    "output/playwright/solar-system-2.6/qualified-journeys/D-oort-100k-portrait.png": "2193a42c6ccef4734a4564942604e720bb1e73215db8adf6e4dd7e4aac85875e",
+    "output/playwright/solar-system-2.6/qualified-journeys/C-imap-landscape.png": "12b78c88aad2a48d356da867caccde15307e71a96d5173aabf9c260d832e25b2",
+    "output/playwright/solar-system-2.6/qualified-journeys/C-imap-portrait.png": "265af36f7044d22de880a806c3749b95a0c97895a032cfc78b1fdf6509819e5b",
+    "output/playwright/solar-system-2.6/qualified-journeys/D-return-saturn-system.png": "fa29b501a7edbd1822f0cba2491f1947151b520f4339ffd7464e7c26cb30ad50",
+    "output/playwright/solar-system-2.6/qualified-journeys/D-return-native-sky.png": "7ba6c109f75df93521bbf5e9789190c25ca32c3929103a4769930726029488b3",
+    "output/playwright/solar-system-2.6/qualified-journeys/D-return-native-earth.png": "b46586e64d529ae5505c8ff53fc1ed371154ccc258dcc49ef594a7a63ec42779",
+    "output/playwright/solar-system-2.6/qualified-journeys/journeys.json": "f4d66d63a4d9d28204a5630dc104fb3c26f27e0066ffaddbb0298b62402268ef"
+  },
+  "findings": [
+    {
+      "priority": "P2",
+      "file": "frontend/src/features/systems/PlanetSelector.tsx",
+      "line": 18,
+      "cause": "The fixed-position satellite flyout allowed a 460px height irrespective of its anchor top. Adding the Beyond navigation entry lowered Saturn; the final Explore Saturn System button remained below the viewport even after internal scrolling.",
+      "evidence": "The original actual Windows Edge/NVIDIA journey D timed out on a normal Playwright click with element is outside of the viewport. D-failure.png shows the flyout beginning near y=576 and continuing below the 900px viewport.",
+      "correction": "Bound inline maxHeight to max(0,min(460,innerHeight-position.top-12)). Existing border-box sizing includes padding; existing overflow:auto allows all rows and the final action to scroll into the visible region. Existing resize/scroll listeners update placement. Selection handlers and navigation state are unchanged.",
+      "qualification": "Independently source reviewed. The next actual journey used a normal click, entered the ready Saturn system, captured D-return-saturn-system.png, then reached native Sky and Earth. This corrects the specific flyout defect.",
+      "status": "Corrected; scoped source and actual navigation evidence reviewed"
+    }
+  ],
+  "layout_observations": [
+    "At 844×390, the earlier landscape tabs began at 154px and observation pane at 202px, leaving about 80px before the footer. The new scoped media override moves tabs to 112px, context/observation to 160px and reduces the title block. Actual new D and C landscape captures confirm the added central space.",
+    "The landscape title and evidence badge remain visible; the explanatory introductory paragraph is hidden only for short wide viewports. Source/context content remains in its scrollable panel and the Science & sources action remains visible.",
+    "At 390×844 the portrait Oort capture separates the scene, scrollable theoretical-extents panel and footer. Return, recenter and sources controls remain visible. The IMAP portrait workspace retains a scrollable content pane and the shared footer. These are viewport captures, not physical phone evidence.",
+    "Actual journeys-final layout records report all essential header/action controls within the viewport and hit-testable for the inspected C/D captures."
+  ],
+  "validation": {
+    "commands": [
+      "git diff -- frontend/src/features/systems/PlanetSelector.tsx",
+      "git diff --check",
+      "node --check scripts/validation/verify_solar26_journeys.mjs"
+    ],
+    "command_results": "Source diff is the one maxHeight addition; whitespace and harness syntax checks pass.",
+    "actual_run": "Parent-owned Windows Edge/NVIDIA journeys-final, 2026-11-08T06:09:37.814Z to 06:10:50.099Z; A/B/C PASS. D passed the corrected Saturn action and native mode transitions but its final assertion rejected latitude 35.24720000000313 versus 35.2472 by string equality. The entire D journey is not marked passed on this evidence.",
+    "harness_correction": "Test-only numeric observer correction independently reviewed by solar26_physics with12 controlled cases; the same-build actual qualified rerun passes all A/B/C/D journeys. Finite latitude/longitude remain within1e-9degrees and elevation within1e-4metres; exact UTC preserved. Actual maximum deltas are retained in qualified_runtime_evidence.",
+    "harness_focused_check": "The actual assertObserver function was extracted and executed with mock pages without browser launch: observed native decimal rounding passes; seven cases with excessive latitude/longitude/elevation drift, Infinity, empty value, NaN, or 1ms UTC drift are rejected; actual deltas are retained. All 8 cases passed."
+  },
+  "limitations": [
+    "This reviewer did not launch a browser or occupy the GPU; actual captures and receipts were produced by the parent and independently inspected.",
+    "ObservationViews was authored by this reviewer and is excluded from independent implementation/chart approval here; the separate physics review covers its science and source behavior.",
+    "No physical iPhone/device or owner visual acceptance; no whole-PR independent approval.",
+    "The original failed run is retained as rejection evidence; the separately named qualified run is the passing final navigation proof. Existing native Sky dense-star404s are not suppressed and remain outside this layout correction."
+  ],
+  "qualified_runtime_evidence": {
+    "receipt": "output/playwright/solar-system-2.6/qualified-journeys/journeys.json",
+    "sha256": "f4d66d63a4d9d28204a5630dc104fb3c26f27e0066ffaddbb0298b62402268ef",
+    "started_utc": "2026-11-08T06:13:49.244Z",
+    "finished_utc": "2026-11-08T06:15:02.868Z",
+    "status": "PASS",
+    "journeys": {
+      "A": "PASS",
+      "B": "PASS",
+      "C": "PASS",
+      "D": "PASS"
+    },
+    "harness_sha256": "5c65d6854b19a2b47fffd6e020609706f841b5ad94a7a9e78ebfe1c9868d2c04",
+    "application_sources_changed_during_run": [],
+    "uncaught_browser_errors": [],
+    "observer_tolerances": {
+      "lat": 1e-09,
+      "lng": 1e-09,
+      "elev": 0.0001
+    },
+    "observer_max_abs_delta": {
+      "lat": 3.133493464702042e-12,
+      "lng": 2.8265390028536785e-11,
+      "elev": 0
+    },
+    "observer_sample_count": 15,
+    "utc": "Exact UTC timestamp preserved in all observer checks",
+    "http_failures": "Two deliberate negative responses (503 missing observation and422 unsupported planetary epoch) and58 existing native dense-star tile404s in D; no unexpected Beyond observation failure. This review does not qualify those pre-existing Sky tiles."
+  }
+}

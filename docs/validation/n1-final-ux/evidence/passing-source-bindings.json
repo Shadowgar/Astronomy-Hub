@@ -1,0 +1,59 @@
+{
+  "status": "PARTIAL",
+  "qualifiedDelivery": false,
+  "passingFamilies": [
+    {
+      "family": "browser",
+      "status": "PASS",
+      "sourceHashesVerified": 24,
+      "runs": 2,
+      "proofSha256": "922db9ff2bcbedee986d002cd8200080649b7692d099d94853eb58bcaf0d25c5"
+    },
+    {
+      "family": "satellite-recheck/browser",
+      "status": "PASS",
+      "sourceHashesVerified": 11,
+      "runs": 7,
+      "proofSha256": "3c653cab01396d6fbb20eabd5d841379280a773066499aa1bfcd6c1aba982726"
+    },
+    {
+      "family": "satellite-recheck/symbol-pixels",
+      "status": "PASS",
+      "sourceHashesVerified": 1,
+      "runs": 7,
+      "proofSha256": "4d648b74afe297fd3d3e39771f03940abd860dc2a195529559981e6be97b3ca3"
+    },
+    {
+      "family": "native-satellites",
+      "status": "PASS",
+      "sourceHashesVerified": 6,
+      "runs": 2,
+      "proofSha256": "67ad26e5a5767345f8cc0ac3e1a82b527f800037b5f31de04a528df4252331e1"
+    },
+    {
+      "family": "pennsylvania",
+      "status": "PASS",
+      "sourceHashesVerified": 5,
+      "runs": 2,
+      "proofSha256": "2ba8d69212b19379a12a4e6c6c7c2556098394db4995edad6b8dac27616f58d8"
+    },
+    {
+      "family": "observer-history",
+      "status": "PASS",
+      "sourceHashesVerified": 9,
+      "runs": 4,
+      "proofSha256": "3b5cbb4a2ce1260170d70c8d9d043d0a17b06fae5df105dfe858fa29c50556fe"
+    },
+    {
+      "family": "product-paths",
+      "status": "PASS",
+      "sourceHashesVerified": 8,
+      "runs": 2,
+      "proofSha256": "59dab1922124b2149bfba3d67ec5bd21c83920ff1e207a6e4a6982073109e03a"
+    }
+  ],
+  "remaining": [
+    "journeys-desktop",
+    "journeys-mobile"
+  ]
+}

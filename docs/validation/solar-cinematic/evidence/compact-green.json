@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "sourceHashes": {
+    "frontend/src/features/solar/solar.css": "a86fdc08d161001b0416c52300ae66206286a1e8cc95536d49d2a935bfb9202c",
+    "scripts/validation/verify_cinematic_compact.mjs": "50713a7d53ef66d21b5a7d3a8427728deeab177308888085394885471bb5b4b6"
+  },
+  "runs": [
+    {
+      "width": 667,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 844,
+      "height": 375,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "checks": [
+        "Every visible camera control receives its own pointer target",
+        "Touch zoom/orbit changes camera and never changes epoch",
+        "Selected body card preserves body rail, effects and camera access",
+        "Overview and time dialog remain separate reachable controls"
+      ],
+      "status": "PASS"
+    }
+  ]
+}

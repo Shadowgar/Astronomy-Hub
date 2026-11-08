@@ -1,0 +1,7 @@
+{
+  "backendImage": "sha256:00e343c5943ae02f94c5312d17fec4ab6c5aaa2376d27ce9ff2486793dc15c6a",
+  "previewImage": "sha256:5b4900b042ccfa8b0a73df622c3a60f2322faeb2be800cbee5aa7b44d241649e",
+  "network": "oras-r3-a-preview",
+  "port": 4210,
+  "source": "/home/rocco/Astronomy-Hub/.worktrees/r3-a-solar-system-1"
+}

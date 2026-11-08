@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "runtime": "task Docker backend via preview4226",
+  "cases": [
+    {
+      "requested_time": "0001-01-01T00:00:00Z",
+      "http_status": 200,
+      "data": {
+        "as_of_utc": "0001-01-01T00:00:00Z",
+        "mounted": true,
+        "release_validated": false,
+        "record_count": 14281,
+        "fresh_record_count": 0,
+        "stale_record_count": 14281,
+        "freshness_status": "stale"
+      }
+    },
+    {
+      "requested_time": "9999-12-31T23:59:59Z",
+      "http_status": 200,
+      "data": {
+        "as_of_utc": "9999-12-31T23:59:59Z",
+        "mounted": true,
+        "release_validated": false,
+        "record_count": 14281,
+        "fresh_record_count": 0,
+        "stale_record_count": 14281,
+        "freshness_status": "stale"
+      }
+    },
+    {
+      "requested_time": null,
+      "http_status": 200,
+      "data": {
+        "as_of_utc": "2026-10-25T04:45:59Z",
+        "mounted": true,
+        "release_validated": false,
+        "record_count": 14281,
+        "fresh_record_count": 0,
+        "stale_record_count": 14281,
+        "freshness_status": "stale"
+      }
+    }
+  ]
+}

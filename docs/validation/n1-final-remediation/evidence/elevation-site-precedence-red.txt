@@ -1,0 +1,68 @@
+TAP version 13
+# Subtest: only verified ORAS location reuses its elevation; exploring New York has identified zero fallback
+ok 1 - only verified ORAS location reuses its elevation; exploring New York has identified zero fallback
+  ---
+  duration_ms: 0.939505
+  type: 'test'
+  ...
+# Subtest: a known provided height survives picking at the same target, never at a new location
+ok 2 - a known provided height survives picking at the same target, never at a new location
+  ---
+  duration_ms: 0.219468
+  type: 'test'
+  ...
+# Subtest: explicit provided elevation at ORAS coordinates is not overwritten by site elevation
+not ok 3 - explicit provided elevation at ORAS coordinates is not overwritten by site elevation
+  ---
+  duration_ms: 1.013836
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/navigation-elevation.test.mjs:20:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      {
+    +   elevationSource: 'oras-site',
+    -   elevationSource: 'provided',
+        observer: {
+    +     elevationM: 432.816,
+    -     elevationM: 123,
+          lat: 41.321903,
+          lon: -79.585394
+        }
+      }
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    observer:
+      lat: 41.321903
+      lon: -79.585394
+      elevationM: 123
+    elevationSource: 'provided'
+  actual:
+    observer:
+      lat: 41.321903
+      lon: -79.585394
+      elevationM: 432.816
+    elevationSource: 'oras-site'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/navigation-elevation.test.mjs:21:49)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 42.747562

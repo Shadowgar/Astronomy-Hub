@@ -1,0 +1,5 @@
+{
+  "originalSha256": "63ca9fffb7e91236df2b69d078881b4cee9dc8239a069e669801e719a38c431a",
+  "encoding": "UTF-8",
+  "content": "\n> astronomy-hub-frontend@0.0.1 test\n> vitest run\n\n\n RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/frontend\n\n\n Test Files  51 passed (51)\n      Tests  336 passed (336)\n   Start at  22:30:01\n   Duration  3.86s (transform 12.54s, setup 0ms, import 22.23s, tests 6.92s, environment 9ms)\n\n"
+}

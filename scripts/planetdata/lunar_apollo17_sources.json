@@ -1,0 +1,95 @@
+{
+  "schema": "oras.lroc-source-ranges.v1",
+  "sources": [
+    {
+      "id": "NAC_DTM_APOLLO17_E203N0308.IMG",
+      "url": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_E203N0308.IMG",
+      "range": [
+        251622000,
+        292640379
+      ],
+      "bytes": 41018380,
+      "sha256": "71bcc4f75369148af9b6a1d8e5e12709020d0d7d31f5f3ead03d18071c7065a5",
+      "etag": "\"01eb9f6cfbd5d3fe763d4762f0ea70bc\"",
+      "lastModified": "Fri, 14 Aug 2026 18:26:58 GMT",
+      "originalBytes": 463343940,
+      "labelSha256": "ac95cca531dd5669d6435dcf5096b6feef4cfacfad9373640792e33456953410",
+      "labelBytes": 32768,
+      "dtype": "<f4"
+    },
+    {
+      "id": "NAC_DTM_APOLLO17_MOSAIC_5M.IMG",
+      "url": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_MOSAIC_5M.IMG",
+      "range": [
+        125811000,
+        146320189
+      ],
+      "bytes": 20509190,
+      "sha256": "361b51ca76c556386638963b9fd0e7d734dfb5a224eebb8e0117d3e6bdf10ac4",
+      "etag": "\"fca5936b57ab935ee7e3e2fb1f5faef6\"",
+      "lastModified": "Fri, 14 Aug 2026 18:26:59 GMT",
+      "originalBytes": 231671970,
+      "labelSha256": "28f84d79806c1e05667197ffdebc4d3a2e0e23ac81a470b7bf19a6f9e931d441",
+      "labelBytes": 32768,
+      "dtype": "<i2"
+    },
+    {
+      "id": "NAC_DTM_APOLLO17_CONF.IMG",
+      "url": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_CONF.IMG",
+      "range": [
+        62905500,
+        73160094
+      ],
+      "bytes": 10254595,
+      "sha256": "f3299e886d0bd55a190ad0218566e7c34057304eb969e0866ab82c6c8f72b248",
+      "etag": "\"1af3426b23da8d89f18f9cb40981830d\"",
+      "lastModified": "Fri, 14 Aug 2026 18:23:39 GMT",
+      "originalBytes": 115835985,
+      "labelSha256": "21508754b852b243fdcb62a6878d60f59da3bf3692afa00857f877f1a9615c39",
+      "labelBytes": 32768,
+      "dtype": "u1"
+    }
+  ],
+  "crop": {
+    "rowStart": 6300,
+    "columnStart": 4071,
+    "size": 1025,
+    "stripRowStart": 6299,
+    "stripRows": 1027,
+    "sourceWidth": 9985
+  },
+  "networkBudgetBytes": 268435456,
+  "servedBudgetBytes": 67108864,
+  "metadata": [
+    {
+      "id": "NAC_DTM_APOLLO17_README.TXT",
+      "url": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+      "bytes": 9567,
+      "sha256": "84eefc7ab0bad79620ee7616861c8debc637c9d78bd3b6c020a495973e3d8e98"
+    },
+    {
+      "id": "RDRSIS.PDF",
+      "url": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DOCUMENT/RDRSIS.PDF",
+      "bytes": 2528722,
+      "sha256": "f8f091ba3d5e7fc65f0a2403ab6e00b90cc14a5dce7a912cec0bab013f92cfff"
+    },
+    {
+      "id": "DSMAP.CAT",
+      "url": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/CATALOG/DSMAP.CAT",
+      "bytes": 8119,
+      "sha256": "ae6340c1a11b5697b4e9b6030225e9b3ab1cbf027e9a90a8b77bfb5f4d7eccb2"
+    },
+    {
+      "id": "LROC_NAC_Processing_Guide.pdf",
+      "url": "https://lroc.im-ldi.com/data/support/downloads/LROC_NAC_Processing_Guide.pdf",
+      "bytes": 275911,
+      "sha256": "c08d7fc1b964596de921032ead0b36c75fccdcefe4906cdb60f39dd42ce2f73a"
+    },
+    {
+      "id": "terms.html",
+      "url": "https://www.lroc.im-ldi.com/about/terms",
+      "bytes": 45841,
+      "sha256": "73d53fb11e626b77ff803fe9bf64efae54fa79f125f38d3d17fb6e2d4417aee1"
+    }
+  ]
+}

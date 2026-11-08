@@ -1,0 +1,2241 @@
+{
+  "head": "4e07ebfb4821b57e6bed3df4937eb78cce9755ee",
+  "base": "http://127.0.0.1:4217",
+  "status": "AUDIT_COMPLETE",
+  "runs": [
+    {
+      "width": 667,
+      "height": 390,
+      "errors": [],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "httpErrors": [
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix282.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix303.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix305.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix308.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix313.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix314.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix318.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix639.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix419.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix417.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix339.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix629.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix336.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix350.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix633.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix338.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix344.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix346.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix323.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix379.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix618.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix543.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix565.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix542.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix364.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix361.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix531.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix536.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix363.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix527.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix575.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix568.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix551.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix550.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix556.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix559.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix3.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix261.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix8.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix9.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix280.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix260.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix516.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix576.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix760.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix524.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix704.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix708.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix609.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix747.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix512.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix525.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix740.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix546.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix709.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix586.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix762.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix526.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix490.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix754.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix3.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix9.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix19.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix8.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix282.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix305.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix308.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix313.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix318.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix407.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix490.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix494.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix506.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix314.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix280.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix303.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix267.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix291.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix299.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix288.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix259.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix298.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix261.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix471.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix757.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix260.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix756.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix467.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix465.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix257.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix466.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix754.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix760.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix762.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix485.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix256.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix719.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix740.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix748.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix516.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix576.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix708.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix536.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix704.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix709.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix460.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix747.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix512.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix556.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix546.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix417.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4217/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph",
+          "status": 404
+        }
+      ],
+      "scenes": [
+        {
+          "name": "historical",
+          "utc": "2026-02-28T00:00:00Z",
+          "target": "Sirius",
+          "screens": [
+            "667x390-historical-initial.png",
+            "667x390-historical-settled.png",
+            "667x390-historical-selected-collapsed.png",
+            "667x390-historical-selected-expanded.png",
+            "667x390-historical-constellations.png"
+          ],
+          "initial": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-02-28T00:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": null,
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "settled": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-02-28T00:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": null,
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "observabilityHttp": 200,
+          "observability": {
+            "status": "ok",
+            "data": {
+              "objects": [
+                {
+                  "id": "Bright Star Catalog (local):star-capella",
+                  "catalog": "Bright Star Catalog (local)",
+                  "source_id": "star-capella",
+                  "model": "star",
+                  "name": "Capella",
+                  "type": "star",
+                  "ra": 79.173,
+                  "dec": 45.998,
+                  "alt": 85.276,
+                  "az": 7.869,
+                  "magnitude": 0.08,
+                  "is_visible": true,
+                  "priority": 0.96861,
+                  "reason": "Bright local star at 85.3 deg altitude.",
+                  "sky_engine_url": "/oras-sky-engine/skysource/Capella?catalog=Bright+Star+Catalog+%28local%29&source_id=star-capella&model=star&ra=79.173&dec=45.998&fov=2&date=2026-02-28T00%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+                  "above_geometric_horizon": true,
+                  "observability": {
+                    "above_geometric_horizon": true,
+                    "altitude_deg": 85.276,
+                    "azimuth_deg": 7.869,
+                    "sky_state": "nautical_twilight",
+                    "in_astronomical_darkness": false,
+                    "moon_angular_separation_deg": 37.790719045589015,
+                    "assessment": "above_horizon_nautical_twilight",
+                    "limitations": [
+                      "geometric_horizon_only",
+                      "detectability_not_evaluated"
+                    ]
+                  }
+                },
+                {
+                  "id": "Messier (local):M45",
+                  "catalog": "Messier (local)",
+                  "source_id": "M45",
+                  "model": "dso",
+                  "name": "Pleiades",
+                  "type": "open_cluster",
+                  "ra": 56.88,
+                  "dec": 24.117,
+                  "alt": 65.252,
+                  "az": 232.58,
+                  "magnitude": 1.6,
+                  "is_visible": true,
+                  "priority": 0.83944,
+                  "reason": "Local Messier open cluster at 65.3 deg altitude.",
+                  "sky_engine_url": "/oras-sky-engine/skysource/Pleiades?catalog=Messier+%28local%29&source_id=M45&model=dso&ra=56.88&dec=24.117&fov=3&date=2026-02-28T00%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+                  "object_type_label": "Open Cluster",
+                  "source_attribution": [
+                    {
+                      "name": "Messier local seed",
+                      "source_key": "messier_local_seed"
+                    }
+                  ],
+                  "data_sources": {
+                    "identity": [
+                      "Messier local seed"
+                    ],
+                    "position": [
+                      "Messier local seed"
+                    ],
+                    "photometry": [
+                      "Messier local seed"
+                    ],
+                    "aliases": [
+                      "Messier local seed"
+                    ]
+                  },
+                  "enrichment_status": {
+                    "identity": "source_backed",
+                    "aliases": "source_backed",
+                    "description": "not_available"
+                  },
+                  "above_geometric_horizon": true,
+                  "observability": {
+                    "above_geometric_horizon": true,
+                    "altitude_deg": 65.252,
+                    "azimuth_deg": 232.58,
+                    "sky_state": "nautical_twilight",
+                    "in_astronomical_darkness": false,
+                    "moon_angular_separation_deg": 55.20997201069264,
+                    "assessment": "above_horizon_nautical_twilight",
+                    "limitations": [
+                      "geometric_horizon_only",
+                      "detectability_not_evaluated"
+                    ]
+                  }
+                },
+                {
+                  "id": "Solar System (JPL):uranus",
+                  "catalog": "Solar System (JPL)",
+                  "source_id": "uranus",
+                  "model": "planet",
+                  "name": "Uranus",
+                  "type": "planet",
+                  "ra": 55.48671342,
+                  "dec": 19.47357453,
+                  "alt": 60.815,
+                  "az": 228.411,
+                  "magnitude": null,
+                  "is_visible": true,
+                  "priority": 0.67172,
+                  "reason": "JPL DE442s Uranus position at 60.8 deg altitude.",
+                  "sky_engine_url": "/oras-sky-engine/skysource/Uranus?catalog=Solar+System+%28JPL%29&source_id=uranus&model=planet&ra=55.4867134206&dec=19.4735745332&fov=1&date=2026-02-28T00%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+                  "ephemeris_source": "jpl_de442s_local",
+                  "target_reference": "Uranus barycenter",
+                  "distance_au": 19.656458211775817,
+                  "above_geometric_horizon": true,
+                  "observability": {
+                    "above_geometric_horizon": true,
+                    "altitude_deg": 60.815,
+                    "azimuth_deg": 228.411,
+                    "sky_state": "nautical_twilight",
+                    "in_astronomical_darkness": false,
+                    "moon_angular_separation_deg": 58.07307578949381,
+                    "assessment": "above_horizon_nautical_twilight",
+                    "limitations": [
+                      "geometric_horizon_only",
+                      "detectability_not_evaluated"
+                    ]
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "contract_version": "above-me.v1",
+              "observer": {
+                "lat": 41.321903,
+                "lng": -79.585394,
+                "elev": 432.816
+              },
+              "time": "2026-02-28T00:00:00Z",
+              "limit": 3,
+              "total_candidates": 48,
+              "visible_candidates": 25,
+              "observability_context": {
+                "schema_version": "observability.v1",
+                "observer": {
+                  "lat": 41.321903,
+                  "lng": -79.585394,
+                  "elev": 432.816
+                },
+                "horizon_model": "geometric",
+                "site_horizon_status": "not_modeled",
+                "sky_darkness": {
+                  "state": "nautical_twilight",
+                  "sun_altitude_deg": -10.751397029267986,
+                  "in_astronomical_darkness": false,
+                  "source": "jpl_de442s_local"
+                },
+                "moon": {
+                  "altitude_deg": 52.685545077493444,
+                  "azimuth_deg": 104.36032377219912,
+                  "above_geometric_horizon": true,
+                  "ra_deg": 118.37804569131626,
+                  "dec_deg": 24.3449536449315,
+                  "ra_icrf_deg": 117.97737187877505,
+                  "dec_icrf_deg": 24.412504830698317,
+                  "source": "jpl_de442s_local"
+                },
+                "weather": {
+                  "status": "not_evaluated_for_selected_time",
+                  "source": "open_meteo_current",
+                  "last_updated": null
+                },
+                "limitations": [
+                  "Actual site terrain, trees, and buildings are not modeled.",
+                  "Equipment-specific detectability is not evaluated."
+                ]
+              },
+              "object_sources": {
+                "messier_local": {
+                  "status": "included",
+                  "reason": "Local Messier seed objects have stable identity and RA/Dec."
+                },
+                "openngc_local": {
+                  "status": "included",
+                  "reason": "Normalized OpenNGC local catalog provides bounded visible DSO discovery and exact NGC/IC identity links."
+                },
+                "bright_star_local": {
+                  "status": "included",
+                  "reason": "Local bright-star seed objects have stable identity and RA/Dec."
+                },
+                "hipparcos_tier2_local": {
+                  "status": "included",
+                  "reason": "Existing Hipparcos Tier 2 dataset provides stable string IDs, RA/Dec, and magnitude."
+                },
+                "gaia_dr2": {
+                  "status": "lookup_only",
+                  "reason": "Exact lookup exists, but broad indexed discovery/ranking is not implemented in this pass."
+                },
+                "planets": {
+                  "status": "included",
+                  "reason": "Local JPL DE442s is loaded; Horizons remains the controlled fallback.",
+                  "ephemeris": {
+                    "loaded": true,
+                    "status": "loaded",
+                    "source_key": "jpl_de442s_local",
+                    "fallback_source": "jpl_horizons",
+                    "object_count": 9,
+                    "release_version": "de442s-2025-02-06",
+                    "coverage_start": "1849-12-26T00:00:00Z",
+                    "coverage_end": "2150-01-22T00:00:00Z",
+                    "kernel_filename": "de442s.bsp",
+                    "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+                    "message": "Local JPL DE442s ephemeris is loaded."
+                  }
+                },
+                "moon_sun": {
+                  "status": "included",
+                  "reason": "Local JPL DE442s is loaded; Horizons remains the controlled fallback.",
+                  "ephemeris": {
+                    "loaded": true,
+                    "status": "loaded",
+                    "source_key": "jpl_de442s_local",
+                    "fallback_source": "jpl_horizons",
+                    "object_count": 9,
+                    "release_version": "de442s-2025-02-06",
+                    "coverage_start": "1849-12-26T00:00:00Z",
+                    "coverage_end": "2150-01-22T00:00:00Z",
+                    "kernel_filename": "de442s.bsp",
+                    "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+                    "message": "Local JPL DE442s ephemeris is loaded."
+                  }
+                },
+                "satellites": {
+                  "status": "degraded",
+                  "reason": "Local TLE feed is stale; visible satellite discovery is disabled until the feed is refreshed.",
+                  "freshness_status": "stale",
+                  "nearest_tle_epoch": "2026-05-16T02:33:04Z",
+                  "nearest_tle_age_days": 77.106,
+                  "newest_tle_epoch": "2026-06-05T23:36:57Z",
+                  "newest_tle_age_days": 97.984
+                }
+              },
+              "curation": {
+                "policy": "balanced-v1",
+                "available_categories": [
+                  "solar_system",
+                  "dso",
+                  "bright_star"
+                ],
+                "selected_category_counts": {
+                  "solar_system": 1,
+                  "dso": 1,
+                  "bright_star": 1,
+                  "satellite": 0
+                },
+                "missing_categories": [
+                  "satellite"
+                ],
+                "reservation_satisfied": true
+              },
+              "cache": {
+                "status": "degraded",
+                "ttl_seconds": 30,
+                "key_version": "v3"
+              }
+            },
+            "error": null
+          },
+          "selected": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-02-28T00:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 2.697432585727,
+                "pitchRad": 0.489245606585,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": {
+              "id": "Bright Star Catalog (local):star-sirius:star",
+              "name": "Sirius",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-sirius",
+              "model": "star",
+              "ra": 101.28715539,
+              "dec": -16.71611582,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-sirius"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "-1.44"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Sirius?catalog=Bright+Star+Catalog+%28local%29&source_id=star-sirius&model=star&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=101.28715539&dec=-16.71611582"
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "withConstellations": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-02-28T00:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 2.697432585727,
+                "pitchRad": 0.489245606585,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": {
+              "id": "Bright Star Catalog (local):star-sirius:star",
+              "name": "Sirius",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-sirius",
+              "model": "star",
+              "ra": 101.28715539,
+              "dec": -16.71611582,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-sirius"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "-1.44"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Sirius?catalog=Bright+Star+Catalog+%28local%29&source_id=star-sirius&model=star&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=101.28715539&dec=-16.71611582"
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": true,
+              "labels": true,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "restored": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-02-28T00:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 2.697432585727,
+                "pitchRad": 0.489245606585,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": {
+              "id": "Bright Star Catalog (local):star-sirius:star",
+              "name": "Sirius",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-sirius",
+              "model": "star",
+              "ra": 101.28715539,
+              "dec": -16.71611582,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-sirius"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "-1.44"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Sirius?catalog=Bright+Star+Catalog+%28local%29&source_id=star-sirius&model=star&date=2026-02-28T00%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=101.28715539&dec=-16.71611582"
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          }
+        },
+        {
+          "name": "astronomical-night",
+          "utc": "2026-08-13T04:00:00Z",
+          "target": "Deneb",
+          "screens": [
+            "667x390-astronomical-night-initial.png",
+            "667x390-astronomical-night-settled.png",
+            "667x390-astronomical-night-selected-collapsed.png",
+            "667x390-astronomical-night-selected-expanded.png",
+            "667x390-astronomical-night-constellations.png"
+          ],
+          "initial": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-08-13T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": null,
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "settled": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-08-13T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0,
+                "pitchRad": 0.523598775598,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": null,
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "observabilityHttp": 200,
+          "observability": {
+            "status": "ok",
+            "data": {
+              "objects": [
+                {
+                  "id": "Bright Star Catalog (local):star-deneb",
+                  "catalog": "Bright Star Catalog (local)",
+                  "source_id": "star-deneb",
+                  "model": "star",
+                  "name": "Deneb",
+                  "type": "star",
+                  "ra": 310.3575,
+                  "dec": 45.2803,
+                  "alt": 82.764,
+                  "az": 54.055,
+                  "magnitude": 1.25,
+                  "is_visible": true,
+                  "priority": 0.92388,
+                  "reason": "Bright local star at 82.8 deg altitude.",
+                  "sky_engine_url": "/oras-sky-engine/skysource/Deneb?catalog=Bright+Star+Catalog+%28local%29&source_id=star-deneb&model=star&ra=310.3575&dec=45.2803&fov=2&date=2026-08-13T04%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+                  "above_geometric_horizon": true,
+                  "observability": {
+                    "above_geometric_horizon": true,
+                    "altitude_deg": 82.764,
+                    "azimuth_deg": 54.055,
+                    "sky_state": "astronomical_night",
+                    "in_astronomical_darkness": true,
+                    "moon_angular_separation_deg": 120.1579630569979,
+                    "assessment": "above_horizon_astronomical_night",
+                    "limitations": [
+                      "geometric_horizon_only",
+                      "detectability_not_evaluated"
+                    ]
+                  }
+                },
+                {
+                  "id": "NGC (OpenNGC):NGC6871",
+                  "catalog": "NGC (OpenNGC)",
+                  "source_id": "NGC6871",
+                  "model": "dso",
+                  "name": "NGC 6871",
+                  "type": "open_cluster",
+                  "ra": 301.49766667,
+                  "dec": 35.77725,
+                  "alt": 84.44,
+                  "az": 184.418,
+                  "magnitude": 5.2,
+                  "is_visible": true,
+                  "priority": 0.75621,
+                  "reason": "OpenNGC open_cluster at 84.4 deg altitude.",
+                  "sky_engine_url": "/oras-sky-engine/skysource/NGC6871?catalog=NGC+%28OpenNGC%29&source_id=NGC6871&model=dso&ra=301.4976666667&dec=35.77725&fov=3&date=2026-08-13T04%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+                  "object_type_label": "Open Cluster",
+                  "aliases": [
+                    "NGC 6871",
+                    "NGC6871",
+                    "MWSC 3253"
+                  ],
+                  "constellation": "Cyg",
+                  "angular_size": {
+                    "major_arcmin": 9.3,
+                    "minor_arcmin": null,
+                    "position_angle_deg": null
+                  },
+                  "source_attribution": [
+                    {
+                      "name": "OpenNGC",
+                      "source_key": "openngc_local",
+                      "license_note": "OpenNGC by Mattia Verga, CC-BY-SA-4.0",
+                      "source_url": "https://github.com/mattiaverga/OpenNGC"
+                    }
+                  ],
+                  "data_sources": {
+                    "identity": [
+                      "OpenNGC"
+                    ],
+                    "position": [
+                      "OpenNGC"
+                    ],
+                    "photometry": [
+                      "OpenNGC"
+                    ],
+                    "aliases": [
+                      "OpenNGC"
+                    ],
+                    "upstream": [
+                      "NED",
+                      "HyperLEDA",
+                      "SIMBAD",
+                      "HEASARC"
+                    ]
+                  },
+                  "enrichment_status": {
+                    "identity": "source_backed",
+                    "aliases": "source_backed",
+                    "description": "not_available"
+                  },
+                  "above_geometric_horizon": true,
+                  "observability": {
+                    "above_geometric_horizon": true,
+                    "altitude_deg": 84.44,
+                    "azimuth_deg": 184.418,
+                    "sky_state": "astronomical_night",
+                    "in_astronomical_darkness": true,
+                    "moon_angular_separation_deg": 125.72434592965361,
+                    "assessment": "above_horizon_astronomical_night",
+                    "limitations": [
+                      "geometric_horizon_only",
+                      "detectability_not_evaluated"
+                    ]
+                  }
+                },
+                {
+                  "id": "Solar System (JPL):neptune",
+                  "catalog": "Solar System (JPL)",
+                  "source_id": "neptune",
+                  "model": "planet",
+                  "name": "Neptune",
+                  "type": "planet",
+                  "ra": 4.29254946,
+                  "dec": 0.33152958,
+                  "alt": 20.691,
+                  "az": 108.894,
+                  "magnitude": null,
+                  "is_visible": true,
+                  "priority": 0.38193,
+                  "reason": "JPL DE442s Neptune position at 20.7 deg altitude.",
+                  "sky_engine_url": "/oras-sky-engine/skysource/Neptune?catalog=Solar+System+%28JPL%29&source_id=neptune&model=planet&ra=4.2925494638&dec=0.3315295774&fov=1&date=2026-08-13T04%3A00%3A00Z&lat=41.321903&lng=-79.585394&elev=432.816",
+                  "ephemeris_source": "jpl_de442s_local",
+                  "target_reference": "Neptune barycenter",
+                  "distance_au": 29.137666446012556,
+                  "above_geometric_horizon": true,
+                  "observability": {
+                    "above_geometric_horizon": true,
+                    "altitude_deg": 20.691,
+                    "azimuth_deg": 108.894,
+                    "sky_state": "astronomical_night",
+                    "in_astronomical_darkness": true,
+                    "moon_angular_separation_deg": 142.0892139484017,
+                    "assessment": "above_horizon_astronomical_night",
+                    "limitations": [
+                      "geometric_horizon_only",
+                      "detectability_not_evaluated"
+                    ]
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "contract_version": "above-me.v1",
+              "observer": {
+                "lat": 41.321903,
+                "lng": -79.585394,
+                "elev": 432.816
+              },
+              "time": "2026-08-13T04:00:00Z",
+              "limit": 3,
+              "total_candidates": 48,
+              "visible_candidates": 23,
+              "observability_context": {
+                "schema_version": "observability.v1",
+                "observer": {
+                  "lat": 41.321903,
+                  "lng": -79.585394,
+                  "elev": 432.816
+                },
+                "horizon_model": "geometric",
+                "site_horizon_status": "not_modeled",
+                "sky_darkness": {
+                  "state": "astronomical_night",
+                  "sun_altitude_deg": -30.78849304150138,
+                  "in_astronomical_darkness": true,
+                  "source": "jpl_de442s_local"
+                },
+                "moon": {
+                  "altitude_deg": -31.170197533969652,
+                  "azimuth_deg": 329.67667110448286,
+                  "above_geometric_horizon": false,
+                  "ra_deg": 148.2674699825211,
+                  "dec_deg": 12.293788314909234,
+                  "ra_icrf_deg": 147.91173081262477,
+                  "dec_icrf_deg": 12.417397398031268,
+                  "source": "jpl_de442s_local"
+                },
+                "weather": {
+                  "status": "not_evaluated_for_selected_time",
+                  "source": "open_meteo_current",
+                  "last_updated": null
+                },
+                "limitations": [
+                  "Actual site terrain, trees, and buildings are not modeled.",
+                  "Equipment-specific detectability is not evaluated."
+                ]
+              },
+              "object_sources": {
+                "messier_local": {
+                  "status": "included",
+                  "reason": "Local Messier seed objects have stable identity and RA/Dec."
+                },
+                "openngc_local": {
+                  "status": "included",
+                  "reason": "Normalized OpenNGC local catalog provides bounded visible DSO discovery and exact NGC/IC identity links."
+                },
+                "bright_star_local": {
+                  "status": "included",
+                  "reason": "Local bright-star seed objects have stable identity and RA/Dec."
+                },
+                "hipparcos_tier2_local": {
+                  "status": "included",
+                  "reason": "Existing Hipparcos Tier 2 dataset provides stable string IDs, RA/Dec, and magnitude."
+                },
+                "gaia_dr2": {
+                  "status": "lookup_only",
+                  "reason": "Exact lookup exists, but broad indexed discovery/ranking is not implemented in this pass."
+                },
+                "planets": {
+                  "status": "included",
+                  "reason": "Local JPL DE442s is loaded; Horizons remains the controlled fallback.",
+                  "ephemeris": {
+                    "loaded": true,
+                    "status": "loaded",
+                    "source_key": "jpl_de442s_local",
+                    "fallback_source": "jpl_horizons",
+                    "object_count": 9,
+                    "release_version": "de442s-2025-02-06",
+                    "coverage_start": "1849-12-26T00:00:00Z",
+                    "coverage_end": "2150-01-22T00:00:00Z",
+                    "kernel_filename": "de442s.bsp",
+                    "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+                    "message": "Local JPL DE442s ephemeris is loaded."
+                  }
+                },
+                "moon_sun": {
+                  "status": "included",
+                  "reason": "Local JPL DE442s is loaded; Horizons remains the controlled fallback.",
+                  "ephemeris": {
+                    "loaded": true,
+                    "status": "loaded",
+                    "source_key": "jpl_de442s_local",
+                    "fallback_source": "jpl_horizons",
+                    "object_count": 9,
+                    "release_version": "de442s-2025-02-06",
+                    "coverage_start": "1849-12-26T00:00:00Z",
+                    "coverage_end": "2150-01-22T00:00:00Z",
+                    "kernel_filename": "de442s.bsp",
+                    "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c",
+                    "message": "Local JPL DE442s ephemeris is loaded."
+                  }
+                },
+                "satellites": {
+                  "status": "degraded",
+                  "reason": "Local TLE feed is stale; visible satellite discovery is disabled until the feed is refreshed.",
+                  "freshness_status": "stale",
+                  "nearest_tle_epoch": "2026-06-05T23:36:57Z",
+                  "nearest_tle_age_days": 68.183,
+                  "newest_tle_epoch": "2026-06-05T23:36:57Z",
+                  "newest_tle_age_days": 68.183
+                }
+              },
+              "curation": {
+                "policy": "balanced-v1",
+                "available_categories": [
+                  "solar_system",
+                  "dso",
+                  "bright_star"
+                ],
+                "selected_category_counts": {
+                  "solar_system": 1,
+                  "dso": 1,
+                  "bright_star": 1,
+                  "satellite": 0
+                },
+                "missing_categories": [
+                  "satellite"
+                ],
+                "reservation_satisfied": true
+              },
+              "cache": {
+                "status": "degraded",
+                "ttl_seconds": 30,
+                "key_version": "v3"
+              }
+            },
+            "error": null
+          },
+          "selected": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-08-13T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0.943220233038,
+                "pitchRad": 1.441184309394,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": {
+              "id": "Bright Star Catalog (local):star-deneb:star",
+              "name": "Deneb",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-deneb",
+              "model": "star",
+              "ra": 310.35797809,
+              "dec": 45.280338,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-deneb"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "1.25"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Deneb?catalog=Bright+Star+Catalog+%28local%29&source_id=star-deneb&model=star&date=2026-08-13T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=310.35797809&dec=45.280338"
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "withConstellations": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-08-13T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0.943220233038,
+                "pitchRad": 1.441184309394,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": {
+              "id": "Bright Star Catalog (local):star-deneb:star",
+              "name": "Deneb",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-deneb",
+              "model": "star",
+              "ra": 310.35797809,
+              "dec": 45.280338,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-deneb"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "1.25"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Deneb?catalog=Bright+Star+Catalog+%28local%29&source_id=star-deneb&model=star&date=2026-08-13T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=310.35797809&dec=45.280338"
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": true,
+              "labels": true,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          },
+          "restored": {
+            "navigation": {
+              "mode": "sky",
+              "observer": {
+                "lat": 41.3219030000159,
+                "lon": -79.58539400000345,
+                "elevationM": 432.816
+              },
+              "elevationSource": "oras-site",
+              "utc": "2026-08-13T04:00:00.000Z",
+              "live": false,
+              "camera": {
+                "projection": 2,
+                "fovRad": 2.094395102393,
+                "yawRad": 0.943220233038,
+                "pitchRad": 1.441184309394,
+                "rollRad": 0,
+                "landscapeVisible": true
+              }
+            },
+            "selection": {
+              "id": "Bright Star Catalog (local):star-deneb:star",
+              "name": "Deneb",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-deneb",
+              "model": "star",
+              "ra": 310.35797809,
+              "dec": 45.280338,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-deneb"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "1.25"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Deneb?catalog=Bright+Star+Catalog+%28local%29&source_id=star-deneb&model=star&date=2026-08-13T04%3A00%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=310.35797809&dec=45.280338"
+            },
+            "landscape": "pennsylvania-woodland-v1",
+            "atmosphere": false,
+            "stars": {
+              "model": "stars",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkyway": {
+              "model": "milkyway",
+              "types": [
+                ""
+              ],
+              "names": []
+            },
+            "milkywayVisible": true,
+            "dssVisible": true,
+            "constellations": {
+              "lines": false,
+              "labels": false,
+              "art": false
+            },
+            "dsos": true,
+            "night": false,
+            "denseProfile": "visual-default",
+            "storage": {
+              "orasDenseStarsProfile": "visual-default",
+              "oras.sky.atmosphere.v1": "false",
+              "oras.sky.night-mode.v1": "false"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering and emulated touch; owner visual and physical-device acceptance remain open.",
+    "Astronomical darkness is computed separately from actual site weather, transparency, seeing and light pollution. No measured site conditions are claimed."
+  ]
+}

@@ -1,5 +1,49 @@
 # Astronomy Hub Product Vision
 
+## Active owner authorization — complete cinematic Hub and R3-B (2026-10-22)
+
+The new owner directive supersedes earlier limits to Solar R3-A and the earlier
+prohibition on Earth/Sky cinematic integration and R3-B. PR83 at b68e2b40 remains
+technically qualified within its recorded scope and **OWNER VISUALLY REJECTED**.
+The approved original Solar/Earth/Sky images are the common visual targets; Adaptive
+Explorer remains the interaction reference. This is an implementation extension of
+existing R0–R5 authority, not a new roadmap or competing design specification.
+
+Authorized bounded packages: shared cinematic UI and slogan removal; source-backed
+R3-B Sun plus eight planets and honestly modeled aggregate main belt; Earth cinematic
+UX; Sky cinematic UX; cross-mode fidelity/integration. Use separately reviewable
+draft branches stacked on the preserved PR83 chain. Each renderer retains its own
+science, scene and lifecycle. UI tokens/branding are shared; tools stay contextual.
+Earth search must be directly visible. Sky retains real Stellarium observing controls,
+scientific object positions, Pennsylvania horizon and accepted Sky/Earth scrolling.
+
+All planets must have qualified identities, explicit centers/barycenters, frames and
+UTC, independent reference checks, selection/focus and honest appearance. Aggregate
+belt particles carry no individual ephemeris identities; density/LOD/visibility are
+explicit. Identified asteroids require qualified orbital data. Pluto/dwarfs, Kuiper
+Belt, moons and comets are subsequent source-qualified content; not a blocker for
+this eight-planet/main-belt slice. No R4 surfaces, paid sources, merge or deployment.
+
+Actual before/after desktop/mobile screenshots against original references, selected
+and expanded/collapsed states, short screens, time/navigation, focused runtime tests
+and independent technical review are required. Green tests do not grant visual
+acceptance. Hardware qualification remains distinct from SwiftShader evidence.
+Preserve data, source pins, settings, rollback and historical partial qualification.
+[Execution and evidence](../validation/cinematic-hub/README.md).
+
+
+## Owner-approved cinematic presentation — 2026-10-21
+
+The owner explicitly selected one **premium, immersive, scene-first cinematic Astronomy Hub design family** spanning Solar System, Earth and Sky. The exact original concept PNGs are hash-identified in the [Cinematic Design Reference](../design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md). This supersedes visually incompatible generic dashboard treatments while retaining prior R1-A/ORA-6 Adaptive Explorer UX sketches as the structural/interaction foundation.
+
+**Order:** deliver the owner-authorized shared cinematic foundation, source-backed R3-B major planets/main belt, Earth UX, Sky UX and cross-mode fidelity packages. Preserve the R3-A scientific engine; eventual Planet View remains R4 and is not activated. R3-A's code/science is technically qualified within existing evidence, but its current visual implementation was **OWNER REJECTED**. The accepted original N1 Sky/Earth behavior remains intact. Rendered concept art is illustrative and must never be mistaken for live source-backed scene objects, licensed Earth imagery or valid orbital geometry. R3-B major planets/main belt and Earth/Sky integration now have explicit implementation authorization in the current directive; R4 remains gated. No paid provider, merge or deployment authorization follows.
+
+## Current scope reconciliation — 2026-10-21
+
+Current execution: [PROJECT_STATE](../execution/PROJECT_STATE.md); canonical R0–R5 and deferred X packages: [MASTER_PLAN](../execution/MASTER_PLAN.md).
+
+R3-A alone is owner-authorized after roadmap reconciliation. R1/N1 is OWNER ACCEPTED; R2 PR78/79/80 are delivered drafts with retained provider/device limits. No merge or production deployment. Earlier dated activation/next-step directions are historical where superseded by the current execution record. R4 evaluates Earth, Mars and Moon; Mars is a candidate, not a selected first body.
+
 ## Approved Adaptive Explorer intent — 2026-10-13
 
 **Astronomy Hub — Adaptive Explorer** is the owner-approved product direction.
@@ -90,7 +134,7 @@ explicit pinning and immersive mode, and show only relevant controls. Supporting
 facts and planning belong in context, rather than an expanding chain of dashboards.
 Future UX must start with approved visual concepts/mockups before implementation.
 
-## Current foundation
+## Historical — Current foundation
 
 PR #52's Home, Observe, Tonight and Sky host share an ORAS public shell. SWE at
 `/oras-sky-engine/` remains the contained sky renderer. Existing observing/science

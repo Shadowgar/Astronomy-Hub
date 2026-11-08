@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "builtInSeparateDirectory": true,
+  "matchesCurrentPreviewFiles": [
+    {
+      "path": "index.html",
+      "sha256": "eba24863a6345a3282cb1b1d1ae6175f9b4bafac4a2c4dbd73d3ff1eb9c4bfb0"
+    },
+    {
+      "path": "assets/plex-2-DzahmYX0.ttf",
+      "sha256": "5311c66fd6d04ae45671236f7eae667b671c06c1dc7e88d52c206e5fadd0fb21"
+    },
+    {
+      "path": "assets/plex-1-DPg3uh6f.ttf",
+      "sha256": "6f7a8c4219e021ff7c9131bc5f1f7af97bcd1436a59578d444a8cb92e9791742"
+    },
+    {
+      "path": "assets/index-BPnvPv5z.js",
+      "sha256": "e53e451a26ac6b8f47889ec93cd0f31ed08636a2a633658e201a05720b074a42"
+    },
+    {
+      "path": "assets/plex-0-BTB9ndPq.ttf",
+      "sha256": "6dbe082463cf749cfa057d45c3048c90f4df031496498e5b5bdfd0b6babb9d16"
+    },
+    {
+      "path": "assets/index-CVR0pfrH.css",
+      "sha256": "75bb587f7819c407a5b20e7d1cea6f23dfa98ae93da462b31b78fea37b56050a"
+    }
+  ]
+}

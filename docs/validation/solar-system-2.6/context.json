@@ -1,0 +1,107 @@
+{
+  "pack": "solar_reconstruction",
+  "baseline": "66050b5e7f3a9cbcfccbf6258645bd1804051b28",
+  "documents": [
+    {
+      "path": "docs/context/CORE_CONTEXT.md",
+      "sha256": "8c1ed3e423c0b2978bdfe4841d14ae48c0d6dfce857f248a24b34fe7f4e48bca"
+    },
+    {
+      "path": "docs/context/LIVE_SESSION_BRIEF.md",
+      "sha256": "5f011f4a001aa52e50cddc85eef0d13ecc39f267f776225e2e23f2f675d62f30"
+    },
+    {
+      "path": "docs/validation/SYSTEM_VALIDATION_SPEC.md",
+      "sha256": "93b80a01cf86005b1a35913bb5e135cc8a0ebe69c09c09456b284ad3fe5b6d82"
+    },
+    {
+      "path": "docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md",
+      "sha256": "adbf687f0aef0923e13c7d5533deec51fb6b6556652ffe72ad1b8a7aaee5aa2a"
+    },
+    {
+      "path": "docs/architecture/decisions/0010-r3-a-solar-runtime.md",
+      "sha256": "af2fb12c547886cd737ecfa7cade29d5ea9a38097978bda431ec421b8350b534"
+    },
+    {
+      "path": "docs/design/ASTRONOMY_HUB_CINEMATIC_REFERENCE_2026-10-21.md",
+      "sha256": "8bf8b3bc4a81db22c700bb4ad612129a4b714cdefbc5e7f59883b5ebbd019a4d"
+    },
+    {
+      "path": "docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md",
+      "sha256": "5d048654fd4807c1f47733520cffa6a13eee82197e4e10b8ae09288abeaeab6b"
+    },
+    {
+      "path": "docs/design/adaptive-explorer-r1a/README.md",
+      "sha256": "4d70f126bc1ed046e71099a391238a0c27e0a4f600a362f81c4fdf53146cb8d6"
+    },
+    {
+      "path": "docs/validation/repository-recovery-20261026/owner-acceptance/README.md",
+      "sha256": "6a3b9496958365264827f3789ad2efd3cf963f619824b2d12bddd93783d54f39"
+    },
+    {
+      "path": "docs/validation/repository-recovery-20261026/visual-fidelity/README.md",
+      "sha256": "353b4ed8cdefb98604ce37bfb7380106d11af2021dab42011c61ec8e86aa7cc7"
+    },
+    {
+      "path": "docs/validation/solar-system-2/PLAN.md",
+      "sha256": "a22c6843f6ea7e623c93159ffaec7b8ea8fd9620020254253779c10c95b09c4d"
+    },
+    {
+      "path": "docs/validation/solar-system-2.1/PLAN.md",
+      "sha256": "800aca9b5353f17ccdaa112fe302af5c40040f08fb93930dc6f4490e98fff716"
+    },
+    {
+      "path": "docs/validation/solar-system-2.1.1/PLAN.md",
+      "sha256": "3d0792767bce3cc851d7eaa3993e2e1578e8a35be3d70b687d8fb2054cc1c4b6"
+    },
+    {
+      "path": "docs/validation/solar-system-2.2/PLAN.md",
+      "sha256": "6e7c0c2e6fbd01b865bce27ac3d798b8729d681a1790f947127d3284703f22a2"
+    },
+    {
+      "path": "docs/validation/solar-system-2.2/README.md",
+      "sha256": "73e7614497404a42332527cbddfd2e4c58786fa5b97941c984257a7f95281928"
+    },
+    {
+      "path": "docs/validation/solar-system-2.3/PLAN.md",
+      "sha256": "dd0bc23f15f5ffc0ccf14c64b84745e69fb3140afaf7ace7789e5a2611e6264d"
+    },
+    {
+      "path": "docs/validation/solar-system-2.3/README.md",
+      "sha256": "a1f9e3127eb6ed5a3fac835e18efd190fed9117c0d4562017bd96182540b89ce"
+    },
+    {
+      "path": "docs/validation/solar-system-2.4/PLAN.md",
+      "sha256": "9946ddc95dd4a3a802f290f520105afccba161ea8cc6d003e70436224f52ea5d"
+    },
+    {
+      "path": "docs/validation/solar-system-2.5/PLAN.md",
+      "sha256": "e340b27801d054cb69cb1f31119ce67aa6c2bce889a9b81d1ba8b488be4d3844"
+    },
+    {
+      "path": "docs/validation/planetary-systems/README.md",
+      "sha256": "a2c466b614859db5eb4b73c025a51c775da71ab7f236a5c95fd3aaea32a2ec00"
+    },
+    {
+      "path": "docs/validation/planetary-systems/ps3/README.md",
+      "sha256": "54aabc869ec58bf06f0dd94c8a17b1a9bcfdc963d86cdb4699ad8955ea3d8143"
+    },
+    {
+      "path": "docs/validation/solar-system-2.5/README.md",
+      "sha256": "6c81790ca6133c901def136e80793878fd02c9b5024d9d52c36afd28a701f5e1"
+    },
+    {
+      "path": "docs/validation/solar-system-2.5/SCIENCE.md",
+      "sha256": "3757730e09d0c00a9120da09490b224194ff38c9b2004ef3dc8b97dcdb1e30de"
+    },
+    {
+      "path": "docs/validation/solar-system-2.5/VALIDATION.md",
+      "sha256": "70bd2e068ba802564ee58438174e6f8bdf1dbc5ff1936e991c0cbaaa21ce7899"
+    },
+    {
+      "path": "docs/validation/solar-system-2.5/evidence/performance-performance.json",
+      "sha256": "4a70b82a32f7a3ce78977e460b5eddb6d302944534daa6526337cf68f72a0311"
+    }
+  ],
+  "note": "Current authority and relevant2.5 records refreshed; unchanged older pack documents reused from preceding work. No unrelated pack."
+}

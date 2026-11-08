@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "frontend/src/features/solar/SolarScene.ts": "88d5961bcff4d650b26663ad7d04f28ff38c46df2338e3ab6e43cecad83be127",
+    "frontend/src/features/solar/solarPresentation.ts": "03ca508f291a96b31a9fb5c3618f161af7479e5f2b6354f3ec16b2bad0d99d6c",
+    "frontend/src/features/solar/solar.css": "13fecec8f19517698f0b58af79fdbc695828c4460f920a770fe6702de63b371a",
+    "scripts/validation/verify_solar_compact_focus.mjs": "90866a401490a93d1a334cdd32940024ee11077405dda6549b14b6ec1769c266"
+  },
+  "runs": [
+    {
+      "width": 540,
+      "height": 390,
+      "checks": [
+        "Earth focus clear of HUD, exact target/time",
+        "Earth approach clear of HUD, exact target/time"
+      ]
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: 540x390 Sun focus selected center covered\n\n'BUTTON' !== 'CANVAS'\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/r3-a-cinematic-solar-1/scripts/validation/verify_solar_compact_focus.mjs:5:691"
+}

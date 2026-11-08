@@ -1,0 +1,9 @@
+{
+  "head": "bd8bae8227be4151862544423dbc2b6da7cd0fc3",
+  "status": "FAIL",
+  "checks": [
+    "ordinary arrival and short overshoot stay Sky"
+  ],
+  "pageErrors": [],
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(page.url().includes('/sky-engine'))\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_scroll_safeguards.mjs:14:68"
+}

@@ -1,0 +1,5 @@
+{
+  "originalSha256": "8838bbb0ff33d0a142b3e32a49ab8362a4704f507a8828ef083e3ce83c3d51d3",
+  "encoding": "UTF-8",
+  "content": "\n> astronomy-hub-frontend@0.0.1 test\n> vitest run tests/solarScientificView.test.ts\n\n\n RUN  v4.1.2 /home/rocco/Astronomy-Hub/.worktrees/cinematic-hub-integration-1/frontend\n\n \u276f tests/solarScientificView.test.ts (4 tests | 1 failed) 9ms\n   \u00d7 keeps all nine compact-system labels available around measured short-landscape controls 4ms\n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af Failed Tests 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af\n\n FAIL  tests/solarScientificView.test.ts > keeps all nine compact-system labels available around measured short-landscape controls\nAssertionError: expected null not to be null\n \u276f tests/solarScientificView.test.ts:36:123\n\n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af[1/1]\u23af\n\n\n Test Files  1 failed (1)\n      Tests  1 failed | 3 passed (4)\n   Start at  21:34:00\n   Duration  228ms (transform 50ms, setup 0ms, import 97ms, tests 9ms, environment 0ms)\n\n"
+}

@@ -1,0 +1,62 @@
+{
+  "base": "http://127.0.0.1:4224",
+  "checks": [
+    {
+      "key": "start",
+      "advertised": "2026-09-30T23:58:50.818Z",
+      "browserDate": "2026-09-30T23:58:50.818Z",
+      "status": 200
+    },
+    {
+      "key": "end",
+      "advertised": "2026-10-31T23:58:50.817Z",
+      "browserDate": "2026-10-31T23:58:50.817Z",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "coverage": {
+    "start": "2026-09-30T23:58:50.818Z",
+    "end": "2026-10-31T23:58:50.817Z"
+  },
+  "source": {
+    "id": "jpl_horizons_local",
+    "release": "horizons-oct2026",
+    "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+    "url": "https://ssd.jpl.nasa.gov/horizons/",
+    "coverage_start_jd_tdb": 2461314.5,
+    "coverage_end_jd_tdb": 2461345.5,
+    "series": [
+      {
+        "target_id": "499",
+        "center_id": "10",
+        "target_header": "Target body name: Mars (499)                      {source: mar099}",
+        "center_header": "Center body name: Sun (10)                        {source: DE441}",
+        "source_sha256": "8610967e5925250641c44038847b1e743514d674919a1feb75a4daae400852a1",
+        "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27499%27&CENTER=%27500%4010%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2760+m%27"
+      },
+      {
+        "target_id": "401",
+        "center_id": "499",
+        "target_header": "Target body name: Phobos (401)                    {source: mar099}",
+        "center_header": "Center body name: Mars (499)                      {source: mar099}",
+        "source_sha256": "5b92354f998e183b7756983fdfb3f2c4eb6b5ae07f62950c23f7a43abaa237a3",
+        "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27401%27&CENTER=%27500%40499%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2710+m%27"
+      },
+      {
+        "target_id": "402",
+        "center_id": "499",
+        "target_header": "Target body name: Deimos (402)                    {source: mar099}",
+        "center_header": "Center body name: Mars (499)                      {source: mar099}",
+        "source_sha256": "fef1c8eefcddbb4c5f61cb9a6ea2129036e2253f11ee81c9913879193edaa07a",
+        "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27FRAME%27&VEC_CORR=%27NONE%27&VEC_TABLE=%272%27&OUT_UNITS=%27KM-S%27&CSV_FORMAT=%27YES%27&TIME_TYPE=%27TDB%27&CAL_TYPE=%27GREGORIAN%27&COMMAND=%27402%27&CENTER=%27500%40499%27&START_TIME=%272026-10-01+00%3A00%27&STOP_TIME=%272026-11-01+00%3A00%27&STEP_SIZE=%2730+m%27"
+      }
+    ],
+    "transition": "Separate Horizons physical-center domain; no DE442s barycenter offset applied."
+  },
+  "browserStatus": "ready",
+  "browserMessage": [],
+  "status": "PASS",
+  "reviewedSha": "26aa6111aa3ac5227215c1a19318eda10a8d8cd8",
+  "sourceAndServedReceiptVerified": true
+}

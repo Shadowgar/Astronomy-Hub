@@ -1,0 +1,30 @@
+FEE
+======================================================================
+ERROR: test_default_and_real_alternate_pinned_checkout (__main__.SourceSelection.test_default_and_real_alternate_pinned_checkout)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/runtime/test_sky_source.py", line 10, in test_default_and_real_alternate_pinned_checkout
+    from sky_source import selected_source
+ModuleNotFoundError: No module named 'sky_source'
+
+======================================================================
+ERROR: test_missing_and_unapproved_source_fail_closed (__main__.SourceSelection.test_missing_and_unapproved_source_fail_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/runtime/test_sky_source.py", line 27, in test_missing_and_unapproved_source_fail_closed
+    from sky_source import selected_source
+ModuleNotFoundError: No module named 'sky_source'
+
+======================================================================
+FAIL: test_bad_override_fails_before_attestation_reads_build_inputs (__main__.SourceSelection.test_bad_override_fails_before_attestation_reads_build_inputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/runtime/test_sky_source.py", line 24, in test_bad_override_fails_before_attestation_reads_build_inputs
+    self.assertNotEqual(result.returncode,0);self.assertIn('Invalid Stellarium source',result.stderr)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Invalid Stellarium source' not found in 'Traceback (most recent call last):\n  File "/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/runtime/attest_sky_horizon.py", line 28, in <module>\n    assert (tree/name).read_bytes()==data,\'Unexpected native source change: \'+name\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/usr/lib/python3.12/pathlib.py", line 1021, in read_bytes\n    with self.open(mode=\'rb\') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File "/usr/lib/python3.12/pathlib.py", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: \'/tmp/tmpjge5i65f/build/Makefile\'\n'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.197s
+
+FAILED (failures=1, errors=2)

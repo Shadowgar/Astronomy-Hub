@@ -1,0 +1,511 @@
+{
+  "status": "PASS",
+  "base": "http://127.0.0.1:4203",
+  "sourceHashes": {
+    "scripts/validation/verify_r2_earth_search.mjs": "e74c5bf26816d03fca58e0b6137d690a66ab67032b06a8f49507ad6da3eca016",
+    "frontend/src/features/workspace/EarthSearch.tsx": "9fbb191bd7f02a0285adb10309e9340d75fed2a2e0d74c78a2e307a1b372e9c5",
+    "frontend/src/features/workspace/earthSearch.ts": "38e68d4e164977e5a7b6b269fb7a16f5f596fb54eacbc4eac1d004239e1700fe",
+    "frontend/src/features/workspace/EarthExplore.tsx": "cfcda9e8ff6c717b182f323f43065b137355fad54804a9a21e5ce96a5447c0f3",
+    "frontend/src/features/workspace/earthLocationNavigation.ts": "069cf7d852dc973140d8992b05affe3a0112ba10257965a7ecd8de597fadab87",
+    "frontend/src/features/workspace/useEarthLocation.ts": "1d6c07cc4349ce61b30af9fdbdcec3bfe27ee057c608b2e25e62065d601d16b8",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "f07a87258b20196d7242ac1dc4fd5c5426334cf0427d9a78f92d656602c6da07",
+    "backend/app/services/earth_search.py": "86f9a9d173ea870b4a7b8be00a8a175ecabddcd11070f8c5d17506d793278859",
+    "backend/app/routes/earth.py": "adea444c69d2db3f4bfe9a6da82a8e5c71681c9bb4b7b98cdb8996c9ebd73315",
+    "integrations/renderers.lock.json": "89798c0408bed826e6968e6fa14e7e9c030d51b5300c0aeb967b233a19ad2213",
+    "frontend/public/runtime-versions.json": "88dc601aa82340c7487acd10ea16883972955e41e08cd7100e4ac9544d70b82a"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "steps": [
+        "Earth ready; exactly one owned renderer",
+        "Ambiguous real city: explicit second candidate; native destination matches",
+        "Real zoom/pan; center anchoring preserved",
+        "Real named place: native camera and contextual details",
+        "Same-runtime Back/Forward restores actual panned/search camera bookmarks",
+        "Reload restores search destination through qualified host/native bookmark",
+        "Invalid coordinates declined without navigation",
+        "Reviewed hemisphere-letter city name reaches real provider and native destination",
+        "Offline coordinate search reaches genuine zero latitude/longitude",
+        "Real street address: provider details and actual Cesium destination",
+        "Declared no-result, unavailable and busy cases remain distinct and usable",
+        "Sky return uses actual searched surface observer/time; accepted panorama unchanged",
+        "Back from Sky restores searched Earth camera; one active renderer",
+        "Existing manual Explore coordinates and canonical ORAS context preserved"
+      ],
+      "scenes": [
+        {
+          "name": "city-results",
+          "file": "1440-city-results.png",
+          "sha256": "347fb11722959e10a6af32649f2c74bce4b32156508210149c3832ec5c9618f2"
+        },
+        {
+          "name": "native-earth",
+          "file": "1440-native-earth.png",
+          "sha256": "56d7a16b72fad41ce21844c4d4c5366f4ec5ae947a36d3f2bf7df452e76f0380"
+        },
+        {
+          "name": "street-address",
+          "file": "1440-street-address.png",
+          "sha256": "0eae555cea2ca40bc1f2210ecf3f732dbb9587140c9961736268e0e4cd168036"
+        },
+        {
+          "name": "no-results",
+          "file": "1440-no-results.png",
+          "sha256": "a7256cc017b3541ea11fc1fbd6f8d600c6b6404b687ab6b511a8615993d91387"
+        },
+        {
+          "name": "provider-unavailable",
+          "file": "1440-provider-unavailable.png",
+          "sha256": "afa3ffce0d7dd530465d4d19ed53e0b311900c9a5d35b92709dcbf47978d51d4"
+        },
+        {
+          "name": "sky-return",
+          "file": "1440-sky-return.png",
+          "sha256": "de8af2c9693bb0c970a1e81fe12b4e489522ec1a51d7508b064a645c419e7cc8"
+        }
+      ],
+      "responses": [
+        {
+          "query": "Springfield",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:1181618",
+              "name": "Springfield",
+              "description": "Hampden, Massachusetts, United States",
+              "kind": "city",
+              "lat": 42.1018764,
+              "lon": -72.5886727
+            },
+            {
+              "id": "osm:R:126326",
+              "name": "Springfield",
+              "description": "Sangamon, Illinois, United States",
+              "kind": "city",
+              "lat": 39.7990175,
+              "lon": -89.6439575
+            },
+            {
+              "id": "osm:R:141244",
+              "name": "Springfield",
+              "description": "Greene, Missouri, United States",
+              "kind": "city",
+              "lat": 37.2081729,
+              "lon": -93.2922715
+            },
+            {
+              "id": "osm:R:182868",
+              "name": "Springfield",
+              "description": "Clark, Ohio, United States",
+              "kind": "city",
+              "lat": 39.9234046,
+              "lon": -83.810138
+            },
+            {
+              "id": "osm:R:186721",
+              "name": "Springfield",
+              "description": "Lane, Oregon, United States",
+              "kind": "city",
+              "lat": 44.0462362,
+              "lon": -123.0220289
+            }
+          ]
+        },
+        {
+          "query": "Eiffel Tower Paris",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:W:5013364",
+              "name": "Eiffel Tower",
+              "description": "5 Avenue Anatole France, Paris, Île-de-France, 75007, France",
+              "kind": "house",
+              "lat": 48.8582599,
+              "lon": 2.2945006
+            },
+            {
+              "id": "osm:W:115878663",
+              "name": "Novotel Paris Centre Eiffel Tower",
+              "description": "Rue Gaston de Caillavet, Paris, Île-de-France, 75015, France",
+              "kind": "house",
+              "lat": 48.8496595,
+              "lon": 2.2837039
+            },
+            {
+              "id": "osm:N:9322116894",
+              "name": "The Eiffel Tower of Paris, Maine",
+              "description": "South Paris, Paris, Oxford, Maine, 04281, United States",
+              "kind": "other",
+              "lat": 44.2159384,
+              "lon": -70.518416
+            },
+            {
+              "id": "osm:W:354915873",
+              "name": "Eiffel Tower Park",
+              "description": "Hancock, Paris, Henry, Tennessee, United States",
+              "kind": "other",
+              "lat": 36.2870954,
+              "lon": -88.3007407
+            },
+            {
+              "id": "osm:W:1051308117",
+              "name": "Eiffel Tower Park",
+              "description": "Hancock, Paris, Henry, Tennessee, United States",
+              "kind": "other",
+              "lat": 36.2870171,
+              "lon": -88.305595
+            }
+          ]
+        },
+        {
+          "query": "Essen",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:R:62713",
+              "name": "Essen",
+              "description": "North Rhine-Westphalia, Germany",
+              "kind": "city",
+              "lat": 51.4582235,
+              "lon": 7.0158171
+            },
+            {
+              "id": "osm:R:964003",
+              "name": "Essen",
+              "description": "Antwerp, 2910, Belgium",
+              "kind": "city",
+              "lat": 51.4679229,
+              "lon": 4.4698256
+            },
+            {
+              "id": "osm:N:4623339106",
+              "name": "Essen",
+              "description": "Handelsstraat, Antwerp, 2910, Belgium",
+              "kind": "house",
+              "lat": 51.4626799,
+              "lon": 4.45117
+            },
+            {
+              "id": "osm:N:45506571",
+              "name": "Essen",
+              "description": "Kootwijkerbroek, Gelderland, 3774 JD, Netherlands",
+              "kind": "district",
+              "lat": 52.1580407,
+              "lon": 5.6889224
+            },
+            {
+              "id": "osm:R:4012841",
+              "name": "Essene",
+              "description": "Halle-Vilvoorde, Flemish Brabant, Belgium",
+              "kind": "city",
+              "lat": 50.8973851,
+              "lon": 4.1390421
+            }
+          ]
+        },
+        {
+          "query": "221B Baker Street London",
+          "source": "Photon / OpenStreetMap",
+          "results": [
+            {
+              "id": "osm:N:3916613190",
+              "name": "Sherlock Holmes Museum",
+              "description": "221B Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5237629,
+              "lon": -0.1584743
+            },
+            {
+              "id": "osm:N:5568763423",
+              "name": "221B Baker Street",
+              "description": "Baker Street, Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.5233879,
+              "lon": -0.1582367
+            },
+            {
+              "id": "osm:W:176312585",
+              "name": "221B Baker Street",
+              "description": "Marylebone, Westminster, Greater London, England, NW1 6XE, United Kingdom",
+              "kind": "house",
+              "lat": 51.523748,
+              "lon": -0.1585699
+            }
+          ]
+        }
+      ],
+      "pageErrors": [],
+      "resourceFailures": [
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-90%2C0%2C-45%2C45&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-90%2C22.5%2C-67.5%2C45&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-112.5%2C22.5%2C-90%2C45&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-135%2C0%2C-90%2C45&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=0%2C0%2C0.7031249999999976%2C0.7031249999999976&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=-0.7031249999999976%2C0%2C0%2C0.7031249999999976&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=0%2C0%2C1.4062499999999951%2C1.4062499999999951&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=0%2C-1.4062499999999951%2C1.4062499999999951%2C0&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4203/oras-sky-engine/skydata/surveys/dss/v1/properties",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=0%2C45%2C11.250000000000012%2C56.25&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        },
+        {
+          "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?format=image%2Fjpeg&transparent=false&version=1.1.1&service=WMS&request=GetMap&styles=&layers=BlueMarble_ShadedRelief_Bathymetry&bbox=0%2C45%2C22.5%2C67.5&width=512&height=512&srs=EPSG%3A4326",
+          "error": "net::ERR_NETWORK_CHANGED"
+        }
+      ],
+      "backBookmark": {
+        "mode": "earth",
+        "observer": {
+          "lat": 39.80374839327537,
+          "lon": -89.6611214151775,
+          "elevationM": 0
+        },
+        "elevationSource": "unavailable-zero",
+        "camera": {
+          "latitudeRad": 0.6947064636735684,
+          "longitudeRad": -1.5648817797254126,
+          "heightM": 26191.781120875596,
+          "headingRad": 1.7763568394002505e-15,
+          "pitchRad": -1.570782689797951,
+          "rollRad": 0
+        },
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false
+      },
+      "skyReturn": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 51.523762900005615,
+            "lon": -0.15847430001184593,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "landscape": "pennsylvania-woodland-v1"
+      },
+      "final": {
+        "owner": "Astronomy Hub",
+        "ready": true,
+        "disposed": false,
+        "viewerDestroyed": false,
+        "site": {
+          "lat": 41.321903,
+          "lon": -79.585394,
+          "elevationM": 432.816
+        },
+        "layers": [
+          {
+            "id": "oras-site",
+            "title": "ORAS site",
+            "category": "Site context",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "ORAS canonical site",
+            "status": "ready"
+          },
+          {
+            "id": "aircraft",
+            "title": "Aircraft near ORAS",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "adsb.lol · ODbL 1.0",
+            "status": "disabled"
+          },
+          {
+            "id": "satellites",
+            "title": "Satellites · stations",
+            "category": "Live Earth",
+            "capabilities": [
+              "selection",
+              "tracking",
+              "live-only"
+            ],
+            "attribution": "CelesTrak · satellite.js",
+            "status": "disabled"
+          },
+          {
+            "id": "weather",
+            "title": "Weather at ORAS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "live-only"
+            ],
+            "attribution": "Open-Meteo · CC BY 4.0",
+            "status": "disabled"
+          },
+          {
+            "id": "earthquakes",
+            "title": "Earthquakes · M2.5+ · past day",
+            "category": "Events",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "U.S. Geological Survey",
+            "status": "disabled"
+          },
+          {
+            "id": "fire-perimeters",
+            "title": "Fire perimeters · recent subset",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NIFC/WFIGS",
+            "status": "disabled"
+          },
+          {
+            "id": "weather-radar",
+            "title": "Radar reflectivity · CONUS",
+            "category": "Environment",
+            "capabilities": [
+              "selection",
+              "focus"
+            ],
+            "attribution": "NOAA/NWS nowCOAST",
+            "status": "disabled"
+          }
+        ],
+        "providers": {
+          "satellites": {
+            "status": "loading",
+            "temporalMode": "LIVE_ONLY"
+          }
+        },
+        "entityCount": 1,
+        "timings": {
+          "moduleLoadedMs": 160.70000000018626,
+          "shellInteractiveMs": 199.5,
+          "viewerReadyMs": 201.70000000018626,
+          "firstImageryTileMs": 1604.5,
+          "firstHdTileMs": 14539.099999999627
+        },
+        "cameraMotion": {
+          "active": false
+        },
+        "cameraHeightM": 39999.999999968044,
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 41.321903001007314,
+            "lon": -79.5853940000091,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "camera": {
+            "latitudeRad": 0.7212032605397223,
+            "longitudeRad": -1.38902716179694,
+            "heightM": 39999.999999968044,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.570775528851808,
+            "rollRad": 0
+          },
+          "utc": "2026-06-05T02:10:00.000Z",
+          "live": false
+        },
+        "tracking": null,
+        "selection": null,
+        "quality": {
+          "imagery": "USGS aerial · CONUS only · 2017–2021 mosaic; global fallback elsewhere",
+          "terrain": "Terrain unavailable · ellipsoid",
+          "buildings": "Not configured",
+          "photorealistic": "Not configured"
+        },
+        "imagery": {
+          "local": {
+            "state": "ready",
+            "requested": 7,
+            "loaded": 7,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 0,
+            "peak": 4
+          },
+          "gibs": {
+            "state": "failed",
+            "requested": 18,
+            "loaded": 14,
+            "failed": 1,
+            "cancelled": 3,
+            "active": 0,
+            "peak": 4
+          },
+          "usgs": {
+            "state": "ready",
+            "requested": 8,
+            "loaded": 4,
+            "failed": 0,
+            "cancelled": 0,
+            "active": 4,
+            "peak": 4
+          }
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Chromium software rendering/emulated mobile; no physical-device or full R2 imagery/cache acceptance.",
+    "Address/place matches are actual Photon/OpenStreetMap results. Controlled empty/503/429 responses are isolated transport fixtures, never fabricated locations.",
+    "N1 historical full navigation5/22 and7/22 is unchanged and not rerun."
+  ]
+}

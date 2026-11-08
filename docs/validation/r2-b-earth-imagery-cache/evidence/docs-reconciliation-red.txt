@@ -1,0 +1,2 @@
+Observed before current-entrypoint documentation correction:
+FAIL: plan basemaps: missing source entrypoint boundImageryRequests

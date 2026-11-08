@@ -1,0 +1,1 @@
+Native central-icon pixels (labels excluded): desktop wheel/trackpad and mobile wheel/trackpad/pinch PASS; bright desktop label control retained.

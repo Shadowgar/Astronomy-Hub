@@ -1,0 +1,9 @@
+{
+  "status": "VERIFIED",
+  "artifact_path": "/home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/output/earth-sky-completion/earth",
+  "artifact_sha256": "bba92a4790578f33fe2cb128c9aa6d13a9578574eddd5c147cff4162d7b36e97",
+  "file_count": 513,
+  "input_count": 52,
+  "source_and_all_file_hashes_verified": true,
+  "qualified_earth_lock_and_runtime_versions_match": true
+}

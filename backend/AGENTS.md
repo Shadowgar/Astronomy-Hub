@@ -1,5 +1,9 @@
 # Astronomy Hub — Backend Operating Rules
 
+## Current task reconciliation — 2026-10-21
+
+The owner activates bounded R3-A after documentation reconciliation. Root AGENTS and current CORE/LIVE/PROJECT_STATE supersede the historical FE8.5/module2-only and phase-loading instructions below. Use the current context manifest and canonical index, not stale phase aliases. FastAPI remains science authority; contained SWE remains Sky, owned Cesium remains Earth. Evaluate already installed renderer dependencies for the isolated Solar runtime via a documented decision; do not replace Sky. All original change/proof/stack discipline still applies where consistent.
+
 ## 1. Scope
 These rules apply to all work under `backend/`.
 

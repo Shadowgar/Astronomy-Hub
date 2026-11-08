@@ -1,0 +1,647 @@
+{
+  "base": "http://172.26.23.204:4223",
+  "source_sha256": {
+    "frontend/src/features/planet/planetContracts.ts": "0389f17d85263948747df023530bedcea4b3205efd747613d092c043241168cf",
+    "frontend/src/features/solar/SolarWorkspace.tsx": "e8ab2db980c8ac0ec3ec37f543a288b241089fedbfab5799a4000b43a9363b7d",
+    "frontend/src/features/systems/PlanetSelector.tsx": "6fe9ad6a2644ac48f66f0445591c0c9799aa7aa6ded03c2bda346321073d8622",
+    "frontend/src/features/systems/SystemScene.ts": "526e5844d6bb16272691deac1e71be861b9bc8c8dd842878de6fa1582ed7dc67",
+    "frontend/src/features/systems/SystemWorkspace.tsx": "a522db2237a12066869fa677bb6d872a562b4cbdb47aa29c83c2847aed3128a9",
+    "frontend/src/features/systems/systemContracts.ts": "dc5a8ba9234b09a6ede1a2e29ac1ab7fc6db2c6516ff8b98b5753372b4048d73",
+    "frontend/src/features/systems/systemMaterials.ts": "604256c818008e701906117b99d21f5eeaf395783f0c2e64412fbb839eee4853",
+    "frontend/src/features/systems/systemPlayback.ts": "ae448937731167a30659afc3a9ee652618862a6e1ec1e4e0396115254cee6e10",
+    "frontend/src/features/systems/systemSceneMath.ts": "973ea97c4e4a7ff2f635520635a54a6626594d2ad0ba9e702ad255b184aab53a",
+    "frontend/src/features/systems/systemTypes.ts": "2f26926ae1468b3055d12d781754ed37ce7bc630cae439cd3c9ac139db98bcb2",
+    "frontend/src/features/systems/systems.css": "f8811648a0d53889147c0088362d625d8bcc12dde45c76b21d213a7d8968c047"
+  },
+  "served_index_sha256": "018a412a811a0b31f0acbbdd37ef751606daf3dd9e3bb327254136bd0fc0cc86",
+  "served_assets": [
+    {
+      "path": "/assets/index-klXc9LSF.js",
+      "sha256": "6c04e07ac77537a47920fdf2ac3659b906046470f2a53e57e6fb865d800461b5"
+    }
+  ],
+  "checks": [
+    {
+      "name": "source-503-fixture-retry",
+      "status": "PASS",
+      "errors": [],
+      "fixture": "Intercepted503 response; no source files touched",
+      "retry_http_status": 200,
+      "actual": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "origin": "Earth center (399)"
+      }
+    },
+    {
+      "name": "invalid-epoch-not-a-date",
+      "status": "PASS",
+      "errors": [],
+      "epoch": "not-a-date",
+      "responses": []
+    },
+    {
+      "name": "invalid-epoch-1800-01-01",
+      "status": "PASS",
+      "errors": [],
+      "epoch": "1800-01-01T00:00:00Z",
+      "responses": [
+        422
+      ]
+    },
+    {
+      "name": "invalid-epoch-2052-01-01",
+      "status": "PASS",
+      "errors": [],
+      "epoch": "2052-01-01T00:00:00Z",
+      "responses": [
+        422
+      ]
+    },
+    {
+      "name": "rapid-system-and-epoch",
+      "status": "PASS",
+      "errors": [],
+      "actual": {
+        "epoch": "2027-01-02T03:04:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": null,
+        "sizeMode": "cinematic",
+        "orbitsVisible": true,
+        "renderCount": 3,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 3,
+        "camera": [
+          -2921.069568557141,
+          -864736.4096951691,
+          2259333.3958925977
+        ],
+        "target": [
+          -2921.069568557141,
+          -17052.288810871483,
+          -9431.877620207757
+        ],
+        "cameraState": {
+          "position": [
+            -2921.069568557141,
+            -864736.4096951691,
+            2259333.3958925977
+          ],
+          "target": [
+            -2921.069568557141,
+            -17052.288810871483,
+            -9431.877620207757
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": null
+        },
+        "viewport": {
+          "clearWidth": 1400,
+          "clearHeight": 521,
+          "rectangleOffsetX": 0,
+          "rectangleOffsetY": -34.5
+        },
+        "bodies": [
+          {
+            "id": "earth",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 134135.5729349411,
+            "screenRadius": 65,
+            "screen": [
+              721.4155505745779,
+              475.1593896853133
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "position": [
+              -309909.94139163214,
+              -210969.15768857778,
+              -129445.26667554154
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 51091.37255867148,
+            "screenRadius": 23.999999999999996,
+            "screen": [
+              574.0932092534681,
+              590.8001606036012
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 3,
+          "median": 19.799999999813735,
+          "p95": 78.90000000037253
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      },
+      "delayed_actual_api_urls": [
+        "http://172.26.23.204:4223/api/v1/planetary-systems/earth?epoch=2027-01-02T03%3A04%3A00.000Z",
+        "http://172.26.23.204:4223/api/v1/planetary-systems/earth?epoch=2028-02-03T04%3A05%3A00.000Z"
+      ]
+    },
+    {
+      "name": "camera-reduce",
+      "status": "PASS",
+      "errors": [],
+      "start": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "moon",
+        "sizeMode": "cinematic",
+        "orbitsVisible": true,
+        "renderCount": 5,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 3,
+        "camera": [
+          376809.52894280566,
+          -76541.81614278686,
+          -2522.1331890682277
+        ],
+        "target": [
+          376809.52894280566,
+          -71068.8190279512,
+          -17170.214343663465
+        ],
+        "cameraState": {
+          "position": [
+            376809.52894280566,
+            -76541.81614278686,
+            -2522.1331890682277
+          ],
+          "target": [
+            376809.52894280566,
+            -71068.8190279512,
+            -17170.214343663465
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "moon"
+        },
+        "viewport": {
+          "clearWidth": 1120,
+          "clearHeight": 521,
+          "rectangleOffsetX": 140,
+          "rectangleOffsetY": -34.5
+        },
+        "bodies": [
+          {
+            "id": "earth",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 6371,
+            "screenRadius": 19.423674697030062,
+            "screen": [
+              -17503.660031018848,
+              -2998.88106156819
+            ],
+            "inView": false,
+            "labelVisible": false,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "position": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 1737.4,
+            "screenRadius": 130.25000000000003,
+            "screen": [
+              579.9999999999958,
+              484.5
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 2,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 5,
+          "median": 0.900000000372529,
+          "p95": 92.09999999962747
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      },
+      "end": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "moon",
+        "sizeMode": "cinematic",
+        "orbitsVisible": true,
+        "renderCount": 5,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 3,
+        "camera": [
+          376809.52894280566,
+          -76541.81614278686,
+          -2522.1331890682277
+        ],
+        "target": [
+          376809.52894280566,
+          -71068.8190279512,
+          -17170.214343663465
+        ],
+        "cameraState": {
+          "position": [
+            376809.52894280566,
+            -76541.81614278686,
+            -2522.1331890682277
+          ],
+          "target": [
+            376809.52894280566,
+            -71068.8190279512,
+            -17170.214343663465
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "moon"
+        },
+        "viewport": {
+          "clearWidth": 1120,
+          "clearHeight": 521,
+          "rectangleOffsetX": 140,
+          "rectangleOffsetY": -34.5
+        },
+        "bodies": [
+          {
+            "id": "earth",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 6371,
+            "screenRadius": 19.423674697030062,
+            "screen": [
+              -17503.660031018848,
+              -2998.88106156819
+            ],
+            "inView": false,
+            "labelVisible": false,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "position": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 1737.4,
+            "screenRadius": 130.25000000000003,
+            "screen": [
+              579.9999999999958,
+              484.5
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 2,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 5,
+          "median": 0.900000000372529,
+          "p95": 92.09999999962747
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      }
+    },
+    {
+      "name": "camera-no-preference",
+      "status": "PASS",
+      "errors": [],
+      "start": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "moon",
+        "sizeMode": "cinematic",
+        "orbitsVisible": true,
+        "renderCount": 30,
+        "disposed": false,
+        "contextLost": false,
+        "animating": true,
+        "texturesReady": 3,
+        "camera": [
+          -2921.069568557141,
+          -864736.4096951691,
+          2259333.3958925977
+        ],
+        "target": [
+          -2921.069568557141,
+          -17052.288810871483,
+          -9431.877620207757
+        ],
+        "cameraState": {
+          "position": [
+            -2921.069568557141,
+            -864736.4096951691,
+            2259333.3958925977
+          ],
+          "target": [
+            -2921.069568557141,
+            -17052.288810871483,
+            -9431.877620207757
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "moon"
+        },
+        "viewport": {
+          "clearWidth": 1120,
+          "clearHeight": 521,
+          "rectangleOffsetX": 140,
+          "rectangleOffsetY": -34.5
+        },
+        "bodies": [
+          {
+            "id": "earth",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 134135.5729349411,
+            "screenRadius": 65,
+            "screen": [
+              581.4155505745779,
+              475.1593896853133
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "position": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 49965.9741975113,
+            "screenRadius": 23.999999999999996,
+            "screen": [
+              764.688558515651,
+              510.42745768741526
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 5,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 30,
+          "median": 0.40000000037252903,
+          "p95": 32.10000000055879
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      },
+      "end": {
+        "epoch": "2026-10-23T01:05:00.000Z",
+        "frame": "ICRF",
+        "origin": "Earth center (399)",
+        "units": "km",
+        "sceneUnitKm": 1000,
+        "selected": "moon",
+        "sizeMode": "cinematic",
+        "orbitsVisible": true,
+        "renderCount": 78,
+        "disposed": false,
+        "contextLost": false,
+        "animating": false,
+        "texturesReady": 3,
+        "camera": [
+          376809.52894280566,
+          -76541.81614278685,
+          -2522.133189068427
+        ],
+        "target": [
+          376809.52894280566,
+          -71068.8190279512,
+          -17170.214343663465
+        ],
+        "cameraState": {
+          "position": [
+            376809.52894280566,
+            -76541.81614278685,
+            -2522.133189068427
+          ],
+          "target": [
+            376809.52894280566,
+            -71068.8190279512,
+            -17170.214343663465
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "focus": "moon"
+        },
+        "viewport": {
+          "clearWidth": 1120,
+          "clearHeight": 521,
+          "rectangleOffsetX": 140,
+          "rectangleOffsetY": -34.5
+        },
+        "bodies": [
+          {
+            "id": "earth",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "radiusKm": 6371,
+            "displayRadiusKm": 6371,
+            "screenRadius": 19.423674697030062,
+            "screen": [
+              -17503.66003101879,
+              -2998.8810615681773
+            ],
+            "inView": false,
+            "labelVisible": false,
+            "markerVisible": false
+          },
+          {
+            "id": "moon",
+            "position": [
+              376809.52894280566,
+              -71068.8190279512,
+              -17170.214343663465
+            ],
+            "radiusKm": 1737.4,
+            "displayRadiusKm": 1737.4,
+            "screenRadius": 130.25000000000162,
+            "screen": [
+              579.9999999999958,
+              484.5
+            ],
+            "inView": true,
+            "labelVisible": true,
+            "markerVisible": false
+          }
+        ],
+        "drawCalls": 2,
+        "geometries": 5,
+        "textures": 3,
+        "renderCpuMs": {
+          "samples": 78,
+          "median": 0.40000000037252903,
+          "p95": 0.8000000007450581
+        },
+        "playing": false,
+        "speed": 86400,
+        "system": "earth"
+      }
+    },
+    {
+      "name": "native-earth-ready",
+      "status": "PASS",
+      "errors": [],
+      "native_url": "http://172.26.23.204:4223/earth-runtime/?date=2026-10-23T01%3A05%3A00.000Z&orasEmbedded=1",
+      "native": {
+        "navigation": {
+          "mode": "earth",
+          "observer": {
+            "lat": 40.988918546396896,
+            "lon": -79.5853938426803,
+            "elevationM": 0
+          },
+          "elevationSource": "unavailable-zero",
+          "camera": {
+            "latitudeRad": 0.7212032605397225,
+            "longitudeRad": -1.3890271617969399,
+            "heightM": 15621863.000000002,
+            "headingRad": 6.283185307179586,
+            "pitchRad": -1.5707963267948966,
+            "rollRad": 0
+          },
+          "utc": "2026-10-23T01:05:00.000Z",
+          "live": false
+        },
+        "canvases": [
+          {
+            "width": 1440,
+            "height": 900
+          }
+        ],
+        "landscape": null
+      }
+    },
+    {
+      "name": "native-sky-ready",
+      "status": "PASS",
+      "errors": [],
+      "native_url": "http://172.26.23.204:4223/oras-sky-engine/?date=2026-10-23T01%3A05%3A00.000Z&orasEmbedded=1&orasNightMode=0",
+      "native": {
+        "navigation": {
+          "mode": "sky",
+          "observer": {
+            "lat": 41.3219030000159,
+            "lon": -79.58539400000345,
+            "elevationM": 432.816
+          },
+          "elevationSource": "oras-site",
+          "utc": "2026-10-23T01:05:00.000Z",
+          "live": false,
+          "camera": {
+            "projection": 2,
+            "fovRad": 2.094395102393,
+            "yawRad": 0,
+            "pitchRad": 0.523598775598,
+            "rollRad": 0,
+            "landscapeVisible": true
+          }
+        },
+        "canvases": [
+          {
+            "width": 1440,
+            "height": 900
+          }
+        ],
+        "landscape": "pennsylvania-woodland-v1"
+      }
+    }
+  ],
+  "limitations": [
+    "Software Chromium; desktop1440x900 only in this bounded resilience run.",
+    "503 is an intercepted fixture, not an actual source outage. Delayed-response races retain actual API response bodies.",
+    "Native readiness and diagnostics are observed; no provider imagery completeness or physical GPU qualification claim."
+  ],
+  "served_index_sha256_after": "018a412a811a0b31f0acbbdd37ef751606daf3dd9e3bb327254136bd0fc0cc86",
+  "served_unchanged": true,
+  "source_unchanged": true,
+  "status": "PASS"
+}

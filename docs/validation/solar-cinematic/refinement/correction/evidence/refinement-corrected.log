@@ -1,0 +1,20 @@
+1440 Three original NASA assets loaded locally; timing and bytes recorded
+1440 Sun/Earth/Mars focus and approach preserve exact source vectors/time; contextual card clears selected anchor
+1440 Explicit Efficient fallback removes haze/reduces points, preserving all scientific bodies
+1440 Quality, body and epoch survive source rebuild and actual WebGL loss/retry
+1440 Missing clouds disclose bounded fallback; original Earth/Mars textures and renderer recover
+1440 No idle animation or browser/shader errors
+390 Three original NASA assets loaded locally; timing and bytes recorded
+390 Sun/Earth/Mars focus and approach preserve exact source vectors/time; contextual card clears selected anchor
+390 Explicit Efficient fallback removes haze/reduces points, preserving all scientific bodies
+390 Quality, body and epoch survive source rebuild and actual WebGL loss/retry
+390 Missing clouds disclose bounded fallback; original Earth/Mars textures and renderer recover
+390 No idle animation or browser/shader errors
+Performance 1440 balanced { samples: 48, median: 151.40000000037253, p95: 183.7999999988824 } { supported: false, samples: 0, median: null, p95: null }
+Performance 1440 efficient { samples: 48, median: 69.40000000037253, p95: 110.80000000074506 } { supported: false, samples: 0, median: null, p95: null }
+Performance 1440 detailed { samples: 48, median: 253.59999999962747, p95: 285.80000000074506 } { supported: false, samples: 0, median: null, p95: null }
+Performance 1440 balanced { samples: 48, median: 155.40000000037253, p95: 189.59999999962747 } { supported: false, samples: 0, median: null, p95: null }
+Performance 390 balanced { samples: 48, median: 58.59999999962747, p95: 78.40000000037253 } { supported: false, samples: 0, median: null, p95: null }
+Performance 390 efficient { samples: 48, median: 27.199999999254942, p95: 32.09999999962747 } { supported: false, samples: 0, median: null, p95: null }
+Performance 390 detailed { samples: 48, median: 84.69999999925494, p95: 107.29999999888241 } { supported: false, samples: 0, median: null, p95: null }
+Performance 390 balanced { samples: 48, median: 61.90000000037253, p95: 81.80000000074506 } { supported: false, samples: 0, median: null, p95: null }

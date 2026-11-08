@@ -1,0 +1,235 @@
+{
+  "base": "http://127.0.0.1:4219",
+  "epoch": "2026-06-05T16:00:00Z",
+  "status": "FAIL",
+  "runs": [
+    {
+      "w": 1440,
+      "h": 900,
+      "checks": [
+        "Requested time preserved"
+      ],
+      "errors": [],
+      "screens": [
+        "1440x900-global.png"
+      ],
+      "global": {
+        "d": {
+          "owner": "Astronomy Hub",
+          "monotonicMs": 11682.60000000149,
+          "globeTilesLoaded": true,
+          "ready": true,
+          "disposed": false,
+          "viewerDestroyed": false,
+          "site": {
+            "lat": 41.321903,
+            "lon": -79.585394,
+            "elevationM": 432.816
+          },
+          "layers": [
+            {
+              "id": "oras-site",
+              "title": "ORAS site",
+              "category": "Site context",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "ORAS canonical site",
+              "status": "ready"
+            },
+            {
+              "id": "aircraft",
+              "title": "Aircraft near ORAS",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "adsb.lol · ODbL 1.0",
+              "status": "disabled"
+            },
+            {
+              "id": "satellites",
+              "title": "Satellites · stations",
+              "category": "Live Earth",
+              "capabilities": [
+                "selection",
+                "tracking",
+                "live-only"
+              ],
+              "attribution": "CelesTrak · satellite.js",
+              "status": "loading"
+            },
+            {
+              "id": "weather",
+              "title": "Weather at ORAS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "live-only"
+              ],
+              "attribution": "Open-Meteo · CC BY 4.0",
+              "status": "disabled"
+            },
+            {
+              "id": "earthquakes",
+              "title": "Earthquakes · M2.5+ · past day",
+              "category": "Events",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "U.S. Geological Survey",
+              "status": "disabled"
+            },
+            {
+              "id": "fire-perimeters",
+              "title": "Fire perimeters · recent subset",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NIFC/WFIGS",
+              "status": "disabled"
+            },
+            {
+              "id": "weather-radar",
+              "title": "Radar reflectivity · CONUS",
+              "category": "Environment",
+              "capabilities": [
+                "selection",
+                "focus"
+              ],
+              "attribution": "NOAA/NWS nowCOAST",
+              "status": "disabled"
+            }
+          ],
+          "providers": {
+            "satellites": {
+              "status": "loading",
+              "temporalMode": "LIVE_ONLY"
+            }
+          },
+          "entityCount": 1,
+          "timings": {
+            "moduleLoadedMs": 159.20000000298023,
+            "shellInteractiveMs": 225.80000000447035,
+            "viewerReadyMs": 230.5,
+            "firstImageryTileMs": 1669.9000000059605
+          },
+          "cameraMotion": {
+            "active": false
+          },
+          "cameraHeightM": 15621863.000000002,
+          "navigation": {
+            "mode": "earth",
+            "observer": {
+              "lat": 40.988918546396896,
+              "lon": -79.5853938426803,
+              "elevationM": 0
+            },
+            "elevationSource": "unavailable-zero",
+            "camera": {
+              "latitudeRad": 0.7212032605397225,
+              "longitudeRad": -1.3890271617969399,
+              "heightM": 15621863.000000002,
+              "headingRad": 6.283185307179586,
+              "pitchRad": -1.5707963267948966,
+              "rollRad": 0
+            },
+            "utc": "2026-06-05T16:00:00.000Z",
+            "live": false
+          },
+          "tracking": null,
+          "selection": null,
+          "quality": {
+            "imagery": "NASA · Blue Marble · ready · Static Blue Marble composite · 500 m",
+            "terrain": "Terrain unavailable · ellipsoid",
+            "buildings": "Not configured",
+            "photorealistic": "Not configured"
+          },
+          "imagery": {
+            "selected": "auto",
+            "actual": "nasa",
+            "status": "ready",
+            "fallbackReason": "",
+            "metadata": {
+              "label": "NASA · Blue Marble",
+              "product": "Static Blue Marble composite",
+              "date": null,
+              "gsd": 500,
+              "coverage": "Global overview; not current photography",
+              "credit": "NASA GIBS · Blue Marble",
+              "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+              "host": "gibs.earthdata.nasa.gov",
+              "cap": 8,
+              "coverageRasterName": null,
+              "selected": "auto",
+              "actual": "nasa",
+              "status": "ready",
+              "reason": "",
+              "loadingNote": ""
+            },
+            "localAllocations": 1,
+            "controllersCreated": 1,
+            "managedLayers": 1,
+            "labelsLayers": 1,
+            "budget": {
+              "active": 0,
+              "requested": 54
+            },
+            "ionSessionRequests": 0,
+            "ionSessionLedgerAvailable": true,
+            "metadataRequests": 0,
+            "metadataPending": false,
+            "view": {
+              "height": 15621863.000000002,
+              "rect": [
+                -180,
+                -90,
+                180,
+                90
+              ],
+              "point": [
+                -79.58539384256973,
+                40.988682668795235
+              ],
+              "naipCovered": false,
+              "verifiedOras": false
+            },
+            "sources": {
+              "nasa": {
+                "requested": 7,
+                "loaded": 7,
+                "failed": 0,
+                "cancelled": 0,
+                "active": 0,
+                "peak": 7,
+                "paused": false,
+                "partial": false,
+                "preparing": false
+              }
+            }
+          }
+        },
+        "visible": [
+          {
+            "id": "oras-site",
+            "name": "Oil Region Astronomical Society",
+            "kind": "oras-site",
+            "x": 720.0000000000002,
+            "y": 447.04795811965573
+          }
+        ],
+        "gl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    }
+  ],
+  "limitations": [
+    "Software Chromium; emulated viewports and touch, not physical GPU measurements.",
+    "No PEMA images published. EOX static 2016 imagery is not street-level photography."
+  ],
+  "error": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Dismiss search results', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-label=\"Dismiss search results\">Close</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\n    at /home/rocco/Astronomy-Hub/.worktrees/cinematic-earth-completion-1/scripts/validation/verify_earth_completion.mjs:7:411"
+}

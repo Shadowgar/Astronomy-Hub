@@ -1,0 +1,255 @@
+{
+  "status": "PASS_RECORDED_PRESERVATION_SCOPE",
+  "observed_utc": "2026-11-07T10:26:56.769862+00:00",
+  "baseline_sha256": "bbff4d15fa60885400a5976d04e07307ea5c1636d0031528d8cb8da476a2a5b6",
+  "prior_container_count": 147,
+  "current_container_count": 157,
+  "missing_container_ids": [],
+  "prior_volume_count": 90,
+  "current_volume_count": 90,
+  "missing_volumes": [],
+  "added_volumes": [],
+  "added_containers": [
+    {
+      "id": "112d279d65d3",
+      "name": "pr107-solar25-handoff-artifact",
+      "state": "created",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "1f36d997ac93",
+      "name": "pr107-solar25-backend",
+      "state": "running",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "29f5d9851ab4",
+      "name": "pr107-solar25-preview-artifact",
+      "state": "created",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "42a4d69b8d3d",
+      "name": "pr107-solar25-review24-artifact",
+      "state": "created",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "54c7e3948661",
+      "name": "pr107-solar25-candidate-artifact",
+      "state": "created",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "a47e4f0e748b",
+      "name": "pr107-solar25-model-artifact",
+      "state": "created",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "be64773e0af1",
+      "name": "pr107-solar25-final-backend",
+      "state": "running",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "bf49ba37ae9e",
+      "name": "pr107-solar25-qualified-artifact",
+      "state": "created",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "c4cd3d798fb8",
+      "name": "pr107-solar25-final-artifact",
+      "state": "created",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    },
+    {
+      "id": "e2eb73628731",
+      "name": "pr107-solar25-preview-backend",
+      "state": "running",
+      "host_port_bindings": {},
+      "named_volumes": [],
+      "writable_bind_mounts": []
+    }
+  ],
+  "owner_preview": {
+    "id": "78832df688bf",
+    "state": "running",
+    "host_port_bindings": {
+      "8877/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "4231"
+        }
+      ]
+    },
+    "matches_recorded_bindings": true
+  },
+  "old_mounted_scientific_manifest_checks": [
+    {
+      "mounted_destination": "/runtime/solar-destinations",
+      "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-destinations/release-2025-2030-v1/manifest.json",
+      "sha256": "69c3a97875a081d38112f491f14a253af369262c31ad10521480406704d3baf9",
+      "expected_sha256": "69c3a97875a081d38112f491f14a253af369262c31ad10521480406704d3baf9",
+      "baseline_evidence": "docs/validation/solar-system-2.4/SCIENCE.md",
+      "matches": true,
+      "mount_readonly": true
+    },
+    {
+      "mounted_destination": "/runtime/solar-populations",
+      "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-populations/release-20261103/manifest.json",
+      "sha256": "fa410b5f343b9cf774993eac23851ca2b17b1f98726019b72a7bbd5933196fe1",
+      "expected_sha256": "fa410b5f343b9cf774993eac23851ca2b17b1f98726019b72a7bbd5933196fe1",
+      "baseline_evidence": "docs/validation/solar-system-2.4/POPULATIONS.md",
+      "matches": true,
+      "mount_readonly": true
+    },
+    {
+      "mounted_destination": "/runtime/planetary-systems-spk",
+      "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/planetary-systems-spk/release-2025-2030-v3/manifest.json",
+      "sha256": "e268784c53783932386399c84f7e1a065b2f3c15141e7f77712527d372998085",
+      "expected_sha256": "e268784c53783932386399c84f7e1a065b2f3c15141e7f77712527d372998085",
+      "baseline_evidence": "docs/validation/solar-system-2.3/SCIENCE.md",
+      "matches": true,
+      "mount_readonly": true
+    },
+    {
+      "mounted_destination": "/runtime/oras-planetary-systems",
+      "source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/data/runtime-packs/planetary-systems/release/manifest.json",
+      "sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+      "expected_sha256": "770352992eeda04a7005172b2d57d6a3809deaf612f0e16971f74751df2eca61",
+      "baseline_evidence": "docs/validation/solar-system-2.3/SCIENCE.md",
+      "matches": true,
+      "mount_readonly": true
+    }
+  ],
+  "prior_solar24_public_asset_checks": [
+    {
+      "path": "frontend/public/solar-assets/v2.4/67p-measured.glb",
+      "sha256": "62505f9db4f229f07ac8c1d4efdbf169f1a928f9516bd809e973a10e9979f173",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/ceres-2048.jpg",
+      "sha256": "6827a9c03c563bcf2c852888aaf48aa660ebfed271ea655af3ea1e65b335839e",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/ceres-4096.jpg",
+      "sha256": "2b82c430a98f9af6cdf666a98c81f501b8729a47742adfd8644bf188ac1437b5",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/ceres-overview.glb",
+      "sha256": "b435760a291abf1aa3c57e9e30cfcae9bfb3d0b7132576904c65918cef9c24a4",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/charon-2048.jpg",
+      "sha256": "f5951a6c9d95d93473676100f6b2195768b4eae9310524706ffb921ca0986123",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/charon-4096.jpg",
+      "sha256": "e44b37afda20365acaee609311d3fdabeb1bbcdff6773988093dd9f95b4156be",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/charon-cartographic.glb",
+      "sha256": "04bdce1a16bafd287e0664db1ed410db9803b9d72ec22ec8b24a00d62ee861df",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/eros-measured.glb",
+      "sha256": "ff49aa6d2b4c964b8632cae0c3a2e17a0fe642d4e256455cd742e35fceebf63a",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/halley-measured.glb",
+      "sha256": "7c672008eaf10377c1ab13d15c97dd1b52e85d1d354025d237c8b469c16a3aed",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/manifest.json",
+      "sha256": "31ba7b99d746428a4b124d336a9496951b611baab8e90876fda94b894cd8e3e9",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/pluto-2048.jpg",
+      "sha256": "ddbadc55d8a5a7f7127e832e5ca52fa039b7ab9c315bdfefd0da6d71f700e5e4",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/pluto-4096.jpg",
+      "sha256": "632f8e672ca85c0a6ddc76f1485d584ef92e19868ce77ffcc5bcfd236161043c",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/pluto-cartographic.glb",
+      "sha256": "711f1af78c2fca312ee89b92e7896eb0e7706c29aee8c7ebb3aaeb8b18041f14",
+      "matches": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/vesta-measured.glb",
+      "sha256": "aec8a1617c2bfb042885ef08d3470b0e569d1c2ea8fdf6c2736a472b6513218b",
+      "matches": true
+    }
+  ],
+  "tracked_prior_asset_manifest_checks": [
+    {
+      "path": "frontend/public/planet-terrain/apollo17-nac-v1/manifest.json",
+      "sha256": "3cfcbb6c270bbe1df4eadfacefc143e2843d5cd1d18994a72f6fb1c9ce3c3543",
+      "matches_starting_HEAD": true
+    },
+    {
+      "path": "frontend/public/planetary-assets/v2.3/manifest.json",
+      "sha256": "a1870b8ddfc10e2778499fa2bcf2b5d233a85abd676bc48e4c8de07ed0843674",
+      "matches_starting_HEAD": true
+    },
+    {
+      "path": "frontend/public/solar-assets/lunar-height-v1/manifest.json",
+      "sha256": "9eb12167e0e19fe50c447fb976917489427bdd30b8efb2d60208a9c72fe7ec5c",
+      "matches_starting_HEAD": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.2/manifest.json",
+      "sha256": "5d678ea576e0d5f1a2a837de1e667c6c75e3e816b374af59d0a594f9caf7084b",
+      "matches_starting_HEAD": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2.4/manifest.json",
+      "sha256": "31ba7b99d746428a4b124d336a9496951b611baab8e90876fda94b894cd8e3e9",
+      "matches_starting_HEAD": true
+    },
+    {
+      "path": "frontend/public/solar-assets/v2/manifest.json",
+      "sha256": "b1cbc28996fa981f9f49d056a8df3da72991b843af610648f5102b078819d2f5",
+      "matches_starting_HEAD": true
+    }
+  ],
+  "limitations": [
+    "Baseline inventory records IDs and volume names, not volume-content fingerprints; no volume-content equivalence claim is made.",
+    "Existing container IDs preserve creation-time mount/port configurations; historical running/stopped states were not recorded in the supplied inventory.",
+    "Manifest preservation assertions are limited to the four source-pinned mounted manifests and tracked visual manifests listed here.",
+    "This reviewer made read-only Docker inspections only; no container, volume, image or port mutation."
+  ]
+}

@@ -1,0 +1,19 @@
+from pathlib import Path
+import hashlib,json,subprocess
+import sys
+sys.path.insert(0,str(Path.cwd()/'scripts/validation'))
+from verify_n1_metadata_equivalence import verify,BASE
+metadata=verify()
+root=Path.cwd();names=['observer-history','elevation-desktop','elevation-mobile','snapshots-final','satellites-final','journeys-desktop','journeys-mobile','landscape','metadata-browser'];reports=[]
+sha=lambda b:hashlib.sha256(b).hexdigest()
+for name in names:
+ p=root/'output/n1/remediation'/name/'proof.json';proof=json.loads(p.read_text());assert proof['status']=='PASS',name
+ for path,digest in proof['sourceHashes'].items():
+  actual=sha((root/path).read_bytes())
+  if actual!=digest:
+   assert path=='integrations/renderers.lock.json'and digest==sha(subprocess.check_output(['git','show',BASE+':'+path])),(name,path)
+  assert sha(subprocess.check_output(['git','show','HEAD:'+path]))==actual,(name,path,'commit')
+ reports.append({'evidence':name,'status':proof['status'],'sourceInputs':len(proof['sourceHashes']),'widths':[r['width']for r in proof['runs']]})
+additional=['scripts/runtime/record_sky_workspace.py','scripts/validation/verify_n1_metadata_equivalence.py','tests/runtime/test_sky_promotion.py','tests/runtime/sky-artifact.test.mjs','frontend/public/oras-sky-engine/oras-runtime-build.json']
+for path in additional:assert sha((root/path).read_bytes())==sha(subprocess.check_output(['git','show','HEAD:'+path])),path
+result={'status':'PASS','metadataEquivalence':metadata,'metadataVerificationInputs':{path:sha((root/path).read_bytes())for path in additional},'deliveryHead':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'reports':reports};(root/'output/n1/remediation/committed-browser-identity.json').write_text(json.dumps(result,indent=2)+'\n');print('COMMITTED BROWSER INPUT IDENTITY PASS',len(reports),'reports')

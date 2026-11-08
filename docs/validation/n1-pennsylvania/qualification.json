@@ -1,0 +1,70 @@
+{
+  "status": "TECHNICALLY_QUALIFIED_OWNER_VISUAL_ACCEPTANCE_PENDING",
+  "navigation": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "steps": 22,
+      "pageErrors": 0,
+      "peakRenderers": 1,
+      "resourceFailures": 639,
+      "consoleSummary": {
+        "Failed to load resource: the server responded with a status of 404 (Not Found)": 528,
+        "native HiPS iterator warning": 564,
+        "Failed to load resource: net::ERR_CONNECTION_TIMED_OUT": 1
+      }
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "steps": 22,
+      "pageErrors": 0,
+      "peakRenderers": 1,
+      "resourceFailures": 821,
+      "consoleSummary": {
+        "Failed to load resource: the server responded with a status of 404 (Not Found)": 724,
+        "native HiPS iterator warning": 4085,
+        "Failed to load resource: net::ERR_CONNECTION_TIMED_OUT": 2
+      }
+    }
+  ],
+  "visual": {
+    "status": "PASS",
+    "widths": [
+      1440,
+      390
+    ],
+    "scenesPerWidth": [
+      22,
+      22
+    ],
+    "assetFilesHTTP200AndHashMatched": 15,
+    "pageErrors": 0,
+    "landscapeFailures": 0
+  },
+  "tests": {
+    "runtimeEarth": {
+      "passed": 133,
+      "failed": 0
+    },
+    "frontend": {
+      "files": 32,
+      "passed": 241,
+      "failed": 0
+    },
+    "focusedAdapter": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "typecheck": "PASS",
+  "hubBuild": "PASS",
+  "offlineSkyUIBuildReproductionFiles": 110,
+  "assetPackagingReproductionFiles": 16,
+  "nativeEngineRebuilt": false,
+  "openP2Findings": 3,
+  "physicalDeviceQualified": false,
+  "ownerVisualAcceptance": "PENDING",
+  "fullN1Acceptance": "PENDING",
+  "mergeDeployR2": false
+}

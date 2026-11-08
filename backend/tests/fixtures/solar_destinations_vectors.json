@@ -1,0 +1,748 @@
+{
+  "qualification": "Fresh arbitrary TDB epochs independent of retained 6-hour qualification nodes; same JPL numerical solutions, not independent observations",
+  "rows": [
+    {
+      "id": "pluto",
+      "source": {
+        "file": "validation-pluto.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27999%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 6817,
+        "sha256": "7b52bb98d1ac7272a26883df39e1def0d42e7344a76488304e0d920664b59d1a",
+        "acquired_utc": "2026-11-07T04:47:12.639445+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Pluto (999)                     {source: plu060_merged}",
+        "center_header": "Sun (10)                        {source: plu060_merged}",
+        "target_id": "999",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          2727007421.424746,
+          -3996121246.170708,
+          -2068394366.934752,
+          4.777690235936485,
+          2.114630349821482,
+          -0.7594236078131474
+        ],
+        [
+          2461340.73123,
+          2997114168.51039,
+          -3869339393.033076,
+          -2110404854.56265,
+          4.631507681955141,
+          2.3052427673353,
+          -0.656541715832067
+        ],
+        [
+          2462502.456789,
+          3449476129.553559,
+          -3621959414.058723,
+          -2169656508.540967,
+          4.361729096242017,
+          2.611425550190826,
+          -0.4825695300622552
+        ]
+      ],
+      "max_position_error_km": 7.238232569475655e-05,
+      "max_velocity_error_km_s": 3.828767301496794e-12
+    },
+    {
+      "id": "charon",
+      "source": {
+        "file": "validation-charon.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27901%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%40999%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 6512,
+        "sha256": "d06cba88634be243ea88f4362567117b1acefaa7a77896de4e4f6e1558e50d8a",
+        "acquired_utc": "2026-11-07T04:47:13.139148+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Charon (901)                    {source: plu060_merged}",
+        "center_header": "Pluto (999)                     {source: plu060_merged}",
+        "target_id": "901",
+        "center_id": "999",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          14343.28695460875,
+          13345.44787609598,
+          -227.4701926107966,
+          0.0146574971135698,
+          -0.01951163170123546,
+          -0.2218024703562485
+        ],
+        [
+          2461340.73123,
+          14204.76369847149,
+          13436.85598984504,
+          1246.68739237658,
+          0.0269731525084349,
+          -0.007957511603488473,
+          -0.2213629008101968
+        ],
+        [
+          2462502.456789,
+          8928.505630799289,
+          10420.90397759578,
+          13984.47849055095,
+          0.1286745095556529,
+          0.09692981987773035,
+          -0.1544014872525453
+        ]
+      ],
+      "max_position_error_km": 3.0856551439586477e-06,
+      "max_velocity_error_km_s": 3.513700574630058e-11
+    },
+    {
+      "id": "pluto_barycenter",
+      "source": {
+        "file": "validation-pluto_barycenter.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%279%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 5953,
+        "sha256": "91303cba7b6e4f01196079b3667d60a02cff593dde78951990f3348ba884d2e0",
+        "acquired_utc": "2026-11-07T04:47:13.626264+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Pluto Barycenter (9)            {source: DE441}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "9",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          2727008981.689958,
+          -3996119794.477056,
+          -2068394391.860412,
+          4.779284307792406,
+          2.112507691561556,
+          -0.7835501984567264
+        ],
+        [
+          2461340.73123,
+          2997115713.561866,
+          -3869337931.490169,
+          -2110404718.843584,
+          4.634441850878225,
+          2.304377384358999,
+          -0.6806201785362485
+        ],
+        [
+          2462502.456789,
+          3449477100.793678,
+          -3621958280.476196,
+          -2169654987.320841,
+          4.375725685633773,
+          2.621969119261517,
+          -0.499364483713122
+        ]
+      ],
+      "max_position_error_km": 7.298451848184969e-05,
+      "max_velocity_error_km_s": 6.375928766569428e-14
+    },
+    {
+      "id": "ceres",
+      "source": {
+        "file": "validation-ceres.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%271%3B%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 7752,
+        "sha256": "ac52690c79c8459d9d97138311aa94289c0599d54ca997a02b1860336e185e6e",
+        "acquired_utc": "2026-11-07T04:47:14.116502+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "1 Ceres (A801 AA)               {source: JPL#48}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "1",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          325706881.6803615,
+          -243633541.4652044,
+          -181224864.4578804,
+          11.18168525026925,
+          11.81111086828629,
+          3.294396630186321
+        ],
+        [
+          2461340.73123,
+          689051.459586574,
+          359083470.5464353,
+          169233752.8978817,
+          -18.30344945516287,
+          -2.56670904491308,
+          2.515402114390752
+        ],
+        [
+          2462502.456789,
+          422708355.5551639,
+          -73888761.5010686,
+          -120887836.4681114,
+          4.040727639023313,
+          14.837454797612,
+          6.180542483870781
+        ]
+      ],
+      "max_position_error_km": 0.00022873661219849573,
+      "max_velocity_error_km_s": 1.0634578637328567e-08
+    },
+    {
+      "id": "vesta",
+      "source": {
+        "file": "validation-vesta.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%274%3B%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 7752,
+        "sha256": "fb10439fe7a25c1057882469f93bbe2acacb3d691f9693f0d43f25b975348e83",
+        "acquired_utc": "2026-11-07T04:47:14.591335+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "4 Vesta (A807 FA)               {source: JPL#36}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "4",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          -336671873.9438323,
+          -40788073.30272299,
+          27851627.4396675,
+          3.248887712146109,
+          -18.28171348343441,
+          -7.715146324539369
+        ],
+        [
+          2461340.73123,
+          338736280.808961,
+          150236652.799536,
+          15519080.78397148,
+          -5.883270314561334,
+          15.9521339613232,
+          7.131642230386145
+        ],
+        [
+          2462502.456789,
+          325027654.8178899,
+          -94519121.44719627,
+          -80288921.60354093,
+          8.196647813479563,
+          16.96159285393794,
+          5.69113104152048
+        ]
+      ],
+      "max_position_error_km": 0.0002699768621569777,
+      "max_velocity_error_km_s": 1.1706177011611023e-08
+    },
+    {
+      "id": "eros",
+      "source": {
+        "file": "validation-eros.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27433%3B%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 7748,
+        "sha256": "266fb9ec6907c51ce780ca1d971e39f40661a9a4c7ad9ea2e3b83bbabbced44a",
+        "acquired_utc": "2026-11-07T04:47:15.109043+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "433 Eros (A898 PA)              {source: JPL#659}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "433",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          -2358023.600573883,
+          -220800069.1185592,
+          -125790765.7718393,
+          20.36007124670298,
+          -4.502914278405505,
+          1.1226521825471
+        ],
+        [
+          2461340.73123,
+          34565380.82368738,
+          -226102978.5760531,
+          -122126476.6774177,
+          20.13008076365186,
+          -1.311569006358372,
+          2.893456243182535
+        ],
+        [
+          2462502.456789,
+          -159962537.4678928,
+          -107891776.0989927,
+          -90159276.69799596,
+          11.60169606872799,
+          -20.34674912367081,
+          -9.453895504982029
+        ]
+      ],
+      "max_position_error_km": 0.0007370914229658349,
+      "max_velocity_error_km_s": 1.2008684767154888e-07
+    },
+    {
+      "id": "eris",
+      "source": {
+        "file": "validation-eris.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27136199%3B%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 7718,
+        "sha256": "2dff58dff82b1d32bfbb618617db40786c4fe4277dba31225a171f0b5f935457",
+        "acquired_utc": "2026-11-07T04:47:15.598851+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "136199 Eris (2003 UB313)        {source: JPL#103}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "136199",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          12773681323.25174,
+          6435013265.936978,
+          -119172179.5464928,
+          -0.8098946598507881,
+          0.7318626445184475,
+          2.082232042482584
+        ],
+        [
+          2461340.73123,
+          12726265670.68211,
+          6476216451.365412,
+          191607.5904117092,
+          -0.8411476632374257,
+          0.7048423711712468,
+          2.078008871713963
+        ],
+        [
+          2462502.456789,
+          12639701181.27223,
+          6545165087.245773,
+          208605916.2067051,
+          -0.8838346756412039,
+          0.673176387262014,
+          2.076461882111303
+        ]
+      ],
+      "max_position_error_km": 3.14269728855826e-05,
+      "max_velocity_error_km_s": 6.688434966548858e-11
+    },
+    {
+      "id": "halley",
+      "source": {
+        "file": "validation-halley.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27DES%3D1P%3BCAP%3B%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 8282,
+        "sha256": "663b64ccdf94d0cb1810adc8e1a02b8fa7881b4b10b69c0ee4b71eeea33f7945",
+        "acquired_utc": "2026-11-07T04:47:16.359109+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "1P/Halley                       {source: JPL#75}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "90000030",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          -2943697174.964352,
+          4344684762.643744,
+          265495648.8316393,
+          0.7984318809363378,
+          0.3298184512376733,
+          0.309593844451879
+        ],
+        [
+          2461340.73123,
+          -2893433184.075697,
+          4356722429.609822,
+          282718519.724753,
+          0.9546208231022209,
+          0.08996566346172875,
+          0.2907614874371009
+        ],
+        [
+          2462502.456789,
+          -2783356561.063539,
+          4344933788.197289,
+          310381867.4989541,
+          1.238633365404292,
+          -0.3230845636283979,
+          0.2616641285648209
+        ]
+      ],
+      "max_position_error_km": 1.2676746342543227e-05,
+      "max_velocity_error_km_s": 5.613877323709863e-11
+    },
+    {
+      "id": "67p",
+      "source": {
+        "file": "validation-67p.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27DES%3D67P%3BCAP%3B%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 8284,
+        "sha256": "997ff63bdb50cc014eb43e28fa3ac254d9a4dc58d5717fc7f06bde0e778d5c17",
+        "acquired_utc": "2026-11-07T04:47:17.005930+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "67P/Churyumov-Gerasimenko       {source: JPL#K284/1}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "90000703",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          -456523216.5020019,
+          -652985101.5846432,
+          -305982191.5121398,
+          6.122062061040587,
+          -3.571870794639326,
+          -2.059246341678912
+        ],
+        [
+          2461340.73123,
+          13884773.62028338,
+          -589435264.4950597,
+          -295236896.3111818,
+          9.390673667626917,
+          6.964421378950083,
+          3.061774200755019
+        ],
+        [
+          2462502.456789,
+          -606645060.2818217,
+          -354812371.9795383,
+          -150236568.754844,
+          -0.4297209592184678,
+          -9.589632898276898,
+          -4.767815601184751
+        ]
+      ],
+      "max_position_error_km": 0.00010158929346618146,
+      "max_velocity_error_km_s": 2.1969155820251094e-09
+    },
+    {
+      "id": "borisov",
+      "source": {
+        "file": "validation-borisov.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27DES%3D2I%3B%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%4010%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 8267,
+        "sha256": "f82a66087cbba032d95b5501ebdb5918bd5ad1cc674b74c4b04846a924a5bdcc",
+        "acquired_utc": "2026-11-07T04:47:17.689151+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Borisov (C/2019 Q4)             {source: JPL#54}",
+        "center_header": "Sun (10)                        {source: DE441}",
+        "target_id": "90004570",
+        "center_id": "10",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          -20154572.85299183,
+          -3178348624.216892,
+          -4444488414.928998,
+          1.883138578538028,
+          -20.23345787692061,
+          -26.02144632602758
+        ],
+        [
+          2461340.73123,
+          87919009.05407344,
+          -4336288712.156384,
+          -5933045406.779831,
+          1.884437224434707,
+          -20.13241463693987,
+          -25.8720214228404
+        ],
+        [
+          2462502.456789,
+          277695831.1433052,
+          -6351645082.879078,
+          -8522306146.239607,
+          1.896885121375763,
+          -20.03282404340917,
+          -25.73584294943668
+        ]
+      ],
+      "max_position_error_km": 0.000453249306514573,
+      "max_velocity_error_km_s": 5.2540473482733444e-11
+    },
+    {
+      "id": "nix",
+      "source": {
+        "file": "validation-nix.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27902%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%40999%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 6511,
+        "sha256": "52cbc5b428e6e3f777c6da948daa776f3227d9ed893b5a4c7bdecb8e9f23884e",
+        "acquired_utc": "2026-11-07T04:47:18.186329+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Nix (902)                       {source: plu060_merged}",
+        "center_header": "Pluto (999)                     {source: plu060_merged}",
+        "target_id": "902",
+        "center_id": "999",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          24972.22528803441,
+          17319.07015488772,
+          -39768.85073984038,
+          -0.07698553203307994,
+          -0.08775556948369731,
+          -0.1066130595683452
+        ],
+        [
+          2461340.73123,
+          24078.0677904316,
+          27602.7589061087,
+          34487.21508907635,
+          0.08334670031974027,
+          0.05906134558110682,
+          -0.1252652894619709
+        ],
+        [
+          2462502.456789,
+          -27956.43844658755,
+          -21032.587383065,
+          33564.82118303246,
+          0.07593729724971318,
+          0.08421786015565431,
+          0.08960433639145365
+        ]
+      ],
+      "max_position_error_km": 2.1861860269139454e-06,
+      "max_velocity_error_km_s": 8.380777147224386e-12
+    },
+    {
+      "id": "hydra",
+      "source": {
+        "file": "validation-hydra.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27903%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%40999%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 6514,
+        "sha256": "ee10419e6203497fc83a0fec79707c36eec6ba2354552cb1c773b6a9d6964412",
+        "acquired_utc": "2026-11-07T04:47:18.660754+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Hydra (903)                     {source: plu060_merged}",
+        "center_header": "Pluto (999)                     {source: plu060_merged}",
+        "target_id": "903",
+        "center_id": "999",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          25410.96098887421,
+          15319.47584155429,
+          -58396.343955162,
+          -0.07666390838938342,
+          -0.08243066486502047,
+          -0.07619425812593894
+        ],
+        [
+          2461340.73123,
+          -43653.14113227744,
+          -37120.40457767597,
+          26593.26413519335,
+          0.03116298725683982,
+          0.04172123071575658,
+          0.08726230731187506
+        ],
+        [
+          2462502.456789,
+          46967.10157356984,
+          45945.26998102391,
+          11521.69314619671,
+          0.03699240425787812,
+          0.01369743910016,
+          -0.137222680422692
+        ]
+      ],
+      "max_position_error_km": 1.8797209363583368e-06,
+      "max_velocity_error_km_s": 5.927314088542239e-12
+    },
+    {
+      "id": "kerberos",
+      "source": {
+        "file": "validation-kerberos.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27904%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%40999%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 6492,
+        "sha256": "1901297a16f7ffcfff4de1f903a8e767e703db45e1e27b7e354c74326811e5d3",
+        "acquired_utc": "2026-11-07T04:47:19.129969+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Kerberos (904)                  {source: plu060_merged}",
+        "center_header": "Pluto (999)                     {source: plu060_merged}",
+        "target_id": "904",
+        "center_id": "999",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          36285.02911764369,
+          28173.58181612763,
+          -37859.11384962997,
+          -0.05280497073709167,
+          -0.0688051321881856,
+          -0.1218440411991101
+        ],
+        [
+          2461340.73123,
+          408.2310946849154,
+          9392.650845525684,
+          57143.54704687404,
+          0.09976248463197827,
+          0.0871033643285057,
+          -0.03446562763579737
+        ],
+        [
+          2462502.456789,
+          28221.41588107213,
+          32062.81604564188,
+          41879.75774409609,
+          0.08743574149351478,
+          0.06577545609513992,
+          -0.1091474303103974
+        ]
+      ],
+      "max_position_error_km": 2.0681748293345988e-06,
+      "max_velocity_error_km_s": 7.369437102110945e-12
+    },
+    {
+      "id": "styx",
+      "source": {
+        "file": "validation-styx.json",
+        "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27905%27&OBJ_DATA=YES&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=%27500%40999%27&TLIST=%272460676.5371+2461340.73123+2462502.456789%27&TIME_TYPE=TDB&OUT_UNITS=KM-S&REF_PLANE=FRAME&REF_SYSTEM=ICRF&VEC_TABLE=2&VEC_CORR=NONE&CSV_FORMAT=YES",
+        "bytes": 6489,
+        "sha256": "434a2eb45f7277a29da7430764c64b80d955f4d6d0fd892dd524604f8f1800d4",
+        "acquired_utc": "2026-11-07T04:47:19.616461+00:00",
+        "publisher": "NASA/JPL",
+        "terms": "https://ssd.jpl.nasa.gov/disclaimer.html"
+      },
+      "headers": {
+        "target_header": "Styx (905)                      {source: plu060_merged}",
+        "center_header": "Pluto (999)                     {source: plu060_merged}",
+        "target_id": "905",
+        "center_id": "999",
+        "frame": "ICRF",
+        "units": "km,km/s",
+        "time_scale": "TDB",
+        "corrections": "NONE"
+      },
+      "rows": [
+        [
+          2460676.5371,
+          29378.29611176583,
+          29790.45922996171,
+          15639.46463840734,
+          0.05107757401486425,
+          0.02295007495885458,
+          -0.1644391482456199
+        ],
+        [
+          2461340.73123,
+          22226.88958522876,
+          25033.247849212,
+          28826.74002966051,
+          0.08494934995078753,
+          0.05874413008501932,
+          -0.1381310314958452
+        ],
+        [
+          2462502.456789,
+          -29890.58032321727,
+          -27599.51736821574,
+          2190.481662665204,
+          0.003494678348180773,
+          0.02369117976238314,
+          0.136133885096376
+        ]
+      ],
+      "max_position_error_km": 2.4021338296883354e-06,
+      "max_velocity_error_km_s": 1.151308223163214e-11
+    }
+  ],
+  "acquired_bytes": 101091
+}

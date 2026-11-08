@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "sky_artifact": "f755a7262087ad58c3ec0801531cb55214f4e451bfd3843d53aa6469b921652d",
+  "sky_repeated_files": 110,
+  "sky_served_files": 111,
+  "hub_repeated_and_served_files": 136,
+  "earth_served_files": 514,
+  "data_limit": "Source/assets verified. No database-byte snapshot or owner GPU qualification claimed."
+}

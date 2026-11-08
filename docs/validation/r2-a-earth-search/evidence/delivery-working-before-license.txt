@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/rocco/Astronomy-Hub/.worktrees/r2-a-earth-search-1/scripts/validation/verify_r2_earth_search_delivery.py", line 45, in <module>
+    assert get('/licenses/gods-eye-search-MIT.txt')==(root/'packages/earth-search/LICENSE.txt').read_bytes()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
