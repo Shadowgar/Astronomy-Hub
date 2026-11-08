@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "container": "pr107-solar26-release-artifact",
+  "image": "sha256:6706cd5b26693eb261ca6ef885c53796888b0830fce3d9d6104d350d1e8c937d",
+  "frontend_source_files": [
+    {
+      "path": "frontend/src/features/missions/MissionScene.ts",
+      "sha256": "a05bbfdc87cf917e96017d66bb6f24e391083b3de75a1250be45b68683d207d5"
+    },
+    {
+      "path": "frontend/src/features/missions/MissionWorkspace.tsx",
+      "sha256": "096aa996a059dc0cad3c6253b8a68b75af5a26dbae158a504c48c705e4aee9f5"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarCameraController.ts",
+      "sha256": "b744257cb084d45970a779870c33f574ed7b969663eb8bf1d49e5a74d15e25cb"
+    },
+    {
+      "path": "frontend/src/features/solar/SolarWorkspace.tsx",
+      "sha256": "21de1163cfe7a493050cf3a26462fd689e838cf32a8116d90498a1a968f58b89"
+    },
+    {
+      "path": "frontend/src/features/solar/solarPrecision.ts",
+      "sha256": "68c878b5f162bce0a47eed187315d11ef3b3da107b0e8e34f1944bf5d8d855fc"
+    },
+    {
+      "path": "frontend/src/features/systems/PlanetSelector.tsx",
+      "sha256": "34a602b7653068642f5ddb70d0d501aa2a871273b2b37745aa1fc7a40635b98b"
+    },
+    {
+      "path": "frontend/src/routes/AppRouter.tsx",
+      "sha256": "4e6a48baebbe9c9f0e9ea671ee0851383cc9ffeed205226416727aabb6a3ee2e"
+    },
+    {
+      "path": "frontend/src/features/beyond/BeyondScene.ts",
+      "sha256": "aaa78da4bcd373f79c1cf0f2fce0ba066bf4ef1c64a492cf53b3e2015229ee1c"
+    },
+    {
+      "path": "frontend/src/features/beyond/BeyondWorkspace.tsx",
+      "sha256": "7c5881347bb09778d5c95bcb9e056acd61deb089c074b10195e308c482f6a3ab"
+    },
+    {
+      "path": "frontend/src/features/beyond/ObservationViews.tsx",
+      "sha256": "49f29ee14c70cbdf53c78ef1f5d952f1c235f5574a160a6a563822a65dca2e81"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyond.css",
+      "sha256": "0b86d8e8f009742abc4a54041eb802510cf0c6e5590fe08f39b30e3c82247e54"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyondContracts.ts",
+      "sha256": "4a129a7643137ca8cddc65b5540629a4f93d1109fa1cb94207113735a34c11b0"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyondMath.ts",
+      "sha256": "00386bf7795a2224ce22b8eb415b77a5191365e3f8091bccd5bfe87845d78364"
+    },
+    {
+      "path": "frontend/src/features/beyond/beyondNavigation.ts",
+      "sha256": "13005837cd79b92e82c3f78eb35d4d12c532d1ce2e1e8d3b2e2a30e9d4d0c6d5"
+    }
+  ],
+  "public_root": "output/playwright/owner-acceptance/hub-solar26-release",
+  "backend": "pr107-solar26-backend",
+  "backend_code_mount": "read-only worktree bind",
+  "observation_manifest_sha256": "7157a049597f164fa0b4df34d72c483401d0f7aaac5f217f3c084cec0b28f037"
+}

@@ -46,3 +46,18 @@ it('stops real OrbitControls wheel input before an unselected opaque surface',()
  expect(camera.position.z).toBeCloseTo(1.704,8)
  controller.dispose();vi.unstubAllGlobals()
 })
+
+it('admits an explicit outer-cloud camera range while preserving the Solar default',()=>{
+ const root=new EventTarget()
+ class Canvas extends EventTarget{style={touchAction:''};getRootNode(){return root}ownerDocument=root;clientWidth=1440;clientHeight=900}
+ vi.stubGlobal('window',new EventTarget())
+ const camera=new T.PerspectiveCamera(42,1,.01,2e6)
+ const controller=new SolarCameraController(camera,new Canvas() as unknown as HTMLCanvasElement,()=>[],()=>{},()=>{},()=>{},{maxDistanceAU:1e6,maxFlightSpeedAU:100000})
+ controller.move({position:[0,0,100000],target:[0,0,0]},.01,1,true)
+ expect(camera.position.length()).toBeCloseTo(100000,6)
+ controller.zoom(2);expect(camera.position.length()).toBeCloseTo(200000,6)
+ controller.dispose()
+ const standard=new SolarCameraController(new T.PerspectiveCamera(),new Canvas() as unknown as HTMLCanvasElement,()=>[],()=>{},()=>{})
+ expect(standard.controls.maxDistance).toBe(500)
+ standard.dispose();vi.unstubAllGlobals()
+})

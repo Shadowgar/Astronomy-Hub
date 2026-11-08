@@ -5,6 +5,7 @@ import {flightSpeed,stopAtSurface,type OpaqueBody} from './solarPrecision'
 import type {Vector} from './solarContracts'
 
 export type NavigationMode='orbit'|'follow'|'free'
+export type SolarCameraLimits={maxDistanceAU:number;maxFlightSpeedAU:number}
 /** CPU float64 camera, independent of render origin and scientific clock. */
 export class SolarCameraController{
  readonly controls:any
@@ -21,9 +22,12 @@ export class SolarCameraController{
  private reduced=false
  private listeners:(()=>void)[]=[]
  private accepted:Vector
- constructor(private camera:any,private element:HTMLCanvasElement,private bodies:()=>OpaqueBody[],private request:()=>void,private changed:()=>void,private modeChanged:(mode:NavigationMode)=>void=()=>{}){
+ private limits:SolarCameraLimits
+ constructor(private camera:any,private element:HTMLCanvasElement,private bodies:()=>OpaqueBody[],private request:()=>void,private changed:()=>void,private modeChanged:(mode:NavigationMode)=>void=()=>{},limits:Partial<SolarCameraLimits>={}){
+  this.limits={maxDistanceAU:500,maxFlightSpeedAU:5,...limits}
+  if(Object.values(this.limits).some(value=>!Number.isFinite(value)||value<=0))throw Error('Invalid camera range limits')
   this.accepted=camera.position.toArray()
-  this.controls=new OrbitControls(camera,element);this.controls.enableDamping=false;this.controls.enablePan=true;this.controls.minDistance=.001;this.controls.maxDistance=500
+  this.controls=new OrbitControls(camera,element);this.controls.enableDamping=false;this.controls.enablePan=true;this.controls.minDistance=.001;this.controls.maxDistance=this.limits.maxDistanceAU
   this.controls.addEventListener('change',this.onChange);this.controls.addEventListener('start',this.onStart)
   this.listen(element,'keydown',this.keyDown);this.listen(element,'keyup',this.keyUp);this.listen(element,'blur',this.stopInput)
   this.listen(element,'pointerdown',this.pointerDown);this.listen(element,'pointermove',this.pointerMove);this.listen(element,'pointerup',this.pointerUp);this.listen(element,'pointercancel',this.pointerUp)
@@ -71,7 +75,7 @@ export class SolarCameraController{
   if(this.flight){this.flight.from=this.flight.from.map((v,i)=>v+delta[i]) as Vector;this.flight.targetFrom=this.flight.targetFrom.map((v,i)=>v+delta[i]) as Vector;this.flight.pose={position:this.flight.pose.position.map((v,i)=>v+delta[i]) as Vector,target:this.flight.pose.target.map((v,i)=>v+delta[i]) as Vector}}
   this.updateControls()
  }
- zoom(factor:number){this.cancel();const d=this.camera.position.clone().sub(this.controls.target);const distance=Math.max(this.controls.minDistance,Math.min(500,d.length()*factor));const to=this.controls.target.clone().add(d.setLength(distance)).toArray();this.camera.position.fromArray(stopAtSurface(this.camera.position.toArray(),to,this.bodies()));this.updateControls();this.changed();this.request()}
+ zoom(factor:number){this.cancel();const d=this.camera.position.clone().sub(this.controls.target);const distance=Math.max(this.controls.minDistance,Math.min(this.limits.maxDistanceAU,d.length()*factor));const to=this.controls.target.clone().add(d.setLength(distance)).toArray();this.camera.position.fromArray(stopAtSurface(this.camera.position.toArray(),to,this.bodies()));this.updateControls();this.changed();this.request()}
  orbit(angle:number){this.cancel();const delta=this.camera.position.clone().sub(this.controls.target).applyAxisAngle(this.camera.up.clone().normalize(),angle);const to=this.controls.target.clone().add(delta).toArray();this.camera.position.fromArray(stopAtSurface(this.camera.position.toArray(),to,this.bodies()));this.updateControls();this.changed();this.request()}
  tick(now:number){
   if(this.disposed)return false
@@ -88,7 +92,7 @@ export class SolarCameraController{
    const up=Number(active('KeyE','up'))-Number(active('KeyQ','down'))
    const movement=new T.Vector3(right,up,-forward)
    if(movement.lengthSq()){
-    const speed=flightSpeed(this.camera.position.toArray(),this.bodies())*(this.keys.has('ShiftLeft')||this.keys.has('ShiftRight')?4:1)
+    const speed=flightSpeed(this.camera.position.toArray(),this.bodies(),this.limits.maxFlightSpeedAU)*(this.keys.has('ShiftLeft')||this.keys.has('ShiftRight')?4:1)
     movement.normalize().applyQuaternion(this.camera.quaternion).multiplyScalar(speed*dt)
     const from=this.camera.position.toArray(),to=this.camera.position.clone().add(movement).toArray(),safe=stopAtSurface(from,to,this.bodies())
     const delta=new T.Vector3(...safe).sub(this.camera.position);this.camera.position.fromArray(safe);this.controls.target.add(delta);this.changed()

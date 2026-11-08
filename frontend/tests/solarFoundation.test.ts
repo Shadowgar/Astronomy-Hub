@@ -26,6 +26,12 @@ describe('camera-relative scientific coordinates',()=>{
   expect(flightSpeed([0,0,10],[{position:[0,0,0],radius:1}])).toBeGreaterThan(flightSpeed([0,0,1.1],[{position:[0,0,0],radius:1}]))
   expect(flightSpeed([0,0,1],[{position:[0,0,0],radius:1}])).toBeGreaterThan(0)
  })
+ it('uses an explicit outer-scale speed cap without changing local collision clearance',()=>{
+  const bodies=[{position:[0,0,0] as [number,number,number],radius:1}]
+  expect(flightSpeed([0,0,100000],bodies,100000)).toBeGreaterThan(30000)
+  expect(flightSpeed([0,0,100000],bodies)).toBe(5)
+  expect(flightSpeed([0,0,1.01],bodies,100000)).toBe(flightSpeed([0,0,1.01],bodies))
+ })
 })
 describe('one monotonic Solar clock',()=>{
  it('is initially paused, advances both directions and changes rates without jumps',()=>{

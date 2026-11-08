@@ -23,8 +23,9 @@ export function stopAtSurface(from:Vector,to:Vector,bodies:OpaqueBody[]):Vector{
 }
 
 /** AU per real second; both speed and clearance refer to physical radii. */
-export function flightSpeed(camera:Vector,bodies:OpaqueBody[]){
- let speed=5
+export function flightSpeed(camera:Vector,bodies:OpaqueBody[],maximum=5){
+ if(!Number.isFinite(maximum)||maximum<=0)throw Error('Invalid camera speed limit')
+ let speed=maximum
  for(const body of bodies){
   const distance=Math.hypot(...relativeVector(camera,body.position))
   speed=Math.min(speed,Math.max(body.radius*.05,(distance-body.radius)*.35))

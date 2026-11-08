@@ -1,5 +1,31 @@
 # LIVE SESSION BRIEF
 
+## Solar System 2.6 — implemented; owner visual acceptance pending
+
+Beyond the Planets is implemented on `recovery/reconcile-20261026`, draft PR107,
+from verified start66050b5e. The owner-authorized scope superseded the Solar2.5
+expansion stop only for this milestone. Voyager observed dates/radii remain
+separate from existing predicted vectors; IBEX DR18 and IMAP MAG are pinned actual
+observations. Heliosphere geometry is explicitly conceptual and scientific model
+reproduction remains unqualified. Oort points/ranges are theoretical, not catalog
+objects. Native engines and prior source packs are preserved.
+
+Scoped validation:726frontend tests,39Docker backend tests(4inherited warnings),
+10acquisition tests, independent source/physics/application reviews, actual Windows
+Edge/RTX3060 A–E journeys in four recordings, three viewport sizes, lifecycle and
+performance checks. First-render mission shader stalls are corrected, while
+632–650ms cold graphics startup tasks remain. Final hosted checks and exact pushed
+SHA are bound on PR107; local evidence is not whole-PR approval.
+
+[Milestone report](../validation/solar-system-2.6/README.md),
+[commands and limits](../validation/solar-system-2.6/VALIDATION.md), and
+[actual owner gallery](http://localhost:4231/owner-review/solar26/index.html).
+Owner visual acceptance remains pending, physical iPhone remains unverified, and
+a matching authorized public corresponding-source release remains outstanding.
+No merge, production deployment, public tunnel, archive publication or protected
+resource deletion. Stop at owner acceptance and separately authorized device/source
+qualification; no further product expansion is authorized.
+
 ## Solar System 2.5 — implemented and independently qualified, owner acceptance pending
 
 Four model-supported flagship missions and six bounded trajectory-only missions

@@ -1,0 +1,251 @@
+{
+  "status": "PASS",
+  "baseline_containers_retained": 157,
+  "baseline_volumes_retained": 90,
+  "new_volumes": [],
+  "deleted_containers": [],
+  "changed_prior_mounts": [],
+  "new_containers": [
+    {
+      "name": "/pr107-solar26-release-artifact",
+      "id": "8b525562beee67904b50e2ab9aab451466d6e8a40082f54a51664c3236532011",
+      "ports": {},
+      "readonly": false,
+      "mounts": []
+    },
+    {
+      "name": "/pr107-solar26-candidate3-artifact",
+      "id": "b880ce050b6e50020fc42b3aa724887b2809fc2f0978742f6e47dfcc23d99450",
+      "ports": {},
+      "readonly": false,
+      "mounts": []
+    },
+    {
+      "name": "/pr107-solar26-final-artifact",
+      "id": "d32e577251b930e6de41754ea5c19074e03491c003c5e5c44d9a10fae3471a30",
+      "ports": {},
+      "readonly": false,
+      "mounts": []
+    },
+    {
+      "name": "/pr107-solar26-owner-artifact",
+      "id": "d70374ed7a4bab37a79cbe4d4b52bcb5bc126edcb2e13230fd3bcb6ee64d9fcf",
+      "ports": {},
+      "readonly": false,
+      "mounts": []
+    },
+    {
+      "name": "/pr107-solar26-tests",
+      "id": "2d5013c1bbb6124699ea6c689e9b2cdefe0adfe36a2274b877dd6b340cce5ff4",
+      "ports": {},
+      "readonly": true,
+      "mounts": [
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/scripts",
+          "destination": "/app/scripts",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "destination": "/runtime/catalog-packs",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-missions",
+          "destination": "/runtime/solar-missions",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-populations/release-20261103",
+          "destination": "/runtime/solar-populations",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/data/runtime-packs/planetary-systems/release",
+          "destination": "/runtime/oras-planetary-systems",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/frontend/src/config",
+          "destination": "/app/frontend/src/config",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release",
+          "destination": "/runtime/oras-lunar-orientation",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release",
+          "destination": "/runtime/planetary-ephemeris",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/output/recovery/p0-source-preservation/release",
+          "destination": "/runtime/recovery-satellites",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/backend",
+          "destination": "/app/backend",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-destinations/release-2025-2030-v1",
+          "destination": "/runtime/solar-destinations",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/heliophysics/release-v1",
+          "destination": "/runtime/heliophysics",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "destination": "/app/frontend/public/oras-sky-engine/skydata",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026",
+          "destination": "/work",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/planetary-systems-spk/release-2025-2030-v3",
+          "destination": "/runtime/planetary-systems-spk",
+          "rw": false,
+          "type": "bind"
+        }
+      ]
+    },
+    {
+      "name": "/pr107-solar26-backend",
+      "id": "645a50bd1f2db346ecc35ecc95d5ecb820ecc75d40c929c5e402df55d9f3a37f",
+      "ports": {},
+      "readonly": true,
+      "mounts": [
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/heliophysics/release-v1",
+          "destination": "/runtime/heliophysics",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/frontend/src/config",
+          "destination": "/app/frontend/src/config",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/output/recovery/p0-source-preservation/release",
+          "destination": "/runtime/recovery-satellites",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/backend",
+          "destination": "/app/backend",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/frontend/public/oras-sky-engine/skydata",
+          "destination": "/app/frontend/public/oras-sky-engine/skydata",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/scripts",
+          "destination": "/app/scripts",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/r4-a-planet-view-1/data/runtime-packs/lunar-orientation/release",
+          "destination": "/runtime/oras-lunar-orientation",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/catalog-packs",
+          "destination": "/runtime/catalog-packs",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/integration-main-20261005/data/runtime-packs/planetary-ephemeris/release",
+          "destination": "/runtime/planetary-ephemeris",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-missions",
+          "destination": "/runtime/solar-missions",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-populations/release-20261103",
+          "destination": "/runtime/solar-populations",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026",
+          "destination": "/work",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/sky-satellite-live-repair-1/data/runtime-packs/planetary-systems/release",
+          "destination": "/runtime/oras-planetary-systems",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/planetary-systems-spk/release-2025-2030-v3",
+          "destination": "/runtime/planetary-systems-spk",
+          "rw": false,
+          "type": "bind"
+        },
+        {
+          "source": "/home/rocco/Astronomy-Hub/.worktrees/repository-recovery-20261026/data/runtime-packs/solar-destinations/release-2025-2030-v1",
+          "destination": "/runtime/solar-destinations",
+          "rw": false,
+          "type": "bind"
+        }
+      ]
+    },
+    {
+      "name": "/pr107-solar26-perf-artifact",
+      "id": "a53a384968f60afc27c03f7a3ad1d59a8a6a42eeb3232227bd2f7f5888cbc79b",
+      "ports": {},
+      "readonly": false,
+      "mounts": []
+    }
+  ],
+  "private_preview_bindings": {
+    "8877/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "4231"
+      }
+    ]
+  },
+  "prior_runtime_note": "Only task-related existing read-only backends and private preview were started; no cause is inferred for their previously stopped state.",
+  "prior_mounts_verified_exactly_by_destination": true
+}

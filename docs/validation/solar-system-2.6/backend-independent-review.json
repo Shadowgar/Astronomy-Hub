@@ -1,0 +1,34 @@
+{
+  "reviewer": "solar26_observations; non-author of reviewed backend/context",
+  "review_date": "2026-11-08",
+  "findings": [],
+  "scope_sha256": {
+    "backend/app/schemas/beyond_exploration.py": "1bbe51951f9f43c39691a05b6cb32883da89de55636d9a2868062ff856233d67",
+    "backend/app/services/beyond_exploration.py": "352d10911ab74e9e3729e4ba06a70afa02713e423a813610400c2c579f57f6f6",
+    "backend/app/routes/beyond_exploration.py": "ed79e7c6304fd30e70f3c9b34c66f6273bb7c235e72dbb19dc41fa6a847fd1ee",
+    "backend/app/data/beyond_context.json": "450a2bf20795c8780d5bb5f18f175a0ed9c6d4c0c026cb7d3c234d5654fbd279",
+    "backend/tests/test_beyond_exploration.py": "39ac5e092e0dc76fd9a057ef6564a3eda0fada80065b0c5a0eb01dec23f64df0",
+    "scripts/skydata/qualify_solar26_context.py": "11b9bd21a75a54c90c087d0433b03a8099c3fdc0d56e91a3022b438e03c6a396",
+    "docs/validation/solar-system-2.6/SCIENCE.md": "0f492f2db5c5111ae33e4f67f61a7c3a0026e55063e16fca6486eba6351fbf1e",
+    "docs/validation/solar-system-2.6/context-reference-checks.json": "48b4e44327615a800073d4d69a0568b0f63e1a2027d1d77e3e598f114dacf81b"
+  },
+  "validation": {
+    "focused_pytest": "22 passed, 1 inherited HTTPX deprecation warning",
+    "actual_pinned_http": "context200; both observation products200; unknown404; actualmission geometry predicted with correct individualepochs",
+    "missing_observation_http": "product503, context200, null observationmetadata; independently qualifiedmissiongeometry remains; no sourcepathleak",
+    "source_identity": "manifestSHA256 matchescodepin; exactSolar2.5missionrelease preserved",
+    "live_primary_sources": [
+      "https://science.nasa.gov/mission/voyager/interstellar-mission/",
+      "https://science.nasa.gov/solar-system/oort-cloud/facts/",
+      "https://pos.sissa.it/395/032/pdf",
+      "https://www.nature.com/articles/s41550-019-0929-2"
+    ],
+    "primary_source_access_limits": "Nature redirectedreader andPoShtml403; primarypublicationsearchindex excerpts independentlyverify121.6AU/2012-08-25 and119AU/2018-11-05; NASAfullpageconfirmsdates. No subscriptionarticlefulltextreadclaimed."
+  },
+  "limits": [
+    "No Docker or Windowsbrowser review bythisreviewer",
+    "No independentphysicalorbit solution; freshHorizonsrefs validagainstsamepredictionfamily",
+    "No qualified3Dheliopausemodel; explicitlyillustrative fallback acceptedwithinownerdirective",
+    "Not independentapproval ofwholePR107 or owneracceptance"
+  ]
+}

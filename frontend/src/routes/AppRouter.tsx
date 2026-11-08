@@ -10,6 +10,7 @@ import Progress from '../pages/Progress'
 import TonightPage from '../features/tonight/TonightPage'
 import ObservePage from '../features/observe/ObservePage'
 
+const BeyondWorkspace=lazy(()=>import('../features/beyond/BeyondWorkspace'))
 const MissionWorkspace=lazy(()=>import('../features/missions/MissionWorkspace'))
 const SystemWorkspace=lazy(()=>import('../features/systems/SystemWorkspace'))
 const PlanetWorkspace=lazy(()=>import('../features/planet/PlanetWorkspace'))
@@ -23,6 +24,7 @@ export default function AppRouter() {
         <Route path="/" element={<WorkspaceShell mode="sky" />} />
         <Route path="/sky-engine" element={<WorkspaceShell mode="sky" />} />
         <Route path="/earth" element={<WorkspaceShell mode="earth" />} />
+        <Route path="/beyond" element={<Suspense fallback={<p role="status">Opening Beyond the Planets…</p>}><BeyondWorkspace/></Suspense>} />
         <Route path="/missions/:mission?" element={<Suspense fallback={<p role="status">Opening mission explorer…</p>}><MissionWorkspace/></Suspense>} />
         <Route path="/planetary-system/:system" element={<Suspense fallback={<p role="status">Opening planetary system…</p>}><SystemWorkspace/></Suspense>} />
         <Route path="/planet-view/:body" element={<Suspense fallback={<p role="status">Opening Planet View…</p>}><PlanetWorkspace/></Suspense>} />

@@ -1,0 +1,71 @@
+{
+  "reviewer": "solar26_physics; non-author of this harness correction",
+  "reviewedFile": "scripts/validation/verify_solar26_journeys.mjs",
+  "sha256": "5c65d6854b19a2b47fffd6e020609706f841b5ad94a7a9e78ebfe1c9868d2c04",
+  "scope": "assertObserver lines27-38 only; exact function extracted from reviewed source and executed against controlled observer records; no browser run",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "identical",
+      "expectedAccepted": true,
+      "actualAccepted": true
+    },
+    {
+      "name": "native angular roundoff",
+      "expectedAccepted": true,
+      "actualAccepted": true
+    },
+    {
+      "name": "equivalent UTC formatting",
+      "expectedAccepted": true,
+      "actualAccepted": true
+    },
+    {
+      "name": "latitude changed",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "longitude changed",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "elevation changed",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "missing latitude",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "empty longitude",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "infinite elevation",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "nonnumeric latitude",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "invalid UTC",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    },
+    {
+      "name": "one millisecond drift",
+      "expectedAccepted": false,
+      "actualAccepted": false
+    }
+  ],
+  "conclusion": "Permits native floating-point serialization roundoff while rejecting changed location beyond explicit very small bounds, nonfinite or missing values, invalid UTC and one-millisecond epoch drift. Actual journey rerun remains separate.",
+  "limits": "Not approval of the entire browser harness or application; no product change."
+}

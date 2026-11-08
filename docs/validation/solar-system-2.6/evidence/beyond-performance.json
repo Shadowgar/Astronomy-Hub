@@ -1,0 +1,2655 @@
+{
+  "status": "PASS",
+  "startedUtc": "2026-11-08T06:12:07.147Z",
+  "base": "http://localhost:4231",
+  "errors": [],
+  "runs": [
+    {
+      "view": "heliosphere",
+      "measurements": [
+        {
+          "size": "desktop",
+          "frames": {
+            "samples": 200,
+            "median": 6.900000000000091,
+            "p95": 7,
+            "maximum": 7.099999999999909
+          },
+          "diagnostics": {
+            "instanceId": "e738f1fd-ae3a-42b6-b755-9f0214f63b50",
+            "ready": true,
+            "view": "heliosphere",
+            "radius": 150,
+            "camera": {
+              "position": [
+                -43.469812398097346,
+                605.1838987900296,
+                333.52327878573277
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "radius": 150
+            },
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "disposed": false,
+            "contextLost": false,
+            "domainClamps": 0,
+            "coordinateLimitAU": 1000000,
+            "geometryBufferBytes": 378340,
+            "geometryBufferBudget": 67108864,
+            "renderCount": 272,
+            "quality": "balanced",
+            "pixelRatio": 1.0000000149011612,
+            "viewport": {
+              "clearWidth": 1103,
+              "clearHeight": 450.80002212524414,
+              "rectangleOffsetX": 148.5,
+              "rectangleOffsetY": -67.00001335144043
+            },
+            "animating": false,
+            "navigation": "orbit",
+            "independentAnimationLoops": 1,
+            "ownedResources": 108,
+            "assets": {
+              "resources": 108,
+              "textureBytes": 0,
+              "textureAllocations": 0,
+              "decodingBytes": 0,
+              "textureBudget": 134217728,
+              "shared": {
+                "textureBytes": 0,
+                "textureBudget": 134217728,
+                "textureAllocations": 0
+              },
+              "requests": 0,
+              "decodeSamples": [],
+              "fetchSamples": [],
+              "disposed": false
+            },
+            "pipeline": {
+              "mode": "linear-hdr",
+              "bloom": true,
+              "threshold": 1.8,
+              "strength": 0.13,
+              "radius": 0.28,
+              "sceneUnitsPerAU": 149597870700,
+              "hdrSupported": true,
+              "hdrClipping": false,
+              "compositionColorSpace": "linear-srgb",
+              "targetType": "rgba16f",
+              "fallbackLimitation": null,
+              "toneMapping": "ACESFilmic",
+              "toneMappingStages": 1,
+              "outputColorSpace": "srgb",
+              "antialias": "FXAA",
+              "width": 1440,
+              "height": 900,
+              "pixelRatio": 1.0000000149011612,
+              "disposed": false
+            },
+            "shaderPreparation": {
+              "state": "ready",
+              "supported": true,
+              "materials": 64,
+              "milliseconds": 183.90000000596046
+            },
+            "shaderFailures": 0,
+            "drawCalls": 40,
+            "geometries": 24,
+            "textures": 15,
+            "gpuMs": {
+              "supported": true,
+              "samples": 180,
+              "median": 1.185792,
+              "p95": 1.21856
+            },
+            "renderCpuMs": {
+              "samples": 272,
+              "median": 0.699999988079071,
+              "p95": 1,
+              "maximum": 21.299999997019768
+            },
+            "frameIntervalsMs": {
+              "samples": 0,
+              "median": null,
+              "p95": null,
+              "maximum": null
+            },
+            "frame": "ICRF",
+            "origin": "sun",
+            "units": "AU",
+            "precision": "camera-relative CPU64/GPU32",
+            "representation": "illustrative schematic; dimensions are artistic",
+            "planetsVisible": false,
+            "snapshotEpoch": "2018-11-05T12:00:00Z",
+            "snapshotSource": {
+              "id": "jpl_de442s_local",
+              "release": "de442s-2025-02-06",
+              "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+            },
+            "crossings": [
+              {
+                "id": "voyager1-heliopause",
+                "visible": false,
+                "observedDate": "2012-08-25",
+                "sourceEpoch": "2012-08-25T12:00:00.000Z",
+                "position": [
+                  -26.003019911716255,
+                  -115.99570570058903,
+                  25.63589354651999
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              },
+              {
+                "id": "voyager2-heliopause",
+                "visible": false,
+                "observedDate": "2018-11-05",
+                "sourceEpoch": "2018-11-05T12:00:00.000Z",
+                "position": [
+                  32.845293187855965,
+                  -54.28662151998384,
+                  -100.69916109886283
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              }
+            ],
+            "labels": [
+              {
+                "id": "sun",
+                "text": "Sun",
+                "x": 571.5,
+                "y": 517.0000133514407,
+                "visible": true
+              },
+              {
+                "id": "kuiper-guide",
+                "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+                "x": 581.3892426408877,
+                "y": 525.8286821701386,
+                "visible": false
+              },
+              {
+                "id": "voyager1-heliopause",
+                "text": "Voyager 1 \u00b7 2012-08-25",
+                "x": 622.9852786106657,
+                "y": 400.7880824379343,
+                "visible": false
+              },
+              {
+                "id": "voyager2-heliopause",
+                "text": "Voyager 2 \u00b7 2018-11-05",
+                "x": 528.6783177526735,
+                "y": 607.5164446569501,
+                "visible": false
+              },
+              {
+                "id": "concept-shock",
+                "text": "Termination shock \u00b7 schematic",
+                "x": 473.99839869836495,
+                "y": 474.696207938908,
+                "visible": true
+              },
+              {
+                "id": "concept-pause",
+                "text": "Heliopause \u00b7 schematic",
+                "x": 400.75252945774514,
+                "y": 483.4160946931368,
+                "visible": false
+              },
+              {
+                "id": "oort-2000",
+                "text": "2,000 AU \u00b7 theoretical range",
+                "x": 6388.006989490786,
+                "y": 349.3389785960005,
+                "visible": false
+              },
+              {
+                "id": "oort-5000",
+                "text": "5,000 AU \u00b7 theoretical range",
+                "x": 3208.508298333405,
+                "y": 440.9881490562397,
+                "visible": false
+              },
+              {
+                "id": "oort-10000",
+                "text": "10,000 AU \u00b7 theoretical range",
+                "x": 2802.07287040417,
+                "y": 452.7036656938035,
+                "visible": false
+              },
+              {
+                "id": "oort-100000",
+                "text": "100,000 AU \u00b7 theoretical range",
+                "x": 2530.351342048508,
+                "y": 460.5360490626797,
+                "visible": false
+              },
+              {
+                "id": "mercury",
+                "text": "Mercury",
+                "x": 571.0159482721118,
+                "y": 517.0240828904141,
+                "visible": false
+              },
+              {
+                "id": "venus",
+                "text": "Venus",
+                "x": 570.6330480492182,
+                "y": 517.090808773106,
+                "visible": false
+              },
+              {
+                "id": "earth",
+                "text": "Earth",
+                "x": 570.1944940454019,
+                "y": 517.0627283745755,
+                "visible": false
+              },
+              {
+                "id": "mars",
+                "text": "Mars",
+                "x": 569.1364559363291,
+                "y": 516.9988128678792,
+                "visible": false
+              },
+              {
+                "id": "jupiter",
+                "text": "Jupiter",
+                "x": 576.2448808908341,
+                "y": 516.2833196347541,
+                "visible": false
+              },
+              {
+                "id": "saturn",
+                "text": "Saturn",
+                "x": 569.8192916479202,
+                "y": 515.1998766996096,
+                "visible": false
+              },
+              {
+                "id": "uranus",
+                "text": "Uranus",
+                "x": 541.0487496441158,
+                "y": 517.8928795895096,
+                "visible": false
+              },
+              {
+                "id": "neptune",
+                "text": "Neptune",
+                "x": 524.1056011799083,
+                "y": 514.9978783801179,
+                "visible": false
+              }
+            ],
+            "epoch": "2018-11-05T12:00:00.000Z",
+            "observationId": null,
+            "retired": null
+          }
+        },
+        {
+          "size": "portrait",
+          "frames": {
+            "samples": 200,
+            "median": 6.900000000000546,
+            "p95": 7,
+            "maximum": 7.100000000000364
+          },
+          "diagnostics": {
+            "instanceId": "e738f1fd-ae3a-42b6-b755-9f0214f63b50",
+            "ready": true,
+            "view": "heliosphere",
+            "radius": 150,
+            "camera": {
+              "position": [
+                -161.2517665328608,
+                -584.9231092499404,
+                333.52327878570634
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "radius": 150
+            },
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "disposed": false,
+            "contextLost": false,
+            "domainClamps": 0,
+            "coordinateLimitAU": 1000000,
+            "geometryBufferBytes": 378340,
+            "geometryBufferBudget": 67108864,
+            "renderCount": 543,
+            "quality": "balanced",
+            "pixelRatio": 1.0000000149011612,
+            "viewport": {
+              "clearWidth": 350.3999938964844,
+              "clearHeight": 201,
+              "rectangleOffsetX": 0,
+              "rectangleOffsetY": 44.5
+            },
+            "animating": false,
+            "navigation": "orbit",
+            "independentAnimationLoops": 1,
+            "ownedResources": 108,
+            "assets": {
+              "resources": 108,
+              "textureBytes": 0,
+              "textureAllocations": 0,
+              "decodingBytes": 0,
+              "textureBudget": 134217728,
+              "shared": {
+                "textureBytes": 0,
+                "textureBudget": 134217728,
+                "textureAllocations": 0
+              },
+              "requests": 0,
+              "decodeSamples": [],
+              "fetchSamples": [],
+              "disposed": false
+            },
+            "pipeline": {
+              "mode": "linear-hdr",
+              "bloom": true,
+              "threshold": 1.8,
+              "strength": 0.13,
+              "radius": 0.28,
+              "sceneUnitsPerAU": 149597870700,
+              "hdrSupported": true,
+              "hdrClipping": false,
+              "compositionColorSpace": "linear-srgb",
+              "targetType": "rgba16f",
+              "fallbackLimitation": null,
+              "toneMapping": "ACESFilmic",
+              "toneMappingStages": 1,
+              "outputColorSpace": "srgb",
+              "antialias": "FXAA",
+              "width": 390.3999938964844,
+              "height": 844,
+              "pixelRatio": 1.0000000149011612,
+              "disposed": false
+            },
+            "shaderPreparation": {
+              "state": "ready",
+              "supported": true,
+              "materials": 64,
+              "milliseconds": 183.90000000596046
+            },
+            "shaderFailures": 0,
+            "drawCalls": 40,
+            "geometries": 24,
+            "textures": 15,
+            "gpuMs": {
+              "supported": true,
+              "samples": 180,
+              "median": 0.502784,
+              "p95": 0.536576
+            },
+            "renderCpuMs": {
+              "samples": 543,
+              "median": 0.6000000089406967,
+              "p95": 0.9000000059604645,
+              "maximum": 21.299999997019768
+            },
+            "frameIntervalsMs": {
+              "samples": 0,
+              "median": null,
+              "p95": null,
+              "maximum": null
+            },
+            "frame": "ICRF",
+            "origin": "sun",
+            "units": "AU",
+            "precision": "camera-relative CPU64/GPU32",
+            "representation": "illustrative schematic; dimensions are artistic",
+            "planetsVisible": false,
+            "snapshotEpoch": "2018-11-05T12:00:00Z",
+            "snapshotSource": {
+              "id": "jpl_de442s_local",
+              "release": "de442s-2025-02-06",
+              "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+            },
+            "crossings": [
+              {
+                "id": "voyager1-heliopause",
+                "visible": false,
+                "observedDate": "2012-08-25",
+                "sourceEpoch": "2012-08-25T12:00:00.000Z",
+                "position": [
+                  -26.003019911716255,
+                  -115.99570570058903,
+                  25.63589354651999
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              },
+              {
+                "id": "voyager2-heliopause",
+                "visible": false,
+                "observedDate": "2018-11-05",
+                "sourceEpoch": "2018-11-05T12:00:00.000Z",
+                "position": [
+                  32.845293187855965,
+                  -54.28662151998384,
+                  -100.69916109886283
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              }
+            ],
+            "labels": [
+              {
+                "id": "sun",
+                "text": "Sun",
+                "x": 195.19999694824213,
+                "y": 377.5000000000001,
+                "visible": true
+              },
+              {
+                "id": "kuiper-guide",
+                "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+                "x": 164.0474567305462,
+                "y": 320.88340192314183,
+                "visible": false
+              },
+              {
+                "id": "voyager1-heliopause",
+                "text": "Voyager 1 \u00b7 2012-08-25",
+                "x": 206.19376418974687,
+                "y": 443.79021238376504,
+                "visible": false
+              },
+              {
+                "id": "voyager2-heliopause",
+                "text": "Voyager 2 \u00b7 2018-11-05",
+                "x": 267.3122475216842,
+                "y": 548.4272921946871,
+                "visible": false
+              },
+              {
+                "id": "concept-shock",
+                "text": "Termination shock \u00b7 schematic",
+                "x": 273.4733672746937,
+                "y": 313.6401665979797,
+                "visible": false
+              },
+              {
+                "id": "concept-pause",
+                "text": "Heliopause \u00b7 schematic",
+                "x": 307.6796060096459,
+                "y": 273.40853011238534,
+                "visible": false
+              },
+              {
+                "id": "oort-2000",
+                "text": "2,000 AU \u00b7 theoretical range",
+                "x": 1014.7995594010943,
+                "y": -315.16551158217277,
+                "visible": false
+              },
+              {
+                "id": "oort-5000",
+                "text": "5,000 AU \u00b7 theoretical range",
+                "x": 1271.2124583298657,
+                "y": -531.8669105936959,
+                "visible": false
+              },
+              {
+                "id": "oort-10000",
+                "text": "10,000 AU \u00b7 theoretical range",
+                "x": 1396.4872743751753,
+                "y": -637.7400082863006,
+                "visible": false
+              },
+              {
+                "id": "oort-100000",
+                "text": "100,000 AU \u00b7 theoretical range",
+                "x": 1537.0943976265328,
+                "y": -756.5708488830488,
+                "visible": false
+              },
+              {
+                "id": "mercury",
+                "text": "Mercury",
+                "x": 195.7626535874391,
+                "y": 377.8264074886651,
+                "visible": false
+              },
+              {
+                "id": "venus",
+                "text": "Venus",
+                "x": 195.7156944172353,
+                "y": 376.7555824269228,
+                "visible": false
+              },
+              {
+                "id": "earth",
+                "text": "Earth",
+                "x": 196.05298530761357,
+                "y": 376.52484989980496,
+                "visible": false
+              },
+              {
+                "id": "mars",
+                "text": "Mars",
+                "x": 197.24345835437933,
+                "y": 377.0192924727758,
+                "visible": false
+              },
+              {
+                "id": "jupiter",
+                "text": "Jupiter",
+                "x": 193.19066624573907,
+                "y": 383.79772325970356,
+                "visible": false
+              },
+              {
+                "id": "saturn",
+                "text": "Saturn",
+                "x": 201.66164366671413,
+                "y": 389.3558403244298,
+                "visible": false
+              },
+              {
+                "id": "uranus",
+                "text": "Uranus",
+                "x": 217.17791162581346,
+                "y": 362.04540246422147,
+                "visible": false
+              },
+              {
+                "id": "neptune",
+                "text": "Neptune",
+                "x": 242.1956807173714,
+                "y": 381.52598746873747,
+                "visible": false
+              }
+            ],
+            "epoch": "2018-11-05T12:00:00.000Z",
+            "observationId": null,
+            "retired": null
+          }
+        },
+        {
+          "size": "landscape",
+          "frames": {
+            "samples": 200,
+            "median": 6.900000000000546,
+            "p95": 7,
+            "maximum": 7.100000000000364
+          },
+          "diagnostics": {
+            "instanceId": "e738f1fd-ae3a-42b6-b755-9f0214f63b50",
+            "ready": true,
+            "view": "heliosphere",
+            "radius": 150,
+            "camera": {
+              "position": [
+                347.4356782452898,
+                497.41896367828116,
+                333.5232787856791
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "radius": 150
+            },
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "disposed": false,
+            "contextLost": false,
+            "domainClamps": 0,
+            "coordinateLimitAU": 1000000,
+            "geometryBufferBytes": 378340,
+            "geometryBufferBudget": 67108864,
+            "renderCount": 815,
+            "quality": "balanced",
+            "pixelRatio": 1.0000000149011612,
+            "viewport": {
+              "clearWidth": 567,
+              "clearHeight": 95.20001602172852,
+              "rectangleOffsetX": 118.5,
+              "rectangleOffsetY": -24.00001335144043
+            },
+            "animating": false,
+            "navigation": "orbit",
+            "independentAnimationLoops": 1,
+            "ownedResources": 108,
+            "assets": {
+              "resources": 108,
+              "textureBytes": 0,
+              "textureAllocations": 0,
+              "decodingBytes": 0,
+              "textureBudget": 134217728,
+              "shared": {
+                "textureBytes": 0,
+                "textureBudget": 134217728,
+                "textureAllocations": 0
+              },
+              "requests": 0,
+              "decodeSamples": [],
+              "fetchSamples": [],
+              "disposed": false
+            },
+            "pipeline": {
+              "mode": "linear-hdr",
+              "bloom": true,
+              "threshold": 1.8,
+              "strength": 0.13,
+              "radius": 0.28,
+              "sceneUnitsPerAU": 149597870700,
+              "hdrSupported": true,
+              "hdrClipping": false,
+              "compositionColorSpace": "linear-srgb",
+              "targetType": "rgba16f",
+              "fallbackLimitation": null,
+              "toneMapping": "ACESFilmic",
+              "toneMappingStages": 1,
+              "outputColorSpace": "srgb",
+              "antialias": "FXAA",
+              "width": 844,
+              "height": 390.3999938964844,
+              "pixelRatio": 1.0000000149011612,
+              "disposed": false
+            },
+            "shaderPreparation": {
+              "state": "ready",
+              "supported": true,
+              "materials": 64,
+              "milliseconds": 183.90000000596046
+            },
+            "shaderFailures": 0,
+            "drawCalls": 40,
+            "geometries": 24,
+            "textures": 15,
+            "gpuMs": {
+              "supported": true,
+              "samples": 180,
+              "median": 0.56832,
+              "p95": 0.628736
+            },
+            "renderCpuMs": {
+              "samples": 600,
+              "median": 0.5999999940395355,
+              "p95": 0.8999999910593033,
+              "maximum": 1.2000000029802322
+            },
+            "frameIntervalsMs": {
+              "samples": 0,
+              "median": null,
+              "p95": null,
+              "maximum": null
+            },
+            "frame": "ICRF",
+            "origin": "sun",
+            "units": "AU",
+            "precision": "camera-relative CPU64/GPU32",
+            "representation": "illustrative schematic; dimensions are artistic",
+            "planetsVisible": false,
+            "snapshotEpoch": "2018-11-05T12:00:00Z",
+            "snapshotSource": {
+              "id": "jpl_de442s_local",
+              "release": "de442s-2025-02-06",
+              "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+            },
+            "crossings": [
+              {
+                "id": "voyager1-heliopause",
+                "visible": false,
+                "observedDate": "2012-08-25",
+                "sourceEpoch": "2012-08-25T12:00:00.000Z",
+                "position": [
+                  -26.003019911716255,
+                  -115.99570570058903,
+                  25.63589354651999
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              },
+              {
+                "id": "voyager2-heliopause",
+                "visible": false,
+                "observedDate": "2018-11-05",
+                "sourceEpoch": "2018-11-05T12:00:00.000Z",
+                "position": [
+                  32.845293187855965,
+                  -54.28662151998384,
+                  -100.69916109886283
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              }
+            ],
+            "labels": [
+              {
+                "id": "sun",
+                "text": "Sun",
+                "x": 303.50000000000006,
+                "y": 219.2000102996827,
+                "visible": true
+              },
+              {
+                "id": "kuiper-guide",
+                "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+                "x": 329.1165633778555,
+                "y": 217.86580363117548,
+                "visible": false
+              },
+              {
+                "id": "voyager1-heliopause",
+                "text": "Voyager 1 \u00b7 2012-08-25",
+                "x": 273.9585473612081,
+                "y": 169.78531017120065,
+                "visible": false
+              },
+              {
+                "id": "voyager2-heliopause",
+                "text": "Voyager 2 \u00b7 2018-11-05",
+                "x": 264.856402241634,
+                "y": 269.73647470480597,
+                "visible": false
+              },
+              {
+                "id": "concept-shock",
+                "text": "Termination shock \u00b7 schematic",
+                "x": 273.1681765441564,
+                "y": 212.74587868064555,
+                "visible": false
+              },
+              {
+                "id": "concept-pause",
+                "text": "Heliopause \u00b7 schematic",
+                "x": 262.4392961332403,
+                "y": 224.15229558445242,
+                "visible": false
+              },
+              {
+                "id": "oort-2000",
+                "text": "2,000 AU \u00b7 theoretical range",
+                "x": 644.0255770423486,
+                "y": 4.112947273147771,
+                "visible": false
+              },
+              {
+                "id": "oort-5000",
+                "text": "5,000 AU \u00b7 theoretical range",
+                "x": 551.0271366618095,
+                "y": 62.853795996563534,
+                "visible": false
+              },
+              {
+                "id": "oort-10000",
+                "text": "10,000 AU \u00b7 theoretical range",
+                "x": 530.3738525676805,
+                "y": 75.89908397828363,
+                "visible": false
+              },
+              {
+                "id": "oort-100000",
+                "text": "100,000 AU \u00b7 theoretical range",
+                "x": 514.5268704203564,
+                "y": 85.90855486004938,
+                "visible": false
+              },
+              {
+                "id": "mercury",
+                "text": "Mercury",
+                "x": 303.21952932663294,
+                "y": 219.29422341040404,
+                "visible": false
+              },
+              {
+                "id": "venus",
+                "text": "Venus",
+                "x": 303.42576765095254,
+                "y": 219.31632627083866,
+                "visible": false
+              },
+              {
+                "id": "earth",
+                "text": "Earth",
+                "x": 303.32118691227276,
+                "y": 219.35452264527476,
+                "visible": false
+              },
+              {
+                "id": "mars",
+                "text": "Mars",
+                "x": 302.7412308450593,
+                "y": 219.50435813539437,
+                "visible": false
+              },
+              {
+                "id": "jupiter",
+                "text": "Jupiter",
+                "x": 303.1741424698267,
+                "y": 218.5939683712976,
+                "visible": false
+              },
+              {
+                "id": "saturn",
+                "text": "Saturn",
+                "x": 298.7025665258707,
+                "y": 219.36075636994872,
+                "visible": false
+              },
+              {
+                "id": "uranus",
+                "text": "Uranus",
+                "x": 296.93642890625097,
+                "y": 222.9963109474896,
+                "visible": false
+              },
+              {
+                "id": "neptune",
+                "text": "Neptune",
+                "x": 282.96977891810604,
+                "y": 225.41593283279119,
+                "visible": false
+              }
+            ],
+            "epoch": "2018-11-05T12:00:00.000Z",
+            "observationId": null,
+            "retired": null
+          }
+        }
+      ],
+      "readyMilliseconds": 1078.5836,
+      "cold": {
+        "frames": [
+          5.599999999999994,
+          7,
+          527.8,
+          243,
+          6.899999999999977,
+          14,
+          6.900000000000091,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          6.899999999999977,
+          7,
+          7,
+          6.900000000000091,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          7,
+          6.899999999999977,
+          7,
+          6.900000000000091,
+          7,
+          7,
+          6.899999999999864,
+          6.900000000000091,
+          20.799999999999955
+        ],
+        "tasks": [
+          {
+            "start": 215.59999999403954,
+            "duration": 650
+          }
+        ],
+        "diagnostics": {
+          "instanceId": "e738f1fd-ae3a-42b6-b755-9f0214f63b50",
+          "ready": true,
+          "view": "heliosphere",
+          "radius": 150,
+          "camera": {
+            "position": [
+              243.1940574479484,
+              -555.8721313095962,
+              333.52327878575784
+            ],
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "radius": 150
+          },
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "disposed": false,
+          "contextLost": false,
+          "domainClamps": 0,
+          "coordinateLimitAU": 1000000,
+          "geometryBufferBytes": 378340,
+          "geometryBufferBudget": 67108864,
+          "renderCount": 2,
+          "quality": "balanced",
+          "pixelRatio": 1.0000000149011612,
+          "viewport": {
+            "clearWidth": 1103,
+            "clearHeight": 450.80002212524414,
+            "rectangleOffsetX": 148.5,
+            "rectangleOffsetY": -67.00001335144043
+          },
+          "animating": false,
+          "navigation": "orbit",
+          "independentAnimationLoops": 1,
+          "ownedResources": 108,
+          "assets": {
+            "resources": 108,
+            "textureBytes": 0,
+            "textureAllocations": 0,
+            "decodingBytes": 0,
+            "textureBudget": 134217728,
+            "shared": {
+              "textureBytes": 0,
+              "textureBudget": 134217728,
+              "textureAllocations": 0
+            },
+            "requests": 0,
+            "decodeSamples": [],
+            "fetchSamples": [],
+            "disposed": false
+          },
+          "pipeline": {
+            "mode": "linear-hdr",
+            "bloom": true,
+            "threshold": 1.8,
+            "strength": 0.13,
+            "radius": 0.28,
+            "sceneUnitsPerAU": 149597870700,
+            "hdrSupported": true,
+            "hdrClipping": false,
+            "compositionColorSpace": "linear-srgb",
+            "targetType": "rgba16f",
+            "fallbackLimitation": null,
+            "toneMapping": "ACESFilmic",
+            "toneMappingStages": 1,
+            "outputColorSpace": "srgb",
+            "antialias": "FXAA",
+            "width": 1440,
+            "height": 900,
+            "pixelRatio": 1.0000000149011612,
+            "disposed": false
+          },
+          "shaderPreparation": {
+            "state": "ready",
+            "supported": true,
+            "materials": 64,
+            "milliseconds": 183.90000000596046
+          },
+          "shaderFailures": 0,
+          "drawCalls": 40,
+          "geometries": 24,
+          "textures": 15,
+          "gpuMs": {
+            "supported": true,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "renderCpuMs": {
+            "samples": 2,
+            "median": 21.299999997019768,
+            "p95": 21.299999997019768,
+            "maximum": 21.299999997019768
+          },
+          "frameIntervalsMs": {
+            "samples": 0,
+            "median": null,
+            "p95": null,
+            "maximum": null
+          },
+          "frame": "ICRF",
+          "origin": "sun",
+          "units": "AU",
+          "precision": "camera-relative CPU64/GPU32",
+          "representation": "illustrative schematic; dimensions are artistic",
+          "planetsVisible": false,
+          "snapshotEpoch": "2018-11-05T12:00:00Z",
+          "snapshotSource": {
+            "id": "jpl_de442s_local",
+            "release": "de442s-2025-02-06",
+            "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+          },
+          "crossings": [
+            {
+              "id": "voyager1-heliopause",
+              "visible": false,
+              "observedDate": "2012-08-25",
+              "sourceEpoch": "2012-08-25T12:00:00.000Z",
+              "position": [
+                -26.003019911716255,
+                -115.99570570058903,
+                25.63589354651999
+              ],
+              "quality": "predicted",
+              "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+            },
+            {
+              "id": "voyager2-heliopause",
+              "visible": false,
+              "observedDate": "2018-11-05",
+              "sourceEpoch": "2018-11-05T12:00:00.000Z",
+              "position": [
+                32.845293187855965,
+                -54.28662151998384,
+                -100.69916109886283
+              ],
+              "quality": "predicted",
+              "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+            }
+          ],
+          "labels": [
+            {
+              "id": "sun",
+              "text": "Sun",
+              "x": 571.5,
+              "y": 517.0000133514404,
+              "visible": true
+            },
+            {
+              "id": "kuiper-guide",
+              "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+              "x": 587.9799850491607,
+              "y": 454.05850629799824,
+              "visible": false
+            },
+            {
+              "id": "voyager1-heliopause",
+              "text": "Voyager 1 \u00b7 2012-08-25",
+              "x": 433.1991049144958,
+              "y": 563.6253969612166,
+              "visible": false
+            },
+            {
+              "id": "voyager2-heliopause",
+              "text": "Voyager 2 \u00b7 2018-11-05",
+              "x": 585.7440430020766,
+              "y": 719.6516670287592,
+              "visible": false
+            },
+            {
+              "id": "concept-shock",
+              "text": "Termination shock \u00b7 schematic",
+              "x": 668.4752074006583,
+              "y": 477.0861601316593,
+              "visible": true
+            },
+            {
+              "id": "concept-pause",
+              "text": "Heliopause \u00b7 schematic",
+              "x": 745.5989503835902,
+              "y": 448.93375832546195,
+              "visible": false
+            },
+            {
+              "id": "oort-2000",
+              "text": "2,000 AU \u00b7 theoretical range",
+              "x": 3608.9222363638874,
+              "y": -348.74075720976606,
+              "visible": false
+            },
+            {
+              "id": "oort-5000",
+              "text": "5,000 AU \u00b7 theoretical range",
+              "x": 7471.42045066946,
+              "y": -1449.6486719247175,
+              "visible": false
+            },
+            {
+              "id": "oort-10000",
+              "text": "10,000 AU \u00b7 theoretical range",
+              "x": 12548.012008188642,
+              "y": -2896.6033409905713,
+              "visible": false
+            },
+            {
+              "id": "oort-100000",
+              "text": "100,000 AU \u00b7 theoretical range",
+              "x": 36022.98168902371,
+              "y": -9587.552691751947,
+              "visible": false
+            },
+            {
+              "id": "mercury",
+              "text": "Mercury",
+              "x": 571.8130015503831,
+              "y": 517.5041092995981,
+              "visible": false
+            },
+            {
+              "id": "venus",
+              "text": "Venus",
+              "x": 572.58254898745,
+              "y": 516.4846950361733,
+              "visible": false
+            },
+            {
+              "id": "earth",
+              "text": "Earth",
+              "x": 573.0481426237204,
+              "y": 516.3793197470552,
+              "visible": false
+            },
+            {
+              "id": "mars",
+              "text": "Mars",
+              "x": 573.7754750464608,
+              "y": 517.2479950437863,
+              "visible": false
+            },
+            {
+              "id": "jupiter",
+              "text": "Jupiter",
+              "x": 564.6116080972697,
+              "y": 522.1580699226024,
+              "visible": false
+            },
+            {
+              "id": "saturn",
+              "text": "Saturn",
+              "x": 567.8458881607527,
+              "y": 530.2070667859837,
+              "visible": false
+            },
+            {
+              "id": "uranus",
+              "text": "Uranus",
+              "x": 604.4073698933896,
+              "y": 509.9549486286367,
+              "visible": false
+            },
+            {
+              "id": "neptune",
+              "text": "Neptune",
+              "x": 612.5842023510448,
+              "y": 537.1828854156643,
+              "visible": false
+            }
+          ],
+          "epoch": "2018-11-05T12:00:00.000Z",
+          "observationId": null,
+          "retired": null
+        },
+        "resources": [
+          {
+            "name": "http://localhost:4231/assets/index-BoKtYG5_.js",
+            "duration": 9.599999994039536,
+            "bytes": 196293
+          },
+          {
+            "name": "http://localhost:4231/assets/workspace-C6jRXc2S.css",
+            "duration": 10.299999997019768,
+            "bytes": 25107
+          },
+          {
+            "name": "http://localhost:4231/assets/workspace-Cm4BEhZ5.js",
+            "duration": 12.399999991059303,
+            "bytes": 171761
+          },
+          {
+            "name": "http://localhost:4231/assets/index-DW8EKZre.css",
+            "duration": 11.900000005960464,
+            "bytes": 98149
+          },
+          {
+            "name": "http://localhost:4231/assets/BeyondWorkspace-DWr-X0Iv.js",
+            "duration": 3.699999988079071,
+            "bytes": 43375
+          },
+          {
+            "name": "http://localhost:4231/assets/solarGpuTiming-DobPRtkt.js",
+            "duration": 4.299999997019768,
+            "bytes": 590672
+          },
+          {
+            "name": "http://localhost:4231/assets/solarMaterials-DHn3DgL5.js",
+            "duration": 3.7000000029802322,
+            "bytes": 68393
+          },
+          {
+            "name": "http://localhost:4231/assets/beyondNavigation-Bs22b4vN.js",
+            "duration": 3.4000000059604645,
+            "bytes": 17475
+          },
+          {
+            "name": "http://localhost:4231/assets/solar-BI6sLzaX.js",
+            "duration": 8.599999994039536,
+            "bytes": 14226
+          },
+          {
+            "name": "http://localhost:4231/assets/solar-BfOxeaE7.css",
+            "duration": 7.200000002980232,
+            "bytes": 18244
+          },
+          {
+            "name": "http://localhost:4231/assets/solarContracts-BlwJPR1f.js",
+            "duration": 8.199999988079071,
+            "bytes": 3073
+          },
+          {
+            "name": "http://localhost:4231/assets/systemSceneMath-BCw-lZ0X.js",
+            "duration": 8.200000002980232,
+            "bytes": 1610
+          },
+          {
+            "name": "http://localhost:4231/assets/BeyondWorkspace-DoKgI2Xo.css",
+            "duration": 8.700000002980232,
+            "bytes": 7871
+          },
+          {
+            "name": "http://localhost:4231/favicon.ico",
+            "duration": 2.2000000029802322,
+            "bytes": 568
+          },
+          {
+            "name": "http://localhost:4231/assets/plex-1-DPg3uh6f.ttf",
+            "duration": 40.29999999701977,
+            "bytes": 205292
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar/beyond/context",
+            "duration": 67.5,
+            "bytes": 16043
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar-system?epoch=2018-11-05T12%3A00%3A00.000Z",
+            "duration": 87.20000000298023,
+            "bytes": 120585
+          }
+        ]
+      },
+      "servedScripts": [
+        {
+          "url": "http://localhost:4231/assets/index-BoKtYG5_.js",
+          "sha256": "201eea7e8c020cb10eb487446d89b2b0b51d53ceb9b1963f6b7a7a0e8e80828f"
+        }
+      ]
+    },
+    {
+      "view": "oort",
+      "measurements": [
+        {
+          "size": "desktop",
+          "frames": {
+            "samples": 200,
+            "median": 6.900000000000091,
+            "p95": 7,
+            "maximum": 7.100000000000136
+          },
+          "diagnostics": {
+            "instanceId": "90d1e5f6-fac4-4e46-bd3f-ace66ef2d48d",
+            "ready": true,
+            "view": "oort",
+            "radius": 50000,
+            "camera": {
+              "position": [
+                -14489.937466032674,
+                201727.96626334637,
+                111174.42626190849
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "radius": 50000
+            },
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "disposed": false,
+            "contextLost": false,
+            "domainClamps": 0,
+            "coordinateLimitAU": 1000000,
+            "geometryBufferBytes": 378340,
+            "geometryBufferBudget": 67108864,
+            "renderCount": 272,
+            "quality": "balanced",
+            "pixelRatio": 1.0000000149011612,
+            "viewport": {
+              "clearWidth": 1103,
+              "clearHeight": 450.80002212524414,
+              "rectangleOffsetX": 148.5,
+              "rectangleOffsetY": -67.00001335144043
+            },
+            "animating": false,
+            "navigation": "orbit",
+            "independentAnimationLoops": 1,
+            "ownedResources": 108,
+            "assets": {
+              "resources": 108,
+              "textureBytes": 0,
+              "textureAllocations": 0,
+              "decodingBytes": 0,
+              "textureBudget": 134217728,
+              "shared": {
+                "textureBytes": 0,
+                "textureBudget": 134217728,
+                "textureAllocations": 0
+              },
+              "requests": 0,
+              "decodeSamples": [],
+              "fetchSamples": [],
+              "disposed": false
+            },
+            "pipeline": {
+              "mode": "linear-hdr",
+              "bloom": true,
+              "threshold": 1.8,
+              "strength": 0.13,
+              "radius": 0.28,
+              "sceneUnitsPerAU": 149597870700,
+              "hdrSupported": true,
+              "hdrClipping": false,
+              "compositionColorSpace": "linear-srgb",
+              "targetType": "rgba16f",
+              "fallbackLimitation": null,
+              "toneMapping": "ACESFilmic",
+              "toneMappingStages": 1,
+              "outputColorSpace": "srgb",
+              "antialias": "FXAA",
+              "width": 1440,
+              "height": 900,
+              "pixelRatio": 1.0000000149011612,
+              "disposed": false
+            },
+            "shaderPreparation": {
+              "state": "ready",
+              "supported": true,
+              "materials": 64,
+              "milliseconds": 158.79999999701977
+            },
+            "shaderFailures": 0,
+            "drawCalls": 27,
+            "geometries": 13,
+            "textures": 15,
+            "gpuMs": {
+              "supported": true,
+              "samples": 180,
+              "median": 0.806912,
+              "p95": 0.835584
+            },
+            "renderCpuMs": {
+              "samples": 272,
+              "median": 0.5,
+              "p95": 0.8999999910593033,
+              "maximum": 18.900000005960464
+            },
+            "frameIntervalsMs": {
+              "samples": 0,
+              "median": null,
+              "p95": null,
+              "maximum": null
+            },
+            "frame": "ICRF",
+            "origin": "sun",
+            "units": "AU",
+            "precision": "camera-relative CPU64/GPU32",
+            "representation": "theoretical range; unnamed illustrative samples",
+            "planetsVisible": false,
+            "snapshotEpoch": "2018-11-05T12:00:00Z",
+            "snapshotSource": {
+              "id": "jpl_de442s_local",
+              "release": "de442s-2025-02-06",
+              "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+            },
+            "crossings": [
+              {
+                "id": "voyager1-heliopause",
+                "visible": false,
+                "observedDate": "2012-08-25",
+                "sourceEpoch": "2012-08-25T12:00:00.000Z",
+                "position": [
+                  -26.003019911716255,
+                  -115.99570570058903,
+                  25.63589354651999
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              },
+              {
+                "id": "voyager2-heliopause",
+                "visible": false,
+                "observedDate": "2018-11-05",
+                "sourceEpoch": "2018-11-05T12:00:00.000Z",
+                "position": [
+                  32.845293187855965,
+                  -54.28662151998384,
+                  -100.69916109886283
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              }
+            ],
+            "labels": [
+              {
+                "id": "sun",
+                "text": "Sun",
+                "x": 571.5,
+                "y": 517.0000133514408,
+                "visible": true
+              },
+              {
+                "id": "kuiper-guide",
+                "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+                "x": 571.5275539242913,
+                "y": 517.0246122495624,
+                "visible": false
+              },
+              {
+                "id": "voyager1-heliopause",
+                "text": "Voyager 1 \u00b7 2012-08-25",
+                "x": 571.6738891036133,
+                "y": 516.6075130282214,
+                "visible": false
+              },
+              {
+                "id": "voyager2-heliopause",
+                "text": "Voyager 2 \u00b7 2018-11-05",
+                "x": 571.3534099954776,
+                "y": 517.3098751639167,
+                "visible": false
+              },
+              {
+                "id": "concept-shock",
+                "text": "Termination shock \u00b7 schematic",
+                "x": 571.2169523615864,
+                "y": 516.8772051917995,
+                "visible": false
+              },
+              {
+                "id": "concept-pause",
+                "text": "Heliopause \u00b7 schematic",
+                "x": 571.0275355777501,
+                "y": 516.9070854347027,
+                "visible": false
+              },
+              {
+                "id": "oort-2000",
+                "text": "2,000 AU \u00b7 theoretical range",
+                "x": 562.7774546619376,
+                "y": 517.2514410519012,
+                "visible": false
+              },
+              {
+                "id": "oort-5000",
+                "text": "5,000 AU \u00b7 theoretical range",
+                "x": 549.5450071061031,
+                "y": 517.6328668549761,
+                "visible": false
+              },
+              {
+                "id": "oort-10000",
+                "text": "10,000 AU \u00b7 theoretical range",
+                "x": 527.0854741048963,
+                "y": 518.2802637462563,
+                "visible": false
+              },
+              {
+                "id": "oort-100000",
+                "text": "100,000 AU \u00b7 theoretical range",
+                "x": 11.540649491783936,
+                "y": 533.14086288481,
+                "visible": true
+              },
+              {
+                "id": "mercury",
+                "text": "Mercury",
+                "x": 571.498547223158,
+                "y": 517.0000855909695,
+                "visible": false
+              },
+              {
+                "id": "venus",
+                "text": "Venus",
+                "x": 571.4974010450642,
+                "y": 517.0002855386238,
+                "visible": false
+              },
+              {
+                "id": "earth",
+                "text": "Earth",
+                "x": 571.4960869964182,
+                "y": 517.000201327688,
+                "visible": false
+              },
+              {
+                "id": "mars",
+                "text": "Mars",
+                "x": 571.4929103376894,
+                "y": 517.0000097504827,
+                "visible": false
+              },
+              {
+                "id": "jupiter",
+                "text": "Jupiter",
+                "x": 571.5143277970374,
+                "y": 516.997849199727,
+                "visible": false
+              },
+              {
+                "id": "saturn",
+                "text": "Saturn",
+                "x": 571.4948856092292,
+                "y": 516.9945355406909,
+                "visible": false
+              },
+              {
+                "id": "uranus",
+                "text": "Uranus",
+                "x": 571.4098177180205,
+                "y": 517.0026576013126,
+                "visible": false
+              },
+              {
+                "id": "neptune",
+                "text": "Neptune",
+                "x": 571.3558766032348,
+                "y": 516.99392498446,
+                "visible": false
+              }
+            ],
+            "epoch": "2018-11-05T12:00:00.000Z",
+            "observationId": null,
+            "retired": null
+          }
+        },
+        {
+          "size": "portrait",
+          "frames": {
+            "samples": 200,
+            "median": 6.900000000000546,
+            "p95": 7,
+            "maximum": 7.100000000000364
+          },
+          "diagnostics": {
+            "instanceId": "90d1e5f6-fac4-4e46-bd3f-ace66ef2d48d",
+            "ready": true,
+            "view": "oort",
+            "radius": 50000,
+            "camera": {
+              "position": [
+                -53750.588844289094,
+                -194974.369749984,
+                111174.42626189775
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "radius": 50000
+            },
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "disposed": false,
+            "contextLost": false,
+            "domainClamps": 0,
+            "coordinateLimitAU": 1000000,
+            "geometryBufferBytes": 378340,
+            "geometryBufferBudget": 67108864,
+            "renderCount": 544,
+            "quality": "balanced",
+            "pixelRatio": 1.0000000149011612,
+            "viewport": {
+              "clearWidth": 350.3999938964844,
+              "clearHeight": 201,
+              "rectangleOffsetX": 0,
+              "rectangleOffsetY": 44.5
+            },
+            "animating": false,
+            "navigation": "orbit",
+            "independentAnimationLoops": 1,
+            "ownedResources": 108,
+            "assets": {
+              "resources": 108,
+              "textureBytes": 0,
+              "textureAllocations": 0,
+              "decodingBytes": 0,
+              "textureBudget": 134217728,
+              "shared": {
+                "textureBytes": 0,
+                "textureBudget": 134217728,
+                "textureAllocations": 0
+              },
+              "requests": 0,
+              "decodeSamples": [],
+              "fetchSamples": [],
+              "disposed": false
+            },
+            "pipeline": {
+              "mode": "linear-hdr",
+              "bloom": true,
+              "threshold": 1.8,
+              "strength": 0.13,
+              "radius": 0.28,
+              "sceneUnitsPerAU": 149597870700,
+              "hdrSupported": true,
+              "hdrClipping": false,
+              "compositionColorSpace": "linear-srgb",
+              "targetType": "rgba16f",
+              "fallbackLimitation": null,
+              "toneMapping": "ACESFilmic",
+              "toneMappingStages": 1,
+              "outputColorSpace": "srgb",
+              "antialias": "FXAA",
+              "width": 390.3999938964844,
+              "height": 844,
+              "pixelRatio": 1.0000000149011612,
+              "disposed": false
+            },
+            "shaderPreparation": {
+              "state": "ready",
+              "supported": true,
+              "materials": 64,
+              "milliseconds": 158.79999999701977
+            },
+            "shaderFailures": 0,
+            "drawCalls": 27,
+            "geometries": 13,
+            "textures": 15,
+            "gpuMs": {
+              "supported": true,
+              "samples": 180,
+              "median": 0.366592,
+              "p95": 0.427008
+            },
+            "renderCpuMs": {
+              "samples": 544,
+              "median": 0.5,
+              "p95": 0.7000000029802322,
+              "maximum": 18.900000005960464
+            },
+            "frameIntervalsMs": {
+              "samples": 0,
+              "median": null,
+              "p95": null,
+              "maximum": null
+            },
+            "frame": "ICRF",
+            "origin": "sun",
+            "units": "AU",
+            "precision": "camera-relative CPU64/GPU32",
+            "representation": "theoretical range; unnamed illustrative samples",
+            "planetsVisible": false,
+            "snapshotEpoch": "2018-11-05T12:00:00Z",
+            "snapshotSource": {
+              "id": "jpl_de442s_local",
+              "release": "de442s-2025-02-06",
+              "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+            },
+            "crossings": [
+              {
+                "id": "voyager1-heliopause",
+                "visible": false,
+                "observedDate": "2012-08-25",
+                "sourceEpoch": "2012-08-25T12:00:00.000Z",
+                "position": [
+                  -26.003019911716255,
+                  -115.99570570058903,
+                  25.63589354651999
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              },
+              {
+                "id": "voyager2-heliopause",
+                "visible": false,
+                "observedDate": "2018-11-05",
+                "sourceEpoch": "2018-11-05T12:00:00.000Z",
+                "position": [
+                  32.845293187855965,
+                  -54.28662151998384,
+                  -100.69916109886283
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              }
+            ],
+            "labels": [
+              {
+                "id": "sun",
+                "text": "Sun",
+                "x": 195.19999694824224,
+                "y": 377.5000000000002,
+                "visible": true
+              },
+              {
+                "id": "kuiper-guide",
+                "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+                "x": 195.102945312874,
+                "y": 377.32361844671607,
+                "visible": false
+              },
+              {
+                "id": "voyager1-heliopause",
+                "text": "Voyager 1 \u00b7 2012-08-25",
+                "x": 195.22744732974112,
+                "y": 377.665520297056,
+                "visible": false
+              },
+              {
+                "id": "voyager2-heliopause",
+                "text": "Voyager 2 \u00b7 2018-11-05",
+                "x": 195.41954086551524,
+                "y": 378.0203838044007,
+                "visible": false
+              },
+              {
+                "id": "concept-shock",
+                "text": "Termination shock \u00b7 schematic",
+                "x": 195.43736394928575,
+                "y": 377.30634260312877,
+                "visible": false
+              },
+              {
+                "id": "concept-pause",
+                "text": "Heliopause \u00b7 schematic",
+                "x": 195.55625932270067,
+                "y": 377.1703058044701,
+                "visible": false
+              },
+              {
+                "id": "oort-2000",
+                "text": "2,000 AU \u00b7 theoretical range",
+                "x": 201.36280400632225,
+                "y": 372.29164692219746,
+                "visible": false
+              },
+              {
+                "id": "oort-5000",
+                "text": "5,000 AU \u00b7 theoretical range",
+                "x": 210.50296461299706,
+                "y": 364.56705272693176,
+                "visible": false
+              },
+              {
+                "id": "oort-10000",
+                "text": "10,000 AU \u00b7 theoretical range",
+                "x": 225.46527564441107,
+                "y": 351.9220034860449,
+                "visible": false
+              },
+              {
+                "id": "oort-100000",
+                "text": "100,000 AU \u00b7 theoretical range",
+                "x": 447.3376600474705,
+                "y": 164.41171713527595,
+                "visible": false
+              },
+              {
+                "id": "mercury",
+                "text": "Mercury",
+                "x": 195.20168479472346,
+                "y": 377.50097915085854,
+                "visible": false
+              },
+              {
+                "id": "venus",
+                "text": "Venus",
+                "x": 195.20154502837525,
+                "y": 377.49776532148263,
+                "visible": false
+              },
+              {
+                "id": "earth",
+                "text": "Earth",
+                "x": 195.2025579855285,
+                "y": 377.4970721807177,
+                "visible": false
+              },
+              {
+                "id": "mars",
+                "text": "Mars",
+                "x": 195.20613134764352,
+                "y": 377.49855693287975,
+                "visible": false
+              },
+              {
+                "id": "jupiter",
+                "text": "Jupiter",
+                "x": 195.1939985587374,
+                "y": 377.5188003881385,
+                "visible": false
+              },
+              {
+                "id": "saturn",
+                "text": "Saturn",
+                "x": 195.21922879572853,
+                "y": 377.5352866262854,
+                "visible": false
+              },
+              {
+                "id": "uranus",
+                "text": "Uranus",
+                "x": 195.26688053093983,
+                "y": 377.4529682926018,
+                "visible": false
+              },
+              {
+                "id": "neptune",
+                "text": "Neptune",
+                "x": 195.34152517618355,
+                "y": 377.51212432347984,
+                "visible": false
+              }
+            ],
+            "epoch": "2018-11-05T12:00:00.000Z",
+            "observationId": null,
+            "retired": null
+          }
+        },
+        {
+          "size": "landscape",
+          "frames": {
+            "samples": 200,
+            "median": 6.900000000000546,
+            "p95": 7,
+            "maximum": 7.100000000000364
+          },
+          "diagnostics": {
+            "instanceId": "90d1e5f6-fac4-4e46-bd3f-ace66ef2d48d",
+            "ready": true,
+            "view": "oort",
+            "radius": 50000,
+            "camera": {
+              "position": [
+                115811.89274843414,
+                165806.3212260988,
+                111174.42626188732
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "up": [
+                0,
+                0,
+                1
+              ],
+              "radius": 50000
+            },
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "disposed": false,
+            "contextLost": false,
+            "domainClamps": 0,
+            "coordinateLimitAU": 1000000,
+            "geometryBufferBytes": 378340,
+            "geometryBufferBudget": 67108864,
+            "renderCount": 815,
+            "quality": "balanced",
+            "pixelRatio": 1.0000000149011612,
+            "viewport": {
+              "clearWidth": 567,
+              "clearHeight": 95.20001602172852,
+              "rectangleOffsetX": 118.5,
+              "rectangleOffsetY": -24.00001335144043
+            },
+            "animating": false,
+            "navigation": "orbit",
+            "independentAnimationLoops": 1,
+            "ownedResources": 108,
+            "assets": {
+              "resources": 108,
+              "textureBytes": 0,
+              "textureAllocations": 0,
+              "decodingBytes": 0,
+              "textureBudget": 134217728,
+              "shared": {
+                "textureBytes": 0,
+                "textureBudget": 134217728,
+                "textureAllocations": 0
+              },
+              "requests": 0,
+              "decodeSamples": [],
+              "fetchSamples": [],
+              "disposed": false
+            },
+            "pipeline": {
+              "mode": "linear-hdr",
+              "bloom": true,
+              "threshold": 1.8,
+              "strength": 0.13,
+              "radius": 0.28,
+              "sceneUnitsPerAU": 149597870700,
+              "hdrSupported": true,
+              "hdrClipping": false,
+              "compositionColorSpace": "linear-srgb",
+              "targetType": "rgba16f",
+              "fallbackLimitation": null,
+              "toneMapping": "ACESFilmic",
+              "toneMappingStages": 1,
+              "outputColorSpace": "srgb",
+              "antialias": "FXAA",
+              "width": 844,
+              "height": 390.3999938964844,
+              "pixelRatio": 1.0000000149011612,
+              "disposed": false
+            },
+            "shaderPreparation": {
+              "state": "ready",
+              "supported": true,
+              "materials": 64,
+              "milliseconds": 158.79999999701977
+            },
+            "shaderFailures": 0,
+            "drawCalls": 27,
+            "geometries": 13,
+            "textures": 15,
+            "gpuMs": {
+              "supported": true,
+              "samples": 180,
+              "median": 0.467968,
+              "p95": 0.5888
+            },
+            "renderCpuMs": {
+              "samples": 600,
+              "median": 0.5,
+              "p95": 0.7000000029802322,
+              "maximum": 1.2999999970197678
+            },
+            "frameIntervalsMs": {
+              "samples": 0,
+              "median": null,
+              "p95": null,
+              "maximum": null
+            },
+            "frame": "ICRF",
+            "origin": "sun",
+            "units": "AU",
+            "precision": "camera-relative CPU64/GPU32",
+            "representation": "theoretical range; unnamed illustrative samples",
+            "planetsVisible": false,
+            "snapshotEpoch": "2018-11-05T12:00:00Z",
+            "snapshotSource": {
+              "id": "jpl_de442s_local",
+              "release": "de442s-2025-02-06",
+              "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+            },
+            "crossings": [
+              {
+                "id": "voyager1-heliopause",
+                "visible": false,
+                "observedDate": "2012-08-25",
+                "sourceEpoch": "2012-08-25T12:00:00.000Z",
+                "position": [
+                  -26.003019911716255,
+                  -115.99570570058903,
+                  25.63589354651999
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              },
+              {
+                "id": "voyager2-heliopause",
+                "visible": false,
+                "observedDate": "2018-11-05",
+                "sourceEpoch": "2018-11-05T12:00:00.000Z",
+                "position": [
+                  32.845293187855965,
+                  -54.28662151998384,
+                  -100.69916109886283
+                ],
+                "quality": "predicted",
+                "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+              }
+            ],
+            "labels": [
+              {
+                "id": "sun",
+                "text": "Sun",
+                "x": 303.5,
+                "y": 219.20001029968256,
+                "visible": true
+              },
+              {
+                "id": "kuiper-guide",
+                "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+                "x": 303.57269531370224,
+                "y": 219.19622405517813,
+                "visible": false
+              },
+              {
+                "id": "voyager1-heliopause",
+                "text": "Voyager 1 \u00b7 2012-08-25",
+                "x": 303.40065530384504,
+                "y": 219.03383403103805,
+                "visible": false
+              },
+              {
+                "id": "voyager2-heliopause",
+                "text": "Voyager 2 \u00b7 2018-11-05",
+                "x": 303.372215675403,
+                "y": 219.3671212403333,
+                "visible": false
+              },
+              {
+                "id": "concept-shock",
+                "text": "Termination shock \u00b7 schematic",
+                "x": 303.4157719280091,
+                "y": 219.18208790001415,
+                "visible": false
+              },
+              {
+                "id": "concept-pause",
+                "text": "Heliopause \u00b7 schematic",
+                "x": 303.39415952494306,
+                "y": 219.2127756002692,
+                "visible": false
+              },
+              {
+                "id": "oort-2000",
+                "text": "2,000 AU \u00b7 theoretical range",
+                "x": 301.85575624192967,
+                "y": 220.23856829551565,
+                "visible": false
+              },
+              {
+                "id": "oort-5000",
+                "text": "5,000 AU \u00b7 theoretical range",
+                "x": 299.34039816979083,
+                "y": 221.82735050945516,
+                "visible": false
+              },
+              {
+                "id": "oort-10000",
+                "text": "10,000 AU \u00b7 theoretical range",
+                "x": 295.01219264838784,
+                "y": 224.56118631074628,
+                "visible": false
+              },
+              {
+                "id": "oort-100000",
+                "text": "100,000 AU \u00b7 theoretical range",
+                "x": 169.87529918510307,
+                "y": 303.60173041628235,
+                "visible": false
+              },
+              {
+                "id": "mercury",
+                "text": "Mercury",
+                "x": 303.4991584792084,
+                "y": 219.2002929755522,
+                "visible": false
+              },
+              {
+                "id": "venus",
+                "text": "Venus",
+                "x": 303.4997775267545,
+                "y": 219.2003588969173,
+                "visible": false
+              },
+              {
+                "id": "earth",
+                "text": "Earth",
+                "x": 303.49946428531376,
+                "y": 219.20047321061256,
+                "visible": false
+              },
+              {
+                "id": "mars",
+                "text": "Mars",
+                "x": 303.4977264761021,
+                "y": 219.20092222668072,
+                "visible": false
+              },
+              {
+                "id": "jupiter",
+                "text": "Jupiter",
+                "x": 303.49901499188115,
+                "y": 219.19817834502584,
+                "visible": false
+              },
+              {
+                "id": "saturn",
+                "text": "Saturn",
+                "x": 303.48545042244865,
+                "y": 219.20049780772788,
+                "visible": false
+              },
+              {
+                "id": "uranus",
+                "text": "Uranus",
+                "x": 303.48079498895896,
+                "y": 219.2111182765468,
+                "visible": false
+              },
+              {
+                "id": "neptune",
+                "text": "Neptune",
+                "x": 303.4391121441826,
+                "y": 219.21844527870485,
+                "visible": false
+              }
+            ],
+            "epoch": "2018-11-05T12:00:00.000Z",
+            "observationId": null,
+            "retired": null
+          }
+        }
+      ],
+      "readyMilliseconds": 1024.1062000000002,
+      "cold": {
+        "frames": [
+          430.59999999999997,
+          222.20000000000005,
+          20.799999999999955,
+          7,
+          7,
+          6.800000000000068,
+          7,
+          6.899999999999977,
+          7,
+          7,
+          6.7999999999999545,
+          7,
+          7.100000000000023,
+          6.899999999999977,
+          6.900000000000091,
+          6.7999999999999545,
+          7,
+          7.100000000000023,
+          6.7999999999999545,
+          7,
+          7,
+          6.899999999999977,
+          6.900000000000091,
+          13.799999999999955
+        ],
+        "tasks": [
+          {
+            "start": 207.5,
+            "duration": 632
+          }
+        ],
+        "diagnostics": {
+          "instanceId": "90d1e5f6-fac4-4e46-bd3f-ace66ef2d48d",
+          "ready": true,
+          "view": "oort",
+          "radius": 50000,
+          "camera": {
+            "position": [
+              81064.68581598283,
+              -185290.71043653216,
+              111174.4262619192
+            ],
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "up": [
+              0,
+              0,
+              1
+            ],
+            "radius": 50000
+          },
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Laptop GPU (0x00002520) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "disposed": false,
+          "contextLost": false,
+          "domainClamps": 0,
+          "coordinateLimitAU": 1000000,
+          "geometryBufferBytes": 378340,
+          "geometryBufferBudget": 67108864,
+          "renderCount": 2,
+          "quality": "balanced",
+          "pixelRatio": 1.0000000149011612,
+          "viewport": {
+            "clearWidth": 1103,
+            "clearHeight": 450.80002212524414,
+            "rectangleOffsetX": 148.5,
+            "rectangleOffsetY": -67.00001335144043
+          },
+          "animating": false,
+          "navigation": "orbit",
+          "independentAnimationLoops": 1,
+          "ownedResources": 108,
+          "assets": {
+            "resources": 108,
+            "textureBytes": 0,
+            "textureAllocations": 0,
+            "decodingBytes": 0,
+            "textureBudget": 134217728,
+            "shared": {
+              "textureBytes": 0,
+              "textureBudget": 134217728,
+              "textureAllocations": 0
+            },
+            "requests": 0,
+            "decodeSamples": [],
+            "fetchSamples": [],
+            "disposed": false
+          },
+          "pipeline": {
+            "mode": "linear-hdr",
+            "bloom": true,
+            "threshold": 1.8,
+            "strength": 0.13,
+            "radius": 0.28,
+            "sceneUnitsPerAU": 149597870700,
+            "hdrSupported": true,
+            "hdrClipping": false,
+            "compositionColorSpace": "linear-srgb",
+            "targetType": "rgba16f",
+            "fallbackLimitation": null,
+            "toneMapping": "ACESFilmic",
+            "toneMappingStages": 1,
+            "outputColorSpace": "srgb",
+            "antialias": "FXAA",
+            "width": 1440,
+            "height": 900,
+            "pixelRatio": 1.0000000149011612,
+            "disposed": false
+          },
+          "shaderPreparation": {
+            "state": "ready",
+            "supported": true,
+            "materials": 64,
+            "milliseconds": 158.79999999701977
+          },
+          "shaderFailures": 0,
+          "drawCalls": 27,
+          "geometries": 13,
+          "textures": 15,
+          "gpuMs": {
+            "supported": true,
+            "samples": 0,
+            "median": null,
+            "p95": null
+          },
+          "renderCpuMs": {
+            "samples": 2,
+            "median": 18.900000005960464,
+            "p95": 18.900000005960464,
+            "maximum": 18.900000005960464
+          },
+          "frameIntervalsMs": {
+            "samples": 0,
+            "median": null,
+            "p95": null,
+            "maximum": null
+          },
+          "frame": "ICRF",
+          "origin": "sun",
+          "units": "AU",
+          "precision": "camera-relative CPU64/GPU32",
+          "representation": "theoretical range; unnamed illustrative samples",
+          "planetsVisible": false,
+          "snapshotEpoch": "2018-11-05T12:00:00Z",
+          "snapshotSource": {
+            "id": "jpl_de442s_local",
+            "release": "de442s-2025-02-06",
+            "sha256": "54d97562a5b094d298b1b8eafa5a2e17e3e010ce85e1a366d07f003ad159323c"
+          },
+          "crossings": [
+            {
+              "id": "voyager1-heliopause",
+              "visible": false,
+              "observedDate": "2012-08-25",
+              "sourceEpoch": "2012-08-25T12:00:00.000Z",
+              "position": [
+                -26.003019911716255,
+                -115.99570570058903,
+                25.63589354651999
+              ],
+              "quality": "predicted",
+              "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+            },
+            {
+              "id": "voyager2-heliopause",
+              "visible": false,
+              "observedDate": "2018-11-05",
+              "sourceEpoch": "2018-11-05T12:00:00.000Z",
+              "position": [
+                32.845293187855965,
+                -54.28662151998384,
+                -100.69916109886283
+              ],
+              "quality": "predicted",
+              "sourceManifest": "9b1bf0cde347536ae5d2c923684498c199444084458d72bdbccbe833c4055e94"
+            }
+          ],
+          "labels": [
+            {
+              "id": "sun",
+              "text": "Sun",
+              "x": 571.5,
+              "y": 517.0000133514402,
+              "visible": true
+            },
+            {
+              "id": "kuiper-guide",
+              "text": "Kuiper region \u00b7 schematic 30\u201350 AU guide",
+              "x": 571.551567291483,
+              "y": 516.8030639591369,
+              "visible": false
+            },
+            {
+              "id": "voyager1-heliopause",
+              "text": "Voyager 1 \u00b7 2012-08-25",
+              "x": 571.1426819842076,
+              "y": 517.1204759814666,
+              "visible": false
+            },
+            {
+              "id": "voyager2-heliopause",
+              "text": "Voyager 2 \u00b7 2018-11-05",
+              "x": 571.5423251915823,
+              "y": 517.6021787664928,
+              "visible": false
+            },
+            {
+              "id": "concept-shock",
+              "text": "Termination shock \u00b7 schematic",
+              "x": 571.7804096935537,
+              "y": 516.8846000241589,
+              "visible": false
+            },
+            {
+              "id": "concept-pause",
+              "text": "Heliopause \u00b7 schematic",
+              "x": 572.0104761435828,
+              "y": 516.8004360461364,
+              "visible": false
+            },
+            {
+              "id": "oort-2000",
+              "text": "2,000 AU \u00b7 theoretical range",
+              "x": 581.26472204593,
+              "y": 514.2168250652837,
+              "visible": false
+            },
+            {
+              "id": "oort-5000",
+              "text": "5,000 AU \u00b7 theoretical range",
+              "x": 595.9039183065563,
+              "y": 510.0442905722711,
+              "visible": false
+            },
+            {
+              "id": "oort-10000",
+              "text": "10,000 AU \u00b7 theoretical range",
+              "x": 620.281569889087,
+              "y": 503.0960544617733,
+              "visible": true
+            },
+            {
+              "id": "oort-100000",
+              "text": "100,000 AU \u00b7 theoretical range",
+              "x": 1054.6355693895816,
+              "y": 379.2943775918308,
+              "visible": false
+            },
+            {
+              "id": "mercury",
+              "text": "Mercury",
+              "x": 571.5009387094957,
+              "y": 517.0015251639302,
+              "visible": false
+            },
+            {
+              "id": "venus",
+              "text": "Venus",
+              "x": 571.5032483190478,
+              "y": 516.9984670765662,
+              "visible": false
+            },
+            {
+              "id": "earth",
+              "text": "Earth",
+              "x": 571.5046451715497,
+              "y": 516.9981509724656,
+              "visible": false
+            },
+            {
+              "id": "mars",
+              "text": "Mars",
+              "x": 571.5068228609892,
+              "y": 517.0007569080955,
+              "visible": false
+            },
+            {
+              "id": "jupiter",
+              "text": "Jupiter",
+              "x": 571.4793871475575,
+              "y": 517.0154483412741,
+              "visible": false
+            },
+            {
+              "id": "saturn",
+              "text": "Saturn",
+              "x": 571.4891335488737,
+              "y": 517.0392879568665,
+              "visible": false
+            },
+            {
+              "id": "uranus",
+              "text": "Uranus",
+              "x": 571.5986662779395,
+              "y": 516.9788901101634,
+              "visible": false
+            },
+            {
+              "id": "neptune",
+              "text": "Neptune",
+              "x": 571.6207762086077,
+              "y": 517.0593454213658,
+              "visible": false
+            }
+          ],
+          "epoch": "2018-11-05T12:00:00.000Z",
+          "observationId": null,
+          "retired": null
+        },
+        "resources": [
+          {
+            "name": "http://localhost:4231/assets/index-BoKtYG5_.js",
+            "duration": 9.799999997019768,
+            "bytes": 196293
+          },
+          {
+            "name": "http://localhost:4231/assets/workspace-Cm4BEhZ5.js",
+            "duration": 13.200000002980232,
+            "bytes": 171761
+          },
+          {
+            "name": "http://localhost:4231/assets/workspace-C6jRXc2S.css",
+            "duration": 10.5,
+            "bytes": 25107
+          },
+          {
+            "name": "http://localhost:4231/assets/index-DW8EKZre.css",
+            "duration": 11.899999991059303,
+            "bytes": 98149
+          },
+          {
+            "name": "http://localhost:4231/assets/BeyondWorkspace-DWr-X0Iv.js",
+            "duration": 5.5999999940395355,
+            "bytes": 43375
+          },
+          {
+            "name": "http://localhost:4231/assets/solarMaterials-DHn3DgL5.js",
+            "duration": 5.9000000059604645,
+            "bytes": 68393
+          },
+          {
+            "name": "http://localhost:4231/assets/solarGpuTiming-DobPRtkt.js",
+            "duration": 8.300000011920929,
+            "bytes": 590672
+          },
+          {
+            "name": "http://localhost:4231/assets/beyondNavigation-Bs22b4vN.js",
+            "duration": 5.899999991059303,
+            "bytes": 17475
+          },
+          {
+            "name": "http://localhost:4231/assets/solar-BI6sLzaX.js",
+            "duration": 7.799999997019768,
+            "bytes": 14226
+          },
+          {
+            "name": "http://localhost:4231/assets/solar-BfOxeaE7.css",
+            "duration": 7.0999999940395355,
+            "bytes": 18244
+          },
+          {
+            "name": "http://localhost:4231/assets/solarContracts-BlwJPR1f.js",
+            "duration": 9.299999997019768,
+            "bytes": 3073
+          },
+          {
+            "name": "http://localhost:4231/assets/systemSceneMath-BCw-lZ0X.js",
+            "duration": 9.800000011920929,
+            "bytes": 1610
+          },
+          {
+            "name": "http://localhost:4231/assets/BeyondWorkspace-DoKgI2Xo.css",
+            "duration": 9.399999991059303,
+            "bytes": 7871
+          },
+          {
+            "name": "http://localhost:4231/favicon.ico",
+            "duration": 2.2999999970197678,
+            "bytes": 568
+          },
+          {
+            "name": "http://localhost:4231/assets/plex-1-DPg3uh6f.ttf",
+            "duration": 40.599999994039536,
+            "bytes": 205292
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar/beyond/context",
+            "duration": 78,
+            "bytes": 16043
+          },
+          {
+            "name": "http://localhost:4231/api/v1/solar-system?epoch=2018-11-05T12%3A00%3A00.000Z",
+            "duration": 78.1000000089407,
+            "bytes": 120585
+          }
+        ]
+      },
+      "servedScripts": [
+        {
+          "url": "http://localhost:4231/assets/index-BoKtYG5_.js",
+          "sha256": "201eea7e8c020cb10eb487446d89b2b0b51d53ceb9b1963f6b7a7a0e8e80828f"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Browser-process cold, not machine-cold: driver/backend caches are not forcibly flushed.",
+    "Geometry bytes measure admitted typed buffers, not total driver VRAM or HDR render targets."
+  ],
+  "finishedUtc": "2026-11-08T06:12:23.646Z",
+  "artifacts": [
+    {
+      "path": "output/playwright/solar-system-2.6/beyond-performance/beyond-performance.json",
+      "bytes": 84306,
+      "sha256": "795deeb16ce93d1b6391766edf09c6019260af5a0fe1afcb7e8d56d6a26ca7c2"
+    },
+    {
+      "path": "output/playwright/solar-system-2.6/beyond-performance/heliosphere-desktop.png",
+      "bytes": 236590,
+      "sha256": "8b3f939465e7153e3d549f456a98a782484e57d6b2b6bf645536fe7a3795f13e"
+    },
+    {
+      "path": "output/playwright/solar-system-2.6/beyond-performance/heliosphere-landscape.png",
+      "bytes": 94850,
+      "sha256": "6c89550e3540ab9468dd1ea6a8729a78d8d9d4c3018d48f1534f134eb0efb7e0"
+    },
+    {
+      "path": "output/playwright/solar-system-2.6/beyond-performance/heliosphere-portrait.png",
+      "bytes": 139621,
+      "sha256": "c5f9062602b13c6636ca7d955b87d9e671e3cb3c2754d3bddbc30c9dd2bbee56"
+    },
+    {
+      "path": "output/playwright/solar-system-2.6/beyond-performance/oort-desktop.png",
+      "bytes": 255947,
+      "sha256": "eb079137ef01cf556eab53c0be87434c59b08ad59403c596705be02cd69e1179"
+    },
+    {
+      "path": "output/playwright/solar-system-2.6/beyond-performance/oort-landscape.png",
+      "bytes": 107395,
+      "sha256": "e1c36035bde0aa4cf8155f6461b81ea1ebfa62f42e46228a9b72c84d6c814006"
+    },
+    {
+      "path": "output/playwright/solar-system-2.6/beyond-performance/oort-portrait.png",
+      "bytes": 140498,
+      "sha256": "3843deb6bdbe714837740f330205c0cead8f68ec81d1cd843962d53570a3392f"
+    }
+  ]
+}
